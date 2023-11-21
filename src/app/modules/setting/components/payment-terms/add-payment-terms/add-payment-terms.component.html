@@ -1,0 +1,29 @@
+<div class="container-fluid">
+    <form [formGroup]="purTem">
+        <h2><mat-icon class="back" routerLink="/settings/payment-terms-list">arrow_back</mat-icon>Payment Term</h2>
+        <div class="row">
+            <div class="col-6">
+               
+                <span for="" class="">Payment Term</span>
+                <input type="text" class="form-control mb-3" placeholder="Enter Payment Term" formControlName="payTerm">
+                <span for="" class="">Description</span>
+                <input type="text" class="form-control mb-3" placeholder="Enter Description" formControlName="desc">
+                <span for="" class="">Day Limit</span>
+                <input type="text" class="form-control mb-3" placeholder="Enter Day Limit" formControlName="day">
+                
+            </div>
+            <div class="col-6 " >
+                
+                <span for="" class="">Fixed Days</span>
+                <input type="text" class="form-control mb-3" placeholder="" formControlName="fixed">
+                <span for="" class="">Additional Month</span>
+                <input type="text" class="form-control mb-3" placeholder="" formControlName="addit">
+                <span for="" class="mt-5">Baseline Date</span>
+                <input type="checkbox" name="" id="" class="  ms-4 "><br/>
+            </div>
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-primary" style="background-color: #00acff;">Submit</button>
+        </div>
+    </form>
+</div>

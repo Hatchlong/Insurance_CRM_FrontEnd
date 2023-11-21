@@ -1,0 +1,152 @@
+<div class="sidebar close">
+  <div class="logo-details">
+    <i class='bx bxl-c-plus-plus'></i>
+    <span class="logo_name">ERP Project</span>
+  </div>
+  <ul class="nav-links">
+    <li>
+      <a >
+        <i class='bx bx-grid-alt'></i>
+        <span class="link_name">Dashboard</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li><a class="link_name" >Dashboard</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="iocn-link">
+        <a >
+          <i class='bx bx-collection'></i>
+          <span class="link_name">Master</span>
+        </a>
+        <i class='bx bxs-chevron-down arrow'></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" >Master</a></li>
+        <li><a (click)="nextPage('/master/product',{main:'Master', name:'Product'})">Product</a></li>
+        <li><a (click)="nextPage('/master/vendor',{main:'Master', name:'Vendor'})" >Vendor</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="iocn-link">
+        <a >
+          <i class='bx bx-book-alt'></i>
+          <span class="link_name">Purchase</span>
+        </a>
+        <i class='bx bxs-chevron-down arrow'></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" >Purchase</a></li>
+        <li><a (click)="nextPage('purchase/purchase-order-list', {main:'Purchase', name:'Purchase Order'})">Purchase Order</a></li>
+        <li><a (click)="nextPage('purchase/add-vendor-invoice', {main:'Purchase', name:'Vendor'})">Vendor Invoice</a></li>
+      </ul>
+      
+    </li>
+    <li>
+      <div class="iocn-link">
+        <a >
+          <i class='bx bx-cog'></i>
+          <span class="link_name">Setting</span>
+        </a>
+        <i class='bx bxs-chevron-down arrow'></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" >Setting</a></li>
+        <li><a (click)="nextPage('/settings/company-code-list', {main:'Setting', name:'Company Code'})">Company Code</a></li>
+        <li><a (click)="nextPage('/settings/payment-terms-list', {main:'Setting', name:'Payment Terms'})">Payment Terms</a></li>
+        <li><a (click)="nextPage('/settings/po-type-list', {main:'Setting', name:'PO Type'})">PO Type</a></li>
+        <li><a (click)="nextPage('/settings/purchase-org-list', {main:'Setting', name:'Purchase Org'})">Purchase Org</a></li>
+        <li><a (click)="nextPage('/settings/plant-data-list', {main:'Setting', name:'Plant Data'})">Plant Data</a></li>
+
+
+      </ul>
+    </li>
+    <!-- <li>
+      <a >
+        <i class='bx bx-pie-chart-alt-2'></i>
+        <span class="link_name">Analytics</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li><a class="link_name" >Analytics</a></li>
+      </ul>
+    </li>
+    <li>
+      <a >
+        <i class='bx bx-line-chart'></i>
+        <span class="link_name">Chart</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li><a class="link_name" >Chart</a></li>
+      </ul>
+    </li>
+    <li>
+      <div class="iocn-link">
+        <a >
+          <i class='bx bx-plug'></i>
+          <span class="link_name">Plugins</span>
+        </a>
+        <i class='bx bxs-chevron-down arrow'></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" >Plugins</a></li>
+        <li><a >UI Face</a></li>
+        <li><a >Pigments</a></li>
+        <li><a >Box Icons</a></li>
+      </ul>
+    </li>
+    <li>
+      <a >
+        <i class='bx bx-compass'></i>
+        <span class="link_name">Explore</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li><a class="link_name" >Explore</a></li>
+      </ul>
+    </li>
+    <li>
+      <a >
+        <i class='bx bx-history'></i>
+        <span class="link_name">History</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li><a class="link_name" >History</a></li>
+      </ul>
+    </li> -->
+    <!-- <li>
+      <a >
+        <i class='bx bx-cog'></i>
+        <span class="link_name">Setting</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li><a class="link_name" >Setting</a></li>
+      </ul>
+    </li> -->
+    <li>
+      <div class="profile-details">
+        <div class="profile-content">
+          <img src="assets/logs/profile.png" alt="profileImg">
+        </div>
+        <div class="name-job">
+          <div class="profile_name">Developers</div>
+          <div class="job">Web Desginer</div>
+        </div>
+        <i class='bx bx-log-out'></i>
+      </div>
+    </li>
+  </ul>
+</div>
+<section class="home-section">
+  <div class="home-content">
+    <i class='bx bx-menu' (click)="closeNav()"></i>
+    <span class="text">{{subFolderName}} / {{SelectedName}}</span>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 py-2">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+
+</section>

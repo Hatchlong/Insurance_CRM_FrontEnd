@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+@import '~material-icons/iconfont/material-icons.css';
+html, body { height: 100%; }
+body { margin: 0; font-family: Poppins, "Poppins", sans-serif; }
+
+.btnBg2, .btn-primary{
+    color: white;
+    background-color: #00acff !important;
+    border: 0;
+}
+
+h2{
+    font-size: 26px !important;
+}

@@ -1,0 +1,128 @@
+<div class="container-fluid">
+    <h3 class="mt-2 mx-4">Vendor Invoice</h3>
+  
+    <form [formGroup]="vendorInvoice" (ngSubmit)="submitData()" >
+      <div class="row ms-3">
+        <div class="col-6 mt-4">
+          <span for="">Invoice Date </span>
+          <input
+            type="date"
+            formControlName="invoiceDate"
+            class="form-control"
+          />
+        </div>
+  
+        <div class="col-6 mt-4">
+          <span for="">Posting Date</span>
+          <input type="date" formControlName="postDate" class="form-control"  >
+        </div>
+      </div>
+  
+      <div class="row ms-3">
+        <div class="col-6 mt-4">
+          <span for="">Amount</span>
+          <input type="number" formControlName="amount" class="form-control">
+          
+        </div>
+  
+        <div class="col-6 mt-4">
+          <span for="">Tax Amount</span>
+          <input type="number" formControlName="taxAmount" class="form-control">
+        </div>
+      </div>
+
+      <div class="row ms-3">
+        <div class="col-6 mt-4">
+          <span for="">Currency</span>
+          <input type="text" formControlName="currnecy" class="form-control">
+         
+        </div>
+  
+        <div class="col-6 mt-4">
+          <span for="">Text</span>
+           <textarea
+            name=""
+            id=""
+            cols="30"
+            rows="1"
+            formControlName="text"
+            class="form-control"
+            placeholder=" "
+          ></textarea>
+
+        </div>
+      </div>
+  
+      <div class="row ms-3 mb-4">
+        <div class="col-6 mt-4">
+          <span for="">Company Code</span>
+          <input type="text" formControlName="companyCode" class="form-control">
+        </div>
+
+        <div class="col-6 mt-4">
+            <span for="">Reference Document</span>
+            <input type="text" formControlName="refDoc" class="form-control">
+        </div>
+      </div>
+
+
+      <div class="row ms-3 mb-4">
+        <div class="col-6 mt-0">
+          <span for="">Vendor </span>
+          <input type="text" formControlName="vendor" class="form-control">
+          <!-- <select
+            class="form-select"
+            formControlName="incoTerms"
+            aria-label="Default select example"
+          >
+            <option selected></option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select> -->
+        </div>
+
+        <div class="col-6 mt-0">
+            <span for=""> Vendor Address </span>
+            <input type="text" formControlName="venAdd" class="form-control">
+        </div>
+      </div>
+
+
+      <div class="row ms-3 mb-4">
+        <div class="col-6 mt-0">
+          <span for="">Vendor Bank Details </span>
+          <input type="text" formControlName="venBankDe" class="form-control">
+        
+        </div>
+
+        <div class="col-6 mt-0">
+            <span for=""> Payment Terms </span>
+            <input type="text" formControlName="payTerms" class="form-control">
+        </div>
+      </div>
+
+
+      <div class="row ms-3 mb-4">
+        <div class="col-6 mt-0">
+          <span for="">Baseline Date </span>
+          <input type="text" formControlName="baseDate" class="form-control">
+        
+        </div>
+
+        <div class="col-6 mt-0">
+            <span for=""> Payment due date </span>
+            <input type="text" formControlName="payDueDate" class="form-control">
+        </div>
+      </div>
+
+
+
+  
+      
+      <button type="submit" class="btnBg2 border-0 rounded mt-3 mx-4 h-25">
+        submit
+      </button>
+      
+    </form>
+  </div>

@@ -1,0 +1,475 @@
+<!-- <p>add-product works!</p> -->
+<div class="container-fluid">
+    <h3 class="mt-2">
+        <mat-icon class="back" routerLink="/master/product">arrow_back</mat-icon> Product Maintainence
+    </h3>
+    <div class="row">
+        <div class="col-12 ">
+            <form [formGroup]="general" (ngSubmit)="addAll()">
+                <div class="row border">
+                    <div class="col-6 py-1">
+                        <span for="" class="">Material Description</span>
+                        <input type="text" class="form-control mb-3" placeholder="Description" formControlName="matDes">
+                    </div>
+                    <div class="col-6 py-1">
+                        <span for="example">Material Group</span>
+                        <select class="form-select " aria-label="Default select example" formControlName="matGrp">
+                            <option selected>Material Group</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-6 py-1">
+                        <span for="" class="mt-3">Material Type</span>
+                        <select class="form-select mb-3" aria-label="Default select example" formControlName="matType">
+                            <option selected>Material Type</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="">Industry Sector</span>
+                        <select class="form-select mb-3" aria-label="Default select example" formControlName="indSec">
+                            <option selected>Industry</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="">Net Weight</span>
+                        <input type="text" class="form-control mb-3" placeholder="Weight" formControlName="net">
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="">Volume</span>
+                        <input type="text" class="form-control mb-3" placeholder="Volume" formControlName="vol">
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for=""> Storage Condition</span>
+                        <select class="form-select mb-3" aria-label="Default select example" formControlName="sto">
+                            <option selected>Unit</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="">Temp. Condition</span>
+                        <select class="form-select mb-3" aria-label="Default select example" formControlName="temp">
+                            <option selected>Unit</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="">Trans Group</span>
+                        <select class="form-select mb-3" aria-label="Default select example" formControlName="trans">
+                            <option selected>Unit</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="">Allowed pkg Weight</span>
+                        <input type="text" class="form-control mb-3" placeholder="Weight" formControlName="pkgWt">
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="">Unit of Dimension</span>
+                        <select class="form-select mb-3" aria-label="Default select example" formControlName="unitDim">
+                            <option selected>Unit</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="">Unit of Weight</span>
+                        <select class="form-select mb-3" aria-label="Default select example" formControlName="unitWt">
+                            <option selected>Unit</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="">Allowed pkg Volume</span>
+                        <input type="text" class="form-control mb-3" placeholder="Weight" formControlName="pkgVol">
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="">Volume Unit</span>
+                        <select class="form-select mb-3" aria-label="Default select example" formControlName="volUnit">
+                            <option selected>Unit</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="">Excess wt tolerance</span>
+                        <input type="text" class="form-control mb-3" placeholder="Weight" formControlName="exWt">
+
+                    </div>
+                    <div class="col-6 py-1 ">
+                        <span for="">Industry Sector</span>
+                        <select class="form-select mb-3" aria-label="Default select example" formControlName="ind">
+                            <option selected>Industry</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="" class="">Old Material Number</span>
+                        <input type="text" class="form-control mb-3" placeholder="Number" formControlName="oldMat">
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for=""> Base Unit of Measure</span>
+                        <select class="form-select mb-3" aria-label="Default select example" formControlName="base">
+                            <option selected>Unit</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for=""> Gross Weight</span>
+                        <input type="text" class="form-control mb-3" placeholder="Weight" formControlName="gross">
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for=""> Weight Unit</span>
+                        <select class="form-select mb-3" aria-label="Default select example" formControlName="wtUnit">
+                            <option selected>Unit</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="">Volume Unit</span>
+                        <select class="form-select mb-3" aria-label="Default select example" formControlName="volu">
+                            <option selected>Unit</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="">Length</span>
+                        <input type="text" class="form-control mb-3" placeholder="Length" formControlName="length">
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="">Width</span>
+                        <input type="text" class="form-control mb-3" placeholder="Width" formControlName="width">
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="">Height</span>
+                        <input type="text" class="form-control mb-3" placeholder="Height" formControlName="height">
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="">Batch Mgmt</span>
+                        <select class="form-select mb-3" aria-label="Default select example" formControlName="batch">
+                            <option selected>Unit</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="">Tax classification</span>
+                        <select class="form-select mb-3" aria-label="Default select example" formControlName="tax">
+                            <option selected>Unit</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="">Manufacturer Part No.</span>
+                        <input type="text" class="form-control mb-3" placeholder="Manufacturer Part No."
+                            formControlName="man">
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="">Expiration Date relavance</span>
+                        <select class="form-select mb-3" aria-label="Default select example" formControlName="exp">
+                            <option selected>Unit</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="">Excess Volume tol.</span>
+                        <input type="text" class="form-control mb-3" placeholder="Weight" formControlName="exVol">
+                    </div>
+                    <div class="col-6 py-1">
+
+                        <span for="">Material Cost</span>
+                        <input type="text" class="form-control mb-3" placeholder="Material Cost"
+                            formControlName="matCost">
+
+                    </div>
+                </div>
+
+
+
+                <div class="row border mt-2">
+                    <div class="col-12 ">
+
+                        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+                            <div class="row">
+                                <div class="col-12">
+                                    <mat-tab label="Plant Data">
+                                        <div class="col-12 d-flex justify-content-end py-2">
+                                            <button type="button" class="btn btn-primary" (click)="addPlant()"
+                                                style="color: white;background-color: #00acff;">Add Plant</button>
+                                        </div>
+
+
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                    <th *ngIf="detail.controls.length > 1">Actions</th>
+                                                    <th>Storage Plant</th>
+                                                    <th>Storage Location</th>
+                                                    <th>Procurement Type</th>
+                                                    <th>Safety Stock</th>
+                                                    <th>Total repl lead time</th>
+                                                    <th>Availibilty Check</th>
+                                                    <th>Profit Center</th>
+                                                    <th>BOM Relevance</th>
+                                                </tr>
+                                                </thead>
+
+                                                <tbody formArrayName="plantList">
+                                                    <tr *ngFor="let financial of detail.controls; let i = index;"
+                                                        [formGroupName]="i">
+                                                        <td *ngIf="detail.controls.length > 1">
+                                                            <mat-icon style="cursor:pointer"
+                                                                (click)="deleterow(i)">delete</mat-icon>
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-select mb-3"
+                                                                aria-label="Default select example"
+                                                                formControlName="stPlant">
+                                                                <option selected>Unit</option>
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-select mb-3"
+                                                                aria-label="Default select example"
+                                                                formControlName="stLoc">
+                                                                <option selected>Unit</option>
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-select mb-3"
+                                                                aria-label="Default select example"
+                                                                formControlName="pro">
+                                                                <option selected>Unit</option>
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control mb-3"
+                                                                placeholder="Safety Stock" formControlName="safe">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control mb-3"
+                                                                formControlName="repl"
+                                                                placeholder="Total repl lead time">
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-select mb-3"
+                                                                aria-label="Default select example"
+                                                                formControlName="avai">
+                                                                <option selected>Unit</option>
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-select mb-3"
+                                                                aria-label="Default select example"
+                                                                formControlName="profit">
+                                                                <option selected>Unit</option>
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-select mb-3"
+                                                                aria-label="Default select example"
+                                                                formControlName="bom">
+                                                                <option selected>Unit</option>
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </mat-tab>
+
+                                    <mat-tab label="Sales Data">
+                                        <div class="col-12 d-flex justify-content-end py-2">
+                                            <button type="button" class="btn btn-primary" (click)="addSec()"
+                                                style="color: white;background-color: #00acff;">Add Sales</button>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                    <th *ngIf="salesDetail.controls.length > 1">Actions</th>
+                                                    <th>Sales Organization</th>
+                                                    <th>Distribution Channel</th>
+                                                    <th>Delievery Unit</th>
+                                                    <th>Delievering Plant</th>
+                                                    <th>Maximum Delievery qty</th>
+                                                    <th>Availibilty Check</th>
+                                                    <th>Acct assign. grp</th>
+                                                    <th>Minimum Order qty</th>
+                                                    <th>Minimum Delievery qty</th>
+                                                </tr>
+                                                </thead>
+
+                                                <tbody formArrayName="salesList">
+                                                    <tr *ngFor="let financial of salesDetail.controls; let j = index;"
+                                                        [formGroupName]="j">
+                                                        <td *ngIf="salesDetail.controls.length > 1">
+                                                            <mat-icon style="cursor:pointer"
+                                                                (click)="deleteSalesrow(j)">delete</mat-icon>
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-select mb-3"
+                                                                aria-label="Default select example"
+                                                                formControlName="sales">
+                                                                <option selected>Unit</option>
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-select mb-3"
+                                                                aria-label="Default select example"
+                                                                formControlName="dist">
+                                                                <option selected>Unit</option>
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
+                                                        <td>
+                                                            <select class="form-select mb-3"
+                                                                aria-label="Default select example"
+                                                                formControlName="deli">
+                                                                <option selected>Unit</option>
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control mb-3"
+                                                                placeholder="Safety Stock" formControlName="delPlant">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control mb-3"
+                                                                placeholder="Minimum Delievery qty"
+                                                                formControlName="maxDel">
+
+                                                        <td>
+                                                            <select class="form-select mb-3"
+                                                                aria-label="Default select example"
+                                                                formControlName="avacheck">
+                                                                <option selected>Unit</option>
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-select mb-3"
+                                                                aria-label="Default select example"
+                                                                formControlName="acct">
+                                                                <option selected>Unit</option>
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control mb-3"
+                                                                placeholder="Minimum Order Qty" formControlName="min">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control mb-3"
+                                                                placeholder="Minimum Delievery qty"
+                                                                formControlName="mindel">
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </mat-tab>
+                                </div>
+                            </div>
+                        </mat-tab-group>
+                       
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-end py-2">
+                        <button type="submit" class="btn btn-primary"
+                        style="background-color: #00acff;color: white;">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
