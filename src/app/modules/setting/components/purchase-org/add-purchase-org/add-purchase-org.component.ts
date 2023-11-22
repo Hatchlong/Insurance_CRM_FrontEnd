@@ -17,9 +17,9 @@ export class AddPurchaseOrgComponent implements OnInit {
 
   purchOrgData(){
     this.purchOrg = this.fb.group({
-      purchOrg: '',
-      purOrgDes: '',
-      comCode: ''
+      purchase_org: '',
+      purchase_org_Description: '',
+      companycode: ''
     });
     console.warn(this.purchOrg.value)
   }

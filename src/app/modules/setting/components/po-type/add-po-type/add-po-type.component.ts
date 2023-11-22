@@ -20,10 +20,10 @@ export class AddPoTypeComponent {
   code() {
     this.poType = this.fb.group({
       poType: '',
-      poDes: '',
-      item: '',
-      intNum: '',
-      extNum: '',
+      poTypeDescription: '',
+      itemNumberInterval: '',
+      internalNumberRangeAssignment: '',
+      externalNumberRangeAssignment: '',
       
     })
   }
