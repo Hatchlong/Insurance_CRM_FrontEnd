@@ -15,4 +15,12 @@ export class PaymentTermsListComponent {
   nextPage(url:any){
     this.router.navigate([`${url}`])
   }
+  checks=false;
+  selectAll(e:any){
+    if(e.target.checked==true){
+      this.checks=true;
+    }else{
+      this.checks=false;
+    }
+  }
 }
