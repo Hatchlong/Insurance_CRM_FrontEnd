@@ -21,8 +21,8 @@ export class AddCompanyCodeComponent {
       this.companycode=this.fb.group({
         companyCode:'',
         companyName:'',
-        city:'',
         countryId:'',
+        city:'',
         currency:'',
         languageId:''
       })
