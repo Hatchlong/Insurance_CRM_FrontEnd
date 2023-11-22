@@ -19,12 +19,12 @@ export class AddCompanyCodeComponent {
 
     code(){
       this.companycode=this.fb.group({
-        comCode:'',
-        comName:'',
+        companyCode:'',
+        companyName:'',
+        countryId:'',
         city:'',
-        country:'',
-        curr:'',
-        lang:''
+        currency:'',
+        languageId:''
       })
     }
 
