@@ -76,7 +76,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let list of purchaseOrgDetails; let i = index;">
+                    <tr *ngFor="let list of purchaseOrgDetails; let i = index; ">
                         <th scope="row">{{i+1}}</th>
                         <td>{{list.purchase_org}}</td>
                         <td>{{list.purchase_org_Description}}</td>

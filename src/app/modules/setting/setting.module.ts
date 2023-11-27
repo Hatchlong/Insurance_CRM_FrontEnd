@@ -23,6 +23,7 @@ import { PlantDataListComponent } from './components/plant-data/plant-data-list/
 import { PurchaseOrgService } from './Services/purchase-org/purchase-org.service';
 import { CompanyCodeService } from './Services/company-code/company-code.service';
 import { HttpClientModule } from '@angular/common/http';
+import { PoTypeService } from './Services/po-type.service';
 
 
 @NgModule({
@@ -50,6 +51,6 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers:[PurchaseOrgService, CompanyCodeService]
+  providers:[PurchaseOrgService, CompanyCodeService,PoTypeService]
 })
 export class SettingModule { }
