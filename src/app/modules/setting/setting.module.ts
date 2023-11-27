@@ -20,6 +20,9 @@ import { AddPurchaseOrgComponent } from './components/purchase-org/add-purchase-
 import { PurchaseOrgListComponent } from './components/purchase-org/purchase-org-list/purchase-org-list.component';
 import { AddPlantDataComponent } from './components/plant-data/add-plant-data/add-plant-data.component';
 import { PlantDataListComponent } from './components/plant-data/plant-data-list/plant-data-list.component';
+import { PurchaseOrgService } from './Services/purchase-org/purchase-org.service';
+import { CompanyCodeService } from './Services/company-code/company-code.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -44,7 +47,9 @@ import { PlantDataListComponent } from './components/plant-data/plant-data-list/
     MatDividerModule,
     MatMenuModule,
     MatTabsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    HttpClientModule
+  ],
+  providers:[PurchaseOrgService, CompanyCodeService]
 })
 export class SettingModule { }

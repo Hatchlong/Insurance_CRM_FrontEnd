@@ -8,11 +8,11 @@
             <div class="row ms-3">
                 <div class="col-6 mt-4">
                     <span>Purchase Org</span>
-                <input type="text" class="form-control" formControlName="purchOrg"  name="purchase_org">
+                <input type="text" class="form-control" formControlName="purchase_org"  name="purchase_org">
                 </div>
                 <div class="col-6 mt-4">
                     <span>Purchase Org Description</span>
-                <input type="text" class="form-control" formControlName="purOrgDes" name="purchase_org_Description">
+                <input type="text" class="form-control" formControlName="purchase_org_Description" name="purchase_org_Description">
                 </div>
             </div>
 
@@ -22,13 +22,9 @@
                     <select
                       class="form-select"
                       formControlName="companycode"
-                      name="comCode"
                       aria-label="Default select example"
                     >
-                      <option selected></option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
+                    <option *ngFor="let list of companyDetails;" [value]="list.companyCode">{{list.companyCode}}</option>
                     </select>
                 </div>
             </div>  
