@@ -10,6 +10,7 @@ import { AddPurchaseOrgComponent } from './components/purchase-org/add-purchase-
 import { PurchaseOrgListComponent } from './components/purchase-org/purchase-org-list/purchase-org-list.component';
 import { AddPlantDataComponent } from './components/plant-data/add-plant-data/add-plant-data.component';
 import { PlantDataListComponent } from './components/plant-data/plant-data-list/plant-data-list.component';
+import { ErrorPoTypeComponent } from './components/po-type/error-po-type/error-po-type.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,9 @@ const routes: Routes = [
   },{
     path:'plant-data-list',
     component:PlantDataListComponent
+  },{
+    path:'error-po-type',
+    component:ErrorPoTypeComponent
   }
 ];
 

@@ -9,7 +9,7 @@
             <option value="2">Two</option>
             <option value="3">Three</option>
           </select>
-          <select class="form-select w-25" aria-label="Default select example">
+          <!-- <select class="form-select w-25" aria-label="Default select example">
             <option selected>Store</option>
             <option value="1">One</option>
             <option value="2">Two</option>
@@ -22,7 +22,7 @@
           <option value="1">One</option>
           <option value="2">Two</option>
           <option value="3">Three</option>
-        </select>
+        </select> -->
         </div>
       </div>
   
@@ -66,6 +66,7 @@
         <table class="table table-bordered">
           <thead>
             <tr>
+              <th scope="col">SlNo</th>
               <th scope="col">PO Type</th>
               <th scope="col">Description </th>
               <th scope="col">Item Number</th>
@@ -77,6 +78,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let list of potypeDetail; let i=index">
+              <th>{{i+1}}</th>
               <th>{{list.poType}}</th>
               <td>{{list.poTypeDescription}}</td>
               <td>{{list.itemNumberInterval}}</td>
