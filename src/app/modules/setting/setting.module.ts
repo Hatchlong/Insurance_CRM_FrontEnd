@@ -24,6 +24,7 @@ import { PurchaseOrgService } from './Services/purchase-org/purchase-org.service
 import { CompanyCodeService } from './Services/company-code/company-code.service';
 import { HttpClientModule } from '@angular/common/http';
 import { PoTypeService } from './Services/po-type.service';
+import { EditPurchaseOrgComponent } from './components/purchase-org/edit-purchase-org/edit-purchase-org.component';
 import { ErrorPoTypeComponent } from './components/po-type/error-po-type/error-po-type.component';
 
 
@@ -39,6 +40,7 @@ import { ErrorPoTypeComponent } from './components/po-type/error-po-type/error-p
     PurchaseOrgListComponent,
     AddPlantDataComponent,
     PlantDataListComponent,
+    EditPurchaseOrgComponent,
     ErrorPoTypeComponent,
   ],
   imports: [

@@ -10,6 +10,7 @@ import { AddPurchaseOrgComponent } from './components/purchase-org/add-purchase-
 import { PurchaseOrgListComponent } from './components/purchase-org/purchase-org-list/purchase-org-list.component';
 import { AddPlantDataComponent } from './components/plant-data/add-plant-data/add-plant-data.component';
 import { PlantDataListComponent } from './components/plant-data/plant-data-list/plant-data-list.component';
+import { EditPurchaseOrgComponent } from './components/purchase-org/edit-purchase-org/edit-purchase-org.component';
 import { ErrorPoTypeComponent } from './components/po-type/error-po-type/error-po-type.component';
 
 const routes: Routes = [
@@ -44,6 +45,10 @@ const routes: Routes = [
   {
     path:'purchase-org-list',
     component:PurchaseOrgListComponent
+  },
+  {
+    path:'edit-purchase-org/:id',
+    component:EditPurchaseOrgComponent
   },
   {
     path:'add-plant-data',
