@@ -25,6 +25,7 @@ import { CompanyCodeService } from './Services/company-code/company-code.service
 import { HttpClientModule } from '@angular/common/http';
 import { PoTypeService } from './Services/po-type.service';
 import { EditPurchaseOrgComponent } from './components/purchase-org/edit-purchase-org/edit-purchase-org.component';
+import { ErrorPoTypeComponent } from './components/po-type/error-po-type/error-po-type.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { EditPurchaseOrgComponent } from './components/purchase-org/edit-purchas
     AddPlantDataComponent,
     PlantDataListComponent,
     EditPurchaseOrgComponent,
+    ErrorPoTypeComponent,
   ],
   imports: [
     CommonModule,
@@ -51,7 +53,8 @@ import { EditPurchaseOrgComponent } from './components/purchase-org/edit-purchas
     MatMenuModule,
     MatTabsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    
   ],
   providers:[PurchaseOrgService, CompanyCodeService,PoTypeService]
 })
