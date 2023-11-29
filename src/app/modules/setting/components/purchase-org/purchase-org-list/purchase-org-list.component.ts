@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CompanyCodeService } from '../../../Services/company-code/company-code.service';
 import { PurchaseOrgService } from '../../../Services/purchase-org/purchase-org.service';
 
 @Component({
@@ -13,7 +12,7 @@ export class PurchaseOrgListComponent implements OnInit {
   constructor(
     private router: Router,
     private purchaseSer: PurchaseOrgService
-  ) { }
+  ) { } 
 
   ngOnInit(): void {
     this.getAllPurchaseOrgDetails()
