@@ -56,7 +56,6 @@ export class EditPurchaseOrgComponent {
       if (this.purchOrg.invalid)
         return alert('Please fill all the fields');
       const result: any = await this.purchaseOrgSer.updatePurchaseOrg(this.purchOrg.value);
-      console.log(result)
       if (result.status === '1') {
         alert(result.message);
         this.router.navigate(['/settings/purchase-org-list']);
