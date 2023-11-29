@@ -23,12 +23,12 @@
           <option value="2">Two</option>
           <option value="3">Three</option>
         </select>
+        
         </div>
       </div>
-  
-  
     </div>
   </div>
+
   <div class="row mt-3">
     <div class="col-12">
       <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
@@ -75,18 +75,17 @@
               <th scope="col"><input type="checkbox" (change)="selectAll($event)"> Select All</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody> 
             <tr *ngFor="let list of companyCodeDetails; let i = index; ">
               <th scope="row">{{i+1}}</th>
-              <td>{{list.companyCode}}</td>
+              <td>{{list.companyCode}}</td> 
               <td>{{list.companyName}}</td>
               <td>{{list.city}}</td>
-              <td>{{list.country}}</td>
-              <td>{{list.currency}}</td>
+              <td>{{list.counrty}}</td>
               <td>
                 <div class="d-flex">
                   <div>
-                    <mat-icon>edit</mat-icon>
+                    <mat-icon [routerLink]="'/settings/edit-company-code/'+list._id" >edit</mat-icon>
                   </div>
                   <div>
                     <mat-icon>delete</mat-icon>

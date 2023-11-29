@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   selector: 'app-edit-purchase-org',
   templateUrl: './edit-purchase-org.component.html',
   styleUrls: ['./edit-purchase-org.component.css']
-})
+}) 
 export class EditPurchaseOrgComponent {
   purchOrg: any = FormGroup;
   companyDetails: any = [];
@@ -84,5 +84,5 @@ export class EditPurchaseOrgComponent {
       console.error(error)
       alert('API failed')
     }
-  }
+  } 
 }

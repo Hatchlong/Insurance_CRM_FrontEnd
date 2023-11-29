@@ -8,7 +8,7 @@ import { CompanyCodeService } from '../../../Services/company-code/company-code.
   styleUrls: ['./company-code-list.component.css']
 })
 export class CompanyCodeListComponent {
-
+  
   companyCodeDetails:any= []
 
   constructor(
@@ -24,7 +24,7 @@ export class CompanyCodeListComponent {
     this.router.navigate([`${url}`])
   }
   checks=false;
-  selectAll(e:any){
+  selectAll(e:any){ 
     if(e.target.checked==true){
       this.checks=true;
     }else{
@@ -39,7 +39,7 @@ export class CompanyCodeListComponent {
       if(result.status === '1'){
         this.companyCodeDetails = result.data;
       }
-    } catch (error) {
+    } catch (error) { 
       console.log(error);
     }
   }

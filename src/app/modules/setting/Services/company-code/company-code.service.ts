@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
-})
+}) 
 export class CompanyCodeService {
 
   constructor(
     private http: HttpClient
-  ) { }
-
+  ) { } 
+ 
  
   createCompanyCodeDetails(data:any){
     return this.http.post('http://localhost:4000/api/master/companycode/create', data).toPromise()
@@ -18,4 +18,12 @@ export class CompanyCodeService {
   getAllCompanyCodeDetails(){ 
     return this.http.get('http://localhost:4000/api/master/companycode/getAll').toPromise()
   }
-}
+ 
+  singleCompanyCode(id:any){
+    return this.http.get(`http://localhost:4000/api/master/companycode/get/${id}`).toPromise()
+  }
+
+  updateCompanyCode(data:any){
+    return this.http.put(`http://localhost:4000/api/master/companycode/update/${data._id}`, data).toPromise()
+  }
+} 

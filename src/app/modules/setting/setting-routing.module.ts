@@ -12,6 +12,7 @@ import { AddPlantDataComponent } from './components/plant-data/add-plant-data/ad
 import { PlantDataListComponent } from './components/plant-data/plant-data-list/plant-data-list.component';
 import { EditPurchaseOrgComponent } from './components/purchase-org/edit-purchase-org/edit-purchase-org.component';
 import { ErrorPoTypeComponent } from './components/po-type/error-po-type/error-po-type.component';
+import { EditCompanyCodeComponent } from './components/company-code/edit-company-code/edit-company-code/edit-company-code.component';
 
 const routes: Routes = [
   {
@@ -56,7 +57,12 @@ const routes: Routes = [
   },{
     path:'plant-data-list',
     component:PlantDataListComponent
-  },{
+  },
+  {
+    path:'edit-company-code/:id',
+    component:EditCompanyCodeComponent
+  }
+  ,{
     path:'error-po-type',
     component:ErrorPoTypeComponent
   }

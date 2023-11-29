@@ -26,6 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { PoTypeService } from './Services/po-type.service';
 import { EditPurchaseOrgComponent } from './components/purchase-org/edit-purchase-org/edit-purchase-org.component';
 import { ErrorPoTypeComponent } from './components/po-type/error-po-type/error-po-type.component';
+import { PlantDataService } from './Services/plant-data/plant-data.service';
+import { EditCompanyCodeComponent } from './components/company-code/edit-company-code/edit-company-code/edit-company-code.component';
 
 
 @NgModule({
@@ -42,6 +44,7 @@ import { ErrorPoTypeComponent } from './components/po-type/error-po-type/error-p
     PlantDataListComponent,
     EditPurchaseOrgComponent,
     ErrorPoTypeComponent,
+    EditCompanyCodeComponent,
   ],
   imports: [
     CommonModule,
@@ -56,6 +59,6 @@ import { ErrorPoTypeComponent } from './components/po-type/error-po-type/error-p
     HttpClientModule,
     
   ],
-  providers:[PurchaseOrgService, CompanyCodeService,PoTypeService]
+  providers:[PurchaseOrgService, CompanyCodeService,PoTypeService,PlantDataService]
 })
 export class SettingModule { }

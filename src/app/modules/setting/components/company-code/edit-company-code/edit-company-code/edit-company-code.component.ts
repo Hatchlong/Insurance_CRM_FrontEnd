@@ -1,30 +1,36 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CompanyCodeService } from '../../../Services/company-code/company-code.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CompanyCodeService } from 'src/app/modules/setting/Services/company-code/company-code.service';
 
 @Component({
-  selector: 'app-add-company-code',
-  templateUrl: './add-company-code.component.html',
-  styleUrls: ['./add-company-code.component.css']
+  selector: 'app-edit-company-code',
+  templateUrl: './edit-company-code.component.html',
+  styleUrls: ['./edit-company-code.component.css']
 })
-export class AddCompanyCodeComponent {
+export class EditCompanyCodeComponent {
   companyCode:any= FormGroup
-  companyDetails: any = [] 
+  companyDetails: any = [];
+  companyCodeId: any = ''
 
-  constructor( 
+  constructor(  
     private fb:FormBuilder,
     private companyCodeSer: CompanyCodeService,
-    private router: Router
+    private router: Router,
+    private activeRouter: ActivatedRoute
   ){}
   
     ngOnInit(): void {
+        this.companyCodeId= this.activeRouter.snapshot.paramMap.get('id');
+        console.log(this.companyCodeId)
+        this.getSingleCompanyCodeDetails()
         this.getCompanyDetails()
         this.code()
     }
  
     code(){
       this.companyCode=this.fb.group({
+        _id:['',Validators.required],
         companyCode:['', Validators.required],
         companyName:['', Validators.required],
         countryId:['', Validators.required],
@@ -34,12 +40,26 @@ export class AddCompanyCodeComponent {
       })
     }
 
+    // update
+
+    async getSingleCompanyCodeDetails(){
+      try {
+        const result: any = await this.companyCodeSer.singleCompanyCode(this.companyCodeId);
+        if (result.status === '1') {
+          this.companyCode.patchValue(result.data)
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+
   // Create the purchase org Details
     async addCode(){
      try {
       if(this.companyCode.invalid)
         return alert('Please fill all the fields');
-      const result: any = await this.companyCodeSer.createCompanyCodeDetails(this.companyCode.value);
+      const result: any = await this.companyCodeSer.updateCompanyCode(this.companyCode.value);
       console.log(result)
       if(result.status=== '1'){
         alert(result.message);
@@ -72,10 +92,4 @@ export class AddCompanyCodeComponent {
     }
   } 
 
-
-
-    // addCode(){
-    //   console.log(this.companyCode);
-      
 }
-

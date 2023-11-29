@@ -13,11 +13,11 @@ export class PurchaseOrgListComponent implements OnInit {
     private router: Router,
     private purchaseSer: PurchaseOrgService
   ) { } 
-
+ 
   ngOnInit(): void {
     this.getAllPurchaseOrgDetails()
   }
-
+ 
 
   nextPage(url: any) {
     this.router.navigate([`${url}`])
@@ -34,7 +34,7 @@ export class PurchaseOrgListComponent implements OnInit {
 
   async getAllPurchaseOrgDetails(){
     try {
-      const result:any = await this.purchaseSer.getAllPurchaseOrg();
+      const result:any = await this.purchaseSer.getAllPurchaseOrgDetails();
       console.log(result)
       if(result.status === '1'){
         this.purchaseOrgDetails = result.data;

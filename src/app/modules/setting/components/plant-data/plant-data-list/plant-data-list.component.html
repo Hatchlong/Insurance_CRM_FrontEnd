@@ -76,12 +76,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>mdo</td>
-              <td>Mark</td>
+            <tr *ngFor="let list of plantDataDetails; let i = index;">
+              <th scope="row">{{i+1}}</th>
+              <td>{{list.plantCode}}</td>
+              <td>{{list.name}}</td>
+              <td>{{list.languageKey}}</td>
+              <td>{{list.country}}</td>
+              <td>{{list.address}}</td>
               <td>
                 <div class="d-flex">
                   <div>
@@ -93,43 +94,6 @@
                 </div>
               </td>
               <td><input type="checkbox" [checked]="checks"></td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>fat</td>
-              <td>Mark</td>
-              <td>
-                <div class="d-flex">
-                  <div>
-                    <mat-icon>edit</mat-icon>
-                  </div>
-                  <div>
-                    <mat-icon>delete</mat-icon>
-                  </div>
-                </div>
-              </td>
-              <td><input type="checkbox" [checked]="checks"></td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>twitter</td>
-              <td>Mark</td>
-              <td>
-                <div class="d-flex">
-                  <div>
-                    <mat-icon>edit</mat-icon>
-                  </div>
-                  <div>
-                    <mat-icon>delete</mat-icon>
-                  </div>
-                </div>
-              </td>
-              <td><input type="checkbox" [checked]="checks"></td>
-  
             </tr>
           </tbody>
   

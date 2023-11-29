@@ -75,13 +75,13 @@
                         <th scope="col"><input type="checkbox" (change)="selectAll($event)"> Select All</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody> 
                     <tr *ngFor="let list of purchaseOrgDetails; let i = index; ">
                         <th scope="row">{{i+1}}</th>
                         <td>{{list.purchase_org}}</td>
                         <td>{{list.purchase_org_Description}}</td>
                         <td>{{list.companycode}}</td>
-                        <td>
+                        <td> 
                 <div class="d-flex">
                   <div>
                     <mat-icon [routerLink]="'/settings/edit-purchase-org/'+list._id">edit</mat-icon>
