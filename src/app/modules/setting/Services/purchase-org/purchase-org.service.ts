@@ -18,4 +18,13 @@ export class PurchaseOrgService {
   getAllPurchaseOrg(){
     return this.http.get('http://localhost:4000/api/master/purchaseOrg/getAll').toPromise()
   }
+
+  singlePurchaseOrg(id:any){
+    return this.http.get(`http://localhost:4000/api/master/purchaseOrg/get/${id}`).toPromise()
+  }
+
+  updatePurchaseOrg(data:any){
+    return this.http.put(`http://localhost:4000/api/master/purchaseOrg/update/${data._id}`, data).toPromise()
+  }
 }
+ 

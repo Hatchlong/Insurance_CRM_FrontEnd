@@ -14,7 +14,7 @@
             <option value="1">One</option>
             <option value="2">Two</option>
             <option value="3">Three</option>
-          </select>
+          </select> 
           <input type="search" name="" id="" placeholder="Search.." class="form-control w-25">
   
         <select class="form-select w-25" aria-label="Default select example">
@@ -76,8 +76,14 @@
             </tr>
           </thead>
           <tbody>
+<<<<<<< HEAD
             <tr *ngFor="let list of companyCodeDetail; let i=index">
               <th>{{list.companyCode}}</th>
+=======
+            <tr *ngFor="let list of companyCodeDetails; let i = index; ">
+              <th scope="row">{{i+1}}</th>
+              <td>{{list.companyCode}}</td>
+>>>>>>> 67f2481a78151d4bcd6bf3dcc1be61c63b917ce4
               <td>{{list.companyName}}</td>
               <td>{{list.city}}</td>
               <td>{{list.country}}</td>
@@ -94,6 +100,10 @@
               </td>
               <td><input type="checkbox" [checked]="checks"></td>
             </tr>
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 67f2481a78151d4bcd6bf3dcc1be61c63b917ce4
           </tbody>
   
         </table>
