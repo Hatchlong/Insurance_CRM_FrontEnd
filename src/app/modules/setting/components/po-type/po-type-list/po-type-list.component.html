@@ -66,7 +66,6 @@
         <table class="table table-bordered">
           <thead>
             <tr>
-<<<<<<< HEAD
               <th scope="col">SlNo</th>
               <th scope="col">PO Type</th>
               <th scope="col">Description </th>
@@ -75,27 +74,12 @@
               <th scope="col">External Number</th>
               <th scope="col">Action</th>
               <th scope="col"><input type="checkbox" (change)="selectAll($event)"> Select All</th>
-=======
-              <th>SLNO</th>
-              <th >PO Type</th>
-              <th >Description </th>
-              <th >Item Number</th>
-              <th >Internal Number</th>
-              <th >External Number</th>
-              <th >Action</th>
-              <th ><input type="checkbox" (change)="selectAll($event)"> Select All</th>
->>>>>>> a761994fa4ae112ba24e237e750b9e252a5ea600
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let list of potypeDetail; let i=index">
-<<<<<<< HEAD
-              <th>{{i+1}}</th>
-              <th>{{list.poType}}</th>
-=======
               <td>{{i+1}}</td>
               <td>{{list.poType}}</td>
->>>>>>> a761994fa4ae112ba24e237e750b9e252a5ea600
               <td>{{list.poTypeDescription}}</td>
               <td>{{list.itemNumberInterval}}</td>
               <td>{{list.internalNumberRangeAssignment}}</td>
