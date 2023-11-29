@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <form [formGroup]="companycode" (ngSubmit)="addCode()">
+    <form [formGroup]="companyCode" (ngSubmit)="addCode()">
         <h2><mat-icon class="back" routerLink="/settings/company-code-list">arrow_back</mat-icon>Company Code</h2>
         <div class="row">
             <div class="col-6">
@@ -13,7 +13,7 @@
                 <span for="" class="">Company Name</span>
                 <input type="text" class="form-control mb-3" placeholder="Enter Company Name" formControlName="companyName">
                 
-                <span for="" class="mt-3">City</span>
+               <span for="" class="mt-3">City</span>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="countryId">
                     <option selected>City</option>
                     <option value="1">One</option>

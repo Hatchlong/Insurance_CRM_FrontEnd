@@ -9,8 +9,14 @@ export class CompanyCodeService {
   constructor(
     private http: HttpClient
   ) { }
+  
+  createComapnyCodeDetail(data: any){
+    return this.http.post('http://localhost:4000/api/master/company/create',data).toPromise()
+   }
 
-  getAllCompanyCodeDetails(){
+   getAllCompanyCodeDetail(){
     return this.http.get('http://localhost:4000/api/master/companycode/getAll').toPromise()
   }
+
+
 }

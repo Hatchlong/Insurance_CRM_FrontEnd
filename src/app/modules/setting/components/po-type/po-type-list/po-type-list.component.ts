@@ -8,7 +8,7 @@ import { PoTypeService } from '../../../Services/po-type.service';
   styleUrls: ['./po-type-list.component.css']
 })
 export class PoTypeListComponent implements OnInit{
-  potypeDetail:any=[]
+  potypeDetail:any=[] 
   constructor(
     private router:Router,
     private poTypeSer:PoTypeService
