@@ -10,8 +10,9 @@ import { Router } from '@angular/router';
 })
 export class AddCompanyCodeComponent {
   companyCode:any= FormGroup
-  companyDetails: any = []
-
+  countryDetials: any = []
+  citiesDetails:any = [];
+  languageName:any = ''
   constructor( 
     private fb:FormBuilder,
     private companyCodeSer: CompanyCodeService,
@@ -19,7 +20,7 @@ export class AddCompanyCodeComponent {
   ){}
  
     ngOnInit(): void {
-        this.getCompanyDetails()
+        this.getCountryDetails()
         this.code()
     }
  
@@ -37,6 +38,7 @@ export class AddCompanyCodeComponent {
   // Create the purchase org Details
     async addCode(){
      try {
+      console.log(this.companyCode.value)
       if(this.companyCode.invalid)
         return alert('Please fill all the fields');
       const result: any = await this.companyCodeSer.createCompanyCodeDetails(this.companyCode.value);
@@ -57,11 +59,27 @@ export class AddCompanyCodeComponent {
 
     
   // Get All details for company code
-  async getCompanyDetails() {
+  async getCountryDetails() {
     try {
-      const result: any = await this.companyCodeSer.getAllCompanyCodeDetails();
+      const result: any = await this.companyCodeSer.getAllCountryDetails();
       if (result.status === '1') {
-        this.companyDetails = result.data
+        this.countryDetials = result.data;
+      } else {
+        alert('API failed')
+      }
+      console.log(result);
+    } catch (error) {
+      console.error(error)
+      alert('API failed')
+    }
+  }
+
+   // single details for Language Detials
+   async getSingleLanguage(id:any) {
+    try {
+      const result: any = await this.companyCodeSer.singleLanguageDetails(id);
+      if (result.status === '1') {
+        this.languageName = result.data.languageName
       } else {
         alert('API failed')
       }
@@ -74,8 +92,15 @@ export class AddCompanyCodeComponent {
 
 
 
-    // addCode(){
-    //   console.log(this.companyCode);
+  selectCountryName(event:any){
+    console.log(event.target.value)
+    this.citiesDetails = this.countryDetials.find((el:any) => el._id === event.target.value);
+    this.companyCode.controls.currency.setValue(this.citiesDetails?.countryCurrency)
+    this.companyCode.controls.languageId.setValue(this.citiesDetails.languageId)
+
+    this.getSingleLanguage(this.citiesDetails.languageId)
+
+  }
       
 }
 

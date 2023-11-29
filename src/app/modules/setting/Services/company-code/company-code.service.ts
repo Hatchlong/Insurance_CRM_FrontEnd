@@ -18,4 +18,15 @@ export class CompanyCodeService {
   getAllCompanyCodeDetails(){ 
     return this.http.get('http://localhost:4000/api/master/companycode/getAll').toPromise()
   }
+
+
+  // Get Country Detials
+  getAllCountryDetails(){
+    return this.http.get('http://localhost:4000/api/master/country/getAll').toPromise()
+  }
+
+  // Single Language API Details
+  singleLanguageDetails(id:any){
+    return this.http.get(`http://localhost:4000/api/master/language/get/${id}`).toPromise()
+  }
 }
