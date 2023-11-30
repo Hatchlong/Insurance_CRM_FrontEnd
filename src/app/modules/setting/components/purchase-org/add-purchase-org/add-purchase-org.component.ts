@@ -19,7 +19,7 @@ export class AddPurchaseOrgComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this.getCompanyDetails()
     this.purchOrgData()
   }

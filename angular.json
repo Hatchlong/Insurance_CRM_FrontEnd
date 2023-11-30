@@ -29,14 +29,21 @@
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
+<<<<<<< HEAD
               "./node_modules/sweetalert2/dist/sweetalert2.css",
+=======
+>>>>>>> 8182030ed50a1adf198a3ea6bde1554ab0e0db49
               "src/styles.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/popper.js/dist/umd/popper.min.js",
+<<<<<<< HEAD
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "node_modules/sweetalert2/dist/sweetalert2.js"
+=======
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+>>>>>>> 8182030ed50a1adf198a3ea6bde1554ab0e0db49
             ]
           },
           "configurations": {
