@@ -26,9 +26,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { PoTypeService } from './Services/po-type.service';
 import { EditPurchaseOrgComponent } from './components/purchase-org/edit-purchase-org/edit-purchase-org.component';
 import { ErrorPoTypeComponent } from './components/po-type/error-po-type/error-po-type.component';
+<<<<<<< HEAD
 import { PlantDataService } from './Services/plant-data/plant-data.service';
 import { EditCompanyCodeComponent } from './components/company-code/edit-company-code/edit-company-code/edit-company-code.component';
 import { EditPlantDataComponent } from './components/plant-data/edit-plant-data/edit-plant-data.component';
+=======
+import { UpdatePoTypeComponent } from './components/po-type/update-po-type/update-po-type.component';
+import { PaymentTermService } from './Services/payment-term/payment-term.service';
+import { EditPaymentTermComponent } from './components/payment-terms/edit-payment-term/edit-payment-term.component';
+>>>>>>> ee783a2d28979cdfdf5147755ba07815d5dc7c22
 
 
 @NgModule({
@@ -45,8 +51,13 @@ import { EditPlantDataComponent } from './components/plant-data/edit-plant-data/
     PlantDataListComponent,
     EditPurchaseOrgComponent,
     ErrorPoTypeComponent,
+<<<<<<< HEAD
     EditCompanyCodeComponent,
     EditPlantDataComponent,
+=======
+    UpdatePoTypeComponent,
+    EditPaymentTermComponent,
+>>>>>>> ee783a2d28979cdfdf5147755ba07815d5dc7c22
   ],
   imports: [
     CommonModule,
@@ -61,6 +72,10 @@ import { EditPlantDataComponent } from './components/plant-data/edit-plant-data/
     HttpClientModule,
     
   ],
+<<<<<<< HEAD
   providers:[PurchaseOrgService, CompanyCodeService,PoTypeService,PlantDataService]
+=======
+  providers:[PurchaseOrgService, CompanyCodeService,PoTypeService,PaymentTermService]
+>>>>>>> ee783a2d28979cdfdf5147755ba07815d5dc7c22
 })
 export class SettingModule { }

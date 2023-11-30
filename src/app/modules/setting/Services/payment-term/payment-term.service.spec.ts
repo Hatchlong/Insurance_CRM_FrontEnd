@@ -1,17 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CompanyCodeService } from './company-code.service';
+import { PaymentTermService } from './payment-term.service';
 
-describe('CompanyCodeService', () => {
-  let service: CompanyCodeService;
+describe('PaymentTermService', () => {
+  let service: PaymentTermService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CompanyCodeService);
+    service = TestBed.inject(PaymentTermService);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 });
- 
