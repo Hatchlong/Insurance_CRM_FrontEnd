@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PlantDataService } from '../../../Services/plant-data/plant-data.service';
 import { Router } from '@angular/router';
+import { CompanyCodeService } from '../../../Services/company-code/company-code.service';
 
 @Component({
   selector: 'app-add-plant-data',
@@ -9,21 +10,24 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-plant-data.component.css']
 })
 export class AddPlantDataComponent {
-  plantsData: any= FormGroup;
-  plantDetails: any=[]
+  plantFormData: any= FormGroup;
+  countryDetials: any= []
+  citiesDetails: any = []
+  languageName: any = []
 
   constructor (private fb: FormBuilder,
     private plantDataSer: PlantDataService,
-    private router: Router
+    private router: Router,
+    private companyCodeSer: CompanyCodeService
     ){}
  
   ngOnInit(): void {
-    this.getPlantDetails()
+    this.getCountryDetails()
     this.plantData()
   }
 
   plantData(){
-    this.plantsData =  this.fb.group({
+    this.plantFormData =  this.fb.group({
       plantCode:['', Validators.required],
       name1:['', Validators.required], 
       name2:['', Validators.required],
@@ -45,15 +49,13 @@ export class AddPlantDataComponent {
      })
   }
 
- 
-
   // Create the purchase org Details
 
   async submitData(){
   try {
-    if(this.plantsData.invalid)
+    if(this.plantFormData.invalid)
       return alert('Please fill all the fields');
-    const result: any = await this.plantDataSer.createPlantDataDetails(this.plantsData.value);
+    const result: any = await this.plantDataSer.createPlantDataDetails(this.plantFormData.value);
     console.log(result)
     if(result.status==='1'){
       alert(result.message);
@@ -67,13 +69,13 @@ export class AddPlantDataComponent {
   }
   }
  
-  
+
   // Get All details for company code
-  async getPlantDetails() {
+  async getCountryDetails() {
     try {
-      const result: any = await this.plantDataSer.getAllPlantData();
+      const result: any = await this.companyCodeSer.getAllCountryDetails();
       if (result.status === '1') {
-        this.plantDetails = result.data
+        this.countryDetials = result.data;
       } else {
         alert('API failed')
       }
@@ -84,6 +86,26 @@ export class AddPlantDataComponent {
     }
   }
 
+  
+  async getSingleLanguage(id:any) {
+    try {
+      const result: any = await this.companyCodeSer.singleLanguageDetails(id);
+      if (result.status === '1') {
+        this.languageName = result.data.languageName
+      } else {
+        alert('API failed')
+      }
+      console.log(result);
+    } catch (error) {
+      console.error(error)
+      alert('API failed')
+    }
+  }  
 
-
+  selectCountryName(event:any){
+    console.log(event.target.value)
+    this.citiesDetails = this.countryDetials.find((el:any) => el._id === event.target.value);
+    this.plantFormData.controls.languageId.setValue(this.citiesDetails.languageId)
+    this.getSingleLanguage(this.citiesDetails.languageId)
+}
 }

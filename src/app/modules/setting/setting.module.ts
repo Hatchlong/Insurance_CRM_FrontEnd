@@ -28,6 +28,7 @@ import { EditPurchaseOrgComponent } from './components/purchase-org/edit-purchas
 import { ErrorPoTypeComponent } from './components/po-type/error-po-type/error-po-type.component';
 import { PlantDataService } from './Services/plant-data/plant-data.service';
 import { EditCompanyCodeComponent } from './components/company-code/edit-company-code/edit-company-code/edit-company-code.component';
+import { EditPlantDataComponent } from './components/plant-data/edit-plant-data/edit-plant-data.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { EditCompanyCodeComponent } from './components/company-code/edit-company
     EditPurchaseOrgComponent,
     ErrorPoTypeComponent,
     EditCompanyCodeComponent,
+    EditPlantDataComponent,
   ],
   imports: [
     CommonModule,

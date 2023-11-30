@@ -19,4 +19,25 @@ export class PlantDataService {
     return this.http.get('http://localhost:4000/api/master/plantData/getAll').toPromise()
   } 
 
+  singlePlantData(id:any){
+    return this.http.get(`http://localhost:4000/api/master/plantData/get/${id}`).toPromise()
+  }
+
+  
+  updatePlantData(data:any){
+    return this.http.put(`http://localhost:4000/api/master/plantData/update/${data._id}`, data).toPromise()
+  }
+
+
+   // Get Country Detials
+   getAllCountryDetails(){
+    return this.http.get('http://localhost:4000/api/master/country/getAll').toPromise()
+  }
+
+   // Single Language API Details
+   singleLanguageDetails(id:any){
+    return this.http.get(`http://localhost:4000/api/master/language/get/${id}`).toPromise()
+  }
+
 }
+

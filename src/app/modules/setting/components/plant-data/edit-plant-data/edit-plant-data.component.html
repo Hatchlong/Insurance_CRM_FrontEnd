@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <h2><mat-icon class="back" routerLink="/settings/plant-data-list">arrow_back</mat-icon>Plant Data</h2>
   
-    <form class="border" [formGroup]="plantFormData" (ngSubmit)="submitData()" >
+    <form class="border" [formGroup]="plantsData" (ngSubmit)="submitData()" >
       <div class="row ms-3">
         <div class="col-6 mt-4">
           <span for="">Plant Code </span>
@@ -9,7 +9,7 @@
             type="text"
             formControlName="plantCode"
             class="form-control"
-          />
+          /> 
         </div>   
    
         <div class="col-6 mt-4">
@@ -26,25 +26,43 @@
         </div>
   
         <div class="col-6 mt-4">
+          <span for="">Language Key</span>
+           <select
+            class="form-select"
+            formControlName="languageId"
+            aria-label="Default select example"
+          >
+            <option selected></option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row ms-3">
+        <div class="col-6 mt-4">
           <span for="">Address</span>
           <input type="text" formControlName="address" class="form-control">
          
         </div>
-
-        
-      </div>
-
-      <div class="row ms-3">
-        
+  
         <div class="col-6 mt-4">
           <span for="">Country</span>
            <select
-            class="form-select" formControlName="countryId" aria-label="Default select example" (change)="selectCountryName($event)"
-        >
-            <option *ngFor="let list of countryDetials;" [value]="list._id"> {{list.countryName}} </option>
+            class="form-select"
+            formControlName="countryId"
+            aria-label="Default select example"
+          >
+            <option selected></option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
           </select>
         </div>
-
+      </div>
+  
+      <div class="row ms-3 mb-4">
         <div class="col-6 mt-4">
           <span for="">City</span>
           <select
@@ -52,26 +70,12 @@
           formControlName="cityId"
           aria-label="Default select example"
         >
-        <option *ngFor="let list of citiesDetails?.cities?.cities" [value]="list">{{list}}</option>
-
+          <option selected></option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
         </select>
         </div>
-
-
-      </div>
-  
-      <div class="row ms-3 mb-4">
-        <div class="col-6 mt-4">
-          <span for="">Language</span>
-           <select
-            class="form-select"
-            formControlName="languageId"
-            aria-label="Default select example"
-          >
-          <option  [value]="citiesDetails.languageName">{{languageName}}</option>
-          </select>
-        </div>
-  
 
         <div class="col-6 mt-4">
             <span for="">Contact Person Name</span>
@@ -192,9 +196,10 @@
       </div>
  
       <button type="submit" class="btnBg2 border-0 rounded mt-3 mx-4 h-25">
-        submit
+        Update
       </button>
       
     </form>
   </div>
+
 

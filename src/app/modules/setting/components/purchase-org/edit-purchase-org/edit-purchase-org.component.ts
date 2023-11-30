@@ -74,7 +74,7 @@ export class EditPurchaseOrgComponent {
     try {
       const result: any = await this.companySer.getAllCompanyCodeDetails();
       if (result.status === '1') {
-        this.companyDetails = result.data
+        this.companyDetails = result.data 
       } else {
         alert('API failed')
       }
