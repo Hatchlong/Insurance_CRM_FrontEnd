@@ -50,8 +50,7 @@ export class AddPoTypeComponent {
           icon:'warning',
           showCancelButton:true
          })
-        //  alert("All Field Are Required")
-        // this.router.navigate(['/settings/error-po-type'])
+        
       }
       const result: any = await this.potypeSer.createpoTypeDetail(this.poType.value)
       console.log(result);

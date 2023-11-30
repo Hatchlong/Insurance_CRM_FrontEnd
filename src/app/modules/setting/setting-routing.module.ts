@@ -12,6 +12,8 @@ import { AddPlantDataComponent } from './components/plant-data/add-plant-data/ad
 import { PlantDataListComponent } from './components/plant-data/plant-data-list/plant-data-list.component';
 import { EditPurchaseOrgComponent } from './components/purchase-org/edit-purchase-org/edit-purchase-org.component';
 import { ErrorPoTypeComponent } from './components/po-type/error-po-type/error-po-type.component';
+import { UpdatePoTypeComponent } from './components/po-type/update-po-type/update-po-type.component';
+import { EditPaymentTermComponent } from './components/payment-terms/edit-payment-term/edit-payment-term.component';
 
 const routes: Routes = [
   {
@@ -31,12 +33,20 @@ const routes: Routes = [
     component:AddPaymentTermsComponent
   },
   {
+    path:'edit-payment-term/:id',
+    component:EditPaymentTermComponent
+  },
+  {
     path:'add-po-type',
     component:AddPoTypeComponent
   },
   {
     path:'po-type-list',
     component:PoTypeListComponent
+  },
+  {
+    path:'update-po-type/:id',
+    component:UpdatePoTypeComponent
   },
   {
     path:'add-purchase-org',

@@ -36,12 +36,14 @@ export class AddPurchaseOrgComponent implements OnInit {
   // Create the purchase org Details
   async submitData() {
     try {
-      if (this.purchOrg.invalid)
+      if (this.purchOrg.invalid) {
         return alert('Please fill all the fields');
+
+      }
       const result: any = await this.purchaseOrgSer.createPurchaseOrgDetails(this.purchOrg.value);
       console.log(result)
-      if (result.status === '1'){
-         alert(result.message); 
+      if (result.status === '1') {
+        alert(result.message);
         this.router.navigate(['/settings/purchase-org-list']);
         return;
       }

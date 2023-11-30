@@ -28,7 +28,7 @@ export class PoTypeListComponent implements OnInit {
     if (e.target.checked == true) {
       this.checks = true;
     } else {
-      this.checks = false;
+      this.checks = false
     }
   }
 

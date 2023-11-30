@@ -43,7 +43,7 @@ export class EditPurchaseOrgComponent {
     try {
       const result: any = await this.purchaseOrgSer.singlePurchaseOrg(this.purchaseOrgId);
       if (result.status === '1') {
-        this.purchOrg.patchValue(result.data)
+        this.purchOrg.patchValue(result.data);
       }
     } catch (error) {
       console.error(error)
