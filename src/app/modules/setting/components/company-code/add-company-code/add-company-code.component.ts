@@ -101,11 +101,7 @@ export class AddCompanyCodeComponent {
     this.getSingleLanguage(this.citiesDetails.languageId)
 
   }
-<<<<<<< HEAD
   
 
-=======
-      
->>>>>>> 8182030ed50a1adf198a3ea6bde1554ab0e0db49
 }
 

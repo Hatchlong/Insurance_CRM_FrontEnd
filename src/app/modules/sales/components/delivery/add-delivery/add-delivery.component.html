@@ -1,0 +1,191 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h3 class="mt-2">
+                <mat-icon class="back" routerLink="/">arrow_back</mat-icon> Delivery
+            </h3>
+            <form [formGroup]="productFromGroup" (ngSubmit)="createProductFormFields()">
+
+                <div class="row">
+                    <div class="col-12 border px-1">
+                        <div class="row ms-3">
+                            <div class="col-6 mt-2">
+                                <div class="row">
+                                    <div class="col-12 mt-2">
+                                        <label>Delivery Type</label>
+                                        <input type="text" class="form-control" formControlName="deliveryType"
+                                            placeholder="Vendor Name">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-6 mt-3">
+                                <label for="">Plant</label>
+                                <select class="form-select" formControlName="plant">
+                                    <option selected></option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+
+
+                        </div>
+
+                        <div class="row ms-3">
+                            <div class="col-6 mt-4">
+                                <span for="" class="">Delivery</span>
+                                <input type="number" class="form-control mb-3" placeholder=" Delivery"
+                                    formControlName="delivery">
+
+                            </div>
+                            <div class="col-6 mt-4">
+                                <span for="" class="">Delivery Date</span>
+                                <input type="date" class="form-control mb-3" placeholder=" Delivery Date"
+                                    formControlName="deliveryDate">
+                            </div>
+
+                            <div class="col-6 mt-4 mb-2">
+                                <span for="" class="mt-4">Customer Id</span>
+                                <select class="form-select mb-3" aria-label="Default select example"
+                                    formControlName="customerId">
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                            <div class="col-6 mt-4 mb-2">
+                                <span for="" class="">Delivery Address</span>
+                                <input type="text" class="form-control mb-3" placeholder=" Delivery Address"
+                                    formControlName="deliveryAddress">
+                            </div>
+                        </div>
+                        <div class="row ms-3 mb-4">
+                            <div class="col-6 mt-4">
+                                <span for="" class="mt-4">Delivery Partener</span>
+                                <select class="form-select mb-3" aria-label="Default select example"
+                                    formControlName="deliveryPartner">
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <div class="row py-2">
+                    <div class="col-12 border">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                <h3 class="mt-2 ">
+                                    Item Data
+                                </h3>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex justify-content-end">
+                                <button class="m-2 border-0 rounded btnBg2" (click)="addFinancial()">Add</button>
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th *ngIf="financialListArray.controls.length > 1">Actions</th>
+                                        <th>Plant</th>
+                                        <th>Delivery Item</th>
+                                        <th>Delivery Date</th>
+
+                                        <th>Product Id</th>
+                                        <th>Delivery Qty</th>
+                                        <th>UOM</th>
+                                        <th>Open Qty</th>
+                                        <th>Storage Location</th>
+                                        <th>Reference Sales Order</th>
+                                        <th>Reference Sales Item</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody formArrayName="financialList">
+                                    <tr *ngFor="let financial of financialListArray.controls; let i = index;"
+                                        [formGroupName]="i">
+                                        <td *ngIf="financialListArray.controls.length > 1">
+                                            <mat-icon style="cursor:pointer"
+                                                (click)="deleteFinancial(i)">delete</mat-icon>
+                                        </td>
+                                        <td>
+                                            <select class="form-select" formControlName="plantItem">
+                                                <option selected></option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" formControlName="deliveryItem"
+                                                placeholder="enter item number">
+                                        </td>
+                                        <td>
+                                            <input type="date" formControlName="deliveryDate" class="form-control"
+                                                placeholder="enter Product Id">
+                                        </td>
+                                        <td>
+                                            <input type="text" formControlName="productId" class="form-control"
+                                                placeholder="enter Product Id">
+                                        </td>
+
+                                        <td>
+                                            <input type="text" formControlName="deliveryQty" class="form-control"
+                                                placeholder="enter delivery qty">
+                                        </td>
+                                        <td>
+                                            <select class="form-select">
+                                                <option selected></option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" formControlName="openQty" class="form-control"
+                                                placeholder="calculated qty">
+                                        </td>
+                                        <td>
+                                            <select class="form-select" formControlName="storagelocation">
+                                                <option selected></option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" formControlName="refOrder" class="form-control"
+                                                placeholder="enter reference sales order">
+                                        </td>
+                                        <td>
+                                            <input type="text" formControlName="refItem" class="form-control"
+                                                placeholder="enter ref sales item">
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-12 d-flex justify-content-end">
+                        <button class="btn btn-primary">submit</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

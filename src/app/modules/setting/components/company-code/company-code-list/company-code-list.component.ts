@@ -7,11 +7,7 @@ import { CompanyCodeService } from '../../../Services/company-code/company-code.
   templateUrl: './company-code-list.component.html',
   styleUrls: ['./company-code-list.component.css']
 })
-<<<<<<< HEAD
 export class CompanyCodeListComponent {
-=======
-export class CompanyCodeListComponent implements OnInit {
->>>>>>> 8182030ed50a1adf198a3ea6bde1554ab0e0db49
   companyCodeDetail:any=[]
 
   constructor(

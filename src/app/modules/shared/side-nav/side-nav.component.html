@@ -5,58 +5,89 @@
   </div>
   <ul class="nav-links">
     <li>
-      <a >
+      <a>
         <i class='bx bx-grid-alt'></i>
         <span class="link_name">Dashboard</span>
       </a>
       <ul class="sub-menu blank">
-        <li><a class="link_name" >Dashboard</a></li>
+        <li><a class="link_name">Dashboard</a></li>
       </ul>
     </li>
     <li>
       <div class="iocn-link">
-        <a >
+        <a>
           <i class='bx bx-collection'></i>
           <span class="link_name">Master</span>
         </a>
         <i class='bx bxs-chevron-down arrow'></i>
       </div>
       <ul class="sub-menu">
-        <li><a class="link_name" >Master</a></li>
+        <li><a class="link_name">Master</a></li>
         <li><a (click)="nextPage('/master/product',{main:'Master', name:'Product'})">Product</a></li>
-        <li><a (click)="nextPage('/master/vendor',{main:'Master', name:'Vendor'})" >Vendor</a></li>
+        <li><a (click)="nextPage('/master/vendor',{main:'Master', name:'Vendor'})">Vendor</a></li>
+        <li><a (click)="nextPage('/master/customer-list',{main:'Master', name:'Vendor'})">Customer</a></li>
       </ul>
     </li>
     <li>
       <div class="iocn-link">
-        <a >
+        <a>
           <i class='bx bx-book-alt'></i>
           <span class="link_name">Purchase</span>
         </a>
         <i class='bx bxs-chevron-down arrow'></i>
       </div>
       <ul class="sub-menu">
-        <li><a class="link_name" >Purchase</a></li>
-        <li><a (click)="nextPage('purchase/purchase-order-list', {main:'Purchase', name:'Purchase Order'})">Purchase Order</a></li>
-        <li><a (click)="nextPage('purchase/add-vendor-invoice', {main:'Purchase', name:'Vendor'})">Vendor Invoice</a></li>
+        <li><a class="link_name">Purchase</a></li>
+        <li><a (click)="nextPage('purchase/purchase-order-list', {main:'Purchase', name:'Purchase Order'})">Purchase
+            Order</a></li>
+        <li><a (click)="nextPage('purchase/add-vendor-invoice', {main:'Purchase', name:'Vendor'})">Vendor Invoice</a>
+        </li>
       </ul>
-      
+
     </li>
     <li>
       <div class="iocn-link">
-        <a >
+        <a>
+          <i class='bx bx-pie-chart-alt-2'></i>
+          <span class="link_name">Sales</span>
+        </a>
+        <i class='bx bxs-chevron-down arrow'></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name">Sales</a></li>
+        <li><a (click)="nextPage('/sales/sales-order-list',{main:'Sales',name:'Sales Order'})">Sales Order</a></li>
+        <li><a (click)="nextPage('/sales/delivery-list',{main:'Sales',name:'Delivery'})">Delivery</a></li>
+        <li><a (click)="nextPage('/sales/billing-list',{main:'Sales',name:'Billing'})">Billing</a></li>
+       
+      </ul>
+    </li>
+    <li>
+      <div class="iocn-link">
+        <a>
           <i class='bx bx-cog'></i>
           <span class="link_name">Setting</span>
         </a>
         <i class='bx bxs-chevron-down arrow'></i>
       </div>
       <ul class="sub-menu">
-        <li><a class="link_name" >Setting</a></li>
-        <li><a (click)="nextPage('/settings/company-code-list', {main:'Setting', name:'Company Code'})">Company Code</a></li>
-        <li><a (click)="nextPage('/settings/payment-terms-list', {main:'Setting', name:'Payment Terms'})">Payment Terms</a></li>
+        <li><a class="link_name">Setting</a></li>
+        <li><a (click)="nextPage('/settings/company-code-list', {main:'Setting', name:'Company Code'})">Company Code</a>
+        </li>
+        <li><a (click)="nextPage('/settings/payment-terms-list', {main:'Setting', name:'Payment Terms'})">Payment
+            Terms</a></li>
         <li><a (click)="nextPage('/settings/po-type-list', {main:'Setting', name:'PO Type'})">PO Type</a></li>
-        <li><a (click)="nextPage('/settings/purchase-org-list', {main:'Setting', name:'Purchase Org'})">Purchase Org</a></li>
+        <li><a (click)="nextPage('/settings/purchase-org-list', {main:'Setting', name:'Purchase Org'})">Purchase Org</a>
+        </li>
         <li><a (click)="nextPage('/settings/plant-data-list', {main:'Setting', name:'Plant Data'})">Plant Data</a></li>
+        <li><a
+            (click)="nextPage('/settings/distribution-channel-list', {main:'Setting', name:'Distribution Channel'})">Distribution
+            Channel</a></li>
+        <li><a (click)="nextPage('/settings/divion-list', {main:'Setting', name:'Divion'})">Divion</a></li>
+        <li><a (click)="nextPage('/settings/modeOf-transport-list', {main:'Setting', name:'Mode Of Transport'})">Mode Of
+            Transport</a></li>
+        <li><a (click)="nextPage('/settings/customer-account-list', {main:'Setting', name:'Customer Account Asst. Grp'})">Customer Account AG</a></li>
+        <li><a (click)="nextPage('/settings/order-status-list', {main:'Setting', name:'Order Status'})">Order Status</a></li>
+        <li><a (click)="nextPage('/settings/billing-block-list', {main:'Setting', name:'Billing Block'})">Billing Block</a></li>
 
 
       </ul>

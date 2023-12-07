@@ -1,0 +1,106 @@
+<!-- <app-side-nav></app-side-nav> -->
+
+<div class="container-fluid ">
+    <div class="row mt-3 ">
+      <div class="col-12 ms-0">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start mx-2 ">
+    
+          <input type="search" name="" id="" placeholder="Search.." class=" mx-2 form-control w-50">
+  
+        </div>
+      </div>
+  
+  
+    </div>
+    <div class="row mt-3">
+      <div class="col-12">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+          <button (click)="nextPage('/settings/add-distribution-channel')" class="btn btn-primary" type="button">Add Distribution Channel</button>
+  
+          <button class="btn btn-danger" type="button">
+            <mat-icon style="line-height: 34px;">delete</mat-icon>
+            Delete Selected Channel</button>
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <span>Import Channel</span>
+            </button>
+            <button mat-menu-item>
+              <span>Export Channel</span>
+            </button>
+            <button mat-menu-item>
+              <span>Sample Channel Sheet</span>
+            </button>
+          </mat-menu>
+  
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4 ms-2">
+      <div class="col-12">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+               <th scope="col">Distribution Channel</th>
+                <th scope="col">Description</th>
+                <th scope="col">Action</th>
+                <th scope="col"><input type="checkbox" > Select All</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>mdo</td>
+                <td>Mark</td>
+                <td>
+                  <div class="d-flex">
+                    <div>
+                      <mat-icon>edit</mat-icon>
+                    </div>
+                    <div>
+                      <mat-icon>delete</mat-icon>
+                    </div>
+                  </div>
+                </td>
+                <td><input type="checkbox" ></td>
+              </tr>
+              <tr>
+               <td>fat</td>
+                <td>Mark</td>
+                <td>
+                  <div class="d-flex">
+                    <div>
+                      <mat-icon>edit</mat-icon>
+                    </div>
+                    <div>
+                      <mat-icon>delete</mat-icon>
+                    </div>
+                  </div>
+                </td>
+                <td><input type="checkbox" ></td>
+              </tr>
+              <tr>
+                <td>twitter</td>
+                <td>Mark</td>
+                <td>
+                  <div class="d-flex">
+                    <div>
+                      <mat-icon>edit</mat-icon>
+                    </div>
+                    <div>
+                      <mat-icon>delete</mat-icon>
+                    </div>
+                  </div>
+                </td>
+                <td><input type="checkbox" ></td>
+  
+              </tr>
+            </tbody>
+  
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

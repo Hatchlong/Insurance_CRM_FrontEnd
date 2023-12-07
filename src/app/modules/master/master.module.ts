@@ -17,13 +17,17 @@ import { AddVendorComponent } from './components/vendor/add-vendor/add-vendor.co
 import { VendorListComponent } from './components/vendor/vendor-list/vendor-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CountryService } from './services/country/country.service';
+import { AddCustomerComponent } from './components/customer-master/add-customer/add-customer.component';
+import { CustomerListComponent } from './components/customer-master/customer-list/customer-list.component';
 
 @NgModule({
   declarations: [
     AddProductComponent,
     ProductListComponent,
     AddVendorComponent,
-    VendorListComponent
+    VendorListComponent,
+    AddCustomerComponent,
+    CustomerListComponent
   ],
   imports: [
     CommonModule,
