@@ -107,10 +107,7 @@
       <div class="col-6 mt-0">
         <span for=""> Purch. Organization </span>
         <select class="form-select" formControlName="purchaseOrganizationId" aria-label="Default select example">
-          <option selected></option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          <option *ngFor="let pur of purDetails" [value]="pur._id">{{pur.purchase_org}}</option>
         </select>
       </div>
     </div>
@@ -155,10 +152,9 @@
 
     </div>
 
-    <button type="submit" class="btnBg2 border-0 rounded mt-3 mx-4 h-25">
+    <button type="submit" class="btn btn-primary">
       submit
     </button>
 
   </form>
-    
 </div>

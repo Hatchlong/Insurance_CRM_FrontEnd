@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PlantDataService } from '../../../Services/plant-data/plant-data.service';
 import { Router } from '@angular/router';
 import { CompanyCodeService } from '../../../Services/company-code/company-code.service';
+import { PurchaseOrgService } from '../../../Services/purchase-org/purchase-org.service';
 
 @Component({
   selector: 'app-add-plant-data',
@@ -14,16 +15,19 @@ export class AddPlantDataComponent {
   countryDetials: any = []
   citiesDetails: any = []
   languageName: any = []
+  purDetails:any=[]
 
   constructor(private fb: FormBuilder,
     private plantDataSer: PlantDataService,
     private router: Router,
-    private companyCodeSer: CompanyCodeService
+    private companyCodeSer: CompanyCodeService,
+    private purOrgSer:PurchaseOrgService
   ) { }
 
   ngOnInit(): void {
     this.getCountryDetails()
     this.plantData()
+    this.getPurchaseOrgDetail()
   }
 
   plantData() {
@@ -85,6 +89,23 @@ export class AddPlantDataComponent {
       alert('API failed')
     }
   }
+
+    // get purchase organization
+
+    async getPurchaseOrgDetail(){
+      try {
+        const result:any=await this.purOrgSer.getAllPurchaseOrgDetails()
+        if(result.status==='1'){
+          this.purDetails=result.data
+        }
+        else{
+          alert("API FAiled")
+        }
+      } catch (error) {
+        console.error(error);
+        
+      }
+    }
 
 
   async getSingleLanguage(id: any) {
