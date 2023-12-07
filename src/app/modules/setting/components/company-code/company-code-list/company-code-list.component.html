@@ -3,12 +3,39 @@
     <div class="col-10 ms-0">
       <div class="d-grid gap-2 d-md-flex justify-content-md-start ">
        
+<<<<<<< HEAD
+=======
+=======
+    <div class="row mt-3 ">
+      <div class="col-10 ms-0">
+        <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-start ">
+         
+          <select class="form-select w-25" aria-label="Default select example">
+            <option selected>Select Company</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+          <select class="form-select w-25" aria-label="Default select example">
+            <option selected>Store</option> 
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select> 
+          <input type="search" name="" id="" placeholder="Search.." class="form-control w-25">
+  
+>>>>>>> 8182030ed50a1adf198a3ea6bde1554ab0e0db49
+>>>>>>> 2ead3065ec0f809e5b01a136a92336d398475a72
         <select class="form-select w-25" aria-label="Default select example">
           <option selected>Select Company</option>
           <option value="1">One</option>
           <option value="2">Two</option>
           <option value="3">Three</option>
         </select>
+<<<<<<< HEAD
+        
+        </div> -->
+=======
         <select class="form-select w-25" aria-label="Default select example">
           <option selected>Store</option> 
           <option value="1">One</option>
@@ -23,17 +50,49 @@
         <option value="2">Two</option>
         <option value="3">Three</option>
       </select>
+>>>>>>> ee783a2d28979cdfdf5147755ba07815d5dc7c22
       </div>
     </div>
 
 
   </div>
+<<<<<<< HEAD
+
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+        <button (click)="nextPage('/settings/add-company-code')" class="btn btn-primary " type="button"
+          style="color: white;background: #00acff;">Add Company</button>
+        
+        <button class="btn btn-danger" type="button" style="color: white">
+        <mat-icon style="line-height: 34px;">delete</mat-icon>
+        Delete Selected Company</button>
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <!-- <mat-icon>dialpad</mat-icon> -->
+                <span>Import Company</span>
+              </button>
+              <button mat-menu-item >
+                <!-- <mat-icon>voicemail</mat-icon> -->
+                <span>Export Company</span>
+              </button>
+              <button mat-menu-item>
+                <!-- <mat-icon>notifications_off</mat-icon> -->
+                <span>Sample Company Sheet</span>
+              </button>
+            </mat-menu>
+            
+=======
 </div>
 <div class="row mt-3">
   <div class="col-12">
     <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
       <button (click)="nextPage('/settings/add-company-code')" class="btn btn-primary " type="button"
         style="color: white;background: #00acff;">Add Company</button>
+>>>>>>> ee783a2d28979cdfdf5147755ba07815d5dc7c22
       
       <button class="btn btn-danger" type="button" style="color: white">
       <mat-icon style="line-height: 34px;">delete</mat-icon>
@@ -99,6 +158,61 @@
         </tbody>
 
       </table>
+<<<<<<< HEAD
+=======
+=======
+  <div class="row mt-4 ms-2">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>SLNO</th>
+              <th>Company Code</th>
+              <th>Company Name</th>
+              <th>Country</th>
+              <th>City</th>
+              <th>Currency</th>
+              <th>Action</th>
+              <th><input type="checkbox" (change)="selectAll($event)"> Select All</th>
+            </tr>
+          </thead>
+<<<<<<< HEAD
+          <tbody> 
+            <tr *ngFor="let list of companyCodeDetails; let i = index; ">
+              <th scope="row">{{i+1}}</th>
+              <td>{{list.companyCode}}</td> 
+=======
+          <tbody>
+            <tr *ngFor="let list of companyCodeDetail; let i=index">
+              <th>{{list.companyCode}}</th>
+>>>>>>> ee783a2d28979cdfdf5147755ba07815d5dc7c22
+              <td>{{list.companyName}}</td>
+              <td>{{list.countryId}}</td>
+              <td>{{list.city}}</td>
+<<<<<<< HEAD
+              <td>{{list.counrty}}</td>
+=======
+              <td>{{list.currency}}</td>
+>>>>>>> ee783a2d28979cdfdf5147755ba07815d5dc7c22
+              <td>
+                <div class="d-flex">
+                  <div>
+                    <mat-icon [routerLink]="'/settings/edit-company-code/'+list._id" >edit</mat-icon>
+                  </div>
+                  <div>
+                    <mat-icon>delete</mat-icon>
+                  </div>
+                </div> 
+              </td>
+              <td><input type="checkbox" [checked]="checks"></td>
+            </tr>
+          </tbody>
+  
+        </table>
+      </div>
+>>>>>>> 8182030ed50a1adf198a3ea6bde1554ab0e0db49
+>>>>>>> 2ead3065ec0f809e5b01a136a92336d398475a72
     </div>
   </div>
 </div>

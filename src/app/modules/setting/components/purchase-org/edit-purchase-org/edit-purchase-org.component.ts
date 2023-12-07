@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   selector: 'app-edit-purchase-org',
   templateUrl: './edit-purchase-org.component.html',
   styleUrls: ['./edit-purchase-org.component.css']
-})
+}) 
 export class EditPurchaseOrgComponent {
   purchOrg: any = FormGroup;
   companyDetails: any = [];
@@ -74,7 +74,7 @@ export class EditPurchaseOrgComponent {
     try {
       const result: any = await this.companySer.getAllCompanyCodeDetails();
       if (result.status === '1') {
-        this.companyDetails = result.data
+        this.companyDetails = result.data 
       } else {
         alert('API failed')
       }
@@ -83,5 +83,5 @@ export class EditPurchaseOrgComponent {
       console.error(error)
       alert('API failed')
     }
-  }
+  } 
 }

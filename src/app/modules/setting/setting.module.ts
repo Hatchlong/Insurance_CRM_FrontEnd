@@ -26,9 +26,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { PoTypeService } from './Services/po-type.service';
 import { EditPurchaseOrgComponent } from './components/purchase-org/edit-purchase-org/edit-purchase-org.component';
 import { ErrorPoTypeComponent } from './components/po-type/error-po-type/error-po-type.component';
+<<<<<<< HEAD
+import { PlantDataService } from './Services/plant-data/plant-data.service';
+import { EditCompanyCodeComponent } from './components/company-code/edit-company-code/edit-company-code/edit-company-code.component';
+import { EditPlantDataComponent } from './components/plant-data/edit-plant-data/edit-plant-data.component';
+=======
 import { UpdatePoTypeComponent } from './components/po-type/update-po-type/update-po-type.component';
 import { PaymentTermService } from './Services/payment-term/payment-term.service';
 import { EditPaymentTermComponent } from './components/payment-terms/edit-payment-term/edit-payment-term.component';
+<<<<<<< HEAD
 import { DistributionChannelListComponent } from './components/distibution-channel/distribution-channel-list/distribution-channel-list.component';
 import { AddDistributionChannelComponent } from './components/distibution-channel/add-distribution-channel/add-distribution-channel.component';
 import { DivionListComponent } from './components/divion/divion-list/divion-list.component';
@@ -41,6 +47,9 @@ import { CustomerAccListComponent } from './components/customer-account-AG/custo
 import { AddCustomerAccComponent } from './components/customer-account-AG/add-customer-acc/add-customer-acc.component';
 import { BillingBlockListComponent } from './components/billing-block/billing-block-list/billing-block-list.component';
 import { AddBillingBlockComponent } from './components/billing-block/add-billing-block/add-billing-block.component';
+=======
+>>>>>>> ee783a2d28979cdfdf5147755ba07815d5dc7c22
+>>>>>>> 2ead3065ec0f809e5b01a136a92336d398475a72
 
 
 @NgModule({
@@ -57,8 +66,13 @@ import { AddBillingBlockComponent } from './components/billing-block/add-billing
     PlantDataListComponent,
     EditPurchaseOrgComponent,
     ErrorPoTypeComponent,
+<<<<<<< HEAD
+    EditCompanyCodeComponent,
+    EditPlantDataComponent,
+=======
     UpdatePoTypeComponent,
     EditPaymentTermComponent,
+<<<<<<< HEAD
     DistributionChannelListComponent,
     AddDistributionChannelComponent,
     DivionListComponent,
@@ -71,6 +85,9 @@ import { AddBillingBlockComponent } from './components/billing-block/add-billing
     AddCustomerAccComponent,
     BillingBlockListComponent,
     AddBillingBlockComponent,
+=======
+>>>>>>> ee783a2d28979cdfdf5147755ba07815d5dc7c22
+>>>>>>> 2ead3065ec0f809e5b01a136a92336d398475a72
   ],
   imports: [
     CommonModule,
@@ -85,6 +102,10 @@ import { AddBillingBlockComponent } from './components/billing-block/add-billing
     HttpClientModule,
     
   ],
+<<<<<<< HEAD
+  providers:[PurchaseOrgService, CompanyCodeService,PoTypeService,PlantDataService]
+=======
   providers:[PurchaseOrgService, CompanyCodeService,PoTypeService,PaymentTermService]
+>>>>>>> ee783a2d28979cdfdf5147755ba07815d5dc7c22
 })
 export class SettingModule { }

@@ -12,7 +12,11 @@ export class AddCompanyCodeComponent {
   companyCode:any= FormGroup
   countryDetials: any = []
   citiesDetails:any = [];
+<<<<<<< HEAD
+  languageName:any = '' 
+=======
   languageName:any = ''
+>>>>>>> ee783a2d28979cdfdf5147755ba07815d5dc7c22
   constructor( 
     private fb:FormBuilder,
     private companyCodeSer: CompanyCodeService,
@@ -97,6 +101,8 @@ export class AddCompanyCodeComponent {
     this.citiesDetails = this.countryDetials.find((el:any) => el._id === event.target.value);
     this.companyCode.controls.currency.setValue(this.citiesDetails?.countryCurrency)
     this.companyCode.controls.languageId.setValue(this.citiesDetails.languageId)
+<<<<<<< HEAD
+=======
 
     this.getSingleLanguage(this.citiesDetails.languageId)
 
@@ -104,4 +110,10 @@ export class AddCompanyCodeComponent {
   
 
 }
+>>>>>>> ee783a2d28979cdfdf5147755ba07815d5dc7c22
 
+    this.getSingleLanguage(this.citiesDetails.languageId)
+
+  }
+      
+}

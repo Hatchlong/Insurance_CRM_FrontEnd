@@ -1,7 +1,7 @@
 <div class="container-fluid ">
     <div class="row mt-3 ">
       <div class="col-10 ms-0">
-        <div class="d-grid gap-2 d-md-flex justify-content-md-start ">
+        <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-start ">
          
           <select class="form-select w-25" aria-label="Default select example">
             <option selected>Select PO</option>
@@ -23,7 +23,7 @@
           <option value="2">Two</option>
           <option value="3">Three</option>
         </select>
-        </div>
+        </div> -->
       </div>
   
   
@@ -66,6 +66,7 @@
         <table class="table table-bordered">
           <thead>
             <tr>
+              <th scope="col">S.No. </th>
               <th scope="col">Plant Code</th>
               <th scope="col">Name </th>
               <th scope="col">Language Key</th>
@@ -76,16 +77,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>mdo</td>
-              <td>Mark</td>
+            <tr *ngFor="let list of plantDataDetails; let i = index;">
+              <th scope="row">{{i+1}}</th>
+              <td>{{list.plantCode}}</td>
+              <td>{{list.name1}}</td>
+              <td>{{list.languageKey}}</td>
+              <td>{{list.country}}</td>
+              <td>{{list.address}}</td>
               <td>
                 <div class="d-flex">
                   <div>
-                    <mat-icon>edit</mat-icon>
+                    <mat-icon [routerLink]="'/settings/edit-plant-data/'+list._id">edit</mat-icon>
                   </div>
                   <div>
                     <mat-icon>delete</mat-icon>
@@ -93,43 +95,6 @@
                 </div>
               </td>
               <td><input type="checkbox" [checked]="checks"></td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>fat</td>
-              <td>Mark</td>
-              <td>
-                <div class="d-flex">
-                  <div>
-                    <mat-icon>edit</mat-icon>
-                  </div>
-                  <div>
-                    <mat-icon>delete</mat-icon>
-                  </div>
-                </div>
-              </td>
-              <td><input type="checkbox" [checked]="checks"></td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>twitter</td>
-              <td>Mark</td>
-              <td>
-                <div class="d-flex">
-                  <div>
-                    <mat-icon>edit</mat-icon>
-                  </div>
-                  <div>
-                    <mat-icon>delete</mat-icon>
-                  </div>
-                </div>
-              </td>
-              <td><input type="checkbox" [checked]="checks"></td>
-  
             </tr>
           </tbody>
   

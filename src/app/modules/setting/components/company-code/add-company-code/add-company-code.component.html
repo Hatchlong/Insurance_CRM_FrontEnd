@@ -13,7 +13,7 @@
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="countryId" (change)="selectCountryName($event)">
                     <option *ngFor="let list of countryDetials;" [value]="list._id">{{list.countryName}}</option>
                 </select>
-                
+
             </div>
             <div class="col-6">
                 <span for="" class="mt-4">City</span>

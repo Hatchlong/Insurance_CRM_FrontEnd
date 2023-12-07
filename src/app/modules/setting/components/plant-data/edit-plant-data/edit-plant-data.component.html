@@ -1,0 +1,205 @@
+<div class="container-fluid">
+    <h2><mat-icon class="back" routerLink="/settings/plant-data-list">arrow_back</mat-icon>Plant Data</h2>
+  
+    <form class="border" [formGroup]="plantsData" (ngSubmit)="submitData()" >
+      <div class="row ms-3">
+        <div class="col-6 mt-4">
+          <span for="">Plant Code </span>
+          <input
+            type="text"
+            formControlName="plantCode"
+            class="form-control"
+          /> 
+        </div>   
+   
+        <div class="col-6 mt-4">
+          <span for="">Name 1</span>
+          <input type="text" formControlName="name1" class="form-control"  >
+        </div>
+      </div>
+  
+      <div class="row ms-3">
+        <div class="col-6 mt-4">
+          <span for="">Name 2</span>
+          <input type="text" formControlName="name2" class="form-control">
+          
+        </div>
+  
+        <div class="col-6 mt-4">
+          <span for="">Language Key</span>
+           <select
+            class="form-select"
+            formControlName="languageId"
+            aria-label="Default select example"
+          >
+            <option selected></option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row ms-3">
+        <div class="col-6 mt-4">
+          <span for="">Address</span>
+          <input type="text" formControlName="address" class="form-control">
+         
+        </div>
+  
+        <div class="col-6 mt-4">
+          <span for="">Country</span>
+           <select
+            class="form-select"
+            formControlName="countryId"
+            aria-label="Default select example"
+          >
+            <option selected></option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+      </div>
+  
+      <div class="row ms-3 mb-4">
+        <div class="col-6 mt-4">
+          <span for="">City</span>
+          <select
+          class="form-select"
+          formControlName="cityId"
+          aria-label="Default select example"
+        >
+          <option selected></option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+        </div>
+
+        <div class="col-6 mt-4">
+            <span for="">Contact Person Name</span>
+            <input type="text" formControlName="contactPersonName" class="form-control">
+        </div>
+      </div>
+ 
+
+      <div class="row ms-3 mb-4">
+        <div class="col-6 mt-0">
+          <span for="">Contact Number </span>
+          <input type="number" formControlName="contactNumber" class="form-control">
+        
+        </div>
+
+        <div class="col-6 mt-0">
+            <span for=""> Time Zone</span>
+            <select
+            class="form-select"
+            formControlName="timeZone"
+            aria-label="Default select example"
+          >
+            <option selected></option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+      </div>
+
+
+      <div class="row ms-3 mb-4">
+        <div class="col-6 mt-0">
+          <span for="">Search term </span>
+          <input type="text" formControlName="searchTerm" class="form-control">
+        
+        </div>
+
+        <div class="col-6 mt-0">
+            <span for=""> Customer no.-plant </span>
+            <input type="text" formControlName="customerNo_plant" class="form-control">
+        </div>
+      </div>
+
+
+      <div class="row ms-3 mb-4">
+        <div class="col-6 mt-0">
+          <span for="">Vendor no.-plant</span>
+          <input type="text" formControlName="vendorNumberPlant" class="form-control">
+        
+        </div>
+
+        <div class="col-6 mt-0">
+            <span for=""> Purch. Organization </span>
+            <select
+            class="form-select"
+            formControlName="purchaseOrganizationId"
+            aria-label="Default select example"
+          >
+            <option selected></option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+      </div>
+
+
+      <div class="row ms-3 mb-4">
+        <div class="col-6 mt-0">
+          <span for="">Sales Organization</span>
+          <select
+          class="form-select"
+          formControlName="salesOrganizationId"
+          aria-label="Default select example"
+        >
+          <option selected></option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+
+        
+        </div>
+
+        <div class="col-6 mt-0">
+            <span for=""> Tax Indicator: Plant </span>
+            <select
+            class="form-select"
+            formControlName="taxIndicatorId"
+            aria-label="Default select example"
+          >
+            <option selected></option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row ms-3 mb-4">
+        <div class="col-6 mt-0">
+          <span for="">Storage Location</span>
+          <select
+          class="form-select"
+          formControlName="stoargeLocationId"
+          aria-label="Default select example"
+        >
+          <option selected></option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+
+        
+        </div>
+    
+      </div>
+ 
+      <button type="submit" class="btnBg2 border-0 rounded mt-3 mx-4 h-25">
+        Update
+      </button>
+      
+    </form>
+  </div>
+
+

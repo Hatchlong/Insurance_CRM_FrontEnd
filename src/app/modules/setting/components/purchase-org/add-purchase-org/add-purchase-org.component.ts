@@ -22,7 +22,7 @@ export class AddPurchaseOrgComponent implements OnInit {
   ngOnInit(): void { 
     this.getCompanyDetails()
     this.purchOrgData()
-  }
+  } 
 
   purchOrgData() {
     this.purchOrg = this.fb.group({
