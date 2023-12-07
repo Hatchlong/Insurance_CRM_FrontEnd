@@ -11,7 +11,6 @@ import { PurchaseOrgListComponent } from './components/purchase-org/purchase-org
 import { AddPlantDataComponent } from './components/plant-data/add-plant-data/add-plant-data.component';
 import { PlantDataListComponent } from './components/plant-data/plant-data-list/plant-data-list.component';
 import { EditPurchaseOrgComponent } from './components/purchase-org/edit-purchase-org/edit-purchase-org.component';
-<<<<<<< HEAD
 // import { ErrorPoTypeComponent } from './components/po-type/error-po-type/error-po-type.component';
 import { UpdatePoTypeComponent } from './components/po-type/update-po-type/update-po-type.component';
 import { EditPaymentTermComponent } from './components/payment-terms/edit-payment-term/edit-payment-term.component';
@@ -27,16 +26,9 @@ import { CustomerAccListComponent } from './components/customer-account-AG/custo
 import { AddCustomerAccComponent } from './components/customer-account-AG/add-customer-acc/add-customer-acc.component';
 import { BillingBlockListComponent } from './components/billing-block/billing-block-list/billing-block-list.component';
 import { AddBillingBlockComponent } from './components/billing-block/add-billing-block/add-billing-block.component';
-=======
 import { ErrorPoTypeComponent } from './components/po-type/error-po-type/error-po-type.component';
-<<<<<<< HEAD
 import { EditCompanyCodeComponent } from './components/company-code/edit-company-code/edit-company-code/edit-company-code.component';
 import { EditPlantDataComponent } from './components/plant-data/edit-plant-data/edit-plant-data.component';
-=======
-import { UpdatePoTypeComponent } from './components/po-type/update-po-type/update-po-type.component';
-import { EditPaymentTermComponent } from './components/payment-terms/edit-payment-term/edit-payment-term.component';
->>>>>>> ee783a2d28979cdfdf5147755ba07815d5dc7c22
->>>>>>> 2ead3065ec0f809e5b01a136a92336d398475a72
 
 const routes: Routes = [
   {
@@ -89,7 +81,6 @@ const routes: Routes = [
   },{
     path:'plant-data-list',
     component:PlantDataListComponent
-<<<<<<< HEAD
   },{
     path:'distribution-channel-list',
     component:DistributionChannelListComponent
@@ -136,7 +127,6 @@ const routes: Routes = [
   {
     path:'add-billing-block',
     component:AddBillingBlockComponent
-=======
   },
   {
     path:'edit-plant-data/:id',
@@ -149,7 +139,6 @@ const routes: Routes = [
   ,{
     path:'error-po-type',
     component:ErrorPoTypeComponent
->>>>>>> 2ead3065ec0f809e5b01a136a92336d398475a72
   }
 ];
 
