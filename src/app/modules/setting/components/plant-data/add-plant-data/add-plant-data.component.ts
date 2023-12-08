@@ -30,6 +30,8 @@ export class AddPlantDataComponent {
     this.getCountryDetails()
     this.plantData()
     this.getPurchaseOrgDetail()
+    this.getStorageLocationDetail();
+    this.getTaxIndicatorDetail()
   }
 
   plantData() {
@@ -51,7 +53,7 @@ export class AddPlantDataComponent {
       purchaseOrganizationId: ['', Validators.required],
       purchaseOrganizationName:['', Validators.required],
       salesOrganizationId: ['', Validators.required],
-      salesOrganizationName:['', Validators.required],
+      salesOrganizationName:['fuffgf', Validators.required],
       taxIndicatorId: ['', Validators.required],
       taxIndicatorName:['', Validators.required],
       stoargeLocationId: ['', Validators.required],
@@ -63,6 +65,7 @@ export class AddPlantDataComponent {
 
   async submitData() {
     try {
+      console.log(this.plantFormData.value)
       if (this.plantFormData.invalid)
         return alert('Please fill all the fields');
       const result: any = await this.plantDataSer.createPlantDataDetails(this.plantFormData.value);
@@ -177,5 +180,18 @@ export class AddPlantDataComponent {
   handlePurchaseOrg(event:any){
     const findPurchaseDetail = this.purDetails.find((el: any) => el._id === event.target.value);
     this.plantFormData.controls.purchaseOrganizationName.setValue(findPurchaseDetail.purchase_org)  
+  }
+
+   // Add the purchase Name
+   handleTax(event:any){
+    const findPurchaseDetail = this.taxDetails.find((el: any) => el.tax_ind_code === +event.target.value);
+    console.log(findPurchaseDetail, this.taxDetails,event.target.value,'findPurchaseDetail')
+    this.plantFormData.controls.taxIndicatorName.setValue(findPurchaseDetail.description)  
+  }
+
+   // Add the purchase Name
+   handleStorageLocation(event:any){
+    const findPurchaseDetail = this.storgaeLocationDetails.find((el: any) => el.stor_loc_id === +event.target.value);
+    this.plantFormData.controls.stoargeLocationName.setValue(findPurchaseDetail.description)  
   }
 }

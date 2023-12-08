@@ -33,7 +33,7 @@
     <div class="row ms-3">
       <div class="col-6 mt-4">
         <span for="">Language</span>
-        <select class="form-select" formControlName="languageId" >
+        <select class="form-select" formControlName="languageId" [ngStyle]="{'pointer-events': !plantFormData.value.countryId ? 'none' :  'all'}">
           <option [selected]="plantFormData.value.languageId === ''" value="" hidden>Select Language</option>
           
           <option [value]="citiesDetails.languageName">{{languageName}}</option>
@@ -54,7 +54,7 @@
     <div class="row ms-3 mb-4">
       <div class="col-6 mt-4">
         <span for="">City</span>
-        <select class="form-select" formControlName="cityId" >
+        <select class="form-select" formControlName="cityId"   [ngStyle]="{'pointer-events': !plantFormData.value.countryId ? 'none' :  'all'}">
           <option [selected]="plantFormData.value.cityId === ''" value="" hidden>Select cities</option>
           <option *ngFor="let list of citiesDetails?.cities?.cities" [value]="list">{{list}}</option>
 
@@ -133,9 +133,9 @@
 
       <div class="col-6 mt-0">
         <span for=""> Tax Indicator: Plant </span>
-        <select class="form-select" formControlName="taxIndicatorId" >
+        <select class="form-select" formControlName="taxIndicatorId" (change)="handleTax($event)">
           <option [selected]="plantFormData.value.taxIndicatorId === ''" value="" hidden>Select Tax</option>
-          <option *ngFor="let list of taxDetails" [value]="list._id">{{list.description}}</option>
+          <option *ngFor="let list of taxDetails" [value]="list.tax_ind_code">{{list.description}}</option>
         </select>
       </div>
     </div>
@@ -143,9 +143,9 @@
     <div class="row ms-3 mb-4">
       <div class="col-6 mt-0">
         <span for="">Storage Location</span>
-        <select class="form-select" formControlName="stoargeLocationId" >
+        <select class="form-select" formControlName="stoargeLocationId" (change)="handleStorageLocation($event)">
           <option [selected]="plantFormData.value.stoargeLocationId === ''" value="" hidden>Select Storage Location</option>
-          <option *ngFor="let list of storgaeLocationDetails" [value]="list._id">{{list.description}}</option>
+          <option *ngFor="let list of storgaeLocationDetails" [value]="list.stor_loc_id">{{list.description}}</option>
         </select>
 
 
