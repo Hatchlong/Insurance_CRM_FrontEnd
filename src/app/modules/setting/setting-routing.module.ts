@@ -40,6 +40,10 @@ const routes: Routes = [
     component:AddCompanyCodeComponent
   },
   {
+    path:'edit-company-code/:id',
+    component:EditCompanyCodeComponent
+  },
+  {
     path:'payment-terms-list',
     component:PaymentTermsListComponent
   },

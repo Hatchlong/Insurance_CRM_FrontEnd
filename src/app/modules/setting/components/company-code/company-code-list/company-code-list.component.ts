@@ -24,9 +24,6 @@ export class CompanyCodeListComponent {
     this.router.navigate([`${url}`])
   }
 
-
- 
-
   checks=false;
   selectAll(e:any){ 
     if(e.target.checked==true){

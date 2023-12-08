@@ -1,6 +1,6 @@
 <div class="container-fluid ">
     <div class="row mt-3 ">
-        <div class="col-10 ms-0">
+        <!-- <div class="col-10 ms-0">
             <div class="d-grid gap-2 d-md-flex justify-content-md-start ">
 
                 <select class="form-select w-25" aria-label="Default select example">
@@ -24,7 +24,7 @@
                     <option value="3">Three</option>
                 </select>
             </div>
-        </div>
+        </div> -->
  
 
     </div>
@@ -77,7 +77,7 @@
                 </thead>
                 <tbody> 
                     <tr *ngFor="let list of purchaseOrgDetails; let i = index; ">
-                        <th scope="row">{{i+1}}</th>
+                        <td scope="row">{{i+1}}</td>
                         <td>{{list.purchase_org}}</td>
                         <td>{{list.purchase_org_Description}}</td>
                         <td>{{list.companycode}}</td>

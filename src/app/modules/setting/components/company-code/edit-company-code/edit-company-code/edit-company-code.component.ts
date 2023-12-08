@@ -12,6 +12,9 @@ export class EditCompanyCodeComponent {
   companyCode:any= FormGroup
   companyDetails: any = [];
   companyCodeId: any = ''
+  countryDetials: any = []
+  citiesDetails:any = []; 
+  languageName:any = '' 
 
   constructor(  
     private fb:FormBuilder,
@@ -25,6 +28,7 @@ export class EditCompanyCodeComponent {
         console.log(this.companyCodeId)
         this.getSingleCompanyCodeDetails()
         this.getCompanyDetails()
+        this.getCountryDetails()
         this.code()
     }
  
@@ -37,7 +41,7 @@ export class EditCompanyCodeComponent {
         city:['', Validators.required],
         currency:['', Validators.required],
         languageId:['', Validators.required]
-      })
+      }) 
     }
 
     // update
@@ -47,12 +51,15 @@ export class EditCompanyCodeComponent {
         const result: any = await this.companyCodeSer.singleCompanyCode(this.companyCodeId);
         if (result.status === '1') {
           this.companyCode.patchValue(result.data)
+          console.log(result.data)
+          this.citiesDetails = this.countryDetials.find((el:any)=>el._id===this.companyCode.value.countryId)
+          this.getSingleLanguage(this.citiesDetails.languageId)
         }
       } catch (error) {
         console.error(error)
       }
     }
-
+ 
 
   // Create the purchase org Details
     async addCode(){
@@ -74,8 +81,6 @@ export class EditCompanyCodeComponent {
      }
     }
 
- 
-    
   // Get All details for company code
   async getCompanyDetails() {
     try {
@@ -92,4 +97,57 @@ export class EditCompanyCodeComponent {
     }
   } 
 
+  // Get All details for company code
+  async getCountryDetails() {
+    try {
+      const result: any = await this.companyCodeSer.getAllCountryDetails();
+      if (result.status === '1') {
+        this.countryDetials = result.data;
+      } else {
+        alert('API failed')
+      }
+      console.log(result);
+    } catch (error) {
+      console.error(error)
+      alert('API failed')
+    }
+  }
+ 
+   // single details for Language Detials
+   async getSingleLanguage(id:any) {
+    try {
+      const result: any = await this.companyCodeSer.singleLanguageDetails(id);
+      if (result.status === '1') {
+        this.languageName = result.data.languageName
+      } else {
+        alert('API failed')
+      }
+      console.log(result);
+    } catch (error) {
+      console.error(error)
+      alert('API failed')
+    }
+  }
+   
+  selectCountryName(event:any){
+    console.log(event.target.value)
+    this.citiesDetails = this.countryDetials.find((el:any) => el._id === event.target.value);
+    this.companyCode.controls.currency.setValue(this.citiesDetails?.countryCurrency)
+    this.companyCode.controls.languageId.setValue(this.citiesDetails.languageId)
+
+    this.getSingleLanguage(this.citiesDetails.languageId)
+  }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+

@@ -18,7 +18,6 @@ export class CompanyCodeService {
     return this.http.get('http://localhost:4000/api/master/companycode/getAll').toPromise()
   }
 
-
   // Get Country Detials
   getAllCountryDetails() {
     return this.http.get('http://localhost:4000/api/master/country/getAll').toPromise()
@@ -28,7 +27,6 @@ export class CompanyCodeService {
   singleLanguageDetails(id: any) {
     return this.http.get(`http://localhost:4000/api/master/language/get/${id}`).toPromise()
   }
-
 
   singleCompanyCode(id: any) {
     return this.http.get(`http://localhost:4000/api/master/companycode/get/${id}`).toPromise()

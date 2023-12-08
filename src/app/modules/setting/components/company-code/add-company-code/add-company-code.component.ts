@@ -10,17 +10,21 @@ import { Router } from '@angular/router';
 })
 export class AddCompanyCodeComponent {
   companyCode:any= FormGroup
+  companyDetails: any = [];
   countryDetials: any = []
   citiesDetails:any = [];
-  languageName:any = '' 
+  languageName:any = ''  
+  
   constructor( 
     private fb:FormBuilder,
+    private companySer: CompanyCodeService,
     private companyCodeSer: CompanyCodeService,
     private router: Router
   ){}
  
     ngOnInit(): void {
         this.getCountryDetails()
+    this.getCompanyDetails()
         this.code()
     }
  
@@ -89,6 +93,21 @@ export class AddCompanyCodeComponent {
       alert('API failed')
     }
   }
+
+  async getCompanyDetails() {
+    try {
+      const result: any = await this.companySer.getAllCompanyCodeDetails();
+      if (result.status === '1') {
+        this.companyDetails = result.data 
+      } else {
+        alert('API failed')
+      }
+      console.log(result);
+    } catch (error) {
+      console.error(error)
+      alert('API failed')
+    }
+  } 
 
 
 

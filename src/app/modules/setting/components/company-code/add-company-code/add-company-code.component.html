@@ -3,8 +3,8 @@
         <h2><mat-icon class="back" routerLink="/settings/company-code-list">arrow_back</mat-icon>Company Code</h2>
         <div class="row">
             <div class="col-6">
-                <span for="" class="mt-4">Company Code</span>
-                <input type="text" class="form-control mb-3" placeholder="Enter Company Code" formControlName="companyCode">
+                <span for="">Company Code</span>
+                <input type="text" class="form-control mb-3" placeholder="Enter Company code" formControlName="companyCode">
 
                 <span for="" class="">Company Name</span>
                 <input type="text" class="form-control mb-3" placeholder="Enter Company Name" formControlName="companyName">
@@ -14,7 +14,9 @@
                     <option *ngFor="let list of countryDetials;" [value]="list._id">{{list.countryName}}</option>
                 </select>
 
-            </div>
+                
+
+            </div> 
             <div class="col-6">
                 <span for="" class="mt-4">City</span>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="city">
