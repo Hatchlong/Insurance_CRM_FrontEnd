@@ -33,6 +33,7 @@ export class AddCompanyCodeComponent {
         companyCode:['', Validators.required],
         companyName:['', Validators.required],
         countryId:['', Validators.required],
+        countryName:[''],
         city:['', Validators.required],
         currency:['', Validators.required],
         languageId:['', Validators.required]
@@ -114,6 +115,7 @@ export class AddCompanyCodeComponent {
   selectCountryName(event:any){
     console.log(event.target.value)
     this.citiesDetails = this.countryDetials.find((el:any) => el._id === event.target.value);
+    this.companyCode.controls.countryName.setValue(this.citiesDetails.countryName)
     this.companyCode.controls.currency.setValue(this.citiesDetails?.countryCurrency)
     this.companyCode.controls.languageId.setValue(this.citiesDetails.languageId)
 

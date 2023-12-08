@@ -55,7 +55,8 @@
                     </div>
                     <div class="col-6 mt-4">
                         <label for="ExchaneRate">Exchange Rate</label>
-                        <input type="number" class="form-control" formControlName="exchaneRate" placeholder="Exchange Rate">
+                        <input type="number" class="form-control" formControlName="exchaneRate"
+                            placeholder="Exchange Rate">
                     </div>
                     <div class="col-6 mt-4 mb-2">
                         <label for="Company">Company Code</label>
@@ -144,17 +145,20 @@
                     </div>
                     <div class="col-6 mt-4 mb-2">
                         <label for="NetDiscount">Net Discount</label>
-                        <input type="number" class="form-control" formControlName="netDiscount" placeholder="Net Discount">
+                        <input type="number" class="form-control" formControlName="netDiscount"
+                            placeholder="Net Discount">
                     </div>
                     <div class="col-6 mt-4 mb-2">
                         <label for="netFreight">Net Freight</label>
-                        <input type="number" class="form-control" formControlName="NetFreight" placeholder="Net Freight">
+                        <input type="number" class="form-control" formControlName="NetFreight"
+                            placeholder="Net Freight">
                     </div>
                     <div class="col-6 mt-4 mb-2">
                         <label for="OtherCharge">Other Charges</label>
-                        <input type="number" class="form-control" formControlName="otherCharge" placeholder="Other Charge">
+                        <input type="number" class="form-control" formControlName="otherCharge"
+                            placeholder="Other Charge">
                     </div>
-                    
+
 
                 </div>
 
@@ -190,12 +194,25 @@
                                         <th>Sales Order Item</th>
                                         <th>Reference Doc</th>
                                         <th>Pricing Date</th>
-                                        <th>Reference Details</th>
-                                        <th>Account Holder</th>
-                                        <th>Bank details Valid to</th>
-                                        <th>Reconcilation account</th>
-                                        <th>Payment method</th>
-                                        <th>Payment terms</th>
+                                        <th>Service rendered date</th>
+                                        <th>Price Amount</th>
+                                        <th>Per unit Price</th>
+                                        <th>Pricing unit</th>
+                                        <th>Pricing UoM</th>
+                                        <th>Tax</th>
+                                        <th>Per Unit Tax</th>
+                                        <th>Discount</th>
+                                        <th>Per Unit Discount</th>
+                                        <th>Freight</th>
+                                        <th>Per Unit Freight</th>
+                                        <th>Company Currency</th>
+                                        <th>Transaction Currency</th>
+                                        <th>Exchange Rate</th>
+                                        <th>HSN</th>
+                                        <th>Country Of Origin</th>
+                                        <th>Destination Country</th>
+                                        <th>PO Number</th>
+                                        <th>PO Date</th>
                                     </tr>
                                 </thead>
 
@@ -207,16 +224,56 @@
                                                 (click)="deleteFinancial(i)">delete</mat-icon>
                                         </td>
                                         <td>
-                                            <input type="text" formControlName="financialTax1" class="form-control"
-                                                placeholder="enter Builde Qty">
+                                            <input type="number" formControlName="buildQty" class="form-control"
+                                                placeholder="enter Build Qty">
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" formControlName="financialTax2"
-                                                placeholder="enter tx number 2">
+                                            <select class="form-select" formControlName="uom">
+                                                <option selected></option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
                                         </td>
                                         <td>
-                                            <input type="text" formControlName="vatReg" class="form-control"
-                                                placeholder="enter vat reg. no.">
+                                            <input type="number" class="form-control" formControlName="netWeight"
+                                                placeholder="enter net weight">
+                                        </td>
+                                        <td>
+                                            <input type="text" formControlName="grossweight" class="form-control"
+                                                placeholder="enter gross weight.">
+                                        </td>
+                                        <td>
+                                            <input type="text" formControlName="volume" class="form-control"
+                                                placeholder="enter volume.">
+                                        </td>
+                                        <td>
+                                            <input type="text" formControlName="salesorder" class="form-control"
+                                                placeholder="enter sales order.">
+                                        </td>
+                                        <td>
+                                            <input type="text" formControlName="salesorderitem" class="form-control"
+                                                placeholder="enter sales item">
+                                        </td>
+                                        <td>
+                                            <input type="text" formControlName="referenceDoc" class="form-control"
+                                                placeholder="enter reference document">
+                                        </td>
+                                        <td>
+                                            <input type="date" formControlName="pricingDate" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="date" formControlName="servicerender" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" formControlName="priceAmount" class="form-control"
+                                                placeholder="enter price Amount">
+                                        </td>
+                                        <td>
+                                            <input type="number" formControlName="perunitPrice" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" formControlName="pricingUnit" class="form-control">
                                         </td>
                                         <td>
                                             <select class="form-select">
@@ -227,7 +284,32 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <select class="form-select">
+                                            <input type="number" formControlName="tax" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" formControlName="perUnitTax" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" formControlName="discount" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" formControlName="perDiscount" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" formControlName="freight" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="number" formControlName="perFreight" class="form-control">
+                                        </td>
+                                        <td>
+                                            <select class="form-select" formControlName="companyCurrency" >
+                                                <option selected></option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+                                        </td> <td>
+                                            <select class="form-select" formControlName="transactionCurrency">
                                                 <option selected></option>
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
@@ -235,7 +317,20 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <select class="form-select">
+                                            <input type="number" formControlName="exchangeRate" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="text" formControlName="hsn" class="form-control">
+                                        </td>
+                                        <td>
+                                            <select class="form-select" formControlName="countryOrigin" >
+                                                <option selected></option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+                                        </td> <td>
+                                            <select class="form-select" formControlName="destination">
                                                 <option selected></option>
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
@@ -243,55 +338,10 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="text" formControlName="bankKey" class="form-control"
-                                                placeholder="enter bank key">
+                                            <input type="text" formControlName="poNumber" class="form-control">
                                         </td>
                                         <td>
-                                            <input type="text" formControlName="bankAcc" class="form-control"
-                                                placeholder="enter bank account">
-                                        </td>
-                                        <td>
-                                            <input type="text" formControlName="refDetails" class="form-control"
-                                                placeholder="enter reference detail">
-                                        </td>
-                                        <td>
-                                            <input type="text" formControlName="accHolder" class="form-control"
-                                                placeholder="enter account holder">
-                                        </td>
-                                        <td>
-                                            <input type="date" class="form-control">
-                                        </td>
-                                        <td>
-                                            <input type="date" formControlName="bankD" class="form-control">
-
-                                        </td>
-
-                                        <td>
-                                            <select class="form-select">
-                                                <option selected></option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
-                                            </select>
-
-                                        </td>
-                                        <td>
-                                            <select class="form-select">
-                                                <option selected></option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
-                                            </select>
-
-                                        </td>
-                                        <td>
-                                            <select class="form-select">
-                                                <option selected></option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
-                                            </select>
-
+                                            <input type="date" formControlName="poDate" class="form-control">
                                         </td>
                                     </tr>
                                 </tbody>

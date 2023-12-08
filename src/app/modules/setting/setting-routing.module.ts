@@ -26,7 +26,6 @@ import { CustomerAccListComponent } from './components/customer-account-AG/custo
 import { AddCustomerAccComponent } from './components/customer-account-AG/add-customer-acc/add-customer-acc.component';
 import { BillingBlockListComponent } from './components/billing-block/billing-block-list/billing-block-list.component';
 import { AddBillingBlockComponent } from './components/billing-block/add-billing-block/add-billing-block.component';
-import { ErrorPoTypeComponent } from './components/po-type/error-po-type/error-po-type.component';
 import { EditCompanyCodeComponent } from './components/company-code/edit-company-code/edit-company-code/edit-company-code.component';
 import { EditPlantDataComponent } from './components/plant-data/edit-plant-data/edit-plant-data.component';
 
@@ -140,10 +139,7 @@ const routes: Routes = [
     path:'edit-company-code/:id',
     component:EditCompanyCodeComponent
   }
-  ,{
-    path:'error-po-type',
-    component:ErrorPoTypeComponent
-  }
+ 
 ];
 
 @NgModule({

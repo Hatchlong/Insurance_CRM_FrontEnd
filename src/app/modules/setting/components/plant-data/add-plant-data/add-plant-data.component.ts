@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PlantDataService } from '../../../Services/plant-data/plant-data.service';
 import { Router } from '@angular/router';
 import { CompanyCodeService } from '../../../Services/company-code/company-code.service';
+import { PurchaseOrgService } from '../../../Services/purchase-org/purchase-org.service';
 
 @Component({
   selector: 'app-add-plant-data',
@@ -14,16 +15,23 @@ export class AddPlantDataComponent {
   countryDetials: any = []
   citiesDetails: any = []
   languageName: any = []
+  purDetails:any=[];
+  taxDetails:any = [];
+  storgaeLocationDetails:any = []
 
   constructor(private fb: FormBuilder,
     private plantDataSer: PlantDataService,
     private router: Router,
-    private companyCodeSer: CompanyCodeService
+    private companyCodeSer: CompanyCodeService,
+    private purOrgSer:PurchaseOrgService
   ) { }
 
   ngOnInit(): void {
     this.getCountryDetails()
     this.plantData()
+    this.getPurchaseOrgDetail()
+    this.getStorageLocationDetail();
+    this.getTaxIndicatorDetail()
   }
 
   plantData() {
@@ -34,8 +42,8 @@ export class AddPlantDataComponent {
       languageId: ['', Validators.required],
       address: ['', Validators.required],
       countryId: ['', Validators.required],
+      countryName:['', Validators.required],
       cityId: ['', Validators.required],
-
       contactPersonName: ['', Validators.required],
       contactNumber: ['', Validators.required],
       timeZone: ['', Validators.required],
@@ -43,9 +51,13 @@ export class AddPlantDataComponent {
       customerNo_plant: ['', Validators.required],
       vendorNumberPlant: ['', Validators.required],
       purchaseOrganizationId: ['', Validators.required],
+      purchaseOrganizationName:['', Validators.required],
       salesOrganizationId: ['', Validators.required],
+      salesOrganizationName:['fuffgf', Validators.required],
       taxIndicatorId: ['', Validators.required],
+      taxIndicatorName:['', Validators.required],
       stoargeLocationId: ['', Validators.required],
+      stoargeLocationName:['', Validators.required]
     })
   }
 
@@ -53,6 +65,7 @@ export class AddPlantDataComponent {
 
   async submitData() {
     try {
+      console.log(this.plantFormData.value)
       if (this.plantFormData.invalid)
         return alert('Please fill all the fields');
       const result: any = await this.plantDataSer.createPlantDataDetails(this.plantFormData.value);
@@ -86,6 +99,58 @@ export class AddPlantDataComponent {
     }
   }
 
+    // get purchase organization
+
+    async getPurchaseOrgDetail(){
+      try {
+        const result:any=await this.purOrgSer.getAllPurchaseOrgDetails()
+        if(result.status==='1'){
+          this.purDetails=result.data
+        }
+        else{
+          alert("API FAiled")
+        }
+      } catch (error) {
+        console.error(error);
+        
+      }
+    }
+
+
+     // get purchase organization
+
+     async getTaxIndicatorDetail(){
+      try {
+        const result:any=await this.plantDataSer.getAllTaxDetails()
+        if(result.status==='1'){
+          this.taxDetails=result.data
+        }
+        else{
+          alert("API FAiled")
+        }
+      } catch (error) {
+        console.error(error);
+        
+      }
+    }
+
+     // get purchase organization
+
+     async getStorageLocationDetail(){
+      try {
+        const result:any=await this.plantDataSer.getAllStorageLocationsDetails()
+        if(result.status==='1'){
+          this.storgaeLocationDetails=result.data
+        }
+        else{
+          alert("API FAiled")
+        }
+      } catch (error) {
+        console.error(error);
+        
+      }
+    }
+
 
   async getSingleLanguage(id: any) {
     try {
@@ -105,7 +170,28 @@ export class AddPlantDataComponent {
   selectCountryName(event: any) {
     console.log(event.target.value)
     this.citiesDetails = this.countryDetials.find((el: any) => el._id === event.target.value);
+    console.log(this.citiesDetails)
+    this.plantFormData.controls.countryName.setValue(this.citiesDetails.countryName)
     this.plantFormData.controls.languageId.setValue(this.citiesDetails.languageId)
     this.getSingleLanguage(this.citiesDetails.languageId)
+  }
+
+  // Add the purchase Name
+  handlePurchaseOrg(event:any){
+    const findPurchaseDetail = this.purDetails.find((el: any) => el._id === event.target.value);
+    this.plantFormData.controls.purchaseOrganizationName.setValue(findPurchaseDetail.purchase_org)  
+  }
+
+   // Add the purchase Name
+   handleTax(event:any){
+    const findPurchaseDetail = this.taxDetails.find((el: any) => el.tax_ind_code === +event.target.value);
+    console.log(findPurchaseDetail, this.taxDetails,event.target.value,'findPurchaseDetail')
+    this.plantFormData.controls.taxIndicatorName.setValue(findPurchaseDetail.description)  
+  }
+
+   // Add the purchase Name
+   handleStorageLocation(event:any){
+    const findPurchaseDetail = this.storgaeLocationDetails.find((el: any) => el.stor_loc_id === +event.target.value);
+    this.plantFormData.controls.stoargeLocationName.setValue(findPurchaseDetail.description)  
   }
 }

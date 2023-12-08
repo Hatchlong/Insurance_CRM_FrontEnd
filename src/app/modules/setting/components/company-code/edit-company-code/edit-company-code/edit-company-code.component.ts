@@ -38,6 +38,7 @@ export class EditCompanyCodeComponent {
         companyCode:['', Validators.required],
         companyName:['', Validators.required],
         countryId:['', Validators.required],
+        countryName:['',Validators.required],
         city:['', Validators.required],
         currency:['', Validators.required],
         languageId:['', Validators.required]
@@ -53,6 +54,8 @@ export class EditCompanyCodeComponent {
           this.companyCode.patchValue(result.data)
           console.log(result.data)
           this.citiesDetails = this.countryDetials.find((el:any)=>el._id===this.companyCode.value.countryId)
+          this.companyCode.controls.currency.setValue(this.citiesDetails?.countryCurrency)
+          this.companyCode.controls.languageId.setValue(this.citiesDetails.languageId)
           this.getSingleLanguage(this.citiesDetails.languageId)
         }
       } catch (error) {
@@ -132,6 +135,8 @@ export class EditCompanyCodeComponent {
   selectCountryName(event:any){
     console.log(event.target.value)
     this.citiesDetails = this.countryDetials.find((el:any) => el._id === event.target.value);
+    this.companyCode.controls.countryName.setValue(this.citiesDetails.countryName)
+
     this.companyCode.controls.currency.setValue(this.citiesDetails?.countryCurrency)
     this.companyCode.controls.languageId.setValue(this.citiesDetails.languageId)
 
