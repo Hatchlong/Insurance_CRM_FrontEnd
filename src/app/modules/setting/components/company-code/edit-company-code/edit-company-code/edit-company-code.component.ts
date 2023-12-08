@@ -26,10 +26,10 @@ export class EditCompanyCodeComponent {
     ngOnInit(): void {
         this.companyCodeId= this.activeRouter.snapshot.paramMap.get('id');
         console.log(this.companyCodeId)
-        this.getSingleCompanyCodeDetails()
         this.getCompanyDetails()
         this.getCountryDetails()
         this.code()
+        this.getSingleCompanyCodeDetails()
     }
  
     code(){
@@ -52,8 +52,9 @@ export class EditCompanyCodeComponent {
         const result: any = await this.companyCodeSer.singleCompanyCode(this.companyCodeId);
         if (result.status === '1') {
           this.companyCode.patchValue(result.data)
-          console.log(result.data)
-          this.citiesDetails = this.countryDetials.find((el:any)=>el._id===this.companyCode.value.countryId)
+          console.log(result.data, this.companyCode.value.countryId, this.countryDetials)
+          this.citiesDetails = this.countryDetials.find((el:any)=>el._id===this.companyCode.value.countryId);
+          console.log(this.citiesDetails, 'jjjjj')
           this.companyCode.controls.currency.setValue(this.citiesDetails?.countryCurrency)
           this.companyCode.controls.languageId.setValue(this.citiesDetails.languageId)
           this.getSingleLanguage(this.citiesDetails.languageId)
