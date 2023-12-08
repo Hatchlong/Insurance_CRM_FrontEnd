@@ -55,15 +55,33 @@ export class AddBillingComponent {
 
   getFinancialFields(): FormGroup {
     return this.fb.group({
-      financialTax1: [''],
-      financialTax2: [''],
-      vatReg: [''],
-
-      bankKey: [''],
-      bankAcc: [''],
-      refDetails: [''],
-      accHolder: [''],
-      bankD: ['']
+      buildQty: [''],
+      uom: [''],
+      grossweight: [''],
+      netWeight:[''],
+      volume: [''],
+      salesorder: [''],
+      salesorderitem: [''],
+      referenceDoc: [''],
+      pricingDate: [''],
+      servicerender:[''],
+      priceAmount:[''],
+      perunitPrice:[''],
+      pricingUnit:[''],
+      tax:[''],
+      perUnitTax:[''],
+      discount:[''],
+      perDiscount:[''],
+      freight:[''],
+      perFreight:[''],
+      companyCurrency:[''],
+      transactionCurrency:[''],
+      exchangeRate:[''],
+      hsn:[''],
+      countryOrigin:[''],
+      destination:[''],
+      poNumber:[''],
+      poDate:['']
     })
   }
 
