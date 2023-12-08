@@ -17,7 +17,7 @@ export class EditPlantDataComponent {
   plantDataId: any = []
   countryDetials: any = []
   citiesDetails: any = []
-  languageName: any = []
+  languageName: any = ''
   purDetails: any = []
 
   constructor(
@@ -32,7 +32,6 @@ export class EditPlantDataComponent {
 
   ngOnInit(): void {
     this.plantDataId = this.activeRouter.snapshot.paramMap.get('id');
-    console.log(this.plantDataId)
     this.plantData()
     this.getCountryDetails()
     this.getPurchaseOrgDetail()
@@ -74,9 +73,9 @@ export class EditPlantDataComponent {
       if (result.status === '1') {
         this.plantsData.patchValue(result.data)
         this.citiesDetails = this.countryDetials.find((el: any) => el._id === this.plantsData.value.countryId);
-        // this.plantsData.controls.languageId.setValue(this.citiesDetails.languageId)
+        this.plantsData.controls.languageId.setValue(this.citiesDetails.languageId)
+
         this.getSingleLanguage(this.citiesDetails.languageId)
-        console.log(this.languageName,this.citiesDetails);
         
 
       }
@@ -94,7 +93,6 @@ export class EditPlantDataComponent {
       if (this.plantsData.invalid)
         return alert('Please fill all the fields');
       const result: any = await this.plantDataSer.updatePlantData(this.plantsData.value);
-      console.log(result)
       if (result.status === '1') {
         alert(result.message);
         this.router.navigate(['/settings/plant-data-list']);
@@ -103,7 +101,6 @@ export class EditPlantDataComponent {
       if (result.status === '0')
         return alert(result.message);
     } catch (error) {
-      console.log(error)
     }
   }
 
@@ -117,7 +114,6 @@ export class EditPlantDataComponent {
       } else {
         alert('API failed')
       }
-      console.log(result);
     } catch (error) {
       console.error(error)
       alert('API failed')
@@ -147,12 +143,9 @@ export class EditPlantDataComponent {
       const result: any = await this.companyCodeSer.singleLanguageDetails(id);
       if (result.status === '1') {
         this.languageName = result.data.languageName
-        console.log(result);
-        
       } else {
         alert('API failed')
       }
-      console.log(result);
     } catch (error) {
       console.error(error)
       alert('API failed')
@@ -160,7 +153,6 @@ export class EditPlantDataComponent {
   }
 
   selectCountryName(event: any) {
-    console.log(event.target.value)
     this.citiesDetails = this.countryDetials.find((el: any) => el._id === event.target.value);
     this.plantsData.controls.languageId.setValue(this.citiesDetails.languageId)
     this.getSingleLanguage(this.citiesDetails.languageId)

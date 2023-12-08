@@ -15,7 +15,9 @@ export class AddPlantDataComponent {
   countryDetials: any = []
   citiesDetails: any = []
   languageName: any = []
-  purDetails:any=[]
+  purDetails:any=[];
+  taxDetails:any = [];
+  storgaeLocationDetails:any = []
 
   constructor(private fb: FormBuilder,
     private plantDataSer: PlantDataService,
@@ -38,8 +40,8 @@ export class AddPlantDataComponent {
       languageId: ['', Validators.required],
       address: ['', Validators.required],
       countryId: ['', Validators.required],
+      countryName:['', Validators.required],
       cityId: ['', Validators.required],
-
       contactPersonName: ['', Validators.required],
       contactNumber: ['', Validators.required],
       timeZone: ['', Validators.required],
@@ -47,9 +49,13 @@ export class AddPlantDataComponent {
       customerNo_plant: ['', Validators.required],
       vendorNumberPlant: ['', Validators.required],
       purchaseOrganizationId: ['', Validators.required],
+      purchaseOrganizationName:['', Validators.required],
       salesOrganizationId: ['', Validators.required],
+      salesOrganizationName:['', Validators.required],
       taxIndicatorId: ['', Validators.required],
+      taxIndicatorName:['', Validators.required],
       stoargeLocationId: ['', Validators.required],
+      stoargeLocationName:['', Validators.required]
     })
   }
 
@@ -108,6 +114,41 @@ export class AddPlantDataComponent {
     }
 
 
+     // get purchase organization
+
+     async getTaxIndicatorDetail(){
+      try {
+        const result:any=await this.plantDataSer.getAllTaxDetails()
+        if(result.status==='1'){
+          this.taxDetails=result.data
+        }
+        else{
+          alert("API FAiled")
+        }
+      } catch (error) {
+        console.error(error);
+        
+      }
+    }
+
+     // get purchase organization
+
+     async getStorageLocationDetail(){
+      try {
+        const result:any=await this.plantDataSer.getAllStorageLocationsDetails()
+        if(result.status==='1'){
+          this.storgaeLocationDetails=result.data
+        }
+        else{
+          alert("API FAiled")
+        }
+      } catch (error) {
+        console.error(error);
+        
+      }
+    }
+
+
   async getSingleLanguage(id: any) {
     try {
       const result: any = await this.companyCodeSer.singleLanguageDetails(id);
@@ -126,7 +167,15 @@ export class AddPlantDataComponent {
   selectCountryName(event: any) {
     console.log(event.target.value)
     this.citiesDetails = this.countryDetials.find((el: any) => el._id === event.target.value);
+    console.log(this.citiesDetails)
+    this.plantFormData.controls.countryName.setValue(this.citiesDetails.countryName)
     this.plantFormData.controls.languageId.setValue(this.citiesDetails.languageId)
     this.getSingleLanguage(this.citiesDetails.languageId)
+  }
+
+  // Add the purchase Name
+  handlePurchaseOrg(event:any){
+    const findPurchaseDetail = this.purDetails.find((el: any) => el._id === event.target.value);
+    this.plantFormData.controls.purchaseOrganizationName.setValue(findPurchaseDetail.purchase_org)  
   }
 }

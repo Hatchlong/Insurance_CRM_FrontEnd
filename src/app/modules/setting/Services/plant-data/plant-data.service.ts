@@ -39,4 +39,14 @@ export class PlantDataService {
     return this.http.get(`http://localhost:4000/api/master/language/get/${id}`).toPromise()
   }
 
+  // get All Tax Indicators
+  getAllTaxDetails(){
+    return this.http.get('http://localhost:4000/api/config/tax/getAll').toPromise()
+  }
+
+   // get All Storage Location
+   getAllStorageLocationsDetails(){
+    return this.http.get('http://localhost:4000/api/config/storageLocation/getAll').toPromise()
+  }
+
 }
