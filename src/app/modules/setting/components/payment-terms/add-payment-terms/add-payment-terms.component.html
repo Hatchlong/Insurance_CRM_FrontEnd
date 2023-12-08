@@ -3,28 +3,45 @@
         <h2><mat-icon class="back" routerLink="/settings/payment-terms-list">arrow_back</mat-icon>Payment Term</h2>
         <div class="row">
             <div class="col-6">
-               
                 <span for="" class="">Payment Term</span>
                 <input type="text" class="form-control mb-3" placeholder="Enter Payment Term" formControlName="paymentTerm">
+            </div>
+            <div class="col-6">
                 <span for="" class="">Description</span>
                 <input type="text" class="form-control mb-3" placeholder="Enter Description" formControlName="description">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
                 <span for="" class="">Day Limit</span>
                 <input type="text" class="form-control mb-3" placeholder="Enter Day Limit" formControlName="dayLimit">
+            </div>
+            <div class="col-6">
                 <span for="" class="">Account Type</span>
                 <input type="text" class="form-control mb-3" placeholder="Enter Account" formControlName="accountType">
-                 
-                
             </div>
-            <div class="col-6 " >
+        </div>
                 
+              
+        <div class="row">
+            <div class="col-6">
                 <span for="" class="">Fixed Days</span>
                 <input type="text" class="form-control mb-3" placeholder="" formControlName="fixedBaseLineDate">
+            </div>
+            <div class="col-6">
                 <span for="" class="">Additional Month</span>
                 <input type="text" class="form-control mb-3" placeholder="" formControlName="additionalBaselineDataCalculation">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-6">
                 <span for="" class="mt-5">Baseline Date</span>
                 <input type="text" class="form-control mb-3" placeholder="" formControlName="defaultBaselineDate">
             </div>
         </div>
+           
         <div class="col-2">
             <button type="submit" class="btn btn-primary" style="background-color: #00acff;">Submit</button>
         </div>

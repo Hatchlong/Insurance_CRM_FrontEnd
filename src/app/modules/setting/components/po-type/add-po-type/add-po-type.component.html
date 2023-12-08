@@ -3,22 +3,33 @@
         <h2><mat-icon class="back" routerLink="/settings/po-type-list">arrow_back</mat-icon>PO Type</h2>
         <div class="row">
             <div class="col-6">
-                
                 <span for="" class="">PO Type</span>
                 <input type="text" class="form-control mb-3" placeholder="Enter PO" formControlName="poType">
+            </div>
+            <div class="col-6">
                 <span for="" class="">PO Type Description</span>
                 <input type="text" class="form-control mb-3" placeholder="Enter Description" formControlName="poTypeDescription">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
                 <span for="" class="">Item Number</span>
                 <input type="text" class="form-control mb-3" placeholder="Enter Item Number" formControlName="itemNumberInterval">
             </div>
             <div class="col-6">
                 <span for="" class="">Internal Number</span>
                 <input type="text" class="form-control mb-3" placeholder="Enter Internal Number" formControlName="internalNumberRangeAssignment">
-                <span for="" class="">External Number</span>
-                <input type="text" class="form-control mb-3" placeholder="Enter External Number" formControlName="externalNumberRangeAssignment">
-               
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-6">
+                <span for="" class="">External Number</span>
+                <input type="text" class="form-control mb-3" placeholder="Enter External Number" formControlName="externalNumberRangeAssignment">
+            </div>
+        </div>
+        
         <div class="col-2">
             <button type="submit" class="btn btn-primary" style="background-color: #00acff;">Submit</button>
         </div>
