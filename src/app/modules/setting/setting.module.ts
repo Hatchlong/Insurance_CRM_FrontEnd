@@ -25,7 +25,6 @@ import { CompanyCodeService } from './Services/company-code/company-code.service
 import { HttpClientModule } from '@angular/common/http';
 import { PoTypeService } from './Services/po-type.service';
 import { EditPurchaseOrgComponent } from './components/purchase-org/edit-purchase-org/edit-purchase-org.component';
-import { ErrorPoTypeComponent } from './components/po-type/error-po-type/error-po-type.component';
 import { PlantDataService } from './Services/plant-data/plant-data.service';
 import { EditCompanyCodeComponent } from './components/company-code/edit-company-code/edit-company-code/edit-company-code.component';
 import { EditPlantDataComponent } from './components/plant-data/edit-plant-data/edit-plant-data.component';
@@ -59,7 +58,6 @@ import { AddBillingBlockComponent } from './components/billing-block/add-billing
     AddPlantDataComponent,
     PlantDataListComponent,
     EditPurchaseOrgComponent,
-    ErrorPoTypeComponent,
     EditCompanyCodeComponent,
     EditPlantDataComponent,
     UpdatePoTypeComponent,

@@ -13,7 +13,12 @@ export class SideNavComponent implements OnInit {
   constructor(
     private router:Router
   ) {
-
+    if(localStorage.getItem('selectedName')){
+      this.SelectedName = localStorage.getItem('selectedName')
+    }
+    if(localStorage.getItem('subFolderName')){
+      this.subFolderName = localStorage.getItem('subFolderName')
+    }
   }
 
   ngOnInit(): void {
@@ -32,6 +37,9 @@ export class SideNavComponent implements OnInit {
     this.SelectedName = data.name;
     this.subFolderName = data.main
     this.router.navigate([`${url}`])
+    localStorage.setItem('selectedName', data.name)
+    localStorage.setItem('subFolderName', data.main)
+
   }
 
   closeNav(){
