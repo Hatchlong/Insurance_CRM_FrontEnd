@@ -4,6 +4,7 @@ import { PlantDataService } from '../../../Services/plant-data/plant-data.servic
 import { Router } from '@angular/router';
 import { CompanyCodeService } from '../../../Services/company-code/company-code.service';
 import { PurchaseOrgService } from '../../../Services/purchase-org/purchase-org.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-plant-data',
@@ -15,15 +16,15 @@ export class AddPlantDataComponent {
   countryDetials: any = []
   citiesDetails: any = []
   languageName: any = []
-  purDetails:any=[];
-  taxDetails:any = [];
-  storgaeLocationDetails:any = []
+  purDetails: any = [];
+  taxDetails: any = [];
+  storgaeLocationDetails: any = []
 
   constructor(private fb: FormBuilder,
     private plantDataSer: PlantDataService,
     private router: Router,
     private companyCodeSer: CompanyCodeService,
-    private purOrgSer:PurchaseOrgService
+    private purOrgSer: PurchaseOrgService
   ) { }
 
   ngOnInit(): void {
@@ -32,6 +33,7 @@ export class AddPlantDataComponent {
     this.getPurchaseOrgDetail()
     this.getStorageLocationDetail();
     this.getTaxIndicatorDetail()
+    
   }
 
   plantData() {
@@ -42,7 +44,7 @@ export class AddPlantDataComponent {
       languageId: ['', Validators.required],
       address: ['', Validators.required],
       countryId: ['', Validators.required],
-      countryName:['', Validators.required],
+      countryName: [''],
       cityId: ['', Validators.required],
       contactPersonName: ['', Validators.required],
       contactNumber: ['', Validators.required],
@@ -51,13 +53,13 @@ export class AddPlantDataComponent {
       customerNo_plant: ['', Validators.required],
       vendorNumberPlant: ['', Validators.required],
       purchaseOrganizationId: ['', Validators.required],
-      purchaseOrganizationName:['', Validators.required],
+      purchaseOrganizationName: ['', Validators.required],
       salesOrganizationId: ['', Validators.required],
-      salesOrganizationName:['fuffgf', Validators.required],
+      salesOrganizationName: ['sales', Validators.required],
       taxIndicatorId: ['', Validators.required],
-      taxIndicatorName:['', Validators.required],
+      taxIndicatorName: ['', Validators.required],
       stoargeLocationId: ['', Validators.required],
-      stoargeLocationName:['', Validators.required]
+      stoargeLocationName: ['', Validators.required]
     })
   }
 
@@ -67,11 +69,22 @@ export class AddPlantDataComponent {
     try {
       console.log(this.plantFormData.value)
       if (this.plantFormData.invalid)
-        return alert('Please fill all the fields');
+        return Swal.fire({
+          title: 'warning',
+          text: 'All Field Are Required',
+          icon: 'warning',
+          showCancelButton: true
+        })
       const result: any = await this.plantDataSer.createPlantDataDetails(this.plantFormData.value);
       console.log(result)
       if (result.status === '1') {
-        alert(result.message);
+        // alert(result.message);
+        Swal.fire({
+          title: 'success',
+          text: 'Plant Data Processed Successfully',
+          icon: 'success',
+          showCancelButton: true
+        })
         this.router.navigate(['/settings/plant-data-list']);
         return;
       }
@@ -90,66 +103,90 @@ export class AddPlantDataComponent {
       if (result.status === '1') {
         this.countryDetials = result.data;
       } else {
-        alert('API failed')
+        // alert('API failed')
+        Swal.fire({
+          title: 'warning',
+          text: 'API Failed',
+          icon: 'warning',
+          showCancelButton: true
+        })
       }
       console.log(result);
     } catch (error) {
       console.error(error)
-      alert('API failed')
+      // alert('API failed')
+      Swal.fire({
+          title: 'warning',
+          text: 'API Failed',
+          icon: 'warning',
+          showCancelButton: true
+        })
     }
   }
 
-    // get purchase organization
+  // get purchase organization
 
-    async getPurchaseOrgDetail(){
-      try {
-        const result:any=await this.purOrgSer.getAllPurchaseOrgDetails()
-        if(result.status==='1'){
-          this.purDetails=result.data
-        }
-        else{
-          alert("API FAiled")
-        }
-      } catch (error) {
-        console.error(error);
-        
+  async getPurchaseOrgDetail() {
+    try {
+      const result: any = await this.purOrgSer.getAllPurchaseOrgDetails()
+      if (result.status === '1') {
+        this.purDetails = result.data
       }
-    }
-
-
-     // get purchase organization
-
-     async getTaxIndicatorDetail(){
-      try {
-        const result:any=await this.plantDataSer.getAllTaxDetails()
-        if(result.status==='1'){
-          this.taxDetails=result.data
-        }
-        else{
-          alert("API FAiled")
-        }
-      } catch (error) {
-        console.error(error);
-        
+      else {
+        alert("API FAiled")
       }
+    } catch (error) {
+      console.error(error);
+
     }
+  }
 
-     // get purchase organization
 
-     async getStorageLocationDetail(){
-      try {
-        const result:any=await this.plantDataSer.getAllStorageLocationsDetails()
-        if(result.status==='1'){
-          this.storgaeLocationDetails=result.data
-        }
-        else{
-          alert("API FAiled")
-        }
-      } catch (error) {
-        console.error(error);
-        
+  // get purchase organization
+
+  async getTaxIndicatorDetail() {
+    try {
+      const result: any = await this.plantDataSer.getAllTaxDetails()
+      if (result.status === '1') {
+        this.taxDetails = result.data
       }
+      else {
+        // alert("API FAiled")
+        Swal.fire({
+          title: 'warning',
+          text: 'API Failed',
+          icon: 'warning',
+          showCancelButton: true
+        })
+      }
+    } catch (error) {
+      console.error(error);
+
     }
+  }
+
+  // get purchase organization
+
+  async getStorageLocationDetail() {
+    try {
+      const result: any = await this.plantDataSer.getAllStorageLocationsDetails()
+      if (result.status === '1') {
+        this.storgaeLocationDetails = result.data
+      }
+      else {
+        // alert("API FAiled")
+        Swal.fire({
+          title: 'warning',
+          text: 'API Failed',
+          icon: 'warning',
+          showCancelButton: true
+        })
+      }
+    } catch (error) {
+      console.error(error);
+
+    }
+  }
 
 
   async getSingleLanguage(id: any) {
@@ -158,12 +195,24 @@ export class AddPlantDataComponent {
       if (result.status === '1') {
         this.languageName = result.data.languageName
       } else {
-        alert('API failed')
+        // alert('API failed')
+        Swal.fire({
+          title: 'warning',
+          text: 'API Failed',
+          icon: 'warning',
+          showCancelButton: true
+        })
       }
       console.log(result);
     } catch (error) {
       console.error(error)
-      alert('API failed')
+      // alert('API failed')
+      Swal.fire({
+          title: 'warning',
+          text: 'API Failed',
+          icon: 'warning',
+          showCancelButton: true
+        })
     }
   }
 
@@ -177,21 +226,21 @@ export class AddPlantDataComponent {
   }
 
   // Add the purchase Name
-  handlePurchaseOrg(event:any){
+  handlePurchaseOrg(event: any) {
     const findPurchaseDetail = this.purDetails.find((el: any) => el._id === event.target.value);
-    this.plantFormData.controls.purchaseOrganizationName.setValue(findPurchaseDetail.purchase_org)  
+    this.plantFormData.controls.purchaseOrganizationName.setValue(findPurchaseDetail.purchase_org)
   }
 
-   // Add the purchase Name
-   handleTax(event:any){
+  // Add the purchase Name
+  handleTax(event: any) {
     const findPurchaseDetail = this.taxDetails.find((el: any) => el.tax_ind_code === +event.target.value);
-    console.log(findPurchaseDetail, this.taxDetails,event.target.value,'findPurchaseDetail')
-    this.plantFormData.controls.taxIndicatorName.setValue(findPurchaseDetail.description)  
+    console.log(findPurchaseDetail, this.taxDetails, event.target.value, 'findPurchaseDetail')
+    this.plantFormData.controls.taxIndicatorName.setValue(findPurchaseDetail.description)
   }
 
-   // Add the purchase Name
-   handleStorageLocation(event:any){
+  // Add the purchase Name
+  handleStorageLocation(event: any) {
     const findPurchaseDetail = this.storgaeLocationDetails.find((el: any) => el.stor_loc_id === +event.target.value);
-    this.plantFormData.controls.stoargeLocationName.setValue(findPurchaseDetail.description)  
+    this.plantFormData.controls.stoargeLocationName.setValue(findPurchaseDetail.description)
   }
 }

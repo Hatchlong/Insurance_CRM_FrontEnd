@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompanyCodeService } from '../../../Services/company-code/company-code.service';
 import { PurchaseOrgService } from '../../../Services/purchase-org/purchase-org.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-purchase-org',
@@ -19,10 +20,10 @@ export class AddPurchaseOrgComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.getCompanyDetails()
     this.purchOrgData()
-  } 
+  }
 
   purchOrgData() {
     this.purchOrg = this.fb.group({
@@ -37,13 +38,24 @@ export class AddPurchaseOrgComponent implements OnInit {
   async submitData() {
     try {
       if (this.purchOrg.invalid) {
-        return alert('Please fill all the fields');
+        return Swal.fire({
+          title: 'warning',
+          text: 'All Field Are Required',
+          icon: 'warning',
+          showCancelButton: true
+        })
 
       }
       const result: any = await this.purchaseOrgSer.createPurchaseOrgDetails(this.purchOrg.value);
       console.log(result)
       if (result.status === '1') {
-        alert(result.message);
+        // alert(result.message);
+        Swal.fire({
+          title: 'success',
+          text: 'Purchase Org Processed Successfully',
+          icon: 'success',
+          showCancelButton: true
+        })
         this.router.navigate(['/settings/purchase-org-list']);
         return;
       }

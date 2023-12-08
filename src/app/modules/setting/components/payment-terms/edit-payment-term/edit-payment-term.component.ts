@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaymentTermService } from '../../../Services/payment-term/payment-term.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-payment-term',
@@ -59,13 +60,24 @@ export class EditPaymentTermComponent {
   async submitData() {
     try {
       if (this.payTem.invalid) {
-        return alert('Please fill all the fields');
+        return Swal.fire({
+          title: 'warning',
+          text: 'All Field Are Required',
+          icon: 'warning',
+          showCancelButton: true
+        })
 
       }
       const result: any = await this.paymentSer.updatePaymentTerm(this.payTem.value);
       console.log(result)
       if (result.status === '1') {
-        alert(result.message);
+        // alert(result.message);
+        Swal.fire({
+          title: 'success',
+          text: 'Payment Term Updated Successfully',
+          icon: 'success',
+          showCancelButton: true
+        })
         this.router.navigate(['/settings/payment-terms-list']);
         return;
       }

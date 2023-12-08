@@ -43,8 +43,6 @@ import { CustomerAccListComponent } from './components/customer-account-AG/custo
 import { AddCustomerAccComponent } from './components/customer-account-AG/add-customer-acc/add-customer-acc.component';
 import { BillingBlockListComponent } from './components/billing-block/billing-block-list/billing-block-list.component';
 import { AddBillingBlockComponent } from './components/billing-block/add-billing-block/add-billing-block.component';
-import { StorageLocationService } from './Services/storage-location/storage-location.service';
-import { TaxService } from './Services/tax/tax.service';
 
 
 @NgModule({
@@ -90,6 +88,6 @@ import { TaxService } from './Services/tax/tax.service';
     HttpClientModule,
     
   ],
-  providers:[PurchaseOrgService, CompanyCodeService,PoTypeService,PlantDataService, PaymentTermService,StorageLocationService,TaxService]
+  providers:[PurchaseOrgService, CompanyCodeService,PoTypeService,PlantDataService, PaymentTermService]
 })
 export class SettingModule { }
