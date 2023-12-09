@@ -12,13 +12,17 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AddGoodsReceiptComponent } from './components/goods-receipt/add-goods-receipt/add-goods-receipt.component';
+import { GoodsReceiptListComponent } from './components/goods-receipt/goods-receipt-list/goods-receipt-list.component';
 
 
 @NgModule({
   declarations: [
     AddPurchaseOrderComponent,
     PurchaseOrderListComponent,
-    AddVendorInvoiceComponent
+    AddVendorInvoiceComponent,
+    AddGoodsReceiptComponent,
+    GoodsReceiptListComponent
   ],
   imports: [
     CommonModule,

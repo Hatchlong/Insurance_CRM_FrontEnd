@@ -1,0 +1,124 @@
+<!-- <p>add-goods-receipt works!</p> -->
+<!-- <p>add-goods-receipt works!</p> -->
+<div class="container-fluid">
+    <form [formGroup]="goodsReceipt" (ngSubmit)="addCode()">
+        <h2><mat-icon class="back" routerLink="/purchase/goods-receipt-list">arrow_back</mat-icon>Goods Receipt</h2>
+        <div class="row">
+            <div class="col-6">
+                <span for="" class="">Reference PO</span>
+                <input type="text" class="form-control mb-3" placeholder="Enter reference po" formControlName="referencePo">
+              </div>
+  
+            <div class="col-6">
+                <span for="" class="">Posting Date</span>
+                <input type="date" class="form-control mb-3"  formControlName="postingDate">
+            </div>
+           
+        </div>
+  
+        <div class="row">
+          <div class="col-6">
+            <span for="" class="">Document Date</span>
+                <input type="date" class="form-control mb-3"  formControlName="documentDate">
+          </div>  
+        </div>
+  
+        <h2>Item Data</h2>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-end">
+                <button type="button" class="btn btn-primary m-1" (click)="addItem()"
+                    style="color: white;background-color: #00acff;">Add Item</button>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th *ngIf="detail.controls.length > 1">Actions</th>
+                            <th>Product ID</th>
+                            <th>Plant</th>
+                            <th>Storage Location</th>
+                            <th>PO Qty</th>
+                            <th>GR Qty</th>
+                            <th>UOM</th>
+                            <th>G/L Account</th>
+                            <th>Stock Type</th>
+                            
+                        </tr>
+                    </thead>
+  
+                    <tbody formArrayName="itemList">
+                        <tr *ngFor="let pruchaseOrder of detail.controls; let i = index;" [formGroupName]="i">
+                            <td *ngIf="detail.controls.length > 1">
+                                <mat-icon style="cursor:pointer" (click)="deleterow(i)">delete</mat-icon>
+                            </td>
+                            <td>
+                              <input type="text" class="form-control mb-3" placeholder="Enter Product ID"
+                                  formControlName="productId">
+                          </td>
+                            <td>
+                                <select class="form-select mb-3" aria-label="Default select example"
+                                    formControlName="plant">
+                                    <option selected>Plant</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </td>
+                            <td>
+                              <select class="form-select mb-3" aria-label="Default select example"
+                                  formControlName="storageLocation">
+                                  <option selected>Storage Location</option>
+                                  <option value="1">One</option>
+                                  <option value="2">Two</option>
+                                  <option value="3">Three</option>
+                              </select>
+                          </td>
+                            <td>
+                                <input type="number" class="form-control mb-3" placeholder="Enter PO Qty"
+                                    formControlName="poQty">
+                            </td>
+                            <td>
+                                <input type="number" class="form-control mb-3" placeholder="Enter GR Qty"
+                                    formControlName="grQty">
+                            </td>
+                            <td>
+                                <select class="form-select mb-3" aria-label="Default select example"
+                                    formControlName="uom">
+                                    <option selected>UOM</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-select mb-3" aria-label="Default select example"
+                                    formControlName="glAccount">
+                                    <option selected>G/L Account</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-select mb-3" aria-label="Default select example"
+                                    formControlName="stockType">
+                                    <option selected>Stock Type</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </td>
+                            
+                           
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+  
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-primary" style="background-color: #00acff;">Submit</button>
+        </div>
+    </form>
+  </div>
+  

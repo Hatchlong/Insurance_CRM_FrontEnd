@@ -28,6 +28,10 @@ import { BillingBlockListComponent } from './components/billing-block/billing-bl
 import { AddBillingBlockComponent } from './components/billing-block/add-billing-block/add-billing-block.component';
 import { EditCompanyCodeComponent } from './components/company-code/edit-company-code/edit-company-code/edit-company-code.component';
 import { EditPlantDataComponent } from './components/plant-data/edit-plant-data/edit-plant-data.component';
+import { AddIncoTermComponent } from './components/inco-term/add-inco-term/add-inco-term.component';
+import { IncoTermListComponent } from './components/inco-term/inco-term-list/inco-term-list.component';
+import { AddSalesOrgComponent } from './components/sales-org/add-sales-org/add-sales-org.component';
+import { SalesOrgListComponent } from './components/sales-org/sales-org-list/sales-org-list.component';
 
 const routes: Routes = [
   {
@@ -138,6 +142,22 @@ const routes: Routes = [
   {
     path:'edit-company-code/:id',
     component:EditCompanyCodeComponent
+  },
+  {
+    path:'add-inco-term',
+    component:AddIncoTermComponent
+  },
+  {
+    path:'inco-term-list',
+    component:IncoTermListComponent
+  },
+  {
+    path:'add-sales-org',
+    component:AddSalesOrgComponent
+  },
+  {
+    path:'sales-org-list',
+    component:SalesOrgListComponent
   }
  
 ];

@@ -1,0 +1,37 @@
+<!-- <p>add-inco-term works!</p> -->
+<div class="container-fluid">
+    <h2><mat-icon class="back" routerLink="/settings/purchase-org-list">arrow_back</mat-icon>Inco Term</h2>
+
+    <form  [formGroup]="incoTerm" (ngSubmit)="submitData()" >       
+            <div class="row ms-3">
+                <div class="col-6 mt-4">
+                    <span for="">Inco Term Id </span>
+                    <input
+                      type="text"
+                      formControlName="incoTermId"
+                      class="form-control"
+                    /> 
+                </div>
+                <div class="col-6 mt-4">
+                    <span for="">Description</span>
+                    <input
+                      type="text"
+                      formControlName="description"
+                      class="form-control"
+                    /> 
+                  </div>    
+            </div>
+ 
+           
+            <button type="submit" class="btnBg2 border-0 rounded mt-4 mx-4 mb-4 h-25" > Submit </button>
+        
+
+        </form>
+
+        
+   
+</div>
+
+
+
+

@@ -1,0 +1,108 @@
+<!-- <p>add-sales-org works!</p> -->
+
+<!-- <p>add-sales-org works!</p> -->
+<div class="container-fluid">
+    <form [formGroup]="salesOrg" (ngSubmit)="addCode()">
+      <h2>
+        <mat-icon class="back" routerLink="/settings/sales-org-list"
+          >arrow_back</mat-icon
+        >Sales Org
+      </h2>
+      <div class="row">
+        <div class="col-6">
+          <span for="" class="">Sales Org</span>
+          <input
+            type="text"
+            class="form-control mb-3"
+            placeholder=" "
+            formControlName="salesOrg"
+          />
+        </div>
+        <div class="col-6">
+          <span for="" class="">Sales Org Description</span>
+          <input
+            type="text"
+            class="form-control mb-3"
+            placeholder=" "
+            formControlName="salesOrgDescription"
+          />
+        </div>
+      </div>
+        <div class="row">
+          <div class="col-6">
+            <span for="" class="">Address</span>
+            <input
+              type="text"
+              class="form-control mb-3"
+              placeholder=" "
+              formControlName="address"
+            />
+          </div>
+          <div class="col-6">
+              <span for="">Search Term</span>
+              <input
+              type="text"
+              class="form-control mb-3"
+              placeholder=" "
+              formControlName="searchTerm"
+            />
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="col-6">
+              <span for="">Country</span>
+                      <select
+                        class="form-select"
+                        formControlName="country"
+                        aria-label="Default select example"
+                      >
+                      <option >1</option>
+                      </select>
+          </div>
+          <div class="col-6">
+              <span for="">Region</span>
+                      <select
+                        class="form-select"
+                        formControlName="region"
+                        aria-label="Default select example"
+                      >
+                      <option >1</option>
+                      </select>
+          </div>
+          
+        </div>
+  
+        <div class="row">
+          <div class="col-6">
+              <span for="">Time Zone</span>
+                      <select
+                        class="form-select"
+                        formControlName="timeZone"
+                        aria-label="Default select example"
+                      >
+                      <option >1</option>
+                      </select>
+          </div>
+          <div class="col-6">
+            <span for="" class="">Contact Person</span>
+            <input
+              type="text"
+              class="form-control mb-3"
+              placeholder="Enter Contact Person"
+              formControlName="contactPerson"
+            />
+          </div>
+        </div>
+      <div class="col-2">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          style="background-color: #00acff"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+  

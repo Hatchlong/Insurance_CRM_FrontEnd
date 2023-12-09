@@ -45,6 +45,10 @@ import { BillingBlockListComponent } from './components/billing-block/billing-bl
 import { AddBillingBlockComponent } from './components/billing-block/add-billing-block/add-billing-block.component';
 import { StorageLocationService } from './Services/storage-location/storage-location.service';
 import { TaxService } from './Services/tax/tax.service';
+import { AddSalesOrgComponent } from './components/sales-org/add-sales-org/add-sales-org.component';
+import { SalesOrgListComponent } from './components/sales-org/sales-org-list/sales-org-list.component';
+import { AddIncoTermComponent } from './components/inco-term/add-inco-term/add-inco-term.component';
+import { IncoTermListComponent } from './components/inco-term/inco-term-list/inco-term-list.component';
 
 
 @NgModule({
@@ -76,6 +80,10 @@ import { TaxService } from './Services/tax/tax.service';
     AddCustomerAccComponent,
     BillingBlockListComponent,
     AddBillingBlockComponent,
+    AddSalesOrgComponent,
+    SalesOrgListComponent,
+    AddIncoTermComponent,
+    IncoTermListComponent,
   ],
   imports: [
     CommonModule,
