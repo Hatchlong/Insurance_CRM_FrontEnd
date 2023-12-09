@@ -41,7 +41,12 @@ export class AddPaymentTermsComponent {
   async submitData() {
     try {
       if (this.payTem.invalid) {
-        return alert('Please fill all the fields');
+        return Swal.fire({
+          title: 'warning',
+          text: 'All Field Are Required',
+          icon: 'warning',
+          showCancelButton: true
+        })
 
       }
       const result: any = await this.paymentSer.createPaymentTerm(this.payTem.value);

@@ -4,6 +4,7 @@ import { PlantDataService } from '../../../Services/plant-data/plant-data.servic
 import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyCodeService } from '../../../Services/company-code/company-code.service';
 import { PurchaseOrgService } from '../../../Services/purchase-org/purchase-org.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -14,11 +15,13 @@ import { PurchaseOrgService } from '../../../Services/purchase-org/purchase-org.
 export class EditPlantDataComponent {
   plantsData: any = FormGroup
   plantDetails: any = [];
-  plantDataId: any = []
+  plantDataId: any = ''
   countryDetials: any = []
   citiesDetails: any = []
   languageName: any = ''
   purDetails: any = []
+  taxDetails: any = [];
+  storgaeLocationDetails: any = []
 
   constructor(
     private fb: FormBuilder,
@@ -26,7 +29,8 @@ export class EditPlantDataComponent {
     private router: Router,
     private activeRouter: ActivatedRoute,
     private companyCodeSer: CompanyCodeService,
-    private purOrgSer: PurchaseOrgService
+    private purOrgSer: PurchaseOrgService,
+
 
   ) { }
 
@@ -36,7 +40,8 @@ export class EditPlantDataComponent {
     this.getCountryDetails()
     this.getPurchaseOrgDetail()
     this.getSinglePlantDataDetails()
-
+    this.getTaxDetails()
+    this.getStorageDetails()
 
 
   }
@@ -50,18 +55,22 @@ export class EditPlantDataComponent {
       languageId: ['', Validators.required],
       address: ['', Validators.required],
       countryId: ['', Validators.required],
+      countryName: ['', Validators.required],
       cityId: ['', Validators.required],
-
       contactPersonName: ['', Validators.required],
       contactNumber: ['', Validators.required],
       timeZone: ['', Validators.required],
       searchTerm: ['', Validators.required],
       customerNo_plant: ['', Validators.required],
       vendorNumberPlant: ['', Validators.required],
-      purchase_org: ['', Validators.required],
+      purchaseOrganizationId: ['', Validators.required],
+      purchaseOrganizationName: ['', Validators.required],
       salesOrganizationId: ['', Validators.required],
+      salesOrganizationName: ['fuffgf', Validators.required],
       taxIndicatorId: ['', Validators.required],
+      taxIndicatorName: ['', Validators.required],
       stoargeLocationId: ['', Validators.required],
+      stoargeLocationName: ['', Validators.required]
     })
   }
 
@@ -74,9 +83,10 @@ export class EditPlantDataComponent {
         this.plantsData.patchValue(result.data)
         this.citiesDetails = this.countryDetials.find((el: any) => el._id === this.plantsData.value.countryId);
         this.plantsData.controls.languageId.setValue(this.citiesDetails.languageId)
-
-        this.getSingleLanguage(this.citiesDetails.languageId)
+        console.log(this.citiesDetails.languageId);
         
+        this.getSingleLanguage(this.citiesDetails.languageId)
+
 
       }
     } catch (error) {
@@ -91,10 +101,21 @@ export class EditPlantDataComponent {
   async submitData() {
     try {
       if (this.plantsData.invalid)
-        return alert('Please fill all the fields');
+        return Swal.fire({
+          title: 'warning',
+          text: 'All Field Are Required',
+          icon: 'warning',
+          showCancelButton: true
+        })
       const result: any = await this.plantDataSer.updatePlantData(this.plantsData.value);
       if (result.status === '1') {
-        alert(result.message);
+        Swal.fire({
+          title: 'success',
+          text: 'Plant Data Updated Successfully',
+          icon: 'success',
+          showCancelButton: true
+        })
+        // alert(result.message);
         this.router.navigate(['/settings/plant-data-list']);
         return;
       }
@@ -137,6 +158,32 @@ export class EditPlantDataComponent {
     }
   }
 
+  //get tax detail
+  async getTaxDetails() {
+    try {
+      const result: any = await this.plantDataSer.getAllTaxDetails()
+      if (result.status === '1') {
+        this.taxDetails = result.data
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  //get storage location 
+
+  async getStorageDetails() {
+    try {
+      const result: any = await this.plantDataSer.getAllStorageLocationsDetails()
+      if (result.status === '1') {
+        this.storgaeLocationDetails = result.data
+      }
+    } catch (error) {
+      console.error(error);
+
+    }
+  }
+
 
   async getSingleLanguage(id: any) {
     try {
@@ -154,9 +201,31 @@ export class EditPlantDataComponent {
 
   selectCountryName(event: any) {
     this.citiesDetails = this.countryDetials.find((el: any) => el._id === event.target.value);
+    this.plantsData.controls.countryName.setValue(this.citiesDetails.countryName)
+
     this.plantsData.controls.languageId.setValue(this.citiesDetails.languageId)
     this.getSingleLanguage(this.citiesDetails.languageId)
   }
+
+  // Add the purchase Name
+  handlePurchaseOrg(event: any) {
+    const findPurchaseDetail = this.purDetails.find((el: any) => el._id === event.target.value);
+    this.plantsData.controls.purchaseOrganizationName.setValue(findPurchaseDetail.purchase_org)
+  }
+
+  // Add the purchase Name
+  handleTax(event: any) {
+    const findPurchaseDetail = this.taxDetails.find((el: any) => el.tax_ind_code === +event.target.value);
+    console.log(findPurchaseDetail, this.taxDetails, event.target.value, 'findPurchaseDetail')
+    this.plantsData.controls.taxIndicatorName.setValue(findPurchaseDetail.description)
+  }
+
+  // Add the purchase Name
+  handleStorageLocation(event: any) {
+    const findPurchaseDetail = this.storgaeLocationDetails.find((el: any) => el.stor_loc_id === +event.target.value);
+    this.plantsData.controls.stoargeLocationName.setValue(findPurchaseDetail.description)
+  }
+
 
 
 }

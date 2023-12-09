@@ -35,5 +35,5 @@ import { GoodsReceiptListComponent } from './components/goods-receipt/goods-rece
     MatTabsModule,
     ReactiveFormsModule
   ]
-})
+}) 
 export class PurchaseModule { }
