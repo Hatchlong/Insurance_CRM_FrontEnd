@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-billing-block',
@@ -10,6 +10,8 @@ export class AddBillingBlockComponent {
 
 
   billing: any = FormGroup
+  isSubmitted:any=false
+  
   constructor(private fb: FormBuilder
   ) { }
 
@@ -19,8 +21,8 @@ export class AddBillingBlockComponent {
 
   channeldata() {
     this.billing = this.fb.group({
-      billingBlock: '',
-      description: ''
+      billingBlock: ['',Validators.required],
+      description: ['',Validators.required]
     })
   }
   addCustomerAcc() {

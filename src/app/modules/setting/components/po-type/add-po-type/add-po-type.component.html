@@ -3,33 +3,72 @@
         <h2><mat-icon class="back" routerLink="/settings/po-type-list">arrow_back</mat-icon>PO Type</h2>
         <div class="row">
             <div class="col-6">
-                <span for="" class="">PO Type</span>
+                <label for="" class="">PO Type</label>
                 <input type="text" class="form-control mb-3" placeholder="Enter PO" formControlName="poType">
+                <div
+                    *ngIf="poType.controls['poType'].touched && poType.controls['poType'].touched && poType.controls['poType'].hasError('required') && !isSubmitted">
+                    <p class="error-message">PO Type is required</p>
+                </div>
+                <div *ngIf="isSubmitted && poType.controls['poType'].hasError('required')">
+                    <p class="error-message">PO Type is required</p>
+                </div>
             </div>
             <div class="col-6">
-                <span for="" class="">PO Type Description</span>
-                <input type="text" class="form-control mb-3" placeholder="Enter Description" formControlName="poTypeDescription">
+                <label for="" class="">PO Type Description</label>
+                <input type="text" class="form-control mb-3" placeholder="Enter Description"
+                    formControlName="poTypeDescription">
+                <div
+                    *ngIf="poType.controls['poTypeDescription'].touched && poType.controls['poTypeDescription'].touched && poType.controls['poTypeDescription'].hasError('required') && !isSubmitted">
+                    <p class="error-message">PO Type Description is required</p>
+                </div>
+                <div *ngIf="isSubmitted && poType.controls['poTypeDescription'].hasError('required')">
+                    <p class="error-message">PO Type Description is required</p>
+                </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-6">
-                <span for="" class="">Item Number</span>
-                <input type="text" class="form-control mb-3" placeholder="Enter Item Number" formControlName="itemNumberInterval">
+                <label for="" class="">Item Number</label>
+                <input type="text" class="form-control mb-3" placeholder="Enter Item Number"
+                    formControlName="itemNumberInterval">
+                    <div
+                    *ngIf="poType.controls['itemNumberInterval'].touched && poType.controls['itemNumberInterval'].touched && poType.controls['itemNumberInterval'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Item Number is required</p>
+                </div>
+                <div *ngIf="isSubmitted && poType.controls['itemNumberInterval'].hasError('required')">
+                    <p class="error-message">Item Number is required</p>
+                </div>
             </div>
             <div class="col-6">
-                <span for="" class="">Internal Number</span>
-                <input type="text" class="form-control mb-3" placeholder="Enter Internal Number" formControlName="internalNumberRangeAssignment">
+                <label for="" class="">Internal Number</label>
+                <input type="text" class="form-control mb-3" placeholder="Enter Internal Number"
+                    formControlName="internalNumberRangeAssignment">
+                    <div
+                    *ngIf="poType.controls['internalNumberRangeAssignment'].touched && poType.controls['internalNumberRangeAssignment'].touched && poType.controls['internalNumberRangeAssignment'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Internal Number is required</p>
+                </div>
+                <div *ngIf="isSubmitted && poType.controls['internalNumberRangeAssignment'].hasError('required')">
+                    <p class="error-message">Internal Number is required</p>
+                </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-6">
-                <span for="" class="">External Number</span>
-                <input type="text" class="form-control mb-3" placeholder="Enter External Number" formControlName="externalNumberRangeAssignment">
+                <label for="" class="">External Number</label>
+                <input type="text" class="form-control mb-3" placeholder="Enter External Number"
+                    formControlName="externalNumberRangeAssignment">
+                    <div
+                    *ngIf="poType.controls['externalNumberRangeAssignment'].touched && poType.controls['externalNumberRangeAssignment'].touched && poType.controls['externalNumberRangeAssignment'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Externel Number is required</p>
+                </div>
+                <div *ngIf="isSubmitted && poType.controls['externalNumberRangeAssignment'].hasError('required')">
+                    <p class="error-message">Externel Number is required</p>
+                </div>
             </div>
         </div>
-        
+
         <div class="col-2">
             <button type="submit" class="btn btn-primary" style="background-color: #00acff;">Submit</button>
         </div>

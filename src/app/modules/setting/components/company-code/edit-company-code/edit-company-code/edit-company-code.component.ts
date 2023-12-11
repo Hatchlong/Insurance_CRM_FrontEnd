@@ -114,7 +114,13 @@ export class EditCompanyCodeComponent {
       console.log(result);
     } catch (error) {
       console.error(error)
-      alert('API failed')
+      // alert('API failed')
+      Swal.fire({
+        title: 'warning',
+        text: 'API Failed',
+        icon: 'warning',
+        showCancelButton: true
+      })
     }
   }
 
@@ -165,7 +171,13 @@ export class EditCompanyCodeComponent {
       console.log(result);
     } catch (error) {
       console.error(error)
-      alert('API failed')
+      // alert('API failed')
+      Swal.fire({
+        title: 'warning',
+        text: 'API Failed',
+        icon: 'warning',
+        showCancelButton: true
+      })
     }
   }
 

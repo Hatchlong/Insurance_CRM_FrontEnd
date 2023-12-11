@@ -1,16 +1,31 @@
 <div class="container-fluid">
     <form [formGroup]="transport" (ngSubmit)="addMode()">
-        <h2><mat-icon class="back" routerLink="/settings/divion-list" >arrow_back</mat-icon>Mode Of Transport
+        <h2><mat-icon class="back" routerLink="/settings/divion-list">arrow_back</mat-icon>Mode Of Transport
         </h2>
         <div class="row">
             <div class="col-6">
-                <span for="" class="">Mode Of Transport</span>
-                <input type="text" class="form-control mb-3" placeholder="Enter Divion" formControlName="modeofTransport">
+                <label for="" class="">Mode Of Transport<sup>*</sup></label>
+                <input type="text" class="form-control mb-3" placeholder="Enter Divion"
+                    formControlName="modeofTransport">
+                <div
+                    *ngIf="transport.controls['modeofTransport'].touched && transport.controls['modeofTransport'].touched && transport.controls['modeofTransport'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Mode Of Transport is required</p>
+                </div>
+                <div *ngIf="isSubmitted && transport.controls['modeofTransport'].hasError('required')">
+                    <p class="error-message">Mode Of Transport is required</p>
+                </div>
             </div>
             <div class="col-6">
-                <span for="" class="">Description</span>
-                
+                <label for="" class="">Description<sup>*</sup></label>
+
                 <input type="text" class="form-control mb-3" placeholder="Description " formControlName="description">
+                <div
+                    *ngIf="transport.controls['description'].touched && transport.controls['description'].touched && transport.controls['description'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Description is required</p>
+                </div>
+                <div *ngIf="isSubmitted && transport.controls['description'].hasError('required')">
+                    <p class="error-message">Description is required</p>
+                </div>
             </div>
             <div>
                 <button class="btn btn-primary" type="submit"

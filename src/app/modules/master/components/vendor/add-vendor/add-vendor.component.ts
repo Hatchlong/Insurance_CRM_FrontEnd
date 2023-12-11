@@ -11,6 +11,7 @@ export class AddVendorComponent {
 
   productFromGroup: any = FormGroup
   countryLists:any = ''
+  isSubmitted:any=false
   constructor(
     private fb: FormBuilder,
     private countrySer:CountryService

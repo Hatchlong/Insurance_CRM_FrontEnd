@@ -15,6 +15,7 @@ export class AddCompanyCodeComponent {
   countryDetials: any = []
   citiesDetails: any = [];
   languageName: any = ''
+  isSubmitted: any = false
 
   constructor(
     private fb: FormBuilder,
@@ -44,14 +45,10 @@ export class AddCompanyCodeComponent {
   // Create the purchase org Details
   async addCode() {
     try {
+      this.isSubmitted = true
       console.log(this.companyCode.value)
       if (this.companyCode.invalid)
-        return Swal.fire({
-          title: 'warning',
-          text: 'All Field Are Required',
-          icon: 'warning',
-          showCancelButton: true
-        })
+        return
       const result: any = await this.companyCodeSer.createCompanyCodeDetails(this.companyCode.value);
       console.log(result)
       if (result.status === '1') {

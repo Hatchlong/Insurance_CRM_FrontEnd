@@ -1,4 +1,3 @@
-<!-- <p>add-product works!</p> -->
 <div class="container-fluid">
     <h3 class="mt-2">
         <mat-icon class="back" routerLink="/master/product">arrow_back</mat-icon> Product Maintainence
@@ -8,234 +7,443 @@
             <form [formGroup]="general" (ngSubmit)="addAll()">
                 <div class="row border">
                     <div class="col-6 py-1">
-                        <span for="" class="">Material Description</span>
+                        <label for="" class="">Material Description <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="Description" formControlName="matDes">
+                        <div
+                            *ngIf="general.controls['matDes'].touched && general.controls['matDes'].touched && general.controls['matDes'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Material Description is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['matDes'].hasError('required')">
+                            <p class="error-message">Material Description is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
-                        <span for="example">Material Group</span>
+                        <label for="example">Material Group <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example" formControlName="matGrp">
                             <option selected>Material Group</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+                        <div
+                            *ngIf="general.controls['matGrp'].touched && general.controls['matGrp'].touched && general.controls['matGrp'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Material Group is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['matGrp'].hasError('required')">
+                            <p class="error-message">Material Group is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
-                        <span for="" class="mt-3">Material Type</span>
+                        <label for="" class="mt-3">Material Type <sup>*</sup></label>
                         <select class="form-select mb-3" aria-label="Default select example" formControlName="matType">
                             <option selected>Material Type</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+                        <div
+                            *ngIf="general.controls['matType'].touched && general.controls['matType'].touched && general.controls['matType'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Material Type is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['matType'].hasError('required')">
+                            <p class="error-message">Material Type is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Industry Sector</span>
+                        <label for="">Industry Sector <sup>*</sup></label>
                         <select class="form-select mb-3" aria-label="Default select example" formControlName="indSec">
                             <option selected>Industry</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+                        <div
+                            *ngIf="general.controls['indSec'].touched && general.controls['indSec'].touched && general.controls['indSec'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Industry Sector is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['indSec'].hasError('required')">
+                            <p class="error-message">Industry Sector is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Net Weight</span>
+                        <label for="">Net Weight <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="Weight" formControlName="net">
+                        <div
+                            *ngIf="general.controls['net'].touched && general.controls['net'].touched && general.controls['net'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Net Weight is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['net'].hasError('required')">
+                            <p class="error-message">Net Weight is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Volume</span>
+                        <label for="">Volume <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="Volume" formControlName="vol">
+                        <div
+                            *ngIf="general.controls['vol'].touched && general.controls['vol'].touched && general.controls['vol'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Volume is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['vol'].hasError('required')">
+                            <p class="error-message">Volume is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for=""> Storage Condition</span>
+                        <label for=""> Storage Condition <sup>*</sup></label>
                         <select class="form-select mb-3" aria-label="Default select example" formControlName="sto">
                             <option selected>Unit</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+                        <div
+                            *ngIf="general.controls['sto'].touched && general.controls['sto'].touched && general.controls['sto'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Storage Condition is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['sto'].hasError('required')">
+                            <p class="error-message">Storage Condition is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Temp. Condition</span>
+                        <label for="">Temp. Condition <sup>*</sup></label>
                         <select class="form-select mb-3" aria-label="Default select example" formControlName="temp">
                             <option selected>Unit</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+                        <div
+                            *ngIf="general.controls['temp'].touched && general.controls['temp'].touched && general.controls['temp'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Temp. Condition is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['temp'].hasError('required')">
+                            <p class="error-message">Temp. Condition is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Trans Group</span>
+                        <label for="">Trans Group <sup>*</sup></label>
                         <select class="form-select mb-3" aria-label="Default select example" formControlName="trans">
                             <option selected>Unit</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+                        <div
+                            *ngIf="general.controls['trans'].touched && general.controls['trans'].touched && general.controls['trans'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Trans Group is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['trans'].hasError('required')">
+                            <p class="error-message">Trans Group is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Allowed pkg Weight</span>
+                        <label for="">Allowed pkg Weight <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="Weight" formControlName="pkgWt">
+                        <div
+                            *ngIf="general.controls['pkgWt'].touched && general.controls['pkgWt'].touched && general.controls['pkgWt'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Allowed pkg Weight is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['pkgWt'].hasError('required')">
+                            <p class="error-message">Allowed pkg Weight is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Unit of Dimension</span>
+                        <label for="">Unit of Dimension <sup>*</sup></label>
                         <select class="form-select mb-3" aria-label="Default select example" formControlName="unitDim">
                             <option selected>Unit</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+                        <div
+                            *ngIf="general.controls['unitDim'].touched && general.controls['unitDim'].touched && general.controls['unitDim'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Unit Dimension is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['unitDim'].hasError('required')">
+                            <p class="error-message">Unit Dimension is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Unit of Weight</span>
+                        <label for="">Unit of Weight <sup>*</sup></label>
                         <select class="form-select mb-3" aria-label="Default select example" formControlName="unitWt">
                             <option selected>Unit</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+                        <div
+                            *ngIf="general.controls['unitWt'].touched && general.controls['unitWt'].touched && general.controls['unitWt'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Unit Weight is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['unitWt'].hasError('required')">
+                            <p class="error-message">Unit Weight is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Allowed pkg Volume</span>
+                        <label for="">Allowed pkg Volume <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="Weight" formControlName="pkgVol">
+                        <div
+                            *ngIf="general.controls['pkgVol'].touched && general.controls['pkgVol'].touched && general.controls['pkgVol'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Allowed pkg Volume is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['pkgVol'].hasError('required')">
+                            <p class="error-message">Allowed pkg Volume is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Volume Unit</span>
+                        <label for="">Volume Unit <sup>*</sup></label>
                         <select class="form-select mb-3" aria-label="Default select example" formControlName="volUnit">
                             <option selected>Unit</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+                        <div
+                            *ngIf="general.controls['volUnit'].touched && general.controls['volUnit'].touched && general.controls['volUnit'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Volume Unit is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['volUnit'].hasError('required')">
+                            <p class="error-message">Volume Unit is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Excess wt tolerance</span>
+                        <label for="">Excess wt tolerance <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="Weight" formControlName="exWt">
+                        <div
+                            *ngIf="general.controls['exWt'].touched && general.controls['exWt'].touched && general.controls['exWt'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Excess Weight is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['exWt'].hasError('required')">
+                            <p class="error-message">Excess Weight is required</p>
+                        </div>
 
                     </div>
                     <div class="col-6 py-1 ">
-                        <span for="">Industry Sector</span>
+                        <label for="">Industry Sector <sup>*</sup></label>
                         <select class="form-select mb-3" aria-label="Default select example" formControlName="ind">
                             <option selected>Industry</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+                        <div
+                            *ngIf="general.controls['ind'].touched && general.controls['ind'].touched && general.controls['ind'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Industry Sector 2 is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['ind'].hasError('required')">
+                            <p class="error-message">Industry Sector 2 is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="" class="">Old Material Number</span>
+                        <label for="" class="">Old Material Number <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="Number" formControlName="oldMat">
+                        <div
+                            *ngIf="general.controls['oldMat'].touched && general.controls['oldMat'].touched && general.controls['oldMat'].hasError('required') && !isSubmitted">
+                            <p class="error-message">OLd Material No. is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['oldMat'].hasError('required')">
+                            <p class="error-message">OLd Material No. is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for=""> Base Unit of Measure</span>
+                        <label for=""> Base Unit of Measure <sup>*</sup></label>
                         <select class="form-select mb-3" aria-label="Default select example" formControlName="base">
                             <option selected>Unit</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+                        <div
+                            *ngIf="general.controls['base'].touched && general.controls['base'].touched && general.controls['base'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Base Unit is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['base'].hasError('required')">
+                            <p class="error-message">Base Unit is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for=""> Gross Weight</span>
+                        <label for=""> Gross Weight <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="Weight" formControlName="gross">
+                        <div
+                            *ngIf="general.controls['gross'].touched && general.controls['gross'].touched && general.controls['gross'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Gross Weight is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['gross'].hasError('required')">
+                            <p class="error-message">Gross Weight is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for=""> Weight Unit</span>
+                        <label for=""> Weight Unit <sup>*</sup></label>
                         <select class="form-select mb-3" aria-label="Default select example" formControlName="wtUnit">
                             <option selected>Unit</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+                        <div
+                            *ngIf="general.controls['wtUnit'].touched && general.controls['wtUnit'].touched && general.controls['wtUnit'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Weight Unit is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['wtUnit'].hasError('required')">
+                            <p class="error-message">Weight Unit is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Volume Unit</span>
+                        <label for="">Volume Unit <sup>*</sup></label>
                         <select class="form-select mb-3" aria-label="Default select example" formControlName="volu">
                             <option selected>Unit</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+                        <div
+                            *ngIf="general.controls['volu'].touched && general.controls['volu'].touched && general.controls['volu'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Volume Unit is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['volu'].hasError('required')">
+                            <p class="error-message">Volume Unit is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Length</span>
+                        <label for="">Length <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="Length" formControlName="length">
+                        <div
+                            *ngIf="general.controls['length'].touched && general.controls['length'].touched && general.controls['length'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Length is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['length'].hasError('required')">
+                            <p class="error-message">Length is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Width</span>
+                        <label for="">Width <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="Width" formControlName="width">
+                        <div
+                            *ngIf="general.controls['width'].touched && general.controls['width'].touched && general.controls['width'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Width is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['width'].hasError('required')">
+                            <p class="error-message">Width is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Height</span>
+                        <label for="">Height <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="Height" formControlName="height">
+                        <div
+                            *ngIf="general.controls['height'].touched && general.controls['height'].touched && general.controls['height'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Height is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['height'].hasError('required')">
+                            <p class="error-message">Height is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Batch Mgmt</span>
+                        <label for="">Batch Mgmt <sup>*</sup></label>
                         <select class="form-select mb-3" aria-label="Default select example" formControlName="batch">
                             <option selected>Unit</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+                        <div
+                            *ngIf="general.controls['batch'].touched && general.controls['batch'].touched && general.controls['batch'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Batch MAanagement is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['batch'].hasError('required')">
+                            <p class="error-message">Batch MAanagement is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Tax classification</span>
+                        <label for="">Tax classification <sup>*</sup></label>
                         <select class="form-select mb-3" aria-label="Default select example" formControlName="tax">
                             <option selected>Unit</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+                        <div
+                            *ngIf="general.controls['tax'].touched && general.controls['tax'].touched && general.controls['tax'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Tax Classification is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['tax'].hasError('required')">
+                            <p class="error-message">Tax Classification is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Manufacturer Part No.</span>
+                        <label for="">Manufacturer Part No. <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="Manufacturer Part No."
                             formControlName="man">
+                        <div
+                            *ngIf="general.controls['man'].touched && general.controls['man'].touched && general.controls['man'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Manufacture Part is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['man'].hasError('required')">
+                            <p class="error-message">Manufacture Part is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Expiration Date relavance</span>
+                        <label for="">Expiration Date relavance <sup>*</sup></label>
                         <select class="form-select mb-3" aria-label="Default select example" formControlName="exp">
                             <option selected>Unit</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+                        <div
+                            *ngIf="general.controls['exp'].touched && general.controls['exp'].touched && general.controls['exp'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Expiration Date is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['exp'].hasError('required')">
+                            <p class="error-message">Expiration Date is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Excess Volume tol.</span>
+                        <label for="">Excess Volume tol. <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="Weight" formControlName="exVol">
+                        <div
+                            *ngIf="general.controls['exVol'].touched && general.controls['exVol'].touched && general.controls['exVol'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Excess Volume is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['exVol'].hasError('required')">
+                            <p class="error-message">Excess Volume is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Material Cost</span>
+                        <label for="">Material Cost <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="Material Cost"
                             formControlName="matCost">
-
+                        <div
+                            *ngIf="general.controls['matCost'].touched && general.controls['matCost'].touched && general.controls['matCost'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Material Cost is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['matCost'].hasError('required')">
+                            <p class="error-message">Material Cost is required</p>
+                        </div>
                     </div>
                 </div>
 
@@ -258,16 +466,16 @@
                                             <table class="table table-bordered">
                                                 <thead>
                                                     <tr>
-                                                    <th *ngIf="detail.controls.length > 1">Actions</th>
-                                                    <th>Storage Plant</th>
-                                                    <th>Storage Location</th>
-                                                    <th>Procurement Type</th>
-                                                    <th>Safety Stock</th>
-                                                    <th>Total repl lead time</th>
-                                                    <th>Availibilty Check</th>
-                                                    <th>Profit Center</th>
-                                                    <th>BOM Relevance</th>
-                                                </tr>
+                                                        <th *ngIf="detail.controls.length > 1">Actions</th>
+                                                        <th>Storage Plant</th>
+                                                        <th>Storage Location</th>
+                                                        <th>Procurement Type</th>
+                                                        <th>Safety Stock</th>
+                                                        <th>Total repl lead time</th>
+                                                        <th>Availibilty Check</th>
+                                                        <th>Profit Center</th>
+                                                        <th>BOM Relevance</th>
+                                                    </tr>
                                                 </thead>
 
                                                 <tbody formArrayName="plantList">
@@ -362,17 +570,17 @@
                                             <table class="table table-bordered">
                                                 <thead>
                                                     <tr>
-                                                    <th *ngIf="salesDetail.controls.length > 1">Actions</th>
-                                                    <th>Sales Organization</th>
-                                                    <th>Distribution Channel</th>
-                                                    <th>Delievery Unit</th>
-                                                    <th>Delievering Plant</th>
-                                                    <th>Maximum Delievery qty</th>
-                                                    <th>Availibilty Check</th>
-                                                    <th>Acct assign. grp</th>
-                                                    <th>Minimum Order qty</th>
-                                                    <th>Minimum Delievery qty</th>
-                                                </tr>
+                                                        <th *ngIf="salesDetail.controls.length > 1">Actions</th>
+                                                        <th>Sales Organization</th>
+                                                        <th>Distribution Channel</th>
+                                                        <th>Delievery Unit</th>
+                                                        <th>Delievering Plant</th>
+                                                        <th>Maximum Delievery qty</th>
+                                                        <th>Availibilty Check</th>
+                                                        <th>Acct assign. grp</th>
+                                                        <th>Minimum Order qty</th>
+                                                        <th>Minimum Delievery qty</th>
+                                                    </tr>
                                                 </thead>
 
                                                 <tbody formArrayName="salesList">
@@ -459,13 +667,13 @@
                                 </div>
                             </div>
                         </mat-tab-group>
-                       
+
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 d-flex justify-content-end py-2">
                         <button type="submit" class="btn btn-primary"
-                        style="background-color: #00acff;color: white;">Submit</button>
+                            style="background-color: #00acff;color: white;">Submit</button>
                     </div>
                 </div>
             </form>

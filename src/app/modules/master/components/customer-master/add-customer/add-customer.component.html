@@ -8,65 +8,133 @@
             <form [formGroup]="general" (ngSubmit)="addAll()">
                 <div class="row border">
                     <div class="col-6 py-1">
-                        <span for="" class="">Customer Id</span>
-                        <input type="text" class="form-control mb-3" placeholder="Description"
+                        <label for="" class="">Customer Id <sup>*</sup></label>
+                        <input type="text" class="form-control " placeholder="Description"
                             formControlName="customerId">
+                        <div
+                            *ngIf="general.controls['customerId'].touched && general.controls['customerId'].touched && general.controls['customerId'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Customer Id is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['customerId'].hasError('required')">
+                            <p class="error-message">Customer Id is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
-                        <span for="example">Country</span>
+                        <label for="example">Country <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example" formControlName="country">
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+                        <div
+                            *ngIf="general.controls['country'].touched && general.controls['country'].touched && general.controls['country'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Country is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['country'].hasError('required')">
+                            <p class="error-message">Country is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
-                        <span for="" class="mt-3">Address</span>
+                        <label for="" class="mt-3">Address <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="Address" formControlName="address">
+                        <div
+                            *ngIf="general.controls['address'].touched && general.controls['address'].touched && general.controls['address'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Address is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['address'].hasError('required')">
+                            <p class="error-message">Address is required</p>
+                        </div>
 
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="" class="mt-3">Postal Code</span>
+                        <label for="" class="mt-3">Postal Code <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="Enter Postal Code"
                             formControlName="postalCode">
+                        <div
+                            *ngIf="general.controls['postalCode'].touched && general.controls['postalCode'].touched && general.controls['postalCode'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Postal Code is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['postalCode'].hasError('required')">
+                            <p class="error-message">Postal Code is required</p>
+                        </div>
 
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">City</span>
+                        <label for="">City <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="City" formControlName="city">
+                        <div
+                            *ngIf="general.controls['city'].touched && general.controls['city'].touched && general.controls['city'].hasError('required') && !isSubmitted">
+                            <p class="error-message">City is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['city'].hasError('required')">
+                            <p class="error-message">City is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Region</span>
+                        <label for="">Region <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="Region" formControlName="region">
+                        <div
+                            *ngIf="general.controls['region'].touched && general.controls['region'].touched && general.controls['region'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Region is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['region'].hasError('required')">
+                            <p class="error-message">Region is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Telephone</span>
+                        <label for="">Telephone <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="Telephone"
                             formControlName="telephone">
+                        <div
+                            *ngIf="general.controls['telephone'].touched && general.controls['telephone'].touched && general.controls['telephone'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Telephone is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['telephone'].hasError('required')">
+                            <p class="error-message">Telephone is required</p>
+                        </div>
 
                     </div>
                     <div class="col-6 py-1">
-                        <span for="">Tax No 1</span>
+                        <label for="">Tax No 1 <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="Tax Number 1"
                             formControlName="taxOne">
-
+                        <div
+                            *ngIf="general.controls['taxOne'].touched && general.controls['taxOne'].touched && general.controls['taxOne'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Tax No 1 is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['taxOne'].hasError('required')">
+                            <p class="error-message">Tax No 1 is required</p>
+                        </div>
 
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">Tax NO 2</span>
+                        <label for="">Tax NO 2 <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="Tax Number 2"
                             formControlName="taxTwo">
-
+                        <div
+                            *ngIf="general.controls['taxTwo'].touched && general.controls['taxTwo'].touched && general.controls['taxTwo'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Tax No 2 is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['taxTwo'].hasError('required')">
+                            <p class="error-message">Tax No 2 is required</p>
+                        </div>
                     </div>
                     <div class="col-6 py-1">
 
-                        <span for="">VAT Reg No</span>
+                        <label for="">VAT Reg No <sup>*</sup></label>
                         <input type="text" class="form-control mb-3" placeholder="Vat " formControlName="vatReg">
+                        <div
+                            *ngIf="general.controls['vatReg'].touched && general.controls['vatReg'].touched && general.controls['vatReg'].hasError('required') && !isSubmitted">
+                            <p class="error-message">VAT is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && general.controls['vatReg'].hasError('required')">
+                            <p class="error-message">VAT is required</p>
+                        </div>
                     </div>
                 </div>
 
@@ -118,6 +186,7 @@
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
+                                                            
                                                         </td>
                                                         <td>
                                                             <select class="form-select mb-3"
@@ -257,16 +326,16 @@
                                                         </td>
                                                         <td>
                                                             <input type="checkbox" class="form-control mb-3"
-                                                                 formControlName="deletionFlag">
+                                                                formControlName="deletionFlag">
                                                         </td>
                                                         <td>
                                                             <select class="form-select mb-3"
-                                                            aria-label="Default select example"
-                                                            formControlName="deliveryBlock">
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
-                                                        </select>
+                                                                aria-label="Default select example"
+                                                                formControlName="deliveryBlock">
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
 
                                                         <td>
                                                             <select class="form-select mb-3"
@@ -288,49 +357,52 @@
                                                         </td>
                                                         <td>
                                                             <select class="form-select mb-3"
-                                                            aria-label="Default select example"
-                                                            formControlName="division">
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
-                                                        </select> 
+                                                                aria-label="Default select example"
+                                                                formControlName="division">
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
                                                         </td>
                                                         <td>
                                                             <select class="form-select mb-3"
-                                                            aria-label="Default select example"
-                                                            formControlName="customerGroup">
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
-                                                        </select>
+                                                                aria-label="Default select example"
+                                                                formControlName="customerGroup">
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
                                                         </td>
                                                         <td>
                                                             <select class="form-select mb-3"
-                                                            aria-label="Default select example"
-                                                            formControlName="modeOfTransport">
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
-                                                        </select>
-                                                        </td> <td>
+                                                                aria-label="Default select example"
+                                                                formControlName="modeOfTransport">
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
                                                             <select class="form-select mb-3"
-                                                            aria-label="Default select example"
-                                                            formControlName="acctAsmt">
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
-                                                        </select>
-                                                        </td> <td>
+                                                                aria-label="Default select example"
+                                                                formControlName="acctAsmt">
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
                                                             <select class="form-select mb-3"
-                                                            aria-label="Default select example"
-                                                            formControlName="deliveryPlant">
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
-                                                        </select>
-                                                        </td> <td>
+                                                                aria-label="Default select example"
+                                                                formControlName="deliveryPlant">
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
                                                             <input type="checkbox" class="form-control mb-3"
-                                                            formControlName="partial">
+                                                                formControlName="partial">
                                                         </td>
                                                     </tr>
                                                 </tbody>

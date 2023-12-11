@@ -4,18 +4,18 @@
     <form [formGroup]="purchOrg" (ngSubmit)="submitData()">
         <div class="row ms-3">
             <div class="col-6 mt-4"> 
-                <span>Purchase Org</span>
+                <label>Purchase Org</label>
                 <input type="text" class="form-control" formControlName="purchase_org" >
             </div>
             <div class="col-6 mt-4">
-                <span>Purchase Org Description</span>
+                <label>Purchase Org Description</label>
                 <input type="text" class="form-control" formControlName="purchase_org_Description">
             </div> 
         </div>
 
         <div class="row ms-3">
             <div class="col-6">
-                <span for="">Company Code</span>
+                <label for="">Company Code</label>
                 <select class="form-select" formControlName="companycode" aria-label="Default select example">
                     <option *ngFor="let list of companyDetails;" [value]="list.companyCode">{{list.companyCode}}
                     </option>

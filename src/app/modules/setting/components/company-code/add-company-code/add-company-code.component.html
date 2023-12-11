@@ -3,43 +3,88 @@
         <h2><mat-icon class="back" routerLink="/settings/company-code-list">arrow_back</mat-icon>Company Code</h2>
         <div class="row">
             <div class="col-6">
-                <span for="">Company Code</span>
+                <label for="">Company Code</label>
                 <input type="text" class="form-control mb-3" placeholder="Enter Company code"
                     formControlName="companyCode">
+                <div
+                    *ngIf="companyCode.controls['companyCode'].touched && companyCode.controls['companyCode'].touched && companyCode.controls['companyCode'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Company code is required</p>
+                </div>
+                <div *ngIf="isSubmitted && companyCode.controls['companyCode'].hasError('required')">
+                    <p class="error-message">Company code is required</p>
+                </div>
             </div>
 
             <div class="col-6">
-                <span for="" class="">Company Name</span>
+                <label for="" class="">Company Name</label>
                 <input type="text" class="form-control mb-3" placeholder="Enter Company Name"
                     formControlName="companyName">
+                <div
+                    *ngIf="companyCode.controls['companyName'].touched && companyCode.controls['companyName'].touched && companyCode.controls['companyName'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Company Name is required</p>
+                </div>
+                <div *ngIf="isSubmitted && companyCode.controls['companyName'].hasError('required')">
+                    <p class="error-message">Company Name is required</p>
+                </div>
             </div>
 
             <div class="col-6">
-                <span for="" class="mt-3">Country Name</span>
+                <label for="" class="mt-3">Country Name</label>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="countryId"
                     (change)="selectCountryName($event)">
+                    <option [selected]="companyCode.value.countryId === ''" value="" hidden>Select Country</option>
                     <option *ngFor="let list of countryDetials;" [value]="list._id">{{list.countryName}}</option>
                 </select>
+                <div
+                    *ngIf="companyCode.controls['countryId'].touched && companyCode.controls['countryId'].touched && companyCode.controls['countryId'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Country Name is required</p>
+                </div>
+                <div *ngIf="isSubmitted && companyCode.controls['countryId'].hasError('required')">
+                    <p class="error-message">Country Name is required</p>
+                </div>
             </div>
             <div class="col-6">
-                <span for="" class="mt-4">City</span>
+                <label for="" class="mt-3">City</label>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="city">
+                    <option [selected]="companyCode.value.city===''" value="" hidden>Select City</option>
                     <option *ngFor="let list of citiesDetails?.cities?.cities" [value]="list">{{list}}</option>
                 </select>
+                <div
+                    *ngIf="companyCode.controls['city'].touched && companyCode.controls['city'].touched && companyCode.controls['city'].hasError('required') && !isSubmitted">
+                    <p class="error-message"> City is required</p>
+                </div>
+                <div *ngIf="isSubmitted && companyCode.controls['city'].hasError('required')">
+                    <p class="error-message"> City is required</p>
+                </div>
             </div>
 
             <div class="col-6">
-                <span for="" class="mt-3">Currency</span>
+                <label for="" class="mt-3">Currency</label>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="currency">
+                    <option [selected]="companyCode.value.currency===''" value="" hidden>Select Currency</option>
                     <option [value]="citiesDetails.countryCurrency">{{citiesDetails.countryCurrency}}</option>
-
                 </select>
+                <div
+                    *ngIf="companyCode.controls['currency'].touched && companyCode.controls['currency'].touched && companyCode.controls['currency'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Currency is required</p>
+                </div>
+                <div *ngIf="isSubmitted && companyCode.controls['currency'].hasError('required')">
+                    <p class="error-message">Currency is required</p>
+                </div>
             </div>
             <div class="col-6">
-                <span for="">Language</span>
-                <select class="form-select mb-3" aria-label="Default select example" formControlName="languageId">
+                <label for="">Language</label>
+                <select class="form-select mt-3" aria-label="Default select example" formControlName="languageId">
+                    <option [selected]="companyCode.value.languageId===''" value="" hidden>Select Language</option>
                     <option [value]="citiesDetails.languageId">{{languageName}}</option>
                 </select>
+                <div
+                    *ngIf="companyCode.controls['languageId'].touched && companyCode.controls['languageId'].touched && companyCode.controls['languageId'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Language is required</p>
+                </div>
+                <div *ngIf="isSubmitted && companyCode.controls['languageId'].hasError('required')">
+                    <p class="error-message">Language is required</p>
+                </div>
             </div>
         </div>
         <div class="col-2">

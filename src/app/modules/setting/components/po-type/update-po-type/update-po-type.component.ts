@@ -111,7 +111,13 @@ export class UpdatePoTypeComponent {
         this.poTypeDetail = result.data
       }
       else {
-        alert('Failed')
+        // alert('Failed')
+        Swal.fire({
+          title: 'warning',
+          text: 'API Failed',
+          icon: 'warning',
+          showCancelButton: true
+        })
       }
       console.log(result);
 

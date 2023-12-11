@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-order-status',
@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class AddOrderStatusComponent {
 
   order: any = FormGroup
+  isSubmitted:any=false
 
   constructor(
     private fb: FormBuilder
@@ -20,8 +21,8 @@ export class AddOrderStatusComponent {
 
   code() {
     this.order = this.fb.group({
-      orderStatus:'',
-      description:''
+      orderStatus:['',Validators.required],
+      description:['',Validators.required]
       
     })
   }

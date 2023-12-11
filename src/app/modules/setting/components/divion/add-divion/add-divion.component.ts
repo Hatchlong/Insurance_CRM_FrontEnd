@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-divion',
@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class AddDivionComponent {
 
   divion:any=FormGroup
-
+  isSubmitted:any=false
   constructor(private fb:FormBuilder){}
 
   ngOnInit(): void {
@@ -18,8 +18,8 @@ export class AddDivionComponent {
 
 channeldata(){
   this.divion=this.fb.group({
-    divion:'',
-    description:''
+    divion:['',Validators.required],
+    description:['',Validators.required]
   })
 }
 addDivion(){

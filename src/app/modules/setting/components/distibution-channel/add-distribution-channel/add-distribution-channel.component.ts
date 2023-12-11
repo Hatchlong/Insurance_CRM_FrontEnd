@@ -1,5 +1,5 @@
 import { Component ,OnInit} from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-distribution-channel',
@@ -10,6 +10,7 @@ export class AddDistributionChannelComponent implements OnInit{
 
   
   channel:any=FormGroup
+  isSubmitted:any=false
   constructor(private fb:FormBuilder){}
 
   ngOnInit(): void {
@@ -18,8 +19,8 @@ export class AddDistributionChannelComponent implements OnInit{
 
   channeldata(){
     this.channel=this.fb.group({
-      distributionChannel:'',
-      description:''
+      distributionChannel:['',Validators.required],
+      description:['',Validators.required]
     })
   }
   addChannel(){

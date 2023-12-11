@@ -85,7 +85,7 @@ export class EditPlantDataComponent {
         this.citiesDetails = this.countryDetials.find((el: any) => el._id === this.plantsData.value.countryId);
         this.plantsData.controls.languageId.setValue(this.citiesDetails.languageId)
         console.log(this.citiesDetails.languageId);
-        
+
         this.getSingleLanguage(this.citiesDetails.languageId)
 
 
@@ -102,7 +102,7 @@ export class EditPlantDataComponent {
   async submitData() {
     try {
       console.log(this.plantsData.value)
-      if (this.plantsData.invalid){
+      if (this.plantsData.invalid) {
         Swal.fire({
           title: 'warning',
           text: 'All Field Are Required',
@@ -111,7 +111,7 @@ export class EditPlantDataComponent {
         })
         return
       }
-      
+
       const result: any = await this.plantDataSer.updatePlantData(this.plantsData.value);
       if (result.status === '1') {
         Swal.fire({
@@ -139,11 +139,23 @@ export class EditPlantDataComponent {
       if (result.status === '1') {
         this.countryDetials = result.data;
       } else {
-        alert('API failed')
+        // alert('API failed')
+        Swal.fire({
+          title: 'warning',
+          text: 'API Failed',
+          icon: 'warning',
+          showCancelButton: true
+        })
       }
     } catch (error) {
       console.error(error)
-      alert('API failed')
+      // alert('API failed')
+      Swal.fire({
+        title: 'warning',
+        text: 'API Failed',
+        icon: 'warning',
+        showCancelButton: true
+      })
     }
   }
 
@@ -156,7 +168,13 @@ export class EditPlantDataComponent {
         this.purDetails = result.data
       }
       else {
-        alert("API FAiled")
+        // alert("API FAiled")
+        Swal.fire({
+          title: 'warning',
+          text: 'API Failed',
+          icon: 'warning',
+          showCancelButton: true
+        })
       }
     } catch (error) {
       console.error(error);
@@ -198,11 +216,23 @@ export class EditPlantDataComponent {
         this.languageName = result.data.languageName;
         this.plantsData.controls.languageName.setValue(result.data.languageName)
       } else {
-        alert('API failed')
+        // alert('API failed')
+        Swal.fire({
+          title: 'warning',
+          text: 'API Failed',
+          icon: 'warning',
+          showCancelButton: true
+        })
       }
     } catch (error) {
       console.error(error)
-      alert('API failed')
+      // alert('API failed')
+      Swal.fire({
+        title: 'warning',
+        text: 'API Failed',
+        icon: 'warning',
+        showCancelButton: true
+      })
     }
   }
 

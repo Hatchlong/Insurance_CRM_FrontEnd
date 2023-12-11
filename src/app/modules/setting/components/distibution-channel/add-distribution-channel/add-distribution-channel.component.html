@@ -1,18 +1,32 @@
 <div class="container-fluid">
     <form [formGroup]="channel" (ngSubmit)="addChannel()">
-        <h2><mat-icon class="back" routerLink="/settings/distribution-channel-list">arrow_back</mat-icon>Distribution Channel</h2>
+        <h2><mat-icon class="back" routerLink="/settings/distribution-channel-list">arrow_back</mat-icon>Distribution
+            Channel</h2>
 
         <div class="row">
             <div class="col-6 py-1">
-                <span for="" class="">Distibution Channel</span>
+                <label for="" class="">Distibution Channel<sup>*</sup></label>
                 <input type="text" class="form-control mb-3" placeholder="Enter Distribution Channel"
                     formControlName="distributionChannel">
-
+                <div
+                    *ngIf="channel.controls['distributionChannel'].touched && channel.controls['distributionChannel'].touched && channel.controls['distributionChannel'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Distribution Channel is required</p>
+                </div>
+                <div *ngIf="isSubmitted && channel.controls['distributionChannel'].hasError('required')">
+                    <p class="error-message">Distribution Channel is required</p>
+                </div>
             </div>
             <div class="col-6 py-1">
-                <span for="" class="">Description</span>
-                <input type="text" class="form-control mb-3" placeholder="Enter Description " formControlName="description">
-
+                <label for="" class="">Description<sup>*</sup></label>
+                <input type="text" class="form-control mb-3" placeholder="Enter Description "
+                    formControlName="description">
+                    <div
+                    *ngIf="channel.controls['description'].touched && channel.controls['description'].touched && channel.controls['description'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Description is required</p>
+                </div>
+                <div *ngIf="isSubmitted && channel.controls['description'].hasError('required')">
+                    <p class="error-message">Description is required</p>
+                </div>
             </div>
             <div>
                 <button class="btn btn-primary" type="submit"

@@ -1,41 +1,55 @@
- 
-
 <div class="container-fluid">
     <h2><mat-icon class="back" routerLink="/settings/purchase-org-list">arrow_back</mat-icon>Purchase Org</h2>
- 
-    <form  [formGroup]="purchOrg" (ngSubmit)="submitData()" >       
-            <div class="row ms-3">
-                <div class="col-6 mt-4">
-                    <span>Purchase Org</span>
-                <input type="text" class="form-control" formControlName="purchase_org"  name="purchase_org">
+
+    <form [formGroup]="purchOrg" (ngSubmit)="submitData()">
+        <div class="row ms-3">
+            <div class="col-6 mt-4">
+                <label>Purchase Org</label>
+                <input type="text" class="form-control" formControlName="purchase_org" name="purchase_org">
+                <div
+                    *ngIf="purchOrg.controls['purchase_org'].touched && purchOrg.controls['purchase_org'].touched && purchOrg.controls['purchase_org'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Purchase Org. is required</p>
                 </div>
-                <div class="col-6 mt-4">
-                    <span>Purchase Org Description</span>
-                <input type="text" class="form-control" formControlName="purchase_org_Description" name="purchase_org_Description">
-                </div> 
+                <div *ngIf="isSubmitted && purchOrg.controls['purchase_org'].hasError('required')">
+                    <p class="error-message">Purchase Org. is required</p>
+                </div>
             </div>
- 
-            <div class="row ms-3"> 
-                <div class="col-6">
-                    <span for="">Company Code</span>
-                    <select
-                      class="form-select"
-                      formControlName="companycode"
-                      aria-label="Default select example"
-                    >
-                    <option *ngFor="let list of companyDetails;" [value]="list.companyCode">{{list.companyCode}}</option>
-                    </select>
+            <div class="col-6 mt-4">
+                <label>Purchase Org Description</label>
+                <input type="text" class="form-control" formControlName="purchase_org_Description"
+                    name="purchase_org_Description">
+                    <div
+                    *ngIf="purchOrg.controls['purchase_org_Description'].touched && purchOrg.controls['purchase_org_Description'].touched && purchOrg.controls['purchase_org_Description'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Purchase Org Description is required</p>
                 </div>
-            </div>  
+                <div *ngIf="isSubmitted && purchOrg.controls['purchase_org_Description'].hasError('required')">
+                    <p class="error-message">Purchase Org Description is required</p>
+                </div>
+            </div>
+        </div>
 
-            <button type="submit" class="btnBg2 border-0 rounded mt-4 mx-4 mb-4 h-25" > Submit </button>
-        
+        <div class="row ms-3">
+            <div class="col-6">
+                <label for="">Company Code</label>
+                <select class="form-select" formControlName="companycode" aria-label="Default select example">
+                    <option *ngFor="let list of companyDetails;" [value]="list.companyCode">{{list.companyCode}}
+                    </option>
+                </select>
+                <div
+                    *ngIf="purchOrg.controls['companycode'].touched && purchOrg.controls['companycode'].touched && purchOrg.controls['companycode'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Company Code is required</p>
+                </div>
+                <div *ngIf="isSubmitted && purchOrg.controls['companycode'].hasError('required')">
+                    <p class="error-message">Company Code is required</p>
+                </div>
+            </div>
+        </div>
 
-        </form>
+        <button type="submit" class="btn btn-primary m-4"> Submit </button>
 
-        
-   
+
+    </form>
+
+
+
 </div>
-
-
-
