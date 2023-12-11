@@ -4,13 +4,27 @@
         </h2>
         <div class="row">
             <div class="col-6">
-                <span for="" class="">Order Status</span>
+                <label for="" class="">Order Status<sup>*</sup></label>
                 <input type="text" class="form-control mb-3" placeholder="Enter Order Status" formControlName="orderStatus">
+                <div
+                *ngIf="order.controls['orderStatus'].touched && order.controls['orderStatus'].touched && order.controls['orderStatus'].hasError('required') && !isSubmitted">
+                <p class="error-message">Order Status is required</p>
+            </div>
+            <div *ngIf="isSubmitted && order.controls['orderStatus'].hasError('required')">
+                <p class="error-message">Order Status is required</p>
+            </div>
             </div>
             <div class="col-6">
-                <span for="" class="">Description</span>
+                <label for="" class="">Description<sup>*</sup></label>
                 
                 <input type="text" class="form-control mb-3" placeholder="Description " formControlName="description">
+                <div
+                *ngIf="order.controls['description'].touched && order.controls['description'].touched && order.controls['description'].hasError('required') && !isSubmitted">
+                <p class="error-message">Description is required</p>
+            </div>
+            <div *ngIf="isSubmitted && order.controls['description'].hasError('required')">
+                <p class="error-message">Description is required</p>
+            </div>
             </div>
             <div>
                 <button class="btn btn-primary" type="submit"

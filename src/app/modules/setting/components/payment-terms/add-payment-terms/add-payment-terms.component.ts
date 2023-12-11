@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 export class AddPaymentTermsComponent {
 
   payTem: any = FormGroup
+  isSubmitted: any = false
 
   constructor(
     private fb: FormBuilder,
@@ -30,8 +31,8 @@ export class AddPaymentTermsComponent {
       dayLimit: ['', Validators.required],
       fixedBaseLineDate: ['', Validators.required],
       additionalBaselineDataCalculation: ['', Validators.required],
-      defaultBaselineDate:['',Validators.required],
-      accountType:['',Validators.required]
+      defaultBaselineDate: ['', Validators.required],
+      accountType: ['', Validators.required]
 
     })
   }
@@ -40,15 +41,9 @@ export class AddPaymentTermsComponent {
 
   async submitData() {
     try {
-      if (this.payTem.invalid) {
-        return Swal.fire({
-          title: 'warning',
-          text: 'All Field Are Required',
-          icon: 'warning',
-          showCancelButton: true
-        })
-
-      }
+      this.isSubmitted = true
+      if (this.payTem.invalid)
+        return
       const result: any = await this.paymentSer.createPaymentTerm(this.payTem.value);
       console.log(result)
       if (result.status === '1') {
@@ -64,42 +59,42 @@ export class AddPaymentTermsComponent {
   }
 
 
-//   async addCode() {
-//     try {
-//       if (this.payTem.invalid) {
-//         Swal.fire({
-//           title: 'warning',
-//           text: 'All Field are Required',
-//           icon: 'warning',
-//           showCancelButton: true
-//         })
-//       }
-//       const result: any = await this.paymentSer.createPaymentTerm(this.purTem.value)
-//       console.log(result);
-//       if (result.status === '1') {
-//         Swal.fire({
-//           title: 'success',
-//           text: 'Successfully Submitted',
-//           icon: 'success',
-//           showCancelButton: true
-//         })
-//         this.router.navigate(['/settings/payment-terms-list']);
-//         return;
-//       }
-//       if (result.status === '0') {
-//         Swal.fire({
-//           title: 'warning',
-//           text: 'Failed',
-//           icon: 'warning',
-//           showCancelButton: true
-//         })
+  //   async addCode() {
+  //     try {
+  //       if (this.payTem.invalid) {
+  //         Swal.fire({
+  //           title: 'warning',
+  //           text: 'All Field are Required',
+  //           icon: 'warning',
+  //           showCancelButton: true
+  //         })
+  //       }
+  //       const result: any = await this.paymentSer.createPaymentTerm(this.purTem.value)
+  //       console.log(result);
+  //       if (result.status === '1') {
+  //         Swal.fire({
+  //           title: 'success',
+  //           text: 'Successfully Submitted',
+  //           icon: 'success',
+  //           showCancelButton: true
+  //         })
+  //         this.router.navigate(['/settings/payment-terms-list']);
+  //         return;
+  //       }
+  //       if (result.status === '0') {
+  //         Swal.fire({
+  //           title: 'warning',
+  //           text: 'Failed',
+  //           icon: 'warning',
+  //           showCancelButton: true
+  //         })
 
-//       }
-//     } catch (error) {
-//       console.error(error);
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
 
-//     }
-//     console.log(this.purTem);
+  //     }
+  //     console.log(this.purTem);
 
-//   }
- }
+  //   }
+}

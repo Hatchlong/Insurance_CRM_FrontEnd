@@ -88,12 +88,24 @@ export class EditPurchaseOrgComponent {
       if (result.status === '1') {
         this.companyDetails = result.data
       } else {
-        alert('API failed')
+        // alert('API failed')
+        Swal.fire({
+          title: 'warning',
+          text: 'API Failed',
+          icon: 'warning',
+          showCancelButton: true
+        })
       }
       console.log(result);
     } catch (error) {
       console.error(error)
-      alert('API failed')
+      // alert('API failed')
+      Swal.fire({
+        title: 'warning',
+        text: 'API Failed',
+        icon: 'warning',
+        showCancelButton: true
+      })
     }
   }
 }

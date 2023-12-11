@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-mode-of-transport',
@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class AddModeOfTransportComponent {
 
   transport: any = FormGroup
-
+  isSubmitted:any=false
   constructor(
     private fb: FormBuilder
   ) { }
@@ -20,8 +20,8 @@ export class AddModeOfTransportComponent {
 
   code() {
     this.transport = this.fb.group({
-      modeofTransport:'',
-      description:''
+      modeofTransport:['',Validators.required],
+      description:['',Validators.required]
       
     })
   }

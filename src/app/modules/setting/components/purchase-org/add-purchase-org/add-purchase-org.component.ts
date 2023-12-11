@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 export class AddPurchaseOrgComponent implements OnInit {
   purchOrg: any = FormGroup;
   companyDetails: any = []
+  isSubmitted:any=false
 
   constructor(private fb: FormBuilder,
     private companySer: CompanyCodeService,
@@ -37,15 +38,9 @@ export class AddPurchaseOrgComponent implements OnInit {
   // Create the purchase org Details
   async submitData() {
     try {
-      if (this.purchOrg.invalid) {
-        return Swal.fire({
-          title: 'warning',
-          text: 'All Field Are Required',
-          icon: 'warning',
-          showCancelButton: true
-        })
-
-      }
+      this.isSubmitted=true
+      if (this.purchOrg.invalid) 
+        return 
       const result: any = await this.purchaseOrgSer.createPurchaseOrgDetails(this.purchOrg.value);
       console.log(result)
       if (result.status === '1') {
@@ -74,12 +69,24 @@ export class AddPurchaseOrgComponent implements OnInit {
       if (result.status === '1') {
         this.companyDetails = result.data
       } else {
-        alert('API failed')
+        // alert('API failed')
+        Swal.fire({
+          title: 'warning',
+          text: 'API Failed',
+          icon: 'warning',
+          showCancelButton: true
+        })
       }
       console.log(result);
     } catch (error) {
       console.error(error)
-      alert('API failed')
+      // alert('API failed')
+      Swal.fire({
+        title: 'warning',
+        text: 'API Failed',
+        icon: 'warning',
+        showCancelButton: true
+      })
     }
   }
 }

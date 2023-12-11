@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, FormBuilder, FormArray, FormControl} from '@angular/forms'
+import {FormGroup, FormBuilder, FormArray, FormControl, Validators} from '@angular/forms'
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -8,6 +8,7 @@ import {FormGroup, FormBuilder, FormArray, FormControl} from '@angular/forms'
 export class AddProductComponent implements OnInit{
 
   general: any = FormGroup
+  isSubmitted:any=false;
 
   constructor(
     private fb: FormBuilder
@@ -19,36 +20,36 @@ export class AddProductComponent implements OnInit{
   }
   create() {
     this.general = this.fb.group({
-      matDes: '',
-      matGrp: '',
-      matType: '',
-      indSec: '',
-      net: '',
-      vol: '',
-      sto: '',
-      temp: '',
-      trans: '',
-      pkgWt: '',
-      unitDim: '',
-      unitWt: '',
-      pkgVol: '',
-      volUnit: '',
-      exWt: '',
-      ind: '',
-      oldMat: '',
-      base: '',
-      gross: '',
-      wtUnit: '',
-      volu: '',
-      length: '',
-      width: '',
-      height: '',
-      batch: '',
-      tax: '',
-      man: '',
-      exp: '',
-      exVol: '',
-      matCost: '',
+      matDes: ['',Validators.required],
+      matGrp: ['',Validators.required],
+      matType: ['',Validators.required],
+      indSec: ['',Validators.required],
+      net: ['',Validators.required],
+      vol: ['',Validators.required],
+      sto: ['',Validators.required],
+      temp: ['',Validators.required],
+      trans: ['',Validators.required],
+      pkgWt: ['',Validators.required],
+      unitDim: ['',Validators.required],
+      unitWt: ['',Validators.required],
+      pkgVol: ['',Validators.required],
+      volUnit: ['',Validators.required],
+      exWt: ['',Validators.required],
+      ind: ['',Validators.required],
+      oldMat: ['',Validators.required],
+      base: ['',Validators.required],
+      gross: ['',Validators.required],
+      wtUnit: ['',Validators.required],
+      volu: ['',Validators.required],
+      length: ['',Validators.required],
+      width: ['',Validators.required],
+      height: ['',Validators.required],
+      batch: ['',Validators.required],
+      tax: ['',Validators.required],
+      man: ['',Validators.required],
+      exp: ['',Validators.required],
+      exVol: ['',Validators.required],
+      matCost: ['',Validators.required],
       plantList: this.fb.array([this.addrow()]),
       salesList:this.fb.array([this.addSales()])
     })

@@ -1,15 +1,29 @@
 <div class="container-fluid">
     <form [formGroup]="divion" (ngSubmit)="addDivion()">
-        <h2><mat-icon class="back" routerLink="/settings/divion-list" >arrow_back</mat-icon>Divion
+        <h2><mat-icon class="back" routerLink="/settings/divion-list">arrow_back</mat-icon>Divion
         </h2>
         <div class="row">
             <div class="col-6 ">
-                <span for="" class="">Divion</span>
+                <label for="" class="">Divion<sup>*</sup></label>
                 <input type="text" class="form-control mb-3" placeholder="Enter Divion" formControlName="divion">
+                <div
+                    *ngIf="divion.controls['divion'].touched && divion.controls['divion'].touched && divion.controls['divion'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Division is required</p>
+                </div>
+                <div *ngIf="isSubmitted && divion.controls['divion'].hasError('required')">
+                    <p class="error-message">Division is required</p>
+                </div>
             </div>
             <div class="col-6 ">
-                <span for="" class="">Description</span>
+                <label for="" class="">Description<sup>*</sup></label>
                 <input type="text" class="form-control mb-3" placeholder="Description " formControlName="description">
+                <div
+                    *ngIf="divion.controls['description'].touched && divion.controls['description'].touched && divion.controls['description'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Description is required</p>
+                </div>
+                <div *ngIf="isSubmitted && divion.controls['description'].hasError('required')">
+                    <p class="error-message">Description is required</p>
+                </div>
             </div>
             <div>
                 <button class="btn btn-primary" type="submit"

@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AddIncoTermComponent {
 
   incoTerm: any = FormGroup;
-
+  isSubmitted:any=false
   constructor(private fb: FormBuilder,){}
 
   ngOnInit(): void { 

@@ -9,6 +9,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AddCustomerComponent implements OnInit{
 
   general: any = FormGroup
+  isSubmitted:any=false
 
   constructor(
     private fb: FormBuilder

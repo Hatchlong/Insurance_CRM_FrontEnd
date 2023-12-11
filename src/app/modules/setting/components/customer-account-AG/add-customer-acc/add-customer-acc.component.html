@@ -1,18 +1,32 @@
 <div class="container-fluid">
     <form [formGroup]="customerAcc" (ngSubmit)="addCustomerAcc()">
-        <h2><mat-icon class="back" routerLink="/settings/customer-account-list">arrow_back</mat-icon>Customer Account Asst Grp</h2>
+        <h2><mat-icon class="back" routerLink="/settings/customer-account-list">arrow_back</mat-icon>Customer Account
+            Asst Grp</h2>
 
         <div class="row">
             <div class="col-6 py-1">
-                <span for="" class="">Customer Account </span>
+                <label for="" class="">Customer Account <sup>*</sup></label>
                 <input type="text" class="form-control mb-3" placeholder="Enter Customer Account "
                     formControlName="customerAccount">
-
+                <div
+                    *ngIf="customerAcc.controls['customerAccount'].touched && customerAcc.controls['customerAccount'].touched && customerAcc.controls['customerAccount'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Customer Account is required</p>
+                </div>
+                <div *ngIf="isSubmitted && customerAcc.controls['customerAccount'].hasError('required')">
+                    <p class="error-message">Customer Account is required</p>
+                </div>
             </div>
             <div class="col-6 py-1">
-                <span for="" class="">Description</span>
-                <input type="text" class="form-control mb-3" placeholder="Enter Description " formControlName="description">
-
+                <label for="" class="">Description <sup>*</sup></label>
+                <input type="text" class="form-control mb-3" placeholder="Enter Description "
+                    formControlName="description">
+                <div
+                    *ngIf="customerAcc.controls['description'].touched && customerAcc.controls['description'].touched && customerAcc.controls['description'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Description is required</p>
+                </div>
+                <div *ngIf="isSubmitted && customerAcc.controls['description'].hasError('required')">
+                    <p class="error-message">Description is required</p>
+                </div>
             </div>
             <div>
                 <button class="btn btn-primary" type="submit"

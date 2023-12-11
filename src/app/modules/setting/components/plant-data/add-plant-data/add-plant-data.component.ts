@@ -72,7 +72,7 @@ export class AddPlantDataComponent {
       this.isSubmitted = true
       console.log(this.plantFormData.value)
       if (this.plantFormData.invalid)
-        return 
+        return
       const result: any = await this.plantDataSer.createPlantDataDetails(this.plantFormData.value);
       console.log(result)
       if (result.status === '1') {
@@ -131,7 +131,13 @@ export class AddPlantDataComponent {
         this.purDetails = result.data
       }
       else {
-        alert("API FAiled")
+        // alert("API FAiled")
+        Swal.fire({
+          title: 'warning',
+          text: 'API Failed',
+          icon: 'warning',
+          showCancelButton: true
+        })
       }
     } catch (error) {
       console.error(error);

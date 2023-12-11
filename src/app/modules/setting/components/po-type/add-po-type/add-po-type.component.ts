@@ -12,9 +12,9 @@ import Swal from 'sweetalert2';
 export class AddPoTypeComponent {
 
   poType: any = FormGroup
-  poTypeDetail:any=[]
-  swal:any
-  
+  poTypeDetail: any = []
+  isSubmitted: any = false
+
   constructor(
     private fb: FormBuilder,
     private potypeSer: PoTypeService,
@@ -43,29 +43,23 @@ export class AddPoTypeComponent {
   //submit data
   async addCode() {
     try {
-      if (this.poType.invalid) {
-        Swal.fire({
-          title:'warning',
-          text:'All Field Are Required',
-          icon:'warning',
-          showCancelButton:true
-         })
-        
-      }
+      this.isSubmitted = true
+      if (this.poType.invalid)
+        return
       const result: any = await this.potypeSer.createpoTypeDetail(this.poType.value)
       console.log(result);
       if (result.status === '1') {
         Swal.fire({
-          title:'success',
-          text:'Successfully Submitted',
-          icon:'success',
-          showCancelButton:true
+          title: 'success',
+          text: 'Successfully Submitted',
+          icon: 'success',
+          showCancelButton: true
         })
-       // alert(result.message)
+        // alert(result.message)
         this.router.navigate(['/settings/po-type-list']);
         return;
       }
-      if(result.status==='0'){
+      if (result.status === '0') {
         return alert(result.message)
       }
 
@@ -81,20 +75,26 @@ export class AddPoTypeComponent {
 
   // read all data
 
-  async getPotype(){
+  async getPotype() {
     try {
-      const result:any=await this.potypeSer.getAllPoType();
-      if(result.status==='1'){
-          this.poTypeDetail=result.data
+      const result: any = await this.potypeSer.getAllPoType();
+      if (result.status === '1') {
+        this.poTypeDetail = result.data
       }
-      else{
-        alert('Failed')
+      else {
+        // alert('Failed')
+        Swal.fire({
+          title: 'warning',
+          text: 'API Failed',
+          icon: 'warning',
+          showCancelButton: true
+        })
       }
       console.log(result);
-      
+
     } catch (error) {
       console.error(error);
-      
+
     }
   }
 }
