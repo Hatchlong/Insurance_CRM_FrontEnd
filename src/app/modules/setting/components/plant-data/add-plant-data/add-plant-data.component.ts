@@ -18,7 +18,8 @@ export class AddPlantDataComponent {
   languageName: any = []
   purDetails: any = [];
   taxDetails: any = [];
-  storgaeLocationDetails: any = []
+  storgaeLocationDetails: any = [];
+  isSubmitted:any = false;
 
   constructor(private fb: FormBuilder,
     private plantDataSer: PlantDataService,
@@ -33,7 +34,7 @@ export class AddPlantDataComponent {
     this.getPurchaseOrgDetail()
     this.getStorageLocationDetail();
     this.getTaxIndicatorDetail()
-    
+
   }
 
   plantData() {
@@ -42,6 +43,7 @@ export class AddPlantDataComponent {
       name1: ['', Validators.required],
       name2: ['', Validators.required],
       languageId: ['', Validators.required],
+      languageName: ['', Validators.required],
       address: ['', Validators.required],
       countryId: ['', Validators.required],
       countryName: [''],
@@ -67,14 +69,10 @@ export class AddPlantDataComponent {
 
   async submitData() {
     try {
+      this.isSubmitted = true
       console.log(this.plantFormData.value)
       if (this.plantFormData.invalid)
-        return Swal.fire({
-          title: 'warning',
-          text: 'All Field Are Required',
-          icon: 'warning',
-          showCancelButton: true
-        })
+        return 
       const result: any = await this.plantDataSer.createPlantDataDetails(this.plantFormData.value);
       console.log(result)
       if (result.status === '1') {
@@ -116,11 +114,11 @@ export class AddPlantDataComponent {
       console.error(error)
       // alert('API failed')
       Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
+        title: 'warning',
+        text: 'API Failed',
+        icon: 'warning',
+        showCancelButton: true
+      })
     }
   }
 
@@ -193,7 +191,9 @@ export class AddPlantDataComponent {
     try {
       const result: any = await this.companyCodeSer.singleLanguageDetails(id);
       if (result.status === '1') {
-        this.languageName = result.data.languageName
+        this.languageName = result.data.languageName;
+        this.plantFormData.controls.languageName.setValue(result.data.languageName)
+
       } else {
         // alert('API failed')
         Swal.fire({
@@ -208,11 +208,11 @@ export class AddPlantDataComponent {
       console.error(error)
       // alert('API failed')
       Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
+        title: 'warning',
+        text: 'API Failed',
+        icon: 'warning',
+        showCancelButton: true
+      })
     }
   }
 

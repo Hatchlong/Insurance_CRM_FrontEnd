@@ -30,7 +30,6 @@ export class EditCompanyCodeComponent {
     this.getCompanyDetails()
     this.getCountryDetails()
     this.code()
-    this.getSingleCompanyCodeDetails()
   }
 
   code() {
@@ -101,7 +100,8 @@ export class EditCompanyCodeComponent {
     try {
       const result: any = await this.companyCodeSer.getAllCompanyCodeDetails();
       if (result.status === '1') {
-        this.companyDetails = result.data
+        this.companyDetails = result.data;
+
       } else {
         // alert('API failed')
         Swal.fire({
@@ -124,6 +124,7 @@ export class EditCompanyCodeComponent {
       const result: any = await this.companyCodeSer.getAllCountryDetails();
       if (result.status === '1') {
         this.countryDetials = result.data;
+        this.getSingleCompanyCodeDetails()
       } else {
         // alert('API failed')
         Swal.fire({

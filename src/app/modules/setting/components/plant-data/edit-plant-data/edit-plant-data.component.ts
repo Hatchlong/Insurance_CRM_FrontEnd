@@ -53,6 +53,7 @@ export class EditPlantDataComponent {
       name1: ['', Validators.required],
       name2: ['', Validators.required],
       languageId: ['', Validators.required],
+      languageName: ['', Validators.required],
       address: ['', Validators.required],
       countryId: ['', Validators.required],
       countryName: ['', Validators.required],
@@ -100,13 +101,17 @@ export class EditPlantDataComponent {
 
   async submitData() {
     try {
-      if (this.plantsData.invalid)
-        return Swal.fire({
+      console.log(this.plantsData.value)
+      if (this.plantsData.invalid){
+        Swal.fire({
           title: 'warning',
           text: 'All Field Are Required',
           icon: 'warning',
           showCancelButton: true
         })
+        return
+      }
+      
       const result: any = await this.plantDataSer.updatePlantData(this.plantsData.value);
       if (result.status === '1') {
         Swal.fire({
@@ -122,6 +127,7 @@ export class EditPlantDataComponent {
       if (result.status === '0')
         return alert(result.message);
     } catch (error) {
+      console.error(error);
     }
   }
 
@@ -189,7 +195,8 @@ export class EditPlantDataComponent {
     try {
       const result: any = await this.companyCodeSer.singleLanguageDetails(id);
       if (result.status === '1') {
-        this.languageName = result.data.languageName
+        this.languageName = result.data.languageName;
+        this.plantsData.controls.languageName.setValue(result.data.languageName)
       } else {
         alert('API failed')
       }
