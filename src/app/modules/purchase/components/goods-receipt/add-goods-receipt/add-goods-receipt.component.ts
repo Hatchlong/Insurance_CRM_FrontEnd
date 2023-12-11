@@ -9,12 +9,13 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AddGoodsReceiptComponent {
 
   goodsReceipt: any = FormGroup
+  isSubmitted: any= false;
 
   constructor(
     private fb: FormBuilder
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this.code()
   }
 
@@ -41,18 +42,19 @@ export class AddGoodsReceiptComponent {
     console.log("Item Added");
 
     return this.fb.group({
-     productId:'',
-     plant:'',
-     storageLocation:'',
-     poQty:'',
-     grQty:'',
-     uom:'',
-     glAccount:'',
-     stockType:''
+     productId:['', Validators.required],
+     plant:['', Validators.required],
+     storageLocation:['', Validators.required],
+     poQty:['', Validators.required],
+     grQty:['', Validators.required],
+     uom:['', Validators.required],
+     glAccount:['', Validators.required],
+     stockType:['', Validators.required],
     })
   }
 
   addCode() {
+    this.isSubmitted = true;
     console.log(this.goodsReceipt);
 
   }

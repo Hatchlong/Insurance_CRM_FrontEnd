@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-purchase-order',
@@ -8,6 +8,8 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 })
 export class AddPurchaseOrderComponent {
   purchase: any = FormGroup
+  isSubmitted:any = false;
+
 
   constructor(
     private fb: FormBuilder
@@ -19,22 +21,22 @@ export class AddPurchaseOrderComponent {
 
   code() {
     this.purchase = this.fb.group({
-      poType: '',
-      poNum: '',
-      poDate: '',
-      comCode: '',
-      purOrg: '',
-      payTerm: '',
-      vendor: '',
-      netPrice: '',
-      netTax: '',
-      tranCurr: '',
-      exRate: '',
-      comCurr: '',
-      remark: '',
+      poType: ['', Validators.required],
+      poNumber: ['', Validators.required],
+      poDate: ['', Validators.required],
+      companyCode: ['', Validators.required],
+      purchaseOrg: ['', Validators.required],
+      paymentTerm: ['', Validators.required],
+      vendor: ['', Validators.required],
+      netTax: ['', Validators.required],
+      transactionCurrency: ['', Validators.required],
+      exchangeRate: ['', Validators.required],
+      companyCurrency: ['', Validators.required],
+      remark: ['', Validators.required],
+      netPrice: ['', Validators.required],
 
 
-
+ 
       itemList: this.fb.array([this.addVal()])
     })
   }
@@ -47,20 +49,21 @@ export class AddPurchaseOrderComponent {
     console.log("Item Added");
 
     return this.fb.group({
-      defalut: '',
-      proCode: '',
-      proDes: '',
-      poQty: '',
-      uom: '',
-      unit: '',
-      pricing: '',
-      priuom: '',
-      priceamount: '',
+      deliveryAddress: ['', Validators.required],
+      productCode: ['', Validators.required],
+      productDescription: ['', Validators.required],
+      poQty: ['', Validators.required],
+      uom: ['', Validators.required],
+      perUnitPrice: ['', Validators.required],
+      priceUnit: ['', Validators.required],
+      priceUom: ['', Validators.required],
+      priceAmount: ['', Validators.required],
 
     })
   }
 
   addCode() {
+    this.isSubmitted=true;
     console.log(this.purchase);
 
   }

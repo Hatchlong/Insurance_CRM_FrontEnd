@@ -9,154 +9,320 @@
                 <div class="row border">
 
                     <div class="col-6 mt-2">
-                        <label for="">Billing Type</label>
+                        <label for="">Billing Type <sup>*</sup> </label>
                         <select class="form-select" formControlName="billingType">
                             <option selected></option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+
+                        <div *ngIf="productFromGroup.controls['billingType'].touched && productFromGroup.controls['billingType'].touched && productFromGroup.controls['billingType'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Billing Type is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && productFromGroup.controls['billingType'].hasError('required')">
+                            <p class="error-message">Billing Type is required</p>
+                        </div>
+
                     </div>
                     <div class="col-6 mt-2">
-                        <label for="BillingDate">Billing Date</label>
+                        <label for="BillingDate">Billing Date <sup>*</sup></label>
                         <input type="date" class="form-control" formControlName="billingDate">
+                    
+                        <div *ngIf="productFromGroup.controls['billingDate'].touched && productFromGroup.controls['billingDate'].touched && productFromGroup.controls['billingDate'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Billing Date is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && productFromGroup.controls['billingDate'].hasError('required')">
+                            <p class="error-message">Billing Date is required</p>
+                        </div>
+
                     </div>
-                    <div class="col-6 mt-4">
-                        <label for="ReferenceDoc">Reference Doc</label>
-                        <input type="text" class="form-control" formControlName="referenceDoc"
+                    <div class="col-6 ">
+                        <label for="ReferenceDoc">Reference Doc <sup>*</sup></label>
+                        <input type="text" class="form-control" formControlName="referenceDocument"
                             placeholder="Reference Document">
+
+                            <div *ngIf="productFromGroup.controls['referenceDocument'].touched && productFromGroup.controls['referenceDocument'].touched && productFromGroup.controls['referenceDocument'].hasError('required') && !isSubmitted">
+                                <p class="error-message">Reference Document is required</p>
+                            </div>
+                            <div *ngIf="isSubmitted && productFromGroup.controls['referenceDocument'].hasError('required')">
+                                <p class="error-message">Reference Document is required</p>
+                            </div>
+
                     </div>
 
-                    <div class="col-6 mt-4">
-                        <label for="CustomerId">Customer Id</label>
+                    <div class="col-6 ">
+                        <label for="CustomerId">Customer Id <sup>*</sup></label>
                         <input type="text" class="form-control" formControlName="customerId"
                             placeholder="Reference Document">
 
+                            <div *ngIf="productFromGroup.controls['customerId'].touched && productFromGroup.controls['customerId'].touched && productFromGroup.controls['customerId'].hasError('required') && !isSubmitted">
+                                <p class="error-message">Customer Id is required</p>
+                            </div>
+                            <div *ngIf="isSubmitted && productFromGroup.controls['customerId'].hasError('required')">
+                                <p class="error-message">Customer Id is required</p>
+                            </div>
+
                     </div>
-                    <div class="col-6 mt-4">
-                        <label for="NetValue">Net Value</label>
+                    <div class="col-6 ">
+                        <label for="NetValue">Net Value <sup>*</sup></label>
                         <input type="number" class="form-control" formControlName="netValue" placeholder="Net Value">
 
+                        <div *ngIf="productFromGroup.controls['netValue'].touched && productFromGroup.controls['netValue'].touched && productFromGroup.controls['netValue'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Net Value is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && productFromGroup.controls['netValue'].hasError('required')">
+                            <p class="error-message">Net Value is required</p>
+                        </div>
+
                     </div>
 
-                    <div class="col-6 mt-4 mb-2">
-                        <label for="TaxAmount">Tax Amount</label>
+                    <div class="col-6  mb-2">
+                        <label for="TaxAmount">Tax Amount <sup>*</sup></label>
                         <input type="number" class="form-control" formControlName="taxAmount" placeholder="Tax Amount">
 
+                        <div *ngIf="productFromGroup.controls['taxAmount'].touched && productFromGroup.controls['taxAmount'].touched && productFromGroup.controls['taxAmount'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Tax Amount is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && productFromGroup.controls['taxAmount'].hasError('required')">
+                            <p class="error-message">Tax Amount is required</p>
+                        </div>
+
                     </div>
-                    <div class="col-6 mt-4 mb-2">
-                        <label for="">Currency</label>
+                    <div class="col-6  mb-2">
+                        <label for="">Currency <sup>*</sup></label>
                         <select class="form-select" formControlName="currency">
                             <option selected></option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+
+                        <div *ngIf="productFromGroup.controls['currency'].touched && productFromGroup.controls['currency'].touched && productFromGroup.controls['currency'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Currency is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && productFromGroup.controls['currency'].hasError('required')">
+                            <p class="error-message">Currency is required</p>
+                        </div>
+
                     </div>
-                    <div class="col-6 mt-4">
-                        <label for="ExchaneRate">Exchange Rate</label>
-                        <input type="number" class="form-control" formControlName="exchaneRate"
+                    <div class="col-6 ">
+                        <label for="ExchaneRate">Exchange Rate <sup>*</sup></label>
+                        <input type="number" class="form-control" formControlName="exchangeRate"
                             placeholder="Exchange Rate">
+
+                            <div *ngIf="productFromGroup.controls['exchangeRate'].touched && productFromGroup.controls['exchangeRate'].touched && productFromGroup.controls['exchangeRate'].hasError('required') && !isSubmitted">
+                                <p class="error-message">Exchange Rate is required</p>
+                            </div>
+                            <div *ngIf="isSubmitted && productFromGroup.controls['exchangeRate'].hasError('required')">
+                                <p class="error-message">Exchange Rate is required</p>
+                            </div>
+
                     </div>
-                    <div class="col-6 mt-4 mb-2">
-                        <label for="Company">Company Code</label>
+                    <div class="col-6  mb-2">
+                        <label for="Company">Company Code <sup>*</sup></label>
                         <select class="form-select" formControlName="companyCode">
                             <option selected></option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+
+                        <div *ngIf="productFromGroup.controls['companyCode'].touched && productFromGroup.controls['companyCode'].touched && productFromGroup.controls['companyCode'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Company Code is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && productFromGroup.controls['companyCode'].hasError('required')">
+                            <p class="error-message">Company Code is required</p>
+                        </div>
+
+
                     </div>
-                    <div class="col-6 mt-4 mb-2">
-                        <label for="">Customer Account AG</label>
+                    <div class="col-6  mb-2">
+                        <label for="">Customer Account AG <sup>*</sup></label>
                         <select class="form-select" formControlName="customerAccount">
                             <option selected></option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+
+                        <div *ngIf="productFromGroup.controls['customerAccount'].touched && productFromGroup.controls['customerAccount'].touched && productFromGroup.controls['customerAccount'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Customer Account is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && productFromGroup.controls['customerAccount'].hasError('required')">
+                            <p class="error-message">Customer Account is required</p>
+                        </div>
+
                     </div>
-                    <div class="col-6 mt-4 mb-2">
-                        <label for="">Posting Status</label>
+                    <div class="col-6  mb-2">
+                        <label for="">Posting Status <sup>*</sup></label>
                         <select class="form-select" formControlName="postingStatus">
                             <option selected></option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+
+                        <div *ngIf="productFromGroup.controls['postingStatus'].touched && productFromGroup.controls['postingStatus'].touched && productFromGroup.controls['postingStatus'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Posting Status is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && productFromGroup.controls['postingStatus'].hasError('required')">
+                            <p class="error-message">Posting Status is required</p>
+                        </div>
+
                     </div>
-                    <div class="col-6 mt-4 mb-2">
-                        <label for="">Payment Terms</label>
+                    <div class="col-6  mb-2">
+                        <label for="">Payment Terms <sup>*</sup></label>
                         <select class="form-select" formControlName="paymentTerm">
                             <option selected></option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+
+                        <div *ngIf="productFromGroup.controls['paymentTerm'].touched && productFromGroup.controls['paymentTerm'].touched && productFromGroup.controls['paymentTerm'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Payment Term is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && productFromGroup.controls['paymentTerm'].hasError('required')">
+                            <p class="error-message">Payment Term is required</p>
+                        </div>
+
                     </div>
-                    <div class="col-6 mt-4 mb-2">
-                        <label for="">Inco Terms</label>
+                    <div class="col-6  mb-2">
+                        <label for="">Inco Terms <sup>*</sup></label>
                         <select class="form-select" formControlName="incrementTearm">
                             <option selected></option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+
+                        <div *ngIf="productFromGroup.controls['incrementTearm'].touched && productFromGroup.controls['incrementTearm'].touched && productFromGroup.controls['incrementTearm'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Inco Term is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && productFromGroup.controls['incrementTearm'].hasError('required')">
+                            <p class="error-message">Inco Term is required</p>
+                        </div>
+
                     </div>
-                    <div class="col-6 mt-4 mb-2">
-                        <label for="">Sales Org</label>
+                    <div class="col-6  mb-2">
+                        <label for="">Sales Org <sup>*</sup></label>
                         <select class="form-select" formControlName="salesOrg">
                             <option selected></option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+
+                        <div *ngIf="productFromGroup.controls['salesOrg'].touched && productFromGroup.controls['salesOrg'].touched && productFromGroup.controls['salesOrg'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Sales Org is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && productFromGroup.controls['salesOrg'].hasError('required')">
+                            <p class="error-message">Sales Org is required</p>
+                        </div>
+
                     </div>
-                    <div class="col-6 mt-4 mb-2">
-                        <label for="">Distribution Channel</label>
+                    <div class="col-6  mb-2">
+                        <label for="">Distribution Channel <sup>*</sup></label>
                         <select class="form-select" formControlName="distributionChannel">
                             <option selected></option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+
+                        <div *ngIf="productFromGroup.controls['distributionChannel'].touched && productFromGroup.controls['distributionChannel'].touched && productFromGroup.controls['distributionChannel'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Distribution Channel is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && productFromGroup.controls['distributionChannel'].hasError('required')">
+                            <p class="error-message">Distribution Channel is required</p>
+                        </div>
+                        
                     </div>
-                    <div class="col-6 mt-4 mb-2">
-                        <label for="">Division</label>
+                    <div class="col-6  mb-2">
+                        <label for="">Division <sup>*</sup></label>
                         <select class="form-select" formControlName="division">
                             <option selected></option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+
+                        <div *ngIf="productFromGroup.controls['division'].touched && productFromGroup.controls['division'].touched && productFromGroup.controls['division'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Division is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && productFromGroup.controls['division'].hasError('required')">
+                            <p class="error-message">Division is required</p>
+                        </div>
+
                     </div>
-                    <div class="col-6 mt-4 mb-2">
-                        <label for="">Mode Of Transport</label>
+                    <div class="col-6  mb-2">
+                        <label for="">Mode Of Transport <sup>*</sup></label>
                         <select class="form-select" formControlName="modeOfTransport">
                             <option selected></option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+
+                        <div *ngIf="productFromGroup.controls['modeOfTransport'].touched && productFromGroup.controls['modeOfTransport'].touched && productFromGroup.controls['modeOfTransport'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Mode Of Transport is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && productFromGroup.controls['modeOfTransport'].hasError('required')">
+                            <p class="error-message">Mode Of Transport is required</p>
+                        </div>
+
                     </div>
-                    <div class="col-6 mt-4 mb-2">
-                        <label for="NetTax">Net Tax</label>
+                    <div class="col-6  mb-2">
+                        <label for="NetTax">Net Tax <sup>*</sup></label>
                         <input type="number" class="form-control" formControlName="netTax" placeholder="Net Tax">
+
+                        <div *ngIf="productFromGroup.controls['netTax'].touched && productFromGroup.controls['netTax'].touched && productFromGroup.controls['netTax'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Net Tax is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && productFromGroup.controls['netTax'].hasError('required')">
+                            <p class="error-message">Net Tax is required</p>
+                        </div>
+
                     </div>
-                    <div class="col-6 mt-4 mb-2">
-                        <label for="NetDiscount">Net Discount</label>
+                    <div class="col-6  mb-2">
+                        <label for="NetDiscount">Net Discount <sup>*</sup></label>
                         <input type="number" class="form-control" formControlName="netDiscount"
                             placeholder="Net Discount">
+
+                            <div *ngIf="productFromGroup.controls['netDiscount'].touched && productFromGroup.controls['netDiscount'].touched && productFromGroup.controls['netDiscount'].hasError('required') && !isSubmitted">
+                                <p class="error-message">Net Discount is required</p>
+                            </div>
+                            <div *ngIf="isSubmitted && productFromGroup.controls['netDiscount'].hasError('required')">
+                                <p class="error-message">Net Discount is required</p>
+                            </div>
+
                     </div>
-                    <div class="col-6 mt-4 mb-2">
-                        <label for="netFreight">Net Freight</label>
-                        <input type="number" class="form-control" formControlName="NetFreight"
+                    <div class="col-6  mb-2">
+                        <label for="netFreight">Net Freight <sup>*</sup></label>
+                        <input type="number" class="form-control" formControlName="netFreight"
                             placeholder="Net Freight">
+
+                            <div *ngIf="productFromGroup.controls['netFreight'].touched && productFromGroup.controls['netFreight'].touched && productFromGroup.controls['netFreight'].hasError('required') && !isSubmitted">
+                                <p class="error-message">Net Freight is required</p>
+                            </div>
+                            <div *ngIf="isSubmitted && productFromGroup.controls['netFreight'].hasError('required')">
+                                <p class="error-message">Net Freight is required</p>
+                            </div>
+
                     </div>
-                    <div class="col-6 mt-4 mb-2">
-                        <label for="OtherCharge">Other Charges</label>
+                    <div class="col-6  mb-2">
+                        <label for="OtherCharge">Other Charges <sup>*</sup></label>
                         <input type="number" class="form-control" formControlName="otherCharge"
                             placeholder="Other Charge">
+
+                            <div *ngIf="productFromGroup.controls['otherCharge'].touched && productFromGroup.controls['otherCharge'].touched && productFromGroup.controls['otherCharge'].hasError('required') && !isSubmitted">
+                                <p class="error-message">Other Charge is required</p>
+                            </div>
+                            <div *ngIf="isSubmitted && productFromGroup.controls['otherCharge'].hasError('required')">
+                                <p class="error-message">Other Charge is required</p>
+                            </div>
+
                     </div>
 
 

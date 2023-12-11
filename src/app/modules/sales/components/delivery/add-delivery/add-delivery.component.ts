@@ -7,7 +7,8 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./add-delivery.component.css']
 })
 export class AddDeliveryComponent implements OnInit{
-  
+  isSubmitted:any = true;
+
   productFromGroup: any = FormGroup
   constructor(
     private fb: FormBuilder,
@@ -21,16 +22,18 @@ export class AddDeliveryComponent implements OnInit{
   }
 
   createProductFormFields() {
+    this.isSubmitted = false
+
     console.log("frrrrrfre");
     
     this.productFromGroup = this.fb.group({
-      deliveryType: '',
-      plant: '',
-      delivery: '',
-      deliveryDate: '',
-      customerId: '',
-      deliveryAddress: '',
-      deliveryPartner: '',
+      deliveryType: ['', Validators.required],
+      plant: ['', Validators.required],
+      delivery: ['', Validators.required],
+      deliveryDate: ['', Validators.required],
+      customerId: ['', Validators.required],
+      deliveryAddress: ['', Validators.required],
+      deliveryPartner: ['', Validators.required],
       financialList: this.fb.array([this.getFinancialFields()])
     })
   }
@@ -38,15 +41,15 @@ export class AddDeliveryComponent implements OnInit{
 
   getFinancialFields(): FormGroup {
     return this.fb.group({
-      plantItem: [''],
-      deliveryItem: [''],
-      productId: [''],
-      deliveryDate:[''],
-      deliveryQty: [''],
-      openQty: [''],
-      storagelocation: [''],
-      refOrder: [''],
-      refItem: ['']
+      plantItem: ['', Validators.required],
+      deliveryItem: ['', Validators.required],
+      productId: ['', Validators.required],
+      deliveryDate:['', Validators.required],
+      deliveryQty: ['', Validators.required],
+      openQty: ['', Validators.required],
+      storagelocation: ['', Validators.required],
+      refOrder: ['', Validators.required],
+      refItem: ['', Validators.required]
     })
   }
 

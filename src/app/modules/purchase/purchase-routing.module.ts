@@ -5,6 +5,7 @@ import { AddPurchaseOrderComponent } from './components/purchase-order/add-purch
 import { PurchaseOrderListComponent } from './components/purchase-order/purchase-order-list/purchase-order-list.component';
 import { AddGoodsReceiptComponent } from './components/goods-receipt/add-goods-receipt/add-goods-receipt.component';
 import { GoodsReceiptListComponent } from './components/goods-receipt/goods-receipt-list/goods-receipt-list.component';
+import { VendorInvoiceListComponent } from './components/vendor-invoice/vendor-invoice-list/vendor-invoice-list.component';
 
 const routes: Routes = [{
   path:"add-vendor-invoice",
@@ -23,6 +24,14 @@ const routes: Routes = [{
 {
   path:"goods-receipt-list",
   component:GoodsReceiptListComponent
+},
+{
+  path:"add-vendor-invoice",
+  component:AddVendorInvoiceComponent
+},
+{
+  path:"vendor-invoice-list",
+  component:VendorInvoiceListComponent
 },
 ];
 

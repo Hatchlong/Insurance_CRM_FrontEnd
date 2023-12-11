@@ -7,10 +7,11 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./add-billing.component.css']
 })
 export class AddBillingComponent {
-
+isSubmitted:any = false;
 
   productFromGroup: any = FormGroup
   countryLists: any = ''
+
   constructor(
     private fb: FormBuilder,
 
@@ -28,12 +29,12 @@ export class AddBillingComponent {
     this.productFromGroup = this.fb.group({
       billingType: ['', Validators.required],
       billingDate: ['', Validators.required],
-      referenceDoc: ['', Validators.required],
+      referenceDocument: ['', Validators.required],
       customerId: ['', Validators.required],
-      netValue: [''],
-      taxAmount: [''],
+      netValue: ['', Validators.required],
+      taxAmount: ['', Validators.required],
       currency: ['', Validators.required],
-      exchaneRate: ['', Validators.required],
+      exchangeRate: ['', Validators.required],
       companyCode: ['', Validators.required],
       customerAccount: ['', Validators.required],
       postingStatus: ['', Validators.required],
@@ -45,7 +46,7 @@ export class AddBillingComponent {
       modeOfTransport: ['', Validators.required],
       netTax: ['', Validators.required],
       netDiscount: ['', Validators.required],
-      NetFreight: ['', Validators.required],
+      netFreight: ['', Validators.required],
       otherCharge: ['', Validators.required],
 
       financialList: this.fb.array([this.getFinancialFields()])
@@ -98,6 +99,7 @@ export class AddBillingComponent {
   }
 
   addAllBilling() {
+    this.isSubmitted = true;
     console.log(this.productFromGroup);
   }
 

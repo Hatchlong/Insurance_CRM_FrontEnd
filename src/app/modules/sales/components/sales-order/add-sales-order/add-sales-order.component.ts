@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-sales-order',
@@ -7,6 +7,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./add-sales-order.component.css']
 })
 export class AddSalesOrderComponent {
+  isSubmitted:any = true;
 
   sales:any=FormGroup
   constructor(private fb:FormBuilder){}
@@ -16,35 +17,36 @@ export class AddSalesOrderComponent {
       this.add()
   }
   add(){
+    this.isSubmitted = false
     this.sales=this.fb.group({
-      order:'',
-      saleOrg:'',
-      dist:'',
-      division:'',
-      custId:'',
-      custAdd:'',
-      saleOrder:'',
-      custPO:'',
-      poDate:'',
-      delDate:'',
-      comCur:'',
-      traCurr:'',
-      txt:'',
-      orderStatus:'',
-      exRate:'',
-      modeTra:'',
-      netWt:'',
-      grossWt:'',
-      totVol:'',
-      payTerm:'',
-      billBlock:'',
-      comCode:'',
-      custAcc:'',
-      netPrice:'',
-      netTax:'',
-      netDis:'',
-      netFre:'',
-      otherCh:'',
+      orderType:['', Validators.required], 
+      saleOrg:['', Validators.required],
+      distributionChannel:['', Validators.required],
+      division:['', Validators.required],
+      customerId:['', Validators.required],
+      customerAdd:['', Validators.required],
+      saleOrder:['', Validators.required],
+      customerPO:['', Validators.required],
+      customerPoDate:['', Validators.required],
+      reqDeliveryDate:['', Validators.required],
+      companyCurrency:['', Validators.required],
+      transactionCurr:['', Validators.required],
+      text:['', Validators.required],
+      orderStatus:['', Validators.required],
+      exchangeRate:['', Validators.required],
+      modeOfTransaction:['', Validators.required],
+      netWeight:['', Validators.required],
+      totalGrossWeight:['', Validators.required],
+      totalVolume:['', Validators.required],
+      paymentTerm:['', Validators.required],
+      billingBlock:['', Validators.required],
+      companyCode:['', Validators.required],
+      customerAccount:['', Validators.required],
+      netPrice:['', Validators.required],
+      netTax:['', Validators.required],
+      netDiscount:['', Validators.required],
+      netFreight:['', Validators.required],
+      otherChange:['', Validators.required],
 
       salesList:this.fb.array([this.addValue()])
 
@@ -58,31 +60,31 @@ export class AddSalesOrderComponent {
   addValue(){
     console.log("Data Added");
     return this.fb.group({
-      proId:'',
-      proDes:'',
-      ordQty:'',
-      uom:'',
-      plant:'',
-      stLoc:'',
-      batch:'',
-      price:'',
-      perUnit:'',
-      pricingUnit:'',
-      priDate:'',
-      vol:' ',
-      priuom:'',
-      tax:'',
-      perUnitTax:'',
-      discount:'',
-      perDis:'',
-      fre:'',
-      perFre:'',
-      othCharge:'',
-      compCurr:'',
-      tranCurrency:'',
-      exchangeRate:'',
-      netWeight:'',
-      groWeight:''
+      productId:['', Validators.required],
+      proDes:['', Validators.required],
+      ordQty:['', Validators.required],
+      uom:['', Validators.required],
+      plant:['', Validators.required],
+      stLoc:['', Validators.required],
+      batch:['', Validators.required],
+      price:['', Validators.required],
+      perUnit:['', Validators.required],
+      pricingUnit:['', Validators.required],
+      priDate:['', Validators.required],
+      vol:['', Validators.required],
+      priuom:['', Validators.required],
+      tax:['', Validators.required],
+      perUnitTax:['', Validators.required],
+      discount:['', Validators.required],
+      perDis:['', Validators.required],
+      fre:['', Validators.required],
+      perFre:['', Validators.required],
+      othCharge:['', Validators.required],
+      compCurr:['', Validators.required],
+      tranCurrency:['', Validators.required],
+      exchangeRate:['', Validators.required],
+      netWeight:['', Validators.required],
+      groWeight:['', Validators.required],
     })
     
   }

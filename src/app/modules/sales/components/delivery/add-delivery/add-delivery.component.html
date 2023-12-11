@@ -1,77 +1,112 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
+    
             <h3 class="mt-2">
                 <mat-icon class="back" routerLink="/">arrow_back</mat-icon> Delivery
             </h3>
             <form [formGroup]="productFromGroup" (ngSubmit)="createProductFormFields()">
 
                 <div class="row">
-                    <div class="col-12 border px-1">
-                        <div class="row ms-3">
-                            <div class="col-6 mt-2">
-                                <div class="row">
-                                    <div class="col-12 mt-2">
-                                        <label>Delivery Type</label>
-                                        <input type="text" class="form-control" formControlName="deliveryType"
-                                            placeholder="Vendor Name">
-                                    </div>
-
-                                </div>
+                    <div class="col-6">
+                        <label>Delivery Type <sup>*</sup></label>
+                        <input type="text" class="form-control" formControlName="deliveryType"
+                            placeholder="Vendor Name">
+                            <div *ngIf="productFromGroup.controls['deliveryType'].touched && productFromGroup.controls['deliveryType'].touched && productFromGroup.controls['deliveryType'].hasError('required') && !isSubmitted">
+                                <p class="error-message">Delivery Type is required</p>
                             </div>
-                            <div class="col-6 mt-3">
-                                <label for="">Plant</label>
+                            <div *ngIf="isSubmitted && productFromGroup.controls['deliveryType'].hasError('required')">
+                                <p class="error-message">Delivery Type is required</p>
+                            </div>
+                    </div>
+                                 
+                    <div class="col-6">
+                        <label for="">Plant <sup>*</sup></label>
                                 <select class="form-select" formControlName="plant">
                                     <option selected></option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
                                 </select>
-                            </div>
+                                <div *ngIf="productFromGroup.controls['plant'].touched && productFromGroup.controls['plant'].touched && productFromGroup.controls['plant'].hasError('required') && !isSubmitted">
+                                    <p class="error-message">Plant is required</p>
+                                </div>
+                                <div *ngIf="isSubmitted && productFromGroup.controls['plant'].hasError('required')">
+                                    <p class="error-message">Plant is required</p>
+                                </div>
+                    </div>
+                                    
+                    <div class="col-6">
+                        <span for="" class="">Delivery <sup>*</sup></span>
+                        <input type="number" class="form-control " placeholder=" Delivery"
+                            formControlName="delivery">
+                            <div *ngIf="productFromGroup.controls['delivery'].touched && productFromGroup.controls['delivery'].touched && productFromGroup.controls['delivery'].hasError('required') && !isSubmitted">
+                                    <p class="error-message">Delivery is required</p>
+                                </div>
+                                <div *ngIf="isSubmitted && productFromGroup.controls['delivery'].hasError('required')">
+                                    <p class="error-message">Delivery is required</p>
+                                </div>
 
+                    </div>
 
-                        </div>
-
-                        <div class="row ms-3">
-                            <div class="col-6 mt-4">
-                                <span for="" class="">Delivery</span>
-                                <input type="number" class="form-control mb-3" placeholder=" Delivery"
-                                    formControlName="delivery">
-
-                            </div>
-                            <div class="col-6 mt-4">
-                                <span for="" class="">Delivery Date</span>
-                                <input type="date" class="form-control mb-3" placeholder=" Delivery Date"
-                                    formControlName="deliveryDate">
-                            </div>
-
-                            <div class="col-6 mt-4 mb-2">
-                                <span for="" class="mt-4">Customer Id</span>
-                                <select class="form-select mb-3" aria-label="Default select example"
+                    <div class="col-6">
+                        <span for="" class="">Delivery Date <sup>*</sup></span>
+                        <input type="date" class="form-control " placeholder=" Delivery Date"
+                            formControlName="deliveryDate">
+                            <div *ngIf="productFromGroup.controls['deliveryDate'].touched && productFromGroup.controls['deliveryDate'].touched && productFromGroup.controls['deliveryDate'].hasError('required') && !isSubmitted">
+                                    <p class="error-message">Delivery Date is required</p>
+                                </div>
+                                <div *ngIf="isSubmitted && productFromGroup.controls['deliveryDate'].hasError('required')">
+                                    <p class="error-message">Delivery Date is required</p>
+                                </div>
+                    </div>
+                               
+                    <div class="col-6">
+                        <span for="" class="mt-4">Customer Id <sup>*</sup></span>
+                                <select class="form-select " aria-label="Default select example"
                                     formControlName="customerId">
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
                                 </select>
-                            </div>
-                            <div class="col-6 mt-4 mb-2">
-                                <span for="" class="">Delivery Address</span>
-                                <input type="text" class="form-control mb-3" placeholder=" Delivery Address"
-                                    formControlName="deliveryAddress">
-                            </div>
-                        </div>
-                        <div class="row ms-3 mb-4">
-                            <div class="col-6 mt-4">
-                                <span for="" class="mt-4">Delivery Partener</span>
-                                <select class="form-select mb-3" aria-label="Default select example"
-                                    formControlName="deliveryPartner">
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>
-                        </div>
+                                <div *ngIf="productFromGroup.controls['customerId'].touched && productFromGroup.controls['customerId'].touched && productFromGroup.controls['customerId'].hasError('required') && !isSubmitted">
+                                    <p class="error-message">Customer Id is required</p>
+                                </div>
+                                <div *ngIf="isSubmitted && productFromGroup.controls['customerId'].hasError('required')">
+                                    <p class="error-message">Customer Id is required</p>
+                                </div>
                     </div>
+
+                              
+                    <div class="col-6">
+                        <span for="" class="">Delivery Address <sup>*</sup></span>
+                                <input type="text" class="form-control " placeholder=" Delivery Address"
+                                    formControlName="deliveryAddress">
+                                    
+                            <div *ngIf="productFromGroup.controls['deliveryAddress'].touched && productFromGroup.controls['deliveryAddress'].touched && productFromGroup.controls['deliveryAddress'].hasError('required') && !isSubmitted">
+                                    <p class="error-message">Delivery Address is required</p>
+                                </div>
+                                <div *ngIf="isSubmitted && productFromGroup.controls['deliveryAddress'].hasError('required')">
+                                    <p class="error-message">Delivery Address is required</p>
+                                </div>
+                    </div>
+
+                    <div class="col-6">
+                        <span for="" class="mt-4">Delivery Partener <sup>*</sup></span>
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="deliveryPartner">
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        <div *ngIf="productFromGroup.controls['deliveryPartner'].touched && productFromGroup.controls['deliveryPartner'].touched && productFromGroup.controls['deliveryPartner'].hasError('required') && !isSubmitted">
+                                    <p class="error-message">Delivery Partner is required</p>
+                                </div>
+                                <div *ngIf="isSubmitted && productFromGroup.controls['deliveryPartner'].hasError('required')">
+                                    <p class="error-message">Delivery Partner is required</p>
+                                </div>
+                    </div>
+                           
+                               
+                
 
                 </div>
 
@@ -187,5 +222,3 @@
 
             </form>
         </div>
-    </div>
-</div>

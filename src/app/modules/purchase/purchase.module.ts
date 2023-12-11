@@ -14,6 +14,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddGoodsReceiptComponent } from './components/goods-receipt/add-goods-receipt/add-goods-receipt.component';
 import { GoodsReceiptListComponent } from './components/goods-receipt/goods-receipt-list/goods-receipt-list.component';
+import { VendorInvoiceListComponent } from './components/vendor-invoice/vendor-invoice-list/vendor-invoice-list.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { GoodsReceiptListComponent } from './components/goods-receipt/goods-rece
     PurchaseOrderListComponent,
     AddVendorInvoiceComponent,
     AddGoodsReceiptComponent,
-    GoodsReceiptListComponent
+    GoodsReceiptListComponent,
+    VendorInvoiceListComponent
   ],
   imports: [
     CommonModule,
