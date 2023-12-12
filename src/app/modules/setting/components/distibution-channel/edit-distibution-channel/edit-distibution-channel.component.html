@@ -6,10 +6,10 @@
         <div class="row">
          <div class="col-6 py-1">
                 <label for="" class="">Distibution Channel<sup>*</sup></label>
-                <input type="text" class="form-control " placeholder="Enter Distribution Channel"
+                <input type="text" class="form-control mb-3" placeholder="Enter Distribution Channel"
                     formControlName="distributionChannel">
                 <div
-                    *ngIf="channel.controls['distributionChannel'].touched && channel.controls['distributionChannel'].dirty && channel.controls['distributionChannel'].hasError('required') && !isSubmitted">
+                    *ngIf="channel.controls['distributionChannel'].touched && channel.controls['distributionChannel'].touched && channel.controls['distributionChannel'].hasError('required') && !isSubmitted">
                     <p class="error-message">Distribution Channel is required</p>
                 </div>
                 <div *ngIf="isSubmitted && channel.controls['distributionChannel'].hasError('required')">
@@ -18,10 +18,10 @@
             </div>
             <div class="col-6 py-1">
                 <label for="" class="">Description<sup>*</sup></label>
-                <input type="text" class="form-control " placeholder="Enter Description "
+                <input type="text" class="form-control mb-3" placeholder="Enter Description "
                     formControlName="distributionDescription">
                     <div
-                    *ngIf="channel.controls['description'].touched && channel.controls['description'].dirty && channel.controls['description'].hasError('required') && !isSubmitted">
+                    *ngIf="channel.controls['distributionDescription'].touched && channel.controls['distributionDescription'].touched && channel.controls['distributionDescription'].hasError('required') && !isSubmitted">
                     <p class="error-message">Description is required</p>
                 </div>
                 <div *ngIf="isSubmitted && channel.controls['distributionDescription'].hasError('required')">

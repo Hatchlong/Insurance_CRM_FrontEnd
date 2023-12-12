@@ -44,50 +44,22 @@
           <table class="table table-bordered">
             <thead>
               <tr>
+               <th scope="col"> S.No. </th>
                <th scope="col"> Divion</th>
                 <th scope="col">Description</th>
                 <th scope="col">Action</th>
                 <th scope="col"><input type="checkbox" > Select All</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>mdo</td>
-                <td>Mark</td>
+            <tbody>           
+              <tr *ngFor="let list of divisionDetails; let i = index; ">
+                <td>{{i+1}}</td>
+                <td>{{list.divion}}</td>
+                <td>{{list.divionDescription}}</td>
                 <td>
                   <div class="d-flex">
-                    <div>
-                      <mat-icon>edit</mat-icon>
-                    </div>
-                    <div>
-                      <mat-icon>delete</mat-icon>
-                    </div>
-                  </div>
-                </td>
-                <td><input type="checkbox" ></td>
-              </tr>
-              <tr>
-               <td>fat</td>
-                <td>Mark</td>
-                <td>
-                  <div class="d-flex">
-                    <div>
-                      <mat-icon>edit</mat-icon>
-                    </div>
-                    <div>
-                      <mat-icon>delete</mat-icon>
-                    </div>
-                  </div>
-                </td>
-                <td><input type="checkbox" ></td>
-              </tr>
-              <tr>
-                <td>twitter</td>
-                <td>Mark</td>
-                <td>
-                  <div class="d-flex">
-                    <div>
-                      <mat-icon>edit</mat-icon>
+                    <div> 
+                      <mat-icon [routerLink]="'/settings/edit-divion/'+list._id">edit</mat-icon>
                     </div>
                     <div>
                       <mat-icon>delete</mat-icon>
@@ -104,3 +76,42 @@
       </div>
     </div>
   </div>
+
+
+
+
+
+
+
+
+  <!-- <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>S.No.</th>
+        <th scope="col"> Divion</th>
+        <th scope="col">Description</th>
+        <th scope="col">Action</th>
+        <th scope="col"><input type="checkbox"> Select All</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let list of divisionDetails; let i = index; ">
+        <td scope="row" >{{i+1}}</td>
+        <td>{{list.division}}</td>
+        <td>{{list.description}}</td>
+        <td>
+          <div class="d-flex">
+            <div>
+              <mat-icon [routerLink]="'/settings/edit-divion/'+list._id">edit</mat-icon>
+            </div>
+            <div>
+              <mat-icon>delete</mat-icon>
+            </div>
+          </div>
+        </td>
+        <td><input type="checkbox" ></td>
+      </tr>
+     
+    </tbody>
+
+  </table> -->

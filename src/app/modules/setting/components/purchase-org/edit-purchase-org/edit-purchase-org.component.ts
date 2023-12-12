@@ -14,7 +14,7 @@ export class EditPurchaseOrgComponent {
   purchOrg: any = FormGroup;
   companyDetails: any = [];
   purchaseOrgId: any = ''
-
+ 
   constructor(private fb: FormBuilder,
     private companySer: CompanyCodeService,
     private purchaseOrgSer: PurchaseOrgService,

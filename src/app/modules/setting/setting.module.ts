@@ -49,6 +49,10 @@ import { AddSalesOrgComponent } from './components/sales-org/add-sales-org/add-s
 import { SalesOrgListComponent } from './components/sales-org/sales-org-list/sales-org-list.component';
 import { AddIncoTermComponent } from './components/inco-term/add-inco-term/add-inco-term.component';
 import { IncoTermListComponent } from './components/inco-term/inco-term-list/inco-term-list.component';
+import { EditDivionComponent } from './components/divion/edit-divion/edit-divion.component';
+import { EditDistibutionChannelComponent } from './components/distibution-channel/edit-distibution-channel/edit-distibution-channel.component';
+import { DivionService } from './Services/divion/divion.service';
+import { DistibutionChannelService } from './Services/distibution-channel/distibution-channel.service';
 
 
 @NgModule({
@@ -84,6 +88,8 @@ import { IncoTermListComponent } from './components/inco-term/inco-term-list/inc
     SalesOrgListComponent,
     AddIncoTermComponent,
     IncoTermListComponent,
+    EditDivionComponent,
+    EditDistibutionChannelComponent,
   ],
   imports: [
     CommonModule,
@@ -98,6 +104,6 @@ import { IncoTermListComponent } from './components/inco-term/inco-term-list/inc
     HttpClientModule,
     
   ],
-  providers:[PurchaseOrgService, CompanyCodeService,PoTypeService,PlantDataService, PaymentTermService]
+  providers:[PurchaseOrgService, CompanyCodeService,PoTypeService,PlantDataService, PaymentTermService, DivionService, DistibutionChannelService]
 })
 export class SettingModule { }

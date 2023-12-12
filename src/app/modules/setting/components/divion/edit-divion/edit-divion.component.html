@@ -4,24 +4,21 @@
         </h2>
         <div class="row">
             <div class="col-6 "> 
-                <label for="" class="">Division<sup>*</sup></label>
+                <label for="" class="">division<sup>*</sup></label>
                 <input type="text" class="form-control mb-3" placeholder="Enter division" formControlName="divion">
                 <div
-                    *ngIf="divionData.controls['divion'].touched && divionData.controls['divion'].dirty && divionData.controls['divion'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Division is required</p>
-                </div>
-                <div *ngIf="isSubmitted && divionData.controls['divion'].hasError('required')">
+                    *ngIf="divionData.controls['divion'].touched && divionData.controls['divion'].touched && divionData.controls['divion'].hasError('required') && !isSubmitted">
                     <p class="error-message">Division is required</p>
                 </div> 
                 <div *ngIf="isSubmitted && divionData.controls['divion'].hasError('required')">
-                  <p class="error-message">Division is required</p>
+                    <p class="error-message">Division is required</p>
                 </div>
-            </div>
+            </div> 
             <div class="col-6 ">
                 <label for="" class="">Description<sup>*</sup></label>
                 <input type="text" class="form-control mb-3" placeholder="Description " formControlName="divionDescription">
                 <div
-                    *ngIf="divionData.controls['description'].touched && divionData.controls['description'].dirty && divionData.controls['description'].hasError('required') && !isSubmitted">
+                    *ngIf="divionData.controls['divionDescription'].touched && divionData.controls['divionDescription'].touched && divionData.controls['divionDescription'].hasError('required') && !isSubmitted">
                     <p class="error-message">Description is required</p>
                 </div>
                 <div *ngIf="isSubmitted && divionData.controls['divionDescription'].hasError('required')">
@@ -30,7 +27,7 @@
             </div>
             <div>
                 <button class="btn btn-primary" type="submit"
-                    style="background-color: #00acff;color: white;">Submit</button>
+                    style="background-color: #00acff;color: white;">Update</button>
             </div>
         </div>
     </form>

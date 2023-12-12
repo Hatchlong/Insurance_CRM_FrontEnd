@@ -5,10 +5,18 @@
 
 
   <form [formGroup]="vendorInvoice" (ngSubmit)="submitData()">
-    <div class="row ms-3">
-      <div class="col-6 mt-4">
-        <span for="">Invoice Date </span>
-        <input placeholder="Enter Invoice Date" type="date" formControlName="invoiceDate" class="form-control" />
+    <div class="row">
+      <div class="col-6 ">
+        <label for="">Invoice Date <sup>*</sup> </label>
+        <input type="date" formControlName="invoiceDate" class="form-control" />
+
+        <div *ngIf="vendorInvoice.controls['invoiceDate'].touched && vendorInvoice.controls['invoiceDate'].touched && vendorInvoice.controls['invoiceDate'].hasError('required') && !isSubmitted">
+          <p class="error-message">Invoice Date is required</p>
+        </div>
+        <div *ngIf="isSubmitted && vendorInvoice.controls['invoiceDate'].hasError('required')">
+          <p class="error-message">Invoice Date is required</p>
+        </div>
+
       </div>
 
       <div class="col-6 mt-4">
@@ -177,103 +185,7 @@
       </div>
 
     </div>
-
-    <div class="row ms-3">
-      <div class="col-6 mt-4">
-        <span for="">Amount</span>
-        <input placeholder="Enter Amount" type="number" formControlName="amount" class="form-control">
-
-      </div>
-
-      <div class="col-6 mt-4">
-        <span for="">Tax Amount</span>
-        <input placeholder="Enter TAx Amount" type="number" formControlName="taxAmount" class="form-control">
-      </div>
-    </div>
-
-    <div class="row ms-3">
-      <div class="col-6 mt-4">
-        <span for="">Currency</span>
-        <input placeholder="Enter Currency" type="text" formControlName="currnecy" class="form-control">
-
-      </div>
-
-      <div class="col-6 mt-4">
-        <span for="">Text</span>
-        <textarea name="" id="" cols="30" rows="1" formControlName="text" class="form-control"
-          placeholder=" Enter Text"></textarea>
-
-      </div>
-    </div>
-
-    <div class="row ms-3 mb-4">
-      <div class="col-6 mt-4">
-        <span for="">Company Code</span>
-        <input placeholder="Enter Company Code" type="text" formControlName="companyCode" class="form-control">
-      </div>
-
-      <div class="col-6 mt-4">
-        <span for="">Reference Document</span>
-        <input placeholder="Enter Reference Document" type="text" formControlName="refDoc" class="form-control">
-      </div>
-    </div>
-
-
-    <div class="row ms-3 mb-4">
-      <div class="col-6 mt-0">
-        <span for="">Vendor </span>
-        <input placeholder="Enter Vendor" type="text" formControlName="vendor" class="form-control">
-        <!-- <select
-            class="form-select"
-            formControlName="incoTerms"
-            aria-label="Default select example"
-          >
-            <option selected></option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select> -->
-      </div>
-
-      <div class="col-6 mt-0">
-        <span for=""> Vendor Address </span>
-        <input placeholder="Enter Vendor Address" type="text" formControlName="venAdd" class="form-control">
-      </div>
-    </div>
-
-
-    <div class="row ms-3 mb-4">
-      <div class="col-6 mt-0">
-        <span for="">Vendor Bank Details </span>
-        <input placeholder="Enter Vendor BAnk Details" type="text" formControlName="venBankDe" class="form-control">
-
-      </div>
-
-      <div class="col-6 mt-0">
-        <span for=""> Payment Terms </span>
-        <input placeholder="Enter Payment Term" type="text" formControlName="payTerms" class="form-control">
-      </div>
-    </div>
-
-
-    <div class="row ms-3 mb-4">
-      <div class="col-6 mt-0">
-        <span for="">Baseline Date </span>
-        <input placeholder="Enter Baseline Date" type="text" formControlName="baseDate" class="form-control">
-
-      </div>
-
-      <div class="col-6 mt-0">
-        <span for=""> Payment due date </span>
-        <input placeholder="Enter Payment Due Date" type="text" formControlName="payDueDate" class="form-control">
-      </div>
-    </div>
-
-
-
-
-
-    <button type="submit" class="btnBg2 border-0 rounded mt-3 mx-4 h-25">
+    <button type="submit" class="btn btn-danger mt-2 border-0 ">
       submit
     </button>
   

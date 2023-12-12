@@ -32,6 +32,8 @@ import { AddIncoTermComponent } from './components/inco-term/add-inco-term/add-i
 import { IncoTermListComponent } from './components/inco-term/inco-term-list/inco-term-list.component';
 import { AddSalesOrgComponent } from './components/sales-org/add-sales-org/add-sales-org.component';
 import { SalesOrgListComponent } from './components/sales-org/sales-org-list/sales-org-list.component';
+import { EditDivionComponent } from './components/divion/edit-divion/edit-divion.component';
+import { EditDistibutionChannelComponent } from './components/distibution-channel/edit-distibution-channel/edit-distibution-channel.component';
 
 const routes: Routes = [
   {
@@ -97,12 +99,20 @@ const routes: Routes = [
     component:AddDistributionChannelComponent
   },
   {
+    path:'edit-distribution-channel/:id',
+    component:EditDistibutionChannelComponent
+  },
+  {
     path:'divion-list',
     component:DivionListComponent
   },
   {
     path:'add-divion-list',
     component:AddDivionComponent
+  },
+  {
+    path:'edit-divion/:id',
+    component:EditDivionComponent
   },
   {
     path:'modeOf-transport-list',
