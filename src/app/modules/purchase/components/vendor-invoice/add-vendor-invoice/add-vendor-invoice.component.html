@@ -19,15 +19,9 @@
 
       </div>
 
-      <div class="col-6 ">
-        <label for="">Posting Date <sup>*</sup> </label>
-        <input type="date" formControlName="postDate" class="form-control" />
-        <div *ngIf="vendorInvoice.controls['postDate'].touched && vendorInvoice.controls['postDate'].touched && vendorInvoice.controls['postDate'].hasError('required') && !isSubmitted">
-          <p class="error-message">Posting Date is required</p>
-          </div>
-          <div *ngIf="isSubmitted && vendorInvoice.controls['postDate'].hasError('required')">
-            <p class="error-message">Posting Date is required</p>
-            </div>
+      <div class="col-6 mt-4">
+        <span for="">Posting Date</span>
+        <input placeholder="Enter Posting Data" type="date" formControlName="postDate" class="form-control">
       </div>
 
       <div class="col-6 ">

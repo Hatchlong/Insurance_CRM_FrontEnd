@@ -49,4 +49,9 @@ export class PlantDataService {
     return this.http.get('http://localhost:4000/api/config/storageLocation/getAll').toPromise()
   }
 
+  //get All Time Zone
+  getAllTimeZoneDetails(){
+    return this.http.get('http://localhost:4000/api/config/timeZone/getAll').toPromise()
+  }  
+
 }

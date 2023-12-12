@@ -4,106 +4,43 @@
             Maintainence</h2>
         <div class="row">
             <div class="col-6">
-                <label for="" class="">PO Type <sup>*</sup></label>
+                <span for="" class="mt-4">PO Type</span>
                 <select class="form-select " aria-label="Default select example" formControlName="poType">
-                    <option selected>PO Type</option>
+                    <option [selected]="purchase.value.poType === ''" value="" hidden>Select
+                        PO Type</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
-            
-                <div *ngIf="purchase.controls['poType'].touched && purchase.controls['poType'].touched && purchase.controls['poType'].hasError('required') && !isSubmitted">
-                    <p class="error-message">PO Type is required</p>
-                </div>
-                <div *ngIf="isSubmitted && purchase.controls['poType'].hasError('required')">
-                <p class="error-message">PO Type is required</p>
-                </div>
-            </div>
-
-            <div class="col-6">
-                <label for="" class="">PO Number <sup>*</sup></label>
-                <input type="text" class="form-control " placeholder="Enter PO Number" formControlName="poNumber">
-            
-                <div *ngIf="purchase.controls['poNumber'].touched && purchase.controls['poNumber'].touched && purchase.controls['poNumber'].hasError('required') && !isSubmitted">
-                    <p class="error-message">PO Number is required</p>
-                </div>
-                <div *ngIf="isSubmitted && purchase.controls['poNumber'].hasError('required')">
-                    <p class="error-message">PO Number is required</p>
-                </div>
-            </div>
-
-            <div class="col-6">
-                <label for="" class="">PO Date <sup>*</sup></label>
+                <span for="" class="">PO Number</span>
+                <input type="text" class="form-control " placeholder="Enter PO Number" formControlName="poNum">
+                <span for="" class="">PO Date</span>
                 <input type="date" class="form-control " placeholder="Enter Description" formControlName="poDate">
-
-                <div *ngIf="purchase.controls['poDate'].touched && purchase.controls['poDate'].touched && purchase.controls['poDate'].hasError('required') && !isSubmitted">
-                    <p class="error-message">PO Date is required</p>
-                </div>
-                <div *ngIf="isSubmitted && purchase.controls['poDate'].hasError('required')">
-                    <p class="error-message">PO Date is required</p>
-                </div>
-
-            </div>
-
-            <div class="col-6">
-                <label for="" class="">Company Code <sup>*</sup></label>
-                <select class="form-select " aria-label="Default select example" formControlName="companyCode">
-                    <option selected>Company Code</option>
+                <span for="" class="mt-4">Company Code</span>
+                <select class="form-select " aria-label="Default select example" formControlName="comCode">
+                    <option [selected]="purchase.value.comCode === ''" value="" hidden>Select
+                        Company Code</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select><span for="" class="mt-4">Purchase Org</span>
+                <select class="form-select " aria-label="Default select example" formControlName="purOrg">
+                    <option [selected]="purchase.value.purOrg === ''" value="" hidden>Select
+                        Purchase Org</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
-
-                <div *ngIf="purchase.controls['companyCode'].touched && purchase.controls['companyCode'].touched && purchase.controls['companyCode'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Comapny Code is required</p>
-                </div>
-                <div *ngIf="isSubmitted && purchase.controls['companyCode'].hasError('required')">
-                    <p class="error-message">Comapny Code  is required</p>
-                </div>
-
-            </div>
-
-            <div class="col-6">
-            
-                <label for="" class="">Purchase Org <sup>*</sup></label>
-                <select class="form-select " aria-label="Default select example" formControlName="purchaseOrg">
-                    <option selected>Purchase Org</option>
+                <span for="" class="mt-4">Payment Term</span>
+                <select class="form-select " aria-label="Default select example" formControlName="payTerm">
+                    <option [selected]="purchase.value.payTerm === ''" value="" hidden>Select
+                        Payment Term</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
-                </select>
-
-                <div *ngIf="purchase.controls['purchaseOrg'].touched && purchase.controls['purchaseOrg'].touched && purchase.controls['purchaseOrg'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Purchase Org is required</p>
-                </div>
-                <div *ngIf="isSubmitted && purchase.controls['purchaseOrg'].hasError('required')">
-                    <p class="error-message">Purchase Org  is required</p>
-                </div>
-
-            </div>
-
-            <div class="col-6">
-                <label for="" class="">Payment Term <sup>*</sup></label>
-                <select class="form-select " aria-label="Default select example" formControlName="paymentTerm">
-                    <option selected>Payment Term</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-
-                <div *ngIf="purchase.controls['paymentTerm'].touched && purchase.controls['paymentTerm'].touched && purchase.controls['paymentTerm'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Payment Term is required</p>
-                </div>
-                <div *ngIf="isSubmitted && purchase.controls['paymentTerm'].hasError('required')">
-                    <p class="error-message">Payment Term  is required</p>
-                </div>
-
-            </div>    
-
-            <div class="col-6">
-                <label for="" class="">Vendor <sup>*</sup></label>
+                </select><span for="" class="mt-4">Vendor</span>
                 <select class="form-select " aria-label="Default select example" formControlName="vendor">
-                    <option selected>Vendor</option>
+                    <option [selected]="purchase.value.vendor === ''" value="" hidden>Select Vendor</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -120,90 +57,24 @@
                
 
             <div class="col-6">
-                <label for="" class="">Net Tax <sup>*</sup></label>
+                <span for="" class="">Net Tax</span>
                 <input type="text" class="form-control " placeholder="Enter Net Tax" formControlName="netTax">
-
-                <div *ngIf="purchase.controls['netTax'].touched && purchase.controls['netTax'].touched && purchase.controls['netTax'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Net Tax is required</p>
-                </div>
-                <div *ngIf="isSubmitted && purchase.controls['netTax'].hasError('required')">
-                <p class="error-message">Net Tax is required</p>
-                </div>
-            </div>
-
-            <div class="col-6">
-                <label for="" class="">Transaction Currency <sup>*</sup></label>
-                <select class="form-select " aria-label="Default select example" formControlName="transactionCurrency">
-                    <option selected>Transaction Currency</option>
+                <span for="" class="mt-4">Transaction Currency</span>
+                <select class="form-select " aria-label="Default select example" formControlName="tranCurr">
+                    <option [selected]="purchase.value.tranCurr === ''" value="" hidden>Select Transaction Currency</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
-
-                <div *ngIf="purchase.controls['transactionCurrency'].touched && purchase.controls['transactionCurrency'].touched && purchase.controls['transactionCurrency'].hasError('required') && !isSubmitted">
-                    <p class="error-message">vendor is required</p>
-                </div>
-                <div *ngIf="isSubmitted && purchase.controls['transactionCurrency'].hasError('required')">
-                    <p class="error-message">vendo is required</p>
-                </div>
-
-            </div>
-
-            <div class="col-6">
-            
-                <label for="" class="">Exchange Rate<sup>*</sup></label>
-                <input type="text" class="form-control " placeholder="Enter Exchange Rate" formControlName="exchangeRate">
-
-                <div *ngIf="purchase.controls['exchangeRate'].touched && purchase.controls['exchangeRate'].touched && purchase.controls['exchangeRate'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Exchange Rate is required</p>
-                </div>
-                <div *ngIf="isSubmitted && purchase.controls['exchangeRate'].hasError('required')">
-                    <p class="error-message">Exchange Rate is required</p>
-                </div>
-
-            </div>
-
-            <div class="col-6">
-
-                <label for="" class="">Company Currency <sup>*</sup></label>
+                <span for="" class="">Exchange Rate</span>
+                <input type="text" class="form-control " placeholder="Enter Exchange Rate" formControlName="exRate">
+                <span for="" class="">Company Currency</span>
                 <input type="text" class="form-control " placeholder="Enter Company Currency"
-                    formControlName="companyCurrency">
-
-                    <div *ngIf="purchase.controls['companyCurrency'].touched && purchase.controls['companyCurrency'].touched && purchase.controls['companyCurrency'].hasError('required') && !isSubmitted">
-                        <p class="error-message">Company Currency is required</p>
-                    </div>
-                    <div *ngIf="isSubmitted && purchase.controls['companyCurrency'].hasError('required')">
-                        <p class="error-message">Company Currency is required</p>
-                    </div>
-
-            </div>
-
-            <div class="col-6">
-
-                <label for="" class="">Remark <sup>*</sup></label>
+                    formControlName="comCurr">
+                <span for="" class="">Remark</span>
                 <input type="text" class="form-control " placeholder="Enter Remark" formControlName="remark">
-
-                <div *ngIf="purchase.controls['remark'].touched && purchase.controls['remark'].touched && purchase.controls['remark'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Remark is required</p>
-                </div>
-                <div *ngIf="isSubmitted && purchase.controls['remark'].hasError('required')">
-                    <p class="error-message">Remark is required</p>
-                </div>
-
-            </div>
-
-            <div class="col-6">
-
-                <label for="" class="">Net Price <sup>*</sup></label>
-                <input type="text" class="form-control " placeholder="Enter Net Price" formControlName="netPrice">
-
-                <div *ngIf="purchase.controls['netPrice'].touched && purchase.controls['netPrice'].touched && purchase.controls['netPrice'].hasError('required') && !isSubmitted">
-                    <p class="error-message">net Price is required</p>
-                </div>
-                <div *ngIf="isSubmitted && purchase.controls['netPrice'].hasError('required')">
-                    <p class="error-message">Net Price is required</p>
-                </div>
-
+                <span for="" class="">Net Price</span>
+                <input type="text" class="form-control " placeholder="Enter Net Price" formControlName="netprice">
 
             </div>
         </div>
@@ -237,8 +108,8 @@
                             </td>
                             <td>
                                 <select class="form-select " aria-label="Default select example"
-                                    formControlName="deliveryAddress">
-                                    <option selected>Default Delievery Address</option>
+                                    formControlName="defalut">
+                                    <option [selected]="purchase.value.defalut === ''" value="" hidden>Select Default Delievery Address</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
@@ -253,8 +124,8 @@
                             </td>
                             <td>
                                 <select class="form-select " aria-label="Default select example"
-                                    formControlName="productCode">
-                                    <option selected>Product Code</option>
+                                    formControlName="proCode">
+                                    <option [selected]="purchase.value.proCode === ''" value="" hidden>Select Product Code</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
@@ -262,7 +133,7 @@
                             </td>
                             <td>
                                 <input type="text" class="form-control " placeholder="Enter Product Description"
-                                    formControlName="productDescription">
+                                    formControlName="proDes">
                             </td>
                             <td>
                                 <input type="number" class="form-control " placeholder="Enter PO Qty"
@@ -271,7 +142,7 @@
                             <td>
                                 <select class="form-select " aria-label="Default select example"
                                     formControlName="uom">
-                                    <option selected>UOM</option>
+                                    <option [selected]="purchase.value.uom === ''" value="" hidden>Select UOM</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
@@ -279,19 +150,19 @@
                             </td>
                             <td>
                                 <input type="text" class="form-control " placeholder="Enter Per Unit Price"
-                                    formControlName="perUnitPrice">
+                                    formControlName="unit">
                             </td>
                             <td>
                                 <input type="text" class="form-control " placeholder="Enter Pricing Unit"
-                                    formControlName="priceUnit">
+                                    formControlName="pricing">
                             </td>
                             <td>
                                 <input type="text" class="form-control " placeholder="Enter Pricing UOM"
-                                    formControlName="priceUom">
+                                    formControlName="priuom">
                             </td>
                             <td>
                                 <input type="text" class="form-control " placeholder="Enter Pricing Amount"
-                                    formControlName="priceAmount">
+                                    formControlName="priceamount">
                             </td>
                         </tr>
                     </tbody>

@@ -8,7 +8,8 @@
                 <div class="row border">
                     <div class="col-6 py-1">
                         <label for="" class="">Material Description <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="Description" formControlName="matDes">
+                        <input type="text" class="form-control " placeholder="Enter Material Description"
+                            formControlName="matDes">
                         <div
                             *ngIf="general.controls['matDes'].touched && general.controls['matDes'].touched && general.controls['matDes'].hasError('required') && !isSubmitted">
                             <p class="error-message">Material Description is required</p>
@@ -20,7 +21,8 @@
                     <div class="col-6 py-1">
                         <label for="example">Material Group <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example" formControlName="matGrp">
-                            <option selected>Material Group</option>
+                            <option [selected]="general.value.matGrp === ''" value="" hidden>Select Material Group
+                            </option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -34,9 +36,10 @@
                         </div>
                     </div>
                     <div class="col-6 py-1">
-                        <label for="" class="mt-3">Material Type <sup>*</sup></label>
-                        <select class="form-select mb-3" aria-label="Default select example" formControlName="matType">
-                            <option selected>Material Type</option>
+                        <label for="" class="">Material Type <sup>*</sup></label>
+                        <select class="form-select " aria-label="Default select example" formControlName="matType">
+                            <option [selected]="general.value.matType === ''" value="" hidden>Select Material Type
+                            </option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -52,8 +55,10 @@
                     <div class="col-6 py-1">
 
                         <label for="">Industry Sector <sup>*</sup></label>
-                        <select class="form-select mb-3" aria-label="Default select example" formControlName="indSec">
-                            <option selected>Industry</option>
+                        <select class="form-select " aria-label="Default select example" formControlName="indSec">
+                            <option [selected]="general.value.indSec === ''" value="" hidden>Select industry Sector
+                            </option>
+
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -69,7 +74,7 @@
                     <div class="col-6 py-1">
 
                         <label for="">Net Weight <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="Weight" formControlName="net">
+                        <input type="text" class="form-control " placeholder="Enter Net Weight" formControlName="net">
                         <div
                             *ngIf="general.controls['net'].touched && general.controls['net'].touched && general.controls['net'].hasError('required') && !isSubmitted">
                             <p class="error-message">Net Weight is required</p>
@@ -81,7 +86,7 @@
                     <div class="col-6 py-1">
 
                         <label for="">Volume <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="Volume" formControlName="vol">
+                        <input type="text" class="form-control " placeholder="Enter Volume" formControlName="vol">
                         <div
                             *ngIf="general.controls['vol'].touched && general.controls['vol'].touched && general.controls['vol'].hasError('required') && !isSubmitted">
                             <p class="error-message">Volume is required</p>
@@ -93,9 +98,9 @@
                     <div class="col-6 py-1">
 
                         <label for=""> Storage Condition <sup>*</sup></label>
-                        <select class="form-select mb-3" aria-label="Default select example" formControlName="sto">
-                            <option selected>Unit</option>
-                            <option value="1">One</option>
+                        <select class="form-select " aria-label="Default select example" formControlName="sto">
+                            <option [selected]="general.value.sto === ''" value="" hidden>Select Storage Condition
+                            </option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
@@ -110,8 +115,10 @@
                     <div class="col-6 py-1">
 
                         <label for="">Temp. Condition <sup>*</sup></label>
-                        <select class="form-select mb-3" aria-label="Default select example" formControlName="temp">
-                            <option selected>Unit</option>
+                        <select class="form-select " aria-label="Default select example" formControlName="temp">
+                            <option [selected]="general.value.temp === ''" value="" hidden>Select Temp. Condition
+                            </option>
+
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -127,8 +134,9 @@
                     <div class="col-6 py-1">
 
                         <label for="">Trans Group <sup>*</sup></label>
-                        <select class="form-select mb-3" aria-label="Default select example" formControlName="trans">
-                            <option selected>Unit</option>
+                        <select class="form-select " aria-label="Default select example" formControlName="trans">
+                            <option [selected]="general.value.trans === ''" value="" hidden>Select Trans Group</option>
+
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -144,7 +152,8 @@
                     <div class="col-6 py-1">
 
                         <label for="">Allowed pkg Weight <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="Weight" formControlName="pkgWt">
+                        <input type="text" class="form-control " placeholder="Enter Allowed pkg Weight"
+                            formControlName="pkgWt">
                         <div
                             *ngIf="general.controls['pkgWt'].touched && general.controls['pkgWt'].touched && general.controls['pkgWt'].hasError('required') && !isSubmitted">
                             <p class="error-message">Allowed pkg Weight is required</p>
@@ -156,8 +165,10 @@
                     <div class="col-6 py-1">
 
                         <label for="">Unit of Dimension <sup>*</sup></label>
-                        <select class="form-select mb-3" aria-label="Default select example" formControlName="unitDim">
-                            <option selected>Unit</option>
+                        <select class="form-select " aria-label="Default select example" formControlName="unitDim">
+                            <option [selected]="general.value.unitDim === ''" value="" hidden>Select Unit Dimension
+                            </option>
+
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -173,8 +184,8 @@
                     <div class="col-6 py-1">
 
                         <label for="">Unit of Weight <sup>*</sup></label>
-                        <select class="form-select mb-3" aria-label="Default select example" formControlName="unitWt">
-                            <option selected>Unit</option>
+                        <select class="form-select " aria-label="Default select example" formControlName="unitWt">
+                            <option [selected]="general.value.unitWt === ''" value="" hidden>Select Unit Weight</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -190,7 +201,8 @@
                     <div class="col-6 py-1">
 
                         <label for="">Allowed pkg Volume <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="Weight" formControlName="pkgVol">
+                        <input type="text" class="form-control " placeholder="Enter Allowed phg Weight"
+                            formControlName="pkgVol">
                         <div
                             *ngIf="general.controls['pkgVol'].touched && general.controls['pkgVol'].touched && general.controls['pkgVol'].hasError('required') && !isSubmitted">
                             <p class="error-message">Allowed pkg Volume is required</p>
@@ -202,8 +214,9 @@
                     <div class="col-6 py-1">
 
                         <label for="">Volume Unit <sup>*</sup></label>
-                        <select class="form-select mb-3" aria-label="Default select example" formControlName="volUnit">
-                            <option selected>Unit</option>
+                        <select class="form-select " aria-label="Default select example" formControlName="volUnit">
+                            <option [selected]="general.value.volUnit === ''" value="" hidden>Select Volume Unit
+                            </option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -219,7 +232,8 @@
                     <div class="col-6 py-1">
 
                         <label for="">Excess wt tolerance <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="Weight" formControlName="exWt">
+                        <input type="text" class="form-control " placeholder="Enter Excess Weight Tolerance"
+                            formControlName="exWt">
                         <div
                             *ngIf="general.controls['exWt'].touched && general.controls['exWt'].touched && general.controls['exWt'].hasError('required') && !isSubmitted">
                             <p class="error-message">Excess Weight is required</p>
@@ -229,26 +243,11 @@
                         </div>
 
                     </div>
-                    <div class="col-6 py-1 ">
-                        <label for="">Industry Sector <sup>*</sup></label>
-                        <select class="form-select mb-3" aria-label="Default select example" formControlName="ind">
-                            <option selected>Industry</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                        <div
-                            *ngIf="general.controls['ind'].touched && general.controls['ind'].touched && general.controls['ind'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Industry Sector 2 is required</p>
-                        </div>
-                        <div *ngIf="isSubmitted && general.controls['ind'].hasError('required')">
-                            <p class="error-message">Industry Sector 2 is required</p>
-                        </div>
-                    </div>
+
                     <div class="col-6 py-1">
 
                         <label for="" class="">Old Material Number <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="Number" formControlName="oldMat">
+                        <input type="text" class="form-control " placeholder="Number" formControlName="oldMat">
                         <div
                             *ngIf="general.controls['oldMat'].touched && general.controls['oldMat'].touched && general.controls['oldMat'].hasError('required') && !isSubmitted">
                             <p class="error-message">OLd Material No. is required</p>
@@ -260,8 +259,9 @@
                     <div class="col-6 py-1">
 
                         <label for=""> Base Unit of Measure <sup>*</sup></label>
-                        <select class="form-select mb-3" aria-label="Default select example" formControlName="base">
-                            <option selected>Unit</option>
+                        <select class="form-select " aria-label="Default select example" formControlName="base">
+                            <option [selected]="general.value.base === ''" value="" hidden>Select Base Unit Of Measure
+                            </option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -277,7 +277,8 @@
                     <div class="col-6 py-1">
 
                         <label for=""> Gross Weight <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="Weight" formControlName="gross">
+                        <input type="text" class="form-control " placeholder="Enter Gross Weight"
+                            formControlName="gross">
                         <div
                             *ngIf="general.controls['gross'].touched && general.controls['gross'].touched && general.controls['gross'].hasError('required') && !isSubmitted">
                             <p class="error-message">Gross Weight is required</p>
@@ -289,8 +290,8 @@
                     <div class="col-6 py-1">
 
                         <label for=""> Weight Unit <sup>*</sup></label>
-                        <select class="form-select mb-3" aria-label="Default select example" formControlName="wtUnit">
-                            <option selected>Unit</option>
+                        <select class="form-select " aria-label="Default select example" formControlName="wtUnit">
+                            <option [selected]="general.value.wtUnit === ''" value="" hidden>Select Weight Unit</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -306,8 +307,8 @@
                     <div class="col-6 py-1">
 
                         <label for="">Volume Unit <sup>*</sup></label>
-                        <select class="form-select mb-3" aria-label="Default select example" formControlName="volu">
-                            <option selected>Unit</option>
+                        <select class="form-select " aria-label="Default select example" formControlName="volu">
+                            <option [selected]="general.value.volu === ''" value="" hidden>Select Volume Unit</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -323,7 +324,7 @@
                     <div class="col-6 py-1">
 
                         <label for="">Length <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="Length" formControlName="length">
+                        <input type="text" class="form-control " placeholder="Enter Length" formControlName="length">
                         <div
                             *ngIf="general.controls['length'].touched && general.controls['length'].touched && general.controls['length'].hasError('required') && !isSubmitted">
                             <p class="error-message">Length is required</p>
@@ -335,7 +336,7 @@
                     <div class="col-6 py-1">
 
                         <label for="">Width <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="Width" formControlName="width">
+                        <input type="text" class="form-control " placeholder="Enter Width" formControlName="width">
                         <div
                             *ngIf="general.controls['width'].touched && general.controls['width'].touched && general.controls['width'].hasError('required') && !isSubmitted">
                             <p class="error-message">Width is required</p>
@@ -347,7 +348,7 @@
                     <div class="col-6 py-1">
 
                         <label for="">Height <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="Height" formControlName="height">
+                        <input type="text" class="form-control " placeholder="Enter Height" formControlName="height">
                         <div
                             *ngIf="general.controls['height'].touched && general.controls['height'].touched && general.controls['height'].hasError('required') && !isSubmitted">
                             <p class="error-message">Height is required</p>
@@ -359,8 +360,8 @@
                     <div class="col-6 py-1">
 
                         <label for="">Batch Mgmt <sup>*</sup></label>
-                        <select class="form-select mb-3" aria-label="Default select example" formControlName="batch">
-                            <option selected>Unit</option>
+                        <select class="form-select " aria-label="Default select example" formControlName="batch">
+                            <option [selected]="general.value.batch === ''" value="" hidden>Select batch Mgmt</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -376,8 +377,9 @@
                     <div class="col-6 py-1">
 
                         <label for="">Tax classification <sup>*</sup></label>
-                        <select class="form-select mb-3" aria-label="Default select example" formControlName="tax">
-                            <option selected>Unit</option>
+                        <select class="form-select " aria-label="Default select example" formControlName="tax">
+                            <option [selected]="general.value.tax === ''" value="" hidden>Select Tax Classification
+                            </option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -393,7 +395,7 @@
                     <div class="col-6 py-1">
 
                         <label for="">Manufacturer Part No. <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="Manufacturer Part No."
+                        <input type="text" class="form-control " placeholder="Enter Manufacturer Part No."
                             formControlName="man">
                         <div
                             *ngIf="general.controls['man'].touched && general.controls['man'].touched && general.controls['man'].hasError('required') && !isSubmitted">
@@ -406,8 +408,9 @@
                     <div class="col-6 py-1">
 
                         <label for="">Expiration Date relavance <sup>*</sup></label>
-                        <select class="form-select mb-3" aria-label="Default select example" formControlName="exp">
-                            <option selected>Unit</option>
+                        <select class="form-select " aria-label="Default select example" formControlName="exp">
+                            <option [selected]="general.value.exp === ''" value="" hidden>Select Expiration Date
+                            </option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -423,7 +426,8 @@
                     <div class="col-6 py-1">
 
                         <label for="">Excess Volume tol. <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="Weight" formControlName="exVol">
+                        <input type="text" class="form-control " placeholder="Enter Excess Vol tol"
+                            formControlName="exVol">
                         <div
                             *ngIf="general.controls['exVol'].touched && general.controls['exVol'].touched && general.controls['exVol'].hasError('required') && !isSubmitted">
                             <p class="error-message">Excess Volume is required</p>
@@ -435,7 +439,7 @@
                     <div class="col-6 py-1">
 
                         <label for="">Material Cost <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="Material Cost"
+                        <input type="text" class="form-control " placeholder="Enter Material Cost"
                             formControlName="matCost">
                         <div
                             *ngIf="general.controls['matCost'].touched && general.controls['matCost'].touched && general.controls['matCost'].hasError('required') && !isSubmitted">
@@ -486,10 +490,11 @@
                                                                 (click)="deleterow(i)">delete</mat-icon>
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="stPlant">
-                                                                <option selected>Unit</option>
+                                                                <option [selected]="general.value.stPlant === ''"
+                                                                    value="" hidden>Select Storage Plant</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
@@ -504,59 +509,64 @@
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="stLoc">
-                                                                <option selected>Unit</option>
+                                                                <option [selected]="general.value.stLoc === ''" value=""
+                                                                    hidden>Select Storage Location</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="pro">
-                                                                <option selected>Unit</option>
+                                                                <option [selected]="general.value.pro === ''" value=""
+                                                                    hidden>Select procurement Type</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control mb-3"
-                                                                placeholder="Safety Stock" formControlName="safe">
+                                                            <input type="text" class="form-control "
+                                                                placeholder="Enter Safety Stock" formControlName="safe">
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control mb-3"
-                                                                formControlName="repl"
+                                                            <input type="text" class="form-control "
+                                                                formControlName="Enter repl"
                                                                 placeholder="Total repl lead time">
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="avai">
-                                                                <option selected>Unit</option>
+                                                                <option [selected]="general.value.avai === ''" value=""
+                                                                    hidden>Select Availibilty Check</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="profit">
-                                                                <option selected>Unit</option>
+                                                                <option [selected]="general.value.profit === ''"
+                                                                    value="" hidden>Select profit</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="bom">
-                                                                <option selected>Unit</option>
+                                                                <option [selected]="general.value.bom === ''" value=""
+                                                                    hidden>Select bom</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
@@ -599,69 +609,74 @@
                                                                 (click)="deleteSalesrow(j)">delete</mat-icon>
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="sales">
-                                                                <option selected>Unit</option>
+                                                                <option [selected]="general.value.sales === ''" value=""
+                                                                    hidden>Select Sales Organization</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="dist">
-                                                                <option selected>Unit</option>
+                                                                <option [selected]="general.value.dist === ''" value=""
+                                                                    hidden>Select distribution Channel</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="deli">
-                                                                <option selected>Unit</option>
+                                                                <option [selected]="general.value.deli === ''" value=""
+                                                                    hidden>Select Delivery Unit</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control mb-3"
+                                                            <input type="text" class="form-control "
                                                                 placeholder="Safety Stock" formControlName="delPlant">
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control mb-3"
+                                                            <input type="text" class="form-control "
                                                                 placeholder="Minimum Delievery qty"
                                                                 formControlName="maxDel">
 
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="avacheck">
-                                                                <option selected>Unit</option>
+                                                                <option [selected]="general.value.avacheck === ''"
+                                                                    value="" hidden>Select availibilty check</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="acct">
-                                                                <option selected>Unit</option>
+                                                                <option [selected]="general.value.acct === ''"
+                                                                    value="" hidden>Select Acct. Ass Grp</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control mb-3"
+                                                            <input type="text" class="form-control "
                                                                 placeholder="Minimum Order Qty" formControlName="min">
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control mb-3"
+                                                            <input type="text" class="form-control "
                                                                 placeholder="Minimum Delievery qty"
                                                                 formControlName="mindel">
                                                         </td>

@@ -18,6 +18,7 @@ export class AddPlantDataComponent {
   languageName: any = []
   purDetails: any = [];
   taxDetails: any = [];
+  timeZone: any = []
   storgaeLocationDetails: any = [];
   isSubmitted:any = false;
  
@@ -34,6 +35,7 @@ export class AddPlantDataComponent {
     this.getPurchaseOrgDetail()
     this.getStorageLocationDetail();
     this.getTaxIndicatorDetail()
+    this.getTimeZoneDetail()
 
   }
 
@@ -169,6 +171,30 @@ export class AddPlantDataComponent {
     }
   }
 
+  // get time zone
+  async getTimeZoneDetail() {
+    try {
+      const result: any = await this.plantDataSer.getAllTimeZoneDetails()
+      console.log(result);
+      
+      if (result.status === '1') {
+        this.timeZone = result.data
+      }
+      else{
+        alert("API Failed")
+        Swal.fire({
+          title: 'warning',
+          text: 'API Failed',
+          icon: 'warning',
+          showCancelButton: true
+        })
+      }
+    } catch (error) {
+      console.error(error);
+
+    }
+  }
+
   // get purchase organization
 
   async getStorageLocationDetail() {
@@ -248,5 +274,11 @@ export class AddPlantDataComponent {
   handleStorageLocation(event: any) {
     const findPurchaseDetail = this.storgaeLocationDetails.find((el: any) => el.stor_loc_id === +event.target.value);
     this.plantFormData.controls.stoargeLocationName.setValue(findPurchaseDetail.description)
+  }
+
+  // Add time Zone
+  handleTimeZone(event: any) {
+    // const timeDetail = this.timeZone.find((el: any) => el.timeZoneType === +event.target.value)
+    // this.plantFormData.controls.timeZoneType.setValue(timeDetail.timeZoneType)
   }
 }

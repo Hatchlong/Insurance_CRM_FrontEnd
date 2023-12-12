@@ -26,6 +26,7 @@ export class AddBillingBlockComponent {
     })
   }
   addCustomerAcc() {
+    this.isSubmitted=true
     console.log(this.billing);
 
   }

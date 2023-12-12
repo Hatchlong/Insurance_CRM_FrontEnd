@@ -103,6 +103,7 @@ export class AddCustomerComponent implements OnInit{
     this.salesDetail.removeAt(index);
   }
   addAll(){
+    this.isSubmitted=true
     console.log(this.general);
     
   }

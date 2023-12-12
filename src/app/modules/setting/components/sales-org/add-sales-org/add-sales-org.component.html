@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-6">
         <label for="" class="">Sales Org</label>
-        <input type="text" class="form-control mb-3" placeholder=" " formControlName="salesOrg" />
+        <input type="text" class="form-control " placeholder=" Enter Sales Org" formControlName="salesOrg" />
         <div
           *ngIf="salesOrg.controls['salesOrg'].touched && salesOrg.controls['salesOrg'].touched && salesOrg.controls['salesOrg'].hasError('required') && !isSubmitted">
           <p class="error-message">Sales Org is required</p>
@@ -20,7 +20,7 @@
       </div>
       <div class="col-6">
         <label for="" class="">Sales Org Description</label>
-        <input type="text" class="form-control mb-3" placeholder=" " formControlName="salesOrgDescription" />
+        <input type="text" class="form-control " placeholder=" Enter Sales Org Description" formControlName="salesOrgDescription" />
         <div
           *ngIf="salesOrg.controls['salesOrgDescription'].touched && salesOrg.controls['salesOrgDescription'].touched && salesOrg.controls['salesOrgDescription'].hasError('required') && !isSubmitted">
           <p class="error-message">Sales Org Description is required</p>
@@ -31,7 +31,7 @@
       </div>
       <div class="col-6">
         <label for="" class="">Address</label>
-        <input type="text" class="form-control mb-3" placeholder=" " formControlName="address" />
+        <input type="text" class="form-control " placeholder="Enter Address " formControlName="address" />
         <div
           *ngIf="salesOrg.controls['address'].touched && salesOrg.controls['address'].touched && salesOrg.controls['address'].hasError('required') && !isSubmitted">
           <p class="error-message">Address is required</p>
@@ -42,7 +42,7 @@
       </div>
       <div class="col-6">
         <label for="">Search Term</label>
-        <input type="text" class="form-control mb-3" placeholder=" " formControlName="searchTerm" />
+        <input type="text" class="form-control " placeholder="Enter Search Term  " formControlName="searchTerm" />
         <div
           *ngIf="salesOrg.controls['searchTerm'].touched && salesOrg.controls['searchTerm'].touched && salesOrg.controls['searchTerm'].hasError('required') && !isSubmitted">
           <p class="error-message">search Term is required</p>
@@ -55,7 +55,7 @@
       <div class="col-6">
         <label for="">Country</label>
         <select class="form-select" formControlName="country" aria-label="Default select example">
-          <option>1</option>
+          <option [selected]="salesOrg.value.country === ''" value="" hidden>Select Country</option>
         </select>
         <div
           *ngIf="salesOrg.controls['country'].touched && salesOrg.controls['country'].touched && salesOrg.controls['country'].hasError('required') && !isSubmitted">
@@ -68,7 +68,8 @@
       <div class="col-6">
         <label for="">Region</label>
         <select class="form-select" formControlName="region" aria-label="Default select example">
-          <option>1</option>
+          <option [selected]="salesOrg.value.region=== ''" value="" hidden>Select Region</option>
+
         </select>
         <div
           *ngIf="salesOrg.controls['region'].touched && salesOrg.controls['region'].touched && salesOrg.controls['region'].hasError('required') && !isSubmitted">
@@ -81,7 +82,8 @@
       <div class="col-6">
         <label for="">Time Zone</label>
         <select class="form-select" formControlName="timeZone" aria-label="Default select example">
-          <option>1</option>
+          <option [selected]="salesOrg.value.timeZone=== ''" value="" hidden>Select Time Zone</option>
+
         </select>
         <div
           *ngIf="salesOrg.controls['timeZone'].touched && salesOrg.controls['timeZone'].touched && salesOrg.controls['timeZone'].hasError('required') && !isSubmitted">
@@ -93,7 +95,7 @@
       </div>
       <div class="col-6">
         <label for="" class="">Contact Person</label>
-        <input type="text" class="form-control mb-3" placeholder="Enter Contact Person"
+        <input type="text" class="form-control " placeholder="Enter Contact Person"
           formControlName="contactPerson" />
           <div
           *ngIf="salesOrg.controls['contactPerson'].touched && salesOrg.controls['contactPerson'].touched && salesOrg.controls['contactPerson'].hasError('required') && !isSubmitted">
@@ -104,7 +106,7 @@
         </div>
       </div>
 
-      <div class="col-2">
+      <div class="col-2 py-2">
         <button type="submit" class="btn btn-primary" style="background-color: #00acff">
           Submit
         </button>

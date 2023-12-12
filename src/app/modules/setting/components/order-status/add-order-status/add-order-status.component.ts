@@ -28,6 +28,7 @@ export class AddOrderStatusComponent {
   }
 
   addOrder() {
+    this.isSubmitted=true
     console.log(this.order);
 
   }

@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-6">
                 <label for="" class="">Payment Term<sup>*</sup></label>
-                <input type="text" class="form-control mb-3" placeholder="Enter Payment Term"
+                <input type="text" class="form-control " placeholder="Enter Payment Term"
                     formControlName="paymentTerm">
                 <div
                     *ngIf="payTem.controls['paymentTerm'].touched && payTem.controls['paymentTerm'].touched && payTem.controls['paymentTerm'].hasError('required') && !isSubmitted">
@@ -16,7 +16,7 @@
             </div>
             <div class="col-6">
                 <label for="" class="">Description<sup>*</sup></label>
-                <input type="text" class="form-control mb-3" placeholder="Enter Description"
+                <input type="text" class="form-control " placeholder="Enter Description"
                     formControlName="description">
                     <div
                     *ngIf="payTem.controls['description'].touched && payTem.controls['description'].touched && payTem.controls['description'].hasError('required') && !isSubmitted">
@@ -31,7 +31,7 @@
         <div class="row">
             <div class="col-6">
                 <label for="" class="">Day Limit<sup>*</sup></label>
-                <input type="text" class="form-control mb-3" placeholder="Enter Day Limit" formControlName="dayLimit">
+                <input type="text" class="form-control " placeholder="Enter Day Limit" formControlName="dayLimit">
                 <div
                 *ngIf="payTem.controls['dayLimit'].touched && payTem.controls['dayLimit'].touched && payTem.controls['dayLimit'].hasError('required') && !isSubmitted">
                 <p class="error-message">Day Limit is required</p>
@@ -42,7 +42,7 @@
             </div>
             <div class="col-6">
                 <label for="" class="">Account Type<sup>*</sup></label>
-                <input type="text" class="form-control mb-3" placeholder="Enter Account" formControlName="accountType">
+                <input type="text" class="form-control " placeholder="Enter Account" formControlName="accountType">
                 <div
                 *ngIf="payTem.controls['accountType'].touched && payTem.controls['accountType'].touched && payTem.controls['accountType'].hasError('required') && !isSubmitted">
                 <p class="error-message">Account Type is required</p>
@@ -57,7 +57,7 @@
         <div class="row">
             <div class="col-6">
                 <label for="" class="">Fixed Days<sup>*</sup></label>
-                <input type="text" class="form-control mb-3" placeholder="" formControlName="fixedBaseLineDate">
+                <input type="text" class="form-control " placeholder="Enter Fixed Base Line Date" formControlName="fixedBaseLineDate">
                 <div
                 *ngIf="payTem.controls['fixedBaseLineDate'].touched && payTem.controls['fixedBaseLineDate'].touched && payTem.controls['fixedBaseLineDate'].hasError('required') && !isSubmitted">
                 <p class="error-message">Fixed Days is required</p>
@@ -68,7 +68,7 @@
             </div>
             <div class="col-6">
                 <label for="" class="">Additional Month<sup>*</sup></label>
-                <input type="text" class="form-control mb-3" placeholder=""
+                <input type="text" class="form-control " placeholder="Enter Additional Data"
                     formControlName="additionalBaselineDataCalculation">
                     <div
                     *ngIf="payTem.controls['additionalBaselineDataCalculation'].touched && payTem.controls['additionalBaselineDataCalculation'].touched && payTem.controls['additionalBaselineDataCalculation'].hasError('required') && !isSubmitted">
@@ -83,7 +83,7 @@
         <div class="row">
             <div class="col-6">
                 <label for="" class="">Baseline Date<sup>*</sup></label>
-                <input type="text" class="form-control mb-3" placeholder="" formControlName="defaultBaselineDate">
+                <input type="text" class="form-control " placeholder="Enter Baseline Date" formControlName="defaultBaselineDate">
                 <div
                 *ngIf="payTem.controls['defaultBaselineDate'].touched && payTem.controls['defaultBaselineDate'].touched && payTem.controls['defaultBaselineDate'].hasError('required') && !isSubmitted">
                 <p class="error-message">Default BaseLine is required</p>
@@ -94,7 +94,7 @@
             </div>
         </div>
 
-        <div class="col-2">
+        <div class="col-2 py-2">
             <button type="submit" class="btn btn-primary" style="background-color: #00acff;">Submit</button>
         </div>
     </form>

@@ -27,6 +27,7 @@ export class AddModeOfTransportComponent {
   }
 
   addMode() {
+    this.isSubmitted=true
     console.log(this.transport);
 
   }

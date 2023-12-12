@@ -5,35 +5,35 @@
         <div class="row">
             <div class="col-6">
                 <label for="">Company Code</label>
-                <input type="text" class="form-control mb-3" placeholder="Enter Company code" formControlName="companyCode">
+                <input type="text" class="form-control " placeholder="Enter Company code" formControlName="companyCode">
             </div>
             <div class="col-6">
                 <label for="" class="">Company Name</label>
-                <input type="text" class="form-control mb-3" placeholder="Enter Company Name" formControlName="companyName">
+                <input type="text" class="form-control " placeholder="Enter Company Name" formControlName="companyName">
             </div>
 
             <div class="col-6">
                 <label for="" class="mt-3">Country Name</label>
-                <select class="form-select mb-3" aria-label="Default select example" formControlName="countryId" (change)="selectCountryName($event)">
+                <select class="form-select " aria-label="Default select example" formControlName="countryId" (change)="selectCountryName($event)">
                     <option *ngFor="let list of countryDetials;" [value]="list._id">{{list.countryName}}</option>
                 </select>
             </div>
             <div class="col-6">
                 <label for="" class="mt-4">City</label>
-                <select class="form-select mb-3" aria-label="Default select example" formControlName="city">
+                <select class="form-select " aria-label="Default select example" formControlName="city">
                     <option *ngFor="let list of citiesDetails?.cities?.cities" [value]="list">{{list}}</option>
                 </select>
             </div>
                 
             <div class="col-6">
                 <label for="" class="mt-3">Currency</label>
-                <select class="form-select mb-3" aria-label="Default select example" formControlName="currency">
+                <select class="form-select " aria-label="Default select example" formControlName="currency">
                     <option  [value]="citiesDetails.countryCurrency">{{citiesDetails.countryCurrency}}</option>
                 </select>
             </div>
             <div class="col-6">
                 <label for="">Language</label>
-                <select class="form-select mb-3" aria-label="Default select example" formControlName="languageId">
+                <select class="form-select " aria-label="Default select example" formControlName="languageId">
                     <option  [value]="citiesDetails.languageId">{{languageName}}</option>
                 </select>
             </div>

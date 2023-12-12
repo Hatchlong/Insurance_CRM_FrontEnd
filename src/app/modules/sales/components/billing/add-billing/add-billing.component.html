@@ -11,7 +11,7 @@
                     <div class="col-6 mt-2">
                         <label for="">Billing Type <sup>*</sup> </label>
                         <select class="form-select" formControlName="billingType">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.billingType=== ''" value="" hidden>Select Billing Type</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -26,35 +26,19 @@
 
                     </div>
                     <div class="col-6 mt-2">
-                        <label for="BillingDate">Billing Date <sup>*</sup></label>
-                        <input type="date" class="form-control" formControlName="billingDate">
-                    
-                        <div *ngIf="productFromGroup.controls['billingDate'].touched && productFromGroup.controls['billingDate'].touched && productFromGroup.controls['billingDate'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Billing Date is required</p>
-                        </div>
-                        <div *ngIf="isSubmitted && productFromGroup.controls['billingDate'].hasError('required')">
-                            <p class="error-message">Billing Date is required</p>
-                        </div>
-
+                        <label for="BillingDate">Billing Date</label>
+                        <input type="date" class="form-control" formControlName="billingDate" >
                     </div>
-                    <div class="col-6 ">
-                        <label for="ReferenceDoc">Reference Doc <sup>*</sup></label>
-                        <input type="text" class="form-control" formControlName="referenceDocument"
-                            placeholder="Reference Document">
-
-                            <div *ngIf="productFromGroup.controls['referenceDocument'].touched && productFromGroup.controls['referenceDocument'].touched && productFromGroup.controls['referenceDocument'].hasError('required') && !isSubmitted">
-                                <p class="error-message">Reference Document is required</p>
-                            </div>
-                            <div *ngIf="isSubmitted && productFromGroup.controls['referenceDocument'].hasError('required')">
-                                <p class="error-message">Reference Document is required</p>
-                            </div>
-
+                    <div class="col-6 mt-4">
+                        <label for="ReferenceDoc">Reference Doc</label>
+                        <input type="text" class="form-control" formControlName="referenceDoc"
+                            placeholder="Enter Reference Document">
                     </div>
 
                     <div class="col-6 ">
                         <label for="CustomerId">Customer Id <sup>*</sup></label>
                         <input type="text" class="form-control" formControlName="customerId"
-                            placeholder="Reference Document">
+                            placeholder="Enter Customer Id">
 
                             <div *ngIf="productFromGroup.controls['customerId'].touched && productFromGroup.controls['customerId'].touched && productFromGroup.controls['customerId'].hasError('required') && !isSubmitted">
                                 <p class="error-message">Customer Id is required</p>
@@ -64,9 +48,9 @@
                             </div>
 
                     </div>
-                    <div class="col-6 ">
-                        <label for="NetValue">Net Value <sup>*</sup></label>
-                        <input type="number" class="form-control" formControlName="netValue" placeholder="Net Value">
+                    <div class="col-6 mt-4">
+                        <label for="NetValue">Net Value</label>
+                        <input type="number" class="form-control" formControlName="netValue" placeholder="Enter Net Value">
 
                         <div *ngIf="productFromGroup.controls['netValue'].touched && productFromGroup.controls['netValue'].touched && productFromGroup.controls['netValue'].hasError('required') && !isSubmitted">
                             <p class="error-message">Net Value is required</p>
@@ -77,9 +61,9 @@
 
                     </div>
 
-                    <div class="col-6  mb-2">
-                        <label for="TaxAmount">Tax Amount <sup>*</sup></label>
-                        <input type="number" class="form-control" formControlName="taxAmount" placeholder="Tax Amount">
+                    <div class="col-6 mt-4 mb-2">
+                        <label for="TaxAmount">Tax Amount</label>
+                        <input type="number" class="form-control" formControlName="taxAmount" placeholder="Enter Tax Amount">
 
                         <div *ngIf="productFromGroup.controls['taxAmount'].touched && productFromGroup.controls['taxAmount'].touched && productFromGroup.controls['taxAmount'].hasError('required') && !isSubmitted">
                             <p class="error-message">Tax Amount is required</p>
@@ -92,7 +76,7 @@
                     <div class="col-6  mb-2">
                         <label for="">Currency <sup>*</sup></label>
                         <select class="form-select" formControlName="currency">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.currency=== ''" value="" hidden>Select Currency</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -122,7 +106,7 @@
                     <div class="col-6  mb-2">
                         <label for="Company">Company Code <sup>*</sup></label>
                         <select class="form-select" formControlName="companyCode">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.companyCode=== ''" value="" hidden>Select Company Code</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -140,7 +124,7 @@
                     <div class="col-6  mb-2">
                         <label for="">Customer Account AG <sup>*</sup></label>
                         <select class="form-select" formControlName="customerAccount">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.customerAccount=== ''" value="" hidden>Enter Customer Account AG</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -157,7 +141,7 @@
                     <div class="col-6  mb-2">
                         <label for="">Posting Status <sup>*</sup></label>
                         <select class="form-select" formControlName="postingStatus">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.postingStatus=== ''" value="" hidden>Enter Posting Status</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -174,7 +158,7 @@
                     <div class="col-6  mb-2">
                         <label for="">Payment Terms <sup>*</sup></label>
                         <select class="form-select" formControlName="paymentTerm">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.paymentTerm=== ''" value="" hidden>Select Payment Term</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -191,7 +175,7 @@
                     <div class="col-6  mb-2">
                         <label for="">Inco Terms <sup>*</sup></label>
                         <select class="form-select" formControlName="incrementTearm">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.incrementTearm== ''" value="" hidden>Select Inco Term</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -208,7 +192,7 @@
                     <div class="col-6  mb-2">
                         <label for="">Sales Org <sup>*</sup></label>
                         <select class="form-select" formControlName="salesOrg">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.salesOrg=== ''" value="" hidden>Select Sales Org</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -225,7 +209,7 @@
                     <div class="col-6  mb-2">
                         <label for="">Distribution Channel <sup>*</sup></label>
                         <select class="form-select" formControlName="distributionChannel">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.distributionChannel== ''" value="" hidden>Select Distribution Channel </option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -242,7 +226,7 @@
                     <div class="col-6  mb-2">
                         <label for="">Division <sup>*</sup></label>
                         <select class="form-select" formControlName="division">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.division=== ''" value="" hidden>Select Division</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -259,7 +243,7 @@
                     <div class="col-6  mb-2">
                         <label for="">Mode Of Transport <sup>*</sup></label>
                         <select class="form-select" formControlName="modeOfTransport">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.modeOfTransport=== ''" value="" hidden>Select Mode Of Transport</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -395,7 +379,7 @@
                                         </td>
                                         <td>
                                             <select class="form-select" formControlName="uom">
-                                                <option selected></option>
+                                                <option [selected]="productFromGroup.value.uom === ''" value="" hidden>Select UoM</option>
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
                                                 <option value="3">Three</option>
@@ -523,9 +507,6 @@
 
             </form>
 
-            <!-- </mat-tab>
-                 
-              </mat-tab-group> -->
         </div>
     </div>
 </div>

@@ -35,7 +35,6 @@ export class AddProductComponent implements OnInit{
       pkgVol: ['',Validators.required],
       volUnit: ['',Validators.required],
       exWt: ['',Validators.required],
-      ind: ['',Validators.required],
       oldMat: ['',Validators.required],
       base: ['',Validators.required],
       gross: ['',Validators.required],

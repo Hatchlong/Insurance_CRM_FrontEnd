@@ -39,8 +39,7 @@
 
       <div class="col-6 mt-4">
         <label for="">Country</label>
-        <select class="form-select" formControlName="countryId" 
-          (change)="selectCountryName($event)">
+        <select class="form-select" formControlName="countryId" (change)="selectCountryName($event)">
           <option [selected]="plantsData.value.countryId === ''" value="" hidden>Select Country</option>
           <option *ngFor="let list of countryDetials;" [value]="list._id"> {{list.countryName}} </option>
         </select>
@@ -50,7 +49,8 @@
     <div class="row ms-3 mb-4">
       <div class="col-6 mt-4">
         <label for="">City</label>
-        <select class="form-select" formControlName="cityId"   [ngStyle]="{'pointer-events': !plantsData.value.countryId ? 'none' :  'all'}">
+        <select class="form-select" formControlName="cityId"
+          [ngStyle]="{'pointer-events': !plantsData.value.countryId ? 'none' :  'all'}">
           <option [selected]="plantsData.value.cityId === ''" value="" hidden>Select cities</option>
           <option *ngFor="let list of citiesDetails?.cities?.cities" [value]="list">{{list}}</option>
 
@@ -73,11 +73,9 @@
 
       <div class="col-6 mt-0">
         <label for=""> Time Zone</label>
-        <select class="form-select" formControlName="timeZone" aria-label="Default select example">
-          <option selected></option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+        <select class="form-select" formControlName="timeZone" aria-label="Default select example" (change)="handleTimeZone($event)">
+          <option *ngFor="let list of timeZone" [value]="list.timeZoneType">{{list.timeZoneType}}</option>
+         
         </select>
       </div>
     </div>
@@ -107,7 +105,8 @@
       <div class="col-6 mt-0">
         <label for=""> Purch. Organization </label>
         <select class="form-select" formControlName="purchaseOrganizationId" (change)="handlePurchaseOrg($event)">
-          <option [selected]="plantsData.value.purchaseOrganizationId === ''" value="" hidden>Select Purchase Org</option>
+          <option [selected]="plantsData.value.purchaseOrganizationId === ''" value="" hidden>Select Purchase Org
+          </option>
           <option *ngFor="let pur of purDetails" [value]="pur._id">{{pur.purchase_org}}</option>
         </select>
       </div>
@@ -140,7 +139,8 @@
       <div class="col-6 mt-0">
         <label for="">Storage Location</label>
         <select class="form-select" formControlName="stoargeLocationId" (change)="handleStorageLocation($event)">
-          <option [selected]="plantsData.value.stoargeLocationId === ''" value="" hidden>Select Storage Location</option>
+          <option [selected]="plantsData.value.stoargeLocationId === ''" value="" hidden>Select Storage Location
+          </option>
           <option *ngFor="let list of storgaeLocationDetails" [value]="list.stor_loc_id">{{list.description}}</option>
         </select>
 
