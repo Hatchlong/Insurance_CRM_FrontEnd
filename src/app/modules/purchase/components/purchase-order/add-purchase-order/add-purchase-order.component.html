@@ -46,7 +46,16 @@
                     <option value="3">Three</option>
                 </select>
 
+                <div *ngIf="purchase.controls['vendor'].touched && purchase.controls['vendor'].touched && purchase.controls['vendor'].hasError('required') && !isSubmitted">
+                    <p class="error-message">vendor is required</p>
+                </div>
+                <div *ngIf="isSubmitted && purchase.controls['vendor'].hasError('required')">
+                    <p class="error-message">vendo is required</p>
+                </div>
+
             </div>
+               
+
             <div class="col-6">
                 <span for="" class="">Net Tax</span>
                 <input type="text" class="form-control " placeholder="Enter Net Tax" formControlName="netTax">
@@ -80,7 +89,7 @@
                     <thead>
                         <tr>
                             <th *ngIf="detail.controls.length > 1">Actions</th>
-                            <th>Delievery Address</th>
+                            <th>Delievery Address <sup>*</sup></th>
                             <th>Product Code</th>
                             <th>Product Description</th>
                             <th>PO Qty</th>
@@ -105,6 +114,13 @@
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
                                 </select>
+                                
+                <div *ngIf="purchase.controls['deliveryAddress'].touched && purchase.controls['deliveryAddress'].touched && purchase.controls['deliveryAddress'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Delivery Address is required</p>
+                </div>  
+                <div *ngIf="isSubmitted && purchase.controls['deliveryAddress'].hasError('required')">
+                    <p class="error-message">Delivery Address is required</p>
+                </div>
                             </td>
                             <td>
                                 <select class="form-select " aria-label="Default select example"

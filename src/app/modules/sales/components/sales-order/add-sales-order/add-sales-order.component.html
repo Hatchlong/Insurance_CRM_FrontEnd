@@ -1,6 +1,8 @@
 <div class="container">
     <form [formGroup]="sales" (ngSubmit)="add()">
-        <h2>Sales Order</h2>
+        <h3 class="mt-2">
+            <mat-icon class="back" routerLink="/">arrow_back</mat-icon> Sales Order
+        </h3>
         <div class="row">
             <div class="col-6">
                 <span  class="mt-4">Order Type</span>
@@ -13,13 +15,6 @@
                 <span  class="mt-4">Sales Org</span>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="saleOrg">
                     <option [selected]="sales.value.payTerm === ''" value="" hidden>Select Sales Org</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-                <span  class="mt-4">Distribution Channel</span>
-                <select class="form-select mb-3" aria-label="Default select example" formControlName="dist">
-                    <option [selected]="sales.value.dist === ''" value="" hidden>Select Distribution Channel</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -45,16 +40,56 @@
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
-                <span  class="mt-4">Sales Order</span>
-                <input type="text" class="form-control mb-3" placeholder="Enter Sales Order"
+                <div *ngIf="sales.controls['customerAdd'].touched && sales.controls['customerAdd'].touched && sales.controls['customerAdd'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Customer Add is required</p>
+                </div>
+                <div *ngIf="isSubmitted && sales.controls['customerAdd'].hasError('required')">
+                    <p class="error-message">Customer Add is required</p>
+                </div>
+            </div>
+                
+            <div class="col-6">
+                <label  class="">Sales Order <sup>*</sup></label>
+                <input type="text" class="form-control " placeholder="Enter Sales Order"
                     formControlName="saleOrder">
-                <span  class="mt-4">Customer PO</span>
-                <input type="text" class="form-control mb-3" placeholder="Enter Customer PO" formControlName="custPO">
-                <span  class="mt-4">Customer PO Date</span>
-                <input type="date" class="form-control mb-3" placeholder="Enter PO Date" formControlName="poDate">
-                <span  class="mt-4">Req Delivery Date</span>
-                <input type="date" class="form-control mb-3" placeholder="Enter Req Delivery Date"
-                    formControlName="delDate">
+                    <div *ngIf="sales.controls['saleOrder'].touched && sales.controls['saleOrder'].touched && sales.controls['saleOrder'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Sale Order is required</p>
+                </div>
+                <div *ngIf="isSubmitted && sales.controls['saleOrder'].hasError('required')">
+                    <p class="error-message">Sale Order is required</p>
+                </div>
+            </div>
+            <div class="col-6">
+                <label  class="">Customer PO <sup>*</sup></label>
+                <input type="text" class="form-control " placeholder="Enter Customer PO" formControlName="customerPO">
+                <div *ngIf="sales.controls['customerPO'].touched && sales.controls['customerPO'].touched && sales.controls['customerPO'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Customer PO is required</p>
+                </div>
+                <div *ngIf="isSubmitted && sales.controls['customerPO'].hasError('required')">
+                    <p class="error-message">Customer PO is required</p>
+                </div>
+            </div>
+               
+            <div class="col-6">
+                <label  class="">Customer PO Date <sup>*</sup></label>
+                <input type="date" class="form-control " placeholder="Enter PO Date" formControlName="customerPoDate">
+                <div *ngIf="sales.controls['customerPoDate'].touched && sales.controls['customerPoDate'].touched && sales.controls['customerPoDate'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Customer PO Date is required</p>
+                </div>
+                <div *ngIf="isSubmitted && sales.controls['customerPoDate'].hasError('required')">
+                    <p class="error-message">PO Date is required</p>
+                </div>
+            </div>
+            <div class="col-6">
+                <label  class="">Req Delivery Date <sup>*</sup></label>
+                <input type="date" class="form-control " placeholder="Enter Req Delivery Date"
+                    formControlName="reqDeliveryDate">
+                    <div *ngIf="sales.controls['reqDeliveryDate'].touched && sales.controls['reqDeliveryDate'].touched && sales.controls['reqDeliveryDate'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Req Delivery Date is required</p>
+                </div>
+                <div *ngIf="isSubmitted && sales.controls['reqDeliveryDate'].hasError('required')">
+                    <p class="error-message">Req Delivery Date is required</p>
+                </div>
 
                 <span  class="mt-4">Company Currency</span>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="comCur">
@@ -81,8 +116,15 @@
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
-
+                <div *ngIf="sales.controls['orderStatus'].touched && sales.controls['orderStatus'].touched && sales.controls['orderStatus'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Order Status is required</p>
+                </div>
+                <div *ngIf="isSubmitted && sales.controls['orderStatus'].hasError('required')">
+                    <p class="error-message">Order Status is required</p>
+                </div>
             </div>
+               
+
             <div class="col-6">
                 <span  class="mt-4">Exchange Rate</span>
                 <input type="text" class="form-control mb-3" placeholder="Enter Exchange Rate" formControlName="exRate">
@@ -130,20 +172,72 @@
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
-
-                <span  class="mt-4">Net Price</span>
-                <input type="number" class="form-control mb-3" placeholder="Enter Net Price" formControlName="netPrice">
-                <span  class="mt-4">Net Tax</span>
-                <input type="number" class="form-control mb-3" placeholder="Enter Net Tax" formControlName="netTax">
-                <span  class="mt-4">Net Discount</span>
-                <input type="number" class="form-control mb-3" placeholder="Enter Net Discount"
-                    formControlName="netDis">
-                <span  class="mt-4">Net Freight</span>
-                <input type="number" class="form-control mb-3" placeholder="enter Net Freight" formControlName="netFre">
-                <span  class="mt-4">Other Charges</span>
-                <input type="number" class="form-control mb-3" placeholder="Other Charges" formControlName="otherCh">
+                <div *ngIf="sales.controls['customerAccount'].touched && sales.controls['customerAccount'].touched && sales.controls['customerAccount'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Customer Account is required</p>
+                </div>
+                <div *ngIf="isSubmitted && sales.controls['customerAccount'].hasError('required')">
+                    <p class="error-message">Customer Account is required</p>
+                </div>
             </div>
-        </div>
+                
+                
+            <div class="col-6">
+                <label  class="">Net Price <sup>*</sup></label>
+                <input type="number" class="form-control " placeholder="Enter Net Price" formControlName="netPrice">
+                <div *ngIf="sales.controls['netPrice'].touched && sales.controls['netPrice'].touched && sales.controls['netPrice'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Net Price is required</p>
+                </div>
+                <div *ngIf="isSubmitted && sales.controls['netPrice'].hasError('required')">
+                    <p class="error-message">Net Price is required</p>
+                </div>
+  
+            </div>
+            <div class="col-6">
+                <label  class="">Net Tax <sup>*</sup></label>
+                <input type="number" class="form-control " placeholder="Enter Net Tax" formControlName="netTax">
+                <div *ngIf="sales.controls['netTax'].touched && sales.controls['netTax'].touched && sales.controls['netTax'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Net Tax is required</p>
+                </div>
+                <div *ngIf="isSubmitted && sales.controls['netTax'].hasError('required')">
+                    <p class="error-message">Net Tax is required</p>
+                </div>
+            </div>
+                
+            <div class="col-6">
+                <label  class="">Net Discount <sup>*</sup></label>
+                <input type="number" class="form-control " placeholder="Enter Net Discount"
+                    formControlName="netDiscount">
+                    <div *ngIf="sales.controls['netDiscount'].touched && sales.controls['netDiscount'].touched && sales.controls['netDiscount'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Net Discount is required</p>
+                </div>
+                <div *ngIf="isSubmitted && sales.controls['netDiscount'].hasError('required')">
+                    <p class="error-message">Net Discount is required</p>
+                </div>
+            </div>
+            <div class="col-6">
+                <label  class="">Net Freight <sup>*</sup></label>
+                <input type="number" class="form-control " placeholder="enter Net Freight" formControlName="netFreight">
+                <div *ngIf="sales.controls['netFreight'].touched && sales.controls['netFreight'].touched && sales.controls['netFreight'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Net Freight is required</p>
+                </div>
+                <div *ngIf="isSubmitted && sales.controls['netFreight'].hasError('required')">
+                    <p class="error-message">Net Freight is required</p>
+                </div>
+            </div>
+                
+            <div class="col-6">
+                <label  class="">Other Charges <sup>*</sup></label>
+                <input type="number" class="form-control " placeholder="Other Charges" formControlName="otherChange">
+                <div *ngIf="sales.controls['otherChange'].touched && sales.controls['otherChange'].touched && sales.controls['otherChange'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Customer Add is required</p>
+                </div>
+                <div *ngIf="isSubmitted && sales.controls['otherChange'].hasError('required')">
+                    <p class="error-message">Customer Add is required</p>
+                </div>
+            </div>
+               
+            </div>
+        
         <h2>Item Data</h2>
         <div class="row">
             <div>
@@ -160,31 +254,75 @@
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
-                        <span  class="mt-4">Product Description</span>
-                        <input type="number" class="form-control mb-3" placeholder="Autofetched Product Description"
-                            formControlName="proDes">
-                        <span  class="mt-4">Order Qty</span>
-                        <input type="number" class="form-control mb-3" placeholder="Oredr Qty" formControlName="ordQty">
-                        <span  class="mt-4">UOM</span>
-                        <input type="text" class="form-control mb-3" placeholder="Enter UOM" formControlName="uom">
-                        <span  class="mt-4">Plant</span>
-                        <input type="text" class="form-control mb-3" placeholder="Enter Plant" formControlName="plant">
-                        <span  class="mt-4">Storage Location</span>
-                        <input type="text" class="form-control mb-3" placeholder="Auto Storage Location"
-                            formControlName="stLoc">
-                        <span  class="mt-4">Batch</span>
-                        <input type="text" class="form-control mb-3" placeholder="Enter Batch" formControlName="batch">
-                        <span  class="mt-4">Price Amount</span>
-                        <input type="number" class="form-control mb-3" placeholder="Enter Price Amount"
+
+                        <div *ngIf="sales.controls['productId'].touched && sales.controls['productId'].touched && sales.controls['productId'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Product Id is required</p>
+                        </div>
+                        <div *ngIf="isSubmitted && sales.controls['productId'].hasError('required')">
+                            <p class="error-message">Product Id is required</p>
+                        </div>
+
+                        </div>
+
+                        <div class="col-6">
+                            <label  class="">Product Description <sup>*</sup></label>
+                        <input type="number" class="form-control " placeholder="Autofetched Product Description"
+                            formControlName="productDescription">
+                            <div *ngIf="sales.controls['productDescription'].touched && sales.controls['productDescription'].touched && sales.controls['productDescription'].hasError('required') && !isSubmitted">
+                                <p class="error-message">Product Description is required</p>
+                            </div>
+                            <div *ngIf="isSubmitted && sales.controls['productDescription'].hasError('required')">
+                                <p class="error-message">Product Description is required</p>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <label  class="">Order Qty</label>
+                            <input type="number" class="form-control " placeholder="Oredr Qty" formControlName="ordQty">
+                        </div>
+
+                        <div class="col-6">
+                            <label  class="">UOM</label>
+                            <input type="text" class="form-control " placeholder="Enter UOM" formControlName="uom">
+                        </div>
+                       
+                        <div class="col-6">
+                            <label  class="">Plant</label>
+                            <input type="text" class="form-control " placeholder="Enter Plant" formControlName="plant">
+                        </div>
+                       
+                        <div class="col-6">
+                            <label  class="">Storage Location</label>
+                            <input type="text" class="form-control " placeholder="Auto Storage Location"
+                                formControlName="stLoc">
+                        </div>
+
+                       <div class="col-6">
+                        <label  class="">Batch</label>
+                        <input type="text" class="form-control " placeholder="Enter Batch" formControlName="batch">
+                       </div>
+
+                       <div class="col-6">
+                        <label  class="">Price Amount</label>
+                        <input type="number" class="form-control " placeholder="Enter Price Amount"
                             formControlName="price">
-                        <span  class="mt-4">Per Unit Price</span>
-                        <input type="number" class="form-control mb-3" placeholder="Enter Per Unit Price"
+                       </div>
+                       
+                       <div class="col-6">
+                        <label  class="">Per Unit Price</label>
+                        <input type="number" class="form-control " placeholder="Enter Per Unit Price"
                             formControlName="perUnit">
-                        <span  class="mt-4">Pricing Unit</span>
-                        <input type="number" class="form-control mb-3" placeholder="Pricing Unit"
+                       </div>
+
+                       <div class="col-6">
+                        <label  class="">Pricing Unit</label>
+                        <input type="number" class="form-control " placeholder="Pricing Unit"
                             formControlName="pricingUnit">
-                        <span  class="mt-4">pricing Date</span>
-                        <input type="date" class="form-control mb-3" placeholder="pricing Date"
+                       </div>
+
+                        <div class="col-6">
+                            <label  class="">pricing Date</label>
+                        <input type="date" class="form-control " placeholder="pricing Date"
                             formControlName="priDate">
                         <span  class="mt-4">Volume</span>
                         <input type="number" class="form-control mb-3" placeholder="Volume" formControlName="vol">
@@ -195,46 +333,84 @@
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
-                    </div>
+                       </div>
+                       
                     <div class="col-6">
-                        <span  class="mt-4">Tax</span>
-                        <input type="number" class="form-control mb-3" placeholder=" Enter Tax" formControlName="tax">
-                        <span  class="mt-4">Per Unit Tax</span>
-                        <input type="number" class="form-control mb-3" placeholder="Per Unit Tax"
-                            formControlName="perUnitTax">
-                        <span  class="mt-4">Discount</span>
-                        <input type="number" class="form-control mb-3" placeholder="Discount"
-                            formControlName="discount">
-                        <span  class="mt-4">Per Unit Discount</span>
-                        <input type="number" class="form-control mb-3" placeholder="Per Unit Discount"
-                            formControlName="perDis">
-                        <span  class="mt-4">Freight</span>
-                        <input type="number" class="form-control mb-3" placeholder="Freight" formControlName="fre">
-                        <span  class="mt-4">Per Unit Freight</span>
-                        <input type="number" class="form-control mb-3" placeholder="Per Unit Freight"
-                            formControlName="perFre">
-                        <span  class="mt-4">Other Charges</span>
-                        <input type="number" class="form-control mb-3" placeholder="Other Charges"
-                            formControlName="othCharge">
-                        <span  class="mt-4">Company Currency</span>
-                        <input type="text" class="form-control mb-3" placeholder="Auto Company Currency"
-                            formControlName="compCurr">
-                        <span  class="mt-4">Transation Currency</span>
-                        <input type="text" class="form-control mb-3" placeholder="Auto Transation Currency"
-                            formControlName="tranCurrency">
-                        <span  class="mt-4">Exchange Rate</span>
-                        <input type="text" class="form-control mb-3" placeholder="Exchange Rate"
-                            formControlName="exchangeRate">
-                        <span  class="mt-4">Net Weight</span>
-                        <input type="number" class="form-control mb-3" placeholder="Net Weight"
-                            formControlName="netWeight">
-                        <span  class="mt-4">Gross Weight</span>
-                        <input type="number" class="form-control mb-3" placeholder="Gross Weight"
-                            formControlName="groWeight">
-
+                        <label  class="">Tax</label>
+                        <input type="number" class="form-control " placeholder=" Enter Tax" formControlName="tax">
                     </div>
+
+                    <div class="col-6">
+                        <label  class="">Per Unit Tax</label>
+                        <input type="number" class="form-control " placeholder="Per Unit Tax"
+                            formControlName="perUnitTax">
+                    </div>
+
+                    <div class="col-6">
+                        <label  class="">Discount</label>
+                        <input type="number" class="form-control " placeholder="Discount"
+                            formControlName="discount">
+                    </div>
+                        
+                    <div class="col-6">
+                        <label  class="">Per Unit Discount</label>
+                        <input type="number" class="form-control " placeholder="Per Unit Discount"
+                            formControlName="perDis">
+                    </div>
+
+                    <div class="col-6">
+                        <label  class="">Freight</label>
+                        <input type="number" class="form-control " placeholder="Freight" formControlName="fre">
+                    </div>
+
+                    <div class="col-6">
+                        <label  class="">Per Unit Freight</label>
+                        <input type="number" class="form-control " placeholder="Per Unit Freight"
+                            formControlName="perUnitFreight">
+                    </div>
+                       
+                    <div class="col-6">
+                        <label  class="">Other Charges</label>
+                        <input type="number" class="form-control " placeholder="Other Charges"
+                            formControlName="otherCharge">
+                    </div>
+
+                    <div class="col-6">
+                        <label  class="">Company Currency</label>
+                        <input type="text" class="form-control " placeholder="Auto Company Currency"
+                            formControlName="computerCurrency">
+                    </div>
+                      
+                    <div class="col-6">
+                        <label  class="">Transation Currency</label>
+                        <input type="text" class="form-control " placeholder="Auto Transation Currency"
+                            formControlName="transactionCurrency">
+                    </div>
+                       
+                    <div class="col-6">
+                        <label  class="">Exchange Rate</label>
+                        <input type="text" class="form-control " placeholder="Exchange Rate"
+                            formControlName="exchangeRate">
+                    </div>
+                       
+                    <div class="col-6">
+                        <label  class="">Net Weight</label>
+                        <input type="number" class="form-control " placeholder="Net Weight"
+                            formControlName="netWeight">
+                    </div>
+
+                    <div class="col-6">
+                        <label  class="">Gross Weight</label>
+                        <input type="number" class="form-control " placeholder="Gross Weight"
+                            formControlName="groWeight">
+                    </div>
+                        
+                       
+                        
+
+                    
                     <div *ngIf="sales.get('salesList').controls.length > 1">
-                        <button (click)="deleterow(i)" type="button" class="btn btn-danger mb-3"
+                        <button (click)="deleterow(i)" type="button" class="btn btn-danger "
                             style="width: 100px;">Delete</button>
                     </div>
                 </div>

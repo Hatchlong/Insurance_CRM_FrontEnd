@@ -20,8 +20,8 @@ export class AddPlantDataComponent {
   taxDetails: any = [];
   timeZone: any = []
   storgaeLocationDetails: any = [];
-  isSubmitted: any = false;
-
+  isSubmitted:any = false;
+ 
   constructor(private fb: FormBuilder,
     private plantDataSer: PlantDataService,
     private router: Router,

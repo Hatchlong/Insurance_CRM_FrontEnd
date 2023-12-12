@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-vendor-invoice',
@@ -8,6 +8,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class AddVendorInvoiceComponent {
   vendorInvoice: any= FormGroup;
+  isSubmitted:any = false;
+
 
   constructor (private fb: FormBuilder){}
 
@@ -17,28 +19,27 @@ export class AddVendorInvoiceComponent {
 
   vendorData(){
     this.vendorInvoice =  this.fb.group({
-      invoiceDate:'',
-      postDate:'',
-      amount:'',
-      taxAmount:'',
-      currnecy:'',
-      text:'',
-      companyCode:'',
+      invoiceDate:['', Validators.required],
+      postDate: ['', Validators.required],
+      amount: ['', Validators.required],
+      taxAmount: ['', Validators.required],
+      currnecy: ['', Validators.required],
+      text: ['', Validators.required] ,
+      companyCode:['', Validators.required],
 
-      refDoc:'',
-      vendor:'',
-      venAdd:'',
-      venBankDe:'',
-      payTerms:'',
-      baseDate:'',
-      payDueDate:'',
-
-     
+      referenceDocument:['', Validators.required],
+      vendor:['', Validators.required],
+      vendorAddress:['', Validators.required],
+      vendorBankDetails:['', Validators.required],
+      paymentTerms:['', Validators.required],
+      baseLineDate:['', Validators.required],
+      paymentDueDate:['', Validators.required],    
      })
   }
 
 
   submitData(){
+    this.isSubmitted = true
     console.warn(this.vendorInvoice.value)
   }
 

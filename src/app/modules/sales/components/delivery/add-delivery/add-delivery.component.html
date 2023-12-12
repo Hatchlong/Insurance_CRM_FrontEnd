@@ -1,6 +1,5 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
+    
             <h3 class="mt-2">
                 <mat-icon class="back" routerLink="/">arrow_back</mat-icon> Delivery
             </h3>
@@ -28,8 +27,26 @@
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
                                 </select>
-                            </div>
+                                <div *ngIf="productFromGroup.controls['plant'].touched && productFromGroup.controls['plant'].touched && productFromGroup.controls['plant'].hasError('required') && !isSubmitted">
+                                    <p class="error-message">Plant is required</p>
+                                </div>
+                                <div *ngIf="isSubmitted && productFromGroup.controls['plant'].hasError('required')">
+                                    <p class="error-message">Plant is required</p>
+                                </div>
+                    </div>
+                                    
+                    <div class="col-6">
+                        <span for="" class="">Delivery <sup>*</sup></span>
+                        <input type="number" class="form-control " placeholder=" Delivery"
+                            formControlName="delivery">
+                            <div *ngIf="productFromGroup.controls['delivery'].touched && productFromGroup.controls['delivery'].touched && productFromGroup.controls['delivery'].hasError('required') && !isSubmitted">
+                                    <p class="error-message">Delivery is required</p>
+                                </div>
+                                <div *ngIf="isSubmitted && productFromGroup.controls['delivery'].hasError('required')">
+                                    <p class="error-message">Delivery is required</p>
+                                </div>
 
+                    </div>
 
                         </div>
 
@@ -78,6 +95,39 @@
 
 
                     </div>
+
+                              
+                    <div class="col-6">
+                        <span for="" class="">Delivery Address <sup>*</sup></span>
+                                <input type="text" class="form-control " placeholder=" Delivery Address"
+                                    formControlName="deliveryAddress">
+                                    
+                            <div *ngIf="productFromGroup.controls['deliveryAddress'].touched && productFromGroup.controls['deliveryAddress'].touched && productFromGroup.controls['deliveryAddress'].hasError('required') && !isSubmitted">
+                                    <p class="error-message">Delivery Address is required</p>
+                                </div>
+                                <div *ngIf="isSubmitted && productFromGroup.controls['deliveryAddress'].hasError('required')">
+                                    <p class="error-message">Delivery Address is required</p>
+                                </div>
+                    </div>
+
+                    <div class="col-6">
+                        <span for="" class="mt-4">Delivery Partener <sup>*</sup></span>
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="deliveryPartner">
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        <div *ngIf="productFromGroup.controls['deliveryPartner'].touched && productFromGroup.controls['deliveryPartner'].touched && productFromGroup.controls['deliveryPartner'].hasError('required') && !isSubmitted">
+                                    <p class="error-message">Delivery Partner is required</p>
+                                </div>
+                                <div *ngIf="isSubmitted && productFromGroup.controls['deliveryPartner'].hasError('required')">
+                                    <p class="error-message">Delivery Partner is required</p>
+                                </div>
+                    </div>
+                           
+                               
+                
 
                 </div>
 
@@ -194,5 +244,3 @@
 
             </form>
         </div>
-    </div>
-</div>

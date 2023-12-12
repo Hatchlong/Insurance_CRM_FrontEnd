@@ -54,6 +54,14 @@
                             <td>
                               <input type="text" class="form-control " placeholder="Enter Product ID"
                                   formControlName="productId">
+                                
+                            <!-- <div *ngIf="goodsReceipt.controls['productId'].touched && goodsReceipt.controls['productId'].touched && goodsReceipt.controls['productId'].hasError('required') && !isSubmitted">
+                              <p class="error-message">Product Id Date is required</p>
+                              </div>
+                              <div *ngIf="isSubmitted && goodsReceipt.controls['productId'].hasError('required')">
+                              <p class="error-message">Product Id Date is required</p>
+                            </div> -->
+
                           </td>
                             <td>
                                 <select class="form-select " aria-label="Default select example"

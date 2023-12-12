@@ -117,6 +117,6 @@ export class AddProductComponent implements OnInit{
   }
   addAll(){
     console.log(this.general);
-    
+    this.isSubmitted = true
   }
 }

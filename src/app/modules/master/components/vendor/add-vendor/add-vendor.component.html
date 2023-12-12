@@ -12,7 +12,7 @@
                             <div class="col-6 mt-4">
                                 <div class="row">
                                     <div class="col-12 mt-2">
-                                        <label for="VendorName">Vendor Name</label>
+                                        <label for="VendorName">Vendor Name <sup>*</sup></label>
                                         <input type="text" class="form-control" formControlName="vendorName"
                                             placeholder="Enter Vendor Name">
                                         <div
@@ -25,7 +25,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 mt-2">
-                                        <label for="">Account Group</label>
+                                        <label for="">Account Group <sup>*</sup></label>
                                         <select class="form-select" formControlName="accountGroup">
                                             <option [selected]="productFromGroup.value.accountGroup === ''" value="" hidden>Select
                                                 Account Group</option>
@@ -45,7 +45,7 @@
                                 </div>
                             </div>
                             <div class="col-6 mt-4">
-                                <label for="">Address</label>
+                                <label for="">Address <sup>*</sup></label>
                                 <textarea name="" id="" cols="30" rows="4" class="form-control"
                                     placeholder="Enter address" formControlName="addressCountry"></textarea>
                                 <div
