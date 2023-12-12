@@ -8,7 +8,7 @@
                 <input type="text" class="form-control " placeholder="Enter Mode Of Transport"
                     formControlName="modeofTransport">
                 <div
-                    *ngIf="transport.controls['modeofTransport'].touched && transport.controls['modeofTransport'].touched && transport.controls['modeofTransport'].hasError('required') && !isSubmitted">
+                    *ngIf="transport.controls['modeofTransport'].touched && transport.controls['modeofTransport'].dirty && transport.controls['modeofTransport'].hasError('required') && !isSubmitted">
                     <p class="error-message">Mode Of Transport is required</p>
                 </div>
                 <div *ngIf="isSubmitted && transport.controls['modeofTransport'].hasError('required')">
@@ -20,7 +20,7 @@
 
                 <input type="text" class="form-control " placeholder="Description " formControlName="description">
                 <div
-                    *ngIf="transport.controls['description'].touched && transport.controls['description'].touched && transport.controls['description'].hasError('required') && !isSubmitted">
+                    *ngIf="transport.controls['description'].touched && transport.controls['description'].dirty && transport.controls['description'].hasError('required') && !isSubmitted">
                     <p class="error-message">Description is required</p>
                 </div>
                 <div *ngIf="isSubmitted && transport.controls['description'].hasError('required')">

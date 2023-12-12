@@ -7,7 +7,7 @@
         <label for="" class="">Billing Block </label>
         <input type="text" class="form-control " placeholder="Enter Billing Block " formControlName="billingBlock">
         <div
-          *ngIf="billing.controls['billingBlock'].touched && billing.controls['billingBlock'].touched && billing.controls['billingBlock'].hasError('required') && !isSubmitted">
+          *ngIf="billing.controls['billingBlock'].touched && billing.controls['billingBlock'].dirty && billing.controls['billingBlock'].hasError('required') && !isSubmitted">
           <p class="error-message">Billing Block is required</p>
         </div>
         <div *ngIf="isSubmitted && billing.controls['billingBlock'].hasError('required')">
@@ -18,7 +18,7 @@
         <label for="" class="">Description</label>
         <input type="text" class="form-control " placeholder="Enter Description " formControlName="description">
         <div
-          *ngIf="billing.controls['description'].touched && billing.controls['description'].touched && billing.controls['description'].hasError('required') && !isSubmitted">
+          *ngIf="billing.controls['description'].touched && billing.controls['description'].dirty && billing.controls['description'].hasError('required') && !isSubmitted">
           <p class="error-message">Description is required</p>
         </div>
         <div *ngIf="isSubmitted && billing.controls['description'].hasError('required')">

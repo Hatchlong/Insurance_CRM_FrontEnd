@@ -16,7 +16,7 @@
                                         <input type="text" class="form-control" formControlName="vendorName"
                                             placeholder="Enter Vendor Name">
                                         <div
-                                            *ngIf="productFromGroup.controls['vendorName'].touched && productFromGroup.controls['vendorName'].touched && productFromGroup.controls['vendorName'].hasError('required') && !isSubmitted">
+                                            *ngIf="productFromGroup.controls['vendorName'].touched && productFromGroup.controls['vendorName'].dirty && productFromGroup.controls['vendorName'].hasError('required') && !isSubmitted">
                                             <p class="error-message">Vendor Name is required</p>
                                         </div>
                                         <div
@@ -34,7 +34,7 @@
                                             <option value="3">Three</option>
                                         </select>
                                         <div
-                                            *ngIf="productFromGroup.controls['accountGroup'].touched && productFromGroup.controls['accountGroup'].touched && productFromGroup.controls['accountGroup'].hasError('required') && !isSubmitted">
+                                            *ngIf="productFromGroup.controls['accountGroup'].touched && productFromGroup.controls['accountGroup'].dirty && productFromGroup.controls['accountGroup'].hasError('required') && !isSubmitted">
                                             <p class="error-message">Account Group is required</p>
                                         </div>
                                         <div
@@ -49,7 +49,7 @@
                                 <textarea name="" id="" cols="30" rows="4" class="form-control"
                                     placeholder="Enter address" formControlName="addressCountry"></textarea>
                                 <div
-                                    *ngIf="productFromGroup.controls['addressCountry'].touched && productFromGroup.controls['addressCountry'].touched && productFromGroup.controls['addressCountry'].hasError('required') && !isSubmitted">
+                                    *ngIf="productFromGroup.controls['addressCountry'].touched && productFromGroup.controls['addressCountry'].dirty && productFromGroup.controls['addressCountry'].hasError('required') && !isSubmitted">
                                     <p class="error-message">Address is required</p>
                                 </div>
                                 <div
@@ -71,7 +71,7 @@
                                     <option value="3">Three</option>
                                 </select>
                                 <div
-                                    *ngIf="productFromGroup.controls['language'].touched && productFromGroup.controls['language'].touched && productFromGroup.controls['language'].hasError('required') && !isSubmitted">
+                                    *ngIf="productFromGroup.controls['language'].touched && productFromGroup.controls['language'].dirty && productFromGroup.controls['language'].hasError('required') && !isSubmitted">
                                     <p class="error-message">Language is required</p>
                                 </div>
                                 <div *ngIf="isSubmitted && productFromGroup.controls['language'].hasError('required')">
@@ -86,7 +86,7 @@
 
                                 </select>
                                 <div
-                                    *ngIf="productFromGroup.controls['country'].touched && productFromGroup.controls['country'].touched && productFromGroup.controls['country'].hasError('required') && !isSubmitted">
+                                    *ngIf="productFromGroup.controls['country'].touched && productFromGroup.controls['country'].dirty && productFromGroup.controls['country'].hasError('required') && !isSubmitted">
                                     <p class="error-message">Country is required</p>
                                 </div>
                                 <div *ngIf="isSubmitted && productFromGroup.controls['country'].hasError('required')">
@@ -113,7 +113,7 @@
                                     <option value="3">Three</option>
                                 </select>
                                 <div
-                                    *ngIf="productFromGroup.controls['incrementTreams'].touched && productFromGroup.controls['incrementTreams'].touched && productFromGroup.controls['incrementTreams'].hasError('required') && !isSubmitted">
+                                    *ngIf="productFromGroup.controls['incrementTreams'].touched && productFromGroup.controls['incrementTreams'].dirty && productFromGroup.controls['incrementTreams'].hasError('required') && !isSubmitted">
                                     <p class="error-message">Inco Term is required</p>
                                 </div>
                                 <div

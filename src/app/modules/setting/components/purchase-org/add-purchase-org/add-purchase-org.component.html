@@ -7,7 +7,7 @@
                 <label>Purchase Org</label>
                 <input type="text" class="form-control" formControlName="purchase_org"  placeholder="Enter Purchase Org">
                 <div
-                    *ngIf="purchOrg.controls['purchase_org'].touched && purchOrg.controls['purchase_org'].touched && purchOrg.controls['purchase_org'].hasError('required') && !isSubmitted">
+                    *ngIf="purchOrg.controls['purchase_org'].touched && purchOrg.controls['purchase_org'].dirty && purchOrg.controls['purchase_org'].hasError('required') && !isSubmitted">
                     <p class="error-message">Purchase Org. is required</p>
                 </div>
                 <div *ngIf="isSubmitted && purchOrg.controls['purchase_org'].hasError('required')">
@@ -19,7 +19,7 @@
                 <input type="text" class="form-control" formControlName="purchase_org_Description"
                     placeholder="Purchase Org Description">
                     <div
-                    *ngIf="purchOrg.controls['purchase_org_Description'].touched && purchOrg.controls['purchase_org_Description'].touched && purchOrg.controls['purchase_org_Description'].hasError('required') && !isSubmitted">
+                    *ngIf="purchOrg.controls['purchase_org_Description'].touched && purchOrg.controls['purchase_org_Description'].dirty && purchOrg.controls['purchase_org_Description'].hasError('required') && !isSubmitted">
                     <p class="error-message">Purchase Org Description is required</p>
                 </div>
                 <div *ngIf="isSubmitted && purchOrg.controls['purchase_org_Description'].hasError('required')">
@@ -38,7 +38,7 @@
                     </option>
                 </select>
                 <div
-                    *ngIf="purchOrg.controls['companycode'].touched && purchOrg.controls['companycode'].touched && purchOrg.controls['companycode'].hasError('required') && !isSubmitted">
+                    *ngIf="purchOrg.controls['companycode'].touched && purchOrg.controls['companycode'].dirty && purchOrg.controls['companycode'].hasError('required') && !isSubmitted">
                     <p class="error-message">Company Code is required</p>
                 </div>
                 <div *ngIf="isSubmitted && purchOrg.controls['companycode'].hasError('required')">

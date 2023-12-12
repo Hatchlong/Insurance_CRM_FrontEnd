@@ -11,7 +11,7 @@
                         <input type="text" class="form-control " placeholder="Enter Material Description"
                             formControlName="matDes">
                         <div
-                            *ngIf="general.controls['matDes'].touched && general.controls['matDes'].touched && general.controls['matDes'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['matDes'].touched && general.controls['matDes'].dirty && general.controls['matDes'].hasError('required') && !isSubmitted">
                             <p class="error-message">Material Description is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['matDes'].hasError('required')">
@@ -28,7 +28,7 @@
                             <option value="3">Three</option>
                         </select>
                         <div
-                            *ngIf="general.controls['matGrp'].touched && general.controls['matGrp'].touched && general.controls['matGrp'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['matGrp'].touched && general.controls['matGrp'].dirty && general.controls['matGrp'].hasError('required') && !isSubmitted">
                             <p class="error-message">Material Group is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['matGrp'].hasError('required')">
@@ -45,7 +45,7 @@
                             <option value="3">Three</option>
                         </select>
                         <div
-                            *ngIf="general.controls['matType'].touched && general.controls['matType'].touched && general.controls['matType'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['matType'].touched && general.controls['matType'].dirty && general.controls['matType'].hasError('required') && !isSubmitted">
                             <p class="error-message">Material Type is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['matType'].hasError('required')">
@@ -64,7 +64,7 @@
                             <option value="3">Three</option>
                         </select>
                         <div
-                            *ngIf="general.controls['indSec'].touched && general.controls['indSec'].touched && general.controls['indSec'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['indSec'].touched && general.controls['indSec'].dirty && general.controls['indSec'].hasError('required') && !isSubmitted">
                             <p class="error-message">Industry Sector is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['indSec'].hasError('required')">
@@ -76,7 +76,7 @@
                         <label for="">Net Weight <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Net Weight" formControlName="net">
                         <div
-                            *ngIf="general.controls['net'].touched && general.controls['net'].touched && general.controls['net'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['net'].touched && general.controls['net'].dirty && general.controls['net'].hasError('required') && !isSubmitted">
                             <p class="error-message">Net Weight is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['net'].hasError('required')">
@@ -88,7 +88,7 @@
                         <label for="">Volume <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Volume" formControlName="vol">
                         <div
-                            *ngIf="general.controls['vol'].touched && general.controls['vol'].touched && general.controls['vol'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['vol'].touched && general.controls['vol'].dirty && general.controls['vol'].hasError('required') && !isSubmitted">
                             <p class="error-message">Volume is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['vol'].hasError('required')">
@@ -105,7 +105,7 @@
                             <option value="3">Three</option>
                         </select>
                         <div
-                            *ngIf="general.controls['sto'].touched && general.controls['sto'].touched && general.controls['sto'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['sto'].touched && general.controls['sto'].dirty && general.controls['sto'].hasError('required') && !isSubmitted">
                             <p class="error-message">Storage Condition is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['sto'].hasError('required')">
@@ -124,7 +124,7 @@
                             <option value="3">Three</option>
                         </select>
                         <div
-                            *ngIf="general.controls['temp'].touched && general.controls['temp'].touched && general.controls['temp'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['temp'].touched && general.controls['temp'].dirty && general.controls['temp'].hasError('required') && !isSubmitted">
                             <p class="error-message">Temp. Condition is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['temp'].hasError('required')">
@@ -142,7 +142,7 @@
                             <option value="3">Three</option>
                         </select>
                         <div
-                            *ngIf="general.controls['trans'].touched && general.controls['trans'].touched && general.controls['trans'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['trans'].touched && general.controls['trans'].dirty && general.controls['trans'].hasError('required') && !isSubmitted">
                             <p class="error-message">Trans Group is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['trans'].hasError('required')">
@@ -155,7 +155,7 @@
                         <input type="text" class="form-control " placeholder="Enter Allowed pkg Weight"
                             formControlName="pkgWt">
                         <div
-                            *ngIf="general.controls['pkgWt'].touched && general.controls['pkgWt'].touched && general.controls['pkgWt'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['pkgWt'].touched && general.controls['pkgWt'].dirty && general.controls['pkgWt'].hasError('required') && !isSubmitted">
                             <p class="error-message">Allowed pkg Weight is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['pkgWt'].hasError('required')">
@@ -174,7 +174,7 @@
                             <option value="3">Three</option>
                         </select>
                         <div
-                            *ngIf="general.controls['unitDim'].touched && general.controls['unitDim'].touched && general.controls['unitDim'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['unitDim'].touched && general.controls['unitDim'].dirty && general.controls['unitDim'].hasError('required') && !isSubmitted">
                             <p class="error-message">Unit Dimension is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['unitDim'].hasError('required')">
@@ -191,7 +191,7 @@
                             <option value="3">Three</option>
                         </select>
                         <div
-                            *ngIf="general.controls['unitWt'].touched && general.controls['unitWt'].touched && general.controls['unitWt'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['unitWt'].touched && general.controls['unitWt'].dirty && general.controls['unitWt'].hasError('required') && !isSubmitted">
                             <p class="error-message">Unit Weight is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['unitWt'].hasError('required')">
@@ -204,7 +204,7 @@
                         <input type="text" class="form-control " placeholder="Enter Allowed phg Weight"
                             formControlName="pkgVol">
                         <div
-                            *ngIf="general.controls['pkgVol'].touched && general.controls['pkgVol'].touched && general.controls['pkgVol'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['pkgVol'].touched && general.controls['pkgVol'].dirty && general.controls['pkgVol'].hasError('required') && !isSubmitted">
                             <p class="error-message">Allowed pkg Volume is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['pkgVol'].hasError('required')">
@@ -222,7 +222,7 @@
                             <option value="3">Three</option>
                         </select>
                         <div
-                            *ngIf="general.controls['volUnit'].touched && general.controls['volUnit'].touched && general.controls['volUnit'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['volUnit'].touched && general.controls['volUnit'].dirty && general.controls['volUnit'].hasError('required') && !isSubmitted">
                             <p class="error-message">Volume Unit is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['volUnit'].hasError('required')">
@@ -235,7 +235,7 @@
                         <input type="text" class="form-control " placeholder="Enter Excess Weight Tolerance"
                             formControlName="exWt">
                         <div
-                            *ngIf="general.controls['exWt'].touched && general.controls['exWt'].touched && general.controls['exWt'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['exWt'].touched && general.controls['exWt'].dirty && general.controls['exWt'].hasError('required') && !isSubmitted">
                             <p class="error-message">Excess Weight is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['exWt'].hasError('required')">
@@ -249,7 +249,7 @@
                         <label for="" class="">Old Material Number <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Number" formControlName="oldMat">
                         <div
-                            *ngIf="general.controls['oldMat'].touched && general.controls['oldMat'].touched && general.controls['oldMat'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['oldMat'].touched && general.controls['oldMat'].dirty && general.controls['oldMat'].hasError('required') && !isSubmitted">
                             <p class="error-message">OLd Material No. is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['oldMat'].hasError('required')">
@@ -267,7 +267,7 @@
                             <option value="3">Three</option>
                         </select>
                         <div
-                            *ngIf="general.controls['base'].touched && general.controls['base'].touched && general.controls['base'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['base'].touched && general.controls['base'].dirty && general.controls['base'].hasError('required') && !isSubmitted">
                             <p class="error-message">Base Unit is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['base'].hasError('required')">
@@ -280,7 +280,7 @@
                         <input type="text" class="form-control " placeholder="Enter Gross Weight"
                             formControlName="gross">
                         <div
-                            *ngIf="general.controls['gross'].touched && general.controls['gross'].touched && general.controls['gross'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['gross'].touched && general.controls['gross'].dirty && general.controls['gross'].hasError('required') && !isSubmitted">
                             <p class="error-message">Gross Weight is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['gross'].hasError('required')">
@@ -297,7 +297,7 @@
                             <option value="3">Three</option>
                         </select>
                         <div
-                            *ngIf="general.controls['wtUnit'].touched && general.controls['wtUnit'].touched && general.controls['wtUnit'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['wtUnit'].touched && general.controls['wtUnit'].dirty && general.controls['wtUnit'].hasError('required') && !isSubmitted">
                             <p class="error-message">Weight Unit is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['wtUnit'].hasError('required')">
@@ -314,7 +314,7 @@
                             <option value="3">Three</option>
                         </select>
                         <div
-                            *ngIf="general.controls['volu'].touched && general.controls['volu'].touched && general.controls['volu'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['volu'].touched && general.controls['volu'].dirty && general.controls['volu'].hasError('required') && !isSubmitted">
                             <p class="error-message">Volume Unit is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['volu'].hasError('required')">
@@ -338,7 +338,7 @@
                         <label for="">Width <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Width" formControlName="width">
                         <div
-                            *ngIf="general.controls['width'].touched && general.controls['width'].touched && general.controls['width'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['width'].touched && general.controls['width'].dirty && general.controls['width'].hasError('required') && !isSubmitted">
                             <p class="error-message">Width is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['width'].hasError('required')">
@@ -350,7 +350,7 @@
                         <label for="">Height <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Height" formControlName="height">
                         <div
-                            *ngIf="general.controls['height'].touched && general.controls['height'].touched && general.controls['height'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['height'].touched && general.controls['height'].dirty && general.controls['height'].hasError('required') && !isSubmitted">
                             <p class="error-message">Height is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['height'].hasError('required')">
@@ -367,7 +367,7 @@
                             <option value="3">Three</option>
                         </select>
                         <div
-                            *ngIf="general.controls['batch'].touched && general.controls['batch'].touched && general.controls['batch'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['batch'].touched && general.controls['batch'].dirty && general.controls['batch'].hasError('required') && !isSubmitted">
                             <p class="error-message">Batch MAanagement is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['batch'].hasError('required')">
@@ -385,7 +385,7 @@
                             <option value="3">Three</option>
                         </select>
                         <div
-                            *ngIf="general.controls['tax'].touched && general.controls['tax'].touched && general.controls['tax'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['tax'].touched && general.controls['tax'].dirty && general.controls['tax'].hasError('required') && !isSubmitted">
                             <p class="error-message">Tax Classification is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['tax'].hasError('required')">
@@ -398,7 +398,7 @@
                         <input type="text" class="form-control " placeholder="Enter Manufacturer Part No."
                             formControlName="man">
                         <div
-                            *ngIf="general.controls['man'].touched && general.controls['man'].touched && general.controls['man'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['man'].touched && general.controls['man'].dirty && general.controls['man'].hasError('required') && !isSubmitted">
                             <p class="error-message">Manufacture Part is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['man'].hasError('required')">
@@ -416,7 +416,7 @@
                             <option value="3">Three</option>
                         </select>
                         <div
-                            *ngIf="general.controls['exp'].touched && general.controls['exp'].touched && general.controls['exp'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['exp'].touched && general.controls['exp'].dirty && general.controls['exp'].hasError('required') && !isSubmitted">
                             <p class="error-message">Expiration Date is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['exp'].hasError('required')">
@@ -429,7 +429,7 @@
                         <input type="text" class="form-control " placeholder="Enter Excess Vol tol"
                             formControlName="exVol">
                         <div
-                            *ngIf="general.controls['exVol'].touched && general.controls['exVol'].touched && general.controls['exVol'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['exVol'].touched && general.controls['exVol'].dirty && general.controls['exVol'].hasError('required') && !isSubmitted">
                             <p class="error-message">Excess Volume is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['exVol'].hasError('required')">
@@ -442,7 +442,7 @@
                         <input type="text" class="form-control " placeholder="Enter Material Cost"
                             formControlName="matCost">
                         <div
-                            *ngIf="general.controls['matCost'].touched && general.controls['matCost'].touched && general.controls['matCost'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['matCost'].touched && general.controls['matCost'].dirty && general.controls['matCost'].hasError('required') && !isSubmitted">
                             <p class="error-message">Material Cost is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['matCost'].hasError('required')">
