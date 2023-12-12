@@ -43,8 +43,9 @@
       <div class="col-12">
         <div class="table-responsive">
           <table class="table table-bordered">
-            <thead>
+            <thead> 
               <tr>
+                <th>S.No.</th>
                <th scope="col">Distribution Channel</th>
                 <th scope="col">Description</th>
                 <th scope="col">Action</th>
@@ -52,43 +53,15 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>mdo</td>
-                <td>Mark</td>
+              <tr *ngFor="let list of distributionDetails; let i = index; ">
+                <td>{{i+1}}</td>
+                <td>{{list.distributionChannel}}</td>
+                <td>{{list.distributionDescription}}</td>
                 <td>
                   <div class="d-flex">
                     <div>
-                      <mat-icon>edit</mat-icon>
-                    </div>
-                    <div>
-                      <mat-icon>delete</mat-icon>
-                    </div>
-                  </div>
-                </td>
-                <td><input type="checkbox" ></td>
-              </tr>
-              <tr>
-               <td>fat</td>
-                <td>Mark</td>
-                <td>
-                  <div class="d-flex">
-                    <div>
-                      <mat-icon>edit</mat-icon>
-                    </div>
-                    <div>
-                      <mat-icon>delete</mat-icon>
-                    </div>
-                  </div>
-                </td>
-                <td><input type="checkbox" ></td>
-              </tr>
-              <tr>
-                <td>twitter</td>
-                <td>Mark</td>
-                <td>
-                  <div class="d-flex">
-                    <div>
-                      <mat-icon>edit</mat-icon>
+                      <mat-icon  [routerLink]="'/settings/edit-distribution-channel/'+list._id">edit</mat-icon> 
+                      
                     </div>
                     <div>
                       <mat-icon>delete</mat-icon>

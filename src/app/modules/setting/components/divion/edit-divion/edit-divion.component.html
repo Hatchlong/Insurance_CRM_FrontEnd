@@ -11,9 +11,9 @@
                     <p class="error-message">Division is required</p>
                 </div> 
                 <div *ngIf="isSubmitted && divionData.controls['divion'].hasError('required')">
-                  <p class="error-message">Division is required</p>
+                    <p class="error-message">Division is required</p>
                 </div>
-            </div>
+            </div> 
             <div class="col-6 ">
                 <label for="" class="">Description<sup>*</sup></label>
                 <input type="text" class="form-control mb-3" placeholder="Description " formControlName="divionDescription">
@@ -27,7 +27,7 @@
             </div>
             <div>
                 <button class="btn btn-primary" type="submit"
-                    style="background-color: #00acff;color: white;">Submit</button>
+                    style="background-color: #00acff;color: white;">Update</button>
             </div>
         </div>
     </form>

@@ -13,13 +13,13 @@ import Swal from 'sweetalert2';
 export class AddPurchaseOrgComponent implements OnInit {
   purchOrg: any = FormGroup;
   companyDetails: any = []
-  isSubmitted:any=false
+  isSubmitted:any=false 
 
   constructor(private fb: FormBuilder,
     private companySer: CompanyCodeService,
     private purchaseOrgSer: PurchaseOrgService,
     private router: Router
-  ) { }
+  ) { }  
 
   ngOnInit(): void {
     this.getCompanyDetails()
