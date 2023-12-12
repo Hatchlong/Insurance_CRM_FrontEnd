@@ -35,6 +35,6 @@ export class AddSalesOrgComponent {
   }
 
   addCode(){
-
+this.isSubmitted=true
   }
 }

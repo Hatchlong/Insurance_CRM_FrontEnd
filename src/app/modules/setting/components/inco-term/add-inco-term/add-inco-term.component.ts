@@ -26,7 +26,7 @@ export class AddIncoTermComponent {
   }
 
   submitData(){
-    
+    this.isSubmitted=true
   }
 
 }

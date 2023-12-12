@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-6">
                 <label for="" class="">PO Type</label>
-                <input type="text" class="form-control mb-3" placeholder="Enter PO" formControlName="poType">
+                <input type="text" class="form-control " placeholder="Enter PO" formControlName="poType">
                 <div
                     *ngIf="poType.controls['poType'].touched && poType.controls['poType'].touched && poType.controls['poType'].hasError('required') && !isSubmitted">
                     <p class="error-message">PO Type is required</p>
@@ -15,7 +15,7 @@
             </div>
             <div class="col-6">
                 <label for="" class="">PO Type Description</label>
-                <input type="text" class="form-control mb-3" placeholder="Enter Description"
+                <input type="text" class="form-control " placeholder="Enter Description"
                     formControlName="poTypeDescription">
                 <div
                     *ngIf="poType.controls['poTypeDescription'].touched && poType.controls['poTypeDescription'].touched && poType.controls['poTypeDescription'].hasError('required') && !isSubmitted">
@@ -30,7 +30,7 @@
         <div class="row">
             <div class="col-6">
                 <label for="" class="">Item Number</label>
-                <input type="text" class="form-control mb-3" placeholder="Enter Item Number"
+                <input type="text" class="form-control " placeholder="Enter Item Number"
                     formControlName="itemNumberInterval">
                     <div
                     *ngIf="poType.controls['itemNumberInterval'].touched && poType.controls['itemNumberInterval'].touched && poType.controls['itemNumberInterval'].hasError('required') && !isSubmitted">
@@ -42,7 +42,7 @@
             </div>
             <div class="col-6">
                 <label for="" class="">Internal Number</label>
-                <input type="text" class="form-control mb-3" placeholder="Enter Internal Number"
+                <input type="text" class="form-control " placeholder="Enter Internal Number"
                     formControlName="internalNumberRangeAssignment">
                     <div
                     *ngIf="poType.controls['internalNumberRangeAssignment'].touched && poType.controls['internalNumberRangeAssignment'].touched && poType.controls['internalNumberRangeAssignment'].hasError('required') && !isSubmitted">
@@ -57,7 +57,7 @@
         <div class="row">
             <div class="col-6">
                 <label for="" class="">External Number</label>
-                <input type="text" class="form-control mb-3" placeholder="Enter External Number"
+                <input type="text" class="form-control " placeholder="Enter External Number"
                     formControlName="externalNumberRangeAssignment">
                     <div
                     *ngIf="poType.controls['externalNumberRangeAssignment'].touched && poType.controls['externalNumberRangeAssignment'].touched && poType.controls['externalNumberRangeAssignment'].hasError('required') && !isSubmitted">
@@ -69,7 +69,7 @@
             </div>
         </div>
 
-        <div class="col-2">
+        <div class="col-2 py-2">
             <button type="submit" class="btn btn-primary" style="background-color: #00acff;">Submit</button>
         </div>
     </form>

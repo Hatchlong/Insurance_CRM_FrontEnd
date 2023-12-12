@@ -44,7 +44,7 @@ export class AddVendorComponent {
       financialTax1: [''],
       financialTax2: [''],
       vatReg: [''],
-
+      
       bankKey: [''],
       bankAcc: [''],
       refDetails: [''],
@@ -74,5 +74,9 @@ export class AddVendorComponent {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  addVendor(){
+    this.isSubmitted=true
   }
 }

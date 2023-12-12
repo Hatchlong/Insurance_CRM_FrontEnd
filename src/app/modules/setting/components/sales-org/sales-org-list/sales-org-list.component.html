@@ -2,9 +2,9 @@
 
 <!-- <p>sales-org-list works!</p> -->
 <div class="container-fluid ">
-    <div class="row mt-3 ">
-      <div class="col-10 ms-0">
-        <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-start ">
+  <div class="row mt-3 ">
+    <div class="col-10 ms-0">
+      <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-start ">
          
           <select class="form-select w-25" aria-label="Default select example">
             <option selected>Select Sales</option>
@@ -27,86 +27,89 @@
           <option value="3">Three</option>
         </select>
         </div> -->
-      </div>
-  
-  
+    </div>
+
+
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-12">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+      <button (click)="nextPage('/settings/add-sales-org')" class="btn btn-primary " type="button">Add Sales
+        Org</button>
+
+      <button class="btn btn-danger" type="button">
+        <mat-icon style="line-height: 34px;">delete</mat-icon>
+        Delete Selected Sales Org</button>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <!-- <mat-icon>dialpad</mat-icon> -->
+          <span>Import Sales Org</span>
+        </button>
+        <button mat-menu-item>
+          <!-- <mat-icon>voicemail</mat-icon> -->
+          <span>Export Sales Org</span>
+        </button>
+        <button mat-menu-item>
+          <!-- <mat-icon>notifications_off</mat-icon> -->
+          <span>Sample Sales Org Sheet</span>
+        </button>
+      </mat-menu>
+
+
     </div>
   </div>
-  <div class="row mt-3">
-    <div class="col-12">
-      <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
-        <button (click)="nextPage('/settings/add-sales-org')" class="btn btn-primary " type="button">Add Sales Org</button>
-        
-        <button class="btn btn-danger" type="button" >Delete Selected Sales Org</button>
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item>
-                <!-- <mat-icon>dialpad</mat-icon> -->
-                <span>Import Sales Org</span>
-              </button>
-              <button mat-menu-item >
-                <!-- <mat-icon>voicemail</mat-icon> -->
-                <span>Export Sales Org</span>
-              </button>
-              <button mat-menu-item>
-                <!-- <mat-icon>notifications_off</mat-icon> -->
-                <span>Sample Sales Org Sheet</span>
-              </button>
-            </mat-menu>
-            
-      
-      </div>
+</div>
+<div class="row mt-4 ms-2">
+  <div class="col-12">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Order Type</th>
+            <th scope="col">Sales Organization </th>
+            <th scope="col">Distribution Channel</th>
+            <th scope="col">Division</th>
+            <th scope="col">Customer Id</th>
+            <th scope="col">Action</th>
+            <th scope="col"><input type="checkbox"> Select All</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>mdo</td>
+            <td>Mark</td>
+            <td><i class="fa-solid fa-user-pen"></i> <i class="fa-solid fa-trash"></i></td>
+            <td><input type="checkbox"></td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>fat</td>
+            <td>Mark</td>
+            <td><i class="fa-solid fa-user-pen"></i> <i class="fa-solid fa-trash"></i></td>
+            <td><input type="checkbox"></td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>twitter</td>
+            <td>Mark</td>
+            <td><i class="fa-solid fa-user-pen"></i> <i class="fa-solid fa-trash"></i></td>
+            <td><input type="checkbox"></td>
+
+          </tr>
+        </tbody>
+
+      </table>
     </div>
   </div>
-  <div class="row mt-4 ms-2">
-    <div class="col-12">
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Order Type</th>
-              <th scope="col">Sales Organization </th>
-              <th scope="col">Distribution Channel</th>
-              <th scope="col">Division</th>
-              <th scope="col">Customer Id</th>
-              <th scope="col">Action</th>
-              <th scope="col"><input type="checkbox"> Select All</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>mdo</td>
-              <td>Mark</td>
-              <td><i class="fa-solid fa-user-pen"></i> <i class="fa-solid fa-trash"></i></td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>fat</td>
-              <td>Mark</td>
-              <td><i class="fa-solid fa-user-pen"></i> <i class="fa-solid fa-trash"></i></td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>twitter</td>
-              <td>Mark</td>
-              <td><i class="fa-solid fa-user-pen"></i> <i class="fa-solid fa-trash"></i></td>
-              <td><input type="checkbox"></td>
-  
-            </tr>
-          </tbody>
-  
-        </table>
-      </div>
-    </div>
-  </div>
+</div>

@@ -3,10 +3,10 @@
   <h2><mat-icon class="back" routerLink="/settings/inco-term-list">arrow_back</mat-icon>Inco Term</h2>
 
   <form [formGroup]="incoTerm" (ngSubmit)="submitData()">
-    <div class="row ms-3">
-      <div class="col-6 mt-4">
+    <div class="row ">
+      <div class="col-6 py-1">
         <label for="">Inco Term Id <sup>*</sup></label>
-        <input type="text" formControlName="incoTermId" class="form-control" />
+        <input type="text" formControlName="incoTermId" class="form-control" placeholder="Enter Inco Term Id" />
         <div
           *ngIf="incoTerm.controls['incoTermId'].touched && incoTerm.controls['incoTermId'].touched && incoTerm.controls['incoTermId'].hasError('required') && !isSubmitted">
           <p class="error-message">Inco Term is required</p>
@@ -15,9 +15,9 @@
           <p class="error-message">Inco Term is required</p>
         </div>
       </div>
-      <div class="col-6 mt-4">
+      <div class="col-6 py-1">
         <label for="">Description<sup>*</sup></label>
-        <input type="text" formControlName="description" class="form-control" />
+        <input type="text" formControlName="description" class="form-control" placeholder="Enter Description" />
         <div
           *ngIf="incoTerm.controls['description'].touched && incoTerm.controls['description'].touched && incoTerm.controls['description'].hasError('required') && !isSubmitted">
           <p class="error-message">Description is required</p>
@@ -27,8 +27,9 @@
         </div>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary m-4"> Submit </button>
-
+    <div class="col-6 py-2">
+      <button type="submit" class="btn btn-primary"> Submit </button>
+    </div>
 
   </form>
 

@@ -20,6 +20,7 @@ export class EditPlantDataComponent {
   citiesDetails: any = []
   languageName: any = ''
   purDetails: any = []
+  timeZone: any = []
   taxDetails: any = [];
   storgaeLocationDetails: any = []
 
@@ -42,7 +43,7 @@ export class EditPlantDataComponent {
     this.getSinglePlantDataDetails()
     this.getTaxDetails()
     this.getStorageDetails()
-
+    this.getTimeZoneDetail()
 
   }
 
@@ -92,6 +93,30 @@ export class EditPlantDataComponent {
       }
     } catch (error) {
       console.error(error)
+    }
+  }
+
+  // get time zone
+  async getTimeZoneDetail() {
+    try {
+      const result: any = await this.plantDataSer.getAllTimeZoneDetails()
+      console.log(result);
+      
+      if (result.status === '1') {
+        this.timeZone = result.data
+      }
+      else{
+        alert("API Failed")
+        Swal.fire({
+          title: 'warning',
+          text: 'API Failed',
+          icon: 'warning',
+          showCancelButton: true
+        })
+      }
+    } catch (error) {
+      console.error(error);
+
     }
   }
 
@@ -262,7 +287,10 @@ export class EditPlantDataComponent {
     const findPurchaseDetail = this.storgaeLocationDetails.find((el: any) => el.stor_loc_id === +event.target.value);
     this.plantsData.controls.stoargeLocationName.setValue(findPurchaseDetail.description)
   }
-
+  handleTimeZone(event: any) {
+    const timeDetail = this.timeZone.find((el: any) => el.timeZoneType === +event.target.value)
+    this.plantsData.controls.timeZoneType.setValue(timeDetail.timeZoneType)
+  }
 
 
 }

@@ -5,7 +5,7 @@
     <div class="row ms-3">
       <div class="col-6 mt-2">
         <label for="">Plant Code<sup>*</sup> </label>
-        <input type="text" formControlName="plantCode" class="form-control" />
+        <input type="text" formControlName="plantCode" class="form-control" placeholder="Enter Plant Code"/>
         <div
           *ngIf="plantFormData.controls['plantCode'].touched && plantFormData.controls['plantCode'].touched && plantFormData.controls['plantCode'].hasError('required') && !isSubmitted">
           <p class="error-message">Plant code is required</p>
@@ -17,7 +17,7 @@
 
       <div class="col-6 mt-2">
         <label for="">Name 1 <sup>*</sup></label>
-        <input type="text" formControlName="name1" class="form-control">
+        <input type="text" formControlName="name1" class="form-control" placeholder="Enter Name 1">
         <div
           *ngIf="plantFormData.controls['name1'].touched && plantFormData.controls['name1'].touched && plantFormData.controls['name1'].hasError('required') && !isSubmitted">
           <p class="error-message">Name 1 is required</p>
@@ -28,7 +28,7 @@
       </div>
       <div class="col-6 mt-2">
         <label for="">Name 2 <sup>*</sup></label>
-        <input type="text" formControlName="name2" class="form-control">
+        <input type="text" formControlName="name2" class="form-control" placeholder="Enter Name 2">
         <div
           *ngIf="plantFormData.controls['name2'].touched && plantFormData.controls['name2'].touched && plantFormData.controls['name2'].hasError('required') && !isSubmitted">
           <p class="error-message">Name 2 is required</p>
@@ -41,7 +41,7 @@
 
       <div class="col-6 mt-2">
         <label for="">Address <sup>*</sup></label>
-        <input type="text" formControlName="address" class="form-control">
+        <input type="text" formControlName="address" class="form-control" placeholder="Enter Address">
         <div
           *ngIf="plantFormData.controls['address'].touched && plantFormData.controls['address'].touched && plantFormData.controls['address'].hasError('required') && !isSubmitted">
           <p class="error-message">Address is required</p>
@@ -102,7 +102,7 @@
 
       <div class="col-6 mt-2">
         <label for="">Contact Person Name <sup>*</sup></label>
-        <input type="text" formControlName="contactPersonName" class="form-control">
+        <input type="text" formControlName="contactPersonName" class="form-control" placeholder="Enter Contact Person ">
         <div
           *ngIf="plantFormData.controls['contactPersonName'].touched && plantFormData.controls['contactPersonName'].touched && plantFormData.controls['contactPersonName'].hasError('required') && !isSubmitted">
           <p class="error-message">Person Name is required</p>
@@ -113,7 +113,7 @@
       </div>
       <div class="col-6 mt-2">
         <label for="">Contact Number <sup>*</sup></label>
-        <input type="number" formControlName="contactNumber" class="form-control">
+        <input type="number" formControlName="contactNumber" class="form-control" placeholder="Enter Contact Number">
         <div
           *ngIf="plantFormData.controls['contactNumber'].touched && plantFormData.controls['contactNumber'].touched && plantFormData.controls['contactNumber'].hasError('required') && !isSubmitted">
           <p class="error-message">Contact Number is required</p>
@@ -126,11 +126,10 @@
 
       <div class="col-6 mt-2">
         <label for=""> Time Zone <sup>*</sup></label>
-        <select class="form-select" formControlName="timeZone">
-          <option selected></option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+        <select class="form-select" formControlName="timeZone" (change)="handleTimeZone($event)">
+          <option [selected]="plantFormData.value.timeZone === ''" value="" hidden>Select Time Zone
+          </option>
+    <option *ngFor="let list of timeZone" [value]="list.timeZoneType">{{list.timeZoneType}}</option>
         </select>
         <div
           *ngIf="plantFormData.controls['timeZone'].touched && plantFormData.controls['timeZone'].touched && plantFormData.controls['timeZone'].hasError('required') && !isSubmitted">
@@ -144,7 +143,7 @@
 
       <div class="col-6 mt-2">
         <label for="">Search term <sup>*</sup></label>
-        <input type="text" formControlName="searchTerm" class="form-control">
+        <input type="text" formControlName="searchTerm" class="form-control" placeholder="Enter Search Term">
         <div
           *ngIf="plantFormData.controls['searchTerm'].touched && plantFormData.controls['searchTerm'].touched && plantFormData.controls['searchTerm'].hasError('required') && !isSubmitted">
           <p class="error-message">Search Term is required</p>
@@ -156,7 +155,7 @@
 
       <div class="col-6 mt-2">
         <label for=""> Customer no.-plant <sup>*</sup></label>
-        <input type="text" formControlName="customerNo_plant" class="form-control">
+        <input type="text" formControlName="customerNo_plant" class="form-control" placeholder="Enter Customer No">
         <div
           *ngIf="plantFormData.controls['customerNo_plant'].touched && plantFormData.controls['customerNo_plant'].touched && plantFormData.controls['customerNo_plant'].hasError('required') && !isSubmitted">
           <p class="error-message">Customer No Plant is required</p>
@@ -169,7 +168,7 @@
 
       <div class="col-6 mt-2">
         <label for="">Vendor no.-plant <sup>*</sup></label>
-        <input type="text" formControlName="vendorNumberPlant" class="form-control">
+        <input type="text" formControlName="vendorNumberPlant" class="form-control" placeholder="Enter Vendor No Plant">
         <div
           *ngIf="plantFormData.controls['vendorNumberPlant'].touched && plantFormData.controls['vendorNumberPlant'].touched && plantFormData.controls['vendorNumberPlant'].hasError('required') && !isSubmitted">
           <p class="error-message">Vendor Number is required</p>

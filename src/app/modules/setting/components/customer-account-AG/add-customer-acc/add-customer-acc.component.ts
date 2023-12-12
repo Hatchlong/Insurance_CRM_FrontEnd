@@ -25,6 +25,7 @@ export class AddCustomerAccComponent implements OnInit {
     })
   }
   addCustomerAcc() {
+    this.isSubmitted=true
     console.log(this.customerAcc);
 
   }

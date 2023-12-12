@@ -9,7 +9,7 @@
                 <div class="row border">
                     <div class="col-6 py-1">
                         <label for="" class="">Customer Id <sup>*</sup></label>
-                        <input type="text" class="form-control " placeholder="Description"
+                        <input type="text" class="form-control " placeholder="Enter Customer Id"
                             formControlName="customerId">
                         <div
                             *ngIf="general.controls['customerId'].touched && general.controls['customerId'].touched && general.controls['customerId'].hasError('required') && !isSubmitted">
@@ -22,6 +22,8 @@
                     <div class="col-6 py-1">
                         <label for="example">Country <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example" formControlName="country">
+                            <option [selected]="general.value.country === ''" value="" hidden>Select Country</option>
+
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -35,8 +37,8 @@
                         </div>
                     </div>
                     <div class="col-6 py-1">
-                        <label for="" class="mt-3">Address <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="Address" formControlName="address">
+                        <label for="" class="">Address <sup>*</sup></label>
+                        <input type="text" class="form-control " placeholder="Enter Address" formControlName="address">
                         <div
                             *ngIf="general.controls['address'].touched && general.controls['address'].touched && general.controls['address'].hasError('required') && !isSubmitted">
                             <p class="error-message">Address is required</p>
@@ -48,8 +50,8 @@
                     </div>
                     <div class="col-6 py-1">
 
-                        <label for="" class="mt-3">Postal Code <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="Enter Postal Code"
+                        <label for="" class="">Postal Code <sup>*</sup></label>
+                        <input type="text" class="form-control " placeholder="Enter Postal Code"
                             formControlName="postalCode">
                         <div
                             *ngIf="general.controls['postalCode'].touched && general.controls['postalCode'].touched && general.controls['postalCode'].hasError('required') && !isSubmitted">
@@ -63,7 +65,7 @@
                     <div class="col-6 py-1">
 
                         <label for="">City <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="City" formControlName="city">
+                        <input type="text" class="form-control " placeholder="Enter City" formControlName="city">
                         <div
                             *ngIf="general.controls['city'].touched && general.controls['city'].touched && general.controls['city'].hasError('required') && !isSubmitted">
                             <p class="error-message">City is required</p>
@@ -75,7 +77,7 @@
                     <div class="col-6 py-1">
 
                         <label for="">Region <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="Region" formControlName="region">
+                        <input type="text" class="form-control " placeholder="Enter Region" formControlName="region">
                         <div
                             *ngIf="general.controls['region'].touched && general.controls['region'].touched && general.controls['region'].hasError('required') && !isSubmitted">
                             <p class="error-message">Region is required</p>
@@ -87,7 +89,7 @@
                     <div class="col-6 py-1">
 
                         <label for="">Telephone <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="Telephone"
+                        <input type="text" class="form-control " placeholder="Enter Telephone"
                             formControlName="telephone">
                         <div
                             *ngIf="general.controls['telephone'].touched && general.controls['telephone'].touched && general.controls['telephone'].hasError('required') && !isSubmitted">
@@ -100,7 +102,7 @@
                     </div>
                     <div class="col-6 py-1">
                         <label for="">Tax No 1 <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="Tax Number 1"
+                        <input type="text" class="form-control " placeholder="Enter Tax Number 1"
                             formControlName="taxOne">
                         <div
                             *ngIf="general.controls['taxOne'].touched && general.controls['taxOne'].touched && general.controls['taxOne'].hasError('required') && !isSubmitted">
@@ -114,7 +116,7 @@
                     <div class="col-6 py-1">
 
                         <label for="">Tax NO 2 <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="Tax Number 2"
+                        <input type="text" class="form-control " placeholder="Enter Tax Number 2"
                             formControlName="taxTwo">
                         <div
                             *ngIf="general.controls['taxTwo'].touched && general.controls['taxTwo'].touched && general.controls['taxTwo'].hasError('required') && !isSubmitted">
@@ -127,7 +129,7 @@
                     <div class="col-6 py-1">
 
                         <label for="">VAT Reg No <sup>*</sup></label>
-                        <input type="text" class="form-control mb-3" placeholder="Vat " formControlName="vatReg">
+                        <input type="text" class="form-control " placeholder="Enter VAT " formControlName="vatReg">
                         <div
                             *ngIf="general.controls['vatReg'].touched && general.controls['vatReg'].touched && general.controls['vatReg'].hasError('required') && !isSubmitted">
                             <p class="error-message">VAT is required</p>
@@ -178,85 +180,110 @@
                                                                 (click)="deleterow(i)">delete</mat-icon>
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="currency">
+                                                                <option [selected]="general.value.currency === ''"
+                                                                    value="" hidden>Select Currency</option>
 
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
+
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-select "
+                                                                aria-label="Default select example"
+                                                                formControlName="termOfPayment">
+                                                                <option [selected]="general.value.termOfPayment === ''"
+                                                                    value="" hidden>Select Term Of Payment</option>
+
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-select "
+                                                                aria-label="Default select example"
+                                                                formControlName="companyCode">
+                                                                 <option [selected]="general.value.companyCode === ''"
+                                                                value="" hidden>Select Company</option>
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
+                                                           
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-select "
+                                                                aria-label="Default select example"
+                                                                formControlName="reconciliation">
+                                                                <option [selected]="general.value.reconciliation === ''"
+                                                                value="" hidden>Select Reconciliation</option>
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                            </select>
                                                             
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
-                                                                aria-label="Default select example"
-                                                                formControlName="termOfPayment">
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-select mb-3"
-                                                                aria-label="Default select example"
-                                                                formControlName="companyCode">
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-select mb-3"
-                                                                aria-label="Default select example"
-                                                                formControlName="reconciliation">
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="tax1">
+                                                                 <option [selected]="general.value.tax1 === ''" value=""
+                                                                hidden>Select Tax</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                             </select>
+                                                           
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="tax2">
+                                                                 <option [selected]="general.value.tax2 === ''" value=""
+                                                                hidden>Select Tax2</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
+                                                           
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="tax3">
-                                                                <option value="1">One</option>
+                                                                 <option [selected]="general.value.tax3 === ''" value=""
+                                                                hidden>Select Tax3</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
+                                                           
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="tax4">
+                                                                 <option [selected]="general.value.tax4 === ''" value=""
+                                                                hidden>Select Tax4</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
+                                                           
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="tax5">
+                                                                <option [selected]="general.value.tax5 === ''" value=""
+                                                                hidden>Select Tax5</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
+                                                            
                                                         </td>
 
                                                     </tr>
@@ -299,109 +326,144 @@
                                                                 (click)="deleteSalesrow(j)">delete</mat-icon>
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="billingBlock">
+                                                                 <option [selected]="general.value.billingBlock === ''"
+                                                                value="" hidden>Select billing Block</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
+                                                           
+
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="workingTime">
+                                                               <option [selected]="general.value.workingTime === ''"
+                                                                value="" hidden>Select working Time</option>
+                                                       
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
-                                                        <td>
-                                                            <select class="form-select mb-3"
+                                                             <td>
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="accountGroup">
+                                                                <option [selected]="general.value.accountGroup === ''"
+                                                                value="" hidden>Select account Group</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
+                                                            
                                                         </td>
                                                         <td>
-                                                            <input type="checkbox" class="form-control mb-3"
+                                                            <input type="checkbox" class="form-control "
                                                                 formControlName="deletionFlag">
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="deliveryBlock">
+                                                                 <option [selected]="general.value.deliveryBlock === ''"
+                                                                value="" hidden>Select delivery Block</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
+                                                           
 
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="salesOrg">
+                                                                 <option [selected]="general.value.salesOrg === ''" value=""
+                                                                hidden>Select sales Org</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
+                                                           
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="distributionChannel">
+                                                                 <option
+                                                                [selected]="general.value.distributionChannel === ''"
+                                                                value="" hidden>Select distribution Channel</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
+                                                           
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="division">
+                                                                 <option [selected]="general.value.division === ''" value=""
+                                                                hidden>Select division</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
+                                                           
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="customerGroup">
+                                                               <option [selected]="general.value.customerGroup === ''"
+                                                                value="" hidden>Select customerGroup</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
+                                                            
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="modeOfTransport">
+                                                                 <option [selected]="general.value.modeOfTransport === ''"
+                                                                value="" hidden>Select modeOfTransport</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
+                                                           
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="acctAsmt">
+                                                                 <option [selected]="general.value.acctAsmt === ''" value=""
+                                                                hidden>Select acctAsmt</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
+                                                           
                                                         </td>
                                                         <td>
-                                                            <select class="form-select mb-3"
+                                                            <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="deliveryPlant">
+                                                                 <option [selected]="general.value.deliveryPlant === ''"
+                                                                value="" hidden>Select delivery Plant</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
+                                                           
                                                         </td>
                                                         <td>
-                                                            <input type="checkbox" class="form-control mb-3"
+                                                            <input type="checkbox" class="form-control "
                                                                 formControlName="partial">
                                                         </td>
                                                     </tr>

@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-6 py-1">
                 <label for="" class="">Distibution Channel<sup>*</sup></label>
-                <input type="text" class="form-control mb-3" placeholder="Enter Distribution Channel"
+                <input type="text" class="form-control " placeholder="Enter Distribution Channel"
                     formControlName="distributionChannel">
                 <div
                     *ngIf="channel.controls['distributionChannel'].touched && channel.controls['distributionChannel'].touched && channel.controls['distributionChannel'].hasError('required') && !isSubmitted">
@@ -18,7 +18,7 @@
             </div>
             <div class="col-6 py-1">
                 <label for="" class="">Description<sup>*</sup></label>
-                <input type="text" class="form-control mb-3" placeholder="Enter Description "
+                <input type="text" class="form-control " placeholder="Enter Description "
                     formControlName="description">
                     <div
                     *ngIf="channel.controls['description'].touched && channel.controls['description'].touched && channel.controls['description'].hasError('required') && !isSubmitted">

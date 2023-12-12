@@ -5,42 +5,42 @@
             <div class="col-6">
                 <span  class="mt-4">Order Type</span>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="order">
-                    <option selected>Order Type</option>
+                    <option [selected]="sales.value.order === ''" value="" hidden>Select Order Type</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
                 <span  class="mt-4">Sales Org</span>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="saleOrg">
-                    <option selected>Sales Org</option>
+                    <option [selected]="sales.value.payTerm === ''" value="" hidden>Select Sales Org</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
                 <span  class="mt-4">Distribution Channel</span>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="dist">
-                    <option selected>Distribution Channel</option>
+                    <option [selected]="sales.value.dist === ''" value="" hidden>Select Distribution Channel</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
                 <span  class="mt-4">Division</span>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="division">
-                    <option selected>Division</option>
+                    <option [selected]="sales.value.division=== ''" value="" hidden>Select Division</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
                 <span  class="mt-4">Customer Id</span>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="custId">
-                    <option selected>Customer Id</option>
+                    <option [selected]="sales.value.custId=== ''" value="" hidden>Select Customer Id</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
                 <span  class="mt-4">Customer Add</span>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="custAdd">
-                    <option selected>Customer Add</option>
+                    <option [selected]="sales.value.custAdd=== ''" value="" hidden>Select Customer Add</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -58,14 +58,14 @@
 
                 <span  class="mt-4">Company Currency</span>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="comCur">
-                    <option selected>Company Currency</option>
+                    <option [selected]="sales.value.comCur=== ''" value="" hidden>Select Company Currency</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
                 <span  class="mt-4">Transaction Curr</span>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="traCurr">
-                    <option selected>Transaction Curr</option>
+                    <option [selected]="sales.value.traCurr=== ''" value="" hidden>Select Transaction Curr</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -76,7 +76,7 @@
 
                 <span  class="mt-4">Order Status</span>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="orderStatus">
-                    <option selected>Order Status</option>
+                    <option [selected]="sales.value.orderStatus === ''" value="" hidden>Select Order Status</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -88,7 +88,7 @@
                 <input type="text" class="form-control mb-3" placeholder="Enter Exchange Rate" formControlName="exRate">
                 <span  class="mt-4">Mode of Transport</span>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="modeTra">
-                    <option selected>Mode of Transport</option>
+                    <option [selected]="sales.value.modeTra=== ''" value="" hidden>Select Mode of Transport</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -104,28 +104,28 @@
                     formControlName="totVol">
                 <span  class="mt-4">Payment Term</span>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="payTerm">
-                    <option selected>Payment Term</option>
+                    <option [selected]="sales.value.payTerm === ''" value="" hidden>Select Payment Term</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
                 <span  class="mt-4">Billing Block</span>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="billBlock">
-                    <option selected>Billing Block</option>
+                    <option [selected]="sales.value.billBlock=== ''" value="" hidden>Select Billing Block</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
                 <span  class="mt-4">Company Code</span>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="comCode">
-                    <option selected>Company Code</option>
+                    <option [selected]="sales.value.comCode === ''" value="" hidden>Select Company Code</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
                 <span  class="mt-4">Customer Account</span>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="custAcc">
-                    <option selected>Customer Account</option>
+                    <option [selected]="sales.value.custAcc === ''" value="" hidden>Select Customer Account</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -155,7 +155,7 @@
                     <div class="col-6">
                         <span  class="mt-4">Product Id</span>
                         <select class="form-select mb-3" aria-label="Default select example" formControlName="proId">
-                            <option selected>Product Id</option>
+                            <option [selected]="sales.value.proId === ''" value="" hidden>Select Product Id</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -190,7 +190,7 @@
                         <input type="number" class="form-control mb-3" placeholder="Volume" formControlName="vol">
                         <span  class="mt-4">Pricing UOM</span>
                         <select class="form-select mb-3" aria-label="Default select example" formControlName="priuom">
-                            <option selected>Pricing UOM</option>
+                            <option [selected]="sales.value.priuom === ''" value="" hidden>Select Pricing UOM</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>

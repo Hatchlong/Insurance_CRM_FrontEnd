@@ -4,7 +4,7 @@
             <h3 class="mt-2">
                 <mat-icon class="back" routerLink="/master/vendor">arrow_back</mat-icon> Vendor Maintenance
             </h3>
-            <form [formGroup]="productFromGroup">
+            <form [formGroup]="productFromGroup" (ngSubmit)="addVendor()">
 
                 <div class="row">
                     <div class="col-12 border px-1">
@@ -14,7 +14,7 @@
                                     <div class="col-12 mt-2">
                                         <label for="VendorName">Vendor Name</label>
                                         <input type="text" class="form-control" formControlName="vendorName"
-                                            placeholder="Vendor Name">
+                                            placeholder="Enter Vendor Name">
                                         <div
                                             *ngIf="productFromGroup.controls['vendorName'].touched && productFromGroup.controls['vendorName'].touched && productFromGroup.controls['vendorName'].hasError('required') && !isSubmitted">
                                             <p class="error-message">Vendor Name is required</p>
@@ -27,7 +27,8 @@
                                     <div class="col-12 mt-2">
                                         <label for="">Account Group</label>
                                         <select class="form-select" formControlName="accountGroup">
-                                            <option selected></option>
+                                            <option [selected]="productFromGroup.value.accountGroup === ''" value="" hidden>Select
+                                                Account Group</option>
                                             <option value="1">One</option>
                                             <option value="2">Two</option>
                                             <option value="3">Three</option>
@@ -61,10 +62,10 @@
                         </div>
 
                         <div class="row ms-3">
-                            <div class="col-6 mt-4">
+                            <div class="col-6 py-1">
                                 <label for="">Language</label>
                                 <select class="form-select" formControlName="language">
-                                    <option selected></option>
+                                    <option [selected]="productFromGroup.value.language === ''" value="" hidden>Select language</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
@@ -77,9 +78,10 @@
                                     <p class="error-message">Language is required</p>
                                 </div>
                             </div>
-                            <div class="col-6 mt-4">
+                            <div class="col-6 py-1">
                                 <label for="">Country</label>
                                 <select class="form-select" formControlName="country">
+                                    <option [selected]="productFromGroup.value.currency === ''" value="" hidden>Select Currency</option>
                                     <option *ngFor="let list of countryLists" selected>{{list.name}}</option>
 
                                 </select>
@@ -92,20 +94,20 @@
                                 </div>
                             </div>
 
-                            <div class="col-6 mt-4 mb-2">
+                            <div class="col-6 py-1 ">
                                 <label for="">Mode of transport</label>
                                 <select class="form-select" formControlName="modeOfTransport">
-                                    <option selected></option>
+                                    <option [selected]="productFromGroup.value.modeOfTransport=== ''" value="" hidden>Select Mode Of Transport</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
                                 </select>
-                               
+
                             </div>
-                            <div class="col-6 mt-4 mb-2">
+                            <div class="col-6  py-1">
                                 <label for="">Inco Term</label>
                                 <select class="form-select" formControlName="incrementTreams">
-                                    <option selected></option>
+                                    <option [selected]="productFromGroup.value.incrementTreams=== ''" value="" hidden>Select Increment Treams</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
@@ -120,17 +122,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="row ms-3 mb-4">
-                            <div class="col-6 mt-4">
-                                <label for="">Inco Term</label>
-                                <select class="form-select" formControlName="incrementTreams">
-                                    <option selected></option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>
-                        </div> -->
+
                     </div>
 
                 </div>
@@ -197,7 +189,7 @@
                                         </td>
                                         <td>
                                             <select class="form-select">
-                                                <option selected></option>
+                                               
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
                                                 <option value="3">Three</option>
@@ -205,7 +197,7 @@
                                         </td>
                                         <td>
                                             <select class="form-select">
-                                                <option selected></option>
+                                               
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
                                                 <option value="3">Three</option>
@@ -213,7 +205,7 @@
                                         </td>
                                         <td>
                                             <select class="form-select">
-                                                <option selected></option>
+                                               
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
                                                 <option value="3">Three</option>
@@ -245,7 +237,7 @@
 
                                         <td>
                                             <select class="form-select">
-                                                <option selected></option>
+                                                
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
                                                 <option value="3">Three</option>
@@ -254,7 +246,7 @@
                                         </td>
                                         <td>
                                             <select class="form-select">
-                                                <option selected></option>
+                                               
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
                                                 <option value="3">Three</option>
@@ -263,7 +255,7 @@
                                         </td>
                                         <td>
                                             <select class="form-select">
-                                                <option selected></option>
+                                               
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
                                                 <option value="3">Three</option>
@@ -284,9 +276,6 @@
 
             </form>
 
-            <!-- </mat-tab>
-                 
-              </mat-tab-group> -->
         </div>
     </div>
 </div>

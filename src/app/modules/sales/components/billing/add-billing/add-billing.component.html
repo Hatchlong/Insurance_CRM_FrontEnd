@@ -11,7 +11,7 @@
                     <div class="col-6 mt-2">
                         <label for="">Billing Type</label>
                         <select class="form-select" formControlName="billingType">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.billingType=== ''" value="" hidden>Select Billing Type</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -19,35 +19,35 @@
                     </div>
                     <div class="col-6 mt-2">
                         <label for="BillingDate">Billing Date</label>
-                        <input type="date" class="form-control" formControlName="billingDate">
+                        <input type="date" class="form-control" formControlName="billingDate" >
                     </div>
                     <div class="col-6 mt-4">
                         <label for="ReferenceDoc">Reference Doc</label>
                         <input type="text" class="form-control" formControlName="referenceDoc"
-                            placeholder="Reference Document">
+                            placeholder="Enter Reference Document">
                     </div>
 
                     <div class="col-6 mt-4">
                         <label for="CustomerId">Customer Id</label>
                         <input type="text" class="form-control" formControlName="customerId"
-                            placeholder="Reference Document">
+                            placeholder="Enter Customer Id">
 
                     </div>
                     <div class="col-6 mt-4">
                         <label for="NetValue">Net Value</label>
-                        <input type="number" class="form-control" formControlName="netValue" placeholder="Net Value">
+                        <input type="number" class="form-control" formControlName="netValue" placeholder="Enter Net Value">
 
                     </div>
 
                     <div class="col-6 mt-4 mb-2">
                         <label for="TaxAmount">Tax Amount</label>
-                        <input type="number" class="form-control" formControlName="taxAmount" placeholder="Tax Amount">
+                        <input type="number" class="form-control" formControlName="taxAmount" placeholder="Enter Tax Amount">
 
                     </div>
                     <div class="col-6 mt-4 mb-2">
                         <label for="">Currency</label>
                         <select class="form-select" formControlName="currency">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.currency=== ''" value="" hidden>Select Currency</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -61,7 +61,7 @@
                     <div class="col-6 mt-4 mb-2">
                         <label for="Company">Company Code</label>
                         <select class="form-select" formControlName="companyCode">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.companyCode=== ''" value="" hidden>Select Company Code</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -70,7 +70,7 @@
                     <div class="col-6 mt-4 mb-2">
                         <label for="">Customer Account AG</label>
                         <select class="form-select" formControlName="customerAccount">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.customerAccount=== ''" value="" hidden>Enter Customer Account AG</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -79,7 +79,7 @@
                     <div class="col-6 mt-4 mb-2">
                         <label for="">Posting Status</label>
                         <select class="form-select" formControlName="postingStatus">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.postingStatus=== ''" value="" hidden>Enter Posting Status</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -88,7 +88,7 @@
                     <div class="col-6 mt-4 mb-2">
                         <label for="">Payment Terms</label>
                         <select class="form-select" formControlName="paymentTerm">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.paymentTerm=== ''" value="" hidden>Select Payment Term</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -97,7 +97,7 @@
                     <div class="col-6 mt-4 mb-2">
                         <label for="">Inco Terms</label>
                         <select class="form-select" formControlName="incrementTearm">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.incrementTearm== ''" value="" hidden>Select Inco Term</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -106,7 +106,7 @@
                     <div class="col-6 mt-4 mb-2">
                         <label for="">Sales Org</label>
                         <select class="form-select" formControlName="salesOrg">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.salesOrg=== ''" value="" hidden>Select Sales Org</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -115,7 +115,7 @@
                     <div class="col-6 mt-4 mb-2">
                         <label for="">Distribution Channel</label>
                         <select class="form-select" formControlName="distributionChannel">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.distributionChannel== ''" value="" hidden>Select Distribution Channel </option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -124,7 +124,7 @@
                     <div class="col-6 mt-4 mb-2">
                         <label for="">Division</label>
                         <select class="form-select" formControlName="division">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.division=== ''" value="" hidden>Select Division</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -133,7 +133,7 @@
                     <div class="col-6 mt-4 mb-2">
                         <label for="">Mode Of Transport</label>
                         <select class="form-select" formControlName="modeOfTransport">
-                            <option selected></option>
+                            <option [selected]="productFromGroup.value.modeOfTransport=== ''" value="" hidden>Select Mode Of Transport</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
@@ -229,7 +229,7 @@
                                         </td>
                                         <td>
                                             <select class="form-select" formControlName="uom">
-                                                <option selected></option>
+                                                <option [selected]="productFromGroup.value.uom === ''" value="" hidden>Select UoM</option>
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
                                                 <option value="3">Three</option>
@@ -357,9 +357,6 @@
 
             </form>
 
-            <!-- </mat-tab>
-                 
-              </mat-tab-group> -->
         </div>
     </div>
 </div>

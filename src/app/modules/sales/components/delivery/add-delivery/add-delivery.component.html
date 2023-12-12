@@ -9,9 +9,9 @@
                 <div class="row">
                     <div class="col-12 border px-1">
                         <div class="row ms-3">
-                            <div class="col-6 mt-2">
+                            <div class="col-6 ">
                                 <div class="row">
-                                    <div class="col-12 mt-2">
+                                    <div class="col-12 ">
                                         <label>Delivery Type</label>
                                         <input type="text" class="form-control" formControlName="deliveryType"
                                             placeholder="Vendor Name">
@@ -19,10 +19,11 @@
 
                                 </div>
                             </div>
-                            <div class="col-6 mt-3">
+                            <div class="col-6 ">
                                 <label for="">Plant</label>
                                 <select class="form-select" formControlName="plant">
-                                    <option selected></option>
+                                    <option [selected]="productFromGroup.value.payTerm === ''" value="" hidden>Select
+                                        Plant</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
@@ -33,44 +34,49 @@
                         </div>
 
                         <div class="row ms-3">
-                            <div class="col-6 mt-4">
+                            <div class="col-6 ">
                                 <span for="" class="">Delivery</span>
-                                <input type="number" class="form-control mb-3" placeholder=" Delivery"
+                                <input type="number" class="form-control " placeholder=" Delivery"
                                     formControlName="delivery">
 
                             </div>
-                            <div class="col-6 mt-4">
+                            <div class="col-6 ">
                                 <span for="" class="">Delivery Date</span>
-                                <input type="date" class="form-control mb-3" placeholder=" Delivery Date"
+                                <input type="date" class="form-control " placeholder=" Delivery Date"
                                     formControlName="deliveryDate">
                             </div>
 
-                            <div class="col-6 mt-4 mb-2">
+                            <div class="col-6  ">
                                 <span for="" class="mt-4">Customer Id</span>
-                                <select class="form-select mb-3" aria-label="Default select example"
+                                <select class="form-select " aria-label="Default select example"
                                     formControlName="customerId">
+                                    <option [selected]="productFromGroup.value.customerId=== ''" value="" hidden>Select
+                                        Customer Id</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
                                 </select>
                             </div>
-                            <div class="col-6 mt-4 mb-2">
+                            <div class="col-6 ">
                                 <span for="" class="">Delivery Address</span>
-                                <input type="text" class="form-control mb-3" placeholder=" Delivery Address"
+                                <input type="text" class="form-control " placeholder=" Delivery Address"
                                     formControlName="deliveryAddress">
                             </div>
-                        </div>
-                        <div class="row ms-3 mb-4">
-                            <div class="col-6 mt-4">
-                                <span for="" class="mt-4">Delivery Partener</span>
-                                <select class="form-select mb-3" aria-label="Default select example"
+                            <div class="col-6 ">
+                                <span for="" class="">Delivery Partener</span>
+                                <select class="form-select " aria-label="Default select example"
                                     formControlName="deliveryPartner">
+                                    <option [selected]="productFromGroup.value.deliveryPartner=== ''" value="" hidden>
+                                        Select
+                                        Delivery Partener</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
                                 </select>
                             </div>
                         </div>
+
+
                     </div>
 
                 </div>
@@ -121,7 +127,8 @@
                                         </td>
                                         <td>
                                             <select class="form-select" formControlName="plantItem">
-                                                <option selected></option>
+                                                <option [selected]="productFromGroup.value.plantItem=== ''" value=""
+                                                    hidden>Select Plant Item</option>
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
                                                 <option value="3">Three</option>

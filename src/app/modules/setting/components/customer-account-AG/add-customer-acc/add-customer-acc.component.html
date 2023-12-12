@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-6 py-1">
                 <label for="" class="">Customer Account <sup>*</sup></label>
-                <input type="text" class="form-control mb-3" placeholder="Enter Customer Account "
+                <input type="text" class="form-control " placeholder="Enter Customer Account "
                     formControlName="customerAccount">
                 <div
                     *ngIf="customerAcc.controls['customerAccount'].touched && customerAcc.controls['customerAccount'].touched && customerAcc.controls['customerAccount'].hasError('required') && !isSubmitted">
@@ -18,7 +18,7 @@
             </div>
             <div class="col-6 py-1">
                 <label for="" class="">Description <sup>*</sup></label>
-                <input type="text" class="form-control mb-3" placeholder="Enter Description "
+                <input type="text" class="form-control " placeholder="Enter Description "
                     formControlName="description">
                 <div
                     *ngIf="customerAcc.controls['description'].touched && customerAcc.controls['description'].touched && customerAcc.controls['description'].hasError('required') && !isSubmitted">
@@ -28,7 +28,7 @@
                     <p class="error-message">Description is required</p>
                 </div>
             </div>
-            <div>
+            <div class="col-2 py-2">
                 <button class="btn btn-primary" type="submit"
                     style="background-color: #00acff;color: white;">Submit</button>
             </div>
