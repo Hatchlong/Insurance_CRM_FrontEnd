@@ -479,7 +479,7 @@
                                                 </thead>
 
                                                 <tbody formArrayName="plantList">
-                                                    <tr *ngFor="let financial of detail.controls; let i = index;"
+                                                    <tr *ngFor="let financial of general.get('plantList')['controls']; let i = index;"
                                                         [formGroupName]="i">
                                                         <td *ngIf="detail.controls.length > 1">
                                                             <mat-icon style="cursor:pointer"
@@ -494,6 +494,14 @@
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
+                                                            <div
+                                                                *ngIf="financial.get('stPlant').touched && financial.get('stPlant').dirty && financial.get('stPlant').hasError('required') && !isSubmitted">
+                                                                <p class="error-message">Material Cost is required</p>
+                                                            </div>
+                                                            <div
+                                                                *ngIf="isSubmitted && financial.get('stPlant').hasError('required')">
+                                                                <p class="error-message">Material Cost is required</p>
+                                                            </div>
                                                         </td>
                                                         <td>
                                                             <select class="form-select mb-3"
