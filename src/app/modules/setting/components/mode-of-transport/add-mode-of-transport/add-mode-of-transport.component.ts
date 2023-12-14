@@ -37,13 +37,18 @@ export class AddModeOfTransportComponent {
       this.isSubmitted = true
       console.log(this.transport);
       if (this.transport.invalid)
-        return
+      return Swal.fire({
+        title: 'warning',
+        text: 'All Field Are Required',
+        icon: 'warning',
+        showCancelButton: true
+      })
       const result: any = await this.motSer.createModeOfTransport(this.transport.value)
       console.log(result);
       if (result.status === '1') {
         Swal.fire({
           title: 'success',
-          text: 'Successfully Submitted',
+          text: ' Mode Of Transport Created Succesfully',
           icon: 'success',
           showCancelButton: true
         })
@@ -52,7 +57,6 @@ export class AddModeOfTransportComponent {
       }
       if (result.status === '0')
         return alert(result.message);
-
     }
 
     catch (error) {

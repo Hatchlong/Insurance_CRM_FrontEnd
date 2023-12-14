@@ -12,6 +12,8 @@ import Swal from 'sweetalert2';
 export class EditOrderStatusComponent implements OnInit{
   order: any = FormGroup
   orderStatusId:any=''
+  isSubmitted: any = false
+
 
   constructor(
     private orderStatusSer: OrderStatusService,
@@ -53,9 +55,15 @@ export class EditOrderStatusComponent implements OnInit{
 
   async addOrder() {
     try {
+      this.isSubmitted=true
       console.log(this.order);
       if (this.order.invalid)
-        return
+      return Swal.fire({
+      title: 'warning',
+      text: 'All Field Are Required',
+      icon: 'warning',
+      showCancelButton: true
+    })
       const result: any = await this.orderStatusSer.updatedOrderStatusDetails(this.order.value)
       console.log(result);
       if (result.status === '1') {

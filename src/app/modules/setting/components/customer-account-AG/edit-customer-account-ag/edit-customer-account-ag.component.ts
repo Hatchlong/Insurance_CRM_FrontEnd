@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomerAccountAGService } from '../../../Services/customer-account-AG/customer-account-ag.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-customer-account-ag',
@@ -11,17 +12,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class EditCustomerAccountAGComponent {
  
   
-  customerAcc: any = FormGroup
+  customerAcc: any = FormGroup;
   isSubmitted: any = false
   customerId: any = ''
-
-
-  constructor(private fb: FormBuilder,
-    private router : Router,
+  constructor(
+    private fb: FormBuilder,
     private customerAccountSer: CustomerAccountAGService,
+    private router: Router,
     private activeRouter:ActivatedRoute
-
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.customerId = this.activeRouter.snapshot.paramMap.get('id');
@@ -29,6 +28,7 @@ export class EditCustomerAccountAGComponent {
     this.getSingleCustomerAccountDetails()
     this.channeldata()
   }
+
 
   channeldata() {
     this.customerAcc = this.fb.group({
@@ -39,7 +39,7 @@ export class EditCustomerAccountAGComponent {
     console.warn(this.customerAcc.value)
 
   }
-
+ 
   async getSingleCustomerAccountDetails(){
     try {
       const result: any = await this.customerAccountSer.singleCustomerAccount(this.customerId);
@@ -51,23 +51,35 @@ export class EditCustomerAccountAGComponent {
     }
   }
 
-  
   async submitData() {
     try {
       this.isSubmitted = true
+      console.log(this.customerAcc);
       if (this.customerAcc.invalid)
-        return
-      const result: any = await this.customerAccountSer.updateCustomerAccount(this.customerAcc.value);
-      console.log(result)
+      return Swal.fire({
+      title: 'warning',
+      text: 'All Field Are Required',
+      icon: 'warning',
+      showCancelButton: true
+    })
+      const result: any = await this.customerAccountSer.updateCustomerAccount(this.customerAcc.value)
+      console.log(result);
       if (result.status === '1') {
-        alert(result.message);
-        this.router.navigate(['/settings/customer-account-list'])
-        return;
+        Swal.fire({
+          title: 'success',
+          text: 'Customer Account AG updated successfully ',
+          icon: 'success',
+          showCancelButton: true
+        })
+        this.router.navigate(['/settings/inco-term-list/'])
+        return
       }
       if (result.status === '0')
-        return alert(result.message)
+        return alert(result.message);
+
+
     } catch (error) {
-      console.log(error)
+      console.error(error);
 
     }
   }
