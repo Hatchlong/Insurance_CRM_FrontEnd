@@ -2,9 +2,8 @@
     <form [formGroup]="channel" (ngSubmit)="submitData()">
         <h2><mat-icon class="back" routerLink="/settings/distribution-channel-list">arrow_back</mat-icon>Distribution
             Channel</h2>
- 
         <div class="row">
-         <div class="col-6 py-1">
+            <div class="col-6 py-1">
                 <label for="" class="">Distibution Channel<sup>*</sup></label>
                 <input type="text" class="form-control mb-3" placeholder="Enter Distribution Channel"
                     formControlName="distributionChannel">
@@ -20,7 +19,7 @@
                 <label for="" class="">Description<sup>*</sup></label>
                 <input type="text" class="form-control mb-3" placeholder="Enter Description "
                     formControlName="distributionDescription">
-                    <div
+                <div
                     *ngIf="channel.controls['distributionDescription'].touched && channel.controls['distributionDescription'].touched && channel.controls['distributionDescription'].hasError('required') && !isSubmitted">
                     <p class="error-message">Description is required</p>
                 </div>
@@ -29,8 +28,7 @@
                 </div>
             </div>
             <div>
-                <button class="btn btn-primary" type="submit"
-                    style="background-color: #00acff;color: white;">Update</button>
+                <button class="btn btn-primary" type="submit">Update</button>
             </div>
         </div>
     </form>

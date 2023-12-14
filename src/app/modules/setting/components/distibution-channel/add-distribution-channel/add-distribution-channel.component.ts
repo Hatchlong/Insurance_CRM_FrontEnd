@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DistibutionChannelService } from '../../../Services/distibution-channel/distibution-channel.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-distribution-channel',
@@ -41,12 +42,15 @@ export class AddDistributionChannelComponent implements OnInit {
       const result: any = await this.distribustionSer.createDistibutionChannelDetails(this.channel.value);
       console.log(result)
       if (result.status === '1') {
-        alert(result.message);
+        Swal.fire({
+          title: 'success',
+          text: 'Distribution Channel Processed Successfully',
+          icon: 'success',
+          showCancelButton: true
+        })
         this.router.navigate(['/settings/distribution-channel-list'])
         return;
       }
-      this.router.navigate(['/settings/distribution-channel-list']);
-      return;
       if (result.status === '0')
         return alert(result.message)
     } catch (error) {

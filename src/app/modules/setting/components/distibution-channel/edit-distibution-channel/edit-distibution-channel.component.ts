@@ -2,24 +2,25 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DistibutionChannelService } from '../../../Services/distibution-channel/distibution-channel.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-distibution-channel',
   templateUrl: './edit-distibution-channel.component.html',
   styleUrls: ['./edit-distibution-channel.component.css']
 })
-export class EditDistibutionChannelComponent implements OnInit{
- 
-  channel:any=FormGroup
-  isSubmitted:any=false
+export class EditDistibutionChannelComponent implements OnInit {
+
+  channel: any = FormGroup
+  isSubmitted: any = false
   distributionId: any = ''
 
 
-  constructor(private fb:FormBuilder,
-    private distribustionSer : DistibutionChannelService,
-    private router : Router,
-    private activeRouter:ActivatedRoute
-    ){}
+  constructor(private fb: FormBuilder,
+    private distribustionSer: DistibutionChannelService,
+    private router: Router,
+    private activeRouter: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.distributionId = this.activeRouter.snapshot.paramMap.get('id');
@@ -28,22 +29,22 @@ export class EditDistibutionChannelComponent implements OnInit{
     this.channeldata()
   }
 
-  channeldata(){
-    this.channel=this.fb.group({
+  channeldata() {
+    this.channel = this.fb.group({
       _id: ['', Validators.required],
-      distributionChannel:['',Validators.required],
-      distributionDescription:['',Validators.required]
+      distributionChannel: ['', Validators.required],
+      distributionDescription: ['', Validators.required]
     });
-  console.warn(this.channel.value)
+    console.warn(this.channel.value)
 
   }
 
-  async getSingleDistributionDetails(){
+  async getSingleDistributionDetails() {
     try {
       const result: any = await this.distribustionSer.singleDistibutionChannel(this.distributionId);
-    if (result.status === '1') {
-      this.channel.patchValue(result.data);
-    }
+      if (result.status === '1') {
+        this.channel.patchValue(result.data);
+      }
     } catch (error) {
       console.log(error)
     }
@@ -51,24 +52,29 @@ export class EditDistibutionChannelComponent implements OnInit{
 
 
 
-  async submitData(){
+  async submitData() {
     try {
       this.isSubmitted = true
-      if(this.channel.invalid)
-      return
-      const result:any = await this.distribustionSer.updateDistibutionChannel(this.channel.value);
+      if (this.channel.invalid)
+        return
+      const result: any = await this.distribustionSer.updateDistibutionChannel(this.channel.value);
       console.log(result)
-      if(result.status === '1'){
-        alert(result.message);
+      if (result.status === '1') {
+        Swal.fire({
+          title: 'success',
+          text: 'Distribition Channel Updated Successfully',
+          icon: 'success',
+          showCancelButton: true
+        })
         this.router.navigate(['/settings/distribution-channel-list'])
         return;
       }
-      if(result.status === '0')
+      if (result.status === '0')
         return alert(result.message)
     } catch (error) {
       console.log(error)
-  
+
     }
   }
-  
+
 }
