@@ -45,8 +45,6 @@ export class AddDistributionChannelComponent implements OnInit {
         this.router.navigate(['/settings/distribution-channel-list'])
         return;
       }
-      this.router.navigate(['/settings/distribution-channel-list']);
-      return;
       if (result.status === '0')
         return alert(result.message)
     } catch (error) {

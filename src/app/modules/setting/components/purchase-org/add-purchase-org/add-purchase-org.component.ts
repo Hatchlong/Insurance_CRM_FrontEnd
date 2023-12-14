@@ -31,7 +31,7 @@ export class AddPurchaseOrgComponent implements OnInit {
       purchase_org: ['', Validators.required],
       purchase_org_Description: ['', Validators.required],
       companycode: ['', Validators.required]
-    });
+    });x
     console.warn(this.purchOrg.value)
   }
 

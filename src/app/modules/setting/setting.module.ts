@@ -53,6 +53,7 @@ import { EditDivionComponent } from './components/divion/edit-divion/edit-divion
 import { EditDistibutionChannelComponent } from './components/distibution-channel/edit-distibution-channel/edit-distibution-channel.component';
 import { DivionService } from './Services/divion/divion.service';
 import { DistibutionChannelService } from './Services/distibution-channel/distibution-channel.service';
+import { EditCustomerAccountAGComponent } from './components/customer-account-AG/edit-customer-account-ag/edit-customer-account-ag.component';
 
 
 @NgModule({
@@ -90,6 +91,7 @@ import { DistibutionChannelService } from './Services/distibution-channel/distib
     IncoTermListComponent,
     EditDivionComponent,
     EditDistibutionChannelComponent,
+    EditCustomerAccountAGComponent,
   ],
   imports: [
     CommonModule,
