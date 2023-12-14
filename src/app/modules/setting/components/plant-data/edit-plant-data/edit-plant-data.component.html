@@ -1,53 +1,38 @@
 <div class="container-fluid">
   <h2><mat-icon class="back" routerLink="/settings/plant-data-list">arrow_back</mat-icon>Plant Data</h2>
-
   <form class="border" [formGroup]="plantsData" (ngSubmit)="submitData()">
-    <div class="row ms-3">
-      <div class="col-6 mt-4">
+    <div class="row ">
+      <div class="col-6 py-1 ">
         <label for="">Plant Code </label>
         <input type="text" formControlName="plantCode" class="form-control" />
       </div>
-
-      <div class="col-6 mt-4">
+      <div class="col-6 py-1 ">
         <label for="">Name 1</label>
         <input type="text" formControlName="name1" class="form-control">
       </div>
-    </div>
 
-    <div class="row ms-3">
-      <div class="col-6 mt-4">
+      <div class="col-6 py-1 ">
         <label for="">Name 2</label>
         <input type="text" formControlName="name2" class="form-control">
-
       </div>
-
-      <div class="col-6 mt-4">
+      <div class="col-6 py-1 ">
         <label for="">Language Key</label>
         <select class="form-select" formControlName="languageId" aria-label="Default select example">
           <option [value]="citiesDetails.languageId">{{languageName}}</option>
-
         </select>
       </div>
-    </div>
-
-    <div class="row ms-3">
-      <div class="col-6 mt-4">
+      <div class="col-6 py-1 ">
         <label for="">Address</label>
         <input type="text" formControlName="address" class="form-control">
-
       </div>
-
-      <div class="col-6 mt-4">
+      <div class="col-6 py-1 ">
         <label for="">Country</label>
         <select class="form-select" formControlName="countryId" (change)="selectCountryName($event)">
           <option [selected]="plantsData.value.countryId === ''" value="" hidden>Select Country</option>
           <option *ngFor="let list of countryDetials;" [value]="list._id"> {{list.countryName}} </option>
         </select>
       </div>
-    </div>
-
-    <div class="row ms-3 mb-4">
-      <div class="col-6 mt-4">
+      <div class="col-6 py-1 ">
         <label for="">City</label>
         <select class="form-select" formControlName="cityId"
           [ngStyle]="{'pointer-events': !plantsData.value.countryId ? 'none' :  'all'}">
@@ -56,53 +41,35 @@
 
         </select>
       </div>
-
-      <div class="col-6 mt-4">
+      <div class="col-6 py-1 ">
         <label for="">Contact Person Name</label>
         <input type="text" formControlName="contactPersonName" class="form-control">
       </div>
-    </div>
-
-
-    <div class="row ms-3 mb-4">
-      <div class="col-6 mt-0">
+      <div class="col-6 py-1 ">
         <label for="">Contact Number </label>
         <input type="number" formControlName="contactNumber" class="form-control">
-
       </div>
-
-      <div class="col-6 mt-0">
+      <div class="col-6 py-1 ">
         <label for=""> Time Zone</label>
-        <select class="form-select" formControlName="timeZone" aria-label="Default select example" (change)="handleTimeZone($event)">
+        <select class="form-select" formControlName="timeZone" aria-label="Default select example"
+          (change)="handleTimeZone($event)">
           <option *ngFor="let list of timeZone" [value]="list.timeZoneType">{{list.timeZoneType}}</option>
-         
+
         </select>
       </div>
-    </div>
-
-
-    <div class="row ms-3 mb-4">
-      <div class="col-6 mt-0">
+      <div class="col-6 py-1 ">
         <label for="">Search term </label>
         <input type="text" formControlName="searchTerm" class="form-control">
-
       </div>
-
-      <div class="col-6 mt-0">
+      <div class="col-6 py-1 ">
         <label for=""> Customer no.-plant </label>
         <input type="text" formControlName="customerNo_plant" class="form-control">
       </div>
-    </div>
-
-
-    <div class="row ms-3 mb-4">
-      <div class="col-6 mt-0">
+      <div class="col-6 py-1 ">
         <label for="">Vendor no.-plant</label>
         <input type="text" formControlName="vendorNumberPlant" class="form-control">
-
       </div>
-
-      <div class="col-6 mt-0">
+      <div class="col-6 py-1 ">
         <label for=""> Purch. Organization </label>
         <select class="form-select" formControlName="purchaseOrganizationId" (change)="handlePurchaseOrg($event)">
           <option [selected]="plantsData.value.purchaseOrganizationId === ''" value="" hidden>Select Purchase Org
@@ -110,11 +77,7 @@
           <option *ngFor="let pur of purDetails" [value]="pur._id">{{pur.purchase_org}}</option>
         </select>
       </div>
-    </div>
-
-
-    <div class="row ms-3 mb-4">
-      <div class="col-6 mt-0">
+      <div class="col-6 py-1 ">
         <label for="">Sales Organization</label>
         <select class="form-select" formControlName="salesOrganizationId" aria-label="Default select example">
           <option selected></option>
@@ -122,36 +85,24 @@
           <option value="2">Two</option>
           <option value="3">Three</option>
         </select>
-
-
       </div>
-
-      <div class="col-6 mt-0">
+      <div class="col-6 py-1 ">
         <label for=""> Tax Indicator: Plant </label>
         <select class="form-select" formControlName="taxIndicatorId" (change)="handleTax($event)">
           <option [selected]="plantsData.value.taxIndicatorId === ''" value="" hidden>Select Tax</option>
           <option *ngFor="let list of taxDetails" [value]="list.tax_ind_code">{{list.description}}</option>
         </select>
       </div>
-    </div>
-
-    <div class="row ms-3 mb-4">
-      <div class="col-6 mt-0">
+      <div class="col-6 py-1 ">
         <label for="">Storage Location</label>
         <select class="form-select" formControlName="stoargeLocationId" (change)="handleStorageLocation($event)">
           <option [selected]="plantsData.value.stoargeLocationId === ''" value="" hidden>Select Storage Location
           </option>
           <option *ngFor="let list of storgaeLocationDetails" [value]="list.stor_loc_id">{{list.description}}</option>
         </select>
-
-
       </div>
-
     </div>
-
-    <button type="submit" class="btn btn-primary">
-      Update
-    </button>
+    <button type="submit" class="btn btn-primary"> Update</button>
 
   </form>
 </div>

@@ -1,19 +1,15 @@
 <div class="container-fluid">
     <h2><mat-icon class="back" routerLink="/settings/purchase-org-list">arrow_back</mat-icon>Purchase Org</h2>
-
     <form [formGroup]="purchOrg" (ngSubmit)="submitData()">
-        <div class="row ms-3">
-            <div class="col-6 mt-4"> 
+        <div class="row ">
+            <div class="col-6 "> 
                 <label>Purchase Org</label>
                 <input type="text" class="form-control" formControlName="purchase_org" >
             </div>
-            <div class="col-6 mt-4">
+            <div class="col-6 ">
                 <label>Purchase Org Description</label>
                 <input type="text" class="form-control" formControlName="purchase_org_Description">
-            </div> 
-        </div>
- 
-        <div class="row ms-3">
+            </div>       
             <div class="col-6">
                 <label for="">Company Code</label>
                 <select class="form-select" formControlName="companycode" aria-label="Default select example">
@@ -25,10 +21,5 @@
                 <button type="submit" class="btn btn-primary"> Update </button>
             </div>
         </div>
-
- 
     </form>
-
-
-
 </div>

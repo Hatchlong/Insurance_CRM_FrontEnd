@@ -37,4 +37,16 @@ export class DistributionChannelListComponent {
     }
   }
 
+
+  // select all operation 
+
+  // const selectAllCheck:any=document.getElementById('selectAll');
+  // const checkboxes:any = document.querySelectorAll('.checkbox');
+
+//   checkboxes.forEach(checkbox => {
+//     checkbox.addEventListener('change', function () {
+//         selectAllCheck.checked = [...checkboxes].every(checkbox => checkbox.checked);
+//     })
+// })
+  
 }

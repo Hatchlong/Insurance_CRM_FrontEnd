@@ -1,1 +1,58 @@
-<p>edit-sales-org works!</p>
+<div class="container-fluid">
+  <form [formGroup]="salesOrg" (ngSubmit)="addCode()">
+    <h2>
+      <mat-icon class="back" routerLink="/settings/sales-org-list">arrow_back</mat-icon>Sales Org
+    </h2>
+    <div class="row">
+      <div class="col-6">
+        <label for="" class="">Sales Org</label>
+        <input type="text" class="form-control " placeholder=" Enter Sales Org" formControlName="salesOrg" />
+      </div>
+      <div class="col-6">
+        <label for="" class="">Sales Org Description</label>
+        <input type="text" class="form-control " placeholder=" Enter Sales Org Description"
+          formControlName="description" />
+      </div>
+      <div class="col-6">
+        <label for="" class="">Address</label>
+        <input type="text" class="form-control " placeholder="Enter Address " formControlName="address" />
+      </div>
+      <div class="col-6">
+        <label for="">Search Term</label>
+        <input type="text" class="form-control " placeholder="Enter Search Term  " formControlName="searchTerm" />
+      </div>
+      <div class="col-6">
+        <label for="">Country</label>
+        <select class="form-select" formControlName="countryId" aria-label="Default select example"
+          (change)="selectCountry($event)">
+          <option [selected]="salesOrg.value.countryId === ''" value="" hidden>Select Country</option>
+          <option *ngFor="let list of countryDetials;" [value]="list._id"> {{list.countryName}} </option>
+        </select>
+      </div>
+      <div class="col-6">
+        <label for="">Region</label>
+        <select class="form-select" formControlName="regionId" aria-label="Default select example">
+          <option [selected]="salesOrg.value.regionName=== ''" value="" hidden>Select Region</option>
+          <option value="One">One</option>
+        </select>
+      </div>
+      <div class="col-6">
+        <label for="">Time Zone</label>
+        <select class="form-select" formControlName="timeZoneId" aria-label="Default select example"
+          (change)="handleTimeZone($event)">
+          <option [selected]="salesOrg.value.timeZoneId=== ''" value="" hidden>Select Time Zone</option>
+          <option *ngFor="let list of timeZone" [value]="list._id">{{list.timeZoneType}}</option>
+        </select>
+      </div>
+      <div class="col-6">
+        <label for="" class="">Contact Person</label>
+        <input type="text" class="form-control " placeholder="Enter Contact Person" formControlName="contactPerson" />
+      </div>
+      <div class="col-2 py-2">
+        <button type="submit" class="btn btn-primary">
+          Update
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

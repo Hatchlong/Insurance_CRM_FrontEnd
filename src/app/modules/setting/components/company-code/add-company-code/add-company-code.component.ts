@@ -54,7 +54,7 @@ export class AddCompanyCodeComponent {
       if (result.status === '1') {
         Swal.fire({
           title: 'success',
-          text: 'Successfully Submitted',
+          text: 'Company Code Processed Successfully',
           icon: 'success',
           showCancelButton: true
         })
@@ -79,7 +79,7 @@ export class AddCompanyCodeComponent {
       if (result.status === '1') {
         this.countryDetials = result.data;
       } else {
-        // alert('API failed')
+
         Swal.fire({
           title: 'warning',
           text: 'API Failed',
@@ -90,7 +90,6 @@ export class AddCompanyCodeComponent {
       console.log(result);
     } catch (error) {
       console.error(error)
-      // alert('API failed')
       Swal.fire({
         title: 'warning',
         text: 'API Failed',
@@ -107,7 +106,7 @@ export class AddCompanyCodeComponent {
       if (result.status === '1') {
         this.languageName = result.data.languageName
       } else {
-        // alert('API failed')
+
         Swal.fire({
           title: 'warning',
           text: 'API Failed',
@@ -118,7 +117,7 @@ export class AddCompanyCodeComponent {
       console.log(result);
     } catch (error) {
       console.error(error)
-      // alert('API failed')
+
       Swal.fire({
         title: 'warning',
         text: 'API Failed',
@@ -134,7 +133,7 @@ export class AddCompanyCodeComponent {
       if (result.status === '1') {
         this.companyDetails = result.data
       } else {
-        // alert('API failed')
+
         Swal.fire({
           title: 'warning',
           text: 'API Failed',
@@ -145,7 +144,7 @@ export class AddCompanyCodeComponent {
       console.log(result);
     } catch (error) {
       console.error(error)
-      // alert('API failed')
+
       Swal.fire({
         title: 'warning',
         text: 'API Failed',
