@@ -46,11 +46,11 @@
                     <option value="3">Three</option>
                 </select>
 
-                <div *ngIf="purchase.controls['vendor'].touched && purchase.controls['vendor'].touched && purchase.controls['vendor'].hasError('required') && !isSubmitted">
+                <div *ngIf="purchase.controls['vendor'].touched && purchase.controls['vendor'].dirty && purchase.controls['vendor'].hasError('required') && !isSubmitted">
                     <p class="error-message">vendor is required</p>
                 </div>
                 <div *ngIf="isSubmitted && purchase.controls['vendor'].hasError('required')">
-                    <p class="error-message">vendo is required</p>
+                    <p class="error-message">vendor is required</p>
                 </div>
 
             </div>

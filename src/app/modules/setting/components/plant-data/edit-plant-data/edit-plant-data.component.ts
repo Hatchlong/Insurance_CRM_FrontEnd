@@ -96,6 +96,7 @@ export class EditPlantDataComponent {
     }
   }
 
+  
   // get time zone
   async getTimeZoneDetail() {
     try {
@@ -289,7 +290,7 @@ export class EditPlantDataComponent {
   }
   handleTimeZone(event: any) {
     const timeDetail = this.timeZone.find((el: any) => el.timeZoneType === +event.target.value)
-    this.plantsData.controls.timeZoneType.setValue(timeDetail.timeZoneType)
+    this.plantsData.controls.timeZone.setValue(timeDetail.timeZoneType)
   }
 
 

@@ -34,6 +34,11 @@ import { AddSalesOrgComponent } from './components/sales-org/add-sales-org/add-s
 import { SalesOrgListComponent } from './components/sales-org/sales-org-list/sales-org-list.component';
 import { EditDivionComponent } from './components/divion/edit-divion/edit-divion.component';
 import { EditDistibutionChannelComponent } from './components/distibution-channel/edit-distibution-channel/edit-distibution-channel.component';
+import { EditModeOfTransportComponent } from './components/mode-of-transport/edit-mode-of-transport/edit-mode-of-transport.component';
+import { EditOrderStatusComponent } from './components/order-status/edit-order-status/edit-order-status.component';
+import { EditBillingBlockComponent } from './components/billing-block/edit-billing-block/edit-billing-block.component';
+import { EditIncoTermComponent } from './components/inco-term/edit-inco-term/edit-inco-term.component';
+import { EditSalesOrgComponent } from './components/sales-org/edit-sales-org/edit-sales-org.component';
 
 const routes: Routes = [
   {
@@ -123,12 +128,20 @@ const routes: Routes = [
     component:AddModeOfTransportComponent
   },
   {
+    path:'edit-mode-of-transport/:id',
+    component:EditModeOfTransportComponent
+  },
+  {
     path:'order-status-list',
     component:OrderStatusListComponent
   },
   {
     path:'add-order-status',
     component:AddOrderStatusComponent
+  },
+  {
+    path:'edit-order-status/:id',
+    component:EditOrderStatusComponent
   },
   {
     path:'customer-account-list',
@@ -144,6 +157,10 @@ const routes: Routes = [
   {
     path:'add-billing-block',
     component:AddBillingBlockComponent
+  },
+  {
+    path:'edit-billing-block/:id',
+    component:EditBillingBlockComponent
   },
   {
     path:'edit-plant-data/:id',
@@ -162,12 +179,20 @@ const routes: Routes = [
     component:IncoTermListComponent
   },
   {
+    path:'edit-inc-term/:id',
+    component:EditIncoTermComponent
+  },
+  {
     path:'add-sales-org',
     component:AddSalesOrgComponent
   },
   {
     path:'sales-org-list',
     component:SalesOrgListComponent
+  },
+  {
+    path:'edit-sales-org/:id',
+    component:EditSalesOrgComponent
   }
  
 ];

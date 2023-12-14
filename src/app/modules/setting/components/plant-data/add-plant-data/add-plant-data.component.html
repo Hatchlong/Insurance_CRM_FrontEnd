@@ -58,7 +58,7 @@
           [ngStyle]="{'pointer-events': !plantFormData.value.countryId ? 'none' :  'all'}">
           <option [selected]="plantFormData.value.languageId === ''" value="" hidden>Select Language</option>
 
-          <option [value]="citiesDetails.languageId">{{languageName}}</option>
+          <option [value]="citiesDetails.languageId">{{languageName}}</option> 
         </select>
         <div
           *ngIf="plantFormData.controls['languageId'].touched && plantFormData.controls['languageId'].dirty && plantFormData.controls['languageId'].hasError('required') && !isSubmitted">

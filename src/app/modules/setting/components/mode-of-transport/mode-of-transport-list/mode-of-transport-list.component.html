@@ -43,6 +43,7 @@
           <table class="table table-bordered">
             <thead>
               <tr>
+                <th scope="col">SLNo</th>
                <th scope="col"> Mode Of Transport</th>
                 <th scope="col">Description</th>
                 <th scope="col">Action</th>
@@ -50,13 +51,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>mdo</td>
-                <td>Mark</td>
+              <tr *ngFor="let list of modeOfDetails; let i=index">
+                <td>{{i+1}}</td>
+                <td>{{list.modeOfTransport}}</td>
+                <td>{{list.motDescription}}</td>
                 <td>
                   <div class="d-flex">
                     <div>
-                      <mat-icon>edit</mat-icon>
+                      <mat-icon [routerLink]="'/settings/edit-mode-of-transport/'+list._id">edit</mat-icon>
                     </div>
                     <div>
                       <mat-icon>delete</mat-icon>
@@ -65,37 +67,7 @@
                 </td>
                 <td><input type="checkbox" ></td>
               </tr>
-              <tr>
-               <td>fat</td>
-                <td>Mark</td>
-                <td>
-                  <div class="d-flex">
-                    <div>
-                      <mat-icon>edit</mat-icon>
-                    </div>
-                    <div>
-                      <mat-icon>delete</mat-icon>
-                    </div>
-                  </div>
-                </td>
-                <td><input type="checkbox" ></td>
-              </tr>
-              <tr>
-                <td>twitter</td>
-                <td>Mark</td>
-                <td>
-                  <div class="d-flex">
-                    <div>
-                      <mat-icon>edit</mat-icon>
-                    </div>
-                    <div>
-                      <mat-icon>delete</mat-icon>
-                    </div>
-                  </div>
-                </td>
-                <td><input type="checkbox" ></td>
-  
-              </tr>
+             
             </tbody>
   
           </table>

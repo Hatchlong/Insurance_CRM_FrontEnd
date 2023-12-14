@@ -6,12 +6,12 @@
     <div class="row ">
       <div class="col-6 py-1">
         <label for="">Inco Term Id <sup>*</sup></label>
-        <input type="text" formControlName="incoTermId" class="form-control" placeholder="Enter Inco Term Id" />
+        <input type="number" formControlName="inc_terms_code" class="form-control" placeholder="Enter Inco Term Id" />
         <div
-          *ngIf="incoTerm.controls['incoTermId'].touched && incoTerm.controls['incoTermId'].dirty && incoTerm.controls['incoTermId'].hasError('required') && !isSubmitted">
+          *ngIf="incoTerm.controls['inc_terms_code'].touched && incoTerm.controls['inc_terms_code'].dirty && incoTerm.controls['inc_terms_code'].hasError('required') && !isSubmitted">
           <p class="error-message">Inco Term is required</p>
         </div>
-        <div *ngIf="isSubmitted && incoTerm.controls['incoTermId'].hasError('required')">
+        <div *ngIf="isSubmitted && incoTerm.controls['inc_terms_code'].hasError('required')">
           <p class="error-message">Inco Term is required</p>
         </div>
       </div>
