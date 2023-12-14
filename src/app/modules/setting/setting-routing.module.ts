@@ -34,6 +34,7 @@ import { AddSalesOrgComponent } from './components/sales-org/add-sales-org/add-s
 import { SalesOrgListComponent } from './components/sales-org/sales-org-list/sales-org-list.component';
 import { EditDivionComponent } from './components/divion/edit-divion/edit-divion.component';
 import { EditDistibutionChannelComponent } from './components/distibution-channel/edit-distibution-channel/edit-distibution-channel.component';
+import { EditCustomerAccountAGComponent } from './components/customer-account-AG/edit-customer-account-ag/edit-customer-account-ag.component';
 import { EditModeOfTransportComponent } from './components/mode-of-transport/edit-mode-of-transport/edit-mode-of-transport.component';
 import { EditOrderStatusComponent } from './components/order-status/edit-order-status/edit-order-status.component';
 import { EditBillingBlockComponent } from './components/billing-block/edit-billing-block/edit-billing-block.component';
@@ -150,7 +151,13 @@ const routes: Routes = [
   {
     path:'add-customer-account',
     component:AddCustomerAccComponent
-  },{
+  },
+  {
+    path:'edit-customer-account/:id',
+    component:EditCustomerAccountAGComponent
+  }
+  ,
+  {
     path:'billing-block-list',
     component:BillingBlockListComponent
   },

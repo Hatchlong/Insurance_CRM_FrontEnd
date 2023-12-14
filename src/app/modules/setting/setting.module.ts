@@ -51,6 +51,7 @@ import { EditDivionComponent } from './components/divion/edit-divion/edit-divion
 import { EditDistibutionChannelComponent } from './components/distibution-channel/edit-distibution-channel/edit-distibution-channel.component';
 import { DivionService } from './Services/divion/divion.service';
 import { DistibutionChannelService } from './Services/distibution-channel/distibution-channel.service';
+import { EditCustomerAccountAGComponent } from './components/customer-account-AG/edit-customer-account-ag/edit-customer-account-ag.component';
 import { ModeOfTransportService } from './Services/mode-of-transport/mode-of-transport.service';
 import { EditModeOfTransportComponent } from './components/mode-of-transport/edit-mode-of-transport/edit-mode-of-transport.component';
 import { EditOrderStatusComponent } from './components/order-status/edit-order-status/edit-order-status.component';
@@ -98,6 +99,7 @@ import { SalesOrgService } from './Services/sales-org/sales-org.service';
     IncoTermListComponent,
     EditDivionComponent,
     EditDistibutionChannelComponent,
+    EditCustomerAccountAGComponent,
     EditModeOfTransportComponent,
     EditOrderStatusComponent,
     EditBillingBlockComponent,
