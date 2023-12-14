@@ -85,28 +85,19 @@
             <td>Otto</td>
             <td>mdo</td>
             <td>Mark</td>
-            <td><i class="fa-solid fa-user-pen"></i> <i class="fa-solid fa-trash"></i></td>
+            <td>
+              <div class="d-flex">
+                <div>
+                  <mat-icon [routerLink]="'/settings/edit-sales-org/'">edit</mat-icon>
+                </div>
+                <div>
+                  <mat-icon>delete</mat-icon>
+                </div>
+              </div>
+            </td>
             <td><input type="checkbox"></td>
           </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>fat</td>
-            <td>Mark</td>
-            <td><i class="fa-solid fa-user-pen"></i> <i class="fa-solid fa-trash"></i></td>
-            <td><input type="checkbox"></td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>twitter</td>
-            <td>Mark</td>
-            <td><i class="fa-solid fa-user-pen"></i> <i class="fa-solid fa-trash"></i></td>
-            <td><input type="checkbox"></td>
 
-          </tr>
         </tbody>
 
       </table>

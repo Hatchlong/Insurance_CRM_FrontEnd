@@ -25,7 +25,7 @@
                 </select>
             </div>
         </div> -->
- 
+
 
     </div>
 </div>
@@ -36,8 +36,8 @@
                 style="color: white;background: #00acff;">Add Purchase Org</button>
 
             <button class="btn btn-danger" type="button" style="color: white">
-        <mat-icon style="line-height: 34px;">delete</mat-icon>
-        Delete
+                <mat-icon style="line-height: 34px;">delete</mat-icon>
+                Delete
                 Selected PO</button>
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                 <mat-icon>more_vert</mat-icon>
@@ -65,7 +65,7 @@
     <div class="col-12">
         <div class="table-responsive">
             <table class="table table-bordered">
-                <thead> 
+                <thead>
                     <tr>
                         <th>S.No.</th>
                         <th scope="col">Purch Org</th>
@@ -75,25 +75,25 @@
                         <th scope="col"><input type="checkbox" (change)="selectAll($event)"> Select All</th>
                     </tr>
                 </thead>
-                <tbody> 
+                <tbody>
                     <tr *ngFor="let list of purchaseOrgDetails; let i = index; ">
                         <td scope="row">{{i+1}}</td>
                         <td>{{list.purchase_org}}</td>
                         <td>{{list.purchase_org_Description}}</td>
                         <td>{{list.companycode}}</td>
-                        <td> 
-                <div class="d-flex">
-                  <div>
-                    <mat-icon [routerLink]="'/settings/edit-purchase-org/'+list._id">edit</mat-icon>
-                  </div>
-                  <div>
-                    <mat-icon>delete</mat-icon>
-                  </div>
-                </div>
-              </td>
+                        <td>
+                            <div class="d-flex">
+                                <div>
+                                    <mat-icon [routerLink]="'/settings/edit-purchase-org/'+list._id">edit</mat-icon>
+                                </div>
+                                <div>
+                                    <mat-icon>delete</mat-icon>
+                                </div>
+                            </div>
+                        </td>
                         <td><input type="checkbox" [checked]="checks"></td>
                     </tr>
-                   
+
                 </tbody>
 
             </table>

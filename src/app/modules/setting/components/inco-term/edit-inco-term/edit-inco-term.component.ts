@@ -1,35 +1,56 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IncTermService } from '../../../Services/inc-term/inc-term.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-add-inco-term',
-  templateUrl: './add-inco-term.component.html',
-  styleUrls: ['./add-inco-term.component.css']
+  selector: 'app-edit-inco-term',
+  templateUrl: './edit-inco-term.component.html',
+  styleUrls: ['./edit-inco-term.component.css']
 })
-export class AddIncoTermComponent {
+export class EditIncoTermComponent {
 
-  incoTerm: any = FormGroup;
+  incoTerm: any = FormGroup
   isSubmitted: any = false
+  incTermId: any = ''
+
   constructor(
     private fb: FormBuilder,
     private incTermSer: IncTermService,
-    private router: Router
+    private router: Router,
+    private activeRouter: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.incTermId = this.activeRouter.snapshot.paramMap.get('id')
     this.data()
+    this.getSingleDetails()
   }
 
   data() {
     this.incoTerm = this.fb.group({
+      _id: ['', Validators.required],
       inc_terms_code: ['', Validators.required],
       description: ['', Validators.required],
 
     });
-    console.warn(this.incoTerm.value)
+  }
+
+  //get single data
+
+  async getSingleDetails() {
+    try {
+      const result: any =await this.incTermSer.singleIncTermsDetails(this.incTermId)
+      console.log(result.data);
+      
+      if (result.status === '1') {
+        this.incoTerm.patchValue(result.data)
+      }
+    } catch (error) {
+      console.error(error);
+
+    }
   }
 
   async submitData() {
@@ -38,12 +59,12 @@ export class AddIncoTermComponent {
       console.log(this.incoTerm);
       if (this.incoTerm.invalid)
         return
-      const result: any = await this.incTermSer.createIncTerms(this.incoTerm.value)
+      const result: any = await this.incTermSer.updatedIncTermsDetails(this.incoTerm.value)
       console.log(result);
       if (result.status === '1') {
         Swal.fire({
           title: 'success',
-          text: 'Inc Term Processed Successfully ',
+          text: 'Inc Term Updated Successfully ',
           icon: 'success',
           showCancelButton: true
         })
@@ -59,5 +80,6 @@ export class AddIncoTermComponent {
 
     }
   }
+
 
 }

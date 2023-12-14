@@ -72,64 +72,29 @@
               <th scope="col">SLNo</th>
               <th scope="col">Inco Term </th>
               <th scope="col">Description</th>
-              
               <th scope="col">Action</th>
-              <th scope="col"><input type="checkbox" (change)="selectAll($event)"> Select All</th>
+              <th scope="col"><input type="checkbox" > Select All</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
+            <tr *ngFor="let list of incTermDetail;let i=index">
+              <td>{{i+1}}</td>
+              <td>{{list.inc_terms_code}}</td>
+              <td>{{list.description}}</td>
               
               <td>
                 <div class="d-flex">
                   <div>
-                    <mat-icon>edit</mat-icon>
+                    <mat-icon [routerLink]="'/settings/edit-inc-term/'+list._id">edit</mat-icon>
                   </div>
                   <div>
                     <mat-icon>delete</mat-icon>
                   </div>
                 </div>
               </td>
-              <td><input type="checkbox" [checked]="checks"></td>
+              <td><input type="checkbox"></td>
             </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-             
-              <td>
-                <div class="d-flex">
-                  <div>
-                    <mat-icon>edit</mat-icon>
-                  </div>
-                  <div>
-                    <mat-icon>delete</mat-icon>
-                  </div>
-                </div>
-              </td>
-              <td><input type="checkbox" [checked]="checks"></td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-             
-              <td>
-                <div class="d-flex">
-                  <div>
-                    <mat-icon>edit</mat-icon>
-                  </div>
-                  <div>
-                    <mat-icon>delete</mat-icon>
-                  </div>
-                </div>
-              </td>
-              <td><input type="checkbox" [checked]="checks"></td>
-  
-            </tr>
+           
           </tbody>
   
         </table>

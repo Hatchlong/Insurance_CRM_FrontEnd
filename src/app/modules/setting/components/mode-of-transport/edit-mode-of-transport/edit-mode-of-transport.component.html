@@ -1,0 +1,24 @@
+<div class="container-fluid">
+    <form [formGroup]="transport" (ngSubmit)="submitData()">
+        <h2><mat-icon class="back" routerLink="/settings/modeOf-transport-list">arrow_back</mat-icon>Mode Of Transport
+        </h2>
+        <div class="row">
+            <div class="col-6">
+                <label for="" class="">Mode Of Transport<sup>*</sup></label>
+                <input type="text" class="form-control " placeholder="Enter Mode Of Transport"
+                    formControlName="modeOfTransport">
+                
+            </div>
+            <div class="col-6">
+                <label for="" class="">Description<sup>*</sup></label>
+
+                <input type="text" class="form-control " placeholder="Description " formControlName="motDescription">
+                
+            </div>
+            <div class="col-2 py-2">
+                <button class="btn btn-primary" type="submit"
+                    style="background-color: #00acff;color: white;">Update</button>
+            </div>
+        </div>
+    </form>
+</div>

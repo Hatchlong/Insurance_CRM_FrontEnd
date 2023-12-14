@@ -4,11 +4,11 @@ import { CommonModule } from '@angular/common';
 import { SettingRoutingModule } from './setting-routing.module';
 
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import {MatIconModule} from '@angular/material/icon';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatButtonModule} from '@angular/material/button';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTabsModule } from '@angular/material/tabs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddCompanyCodeComponent } from './components/company-code/add-company-code/add-company-code.component';
 import { CompanyCodeListComponent } from './components/company-code/company-code-list/company-code-list.component';
@@ -43,8 +43,6 @@ import { CustomerAccListComponent } from './components/customer-account-AG/custo
 import { AddCustomerAccComponent } from './components/customer-account-AG/add-customer-acc/add-customer-acc.component';
 import { BillingBlockListComponent } from './components/billing-block/billing-block-list/billing-block-list.component';
 import { AddBillingBlockComponent } from './components/billing-block/add-billing-block/add-billing-block.component';
-// import { StorageLocationService } from './Services/storage-location/storage-location.service';
-// import { TaxService } from './Services/tax/tax.service';
 import { AddSalesOrgComponent } from './components/sales-org/add-sales-org/add-sales-org.component';
 import { SalesOrgListComponent } from './components/sales-org/sales-org-list/sales-org-list.component';
 import { AddIncoTermComponent } from './components/inco-term/add-inco-term/add-inco-term.component';
@@ -54,6 +52,16 @@ import { EditDistibutionChannelComponent } from './components/distibution-channe
 import { DivionService } from './Services/divion/divion.service';
 import { DistibutionChannelService } from './Services/distibution-channel/distibution-channel.service';
 import { EditCustomerAccountAGComponent } from './components/customer-account-AG/edit-customer-account-ag/edit-customer-account-ag.component';
+import { ModeOfTransportService } from './Services/mode-of-transport/mode-of-transport.service';
+import { EditModeOfTransportComponent } from './components/mode-of-transport/edit-mode-of-transport/edit-mode-of-transport.component';
+import { EditOrderStatusComponent } from './components/order-status/edit-order-status/edit-order-status.component';
+import { OrderStatusService } from './Services/order-status/order-status.service';
+import { BillingBlockService } from './Services/billing-block/billing-block.service';
+import { EditBillingBlockComponent } from './components/billing-block/edit-billing-block/edit-billing-block.component';
+import { IncTermService } from './Services/inc-term/inc-term.service';
+import { EditIncoTermComponent } from './components/inco-term/edit-inco-term/edit-inco-term.component';
+import { EditSalesOrgComponent } from './components/sales-org/edit-sales-org/edit-sales-org.component';
+import { SalesOrgService } from './Services/sales-org/sales-org.service';
 
 
 @NgModule({
@@ -92,6 +100,11 @@ import { EditCustomerAccountAGComponent } from './components/customer-account-AG
     EditDivionComponent,
     EditDistibutionChannelComponent,
     EditCustomerAccountAGComponent,
+    EditModeOfTransportComponent,
+    EditOrderStatusComponent,
+    EditBillingBlockComponent,
+    EditIncoTermComponent,
+    EditSalesOrgComponent,
   ],
   imports: [
     CommonModule,
@@ -104,8 +117,8 @@ import { EditCustomerAccountAGComponent } from './components/customer-account-AG
     MatTabsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    
+
   ],
-  providers:[PurchaseOrgService, CompanyCodeService,PoTypeService,PlantDataService, PaymentTermService, DivionService, DistibutionChannelService]
+  providers: [PurchaseOrgService, CompanyCodeService, PoTypeService, PlantDataService, PaymentTermService, DivionService, DistibutionChannelService, ModeOfTransportService,OrderStatusService,BillingBlockService,IncTermService,SalesOrgService]
 })
 export class SettingModule { }

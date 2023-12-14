@@ -1,6 +1,3 @@
-<!-- <p>add-sales-org works!</p> -->
-
-<!-- <p>add-sales-org works!</p> -->
 <div class="container-fluid">
   <form [formGroup]="salesOrg" (ngSubmit)="addCode()">
     <h2>
@@ -20,12 +17,13 @@
       </div>
       <div class="col-6">
         <label for="" class="">Sales Org Description</label>
-        <input type="text" class="form-control " placeholder=" Enter Sales Org Description" formControlName="salesOrgDescription" />
+        <input type="text" class="form-control " placeholder=" Enter Sales Org Description"
+          formControlName="description" />
         <div
-          *ngIf="salesOrg.controls['salesOrgDescription'].touched && salesOrg.controls['salesOrgDescription'].dirty && salesOrg.controls['salesOrgDescription'].hasError('required') && !isSubmitted">
+          *ngIf="salesOrg.controls['description'].touched && salesOrg.controls['description'].dirty && salesOrg.controls['description'].hasError('required') && !isSubmitted">
           <p class="error-message">Sales Org Description is required</p>
         </div>
-        <div *ngIf="isSubmitted && salesOrg.controls['salesOrgDescription'].hasError('required')">
+        <div *ngIf="isSubmitted && salesOrg.controls['description'].hasError('required')">
           <p class="error-message">Sales Org Description is required</p>
         </div>
       </div>
@@ -54,50 +52,54 @@
 
       <div class="col-6">
         <label for="">Country</label>
-        <select class="form-select" formControlName="country" aria-label="Default select example">
-          <option [selected]="salesOrg.value.country === ''" value="" hidden>Select Country</option>
+        <select class="form-select" formControlName="countryName" aria-label="Default select example">
+          <option [selected]="salesOrg.value.countryName === ''" value="" hidden>Select Country</option>
+          <option *ngFor="let list of countryDetials;" [value]="list.countryId"> {{list.countryName}} </option>
+
         </select>
         <div
-          *ngIf="salesOrg.controls['country'].touched && salesOrg.controls['country'].dirty && salesOrg.controls['country'].hasError('required') && !isSubmitted">
+          *ngIf="salesOrg.controls['countryName'].touched && salesOrg.controls['countryName'].dirty && salesOrg.controls['countryName'].hasError('required') && !isSubmitted">
           <p class="error-message">country is required</p>
         </div>
-        <div *ngIf="isSubmitted && salesOrg.controls['country'].hasError('required')">
+        <div *ngIf="isSubmitted && salesOrg.controls['countryName'].hasError('required')">
           <p class="error-message">country is required</p>
         </div>
       </div>
       <div class="col-6">
         <label for="">Region</label>
-        <select class="form-select" formControlName="region" aria-label="Default select example">
-          <option [selected]="salesOrg.value.region=== ''" value="" hidden>Select Region</option>
+        <select class="form-select" formControlName="regionName" aria-label="Default select example">
+          <option [selected]="salesOrg.value.regionName=== ''" value="" hidden>Select Region</option>
+          <option value="">One</option>
 
         </select>
         <div
-          *ngIf="salesOrg.controls['region'].touched && salesOrg.controls['region'].dirty && salesOrg.controls['region'].hasError('required') && !isSubmitted">
+          *ngIf="salesOrg.controls['regionName'].touched && salesOrg.controls['regionName'].dirty && salesOrg.controls['regionName'].hasError('required') && !isSubmitted">
           <p class="error-message">region is required</p>
         </div>
-        <div *ngIf="isSubmitted && salesOrg.controls['region'].hasError('required')">
+        <div *ngIf="isSubmitted && salesOrg.controls['regionName'].hasError('required')">
           <p class="error-message">region is required</p>
         </div>
       </div>
       <div class="col-6">
         <label for="">Time Zone</label>
-        <select class="form-select" formControlName="timeZone" aria-label="Default select example">
-          <option [selected]="salesOrg.value.timeZone=== ''" value="" hidden>Select Time Zone</option>
+        <select class="form-select" formControlName="timeZoneName" aria-label="Default select example">
+          <option [selected]="salesOrg.value.timeZoneName=== ''" value="" hidden>Select Time Zone</option>
+          <option *ngFor="let list of timeZone" [value]="list.timeZoneId">{{list.timeZoneType}}</option>
+
 
         </select>
         <div
-          *ngIf="salesOrg.controls['timeZone'].touched && salesOrg.controls['timeZone'].dirty && salesOrg.controls['timeZone'].hasError('required') && !isSubmitted">
+          *ngIf="salesOrg.controls['timeZoneName'].touched && salesOrg.controls['timeZoneName'].dirty && salesOrg.controls['timeZoneName'].hasError('required') && !isSubmitted">
           <p class="error-message">time Zone is required</p>
         </div>
-        <div *ngIf="isSubmitted && salesOrg.controls['timeZone'].hasError('required')">
+        <div *ngIf="isSubmitted && salesOrg.controls['timeZoneName'].hasError('required')">
           <p class="error-message">time Zone is required</p>
         </div>
       </div>
       <div class="col-6">
         <label for="" class="">Contact Person</label>
-        <input type="text" class="form-control " placeholder="Enter Contact Person"
-          formControlName="contactPerson" />
-          <div
+        <input type="text" class="form-control " placeholder="Enter Contact Person" formControlName="contactPerson" />
+        <div
           *ngIf="salesOrg.controls['contactPerson'].touched && salesOrg.controls['contactPerson'].dirty && salesOrg.controls['contactPerson'].hasError('required') && !isSubmitted">
           <p class="error-message">contact Person is required</p>
         </div>
