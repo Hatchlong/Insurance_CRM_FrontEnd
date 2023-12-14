@@ -8,10 +8,6 @@ import { CustomerListComponent } from './components/customer-master/customer-lis
 import { AddCustomerComponent } from './components/customer-master/add-customer/add-customer.component';
 
 const routes: Routes = [{
-  path: '',
-  redirectTo:'product',
-  pathMatch: 'full'
-},{
   path:'product',
   component:ProductListComponent
 },{
