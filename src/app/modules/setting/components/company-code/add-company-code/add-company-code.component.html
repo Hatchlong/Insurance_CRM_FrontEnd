@@ -7,7 +7,7 @@
                 <input type="text" class="form-control " placeholder="Enter Company code"
                     formControlName="companyCode">
                 <div
-                    *ngIf="companyCode.controls['companyCode'].touched && companyCode.controls['companyCode'].touched && companyCode.controls['companyCode'].hasError('required') && !isSubmitted">
+                    *ngIf="companyCode.controls['companyCode'].touched && companyCode.controls['companyCode'].dirty && companyCode.controls['companyCode'].hasError('required') && !isSubmitted">
                     <p class="error-message">Company code is required</p>
                 </div>
                 <div *ngIf="isSubmitted && companyCode.controls['companyCode'].hasError('required')">
@@ -20,7 +20,7 @@
                 <input type="text" class="form-control " placeholder="Enter Company Name"
                     formControlName="companyName">
                 <div
-                    *ngIf="companyCode.controls['companyName'].touched && companyCode.controls['companyName'].touched && companyCode.controls['companyName'].hasError('required') && !isSubmitted">
+                    *ngIf="companyCode.controls['companyName'].touched && companyCode.controls['companyName'].dirty && companyCode.controls['companyName'].hasError('required') && !isSubmitted">
                     <p class="error-message">Company Name is required</p>
                 </div>
                 <div *ngIf="isSubmitted && companyCode.controls['companyName'].hasError('required')">
@@ -36,7 +36,7 @@
                     <option *ngFor="let list of countryDetials;" [value]="list._id">{{list.countryName}}</option>
                 </select>
                 <div
-                    *ngIf="companyCode.controls['countryId'].touched && companyCode.controls['countryId'].touched && companyCode.controls['countryId'].hasError('required') && !isSubmitted">
+                    *ngIf="companyCode.controls['countryId'].touched && companyCode.controls['countryId'].dirty && companyCode.controls['countryId'].hasError('required') && !isSubmitted">
                     <p class="error-message">Country Name is required</p>
                 </div>
                 <div *ngIf="isSubmitted && companyCode.controls['countryId'].hasError('required')">
@@ -50,7 +50,7 @@
                     <option *ngFor="let list of citiesDetails?.cities?.cities" [value]="list">{{list}}</option>
                 </select>
                 <div
-                    *ngIf="companyCode.controls['city'].touched && companyCode.controls['city'].touched && companyCode.controls['city'].hasError('required') && !isSubmitted">
+                    *ngIf="companyCode.controls['city'].touched && companyCode.controls['city'].dirty && companyCode.controls['city'].hasError('required') && !isSubmitted">
                     <p class="error-message"> City is required</p>
                 </div>
                 <div *ngIf="isSubmitted && companyCode.controls['city'].hasError('required')">
@@ -65,7 +65,7 @@
                     <option [value]="citiesDetails.countryCurrency">{{citiesDetails.countryCurrency}}</option>
                 </select>
                 <div
-                    *ngIf="companyCode.controls['currency'].touched && companyCode.controls['currency'].touched && companyCode.controls['currency'].hasError('required') && !isSubmitted">
+                    *ngIf="companyCode.controls['currency'].touched && companyCode.controls['currency'].dirty && companyCode.controls['currency'].hasError('required') && !isSubmitted">
                     <p class="error-message">Currency is required</p>
                 </div>
                 <div *ngIf="isSubmitted && companyCode.controls['currency'].hasError('required')">
@@ -79,7 +79,7 @@
                     <option [value]="citiesDetails.languageId">{{languageName}}</option>
                 </select>
                 <div
-                    *ngIf="companyCode.controls['languageId'].touched && companyCode.controls['languageId'].touched && companyCode.controls['languageId'].hasError('required') && !isSubmitted">
+                    *ngIf="companyCode.controls['languageId'].touched && companyCode.controls['languageId'].dirty && companyCode.controls['languageId'].hasError('required') && !isSubmitted">
                     <p class="error-message">Language is required</p>
                 </div>
                 <div *ngIf="isSubmitted && companyCode.controls['languageId'].hasError('required')">

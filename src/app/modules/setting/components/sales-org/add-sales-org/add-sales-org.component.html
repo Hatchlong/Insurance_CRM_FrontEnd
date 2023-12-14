@@ -11,7 +11,7 @@
         <label for="" class="">Sales Org</label>
         <input type="text" class="form-control " placeholder=" Enter Sales Org" formControlName="salesOrg" />
         <div
-          *ngIf="salesOrg.controls['salesOrg'].touched && salesOrg.controls['salesOrg'].touched && salesOrg.controls['salesOrg'].hasError('required') && !isSubmitted">
+          *ngIf="salesOrg.controls['salesOrg'].touched && salesOrg.controls['salesOrg'].dirty && salesOrg.controls['salesOrg'].hasError('required') && !isSubmitted">
           <p class="error-message">Sales Org is required</p>
         </div>
         <div *ngIf="isSubmitted && salesOrg.controls['salesOrg'].hasError('required')">
@@ -22,7 +22,7 @@
         <label for="" class="">Sales Org Description</label>
         <input type="text" class="form-control " placeholder=" Enter Sales Org Description" formControlName="salesOrgDescription" />
         <div
-          *ngIf="salesOrg.controls['salesOrgDescription'].touched && salesOrg.controls['salesOrgDescription'].touched && salesOrg.controls['salesOrgDescription'].hasError('required') && !isSubmitted">
+          *ngIf="salesOrg.controls['salesOrgDescription'].touched && salesOrg.controls['salesOrgDescription'].dirty && salesOrg.controls['salesOrgDescription'].hasError('required') && !isSubmitted">
           <p class="error-message">Sales Org Description is required</p>
         </div>
         <div *ngIf="isSubmitted && salesOrg.controls['salesOrgDescription'].hasError('required')">
@@ -33,7 +33,7 @@
         <label for="" class="">Address</label>
         <input type="text" class="form-control " placeholder="Enter Address " formControlName="address" />
         <div
-          *ngIf="salesOrg.controls['address'].touched && salesOrg.controls['address'].touched && salesOrg.controls['address'].hasError('required') && !isSubmitted">
+          *ngIf="salesOrg.controls['address'].touched && salesOrg.controls['address'].dirty && salesOrg.controls['address'].hasError('required') && !isSubmitted">
           <p class="error-message">Address is required</p>
         </div>
         <div *ngIf="isSubmitted && salesOrg.controls['address'].hasError('required')">
@@ -44,7 +44,7 @@
         <label for="">Search Term</label>
         <input type="text" class="form-control " placeholder="Enter Search Term  " formControlName="searchTerm" />
         <div
-          *ngIf="salesOrg.controls['searchTerm'].touched && salesOrg.controls['searchTerm'].touched && salesOrg.controls['searchTerm'].hasError('required') && !isSubmitted">
+          *ngIf="salesOrg.controls['searchTerm'].touched && salesOrg.controls['searchTerm'].dirty && salesOrg.controls['searchTerm'].hasError('required') && !isSubmitted">
           <p class="error-message">search Term is required</p>
         </div>
         <div *ngIf="isSubmitted && salesOrg.controls['searchTerm'].hasError('required')">
@@ -58,7 +58,7 @@
           <option [selected]="salesOrg.value.country === ''" value="" hidden>Select Country</option>
         </select>
         <div
-          *ngIf="salesOrg.controls['country'].touched && salesOrg.controls['country'].touched && salesOrg.controls['country'].hasError('required') && !isSubmitted">
+          *ngIf="salesOrg.controls['country'].touched && salesOrg.controls['country'].dirty && salesOrg.controls['country'].hasError('required') && !isSubmitted">
           <p class="error-message">country is required</p>
         </div>
         <div *ngIf="isSubmitted && salesOrg.controls['country'].hasError('required')">
@@ -72,7 +72,7 @@
 
         </select>
         <div
-          *ngIf="salesOrg.controls['region'].touched && salesOrg.controls['region'].touched && salesOrg.controls['region'].hasError('required') && !isSubmitted">
+          *ngIf="salesOrg.controls['region'].touched && salesOrg.controls['region'].dirty && salesOrg.controls['region'].hasError('required') && !isSubmitted">
           <p class="error-message">region is required</p>
         </div>
         <div *ngIf="isSubmitted && salesOrg.controls['region'].hasError('required')">
@@ -86,7 +86,7 @@
 
         </select>
         <div
-          *ngIf="salesOrg.controls['timeZone'].touched && salesOrg.controls['timeZone'].touched && salesOrg.controls['timeZone'].hasError('required') && !isSubmitted">
+          *ngIf="salesOrg.controls['timeZone'].touched && salesOrg.controls['timeZone'].dirty && salesOrg.controls['timeZone'].hasError('required') && !isSubmitted">
           <p class="error-message">time Zone is required</p>
         </div>
         <div *ngIf="isSubmitted && salesOrg.controls['timeZone'].hasError('required')">
@@ -98,7 +98,7 @@
         <input type="text" class="form-control " placeholder="Enter Contact Person"
           formControlName="contactPerson" />
           <div
-          *ngIf="salesOrg.controls['contactPerson'].touched && salesOrg.controls['contactPerson'].touched && salesOrg.controls['contactPerson'].hasError('required') && !isSubmitted">
+          *ngIf="salesOrg.controls['contactPerson'].touched && salesOrg.controls['contactPerson'].dirty && salesOrg.controls['contactPerson'].hasError('required') && !isSubmitted">
           <p class="error-message">contact Person is required</p>
         </div>
         <div *ngIf="isSubmitted && salesOrg.controls['contactPerson'].hasError('required')">

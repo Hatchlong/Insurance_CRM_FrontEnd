@@ -28,7 +28,7 @@
         <label for="">Amount <sup>*</sup> </label>
         <input type="number" formControlName="amount" placeholder="enter amount" class="form-control" />
 
-        <div *ngIf="vendorInvoice.controls['amount'].touched && vendorInvoice.controls['amount'].touched && vendorInvoice.controls['amount'].hasError('required') && !isSubmitted">
+        <div *ngIf="vendorInvoice.controls['amount'].touched && vendorInvoice.controls['amount'].dirty && vendorInvoice.controls['amount'].hasError('required') && !isSubmitted">
           <p class="error-message">Amount is required</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['amount'].hasError('required')">
@@ -41,7 +41,7 @@
         <label for="">Tax Amount <sup>*</sup> </label>
         <input type="number" formControlName="taxAmount" placeholder="enter tax amount" class="form-control" />
         
-        <div *ngIf="vendorInvoice.controls['taxAmount'].touched && vendorInvoice.controls['taxAmount'].touched && vendorInvoice.controls['taxAmount'].hasError('required') && !isSubmitted">
+        <div *ngIf="vendorInvoice.controls['taxAmount'].touched && vendorInvoice.controls['taxAmount'].dirty && vendorInvoice.controls['taxAmount'].hasError('required') && !isSubmitted">
           <p class="error-message">Tax Amount is required</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['taxAmount'].hasError('required')">
@@ -54,7 +54,7 @@
         <label for="">Currency <sup>*</sup> </label>
         <input type="text" formControlName="currnecy" placeholder="enter currnecy" class="form-control" />
 
-        <div *ngIf="vendorInvoice.controls['currnecy'].touched && vendorInvoice.controls['currnecy'].touched && vendorInvoice.controls['currnecy'].hasError('required') && !isSubmitted">
+        <div *ngIf="vendorInvoice.controls['currnecy'].touched && vendorInvoice.controls['currnecy'].dirty && vendorInvoice.controls['currnecy'].hasError('required') && !isSubmitted">
           <p class="error-message">Currency is required</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['currnecy'].hasError('required')">
@@ -75,7 +75,7 @@
           placeholder="enter text"
         ></textarea>
         
-        <div *ngIf="vendorInvoice.controls['text'].touched && vendorInvoice.controls['text'].touched && vendorInvoice.controls['text'].hasError('required') && !isSubmitted">
+        <div *ngIf="vendorInvoice.controls['text'].touched && vendorInvoice.controls['text'].dirty && vendorInvoice.controls['text'].hasError('required') && !isSubmitted">
           <p class="error-message">Text is required</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['text'].hasError('required')">
@@ -88,7 +88,7 @@
         <label for="">Company Code <sup>*</sup> </label>
         <input type="text" formControlName="companyCode" placeholder="enter company code" class="form-control" />
 
-        <div *ngIf="vendorInvoice.controls['companyCode'].touched && vendorInvoice.controls['companyCode'].touched && vendorInvoice.controls['companyCode'].hasError('required') && !isSubmitted">
+        <div *ngIf="vendorInvoice.controls['companyCode'].touched && vendorInvoice.controls['companyCode'].dirty && vendorInvoice.controls['companyCode'].hasError('required') && !isSubmitted">
           <p class="error-message">Company Code is required</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['companyCode'].hasError('required')">
@@ -101,7 +101,7 @@
         <label for="">Reference Document <sup>*</sup></label>
         <input type="text" formControlName="referenceDocument" placeholder="enter reference document" class="form-control" />
 
-        <div *ngIf="vendorInvoice.controls['referenceDocument'].touched && vendorInvoice.controls['referenceDocument'].touched && vendorInvoice.controls['referenceDocument'].hasError('required') && !isSubmitted">
+        <div *ngIf="vendorInvoice.controls['referenceDocument'].touched && vendorInvoice.controls['referenceDocument'].dirty && vendorInvoice.controls['referenceDocument'].hasError('required') && !isSubmitted">
           <p class="error-message">Reference Document is required</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['referenceDocument'].hasError('required')">
@@ -114,7 +114,7 @@
         <label for="">Vendor <sup>*</sup></label>
         <input type="text" formControlName="vendor" placeholder="enter vendor" class="form-control" />
 
-        <div *ngIf="vendorInvoice.controls['vendor'].touched && vendorInvoice.controls['vendor'].touched && vendorInvoice.controls['vendor'].hasError('required') && !isSubmitted">
+        <div *ngIf="vendorInvoice.controls['vendor'].touched && vendorInvoice.controls['vendor'].dirty && vendorInvoice.controls['vendor'].hasError('required') && !isSubmitted">
           <p class="error-message">Vendor is required</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['vendor'].hasError('required')">
@@ -126,7 +126,7 @@
         <label for=""> Vendor Address <sub>*</sub> </label>
         <input type="text" formControlName="vendorAddress" placeholder="enter vendor address" class="form-control" />
 
-        <div *ngIf="vendorInvoice.controls['vendorAddress'].touched && vendorInvoice.controls['vendorAddress'].touched && vendorInvoice.controls['vendorAddress'].hasError('required') && !isSubmitted">
+        <div *ngIf="vendorInvoice.controls['vendorAddress'].touched && vendorInvoice.controls['vendorAddress'].dirty && vendorInvoice.controls['vendorAddress'].hasError('required') && !isSubmitted">
           <p class="error-message">Vendor Address is required</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['vendorAddress'].hasError('required')">
@@ -138,7 +138,7 @@
         <label for="">Vendor Bank Details <sup>*</sup> </label>
         <input type="text" formControlName="vendorBankDetails" placeholder="enter vendor bank details" class="form-control" />
 
-        <div *ngIf="vendorInvoice.controls['vendorBankDetails'].touched && vendorInvoice.controls['vendorBankDetails'].touched && vendorInvoice.controls['vendorBankDetails'].hasError('required') && !isSubmitted">
+        <div *ngIf="vendorInvoice.controls['vendorBankDetails'].touched && vendorInvoice.controls['vendorBankDetails'].dirty && vendorInvoice.controls['vendorBankDetails'].hasError('required') && !isSubmitted">
           <p class="error-message">Vendor Bank Details is required</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['vendorBankDetails'].hasError('required')">
@@ -150,7 +150,7 @@
         <label for=""> Payment Terms <sup>*</sup> </label>
         <input type="text" formControlName="paymentTerms" placeholder="enter payment terms" class="form-control" />
 
-        <div *ngIf="vendorInvoice.controls['paymentTerms'].touched && vendorInvoice.controls['paymentTerms'].touched && vendorInvoice.controls['paymentTerms'].hasError('required') && !isSubmitted">
+        <div *ngIf="vendorInvoice.controls['paymentTerms'].touched && vendorInvoice.controls['paymentTerms'].dirty && vendorInvoice.controls['paymentTerms'].hasError('required') && !isSubmitted">
           <p class="error-message"> Payment Terms is required</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['paymentTerms'].hasError('required')">
@@ -162,7 +162,7 @@
         <label for="">Baseline Date <sup>*</sup> </label>
         <input type="text" formControlName="baseLineDate" placeholder="enter baseline date" class="form-control" />
         
-        <div *ngIf="vendorInvoice.controls['baseLineDate'].touched && vendorInvoice.controls['baseLineDate'].touched && vendorInvoice.controls['baseLineDate'].hasError('required') && !isSubmitted">
+        <div *ngIf="vendorInvoice.controls['baseLineDate'].touched && vendorInvoice.controls['baseLineDate'].dirty && vendorInvoice.controls['baseLineDate'].hasError('required') && !isSubmitted">
           <p class="error-message">Baseline Date  is required</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['baseLineDate'].hasError('required')">
@@ -175,7 +175,7 @@
         <label for=""> Payment due date <sup>*</sup> </label>
         <input type="text" formControlName="paymentDueDate" placeholder="enter due date" class="form-control" />
 
-        <div *ngIf="vendorInvoice.controls['paymentDueDate'].touched && vendorInvoice.controls['paymentDueDate'].touched && vendorInvoice.controls['paymentDueDate'].hasError('required') && !isSubmitted">
+        <div *ngIf="vendorInvoice.controls['paymentDueDate'].touched && vendorInvoice.controls['paymentDueDate'].dirty && vendorInvoice.controls['paymentDueDate'].hasError('required') && !isSubmitted">
           <p class="error-message">Payment due date is required</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['paymentDueDate'].hasError('required')">

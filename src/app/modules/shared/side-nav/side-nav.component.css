@@ -253,3 +253,10 @@
     left: 0;
   }
 }
+
+
+.logout{
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+}

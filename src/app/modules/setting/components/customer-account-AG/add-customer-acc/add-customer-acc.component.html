@@ -9,7 +9,7 @@
                 <input type="text" class="form-control " placeholder="Enter Customer Account "
                     formControlName="customerAccount">
                 <div
-                    *ngIf="customerAcc.controls['customerAccount'].touched && customerAcc.controls['customerAccount'].touched && customerAcc.controls['customerAccount'].hasError('required') && !isSubmitted">
+                    *ngIf="customerAcc.controls['customerAccount'].touched && customerAcc.controls['customerAccount'].dirty && customerAcc.controls['customerAccount'].hasError('required') && !isSubmitted">
                     <p class="error-message">Customer Account is required</p>
                 </div>
                 <div *ngIf="isSubmitted && customerAcc.controls['customerAccount'].hasError('required')">
@@ -21,7 +21,7 @@
                 <input type="text" class="form-control " placeholder="Enter Description "
                     formControlName="description">
                 <div
-                    *ngIf="customerAcc.controls['description'].touched && customerAcc.controls['description'].touched && customerAcc.controls['description'].hasError('required') && !isSubmitted">
+                    *ngIf="customerAcc.controls['description'].touched && customerAcc.controls['description'].dirty && customerAcc.controls['description'].hasError('required') && !isSubmitted">
                     <p class="error-message">Description is required</p>
                 </div>
                 <div *ngIf="isSubmitted && customerAcc.controls['description'].hasError('required')">

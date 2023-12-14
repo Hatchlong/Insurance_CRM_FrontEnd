@@ -12,7 +12,7 @@
                         <input type="text" class="form-control " placeholder="Enter Customer Id"
                             formControlName="customerId">
                         <div
-                            *ngIf="general.controls['customerId'].touched && general.controls['customerId'].touched && general.controls['customerId'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['customerId'].touched && general.controls['customerId'].dirty && general.controls['customerId'].hasError('required') && !isSubmitted">
                             <p class="error-message">Customer Id is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['customerId'].hasError('required')">
@@ -29,7 +29,7 @@
                             <option value="3">Three</option>
                         </select>
                         <div
-                            *ngIf="general.controls['country'].touched && general.controls['country'].touched && general.controls['country'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['country'].touched && general.controls['country'].dirty && general.controls['country'].hasError('required') && !isSubmitted">
                             <p class="error-message">Country is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['country'].hasError('required')">
@@ -40,7 +40,7 @@
                         <label for="" class="">Address <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Address" formControlName="address">
                         <div
-                            *ngIf="general.controls['address'].touched && general.controls['address'].touched && general.controls['address'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['address'].touched && general.controls['address'].dirty && general.controls['address'].hasError('required') && !isSubmitted">
                             <p class="error-message">Address is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['address'].hasError('required')">
@@ -54,7 +54,7 @@
                         <input type="text" class="form-control " placeholder="Enter Postal Code"
                             formControlName="postalCode">
                         <div
-                            *ngIf="general.controls['postalCode'].touched && general.controls['postalCode'].touched && general.controls['postalCode'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['postalCode'].touched && general.controls['postalCode'].dirty && general.controls['postalCode'].hasError('required') && !isSubmitted">
                             <p class="error-message">Postal Code is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['postalCode'].hasError('required')">
@@ -67,7 +67,7 @@
                         <label for="">City <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter City" formControlName="city">
                         <div
-                            *ngIf="general.controls['city'].touched && general.controls['city'].touched && general.controls['city'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['city'].touched && general.controls['city'].dirty && general.controls['city'].hasError('required') && !isSubmitted">
                             <p class="error-message">City is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['city'].hasError('required')">
@@ -79,7 +79,7 @@
                         <label for="">Region <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Region" formControlName="region">
                         <div
-                            *ngIf="general.controls['region'].touched && general.controls['region'].touched && general.controls['region'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['region'].touched && general.controls['region'].dirty && general.controls['region'].hasError('required') && !isSubmitted">
                             <p class="error-message">Region is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['region'].hasError('required')">
@@ -92,7 +92,7 @@
                         <input type="text" class="form-control " placeholder="Enter Telephone"
                             formControlName="telephone">
                         <div
-                            *ngIf="general.controls['telephone'].touched && general.controls['telephone'].touched && general.controls['telephone'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['telephone'].touched && general.controls['telephone'].dirty && general.controls['telephone'].hasError('required') && !isSubmitted">
                             <p class="error-message">Telephone is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['telephone'].hasError('required')">
@@ -105,7 +105,7 @@
                         <input type="text" class="form-control " placeholder="Enter Tax Number 1"
                             formControlName="taxOne">
                         <div
-                            *ngIf="general.controls['taxOne'].touched && general.controls['taxOne'].touched && general.controls['taxOne'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['taxOne'].touched && general.controls['taxOne'].dirty && general.controls['taxOne'].hasError('required') && !isSubmitted">
                             <p class="error-message">Tax No 1 is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['taxOne'].hasError('required')">
@@ -119,7 +119,7 @@
                         <input type="text" class="form-control " placeholder="Enter Tax Number 2"
                             formControlName="taxTwo">
                         <div
-                            *ngIf="general.controls['taxTwo'].touched && general.controls['taxTwo'].touched && general.controls['taxTwo'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['taxTwo'].touched && general.controls['taxTwo'].dirty && general.controls['taxTwo'].hasError('required') && !isSubmitted">
                             <p class="error-message">Tax No 2 is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['taxTwo'].hasError('required')">
@@ -131,7 +131,7 @@
                         <label for="">VAT Reg No <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter VAT " formControlName="vatReg">
                         <div
-                            *ngIf="general.controls['vatReg'].touched && general.controls['vatReg'].touched && general.controls['vatReg'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['vatReg'].touched && general.controls['vatReg'].dirty && general.controls['vatReg'].hasError('required') && !isSubmitted">
                             <p class="error-message">VAT is required</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['vatReg'].hasError('required')">

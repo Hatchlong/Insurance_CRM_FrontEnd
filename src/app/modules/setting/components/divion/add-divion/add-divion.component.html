@@ -7,7 +7,10 @@
                 <label for="" class="">Division<sup>*</sup></label>
                 <input type="text" class="form-control mb-3" placeholder="Enter division" formControlName="divion">
                 <div
-                    *ngIf="divionData.controls['divion'].touched && divionData.controls['divion'].touched && divionData.controls['divion'].hasError('required') && !isSubmitted">
+                    *ngIf="divionData.controls['divion'].touched && divionData.controls['divion'].dirty && divionData.controls['divion'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Division is required</p>
+                </div>
+                <div *ngIf="isSubmitted && divionData.controls['divion'].hasError('required')">
                     <p class="error-message">Division is required</p>
                 </div> 
                 <div *ngIf="isSubmitted && divionData.controls['divion'].hasError('required')">
@@ -18,7 +21,7 @@
                 <label for="" class="">Description<sup>*</sup></label>
                 <input type="text" class="form-control mb-3" placeholder="Description " formControlName="divionDescription">
                 <div
-                    *ngIf="divionData.controls['divionDescription'].touched && divionData.controls['divionDescription'].touched && divionData.controls['divionDescription'].hasError('required') && !isSubmitted">
+                    *ngIf="divionData.controls['description'].touched && divionData.controls['description'].dirty && divionData.controls['description'].hasError('required') && !isSubmitted">
                     <p class="error-message">Description is required</p>
                 </div>
                 <div *ngIf="isSubmitted && divionData.controls['divionDescription'].hasError('required')">

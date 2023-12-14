@@ -8,7 +8,7 @@
         <label for="">Inco Term Id <sup>*</sup></label>
         <input type="text" formControlName="incoTermId" class="form-control" placeholder="Enter Inco Term Id" />
         <div
-          *ngIf="incoTerm.controls['incoTermId'].touched && incoTerm.controls['incoTermId'].touched && incoTerm.controls['incoTermId'].hasError('required') && !isSubmitted">
+          *ngIf="incoTerm.controls['incoTermId'].touched && incoTerm.controls['incoTermId'].dirty && incoTerm.controls['incoTermId'].hasError('required') && !isSubmitted">
           <p class="error-message">Inco Term is required</p>
         </div>
         <div *ngIf="isSubmitted && incoTerm.controls['incoTermId'].hasError('required')">
@@ -19,7 +19,7 @@
         <label for="">Description<sup>*</sup></label>
         <input type="text" formControlName="description" class="form-control" placeholder="Enter Description" />
         <div
-          *ngIf="incoTerm.controls['description'].touched && incoTerm.controls['description'].touched && incoTerm.controls['description'].hasError('required') && !isSubmitted">
+          *ngIf="incoTerm.controls['description'].touched && incoTerm.controls['description'].dirty && incoTerm.controls['description'].hasError('required') && !isSubmitted">
           <p class="error-message">Description is required</p>
         </div>
         <div *ngIf="isSubmitted && incoTerm.controls['description'].hasError('required')">
