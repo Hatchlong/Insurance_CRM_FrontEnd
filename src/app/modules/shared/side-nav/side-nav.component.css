@@ -4,10 +4,11 @@
   left: 0;
   height: 100%;
   width: 260px;
-  background: #11101d;
+  background: #4070f4;
   z-index: 100;
   transition: all 0.5s ease;
 }
+
 .sidebar.close{
   width: 78px;
 }
@@ -222,7 +223,7 @@
 }
 .home-section .home-content .bx-menu,
 .home-section .home-content .text{
-  color: #11101d;
+  color: #4070f4;
   font-size: 35px;
 }
 .home-section .home-content .bx-menu{
@@ -252,4 +253,11 @@
     width: 100%;
     left: 0;
   }
+}
+
+
+.logout{
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
 }
