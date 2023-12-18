@@ -9,6 +9,7 @@ import { CustomerAccountAGService } from '../../../Services/customer-account-AG/
 })
 export class CustomerAccListComponent {
   customerAccountDetails:any = []
+  selectAll:any = false
   
   constructor(
     private router:Router,
@@ -34,6 +35,29 @@ export class CustomerAccListComponent {
     }
   }
 
+  selectdata(event:any){
+    console.log(event.target.checked);
+    this.customerAccountDetails.map((el:any)=>{
+        el.check=event.target.checked
+    })
+    
+   
+  }
+   particularcheck(event:any,index:any){
+      console.log(event.target.checked);
+      
+      this.customerAccountDetails[index].check=event.target.checked
+      const findSelect=this.customerAccountDetails.find((el:any)=>el.check===false)
+      console.log(findSelect);
+      
+      if(findSelect){
+        
+        this.selectAll=false
 
+      }
+      else{
+        this.selectAll=true
+      }
+    }
   
 }

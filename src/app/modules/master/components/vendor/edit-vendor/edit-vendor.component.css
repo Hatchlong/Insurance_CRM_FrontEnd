@@ -1,0 +1,11 @@
+table{
+    width: 2250px !important;
+}
+
+.back{
+    background-color: red;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;position: relative;
+    right: 6px;
+}

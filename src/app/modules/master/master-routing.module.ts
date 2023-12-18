@@ -6,6 +6,7 @@ import { AddProductComponent } from './components/product/add-product/add-produc
 import { AddVendorComponent } from './components/vendor/add-vendor/add-vendor.component';
 import { CustomerListComponent } from './components/customer-master/customer-list/customer-list.component';
 import { AddCustomerComponent } from './components/customer-master/add-customer/add-customer.component';
+import { EditVendorComponent } from './components/vendor/edit-vendor/edit-vendor.component';
 
 const routes: Routes = [{
   path:'product',
@@ -19,7 +20,12 @@ const routes: Routes = [{
 },{
   path:'add-vendor',
   component:AddVendorComponent
-},{
+},
+{
+  path: 'edit-vendor/:id',
+  component:EditVendorComponent
+},
+{
   path:'customer-list',
   component:CustomerListComponent
 },{

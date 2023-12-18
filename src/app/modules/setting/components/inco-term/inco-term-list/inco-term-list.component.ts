@@ -10,7 +10,8 @@ import { IncTermService } from '../../../Services/inc-term/inc-term.service';
 export class IncoTermListComponent implements OnInit {
 
   incTermDetail: any = []
-
+  selectAll:any=false
+  
   constructor(
     private router: Router,
     private incTermSer: IncTermService
@@ -35,5 +36,30 @@ export class IncoTermListComponent implements OnInit {
 
     }
   }
+
+  selectdata(event:any){
+    console.log(event.target.checked);
+    this.incTermDetail.map((el:any)=>{
+        el.check=event.target.checked
+    })
+    
+   
+  }
+   particularcheck(event:any,index:any){
+      console.log(event.target.checked);
+      
+      this.incTermDetail[index].check=event.target.checked
+      const findSelect=this.incTermDetail.find((el:any)=>el.check===false)
+      console.log(findSelect);
+      
+      if(findSelect){
+        
+        this.selectAll=false
+
+      }
+      else{
+        this.selectAll=true
+      }
+    }
 
 }
