@@ -174,10 +174,10 @@
                     <div class="col-6 py-1">
                         <label for="">Unit of Weight <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example" formControlName="unitWeight">
-                            <option [selected]="general.value.unitWeight === ''" value="" hidden>Select Unit of Weight</option>
+                            <option [selected]="general.value.unitWeight === ''" value="" hidden>Select Unit Weight</option>
                             <option value="KG">KG</option>
-                            <option value="Gram">Gram</option>
-                            <option value="MG">MG</option>
+                            <option value="GRAM">Gram</option>
+                            <option value="MGG">MG</option>
                         </select>
                         <div
                             *ngIf="general.controls['unitWeight'].touched && general.controls['unitWeight'].dirty && general.controls['unitWeight'].hasError('required') && !isSubmitted">

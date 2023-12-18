@@ -9,6 +9,8 @@ import { PurchaseOrgService } from '../../../Services/purchase-org/purchase-org.
 })
 export class PurchaseOrgListComponent implements OnInit {
   purchaseOrgDetails:any= []
+  selectAll:any=false
+
   constructor(
     private router: Router,
     private purchaseSer: PurchaseOrgService
@@ -22,14 +24,7 @@ export class PurchaseOrgListComponent implements OnInit {
   nextPage(url: any) {
     this.router.navigate([`${url}`])
   }
-  checks = false;
-  selectAll(e: any) {
-    if (e.target.checked == true) {
-      this.checks = true;
-    } else {
-      this.checks = false;
-    }
-  }
+ 
 
 
   async getAllPurchaseOrgDetails(){
@@ -37,6 +32,9 @@ export class PurchaseOrgListComponent implements OnInit {
       const result:any = await this.purchaseSer.getAllPurchaseOrgDetails();
       console.log(result)
       if(result.status === '1'){
+        result.data.map((el:any)=>{
+          el.check=false
+        })
         this.purchaseOrgDetails = result.data;
       }
     } catch (error) {
@@ -44,6 +42,31 @@ export class PurchaseOrgListComponent implements OnInit {
     }
   }
 
+  
+  selectdata(event:any){
+    console.log(event.target.checked);
+    this.purchaseOrgDetails.map((el:any)=>{
+        el.check=event.target.checked
+    })
+    
+   
+  }
+   particularcheck(event:any,index:any){
+      console.log(event.target.checked);
+      
+      this.purchaseOrgDetails[index].check=event.target.checked
+      const findSelect=this.purchaseOrgDetails.find((el:any)=>el.check===false)
+      console.log(findSelect);
+      
+      if(findSelect){
+        
+        this.selectAll=false
+
+      }
+      else{
+        this.selectAll=true
+      }
+    }
 
  
 }

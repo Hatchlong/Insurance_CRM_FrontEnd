@@ -36,7 +36,7 @@
                         <th scope="col">Purch Org Description </th>
                         <th scope="col">Company Code</th>
                         <th scope="col">Action</th>
-                        <th scope="col"><input type="checkbox" (change)="selectAll($event)"> Select All</th>
+                        <th scope="col"><input type="checkbox" [checked]="selectAll" (change)="selectdata($event)"> Select All</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td><input type="checkbox" [checked]="checks"></td>
+                        <td><input type="checkbox" [checked]="list.check" (change)="particularcheck($event,i)"></td>
                     </tr>
                 </tbody>
             </table>

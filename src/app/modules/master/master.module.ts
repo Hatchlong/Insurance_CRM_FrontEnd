@@ -21,6 +21,8 @@ import { AddCustomerComponent } from './components/customer-master/add-customer/
 import { CustomerListComponent } from './components/customer-master/customer-list/customer-list.component';
 import { EditVendorComponent } from './components/vendor/edit-vendor/edit-vendor.component';
 import { VendorService } from './services/vendor/vendor.service';
+import { ProductService } from './services/product/product.service';
+import { EditProductComponent } from './components/product/edit-product/edit-product.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { VendorService } from './services/vendor/vendor.service';
     VendorListComponent,
     AddCustomerComponent,
     CustomerListComponent,
-    EditVendorComponent
+    EditVendorComponent,
+    EditProductComponent,
   ],
   imports: [
     CommonModule,
@@ -46,6 +49,6 @@ import { VendorService } from './services/vendor/vendor.service';
     MatTabsModule,
     HttpClientModule
   ],
-  providers:[CountryService, VendorService]
+  providers:[CountryService, VendorService, ProductService]
 })
 export class MasterModule { }
