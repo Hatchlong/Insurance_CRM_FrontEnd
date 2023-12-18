@@ -37,7 +37,12 @@ export class AddOrderStatusComponent {
       this.isSubmitted = true
       console.log(this.order);
       if (this.order.invalid)
-        return
+        return Swal.fire({
+        title: 'warning',
+        text: 'All Field Are Required',
+        icon: 'warning',
+        showCancelButton: true
+      })
       const result: any = await this.orderStatusSer.createOrderStatus(this.order.value)
       console.log(result);
       if (result.status === '1') {

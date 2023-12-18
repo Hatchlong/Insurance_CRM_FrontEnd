@@ -71,7 +71,7 @@ export class EditBillingBlockComponent {
           title: 'success',
           text: 'Billing Block Updated Successfully',
           icon: 'success',
-          showCancelButton: true
+          showCancelButton: true  
         })
         this.router.navigate(['/settings/billing-block-list/']);
         return;

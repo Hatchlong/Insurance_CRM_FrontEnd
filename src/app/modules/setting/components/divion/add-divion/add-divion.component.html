@@ -13,15 +13,13 @@
                 <div *ngIf="isSubmitted && divionData.controls['divion'].hasError('required')">
                     <p class="error-message">Division is required</p>
                 </div> 
-                <div *ngIf="isSubmitted && divionData.controls['divion'].hasError('required')">
-                  <p class="error-message">Division is required</p>
-                </div>
+                
             </div>
             <div class="col-6 ">
                 <label for="" class="">Description<sup>*</sup></label>
                 <input type="text" class="form-control mb-3" placeholder="Description " formControlName="divionDescription">
                 <div
-                    *ngIf="divionData.controls['description'].touched && divionData.controls['description'].dirty && divionData.controls['description'].hasError('required') && !isSubmitted">
+                    *ngIf="divionData.controls['divionDescription'].touched && divionData.controls['divionDescription'].dirty && divionData.controls['divionDescription'].hasError('required') && !isSubmitted">
                     <p class="error-message">Description is required</p>
                 </div>
                 <div *ngIf="isSubmitted && divionData.controls['divionDescription'].hasError('required')">
@@ -29,8 +27,7 @@
                 </div>
             </div>
             <div>
-                <button class="btn btn-primary" type="submit"
-                    style="background-color: #00acff;color: white;">Submit</button>
+                <button class="btn btn-primary" type="submit">Submit</button>
             </div>
         </div>
     </form>

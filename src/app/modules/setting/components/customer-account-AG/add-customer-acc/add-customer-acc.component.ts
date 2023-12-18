@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CustomerAccountAGService } from '../../../Services/customer-account-AG/customer-account-ag.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-customer-acc',
@@ -11,16 +12,16 @@ import { CustomerAccountAGService } from '../../../Services/customer-account-AG/
 export class AddCustomerAccComponent implements OnInit {
 
 
-  customerAcc: any = FormGroup
+  customerAcc: any = FormGroup;
   isSubmitted: any = false
-
-  constructor(private fb: FormBuilder,
-    private router : Router,
-    private customerAccountSer: CustomerAccountAGService
-    ) { }
+  constructor(
+    private fb: FormBuilder,
+    private customerAccountSer: CustomerAccountAGService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.channeldata() 
+    this.channeldata()
   }
 
   channeldata() {
@@ -32,27 +33,38 @@ export class AddCustomerAccComponent implements OnInit {
 
   }
   
-  async submitData() {
+    async submitData() {
     try {
       this.isSubmitted = true
+      console.log(this.customerAcc);
       if (this.customerAcc.invalid)
-        return
-      const result: any = await this.customerAccountSer.createCustomerAccountDetails(this.customerAcc.value);
-      console.log(result)
+      return Swal.fire({
+      title: 'warning',
+      text: 'All Field Are Required',
+      icon: 'warning',
+      showCancelButton: true
+    })
+      const result: any = await this.customerAccountSer.createCustomerAccountDetails(this.customerAcc.value)
+      console.log(result);
       if (result.status === '1') {
-        alert(result.message);
-        this.router.navigate(['/settings/customer-account-list'])
-        return;
+        Swal.fire({
+          title: 'success',
+          text: 'Customer Account AG created successfully ',
+          icon: 'success',
+          showCancelButton: true
+        })
+        this.router.navigate(['/settings/inco-term-list/'])
+        return
       }
       if (result.status === '0')
-        return alert(result.message)
+        return alert(result.message);
+
+
     } catch (error) {
-      console.log(error)
+      console.error(error);
 
     }
   }
 
-
-
-
+ 
 }

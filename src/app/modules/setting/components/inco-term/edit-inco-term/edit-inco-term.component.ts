@@ -37,8 +37,6 @@ export class EditIncoTermComponent {
     });
   }
 
-  //get single data
-
   async getSingleDetails() {
     try {
       const result: any =await this.incTermSer.singleIncTermsDetails(this.incTermId)
@@ -58,7 +56,12 @@ export class EditIncoTermComponent {
       this.isSubmitted = true
       console.log(this.incoTerm);
       if (this.incoTerm.invalid)
-        return
+      return Swal.fire({
+      title: 'warning',
+      text: 'All Field Are Required',
+      icon: 'warning',
+      showCancelButton: true
+    })
       const result: any = await this.incTermSer.updatedIncTermsDetails(this.incoTerm.value)
       console.log(result);
       if (result.status === '1') {
