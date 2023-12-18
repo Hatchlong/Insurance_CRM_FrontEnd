@@ -4,7 +4,7 @@
             Maintainence</h2>
         <div class="row">
             <div class="col-6">
-                <span for="" class="mt-4">PO Type</span>
+                <span for="" class="">PO Type</span>
                 <select class="form-select " aria-label="Default select example" formControlName="poType">
                     <option [selected]="purchase.value.poType === ''" value="" hidden>Select
                         PO Type</option>
@@ -13,32 +13,32 @@
                     <option value="3">Three</option>
                 </select>
                 <span for="" class="">PO Number</span>
-                <input type="text" class="form-control " placeholder="Enter PO Number" formControlName="poNum">
+                <input type="text" class="form-control " placeholder="Enter PO Number" formControlName="poNumber">
                 <span for="" class="">PO Date</span>
                 <input type="date" class="form-control " placeholder="Enter Description" formControlName="poDate">
-                <span for="" class="mt-4">Company Code</span>
-                <select class="form-select " aria-label="Default select example" formControlName="comCode">
-                    <option [selected]="purchase.value.comCode === ''" value="" hidden>Select
+                <span for="" class="">Company Code</span>
+                <select class="form-select " aria-label="Default select example" formControlName="companyCode">
+                    <option [selected]="purchase.value.companyCode === ''" value="" hidden>Select
                         Company Code</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
-                </select><span for="" class="mt-4">Purchase Org</span>
-                <select class="form-select " aria-label="Default select example" formControlName="purOrg">
-                    <option [selected]="purchase.value.purOrg === ''" value="" hidden>Select
+                </select><span for="" class="">Purchase Org</span>
+                <select class="form-select " aria-label="Default select example" formControlName="purchaseOrg">
+                    <option [selected]="purchase.value.purchaseOrg === ''" value="" hidden>Select
                         Purchase Org</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
-                <span for="" class="mt-4">Payment Term</span>
-                <select class="form-select " aria-label="Default select example" formControlName="payTerm">
-                    <option [selected]="purchase.value.payTerm === ''" value="" hidden>Select
+                <span for="" class="">Payment Term</span>
+                <select class="form-select " aria-label="Default select example" formControlName="paymentTerm">
+                    <option [selected]="purchase.value.paymentTerm === ''" value="" hidden>Select
                         Payment Term</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
-                </select><span for="" class="mt-4">Vendor</span>
+                </select><span for="" class="">Vendor</span>
                 <select class="form-select " aria-label="Default select example" formControlName="vendor">
                     <option [selected]="purchase.value.vendor === ''" value="" hidden>Select Vendor</option>
                     <option value="1">One</option>
@@ -59,22 +59,22 @@
             <div class="col-6">
                 <span for="" class="">Net Tax</span>
                 <input type="text" class="form-control " placeholder="Enter Net Tax" formControlName="netTax">
-                <span for="" class="mt-4">Transaction Currency</span>
-                <select class="form-select " aria-label="Default select example" formControlName="tranCurr">
-                    <option [selected]="purchase.value.tranCurr === ''" value="" hidden>Select Transaction Currency</option>
+                <span for="" class="">Transaction Currency</span>
+                <select class="form-select " aria-label="Default select example" formControlName="transactionCurrency">
+                    <option [selected]="purchase.value.transactionCurrency === ''" value="" hidden>Select Transaction Currency</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
                 <span for="" class="">Exchange Rate</span>
-                <input type="text" class="form-control " placeholder="Enter Exchange Rate" formControlName="exRate">
+                <input type="text" class="form-control " placeholder="Enter Exchange Rate" formControlName="exchangeRate">
                 <span for="" class="">Company Currency</span>
                 <input type="text" class="form-control " placeholder="Enter Company Currency"
-                    formControlName="comCurr">
+                    formControlName="companyCurrency">
                 <span for="" class="">Remark</span>
                 <input type="text" class="form-control " placeholder="Enter Remark" formControlName="remark">
                 <span for="" class="">Net Price</span>
-                <input type="text" class="form-control " placeholder="Enter Net Price" formControlName="netprice">
+                <input type="text" class="form-control " placeholder="Enter Net Price" formControlName="netPrice">
 
             </div>
         </div>
@@ -108,24 +108,18 @@
                             </td>
                             <td>
                                 <select class="form-select " aria-label="Default select example"
-                                    formControlName="defalut">
-                                    <option [selected]="purchase.value.defalut === ''" value="" hidden>Select Default Delievery Address</option>
+                                    formControlName="deliveryAddress">
+                                    <option [selected]="purchase.value.deliveryAddress === ''" value="" hidden>Select Default Delievery Address</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
                                 </select>
-                                
-                <div *ngIf="purchase.controls['deliveryAddress'].touched && purchase.controls['deliveryAddress'].touched && purchase.controls['deliveryAddress'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Delivery Address is required</p>
-                </div>  
-                <div *ngIf="isSubmitted && purchase.controls['deliveryAddress'].hasError('required')">
-                    <p class="error-message">Delivery Address is required</p>
-                </div>
+                        
                             </td>
                             <td>
                                 <select class="form-select " aria-label="Default select example"
-                                    formControlName="proCode">
-                                    <option [selected]="purchase.value.proCode === ''" value="" hidden>Select Product Code</option>
+                                    formControlName="productCode">
+                                    <option [selected]="purchase.value.productCode === ''" value="" hidden>Select Product Code</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
@@ -133,7 +127,7 @@
                             </td>
                             <td>
                                 <input type="text" class="form-control " placeholder="Enter Product Description"
-                                    formControlName="proDes">
+                                    formControlName="productDescription">
                             </td>
                             <td>
                                 <input type="number" class="form-control " placeholder="Enter PO Qty"
@@ -150,19 +144,19 @@
                             </td>
                             <td>
                                 <input type="text" class="form-control " placeholder="Enter Per Unit Price"
-                                    formControlName="unit">
+                                    formControlName="perUnitPrice">
                             </td>
                             <td>
                                 <input type="text" class="form-control " placeholder="Enter Pricing Unit"
-                                    formControlName="pricing">
+                                    formControlName="priceUnit">
                             </td>
                             <td>
                                 <input type="text" class="form-control " placeholder="Enter Pricing UOM"
-                                    formControlName="priuom">
+                                    formControlName="priceUom">
                             </td>
                             <td>
                                 <input type="text" class="form-control " placeholder="Enter Pricing Amount"
-                                    formControlName="priceamount">
+                                    formControlName="priceAmount">
                             </td>
                         </tr>
                     </tbody>
@@ -171,7 +165,7 @@
 
         </div>
         <div class="col-2">
-            <button type="submit" class="btn btn-primary" style="background-color: #00acff;">Submit</button>
+            <button type="submit" class="btn btn-primary" >Submit</button>
         </div>
     </form>
 </div>

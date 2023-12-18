@@ -1,32 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms'
-import { Router } from '@angular/router';
-import { ProductService } from '../../../services/product/product.service';
+import { Component } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { ProductService } from '../../../services/product/product.service';
+import { ActivatedRoute, Router } from '@angular/router';
+
 @Component({
-  selector: 'app-add-product',
-  templateUrl: './add-product.component.html',
-  styleUrls: ['./add-product.component.css']
+  selector: 'app-edit-product',
+  templateUrl: './edit-product.component.html',
+  styleUrls: ['./edit-product.component.css']
 })
-export class AddProductComponent implements OnInit {
+export class EditProductComponent {
 
   general: any = FormGroup
   isSubmitted: any = false;
+  productId: any = ''
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private productSer: ProductService
+    private productSer: ProductService,
+    private activeRouter: ActivatedRoute
+
   ) { }
 
   ngOnInit(): void {
+    this.productId = this.activeRouter.snapshot.paramMap.get('id')
     this.create()
+    this.getSingleDetail()
 
   }
 
 
   create() {
     this.general = this.fb.group({
+      _id: ['', Validators.required],
       materialDescription: ['', Validators.required],
       materialGroup: ['', Validators.required],
       materialType: ['', Validators.required],
@@ -108,13 +115,31 @@ export class AddProductComponent implements OnInit {
   deleteSalesrow(index: any) {
     this.salesDetail.removeAt(index);
   }
+
+  //get single data
+
+  async getSingleDetail() {
+    try {
+      const result: any = await this.productSer.singleProductDetails(this.productId)
+      if (result.status === '1') {
+        console.log(result);
+        
+        this.general.patchValue(result.data)
+      }
+    } catch (error) {
+      console.error(error);
+
+    }
+  }
+
   async addAll() {
     try {
       this.isSubmitted = true
       console.log(this.general);
 
+
       const username: any = localStorage.getItem('userName')
-      
+
       const currentDate = new Date();
       const year = currentDate.getFullYear();
       const month = currentDate.getMonth() + 1; // Months are zero-indexed, so add 1
@@ -126,18 +151,18 @@ export class AddProductComponent implements OnInit {
       // Format the date and time
       const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-      console.log( fullDate);
+      console.log(fullDate);
       this.general.value.createdOn = fullDate
       this.general.value.createdBy = username
       this.general.value.changedOn = fullDate
       this.general.value.changedBy = username
 
-      const result: any = await this.productSer.createProduct(this.general.value)
+      const result: any = await this.productSer.updatedProductDetails(this.general.value)
       console.log(result);
       if (result.status === '1') {
         Swal.fire({
           title: 'success',
-          text: 'Product Data Processed Successfully ',
+          text: 'Product Data Updated Successfully ',
           icon: 'success',
           showCancelButton: true
         })
@@ -152,4 +177,5 @@ export class AddProductComponent implements OnInit {
       console.error(error);
     }
   }
+
 }

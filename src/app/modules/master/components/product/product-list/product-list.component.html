@@ -66,24 +66,24 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th scope="col">Product Display Name</th>
-            <th scope="col">Store</th>
-            <th scope="col">Categories</th>
-            <th scope="col">Taxes</th>
+            <th scope="col">Material Description</th>
+            <th scope="col">Material Type</th>
+            <th scope="col">Industry Sector</th>
+            <th scope="col">Material Group</th>
             <th scope="col">Action</th>
             <th scope="col"><input type="checkbox" > Select All</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>mdo</td>
-            <td>Mark</td>
+          <tr *ngFor="let list of productDetails;let i=index">
+            <td>{{list.materialDescription}}</td>
+            <td>{{list.materialType}}</td>
+            <td>{{list.industrySector}}</td>
+            <td>{{list.materialGroup}}</td>
             <td>
               <div class="d-flex">
                 <div>
-                  <mat-icon>edit</mat-icon>
+                  <mat-icon [routerLink]="'/master/edit-product/'+list._id">edit</mat-icon>
                 </div>
                 <div>
                   <mat-icon>delete</mat-icon>
@@ -92,42 +92,7 @@
             </td>
             <td><input type="checkbox" ></td>
           </tr>
-          <tr>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>fat</td>
-            <td>Mark</td>
-            <td>
-              <div class="d-flex">
-                <div>
-                  <mat-icon>edit</mat-icon>
-                </div>
-                <div>
-                  <mat-icon>delete</mat-icon>
-                </div>
-              </div>
-            </td>
-            <td><input type="checkbox" ></td>
-          </tr>
-          <tr>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>twitter</td>
-            <td>Mark</td>
-            <td>
-              <div class="d-flex">
-                <div>
-                  <mat-icon>edit</mat-icon>
-                </div>
-                <div>
-                  <mat-icon>delete</mat-icon>
-                </div>
-              </div>
-            </td>
-
-            <td><input type="checkbox" ></td>
-
-          </tr>
+         
         </tbody>
 
       </table>

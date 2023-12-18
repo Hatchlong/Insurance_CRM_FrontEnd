@@ -9,6 +9,7 @@ import { DistibutionChannelService } from '../../../Services/distibution-channel
 })
 export class DistributionChannelListComponent {
   distributionDetails:any = []
+  selectAll:any=false
   constructor(
     private router:Router,
     private distributionSer: DistibutionChannelService
@@ -30,6 +31,9 @@ export class DistributionChannelListComponent {
       const result:any = await this.distributionSer.getAllDistibutionChannelDetails();
       console.log(result)
       if(result.status === '1'){
+        result.data.map((el:any)=>{
+          el.check=false
+        })
         this.distributionDetails = result.data;
       }
     } catch (error) {
@@ -37,16 +41,29 @@ export class DistributionChannelListComponent {
     }
   }
 
+  selectdata(event:any){
+    console.log(event.target.checked);
+    this.distributionDetails.map((el:any)=>{
+        el.check=event.target.checked
+    })
+    
+   
+  }
+   particularcheck(event:any,index:any){
+      console.log(event.target.checked);
+      
+      this.distributionDetails[index].check=event.target.checked
+      const findSelect=this.distributionDetails.find((el:any)=>el.check===false)
+      console.log(findSelect);
+      
+      if(findSelect){
+        
+        this.selectAll=false
 
-  // select all operation 
+      }
+      else{
+        this.selectAll=true
+      }
+    }
 
-  // const selectAllCheck:any=document.getElementById('selectAll');
-  // const checkboxes:any = document.querySelectorAll('.checkbox');
-
-//   checkboxes.forEach(checkbox => {
-//     checkbox.addEventListener('change', function () {
-//         selectAllCheck.checked = [...checkboxes].every(checkbox => checkbox.checked);
-//     })
-// })
-  
 }

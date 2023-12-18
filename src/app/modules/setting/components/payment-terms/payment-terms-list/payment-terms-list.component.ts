@@ -10,6 +10,8 @@ import { PaymentTermService } from '../../../Services/payment-term/payment-term.
 export class PaymentTermsListComponent implements OnInit{
 
   paymentDetails:any=[]
+  selectAll:any=false
+
    
   constructor(
     private router:Router,
@@ -23,20 +25,40 @@ export class PaymentTermsListComponent implements OnInit{
       this.getAllPayment()
   }
  
-  checks=false;
-  selectAll(e:any){
-    if(e.target.checked==true){
-      this.checks=true;
-    }else{
-      this.checks=false;
+  selectdata(event: any) {
+    console.log(event.target.checked);
+    this.paymentDetails.map((el: any) => {
+      el.check = event.target.checked
+    })
+
+
+  }
+  particularcheck(event: any, index: any) {
+    console.log(event.target.checked);
+
+    this.paymentDetails[index].check = event.target.checked
+    const findSelect = this.paymentDetails.find((el: any) => el.check === false)
+    console.log(findSelect);
+
+    if (findSelect) {
+
+      this.selectAll = false
 
     }
+    else {
+      this.selectAll = true
+    }
   }
+
+
   async getAllPayment(){
     try {
       const result:any = await this.paymentSer.getAllPaymentTerm();
       console.log(result)
       if(result.status === '1'){
+        result.data.map((el:any)=>{
+          el.check=false
+        })
         this.paymentDetails = result.data;
       }
     } catch (error) {

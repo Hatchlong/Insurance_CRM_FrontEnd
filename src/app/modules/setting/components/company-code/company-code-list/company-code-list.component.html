@@ -40,7 +40,7 @@
               <th>City</th>
               <th>Currency</th>
               <th>Action</th>
-              <th><input type="checkbox" (change)="selectAll($event)"> Select All</th>
+              <th><input type="checkbox" [checked]="selectAll" (change)="selectdata($event)"> Select All</th>
             </tr>
           </thead>
           <tbody>
@@ -61,7 +61,7 @@
                   </div>
                 </div>
               </td>
-              <td><input type="checkbox" [checked]="checks"></td>
+              <td><input type="checkbox" [checked]="list.check" (change)="particularcheck($event,i)"></td>
             </tr>
           </tbody>
         </table>
