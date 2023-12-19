@@ -123,7 +123,6 @@ export class EditProductComponent {
       const result: any = await this.productSer.singleProductDetails(this.productId)
       if (result.status === '1') {
         console.log(result);
-        
         this.general.patchValue(result.data)
       }
     } catch (error) {
