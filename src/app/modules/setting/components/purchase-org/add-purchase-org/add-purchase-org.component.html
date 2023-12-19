@@ -1,11 +1,11 @@
 <div class="container-fluid">
     <h2><mat-icon class="back" routerLink="/settings/purchase-org-list">arrow_back</mat-icon>Purchase Org</h2>
- 
+
     <form [formGroup]="purchOrg" (ngSubmit)="submitData()">
-        <div class="row ms-3">
-            <div class="col-6 mt-4">
+        <div class="row ">
+            <div class="col-6">
                 <label>Purchase Org</label>
-                <input type="text" class="form-control" formControlName="purchase_org"  placeholder="Enter Purchase Org">
+                <input type="text" class="form-control" formControlName="purchase_org" placeholder="Enter Purchase Org">
                 <div
                     *ngIf="purchOrg.controls['purchase_org'].touched && purchOrg.controls['purchase_org'].dirty && purchOrg.controls['purchase_org'].hasError('required') && !isSubmitted">
                     <p class="error-message">Purchase Org. is required</p>
@@ -14,12 +14,12 @@
                     <p class="error-message">Purchase Org. is required</p>
                 </div>
             </div>
-             
-            <div class="col-6 mt-4">
+
+            <div class="col-6 ">
                 <label>Purchase Org Description</label>
                 <input type="text" class="form-control" formControlName="purchase_org_Description"
                     placeholder="Purchase Org Description">
-                    <div
+                <div
                     *ngIf="purchOrg.controls['purchase_org_Description'].touched && purchOrg.controls['purchase_org_Description'].dirty && purchOrg.controls['purchase_org_Description'].hasError('required') && !isSubmitted">
                     <p class="error-message">Purchase Org Description is required</p>
                 </div>
@@ -27,9 +27,7 @@
                     <p class="error-message">Purchase Org Description is required</p>
                 </div>
             </div>
-        </div>
 
-        <div class="row ms-3">
             <div class="col-6">
                 <label for="">Company Code</label>
                 <select class="form-select" formControlName="companycode" aria-label="Default select example">
@@ -47,9 +45,9 @@
                 </div>
             </div>
         </div>
-
-        <button type="submit" class="btn btn-primary m-4"> Submit </button>
-
+        <div class="col-2 py-2">
+            <button type="submit" class="btn btn-primary "> Submit </button>
+        </div>
 
     </form>
 </div>

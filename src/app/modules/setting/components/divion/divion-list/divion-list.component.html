@@ -48,7 +48,7 @@
                <th scope="col"> Divion</th>
                 <th scope="col">Description</th>
                 <th scope="col">Action</th>
-                <th scope="col"><input type="checkbox" > Select All</th>
+                <th scope="col"><input type="checkbox" id="selectAll" [checked]="selectAll" (change)="selectdata($event)"> Select All</th>
               </tr>
             </thead>
             <tbody>           
@@ -66,8 +66,7 @@
                     </div>
                   </div>
                 </td>
-                <td><input type="checkbox" ></td>
-  
+                <td><input type="checkbox" class="checkbox" [checked]="list.check" (change)="particularcheck($event,i)"></td>
               </tr>
             </tbody>
   
@@ -82,36 +81,3 @@
 
 
 
-
-
-  <!-- <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>S.No.</th>
-        <th scope="col"> Divion</th>
-        <th scope="col">Description</th>
-        <th scope="col">Action</th>
-        <th scope="col"><input type="checkbox"> Select All</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let list of divisionDetails; let i = index; ">
-        <td scope="row" >{{i+1}}</td>
-        <td>{{list.division}}</td>
-        <td>{{list.description}}</td>
-        <td>
-          <div class="d-flex">
-            <div>
-              <mat-icon [routerLink]="'/settings/edit-divion/'+list._id">edit</mat-icon>
-            </div>
-            <div>
-              <mat-icon>delete</mat-icon>
-            </div>
-          </div>
-        </td>
-        <td><input type="checkbox" ></td>
-      </tr>
-     
-    </tbody>
-
-  </table> -->

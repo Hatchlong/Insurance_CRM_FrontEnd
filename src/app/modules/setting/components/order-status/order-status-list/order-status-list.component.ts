@@ -11,7 +11,8 @@ export class OrderStatusListComponent implements OnInit{
 
   
   orderStatusDetail:any=[]
-
+  selectAll:any=false
+  
   constructor(
     private router:Router,
     private orderStatusSer:OrderStatusService
@@ -41,4 +42,30 @@ export class OrderStatusListComponent implements OnInit{
       
     }
   }
+
+  selectdata(event:any){
+    console.log(event.target.checked);
+    this.orderStatusDetail.map((el:any)=>{
+        el.check=event.target.checked
+    })
+    
+   
+  }
+   particularcheck(event:any,index:any){
+      console.log(event.target.checked);
+      
+      this.orderStatusDetail[index].check=event.target.checked
+      const findSelect=this.orderStatusDetail.find((el:any)=>el.check===false)
+      console.log(findSelect);
+      
+      if(findSelect){
+        
+        this.selectAll=false
+
+      }
+      else{
+        this.selectAll=true
+      }
+    }
+
 }

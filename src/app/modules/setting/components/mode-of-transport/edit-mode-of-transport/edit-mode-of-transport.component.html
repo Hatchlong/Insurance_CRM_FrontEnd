@@ -7,17 +7,28 @@
                 <label for="" class="">Mode Of Transport<sup>*</sup></label>
                 <input type="text" class="form-control " placeholder="Enter Mode Of Transport"
                     formControlName="modeOfTransport">
-                
+                <div
+                    *ngIf="transport.controls['modeOfTransport'].touched && transport.controls['modeOfTransport'].dirty && transport.controls['modeOfTransport'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Mode Of Transport is required</p>
+                </div>
+                <div *ngIf="isSubmitted && transport.controls['modeOfTransport'].hasError('required')">
+                    <p class="error-message">Mode Of Transport is required</p>
+                </div>
             </div>
             <div class="col-6">
                 <label for="" class="">Description<sup>*</sup></label>
 
                 <input type="text" class="form-control " placeholder="Description " formControlName="motDescription">
-                
+                <div
+                    *ngIf="transport.controls['motDescription'].touched && transport.controls['motDescription'].dirty && transport.controls['motDescription'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Description is required</p>
+                </div>
+                <div *ngIf="isSubmitted && transport.controls['motDescription'].hasError('required')">
+                    <p class="error-message">Description is required</p>
+                </div>
             </div>
             <div class="col-2 py-2">
-                <button class="btn btn-primary" type="submit"
-                    style="background-color: #00acff;color: white;">Update</button>
+                <button class="btn btn-primary" type="submit">Update</button>
             </div>
         </div>
     </form>

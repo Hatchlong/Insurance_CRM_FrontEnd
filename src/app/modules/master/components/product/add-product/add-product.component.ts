@@ -1,122 +1,155 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, FormBuilder, FormArray, FormControl, Validators} from '@angular/forms'
+import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms'
+import { Router } from '@angular/router';
+import { ProductService } from '../../../services/product/product.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.css']
 })
-export class AddProductComponent implements OnInit{
+export class AddProductComponent implements OnInit {
 
   general: any = FormGroup
-  isSubmitted:any=false;
+  isSubmitted: any = false;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router,
+    private productSer: ProductService
   ) { }
 
   ngOnInit(): void {
     this.create()
 
   }
+
+
   create() {
     this.general = this.fb.group({
-      matDes: ['',Validators.required],
-      matGrp: ['',Validators.required],
-      matType: ['',Validators.required],
-      indSec: ['',Validators.required],
-      net: ['',Validators.required],
-      vol: ['',Validators.required],
-      sto: ['',Validators.required],
-      temp: ['',Validators.required],
-      trans: ['',Validators.required],
-      pkgWt: ['',Validators.required],
-      unitDim: ['',Validators.required],
-      unitWt: ['',Validators.required],
-      pkgVol: ['',Validators.required],
-      volUnit: ['',Validators.required],
-      exWt: ['',Validators.required],
-      oldMat: ['',Validators.required],
-      base: ['',Validators.required],
-      gross: ['',Validators.required],
-      wtUnit: ['',Validators.required],
-      volu: ['',Validators.required],
-      length: ['',Validators.required],
-      width: ['',Validators.required],
-      height: ['',Validators.required],
-      batch: ['',Validators.required],
-      tax: ['',Validators.required],
-      man: ['',Validators.required],
-      exp: ['',Validators.required],
-      exVol: ['',Validators.required],
-      matCost: ['',Validators.required],
-      plantList: this.fb.array([this.addrow()]),
-      salesList:this.fb.array([this.addSales()])
+      materialDescription: ['', Validators.required],
+      materialGroup: ['', Validators.required],
+      materialType: ['', Validators.required],
+      industrySector: ['', Validators.required],
+      netWeight: ['', Validators.required],
+      volumn: ['', Validators.required],
+      storageCondition: ['', Validators.required],
+      tempCondition: ['', Validators.required],
+      transporationGroup: ['', Validators.required],
+      allowedPKGWeight: ['', Validators.required],
+      unitOfDeminsion: ['', Validators.required],
+      unitWeight: ['', Validators.required],
+      weightUnit: ['', Validators.required],
+      allowedPKGVolume: ['', Validators.required],
+      volumeUnit: ['', Validators.required],
+      excessWTTolerance: ['', Validators.required],
+      oldMaterialNumber: ['', Validators.required],
+      baseUnitMeasure: ['', Validators.required],
+      grossWeight: ['', Validators.required],
+      volumnUnit: ['', Validators.required],
+      length: ['', Validators.required],
+      width: ['', Validators.required],
+      height: ['', Validators.required],
+      batchManagment: ['', Validators.required],
+      taxClassification: ['', Validators.required],
+      manfacturePartNo: ['', Validators.required],
+      expirationDataRelavance: ['', Validators.required],
+      excessVolumnTol: ['', Validators.required],
+      materialCost: ['', Validators.required],
+      plantData: this.fb.array([this.addrow()]),
+      salesData: this.fb.array([this.addSales()])
     })
-
   }
-
-
   get detail() {
-    return this.general.get('plantList') as FormArray
+    return this.general.get('plantData') as FormArray
   }
-
-
   addrow() {
-    console.log("ajs");
-
     return this.fb.group({
-      stPlant: [''],
-      stLoc: [''],
-      pro: [''],
-      safe: [''],
-      repl: [''],
-      avai: [''],
-      profit: [''],
-      bom: [''],
-
+      storagePlant: [''],
+      storageLocation: [''],
+      procurementType: [''],
+      safetyStock: [''],
+      totalReplLeadTime: [''],
+      availabilityCheck: [''],
+      profitCenter: [''],
+      bomRelevance: [''],
     })
   }
-
   addPlant() {
     this.detail.push(this.addrow())
   }
-
-  deleterow(index:any){
+  deleterow(index: any) {
     this.detail.removeAt(index);
   }
 
 
 
   // sales array
+  get salesDetail() {
+    return this.general.get('salesData') as FormArray
 
-  get salesDetail(){
-    return this.general.get('salesList') as FormArray
- 
   }
-
-  addSales(){
-    console.log("sales array");
+  addSales() {
     return this.fb.group({
-      sales: [''],
-      dist: [''],
-      deli: [''],
-      delPlant: [''],
-      maxDel: [''],
-      avacheck: [''],
-      acct: [''],
-      min: [''],
-      mindel: [''],
+      salesOrganization: [''],
+      distributionChannel: [''],
+      deliveryUnit: [''],
+      deliveringPlant: [''],
+      maxDeliveryQTY: [''],
+      materialGroup: [''],
+      acctAssignmentGrp: [''],
+      minimumOrderQTY: [''],
+      minimumDeliveryQTY: [''],
     })
   }
-  addSec(){
+  addSec() {
     this.salesDetail.push(this.addSales())
   }
-
-  deleteSalesrow(index:any){
+  deleteSalesrow(index: any) {
     this.salesDetail.removeAt(index);
   }
-  addAll(){
-    console.log(this.general);
-    this.isSubmitted = true
+  async addAll() {
+    try {
+      this.isSubmitted = true
+      console.log(this.general);
+
+      const username: any = localStorage.getItem('userName')
+      
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1; // Months are zero-indexed, so add 1
+      const day = currentDate.getDate();
+      const hours = currentDate.getHours();
+      const minutes = currentDate.getMinutes();
+      const seconds = currentDate.getSeconds();
+
+      // Format the date and time
+      const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+      console.log( fullDate);
+      this.general.value.createdOn = fullDate
+      this.general.value.createdBy = username
+      this.general.value.changedOn = fullDate
+      this.general.value.changedBy = username
+
+      const result: any = await this.productSer.createProduct(this.general.value)
+      console.log(result);
+      if (result.status === '1') {
+        Swal.fire({
+          title: 'success',
+          text: 'Product Data Processed Successfully ',
+          icon: 'success',
+          showCancelButton: true
+        })
+        this.router.navigate(['/master/product'])
+        return
+      }
+      if (result.status === '0') {
+        return alert(result.message)
+
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

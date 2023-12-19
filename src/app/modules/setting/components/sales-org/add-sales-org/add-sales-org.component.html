@@ -52,47 +52,47 @@
 
       <div class="col-6">
         <label for="">Country</label>
-        <select class="form-select" formControlName="countryName" aria-label="Default select example">
-          <option [selected]="salesOrg.value.countryName === ''" value="" hidden>Select Country</option>
-          <option *ngFor="let list of countryDetials;" [value]="list.countryId"> {{list.countryName}} </option>
+        <select class="form-select" formControlName="countryId" aria-label="Default select example" (change)="selectCountry($event)">
+          <option [selected]="salesOrg.value.countryId === ''" value="" hidden>Select Country</option>
+          <option *ngFor="let list of countryDetials;" [value]="list._id"> {{list.countryName}} </option>
 
         </select>
         <div
-          *ngIf="salesOrg.controls['countryName'].touched && salesOrg.controls['countryName'].dirty && salesOrg.controls['countryName'].hasError('required') && !isSubmitted">
+          *ngIf="salesOrg.controls['countryId'].touched && salesOrg.controls['countryId'].dirty && salesOrg.controls['countryId'].hasError('required') && !isSubmitted">
           <p class="error-message">country is required</p>
         </div>
-        <div *ngIf="isSubmitted && salesOrg.controls['countryName'].hasError('required')">
+        <div *ngIf="isSubmitted && salesOrg.controls['countryId'].hasError('required')">
           <p class="error-message">country is required</p>
         </div>
       </div>
       <div class="col-6">
         <label for="">Region</label>
-        <select class="form-select" formControlName="regionName" aria-label="Default select example">
+        <select class="form-select" formControlName="regionId" aria-label="Default select example">
           <option [selected]="salesOrg.value.regionName=== ''" value="" hidden>Select Region</option>
-          <option value="">One</option>
+          <option value="One">One</option>
 
         </select>
-        <div
+        <!-- <div
           *ngIf="salesOrg.controls['regionName'].touched && salesOrg.controls['regionName'].dirty && salesOrg.controls['regionName'].hasError('required') && !isSubmitted">
           <p class="error-message">region is required</p>
         </div>
         <div *ngIf="isSubmitted && salesOrg.controls['regionName'].hasError('required')">
           <p class="error-message">region is required</p>
-        </div>
+        </div> -->
       </div>
       <div class="col-6">
         <label for="">Time Zone</label>
-        <select class="form-select" formControlName="timeZoneName" aria-label="Default select example">
-          <option [selected]="salesOrg.value.timeZoneName=== ''" value="" hidden>Select Time Zone</option>
-          <option *ngFor="let list of timeZone" [value]="list.timeZoneId">{{list.timeZoneType}}</option>
+        <select class="form-select" formControlName="timeZoneId" aria-label="Default select example" (change)="handleTimeZone($event)">
+          <option [selected]="salesOrg.value.timeZoneId=== ''" value="" hidden>Select Time Zone</option>
+          <option *ngFor="let list of timeZone" [value]="list._id">{{list.timeZoneType}}</option>
 
 
         </select>
         <div
-          *ngIf="salesOrg.controls['timeZoneName'].touched && salesOrg.controls['timeZoneName'].dirty && salesOrg.controls['timeZoneName'].hasError('required') && !isSubmitted">
+          *ngIf="salesOrg.controls['timeZoneId'].touched && salesOrg.controls['timeZoneId'].dirty && salesOrg.controls['timeZoneId'].hasError('required') && !isSubmitted">
           <p class="error-message">time Zone is required</p>
         </div>
-        <div *ngIf="isSubmitted && salesOrg.controls['timeZoneName'].hasError('required')">
+        <div *ngIf="isSubmitted && salesOrg.controls['timeZoneId'].hasError('required')">
           <p class="error-message">time Zone is required</p>
         </div>
       </div>
@@ -109,7 +109,7 @@
       </div>
 
       <div class="col-2 py-2">
-        <button type="submit" class="btn btn-primary" style="background-color: #00acff">
+        <button type="submit" class="btn btn-primary" >
           Submit
         </button>
       </div>

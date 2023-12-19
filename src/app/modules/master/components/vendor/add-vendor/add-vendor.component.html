@@ -4,8 +4,7 @@
             <h3 class="mt-2">
                 <mat-icon class="back" routerLink="/master/vendor">arrow_back</mat-icon> Vendor Maintenance
             </h3>
-            <form [formGroup]="productFromGroup" (ngSubmit)="addVendor()">
-
+            <form [formGroup]="vendorFormGroup" (ngSubmit)="submitData()">
                 <div class="row">
                     <div class="col-12 border px-1">
                         <div class="row ms-3">
@@ -16,29 +15,29 @@
                                         <input type="text" class="form-control" formControlName="vendorName"
                                             placeholder="Enter Vendor Name">
                                         <div
-                                            *ngIf="productFromGroup.controls['vendorName'].touched && productFromGroup.controls['vendorName'].dirty && productFromGroup.controls['vendorName'].hasError('required') && !isSubmitted">
+                                            *ngIf="vendorFormGroup.controls['vendorName'].touched && vendorFormGroup.controls['vendorName'].dirty && vendorFormGroup.controls['vendorName'].hasError('required') && !isSubmitted">
                                             <p class="error-message">Vendor Name is required</p>
                                         </div>
                                         <div
-                                            *ngIf="isSubmitted && productFromGroup.controls['vendorName'].hasError('required')">
+                                            *ngIf="isSubmitted && vendorFormGroup.controls['vendorName'].hasError('required')">
                                             <p class="error-message">Vendor Name is required</p>
                                         </div>
                                     </div>
                                     <div class="col-12 mt-2">
                                         <label for="">Account Group <sup>*</sup></label>
                                         <select class="form-select" formControlName="accountGroup">
-                                            <option [selected]="productFromGroup.value.accountGroup === ''" value="" hidden>Select
+                                            <option [selected]="vendorFormGroup.value.accountGroup === ''" value="" hidden>Select
                                                 Account Group</option>
                                             <option value="1">One</option>
                                             <option value="2">Two</option>
                                             <option value="3">Three</option>
                                         </select>
                                         <div
-                                            *ngIf="productFromGroup.controls['accountGroup'].touched && productFromGroup.controls['accountGroup'].dirty && productFromGroup.controls['accountGroup'].hasError('required') && !isSubmitted">
+                                            *ngIf="vendorFormGroup.controls['accountGroup'].touched && vendorFormGroup.controls['accountGroup'].dirty && vendorFormGroup.controls['accountGroup'].hasError('required') && !isSubmitted">
                                             <p class="error-message">Account Group is required</p>
                                         </div>
                                         <div
-                                            *ngIf="isSubmitted && productFromGroup.controls['accountGroup'].hasError('required')">
+                                            *ngIf="isSubmitted && vendorFormGroup.controls['accountGroup'].hasError('required')">
                                             <p class="error-message">Account Group is required</p>
                                         </div>
                                     </div>
@@ -49,85 +48,81 @@
                                 <textarea name="" id="" cols="30" rows="4" class="form-control"
                                     placeholder="Enter address" formControlName="addressCountry"></textarea>
                                 <div
-                                    *ngIf="productFromGroup.controls['addressCountry'].touched && productFromGroup.controls['addressCountry'].dirty && productFromGroup.controls['addressCountry'].hasError('required') && !isSubmitted">
+                                    *ngIf="vendorFormGroup.controls['addressCountry'].touched && vendorFormGroup.controls['addressCountry'].dirty && vendorFormGroup.controls['addressCountry'].hasError('required') && !isSubmitted">
                                     <p class="error-message">Address is required</p>
                                 </div>
                                 <div
-                                    *ngIf="isSubmitted && productFromGroup.controls['addressCountry'].hasError('required')">
+                                    *ngIf="isSubmitted && vendorFormGroup.controls['addressCountry'].hasError('required')">
                                     <p class="error-message">Address is required</p>
                                 </div>
                             </div>
-
-
                         </div>
 
                         <div class="row ms-3">
                             <div class="col-6 py-1">
-                                <label for="">Language</label>
+                                <label for="">Language <sup>*</sup></label>
                                 <select class="form-select" formControlName="language">
-                                    <option [selected]="productFromGroup.value.language === ''" value="" hidden>Select language</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option [selected]="vendorFormGroup.value.language === ''" value="" hidden>Select language</option>
+                                    <option [value]="citiesDetails.languageId">{{languageName}}</option>
                                 </select>
                                 <div
-                                    *ngIf="productFromGroup.controls['language'].touched && productFromGroup.controls['language'].dirty && productFromGroup.controls['language'].hasError('required') && !isSubmitted">
+                                    *ngIf="vendorFormGroup.controls['language'].touched && vendorFormGroup.controls['language'].dirty && vendorFormGroup.controls['language'].hasError('required') && !isSubmitted">
                                     <p class="error-message">Language is required</p>
                                 </div>
-                                <div *ngIf="isSubmitted && productFromGroup.controls['language'].hasError('required')">
+                                <div *ngIf="isSubmitted && vendorFormGroup.controls['language'].hasError('required')">
                                     <p class="error-message">Language is required</p>
                                 </div>
                             </div>
                             <div class="col-6 py-1">
-                                <label for="">Country</label>
-                                <select class="form-select" formControlName="country">
-                                    <option [selected]="productFromGroup.value.currency === ''" value="" hidden>Select Currency</option>
-                                    <option *ngFor="let list of countryLists" selected>{{list.name}}</option>
+                                <label for="">Country <sup>*</sup> </label>
+                                <select class="form-select" formControlName="country" (change)="selectCountryName($event)">
+                                    <option [selected]="vendorFormGroup.value.currency === ''" value="" hidden>Select Currency</option>
+                                    <option *ngFor="let list of countryDetails" [value]="list._id">{{list.countryName}}</option>
 
                                 </select>
                                 <div
-                                    *ngIf="productFromGroup.controls['country'].touched && productFromGroup.controls['country'].dirty && productFromGroup.controls['country'].hasError('required') && !isSubmitted">
+                                    *ngIf="vendorFormGroup.controls['country'].touched && vendorFormGroup.controls['country'].dirty && vendorFormGroup.controls['country'].hasError('required') && !isSubmitted">
                                     <p class="error-message">Country is required</p>
                                 </div>
-                                <div *ngIf="isSubmitted && productFromGroup.controls['country'].hasError('required')">
+                                <div *ngIf="isSubmitted && vendorFormGroup.controls['country'].hasError('required')">
                                     <p class="error-message">Country is required</p>
                                 </div>
                             </div>
-
-                            <div class="col-6 py-1 ">
-                                <label for="">Mode of transport</label>
+                             <div class="col-6 py-1 ">
+                                <label for="">Mode of transport <sup>*</sup></label>
                                 <select class="form-select" formControlName="modeOfTransport">
-                                    <option [selected]="productFromGroup.value.modeOfTransport=== ''" value="" hidden>Select Mode Of Transport</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option [selected]="vendorFormGroup.value.modeOfTransport=== ''" value="" hidden>Select Mode Of Transport</option>
+                                    <option *ngFor="let mot of motDetails" [value]="mot._id">{{mot.modeOfTransport}}</option>
+     
                                 </select>
-
+                                <div
+                                    *ngIf="vendorFormGroup.controls['modeOfTransport'].touched && vendorFormGroup.controls['modeOfTransport'].dirty && vendorFormGroup.controls['modeOfTransport'].hasError('required') && !isSubmitted">
+                                    <p class="error-message">Mode Of Transport is required</p>
+                                </div>
+                                <div
+                                    *ngIf="isSubmitted && vendorFormGroup.controls['modeOfTransport'].hasError('required')">
+                                    <p class="error-message">Mode Of Transport is required</p>
+                                </div>
                             </div>
                             <div class="col-6  py-1">
-                                <label for="">Inco Term</label>
+                                <label for="">Inco Term <sup>*</sup></label>
                                 <select class="form-select" formControlName="incrementTreams">
-                                    <option [selected]="productFromGroup.value.incrementTreams=== ''" value="" hidden>Select Increment Treams</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
+                                    <option [selected]="vendorFormGroup.value.incrementTreams=== ''" value="" hidden>Select Increment Treams</option>
+                                    <option *ngFor="let inco of incoDetails" [value]="inco._id">{{inco.inc_terms_code}}</option>
+     
+                                </select>                               
                                 <div
-                                    *ngIf="productFromGroup.controls['incrementTreams'].touched && productFromGroup.controls['incrementTreams'].dirty && productFromGroup.controls['incrementTreams'].hasError('required') && !isSubmitted">
+                                    *ngIf="vendorFormGroup.controls['incrementTreams'].touched && vendorFormGroup.controls['incrementTreams'].dirty && vendorFormGroup.controls['incrementTreams'].hasError('required') && !isSubmitted">
                                     <p class="error-message">Inco Term is required</p>
                                 </div>
                                 <div
-                                    *ngIf="isSubmitted && productFromGroup.controls['incrementTreams'].hasError('required')">
+                                    *ngIf="isSubmitted && vendorFormGroup.controls['incrementTreams'].hasError('required')">
                                     <p class="error-message">Inco Term is required</p>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
-
-
 
                 <div class="row py-2">
                     <div class="col-12 border">
@@ -139,11 +134,8 @@
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex justify-content-end">
                                 <button class="m-2 border-0 rounded btnBg2" (click)="addFinancial()">Add</button>
-
                             </div>
                         </div>
-
-
 
                         <div class="table-responsive">
                             <table class="table table-bordered">
@@ -158,17 +150,16 @@
                                         <th>Bank Country</th>
                                         <th>Bank Key</th>
                                         <th>Bank Account</th>
-                                        <th>Bank details Valid from</th>
                                         <th>Reference Details</th>
                                         <th>Account Holder</th>
+                                        <th>Bank details Valid from</th>
                                         <th>Bank details Valid to</th>
                                         <th>Reconcilation account</th>
                                         <th>Payment method</th>
                                         <th>Payment terms</th>
                                     </tr>
                                 </thead>
-
-                                <tbody formArrayName="financialList">
+                                <tbody formArrayName="financialData">
                                     <tr *ngFor="let financial of financialListArray.controls; let i = index;"
                                         [formGroupName]="i">
                                         <td *ngIf="financialListArray.controls.length > 1">
@@ -184,11 +175,11 @@
                                                 placeholder="enter tx number 2">
                                         </td>
                                         <td>
-                                            <input type="text" formControlName="vatReg" class="form-control"
+                                            <input type="text" formControlName="vatRegistrationNo" class="form-control"
                                                 placeholder="enter vat reg. no.">
                                         </td>
                                         <td>
-                                            <select class="form-select">
+                                            <select class="form-select" formControlName="currency">
                                                
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
@@ -196,16 +187,14 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <select class="form-select">
-                                               
+                                            <select class="form-select" formControlName="companyCode">           
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
                                                 <option value="3">Three</option>
                                             </select>
                                         </td>
                                         <td>
-                                            <select class="form-select">
-                                               
+                                            <select class="form-select" formControlName="bankCountry">                                           
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
                                                 <option value="3">Three</option>
@@ -216,51 +205,43 @@
                                                 placeholder="enter bank key">
                                         </td>
                                         <td>
-                                            <input type="text" formControlName="bankAcc" class="form-control"
+                                            <input type="text" formControlName="bankAccount" class="form-control"
                                                 placeholder="enter bank account">
                                         </td>
                                         <td>
-                                            <input type="text" formControlName="refDetails" class="form-control"
-                                                placeholder="enter reference detail">
+                                            <input type="text" formControlName="referenceDetails" class="form-control"
+                                                placeholder="enter reference details">
                                         </td>
                                         <td>
-                                            <input type="text" formControlName="accHolder" class="form-control"
+                                            <input type="text" formControlName="accountHolder" class="form-control"
                                                 placeholder="enter account holder">
                                         </td>
                                         <td>
-                                            <input type="date" class="form-control">
+                                            <input type="date" formControlName="backDetailsValidFrom" class="form-control">
                                         </td>
                                         <td>
-                                            <input type="date" formControlName="bankD" class="form-control">
-
+                                            <input type="date" formControlName="backDetailsValidTo" class="form-control">
                                         </td>
-
                                         <td>
-                                            <select class="form-select">
-                                                
+                                            <select class="form-select" formControlName="reconciliationAccount">        
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
                                                 <option value="3">Three</option>
                                             </select>
-
                                         </td>
                                         <td>
-                                            <select class="form-select">
-                                               
+                                            <select class="form-select" formControlName="paymentMethod">                                              
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
                                                 <option value="3">Three</option>
                                             </select>
-
                                         </td>
                                         <td>
-                                            <select class="form-select">
-                                               
+                                            <select class="form-select" formControlName="paymentTerms">   
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
                                                 <option value="3">Three</option>
                                             </select>
-
                                         </td>
                                     </tr>
                                 </tbody>
@@ -273,9 +254,7 @@
                         <button class="btn btn-primary">submit</button>
                     </div>
                 </div>
-
             </form>
-
         </div>
     </div>
 </div>

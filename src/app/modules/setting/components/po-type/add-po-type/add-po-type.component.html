@@ -25,14 +25,11 @@
                     <p class="error-message">PO Type Description is required</p>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
             <div class="col-6">
                 <label for="" class="">Item Number</label>
                 <input type="text" class="form-control " placeholder="Enter Item Number"
                     formControlName="itemNumberInterval">
-                    <div
+                <div
                     *ngIf="poType.controls['itemNumberInterval'].touched && poType.controls['itemNumberInterval'].dirty && poType.controls['itemNumberInterval'].hasError('required') && !isSubmitted">
                     <p class="error-message">Item Number is required</p>
                 </div>
@@ -44,7 +41,7 @@
                 <label for="" class="">Internal Number</label>
                 <input type="text" class="form-control " placeholder="Enter Internal Number"
                     formControlName="internalNumberRangeAssignment">
-                    <div
+                <div
                     *ngIf="poType.controls['internalNumberRangeAssignment'].touched && poType.controls['internalNumberRangeAssignment'].dirty && poType.controls['internalNumberRangeAssignment'].hasError('required') && !isSubmitted">
                     <p class="error-message">Internal Number is required</p>
                 </div>
@@ -52,14 +49,11 @@
                     <p class="error-message">Internal Number is required</p>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
             <div class="col-6">
                 <label for="" class="">External Number</label>
                 <input type="text" class="form-control " placeholder="Enter External Number"
                     formControlName="externalNumberRangeAssignment">
-                    <div
+                <div
                     *ngIf="poType.controls['externalNumberRangeAssignment'].touched && poType.controls['externalNumberRangeAssignment'].dirty && poType.controls['externalNumberRangeAssignment'].hasError('required') && !isSubmitted">
                     <p class="error-message">Externel Number is required</p>
                 </div>
@@ -68,9 +62,8 @@
                 </div>
             </div>
         </div>
-
         <div class="col-2 py-2">
-            <button type="submit" class="btn btn-primary" style="background-color: #00acff;">Submit</button>
+            <button type="submit" class="btn btn-primary" >Submit</button>
         </div>
     </form>
 </div>

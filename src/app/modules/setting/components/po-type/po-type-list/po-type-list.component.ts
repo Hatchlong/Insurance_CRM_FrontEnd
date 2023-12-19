@@ -9,6 +9,8 @@ import { PoTypeService } from '../../../Services/po-type.service';
 })
 export class PoTypeListComponent implements OnInit{
   potypeDetail:any=[]
+  selectAll:any=false
+
   constructor(
     private router: Router,
     private poTypeSer: PoTypeService
@@ -21,23 +23,43 @@ export class PoTypeListComponent implements OnInit{
     this.getAllPoTypeDetails()
   }
 
+  selectdata(event: any) {
+    console.log(event.target.checked);
+    this.potypeDetail.map((el: any) => {
+      el.check = event.target.checked
+    })
 
 
-  checks = false;
-  selectAll(e: any) {
-    if (e.target.checked == true) {
-      this.checks = true;
-    } else {
-      this.checks = false
+  }
+  particularcheck(event: any, index: any) {
+    console.log(event.target.checked);
+
+    this.potypeDetail[index].check = event.target.checked
+    const findSelect = this.potypeDetail.find((el: any) => el.check === false)
+    console.log(findSelect);
+
+    if (findSelect) {
+
+      this.selectAll = false
+
+    }
+    else {
+      this.selectAll = true
     }
   }
 
+
+
+ 
   //get data into list
   async getAllPoTypeDetails() {
     try {
       const result: any = await this.poTypeSer.getAllPoType();
       console.log(result);
       if (result.status === '1') {
+        result.data.map((el:any)=>{
+          el.check=false
+        })
         this.potypeDetail = result.data
       }
     } catch (error) {

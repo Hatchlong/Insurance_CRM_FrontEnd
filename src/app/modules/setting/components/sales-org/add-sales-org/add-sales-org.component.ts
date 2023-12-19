@@ -16,6 +16,7 @@ export class AddSalesOrgComponent {
   isSubmitted: any = false
   timeZone: any = []
   countryDetials: any = []
+  details: any = []
 
   constructor(
     private fb: FormBuilder,
@@ -54,7 +55,7 @@ export class AddSalesOrgComponent {
       this.isSubmitted = true
       console.log(this.salesOrg.value);
       if (this.salesOrg.invalid)
-        return 
+        return
       const result: any = await this.salesSer.createSalesOrg(this.salesOrg.value)
       console.log(result);
       if (result.status === '1') {
@@ -126,7 +127,21 @@ export class AddSalesOrgComponent {
         showCancelButton: true
       })
     }
+
+  }
+  selectCountry(event: any) {
+    this.details = this.countryDetials.find((el: any) => el._id === event.target.value);
+    console.log(this.details);
+    this.salesOrg.controls.countryName.setValue(this.details.countryName)
+
+
+  }
+  handleTimeZone(event: any) {
+    const time = this.timeZone.find((el: any) => el._id === event.target.value)
+    console.log(time);
+
+    this.salesOrg.controls.timeZoneName.setValue(time.timeZoneType)
   }
 
-  
+
 }

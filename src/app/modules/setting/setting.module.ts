@@ -119,6 +119,6 @@ import { SalesOrgService } from './Services/sales-org/sales-org.service';
     HttpClientModule,
 
   ],
-  providers: [PurchaseOrgService, CompanyCodeService, PoTypeService, PlantDataService, PaymentTermService, DivionService, DistibutionChannelService, ModeOfTransportService,OrderStatusService,BillingBlockService,IncTermService,SalesOrgService]
+  providers: [ PurchaseOrgService, CompanyCodeService, PoTypeService, PlantDataService, PaymentTermService, DivionService, DistibutionChannelService, ModeOfTransportService, OrderStatusService, BillingBlockService, IncTermService, SalesOrgService ]
 })
 export class SettingModule { }

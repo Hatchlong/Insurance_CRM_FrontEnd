@@ -21,14 +21,14 @@
                 <input type="text" class="form-control " placeholder="Enter Description "
                     formControlName="distributionDescription">
                     <div
-                    *ngIf="channel.controls['description'].touched && channel.controls['description'].dirty && channel.controls['description'].hasError('required') && !isSubmitted">
+                    *ngIf="channel.controls['distributionDescription'].touched && channel.controls['distributionDescription'].dirty && channel.controls['distributionDescription'].hasError('required') && !isSubmitted">
                     <p class="error-message">Description is required</p>
                 </div>
                 <div *ngIf="isSubmitted && channel.controls['distributionDescription'].hasError('required')">
                     <p class="error-message">Description is required</p>
                 </div>
             </div>
-            <div>
+            <div class="py-2">
                 <button class="btn btn-primary" type="submit"
                     style="background-color: #00acff;color: white;">Submit</button>
             </div>

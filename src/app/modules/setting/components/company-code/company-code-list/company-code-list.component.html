@@ -1,82 +1,70 @@
 <div class="container-fluid">
-  <div class="row">
+
+
+  <div class="row mt-3">
     <div class="col-12">
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+        <button (click)="nextPage('/settings/add-company-code')" class="btn btn-primary " type="button">Add
+          Company</button>
 
-      <div class="row mt-3">
-        <div class="col-12">
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
-            <button (click)="nextPage('/settings/add-company-code')" class="btn btn-primary " type="button"
-              style="color: white;background: #00acff;">Add Company</button>
-
-            <button class="btn btn-danger" type="button" style="color: white">
-              <mat-icon style="line-height: 34px;">delete</mat-icon>
-              Delete Selected Company</button>
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item>
-                <!-- <mat-icon>dialpad</mat-icon> -->
-                <span>Import Company</span>
-              </button>
-              <button mat-menu-item>
-                <!-- <mat-icon>voicemail</mat-icon> -->
-                <span>Export Company</span>
-              </button>
-              <button mat-menu-item>
-                <!-- <mat-icon>notifications_off</mat-icon> -->
-                <span>Sample Company Sheet</span>
-              </button>
-            </mat-menu>
-
-
-
-
-          </div>
-        </div>
+        <button class="btn btn-danger" type="button">
+          <mat-icon style="line-height: 34px;">delete</mat-icon>
+          Delete Selected Company</button>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <span>Import Company</span>
+          </button>
+          <button mat-menu-item>
+            <span>Export Company</span>
+          </button>
+          <button mat-menu-item>
+            <span>Sample Company Sheet</span>
+          </button>
+        </mat-menu>
       </div>
-      <div class="row mt-4 ms-2">
-        <div class="col-12">
-          <div class="table-responsive">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>SLNO</th>
-                  <th>Company Code</th>
-                  <th>Company Name</th>
-                  <th>Country</th>
-                  <th>City</th>
-                  <th>Currency</th>
-                  <th>Action</th>
-                  <th><input type="checkbox" (change)="selectAll($event)"> Select All</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let list of companyCodeDetails; let i=index">
-                  <td>{{i+1}}</td>
-                  <td>{{list.companyCode}}</td>
-                  <td>{{list.companyName}}</td>
-                  <td>{{list.countryName}}</td>
-                  <td>{{list.city}}</td>
-                  <td>{{list.currency}}</td>
-                  <td>
-                    <div class="d-flex">
-                      <div>
-                        <mat-icon [routerLink]="'/settings/edit-company-code/'+list._id"  >edit</mat-icon>
-                      </div>
-                      <div>
-                        <mat-icon>delete</mat-icon>
-                      </div>
-                    </div>
-                  </td>
-                  <td><input type="checkbox" [checked]="checks"></td>
-                </tr>
-              </tbody>
-
-            </table>
-
-          </div>
-        </div>
+    </div>
+  </div>
+  <div class="row mt-4 ms-2">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>SLNO</th>
+              <th>Company Code</th>
+              <th>Company Name</th>
+              <th>Country</th>
+              <th>City</th>
+              <th>Currency</th>
+              <th>Action</th>
+              <th><input type="checkbox" [checked]="selectAll" (change)="selectdata($event)"> Select All</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of companyCodeDetails; let i=index">
+              <td>{{i+1}}</td>
+              <td>{{list.companyCode}}</td>
+              <td>{{list.companyName}}</td>
+              <td>{{list.countryName}}</td>
+              <td>{{list.city}}</td>
+              <td>{{list.currency}}</td>
+              <td>
+                <div class="d-flex">
+                  <div>
+                    <mat-icon [routerLink]="'/settings/edit-company-code/'+list._id">edit</mat-icon>
+                  </div>
+                  <div>
+                    <mat-icon>delete</mat-icon>
+                  </div>
+                </div>
+              </td>
+              <td><input type="checkbox" [checked]="list.check" (change)="particularcheck($event,i)"></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

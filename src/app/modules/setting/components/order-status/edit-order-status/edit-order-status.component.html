@@ -6,17 +6,28 @@
             <div class="col-6">
                 <label for="" class="">Order Status<sup>*</sup></label>
                 <input type="text" class="form-control " placeholder="Enter Order Status" formControlName="orderStatus">
-               
+                <div
+                *ngIf="order.controls['orderStatus'].touched && order.controls['orderStatus'].dirty && order.controls['orderStatus'].hasError('required') && !isSubmitted">
+                <p class="error-message">Order Status is required</p>
+            </div>
+            <div *ngIf="isSubmitted && order.controls['orderStatus'].hasError('required')">
+                <p class="error-message">Order Status is required</p>
+            </div>
             </div>
             <div class="col-6">
                 <label for="" class="">Description<sup>*</sup></label>
-
+                
                 <input type="text" class="form-control " placeholder="Description " formControlName="description">
-               
+                <div
+                *ngIf="order.controls['description'].touched && order.controls['description'].dirty && order.controls['description'].hasError('required') && !isSubmitted">
+                <p class="error-message">Description is required</p>
+            </div>
+            <div *ngIf="isSubmitted && order.controls['description'].hasError('required')">
+                <p class="error-message">Description is required</p>
+            </div>
             </div>
             <div class="col-2 py-2">
-                <button class="btn btn-primary" type="submit"
-                    style="background-color: #00acff;color: white;">Submit</button>
+                <button class="btn btn-primary" type="submit">Update</button>
             </div>
         </div>
     </form>

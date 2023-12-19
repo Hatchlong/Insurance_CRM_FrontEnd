@@ -47,7 +47,7 @@
                <th scope="col"> Mode Of Transport</th>
                 <th scope="col">Description</th>
                 <th scope="col">Action</th>
-                <th scope="col"><input type="checkbox" > Select All</th>
+                <th scope="col"><input type="checkbox" id="selectAll" [checked]="selectAll" (change)="selectdata($event)"> Select All</th>
               </tr>
             </thead>
             <tbody>
@@ -65,7 +65,7 @@
                     </div>
                   </div>
                 </td>
-                <td><input type="checkbox" ></td>
+                <td><input type="checkbox" class="checkbox" [checked]="list.check" (change)="particularcheck($event,i)"></td>
               </tr>
              
             </tbody>
