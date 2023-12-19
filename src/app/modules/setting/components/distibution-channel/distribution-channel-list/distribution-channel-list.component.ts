@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DistibutionChannelService } from '../../../Services/distibution-channel/distibution-channel.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-distribution-channel-list',
@@ -12,7 +13,8 @@ export class DistributionChannelListComponent {
   selectAll:any=false
   constructor(
     private router:Router,
-    private distributionSer: DistibutionChannelService
+    private distributionSer: DistibutionChannelService,
+    private _snackBar: MatSnackBar
   ){
 
   }
@@ -36,8 +38,19 @@ export class DistributionChannelListComponent {
         })
         this.distributionDetails = result.data;
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error:any) {
+       if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
     }
   }
 

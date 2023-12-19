@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PoTypeService } from '../../../Services/po-type.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-po-type',
@@ -18,7 +19,8 @@ export class AddPoTypeComponent {
   constructor(
     private fb: FormBuilder,
     private potypeSer: PoTypeService,
-    private router: Router
+    private router: Router,
+    private _snackBar:MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -35,8 +37,6 @@ export class AddPoTypeComponent {
       externalNumberRangeAssignment: ['', Validators.required],
 
     });
-    console.warn(this.poType.value);
-
   }
 
 
@@ -47,29 +47,36 @@ export class AddPoTypeComponent {
       if (this.poType.invalid)
         return
       const result: any = await this.potypeSer.createpoTypeDetail(this.poType.value)
-      console.log(result);
       if (result.status === '1') {
-        Swal.fire({
-          title: 'success',
-          text: 'Successfully Submitted',
-          icon: 'success',
-          showCancelButton: true
-        })
-        // alert(result.message)
+        this._snackBar.open(result.message, 'Success', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
         this.router.navigate(['/settings/po-type-list']);
         return;
       }
       if (result.status === '0') {
-        return alert(result.message)
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
       }
-
-
-    } catch (error) {
-      console.error(error);
-
-
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
-    console.log(this.poType);
 
   }
 
@@ -82,18 +89,25 @@ export class AddPoTypeComponent {
         this.poTypeDetail = result.data
       }
       else {
-        // alert('Failed')
-        Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
       }
-      console.log(result);
-
-    } catch (error) {
-      console.error(error);
+    } catch (error:any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
 
     }
   }

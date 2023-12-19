@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ProductService } from '../../../services/product/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-product',
@@ -19,7 +20,8 @@ export class EditProductComponent {
     private fb: FormBuilder,
     private router: Router,
     private productSer: ProductService,
-    private activeRouter: ActivatedRoute
+    private activeRouter: ActivatedRoute,
+    private _snackBar: MatSnackBar
 
   ) { }
 
@@ -123,7 +125,6 @@ export class EditProductComponent {
       const result: any = await this.productSer.singleProductDetails(this.productId)
       if (result.status === '1') {
         console.log(result);
-        
         this.general.patchValue(result.data)
       }
     } catch (error) {
@@ -160,21 +161,36 @@ export class EditProductComponent {
       const result: any = await this.productSer.updatedProductDetails(this.general.value)
       console.log(result);
       if (result.status === '1') {
-        Swal.fire({
-          title: 'success',
-          text: 'Product Data Updated Successfully ',
-          icon: 'success',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Success', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
         this.router.navigate(['/master/product'])
         return
       }
       if (result.status === '0') {
-        return alert(result.message)
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
 
       }
-    } catch (error) {
+    } catch (error:any) {
       console.error(error);
+      if(error.error.message){
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
   }
 

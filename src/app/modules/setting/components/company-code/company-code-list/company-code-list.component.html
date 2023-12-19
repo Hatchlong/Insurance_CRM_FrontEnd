@@ -8,7 +8,7 @@
           Company</button>
 
         <button class="btn btn-danger" type="button">
-          <mat-icon style="line-height: 34px;">delete</mat-icon>
+          <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
           Delete Selected Company</button>
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
           <mat-icon>more_vert</mat-icon>
@@ -30,7 +30,7 @@
   <div class="row mt-4 ms-2">
     <div class="col-12">
       <div class="table-responsive">
-        <table class="table table-bordered">
+        <table class="table table-hover">
           <thead>
             <tr>
               <th>SLNO</th>
@@ -50,7 +50,7 @@
               <td>{{list.companyName}}</td>
               <td>{{list.countryName}}</td>
               <td>{{list.city}}</td>
-              <td>{{list.currency}}</td>
+              <td>{{list.currencyName}}</td>
               <td>
                 <div class="d-flex">
                   <div>

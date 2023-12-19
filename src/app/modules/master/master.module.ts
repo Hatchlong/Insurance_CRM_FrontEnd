@@ -19,6 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CountryService } from './services/country/country.service';
 import { AddCustomerComponent } from './components/customer-master/add-customer/add-customer.component';
 import { CustomerListComponent } from './components/customer-master/customer-list/customer-list.component';
+import { EditVendorComponent } from './components/vendor/edit-vendor/edit-vendor.component';
+import { VendorService } from './services/vendor/vendor.service';
 import { ProductService } from './services/product/product.service';
 import { EditProductComponent } from './components/product/edit-product/edit-product.component';
 
@@ -30,6 +32,7 @@ import { EditProductComponent } from './components/product/edit-product/edit-pro
     VendorListComponent,
     AddCustomerComponent,
     CustomerListComponent,
+    EditVendorComponent,
     EditProductComponent,
   ],
   imports: [
@@ -46,6 +49,6 @@ import { EditProductComponent } from './components/product/edit-product/edit-pro
     MatTabsModule,
     HttpClientModule
   ],
-  providers:[CountryService,ProductService]
+  providers:[CountryService, VendorService, ProductService]
 })
 export class MasterModule { }

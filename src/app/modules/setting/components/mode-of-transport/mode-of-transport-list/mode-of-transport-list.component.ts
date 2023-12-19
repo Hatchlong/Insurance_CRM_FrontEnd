@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModeOfTransportService } from '../../../Services/mode-of-transport/mode-of-transport.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-mode-of-transport-list',
@@ -10,9 +11,12 @@ import { ModeOfTransportService } from '../../../Services/mode-of-transport/mode
 export class ModeOfTransportListComponent implements OnInit {
 
   modeOfDetails: any = []
+  selectAll:any = false
+
   constructor(
     private router: Router,
-    private motSer: ModeOfTransportService
+    private motSer: ModeOfTransportService,
+    private _snackBar:MatSnackBar
   ) { }
   
   ngOnInit(): void {
@@ -31,9 +35,46 @@ export class ModeOfTransportListComponent implements OnInit {
       if (result.status === '1') {
         this.modeOfDetails = result.data
       }
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error:any) {
+      if (error.error.message) {
+       this._snackBar.open(error.error.message, 'Error', {
+         duration: 5 * 1000, horizontalPosition: 'center',
+         verticalPosition: 'top',
+         panelClass: 'app-notification-error',
+       });
+     }
+     this._snackBar.open('Something went wrong', 'Error', {
+       duration: 5 * 1000, horizontalPosition: 'center',
+       verticalPosition: 'top',
+       panelClass: 'app-notification-error',
+     });;
+   }
 
   }
+
+  selectdata(event:any){
+    console.log(event.target.checked);
+    this.modeOfDetails.map((el:any)=>{
+        el.check=event.target.checked
+    })
+    
+   
+  }
+   particularcheck(event:any,index:any){
+      console.log(event.target.checked);
+      
+      this.modeOfDetails[index].check=event.target.checked
+      const findSelect=this.modeOfDetails.find((el:any)=>el.check===false)
+      console.log(findSelect);
+      
+      if(findSelect){
+        
+        this.selectAll=false
+
+      }
+      else{
+        this.selectAll=true
+      }
+    }
+  
 }

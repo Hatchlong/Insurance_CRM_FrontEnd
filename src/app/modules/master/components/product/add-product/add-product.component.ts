@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@ang
 import { Router } from '@angular/router';
 import { ProductService } from '../../../services/product/product.service';
 import Swal from 'sweetalert2';
-import { PlantDataService } from 'src/app/modules/setting/Services/plant-data/plant-data.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -13,20 +13,16 @@ export class AddProductComponent implements OnInit {
 
   general: any = FormGroup
   isSubmitted: any = false;
-  taxDetails: any = []
-  storagePlant: any = []
-  storgaeLocationDetails: any = []
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private productSer: ProductService,
-    private plantSer: PlantDataService
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
     this.create()
-    this.getTaxIndicatorDetail()
-    this.getStoragePlant()
 
   }
 
@@ -57,13 +53,11 @@ export class AddProductComponent implements OnInit {
       width: ['', Validators.required],
       height: ['', Validators.required],
       batchManagment: ['', Validators.required],
-      taxIndicatorId: ['', Validators.required],
       taxClassification: ['', Validators.required],
       manfacturePartNo: ['', Validators.required],
       expirationDataRelavance: ['', Validators.required],
       excessVolumnTol: ['', Validators.required],
       materialCost: ['', Validators.required],
-      storageLocationId: [''],
       plantData: this.fb.array([this.addrow()]),
       salesData: this.fb.array([this.addSales()])
     })
@@ -143,82 +137,36 @@ export class AddProductComponent implements OnInit {
       const result: any = await this.productSer.createProduct(this.general.value)
       console.log(result);
       if (result.status === '1') {
-        Swal.fire({
-          title: 'success',
-          text: 'Product Data Processed Successfully ',
-          icon: 'success',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Success', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
         this.router.navigate(['/master/product'])
         return
       }
       if (result.status === '0') {
-        return alert(result.message)
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
 
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
+      if(error.error.message){
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top'
+      });
+     
     }
   }
-
-  // get tax indicator
-
-  async getTaxIndicatorDetail() {
-    try {
-      const result: any = await this.plantSer.getAllTaxDetails()
-      if (result.status === '1') {
-        this.taxDetails = result.data
-      }
-      else {
-        // alert("API FAiled")
-        Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
-      }
-    } catch (error) {
-      console.error(error);
-
-    }
-  }
-  // get storage plant
-
-  async getStoragePlant() {
-    try {
-      const result: any = await this.plantSer.getAllStorageLocationsDetails()
-      if (result.status === '1') {
-        this.storagePlant = result.data
-      }
-      else {
-        // alert("API FAiled")
-        Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
-      }
-    } catch (error) {
-      console.error(error);
-
-    }
-  }
-
-  // Add the purchase Name
-  handleTax(event: any) {
-    const taxIndicatorDetail = this.taxDetails.find((el: any) => el.tax_ind_code === +event.target.value);
-    console.log(taxIndicatorDetail, this.taxDetails, event.target.value, 'taxIndicatorDetail')
-    // this.general.controls.taxIndicatorName.setValue(taxIndicatorDetail.description)
-  }
-
-  // Add the storage Plant
-  handleStorageLocation(event: any) {
-    const findStorageDetail = this.storgaeLocationDetails.find((el: any) => el.stor_loc_id === +event.target.value);
-    console.log(findStorageDetail,this.storgaeLocationDetails,event.target.value,'storage location');
-    
-    this.general.controls.stoargeLocation.setValue(findStorageDetail.description)
-  }
-
 }

@@ -3,7 +3,7 @@
 
     <form [formGroup]="purchOrg" (ngSubmit)="submitData()">
         <div class="row ">
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label>Purchase Org</label>
                 <input type="text" class="form-control" formControlName="purchase_org" placeholder="Enter Purchase Org">
                 <div
@@ -15,7 +15,7 @@
                 </div>
             </div>
 
-            <div class="col-6 ">
+            <div class="col-6 py-2 ">
                 <label>Purchase Org Description</label>
                 <input type="text" class="form-control" formControlName="purchase_org_Description"
                     placeholder="Purchase Org Description">
@@ -28,7 +28,7 @@
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="">Company Code</label>
                 <select class="form-select" formControlName="companycode" aria-label="Default select example">
                     <option [selected]="purchOrg.value.companyCode === ''" value="" hidden>Select Company</option>
@@ -45,7 +45,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-2 py-2">
+        <div class="col-12 d-flex justify-content-end py-2">
             <button type="submit" class="btn btn-primary "> Submit </button>
         </div>
 

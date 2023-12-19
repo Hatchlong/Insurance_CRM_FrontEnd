@@ -1,12 +1,12 @@
 <div class="container-fluid">
-    <h3 class="mt-2">
+    <h2 class="mt-2">
         <mat-icon class="back" routerLink="/master/product">arrow_back</mat-icon> Product Maintainence
-    </h3>
+    </h2>
     <div class="row">
         <div class="col-12 ">
             <form [formGroup]="general" (ngSubmit)="addAll()">
                 <div class="row border">
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for="" class="">Material Description <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Material Description"
                             formControlName="materialDescription">
@@ -18,12 +18,10 @@
                             <p class="error-message">Material Description is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for="example">Material Group <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example"
-                            formControlName="materialGroup">
-                            <option [selected]="general.value.materialGroup === ''" value="" hidden>Select Material
-                                Group
+                        <select class="form-select " aria-label="Default select example" formControlName="materialGroup">
+                            <option [selected]="general.value.materialGroup === ''" value="" hidden>Select Material Group
                             </option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -37,7 +35,7 @@
                             <p class="error-message">Material Group is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for="" class="">Material Type <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example" formControlName="materialType">
                             <option [selected]="general.value.materialType === ''" value="" hidden>Select Material Type
@@ -54,12 +52,10 @@
                             <p class="error-message">Material Type is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for="">Industry Sector <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example"
-                            formControlName="industrySector">
-                            <option [selected]="general.value.industrySector === ''" value="" hidden>Select industry
-                                Sector
+                        <select class="form-select " aria-label="Default select example" formControlName="industrySector">
+                            <option [selected]="general.value.industrySector === ''" value="" hidden>Select industry Sector
                             </option>
 
                             <option value="1">AGR</option>
@@ -73,11 +69,10 @@
                             <p class="error-message">Industry Sector is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
 
                         <label for="">Net Weight <sup>*</sup></label>
-                        <input type="text" class="form-control " placeholder="Enter Net Weight"
-                            formControlName="netWeight">
+                        <input type="text" class="form-control " placeholder="Enter Net Weight" formControlName="netWeight">
                         <div
                             *ngIf="general.controls['netWeight'].touched && general.controls['netWeight'].dirty && general.controls['netWeight'].hasError('required') && !isSubmitted">
                             <p class="error-message">Net Weight is required</p>
@@ -86,7 +81,7 @@
                             <p class="error-message">Net Weight is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
 
                         <label for="">Volume <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Volume" formControlName="volumn">
@@ -98,13 +93,11 @@
                             <p class="error-message">Volume is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
 
                         <label for=""> Storage Condition <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example"
-                            formControlName="storageCondition">
-                            <option [selected]="general.value.storageCondition === ''" value="" hidden>Select Storage
-                                Condition
+                        <select class="form-select " aria-label="Default select example" formControlName="storageCondition">
+                            <option [selected]="general.value.storageCondition === ''" value="" hidden>Select Storage Condition
                             </option>
                             <option value="Frz">Frz</option>
                             <option value="Nor">Nor</option>
@@ -117,12 +110,10 @@
                             <p class="error-message">Storage Condition is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for="">Temp. Condition <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example"
-                            formControlName="tempCondition">
-                            <option [selected]="general.value.tempCondition === ''" value="" hidden>Select Temp.
-                                Condition
+                        <select class="form-select " aria-label="Default select example" formControlName="tempCondition">
+                            <option [selected]="general.value.tempCondition === ''" value="" hidden>Select Temp. Condition
                             </option>
                             <option value="OPA">OPA</option>
                             <option value="SFA">SFA</option>
@@ -135,12 +126,10 @@
                             <p class="error-message">Temp. Condition is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for="">Trans Group <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example"
-                            formControlName="transporationGroup">
-                            <option [selected]="general.value.transporationGroup === ''" value="" hidden>Select Trans
-                                Group</option>
+                        <select class="form-select " aria-label="Default select example" formControlName="transporationGroup">
+                            <option [selected]="general.value.transporationGroup === ''" value="" hidden>Select Trans Group</option>
                             <option value="LQD">LQD</option>
                             <option value="SLD">SLD</option>
                             <option value="GAS">GAS</option>
@@ -153,7 +142,7 @@
                             <p class="error-message">Trans Group is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for="">Allowed pkg Weight <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Allowed pkg Weight"
                             formControlName="allowedPKGWeight">
@@ -165,12 +154,10 @@
                             <p class="error-message">Allowed pkg Weight is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for="">Unit of Dimension <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example"
-                            formControlName="unitOfDeminsion">
-                            <option [selected]="general.value.unitOfDeminsion === ''" value="" hidden>Select Unit
-                                Dimension
+                        <select class="form-select " aria-label="Default select example" formControlName="unitOfDeminsion">
+                            <option [selected]="general.value.unitOfDeminsion === ''" value="" hidden>Select Unit Dimension
                             </option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -184,11 +171,10 @@
                             <p class="error-message">Unit Dimension is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for="">Unit of Weight <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example" formControlName="unitWeight">
-                            <option [selected]="general.value.unitWeight === ''" value="" hidden>Select Unit of Weight
-                            </option>
+                            <option [selected]="general.value.unitWeight === ''" value="" hidden>Select Unit of Weight</option>
                             <option value="KG">KG</option>
                             <option value="Gram">Gram</option>
                             <option value="MG">MG</option>
@@ -201,7 +187,7 @@
                             <p class="error-message">Unit Weight is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for="">Allowed pkg Volume <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Allowed phg Weight"
                             formControlName="allowedPKGVolume">
@@ -213,7 +199,7 @@
                             <p class="error-message">Allowed pkg Volume is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for="">Volume Unit <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example" formControlName="volumeUnit">
                             <option [selected]="general.value.volumeUnit === ''" value="" hidden>Select Volume Unit
@@ -229,7 +215,7 @@
                             <p class="error-message">Volume Unit is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for="">Excess wt tolerance <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Excess Weight Tolerance"
                             formControlName="excessWTTolerance">
@@ -241,10 +227,9 @@
                             <p class="error-message">Excess Weight is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for="" class="">Old Material Number <sup>*</sup></label>
-                        <input type="text" class="form-control " placeholder="Number"
-                            formControlName="oldMaterialNumber">
+                        <input type="text" class="form-control " placeholder="Number" formControlName="oldMaterialNumber">
                         <div
                             *ngIf="general.controls['oldMaterialNumber'].touched && general.controls['oldMaterialNumber'].dirty && general.controls['oldMaterialNumber'].hasError('required') && !isSubmitted">
                             <p class="error-message">OLd Material No. is required</p>
@@ -253,12 +238,10 @@
                             <p class="error-message">OLd Material No. is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for=""> Base Unit of Measure <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example"
-                            formControlName="baseUnitMeasure">
-                            <option [selected]="general.value.baseUnitMeasure === ''" value="" hidden>Select Base Unit
-                                Of Measure
+                        <select class="form-select " aria-label="Default select example" formControlName="baseUnitMeasure">
+                            <option [selected]="general.value.baseUnitMeasure === ''" value="" hidden>Select Base Unit Of Measure
                             </option>
                             <option value="1">GRM</option>
                             <option value="2">MTR</option>
@@ -271,7 +254,7 @@
                             <p class="error-message">Base Unit is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for=""> Gross Weight <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Gross Weight"
                             formControlName="grossWeight">
@@ -283,11 +266,10 @@
                             <p class="error-message">Gross Weight is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for=""> Weight Unit <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example" formControlName="weightUnit">
-                            <option [selected]="general.value.weightUnit === ''" value="" hidden>Select Weight Unit
-                            </option>
+                            <option [selected]="general.value.weightUnit === ''" value="" hidden>Select Weight Unit</option>
                             <option value="KG">KG</option>
                             <option value="GM">GM</option>
                             <option value="MLG">MLG</option>
@@ -300,11 +282,10 @@
                             <p class="error-message">Weight Unit is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for="">Volume Unit <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example" formControlName="volumnUnit">
-                            <option [selected]="general.value.volumnUnit === ''" value="" hidden>Select Volume Unit
-                            </option>
+                            <option [selected]="general.value.volumnUnit === ''" value="" hidden>Select Volume Unit</option>
                             <option value="LTR">LTR</option>
                             <option value="MLL">MLL</option>
                         </select>
@@ -316,7 +297,7 @@
                             <p class="error-message">Volume Unit is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for="">Length <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Length" formControlName="length">
                         <div
@@ -327,7 +308,7 @@
                             <p class="error-message">Length is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
 
                         <label for="">Width <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Width" formControlName="width">
@@ -339,7 +320,7 @@
                             <p class="error-message">Width is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
 
                         <label for="">Height <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Height" formControlName="height">
@@ -351,13 +332,11 @@
                             <p class="error-message">Height is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
 
                         <label for="">Batch Mgmt <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example"
-                            formControlName="batchManagment">
-                            <option [selected]="general.value.batchManagment === ''" value="" hidden>Select batch Mgmt
-                            </option>
+                        <select class="form-select " aria-label="Default select example" formControlName="batchManagment">
+                            <option [selected]="general.value.batchManagment === ''" value="" hidden>Select batch Mgmt</option>
                             <option value="YES">YES</option>
                             <option value="NO">NO</option>
                         </select>
@@ -369,24 +348,25 @@
                             <p class="error-message">Batch MAanagement is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
 
-                        <label for=""> Tax Indicator: Plant <sup>*</sup></label>
-                        <select class="form-select" formControlName="taxIndicatorId" (change)="handleTax($event)">
-                            <option [selected]="general.value.taxIndicatorId === ''" value="" hidden>Select Tax
+                        <label for="">Tax classification <sup>*</sup></label>
+                        <select class="form-select " aria-label="Default select example" formControlName="taxClassification">
+                            <option [selected]="general.value.taxClassification === ''" value="" hidden>Select Tax Classification
                             </option>
-                            <option *ngFor="let list of taxDetails" [value]="list.tax_ind_code">{{list.description}}
-                            </option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
                         </select>
                         <div
-                            *ngIf="general.controls['taxIndicatorId'].touched && general.controls['taxIndicatorId'].dirty && general.controls['taxIndicatorId'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Tax Indicator is required</p>
+                            *ngIf="general.controls['taxClassification'].touched && general.controls['taxClassification'].dirty && general.controls['taxClassification'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Tax Classification is required</p>
                         </div>
-                        <div *ngIf="isSubmitted && general.controls['taxIndicatorId'].hasError('required')">
-                            <p class="error-message">Tax Indicator is required</p>
+                        <div *ngIf="isSubmitted && general.controls['taxClassification'].hasError('required')">
+                            <p class="error-message">Tax Classification is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
 
                         <label for="">Manufacturer Part No. <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Manufacturer Part No."
@@ -399,13 +379,11 @@
                             <p class="error-message">Manufacture Part is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
 
                         <label for="">Expiration Date relavance <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example"
-                            formControlName="expirationDataRelavance">
-                            <option [selected]="general.value.expirationDataRelavance === ''" value="" hidden>Select
-                                Expiration Date
+                        <select class="form-select " aria-label="Default select example" formControlName="expirationDataRelavance">
+                            <option [selected]="general.value.expirationDataRelavance === ''" value="" hidden>Select Expiration Date
                             </option>
                             <option value="YES">YES</option>
                             <option value="NO">NO</option>
@@ -418,7 +396,7 @@
                             <p class="error-message">Expiration Date is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
 
                         <label for="">Excess Volume tol. <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Excess Vol tol"
@@ -431,7 +409,7 @@
                             <p class="error-message">Excess Volume is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
 
                         <label for="">Material Cost <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Material Cost"
@@ -462,7 +440,7 @@
 
 
                                         <div class="table-responsive">
-                                            <table class="table table-bordered">
+                                            <table class="table table-hover">
                                                 <thead>
                                                     <tr>
                                                         <th *ngIf="detail.controls.length > 1">Actions</th>
@@ -494,22 +472,25 @@
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
-
+                                                           
                                                         </td>
                                                         <td>
-                                                            <select class="form-select" formControlName="stoargeLocation" (change)="handleStorageLocation($event)">
-                                                                <option [selected]="general.value.plantData[i].stoargeLocationId === ''" value="" hidden>Select Storage Location
-                                                                </option>
-                                                                <option *ngFor="let list of storgaeLocationDetails" [value]="list.stor_loc_id">{{list.description}}</option>
-                                                              </select>
+                                                            <select class="form-select "
+                                                                aria-label="Default select example"
+                                                                formControlName="storageLocation">
+                                                                <option [selected]="general.value.storageLocation === ''" value=""
+                                                                    hidden>Select Storage Location</option>
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="procurementType">
-                                                                <option
-                                                                    [selected]="general.value.procurementType === ''"
-                                                                    value="" hidden>Select procurement Type</option>
+                                                                <option [selected]="general.value.procurementType === ''" value=""
+                                                                    hidden>Select procurement Type</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
@@ -517,8 +498,7 @@
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "
-                                                                placeholder="Enter Safety Stock"
-                                                                formControlName="safetyStock">
+                                                                placeholder="Enter Safety Stock" formControlName="safetyStock">
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "
@@ -571,7 +551,7 @@
                                                 style="color: white;background-color: #00acff;">Add Sales</button>
                                         </div>
                                         <div class="table-responsive">
-                                            <table class="table table-bordered">
+                                            <table class="table table-hover">
                                                 <thead>
                                                     <tr>
                                                         <th *ngIf="salesDetail.controls.length > 1">Actions</th>
@@ -598,9 +578,8 @@
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="salesOrganization">
-                                                                <option
-                                                                    [selected]="general.value.salesOrganization === ''"
-                                                                    value="" hidden>Select Sales Organization</option>
+                                                                <option [selected]="general.value.salesOrganization === ''" value=""
+                                                                    hidden>Select Sales Organization</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
@@ -610,9 +589,8 @@
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="distributionChannel">
-                                                                <option
-                                                                    [selected]="general.value.distributionChannel === ''"
-                                                                    value="" hidden>Select distribution Channel</option>
+                                                                <option [selected]="general.value.distributionChannel === ''" value=""
+                                                                    hidden>Select distribution Channel</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
@@ -621,8 +599,8 @@
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="deliveryUnit">
-                                                                <option [selected]="general.value.deliveryUnit === ''"
-                                                                    value="" hidden>Select Delivery Unit</option>
+                                                                <option [selected]="general.value.deliveryUnit === ''" value=""
+                                                                    hidden>Select Delivery Unit</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
@@ -630,8 +608,7 @@
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "
-                                                                placeholder="Safety Stock"
-                                                                formControlName="deliveringPlant">
+                                                                placeholder="Safety Stock" formControlName="deliveringPlant">
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "
@@ -653,8 +630,7 @@
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="acctAssignmentGrp">
-                                                                <option
-                                                                    [selected]="general.value.acctAssignmentGrp === ''"
+                                                                <option [selected]="general.value.acctAssignmentGrp === ''"
                                                                     value="" hidden>Select Acct. Ass Grp</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
@@ -663,8 +639,7 @@
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "
-                                                                placeholder="Minimum Order Qty"
-                                                                formControlName="minimumOrderQTY">
+                                                                placeholder="Minimum Order Qty" formControlName="minimumOrderQTY">
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "
@@ -687,7 +662,7 @@
                 <div class="row">
                     <div class="col-12 d-flex justify-content-end py-2">
                         <button type="submit" class="btn btn-primary"
-                            style="background-color: #00acff;color: white;">Submit</button>
+                            style="background-color: #00acff;color: white;">Save</button>
                     </div>
                 </div>
             </form>

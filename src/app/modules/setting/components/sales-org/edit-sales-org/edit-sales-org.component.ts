@@ -5,6 +5,7 @@ import { SalesOrgService } from '../../../Services/sales-org/sales-org.service';
 import { PlantDataService } from '../../../Services/plant-data/plant-data.service';
 import { CompanyCodeService } from '../../../Services/company-code/company-code.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-sales-org',
@@ -19,7 +20,7 @@ export class EditSalesOrgComponent {
   countryDetials: any = []
   details: any = []
   salesDataId: any = ''
-  singleDetail:any=[]
+  singleDetail: any = []
 
   constructor(
     private fb: FormBuilder,
@@ -27,7 +28,8 @@ export class EditSalesOrgComponent {
     private plantSer: PlantDataService,
     private companyCodeSer: CompanyCodeService,
     private activeRouter: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -60,28 +62,41 @@ export class EditSalesOrgComponent {
   async addCode() {
     try {
       this.isSubmitted = true
-      console.log(this.salesOrg.value);
       if (this.salesOrg.invalid)
         return
       const result: any = await this.salesSer.updatedSalesOrgDetails(this.salesOrg.value)
-      console.log(result);
       if (result.status === '1') {
-        // alert(result.message);
-        Swal.fire({
-          title: 'success',
-          text: 'Sales Org Updated Successfully',
-          icon: 'success',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Success', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
         this.router.navigate(['/settings/sales-org-list']);
         return;
       }
-      if (result.status === '0')
-        return alert(result.message);
+      if (result.status === '0') {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
 
 
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
+
 
     }
   }
@@ -90,22 +105,31 @@ export class EditSalesOrgComponent {
   async getTimeZoneDetail() {
     try {
       const result: any = await this.plantSer.getAllTimeZoneDetails()
-      console.log(result);
 
       if (result.status === '1') {
         this.timeZone = result.data
       }
       else {
-        alert("API Failed")
-        Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
       }
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
+
 
     }
   }
@@ -117,10 +141,22 @@ export class EditSalesOrgComponent {
       const result: any = await this.salesSer.singleSalesOrgDetails(this.salesDataId)
       if (result.status === '1') {
         this.salesOrg.patchValue(result.data)
-        this.singleDetail=this.countryDetials.find((el:any)=>el._id===this.salesOrg.value.countryId)
+        this.singleDetail = this.countryDetials.find((el: any) => el._id === this.salesOrg.value.countryId)
       }
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+
 
     }
   }
@@ -132,28 +168,30 @@ export class EditSalesOrgComponent {
       if (result.status === '1') {
         this.countryDetials = result.data;
       } else {
-        Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
       }
-      console.log(result);
-    } catch (error) {
-      console.error(error)
-      Swal.fire({
-        title: 'warning',
-        text: 'API Failed',
-        icon: 'warning',
-        showCancelButton: true
-      })
+    } catch (error:any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
     }
 
   }
   selectCountry(event: any) {
     this.details = this.countryDetials.find((el: any) => el._id === event.target.value);
-    console.log(this.details);
     this.salesOrg.controls.countryName.setValue(this.details.countryName)
 
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PurchaseOrgService } from '../../../Services/purchase-org/purchase-org.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-purchase-org-list',
@@ -13,7 +14,8 @@ export class PurchaseOrgListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private purchaseSer: PurchaseOrgService
+    private purchaseSer: PurchaseOrgService,
+    private _snackBar :MatSnackBar
   ) { } 
  
   ngOnInit(): void {
@@ -37,8 +39,19 @@ export class PurchaseOrgListComponent implements OnInit {
         })
         this.purchaseOrgDetails = result.data;
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error:any) {
+       if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
     }
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SalesOrgService } from '../../../Services/sales-org/sales-org.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-sales-org-list',
@@ -15,7 +16,8 @@ export class SalesOrgListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private salesOrgSer: SalesOrgService
+    private salesOrgSer: SalesOrgService,
+    private _snackBar:MatSnackBar
   ) { }
   nextPage(url: any) {
     this.router.navigate([`${url}`])
@@ -35,8 +37,19 @@ export class SalesOrgListComponent implements OnInit {
         })
         this.salesDeatils = result.data;
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error:any) {
+       if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
     }
   }
    

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BillingBlockService } from '../../../Services/billing-block/billing-block.service';
 import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-billing-block',
@@ -18,7 +19,8 @@ export class AddBillingBlockComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private billingBlockSer: BillingBlockService
+    private billingBlockSer: BillingBlockService,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -34,32 +36,39 @@ export class AddBillingBlockComponent {
   async addCustomerAcc() {
     try {
       this.isSubmitted = true
-      console.log(this.billing);
       if (this.billing.invalid)
-      return Swal.fire({
-      title: 'warning',
-      text: 'All Field Are Required',
-      icon: 'warning',
-      showCancelButton: true
-    })
-      const result: any = await this.billingBlockSer.createBillingBlock(this.billing.value)
-      console.log(result);
-      if (result.status === '1') {
-        Swal.fire({
-          title: 'success',
-          text: 'Billing Block Processed Successfully ',
-          icon: 'success',
-          showCancelButton: true
-        })
-        this.router.navigate(['/settings/billing-block-list'])
         return
+      const result: any = await this.billingBlockSer.createBillingBlock(this.billing.value)
+      if (result.status === '1') {
+        this._snackBar.open(result.message, 'Success', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
+        this.router.navigate(['/settings/billing-block-list/']);
+        return;
       }
-      if (result.status === '0')
-        return alert(result.message);
+      if (result.status === '0') {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
 
-    } catch (error) {
-      console.error(error);
-
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
 
 

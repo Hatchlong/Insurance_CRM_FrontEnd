@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomerAccountAGService } from '../../../Services/customer-account-AG/customer-account-ag.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-customer-account-ag',
@@ -19,7 +20,8 @@ export class EditCustomerAccountAGComponent {
     private fb: FormBuilder,
     private customerAccountSer: CustomerAccountAGService,
     private router: Router,
-    private activeRouter:ActivatedRoute
+    private activeRouter:ActivatedRoute,
+    private _snackBar:MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -36,7 +38,6 @@ export class EditCustomerAccountAGComponent {
       customerAccountAG: ['', Validators.required],
       descriptionCAAG: ['', Validators.required]
     });
-    console.warn(this.customerAcc.value)
 
   }
  
@@ -46,40 +47,57 @@ export class EditCustomerAccountAGComponent {
     if (result.status === '1') {
       this.customerAcc.patchValue(result.data);
     }
-    } catch (error) {
-      console.log(error)
+    } catch (error:any) {
+       if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
   }
 
   async submitData() {
     try {
       this.isSubmitted = true
-      console.log(this.customerAcc);
       if (this.customerAcc.invalid)
-      return Swal.fire({
-      title: 'warning',
-      text: 'All Field Are Required',
-      icon: 'warning',
-      showCancelButton: true
-    })
+      return 
       const result: any = await this.customerAccountSer.updateCustomerAccount(this.customerAcc.value)
-      console.log(result);
       if (result.status === '1') {
-        Swal.fire({
-          title: 'success',
-          text: 'Customer Account AG updated successfully ',
-          icon: 'success',
-          showCancelButton: true
-        })
-        this.router.navigate(['/settings/inco-term-list/'])
+          this._snackBar.open(result.message, 'Success', {
+            duration: 5 * 1000, horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: 'app-notification-success',
+          });
+        this.router.navigate(['/settings/customer-account-list'])
         return
       }
-      if (result.status === '0')
-        return alert(result.message);
-
-
-    } catch (error) {
-      console.error(error);
+      if (result.status === '0') {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error:any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
 
     }
   }

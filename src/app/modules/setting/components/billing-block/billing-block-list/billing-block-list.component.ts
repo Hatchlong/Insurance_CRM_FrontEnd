@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BillingBlockService } from '../../../Services/billing-block/billing-block.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-billing-block-list',
@@ -10,10 +11,13 @@ import { BillingBlockService } from '../../../Services/billing-block/billing-blo
 export class BillingBlockListComponent implements OnInit{
 
   billingBlockDeatil:any=[]
+  selectAll:any=false
+
 
   constructor(
     private router:Router,
-    private billingBlockSer:BillingBlockService
+    private billingBlockSer:BillingBlockService,
+    private _snackBar: MatSnackBar
   ){}
 
   ngOnInit(): void {
@@ -31,9 +35,46 @@ export class BillingBlockListComponent implements OnInit{
         this.billingBlockDeatil=result.data
       }
       
-    } catch (error) {
-      console.error(error);
+    } catch (error:any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
       
     }
   }
+
+  selectdata(event:any){
+    console.log(event.target.checked);
+    this.billingBlockDeatil.map((el:any)=>{
+        el.check=event.target.checked
+    })
+    
+   
+  }
+   particularcheck(event:any,index:any){
+      console.log(event.target.checked);
+      
+      this.billingBlockDeatil[index].check=event.target.checked
+      const findSelect=this.billingBlockDeatil.find((el:any)=>el.check===false)
+      console.log(findSelect);
+      
+      if(findSelect){
+        
+        this.selectAll=false
+
+      }
+      else{
+        this.selectAll=true
+      }
+    }
+
 }

@@ -7,7 +7,7 @@
         <div class="col-12 ">
             <form [formGroup]="general" (ngSubmit)="addAll()">
                 <div class="row border">
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for="" class="">Customer Id <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Customer Id"
                             formControlName="customerId">
@@ -19,7 +19,7 @@
                             <p class="error-message">Customer Id is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for="example">Country <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example" formControlName="country">
                             <option [selected]="general.value.country === ''" value="" hidden>Select Country</option>
@@ -36,7 +36,7 @@
                             <p class="error-message">Country is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for="" class="">Address <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Address" formControlName="address">
                         <div
@@ -48,7 +48,7 @@
                         </div>
 
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
 
                         <label for="" class="">Postal Code <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Postal Code"
@@ -62,7 +62,7 @@
                         </div>
 
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
 
                         <label for="">City <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter City" formControlName="city">
@@ -74,7 +74,7 @@
                             <p class="error-message">City is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
 
                         <label for="">Region <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Region" formControlName="region">
@@ -86,7 +86,7 @@
                             <p class="error-message">Region is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
 
                         <label for="">Telephone <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Telephone"
@@ -100,7 +100,7 @@
                         </div>
 
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
                         <label for="">Tax No 1 <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Tax Number 1"
                             formControlName="taxOne">
@@ -113,7 +113,7 @@
                         </div>
 
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
 
                         <label for="">Tax NO 2 <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Tax Number 2"
@@ -126,7 +126,7 @@
                             <p class="error-message">Tax No 2 is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-1">
+                    <div class="col-6 py-2 py-1">
 
                         <label for="">VAT Reg No <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter VAT " formControlName="vatReg">
@@ -156,7 +156,7 @@
 
 
                                         <div class="table-responsive">
-                                            <table class="table table-bordered">
+                                            <table class="table table-hover">
                                                 <thead>
                                                     <tr>
                                                         <th *ngIf="detail.controls.length > 1">Actions</th>
@@ -298,7 +298,7 @@
                                                 style="color: white;background-color: #00acff;">Add Sales</button>
                                         </div>
                                         <div class="table-responsive">
-                                            <table class="table table-bordered">
+                                            <table class="table table-hover">
                                                 <thead>
                                                     <tr>
                                                         <th *ngIf="salesDetail.controls.length > 1">Actions</th>
@@ -481,7 +481,7 @@
                 <div class="row">
                     <div class="col-12 d-flex justify-content-end py-2">
                         <button type="submit" class="btn btn-primary"
-                            style="background-color: #00acff;color: white;">Submit</button>
+                            style="background-color: #00acff;color: white;">Save</button>
                     </div>
                 </div>
             </form>

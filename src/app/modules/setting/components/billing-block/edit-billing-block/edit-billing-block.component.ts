@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BillingBlockService } from '../../../Services/billing-block/billing-block.service';
 import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-billing-block',
@@ -13,18 +14,18 @@ export class EditBillingBlockComponent {
 
   billing: any = FormGroup
   isSubmitted: any = false
-  billinBlockId:any=''
+  billinBlockId: any = ''
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private billingBlockSer: BillingBlockService,
-    private activeRouter: ActivatedRoute
-
+    private activeRouter: ActivatedRoute,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
-    this.billinBlockId=this.activeRouter.snapshot.paramMap.get('id')
+    this.billinBlockId = this.activeRouter.snapshot.paramMap.get('id')
     this.channeldata()
     this.getSingleDetail()
   }
@@ -39,16 +40,28 @@ export class EditBillingBlockComponent {
 
   //get single data
 
-  async getSingleDetail(){
+  async getSingleDetail() {
     try {
-      const result:any=await this.billingBlockSer.singleBillingBlockDetails(this.billinBlockId)
-      if (result.status==='1') {
+      const result: any = await this.billingBlockSer.singleBillingBlockDetails(this.billinBlockId)
+      if (result.status === '1') {
         this.billing.patchValue(result.data)
       }
-    } catch (error) {
-      console.error(error);
-      
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
+
+
   }
 
 
@@ -56,35 +69,44 @@ export class EditBillingBlockComponent {
   async addCustomerAcc() {
     try {
       this.isSubmitted = true
-      console.log(this.billing);
       if (this.billing.invalid)
-        return Swal.fire({
-          title: 'warning',
-          text: 'All Field Are Required',
-          icon: 'warning',
-          showCancelButton: true
-        })
+        return
       const result: any = await this.billingBlockSer.updatedBillingBlockDetails(this.billing.value);
       if (result.status === '1') {
-        // alert(result.message);
-        Swal.fire({
-          title: 'success',
-          text: 'Billing Block Updated Successfully',
-          icon: 'success',
-          showCancelButton: true  
-        })
+        this._snackBar.open(result.message, 'Success', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
         this.router.navigate(['/settings/billing-block-list/']);
         return;
       }
-      if (result.status === '0')
-        return alert(result.message);
+      if (result.status === '0') {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
 
-    } catch (error) {
-      console.error(error);
-
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
 
-
   }
+
+
+
 
 }

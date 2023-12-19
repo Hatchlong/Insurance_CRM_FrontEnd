@@ -39,7 +39,7 @@
         <button (click)="nextPage('/master/add-vendor')" class="btn btn-primary" type="button">Add Vendor</button>
 
         <button class="btn btn-danger" type="button">
-          <mat-icon style="line-height: 34px;">delete</mat-icon>
+          <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
           Delete Selected Vendor</button>
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
           <mat-icon>more_vert</mat-icon>
@@ -62,82 +62,49 @@
   <div class="row mt-4 ms-2">
     <div class="col-12">
       <div class="table-responsive">
-        <table class="table table-bordered">
+        <table class="table table-hover">
           <thead>
             <tr>
+              <th>S.No.</th>
               <th scope="col">Image</th>
-              <th scope="col">Vendor Display Name</th>
-              <th scope="col">Store</th>
-              <th scope="col">Categories</th>
-              <th scope="col">Taxes</th>
-              <th scope="col">Action</th>
-              <th scope="col"><input type="checkbox" > Select All</th>
+              <th scope="col">Vendor Name</th>
+              <th scope="col">Address</th>
+              <th scope="col">Account group</th>
+              <th scope="col">Language</th>
+              <th scope="col">Country</th>
+              <th scope="col">Mode Of Transport</th>
+              <th scope="col">Inco Term</th>
+              <th>Action</th>
+              <th scope="col"><input type="checkbox" id="selectAll" [checked]="selectAll" (change)="selectdata($event)"> Select All </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">
+            <tr *ngFor="let list of vendorDetails; let i=index">
+              <td>{{i+1}}</td>
+              <td scope="row">
                 <mat-icon>inventory_2</mat-icon>
-              </th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>mdo</td>
-              <td>Mark</td>
+              </td>
+              <td>{{list.vendorName}}</td>
+              <td>{{list.addressCountry}}</td>
+              <td>{{list.accountGroup}}</td>
+              <td>{{list.language}}</td>
+              <td>{{list.country}}</td>
+              <td>{{list.modeOfTransport}}</td>
+              <td>{{list.incrementTreams}}</td>
               <td>
                 <div class="d-flex">
                   <div>
-                    <mat-icon>edit</mat-icon>
+                    <mat-icon [routerLink]="'/master/edit-vendor/'+list._id">edit</mat-icon>
                   </div>
                   <div>
                     <mat-icon>delete</mat-icon>
                   </div>
                 </div>
               </td>
-              <td><input type="checkbox" ></td>
+              <td><input type="checkbox" class="checkbox" [checked]="list.check" (change)="particularcheck($event,i)"></td>
             </tr>
-            <tr>
-              <th scope="row">
-                <mat-icon>inventory_2</mat-icon>
-
-              </th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>fat</td>
-              <td>Mark</td>
-              <td>
-                <div class="d-flex">
-                  <div>
-                    <mat-icon>edit</mat-icon>
-                  </div>
-                  <div>
-                    <mat-icon>delete</mat-icon>
-                  </div>
-                </div>
-              </td>
-              <td><input type="checkbox" ></td>
-            </tr>
-            <tr>
-              <th scope="row">
-                <mat-icon>inventory_2</mat-icon>
-
-              </th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>twitter</td>
-              <td>Mark</td>
-              <td>
-                <div class="d-flex">
-                  <div>
-                    <mat-icon>edit</mat-icon>
-                  </div>
-                  <div>
-                    <mat-icon>delete</mat-icon>
-                  </div>
-                </div>
-              </td>
-              <td><input type="checkbox" ></td>
-
-            </tr>
+            
+            
           </tbody>
 
         </table>

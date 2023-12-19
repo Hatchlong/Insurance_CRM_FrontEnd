@@ -39,7 +39,7 @@
           >Add Inco Term</button>
         
         <button class="btn btn-danger" type="button" style="color: white;">
-        <mat-icon style="line-height: 34px;">delete</mat-icon>
+        <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
             Delete Selected Plant Data</button>
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
               <mat-icon>more_vert</mat-icon>
@@ -66,14 +66,14 @@
   <div class="row mt-4 ms-2">
     <div class="col-12">
       <div class="table-responsive">
-        <table class="table table-bordered">
+        <table class="table table-hover">
           <thead>
             <tr>
               <th scope="col">SLNo</th>
               <th scope="col">Inco Term </th>
               <th scope="col">Description</th>
               <th scope="col">Action</th>
-              <th scope="col"><input type="checkbox" > Select All</th>
+              <th scope="col"><input type="checkbox" id="selectAll" [checked]="selectAll" (change)="selectdata($event)"> Select All</th>
             </tr>
           </thead>
           <tbody>
@@ -92,7 +92,7 @@
                   </div>
                 </div>
               </td>
-              <td><input type="checkbox"></td>
+              <td><input type="checkbox" class="checkbox" [checked]="list.check" (change)="particularcheck($event,i)"></td>
             </tr>
            
           </tbody>
