@@ -8,7 +8,7 @@
 
                 <div class="row border">
 
-                    <div class="col-6 mt-2">
+                    <div class="col-6 py-2 mt-2">
                         <label for="">Billing Type <sup>*</sup> </label>
                         <select class="form-select" formControlName="billingType">
                             <option [selected]="productFromGroup.value.billingType=== ''" value="" hidden>Select Billing Type</option>
@@ -25,17 +25,17 @@
                         </div>
 
                     </div>
-                    <div class="col-6 mt-2">
+                    <div class="col-6 py-2 mt-2">
                         <label for="BillingDate">Billing Date</label>
                         <input type="date" class="form-control" formControlName="billingDate" >
                     </div>
-                    <div class="col-6 mt-4">
+                    <div class="col-6 py-2 mt-4">
                         <label for="ReferenceDoc">Reference Doc</label>
                         <input type="text" class="form-control" formControlName="referenceDoc"
                             placeholder="Enter Reference Document">
                     </div>
 
-                    <div class="col-6 ">
+                    <div class="col-6 py-2 ">
                         <label for="CustomerId">Customer Id <sup>*</sup></label>
                         <input type="text" class="form-control" formControlName="customerId"
                             placeholder="Enter Customer Id">
@@ -48,7 +48,7 @@
                             </div>
 
                     </div>
-                    <div class="col-6 mt-4">
+                    <div class="col-6 py-2 mt-4">
                         <label for="NetValue">Net Value</label>
                         <input type="number" class="form-control" formControlName="netValue" placeholder="Enter Net Value">
 
@@ -61,7 +61,7 @@
 
                     </div>
 
-                    <div class="col-6 mt-4 mb-2">
+                    <div class="col-6 py-2 mt-4 mb-2">
                         <label for="TaxAmount">Tax Amount</label>
                         <input type="number" class="form-control" formControlName="taxAmount" placeholder="Enter Tax Amount">
 
@@ -73,7 +73,7 @@
                         </div>
 
                     </div>
-                    <div class="col-6  mb-2">
+                    <div class="col-6 py-2  mb-2">
                         <label for="">Currency <sup>*</sup></label>
                         <select class="form-select" formControlName="currency">
                             <option [selected]="productFromGroup.value.currency=== ''" value="" hidden>Select Currency</option>
@@ -90,7 +90,7 @@
                         </div>
 
                     </div>
-                    <div class="col-6 ">
+                    <div class="col-6 py-2 ">
                         <label for="ExchaneRate">Exchange Rate <sup>*</sup></label>
                         <input type="number" class="form-control" formControlName="exchangeRate"
                             placeholder="Exchange Rate">
@@ -103,7 +103,7 @@
                             </div>
 
                     </div>
-                    <div class="col-6  mb-2">
+                    <div class="col-6 py-2  mb-2">
                         <label for="Company">Company Code <sup>*</sup></label>
                         <select class="form-select" formControlName="companyCode">
                             <option [selected]="productFromGroup.value.companyCode=== ''" value="" hidden>Select Company Code</option>
@@ -121,7 +121,7 @@
 
 
                     </div>
-                    <div class="col-6  mb-2">
+                    <div class="col-6 py-2  mb-2">
                         <label for="">Customer Account AG <sup>*</sup></label>
                         <select class="form-select" formControlName="customerAccount">
                             <option [selected]="productFromGroup.value.customerAccount=== ''" value="" hidden>Enter Customer Account AG</option>
@@ -138,7 +138,7 @@
                         </div>
 
                     </div>
-                    <div class="col-6  mb-2">
+                    <div class="col-6 py-2  mb-2">
                         <label for="">Posting Status <sup>*</sup></label>
                         <select class="form-select" formControlName="postingStatus">
                             <option [selected]="productFromGroup.value.postingStatus=== ''" value="" hidden>Enter Posting Status</option>
@@ -155,7 +155,7 @@
                         </div>
 
                     </div>
-                    <div class="col-6  mb-2">
+                    <div class="col-6 py-2  mb-2">
                         <label for="">Payment Terms <sup>*</sup></label>
                         <select class="form-select" formControlName="paymentTerm">
                             <option [selected]="productFromGroup.value.paymentTerm=== ''" value="" hidden>Select Payment Term</option>
@@ -172,7 +172,7 @@
                         </div>
 
                     </div>
-                    <div class="col-6  mb-2">
+                    <div class="col-6 py-2  mb-2">
                         <label for="">Inco Terms <sup>*</sup></label>
                         <select class="form-select" formControlName="incrementTearm">
                             <option [selected]="productFromGroup.value.incrementTearm== ''" value="" hidden>Select Inco Term</option>
@@ -189,7 +189,7 @@
                         </div>
 
                     </div>
-                    <div class="col-6  mb-2">
+                    <div class="col-6 py-2  mb-2">
                         <label for="">Sales Org <sup>*</sup></label>
                         <select class="form-select" formControlName="salesOrg">
                             <option [selected]="productFromGroup.value.salesOrg=== ''" value="" hidden>Select Sales Org</option>
@@ -206,7 +206,7 @@
                         </div>
 
                     </div>
-                    <div class="col-6  mb-2">
+                    <div class="col-6 py-2  mb-2">
                         <label for="">Distribution Channel <sup>*</sup></label>
                         <select class="form-select" formControlName="distributionChannel">
                             <option [selected]="productFromGroup.value.distributionChannel== ''" value="" hidden>Select Distribution Channel </option>
@@ -223,7 +223,7 @@
                         </div>
                         
                     </div>
-                    <div class="col-6  mb-2">
+                    <div class="col-6 py-2  mb-2">
                         <label for="">Division <sup>*</sup></label>
                         <select class="form-select" formControlName="division">
                             <option [selected]="productFromGroup.value.division=== ''" value="" hidden>Select Division</option>
@@ -240,7 +240,7 @@
                         </div>
 
                     </div>
-                    <div class="col-6  mb-2">
+                    <div class="col-6 py-2  mb-2">
                         <label for="">Mode Of Transport <sup>*</sup></label>
                         <select class="form-select" formControlName="modeOfTransport">
                             <option [selected]="productFromGroup.value.modeOfTransport=== ''" value="" hidden>Select Mode Of Transport</option>
@@ -257,7 +257,7 @@
                         </div>
 
                     </div>
-                    <div class="col-6  mb-2">
+                    <div class="col-6 py-2  mb-2">
                         <label for="NetTax">Net Tax <sup>*</sup></label>
                         <input type="number" class="form-control" formControlName="netTax" placeholder="Net Tax">
 
@@ -269,7 +269,7 @@
                         </div>
 
                     </div>
-                    <div class="col-6  mb-2">
+                    <div class="col-6 py-2  mb-2">
                         <label for="NetDiscount">Net Discount <sup>*</sup></label>
                         <input type="number" class="form-control" formControlName="netDiscount"
                             placeholder="Net Discount">
@@ -282,7 +282,7 @@
                             </div>
 
                     </div>
-                    <div class="col-6  mb-2">
+                    <div class="col-6 py-2  mb-2">
                         <label for="netFreight">Net Freight <sup>*</sup></label>
                         <input type="number" class="form-control" formControlName="netFreight"
                             placeholder="Net Freight">
@@ -295,7 +295,7 @@
                             </div>
 
                     </div>
-                    <div class="col-6  mb-2">
+                    <div class="col-6 py-2  mb-2">
                         <label for="OtherCharge">Other Charges <sup>*</sup></label>
                         <input type="number" class="form-control" formControlName="otherCharge"
                             placeholder="Other Charge">
@@ -323,7 +323,7 @@
                                 </h3>
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex justify-content-end">
-                                <button class="m-2 border-0 rounded btnBg2" (click)="addFinancial()">Add</button>
+                                <button class="btn btn-primary" (click)="addFinancial()">Add</button>
 
                             </div>
                         </div>
@@ -331,7 +331,7 @@
 
 
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th *ngIf="financialListArray.controls.length > 1">Actions</th>
@@ -501,7 +501,7 @@
                 </div>
                 <div class="row py-2">
                     <div class="col-12 d-flex justify-content-end">
-                        <button class="btn btn-primary">submit</button>
+                        <button class="btn btn-primary">Save</button>
                     </div>
                 </div>
 

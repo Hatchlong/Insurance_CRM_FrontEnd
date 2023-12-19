@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaymentTermService } from '../../../Services/payment-term/payment-term.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-payment-terms',
@@ -17,7 +18,8 @@ export class AddPaymentTermsComponent {
   constructor(
     private fb: FormBuilder,
     private paymentSer: PaymentTermService,
-    private router: Router
+    private router: Router,
+    private _snackBar:MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -45,56 +47,36 @@ export class AddPaymentTermsComponent {
       if (this.payTem.invalid)
         return
       const result: any = await this.paymentSer.createPaymentTerm(this.payTem.value);
-      console.log(result)
       if (result.status === '1') {
-        alert(result.message);
+        this._snackBar.open(result.message, 'Success', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
         this.router.navigate(['/settings/payment-terms-list']);
         return;
       }
-      if (result.status === '0')
-        return alert(result.message);
-    } catch (error) {
-      console.error(error)
+      if (result.status === '0') {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+
     }
   }
-
-
-  //   async addCode() {
-  //     try {
-  //       if (this.payTem.invalid) {
-  //         Swal.fire({
-  //           title: 'warning',
-  //           text: 'All Field are Required',
-  //           icon: 'warning',
-  //           showCancelButton: true
-  //         })
-  //       }
-  //       const result: any = await this.paymentSer.createPaymentTerm(this.purTem.value)
-  //       console.log(result);
-  //       if (result.status === '1') {
-  //         Swal.fire({
-  //           title: 'success',
-  //           text: 'Successfully Submitted',
-  //           icon: 'success',
-  //           showCancelButton: true
-  //         })
-  //         this.router.navigate(['/settings/payment-terms-list']);
-  //         return;
-  //       }
-  //       if (result.status === '0') {
-  //         Swal.fire({
-  //           title: 'warning',
-  //           text: 'Failed',
-  //           icon: 'warning',
-  //           showCancelButton: true
-  //         })
-
-  //       }
-  //     } catch (error) {
-  //       console.error(error);
-
-  //     }
-  //     console.log(this.purTem);
-
-  //   }
 }

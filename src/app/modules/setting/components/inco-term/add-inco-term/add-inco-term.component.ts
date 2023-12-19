@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IncTermService } from '../../../Services/inc-term/inc-term.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-inco-term',
@@ -16,7 +17,8 @@ export class AddIncoTermComponent {
   constructor(
     private fb: FormBuilder,
     private incTermSer: IncTermService,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -29,38 +31,46 @@ export class AddIncoTermComponent {
       description: ['', Validators.required],
 
     });
-    console.warn(this.incoTerm.value)
+
   }
 
   async submitData() {
     try {
       this.isSubmitted = true
-      console.log(this.incoTerm);
       if (this.incoTerm.invalid)
-      return Swal.fire({
-      title: 'warning',
-      text: 'All Field Are Required',
-      icon: 'warning',
-      showCancelButton: true
-    })
+        return
       const result: any = await this.incTermSer.createIncTerms(this.incoTerm.value)
-      console.log(result);
       if (result.status === '1') {
-        Swal.fire({
-          title: 'success',
-          text: 'Inc Term Processed Successfully ',
-          icon: 'success',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Success', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
         this.router.navigate(['/settings/inco-term-list/'])
         return
       }
-      if (result.status === '0')
-        return alert(result.message);
+      if (result.status === '0') {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
 
 
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
 
     }
   }

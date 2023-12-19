@@ -1,11 +1,13 @@
 <div class="container-fluid">
     <form [formGroup]="companyCode" (ngSubmit)="addCode()">
-        <h2><mat-icon class="back" routerLink="/settings/company-code-list">arrow_back</mat-icon>Company Code</h2>
         <div class="row">
-            <div class="col-6">
+            <div class="col-12">
+                <h2><mat-icon class="back" routerLink="/settings/company-code-list">arrow_back</mat-icon>Company Code
+                </h2>
+            </div>
+            <div class="col-6 py-2">
                 <label for="">Company Code <sup>*</sup></label>
-                <input type="text" class="form-control " placeholder="Enter Company code"
-                    formControlName="companyCode">
+                <input type="text" class="form-control " placeholder="Enter Company code" formControlName="companyCode">
                 <div
                     *ngIf="companyCode.controls['companyCode'].touched && companyCode.controls['companyCode'].dirty && companyCode.controls['companyCode'].hasError('required') && !isSubmitted">
                     <p class="error-message">Company code is required</p>
@@ -15,10 +17,9 @@
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">Company Name <sup>*</sup></label>
-                <input type="text" class="form-control " placeholder="Enter Company Name"
-                    formControlName="companyName">
+                <input type="text" class="form-control " placeholder="Enter Company Name" formControlName="companyName">
                 <div
                     *ngIf="companyCode.controls['companyName'].touched && companyCode.controls['companyName'].dirty && companyCode.controls['companyName'].hasError('required') && !isSubmitted">
                     <p class="error-message">Company Name is required</p>
@@ -28,7 +29,7 @@
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">Country Name <sup>*</sup></label>
                 <select class="form-select " aria-label="Default select example" formControlName="countryId"
                     (change)="selectCountryName($event)">
@@ -43,9 +44,9 @@
                     <p class="error-message">Country Name is required</p>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">City <sup>*</sup></label>
-                <select class="form-select " aria-label="Default select example" formControlName="city">
+                <select class="form-select " aria-label="Default select example" formControlName="city"  [ngStyle]="{'pointer-events': !companyCode.value.countryId ? 'none' :  'all'}">
                     <option [selected]="companyCode.value.city===''" value="" hidden>Select City</option>
                     <option *ngFor="let list of citiesDetails?.cities?.cities" [value]="list">{{list}}</option>
                 </select>
@@ -58,23 +59,23 @@
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">Currency <sup>*</sup></label>
-                <select class="form-select " aria-label="Default select example" formControlName="currency">
-                    <option [selected]="companyCode.value.currency===''" value="" hidden>Select Currency</option>
-                    <option [value]="citiesDetails.countryCurrency">{{citiesDetails.countryCurrency}}</option>
+                <select class="form-select " aria-label="Default select example" formControlName="currencyId" (change)="handleCurrency($event)"  [ngStyle]="{'pointer-events': !companyCode.value.countryId ? 'none' :  'all'}">
+                    <option [selected]="companyCode.value.currencyId===''" value="" hidden>Select Currency</option>
+                    <option *ngFor="let list of currencyDetails" [value]="list._id">{{list.code}}</option>
                 </select>
                 <div
-                    *ngIf="companyCode.controls['currency'].touched && companyCode.controls['currency'].dirty && companyCode.controls['currency'].hasError('required') && !isSubmitted">
+                    *ngIf="companyCode.controls['currencyId'].touched && companyCode.controls['currencyId'].dirty && companyCode.controls['currencyId'].hasError('required') && !isSubmitted">
                     <p class="error-message">Currency is required</p>
                 </div>
-                <div *ngIf="isSubmitted && companyCode.controls['currency'].hasError('required')">
+                <div *ngIf="isSubmitted && companyCode.controls['currencyId'].hasError('required')">
                     <p class="error-message">Currency is required</p>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="">Language <sup>*</sup></label>
-                <select class="form-select " aria-label="Default select example" formControlName="languageId">
+                <select class="form-select " aria-label="Default select example" formControlName="languageId"  [ngStyle]="{'pointer-events': !companyCode.value.countryId ? 'none' :  'all'}">
                     <option [selected]="companyCode.value.languageId===''" value="" hidden>Select Language</option>
                     <option [value]="citiesDetails.languageId">{{languageName}}</option>
                 </select>
@@ -87,8 +88,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-2 py-2">
-            <button type="submit" class="btn btn-primary" >Submit</button>
+        <div class="col-12 d-flex justify-content-end py-2">
+            <button type="submit" class="btn btn-primary">Save</button>
         </div>
     </form>
 </div>

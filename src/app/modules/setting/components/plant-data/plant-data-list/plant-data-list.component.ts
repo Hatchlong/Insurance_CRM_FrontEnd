@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PlantDataService } from '../../../Services/plant-data/plant-data.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-plant-data-list',
@@ -15,7 +16,8 @@ export class PlantDataListComponent {
 
   constructor(
     private router:Router,
-    private plantDataSer: PlantDataService
+    private plantDataSer: PlantDataService,
+    private _snackBar:MatSnackBar
   ){}
 
   ngOnInit(url:any): void{
@@ -27,7 +29,6 @@ this.getAllPlantDataDetails()
   }
  
   selectdata(event: any) {
-    console.log(event.target.checked);
     this.plantDataDetails.map((el: any) => {
       el.check = event.target.checked
     })
@@ -35,16 +36,10 @@ this.getAllPlantDataDetails()
 
   }
   particularcheck(event: any, index: any) {
-    console.log(event.target.checked);
-
     this.plantDataDetails[index].check = event.target.checked
     const findSelect = this.plantDataDetails.find((el: any) => el.check === false)
-    console.log(findSelect);
-
     if (findSelect) {
-
       this.selectAll = false
-
     }
     else {
       this.selectAll = true
@@ -53,12 +48,22 @@ this.getAllPlantDataDetails()
   async getAllPlantDataDetails(){
     try {
       const result:any = await this.plantDataSer.getAllPlantData();
-      console.log(result)
       if(result.status === '1'){
         this.plantDataDetails = result.data;
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error:any) {
+       if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
     }
   }
 

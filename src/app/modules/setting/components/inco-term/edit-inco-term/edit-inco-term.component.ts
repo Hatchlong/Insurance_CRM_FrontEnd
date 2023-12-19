@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IncTermService } from '../../../Services/inc-term/inc-term.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-inco-term',
@@ -19,7 +20,8 @@ export class EditIncoTermComponent {
     private fb: FormBuilder,
     private incTermSer: IncTermService,
     private router: Router,
-    private activeRouter: ActivatedRoute
+    private activeRouter: ActivatedRoute,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -39,14 +41,24 @@ export class EditIncoTermComponent {
 
   async getSingleDetails() {
     try {
-      const result: any =await this.incTermSer.singleIncTermsDetails(this.incTermId)
-      console.log(result.data);
-      
+      const result: any = await this.incTermSer.singleIncTermsDetails(this.incTermId)
+
       if (result.status === '1') {
         this.incoTerm.patchValue(result.data)
       }
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
 
     }
   }
@@ -54,32 +66,40 @@ export class EditIncoTermComponent {
   async submitData() {
     try {
       this.isSubmitted = true
-      console.log(this.incoTerm);
       if (this.incoTerm.invalid)
-      return Swal.fire({
-      title: 'warning',
-      text: 'All Field Are Required',
-      icon: 'warning',
-      showCancelButton: true
-    })
-      const result: any = await this.incTermSer.updatedIncTermsDetails(this.incoTerm.value)
-      console.log(result);
+        return
+      const result: any = await this.incTermSer.updatedIncTermsDetails(this.incoTerm.value);
       if (result.status === '1') {
-        Swal.fire({
-          title: 'success',
-          text: 'Inc Term Updated Successfully ',
-          icon: 'success',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Success', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
         this.router.navigate(['/settings/inco-term-list/'])
         return
       }
-      if (result.status === '0')
-        return alert(result.message);
+      if (result.status === '0') {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
 
 
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
 
     }
   }

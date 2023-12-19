@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyCodeService } from '../../../Services/company-code/company-code.service';
 import { PurchaseOrgService } from '../../../Services/purchase-org/purchase-org.service';
 import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class EditPlantDataComponent {
   timeZone: any = []
   taxDetails: any = [];
   storgaeLocationDetails: any = []
+  isSubmitted:any=false
 
   constructor(
     private fb: FormBuilder,
@@ -31,7 +33,7 @@ export class EditPlantDataComponent {
     private activeRouter: ActivatedRoute,
     private companyCodeSer: CompanyCodeService,
     private purOrgSer: PurchaseOrgService,
-
+    private _snackBar: MatSnackBar
 
   ) { }
 
@@ -85,38 +87,52 @@ export class EditPlantDataComponent {
         this.plantsData.patchValue(result.data)
         this.citiesDetails = this.countryDetials.find((el: any) => el._id === this.plantsData.value.countryId);
         this.plantsData.controls.languageId.setValue(this.citiesDetails.languageId)
-        console.log(this.citiesDetails.languageId);
-
         this.getSingleLanguage(this.citiesDetails.languageId)
-
-
       }
-    } catch (error) {
-      console.error(error)
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
     }
   }
 
-  
+
   // get time zone
   async getTimeZoneDetail() {
     try {
       const result: any = await this.plantDataSer.getAllTimeZoneDetails()
-      console.log(result);
-      
       if (result.status === '1') {
         this.timeZone = result.data
       }
-      else{
-        alert("API Failed")
-        Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
+      else {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
       }
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;;
 
     }
   }
@@ -127,33 +143,42 @@ export class EditPlantDataComponent {
 
   async submitData() {
     try {
+      this.isSubmitted=true
       console.log(this.plantsData.value)
       if (this.plantsData.invalid) {
-        Swal.fire({
-          title: 'warning',
-          text: 'All Field Are Required',
-          icon: 'warning',
-          showCancelButton: true
-        })
         return
       }
 
       const result: any = await this.plantDataSer.updatePlantData(this.plantsData.value);
       if (result.status === '1') {
-        Swal.fire({
-          title: 'success',
-          text: 'Plant Data Updated Successfully',
-          icon: 'success',
-          showCancelButton: true
-        })
-        // alert(result.message);
+        this._snackBar.open(result.message, 'Success', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
         this.router.navigate(['/settings/plant-data-list']);
         return;
       }
-      if (result.status === '0')
-        return alert(result.message);
-    } catch (error) {
-      console.error(error);
+      if (result.status === '0') {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
   }
 
@@ -165,23 +190,25 @@ export class EditPlantDataComponent {
       if (result.status === '1') {
         this.countryDetials = result.data;
       } else {
-        // alert('API failed')
-        Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
       }
-    } catch (error) {
-      console.error(error)
-      // alert('API failed')
-      Swal.fire({
-        title: 'warning',
-        text: 'API Failed',
-        icon: 'warning',
-        showCancelButton: true
-      })
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
   }
 
@@ -194,16 +221,25 @@ export class EditPlantDataComponent {
         this.purDetails = result.data
       }
       else {
-        // alert("API FAiled")
-        Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
       }
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;;
 
     }
   }
@@ -215,8 +251,19 @@ export class EditPlantDataComponent {
       if (result.status === '1') {
         this.taxDetails = result.data
       }
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
   }
 
@@ -228,8 +275,19 @@ export class EditPlantDataComponent {
       if (result.status === '1') {
         this.storgaeLocationDetails = result.data
       }
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
 
     }
   }
@@ -242,23 +300,25 @@ export class EditPlantDataComponent {
         this.languageName = result.data.languageName;
         this.plantsData.controls.languageName.setValue(result.data.languageName)
       } else {
-        // alert('API failed')
-        Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
       }
-    } catch (error) {
-      console.error(error)
-      // alert('API failed')
-      Swal.fire({
-        title: 'warning',
-        text: 'API Failed',
-        icon: 'warning',
-        showCancelButton: true
-      })
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
     }
   }
 
@@ -279,7 +339,6 @@ export class EditPlantDataComponent {
   // Add the purchase Name
   handleTax(event: any) {
     const findPurchaseDetail = this.taxDetails.find((el: any) => el.tax_ind_code === +event.target.value);
-    console.log(findPurchaseDetail, this.taxDetails, event.target.value, 'findPurchaseDetail')
     this.plantsData.controls.taxIndicatorName.setValue(findPurchaseDetail.description)
   }
 

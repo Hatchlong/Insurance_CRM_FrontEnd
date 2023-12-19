@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PaymentTermService } from '../../../Services/payment-term/payment-term.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-payment-terms-list',
@@ -15,7 +16,8 @@ export class PaymentTermsListComponent implements OnInit{
    
   constructor(
     private router:Router,
-    private paymentSer:PaymentTermService
+    private paymentSer:PaymentTermService,
+    private _snackBar:MatSnackBar
   ){}
   nextPage(url:any){
     this.router.navigate([`${url}`])
@@ -61,8 +63,19 @@ export class PaymentTermsListComponent implements OnInit{
         })
         this.paymentDetails = result.data;
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error:any) {
+       if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
     }
   }
 }

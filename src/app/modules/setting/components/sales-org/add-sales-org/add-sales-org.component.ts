@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { PlantDataService } from '../../../Services/plant-data/plant-data.service';
 import { CompanyCodeService } from '../../../Services/company-code/company-code.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-sales-org',
@@ -17,13 +18,16 @@ export class AddSalesOrgComponent {
   timeZone: any = []
   countryDetials: any = []
   details: any = []
+  regionDetail:any=[]
+
 
   constructor(
     private fb: FormBuilder,
     private salesSer: SalesOrgService,
     private plantSer: PlantDataService,
     private companyCodeSer: CompanyCodeService,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -53,28 +57,41 @@ export class AddSalesOrgComponent {
   async addCode() {
     try {
       this.isSubmitted = true
-      console.log(this.salesOrg.value);
       if (this.salesOrg.invalid)
         return
       const result: any = await this.salesSer.createSalesOrg(this.salesOrg.value)
-      console.log(result);
       if (result.status === '1') {
-        // alert(result.message);
-        Swal.fire({
-          title: 'success',
-          text: 'Sales Org Processed Successfully',
-          icon: 'success',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Success', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
         this.router.navigate(['/settings/sales-org-list']);
         return;
       }
-      if (result.status === '0')
-        return alert(result.message);
+      if (result.status === '0') {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
 
 
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
+
 
     }
   }
@@ -83,22 +100,31 @@ export class AddSalesOrgComponent {
   async getTimeZoneDetail() {
     try {
       const result: any = await this.plantSer.getAllTimeZoneDetails()
-      console.log(result);
 
       if (result.status === '1') {
         this.timeZone = result.data
       }
       else {
-        alert("API Failed")
-        Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
       }
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
+
 
     }
   }
@@ -110,6 +136,41 @@ export class AddSalesOrgComponent {
       if (result.status === '1') {
         this.countryDetials = result.data;
       } else {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error:any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
+    }
+  }
+
+  
+  //get region data
+
+  async getRegionDetail(id:any){
+    try {
+      const result:any=await this.salesSer.getAllRegionDetails(id)
+      if(result.status==='1'){
+        console.log(result);
+        
+          this.regionDetail=result.data
+          // this.salesOrg.controls.regionName.setValue(result.data.code)
+      }
+      else{
         Swal.fire({
           title: 'warning',
           text: 'API Failed',
@@ -117,31 +178,34 @@ export class AddSalesOrgComponent {
           showCancelButton: true
         })
       }
-      console.log(result);
     } catch (error) {
-      console.error(error)
-      Swal.fire({
-        title: 'warning',
-        text: 'API Failed',
-        icon: 'warning',
-        showCancelButton: true
-      })
+      console.error(error);
+      
     }
-
   }
+
   selectCountry(event: any) {
     this.details = this.countryDetials.find((el: any) => el._id === event.target.value);
-    console.log(this.details);
     this.salesOrg.controls.countryName.setValue(this.details.countryName)
-
+    // this.salesOrg.controls.regionName.setValue(this.details.code)
+    this.getRegionDetail(this.details._id)
 
   }
   handleTimeZone(event: any) {
     const time = this.timeZone.find((el: any) => el._id === event.target.value)
     console.log(time);
-
     this.salesOrg.controls.timeZoneName.setValue(time.timeZoneType)
   }
+
+
+
+  
+  // handleRegion(event:any){
+  //   const regionData:any=this.regionDetail.find((el:any)=>el._id===event.target.value)
+  //   console.log(regionData);
+  //   this.salesOrg.controls.regionName.setValue(regionData.code)
+    
+  // }
 
 
 }

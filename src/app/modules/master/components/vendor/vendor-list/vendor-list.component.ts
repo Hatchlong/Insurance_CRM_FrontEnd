@@ -1,6 +1,7 @@
 import { Component , OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { VendorService } from '../../../services/vendor/vendor.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-vendor-list',
@@ -14,7 +15,8 @@ selectAll:any=false
 
   constructor(
     private router:Router,
-    private vendorSer : VendorService
+    private vendorSer : VendorService,
+    private _snackBar: MatSnackBar
   ){ }
 
   ngOnInit(): void{
@@ -33,8 +35,19 @@ selectAll:any=false
       if(result.status === '1'){
         this.vendorDetails = result.data;
       }
-    } catch (error) { 
-      console.log(error);
+    } catch (error:any) { 
+       if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
   }
 

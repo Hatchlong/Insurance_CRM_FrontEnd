@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PoTypeService } from '../../../Services/po-type.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-po-type-list',
@@ -13,7 +14,8 @@ export class PoTypeListComponent implements OnInit{
 
   constructor(
     private router: Router,
-    private poTypeSer: PoTypeService
+    private poTypeSer: PoTypeService,
+    private _snackBar:MatSnackBar
   ) { }
   nextPage(url: any) {
     this.router.navigate([`${url}`])
@@ -62,10 +64,20 @@ export class PoTypeListComponent implements OnInit{
         })
         this.potypeDetail = result.data
       }
-    } catch (error) {
-      console.error(error);
-
-    }
+    } catch (error:any) {
+      if (error.error.message) {
+       this._snackBar.open(error.error.message, 'Error', {
+         duration: 5 * 1000, horizontalPosition: 'center',
+         verticalPosition: 'top',
+         panelClass: 'app-notification-error',
+       });
+     }
+     this._snackBar.open('Something went wrong', 'Error', {
+       duration: 5 * 1000, horizontalPosition: 'center',
+       verticalPosition: 'top',
+       panelClass: 'app-notification-error',
+     });;
+   }
   }
 
 

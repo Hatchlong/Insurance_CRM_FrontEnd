@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompanyCodeService } from '../../../Services/company-code/company-code.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-company-code',
@@ -16,12 +17,13 @@ export class AddCompanyCodeComponent {
   citiesDetails: any = [];
   languageName: any = ''
   isSubmitted: any = false
-
+  currencyDetails: any = []
   constructor(
     private fb: FormBuilder,
     private companySer: CompanyCodeService,
     private companyCodeSer: CompanyCodeService,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -37,8 +39,11 @@ export class AddCompanyCodeComponent {
       countryId: ['', Validators.required],
       countryName: [''],
       city: ['', Validators.required],
-      currency: ['', Validators.required],
-      languageId: ['', Validators.required]
+      currencyId: ['', Validators.required],
+      currencyName: ['', Validators.required],
+      languageId: ['', Validators.required],
+      languageName: ['', Validators.required]
+
     })
   }
 
@@ -46,31 +51,102 @@ export class AddCompanyCodeComponent {
   async addCode() {
     try {
       this.isSubmitted = true
-      console.log(this.companyCode.value)
       if (this.companyCode.invalid)
         return
       const result: any = await this.companyCodeSer.createCompanyCodeDetails(this.companyCode.value);
-      console.log(result)
       if (result.status === '1') {
-        Swal.fire({
-          title: 'success',
-          text: 'Company Code Processed Successfully',
-          icon: 'success',
-          showCancelButton: true
-        })
-        // alert(result.message);
+        this._snackBar.open(result.message, 'Success', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
         this.router.navigate(['/settings/company-code-list']);
         return;
       }
-      if (result.status === '0')
-        return alert(result.message);
+      if (result.status === '0') {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
 
-    } catch (error) {
-      console.error(error)
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+  // Get All details for company code
+  async getCompanyDetails() {
+    try {
+      const result: any = await this.companyCodeSer.getAllCompanyCodeDetails();
+      if (result.status === '1') {
+        this.companyDetails = result.data;
+
+      } else {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
   }
 
 
+  // Get All details for Currency code
+  async getCurrencyDetails(companyId: any) {
+    try {
+      const result: any = await this.companyCodeSer.getAllCurrencyDetails(companyId);
+      if (result.status === '1') {
+        this.currencyDetails = result.data;
+
+      } else {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
 
   // Get All details for company code
   async getCountryDetails() {
@@ -79,23 +155,25 @@ export class AddCompanyCodeComponent {
       if (result.status === '1') {
         this.countryDetials = result.data;
       } else {
-
-        Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
       }
-      console.log(result);
-    } catch (error) {
-      console.error(error)
-      Swal.fire({
-        title: 'warning',
-        text: 'API Failed',
-        icon: 'warning',
-        showCancelButton: true
-      })
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
   }
 
@@ -104,67 +182,46 @@ export class AddCompanyCodeComponent {
     try {
       const result: any = await this.companyCodeSer.singleLanguageDetails(id);
       if (result.status === '1') {
-        this.languageName = result.data.languageName
+        this.languageName = result.data.languageName;
+        this.companyCode.controls.languageName.setValue(this.languageName)
       } else {
-
-        Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
       }
-      console.log(result);
-    } catch (error) {
-      console.error(error)
-
-      Swal.fire({
-        title: 'warning',
-        text: 'API Failed',
-        icon: 'warning',
-        showCancelButton: true
-      })
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
   }
-
-  async getCompanyDetails() {
-    try {
-      const result: any = await this.companySer.getAllCompanyCodeDetails();
-      if (result.status === '1') {
-        this.companyDetails = result.data
-      } else {
-
-        Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
-      }
-      console.log(result);
-    } catch (error) {
-      console.error(error)
-
-      Swal.fire({
-        title: 'warning',
-        text: 'API Failed',
-        icon: 'warning',
-        showCancelButton: true
-      })
-    }
-  }
-
 
 
   selectCountryName(event: any) {
-    console.log(event.target.value)
     this.citiesDetails = this.countryDetials.find((el: any) => el._id === event.target.value);
     this.companyCode.controls.countryName.setValue(this.citiesDetails.countryName)
-    this.companyCode.controls.currency.setValue(this.citiesDetails?.countryCurrency)
     this.companyCode.controls.languageId.setValue(this.citiesDetails.languageId)
-
     this.getSingleLanguage(this.citiesDetails.languageId)
+    this.getCurrencyDetails(event.target.value)
 
+
+  }
+
+
+  handleCurrency(event: any) {
+    const findCurrencyCode = this.currencyDetails.find((el: any) => el._id === event.target.value);
+    this.companyCode.controls.currencyName.setValue(findCurrencyCode.code)
   }
 
 }

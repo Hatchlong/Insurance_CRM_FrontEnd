@@ -4,10 +4,10 @@
             Asst Grp</h2>
 
         <div class="row">
-            <div class="col-6 py-1">
+            <div class="col-6 py-2 py-1">
                 <label for="" class="">Customer Account <sup>*</sup></label>
                 <input type="text" class="form-control " placeholder="Enter Customer Account "
-                    formControlName="customerAccountAG">
+                    formControlName="customerAccountAG" readonly>
                 <div
                     *ngIf="customerAcc.controls['customerAccountAG'].touched && customerAcc.controls['customerAccountAG'].dirty && customerAcc.controls['customerAccountAG'].hasError('required') && !isSubmitted">
                     <p class="error-message">Customer Account is required</p>
@@ -16,7 +16,7 @@
                     <p class="error-message">Customer Account is required</p>
                 </div>
             </div>
-            <div class="col-6 py-1">
+            <div class="col-6 py-2 py-1">
                 <label for="" class="">Description <sup>*</sup></label>
                 <input type="text" class="form-control " placeholder="Enter Description "
                     formControlName="descriptionCAAG">
@@ -28,7 +28,7 @@
                     <p class="error-message">Description is required</p>
                 </div>
             </div>
-            <div class="col-2 py-2">
+            <div class="col-12 d-flex justify-content-end py-2">
                 <button class="btn btn-primary" type="submit">Update</button>
             </div>
         </div>

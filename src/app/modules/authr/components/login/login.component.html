@@ -1,78 +1,86 @@
 <div class="container">
-    <div class="row">
-        <section class="wrapper" [ngClass]="{'active': !isActive}">
-          <div class="form signup col-12">
-            <header (click)="handleHeader('Signup')">Signup</header>
-            <form [formGroup]="registerFormGroup" class="row">
-              <div class="form-group col-12 mb-0">
-                <label for="name">Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="name"
-                  formControlName="userName"
-                  placeholder="Enter Name / PhoneNumber"
-                />
-              </div>
-              <div class="form-group col-12 mb-0">
-                <label for="email">Email address</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="email"
-                  formControlName="emailId"
-                  placeholder="Enter email"
-                />
-              </div>
-              <div class="form-group col-12 mb-0">
-                <label for="password">Password</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  id="password"
-                  formControlName="password"
-                  placeholder="Password"
-                />
-              </div>
-              <!-- <div class="form-check">
+  <div class="row">
+    <section class="wrapper" [ngClass]="{'active': !isActive}">
+      <div class="form signup col-12">
+        <header (click)="handleHeader('Signup')">Signup</header>
+        <form [formGroup]="registerFormGroup" class="row">
+          <div class="form-group col-12 mb-0">
+            <label for="name">Name <sup>*</sup></label>
+            <input type="text" class="form-control" id="name" formControlName="userName"
+              placeholder="Enter Name / PhoneNumber" />
+            <div
+              *ngIf="registerFormGroup.controls['userName'].touched && registerFormGroup.controls['userName'].dirty && registerFormGroup.controls['userName'].hasError('required') && !isSubmitted">
+              <p class="error-message">Name is required</p>
+            </div>
+            <div *ngIf="isSubmitted && registerFormGroup.controls['userName'].hasError('required')">
+              <p class="error-message">Name is required</p>
+            </div>
+          </div>
+          <div class="form-group col-12 mb-0">
+            <label for="email">Email address <sup>*</sup></label>
+            <input type="email" class="form-control" id="email" formControlName="emailId" placeholder="Enter email" />
+            <div
+              *ngIf="registerFormGroup.controls['emailId'].touched && registerFormGroup.controls['emailId'].dirty && registerFormGroup.controls['emailId'].hasError('required') && !isSubmitted">
+              <p class="error-message">Email Id is required</p>
+            </div>
+            <div *ngIf="isSubmitted && registerFormGroup.controls['emailId'].hasError('required')">
+              <p class="error-message">Email Id is required</p>
+            </div>
+          </div>
+          <div class="form-group col-12 mb-0">
+            <label for="password">Password <sup>*</sup></label>
+            <input type="password" class="form-control" id="password" formControlName="password"
+              placeholder="Password" />
+              <div
+              *ngIf="registerFormGroup.controls['password'].touched && registerFormGroup.controls['password'].dirty && registerFormGroup.controls['password'].hasError('required') && !isSubmitted">
+              <p class="error-message">Password is required</p>
+            </div>
+            <div *ngIf="isSubmitted && registerFormGroup.controls['password'].hasError('required')">
+              <p class="error-message">Password is required</p>
+            </div>
+          </div>
+          <!-- <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
               </div> -->
-              <div class="col-12 d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary" (click)="signuHandle()">Submit</button>
-              </div>
-            </form>
+          <div class="col-12 d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary" style="background-color: white !important; color: black !important;" (click)="signuHandle()">Signup</button>
           </div>
-          <div class="form login">
-            <header (click)="handleHeader('Login')">Login</header>
-            <form [formGroup]="loginFormGroup" class="row">
-              <div class="form-group col-12 mb-0">
-                <label for="login_email">User Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="login_email"
-                  formControlName="userName"
-                  placeholder="Enter User Name"
-                />
-              </div>
-              <div class="form-group col-12 mb-0">
-                <label for="login_password">Password</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  id="login_password"
-                  formControlName="password"
-                  placeholder="Password"
-                />
-              </div>
-              <div class="col-12 d-flex justify-content-center">
-                <button type="button" (click)="loginHandle()" class="btn btn-primary">Submit</button>
-              </div>
-            </form>
+        </form>
+      </div>
+      <div class="form login">
+        <header (click)="handleHeader('Login')">Login</header>
+        <form [formGroup]="loginFormGroup" class="row">
+          <div class="form-group col-12 mb-0">
+            <label for="login_email">User Name <sup>*</sup></label>
+            <input type="text" class="form-control" id="login_email" formControlName="userName"
+              placeholder="Enter User Name" />
+              <div
+              *ngIf="loginFormGroup.controls['userName'].touched && loginFormGroup.controls['userName'].dirty && loginFormGroup.controls['userName'].hasError('required') && !isSubmitted">
+              <p class="error-message">Username is required</p>
+            </div>
+            <div *ngIf="isSubmitted && loginFormGroup.controls['userName'].hasError('required')">
+              <p class="error-message">Username is required</p>
+            </div>
           </div>
-        </section>
-  
-    </div>
-  </div>
+          <div class="form-group col-12 mb-0">
+            <label for="login_password">Password <sup>*</sup></label>
+            <input type="password" class="form-control" id="login_password" formControlName="password"
+              placeholder="Password" />
+              <div
+              *ngIf="loginFormGroup.controls['password'].touched && loginFormGroup.controls['password'].dirty && loginFormGroup.controls['password'].hasError('required') && !isSubmitted">
+              <p class="error-message">Password is required</p>
+            </div>
+            <div *ngIf="isSubmitted && loginFormGroup.controls['password'].hasError('required')">
+              <p class="error-message">Password is required</p>
+            </div>
+          </div>
+          <div class="col-12 d-flex justify-content-center">
+            <button type="button" (click)="loginHandle()" class="btn btn-primary">Login</button>
+          </div>
+        </form>
+      </div>
+    </section>
 
+  </div>
+</div>

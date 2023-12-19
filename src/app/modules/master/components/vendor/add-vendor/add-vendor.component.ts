@@ -7,13 +7,14 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ModeOfTransportService } from 'src/app/modules/setting/Services/mode-of-transport/mode-of-transport.service';
 import { IncTermService } from 'src/app/modules/setting/Services/inc-term/inc-term.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-vendor',
   templateUrl: './add-vendor.component.html',
   styleUrls: ['./add-vendor.component.css']
 })
-export class AddVendorComponent implements OnInit{
+export class AddVendorComponent implements OnInit {
   vendorFormGroup: any = FormGroup
   vendorDetials: any = []
   countryDetails: any = []
@@ -23,16 +24,17 @@ export class AddVendorComponent implements OnInit{
   isSubmitted:any=false
   citiesDetails: any = []
   motDetails: any = []
-  incoDetails: any =[]
- 
+  incoDetails: any = []
+
   constructor(
     private fb: FormBuilder,
-    private countrySer:CountryService,
-    private companySer:CompanyCodeService,
+    private countrySer: CountryService,
+    private companySer: CompanyCodeService,
     private vendorSer: VendorService,
     private router: Router,
     private motSer: ModeOfTransportService,
-    private incoSer: IncTermService
+    private incoSer: IncTermService,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -40,7 +42,7 @@ export class AddVendorComponent implements OnInit{
     this.getCountryDetails()
     this.getMOTDetail()
     this.getIncoTermsDetail()
-  } 
+  }
 
   createVendorFormFields() {
     this.vendorFormGroup = this.fb.group({
@@ -64,7 +66,7 @@ export class AddVendorComponent implements OnInit{
       financialTax1: [''],
       financialTax2: [''],
       vatRegistrationNo: [''],
-      currency:[''],
+      currency: [''],
       companyCode: [''],
       bankCountry: [''],
       bankKey: [''],
@@ -72,49 +74,66 @@ export class AddVendorComponent implements OnInit{
       referenceDetails: [''],
       accountHolder: [''],
       backDetailsValidFrom: [''],
-      backDetailsValidTo:[''],
-      reconciliationAccount:[''],
-      paymentMethod:[''],
-      paymentTerms:[''],
+      backDetailsValidTo: [''],
+      reconciliationAccount: [''],
+      paymentMethod: [''],
+      paymentTerms: [''],
 
-      
+
     })
   }
 
   async submitData() {
     try {
       this.isSubmitted = true
-      const userName:any = localStorage.getItem('userName')
+      const userName: any = localStorage.getItem('userName')
       this.vendorFormGroup.value.createdOn = '18/12/2023'
       this.vendorFormGroup.value.createdBy = userName
       this.vendorFormGroup.value.changedOn = '18/12/2023'
       this.vendorFormGroup.value.changedBy = userName
       console.log(this.vendorFormGroup.value)
       if (this.vendorFormGroup.invalid)
-      return
+        return
       const result: any = await this.vendorSer.createVendorDetails(this.vendorFormGroup.value)
       console.log(result);
       if (result.status === '1') {
-        Swal.fire({
-          title: 'success',
-          text: 'Vendor Processed Successfully ',
-          icon: 'success',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Success', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
         this.router.navigate(['/master/vendor'])
         return
       }
-      if (result.status === '0')
-        return alert(result.message);
-    } catch (error) {
-      console.error(error);
+      if (result.status === '0') {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
   }
 
   get financialListArray() {
     return this.vendorFormGroup.get('financialData') as FormArray
   }
-  
+
   addFinancial() {
     this.financialListArray.push(this.getFinancialFields());
     console.log(this.financialListArray.value)
@@ -124,60 +143,66 @@ export class AddVendorComponent implements OnInit{
     this.financialListArray.removeAt(index)
   }
 
-   // Get All details for company code
-   async getCountryDetails() {
+  // Get All details for company code
+  async getCountryDetails() {
     try {
       const result: any = await this.companySer.getAllCountryDetails();
       if (result.status === '1') {
         this.countryDetails = result.data;
       } else {
-        Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
       }
-      console.log(result);
-    } catch (error) {
-      console.error(error)
-      Swal.fire({
-        title: 'warning',
-        text: 'API Failed',
-        icon: 'warning',
-        showCancelButton: true
-      })
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
   }
- 
+
   //  single details for Language Detials
-   async getSingleLanguage(id: any) {
+  async getSingleLanguage(id: any) {
     try {
       const result: any = await this.companySer.singleLanguageDetails(id);
       if (result.status === '1') {
         this.languageName = result.data.languageName
         this.vendorFormGroup.controls.languageName.setValue(result.data.languageName)
       } else {
-        Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
       }
-      console.log(result);
-    } catch (error) {
-      console.error(error)
-      Swal.fire({
-        title: 'warning',
-        text: 'API Failed',
-        icon: 'warning',
-        showCancelButton: true
-      })
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
   }
 
-   selectCountryName(event: any) {
+  selectCountryName(event: any) {
     console.log(event.target.value)
     this.citiesDetails = this.countryDetails.find((el: any) => el._id === event.target.value);
     this.vendorFormGroup.controls.countryName.setValue(this.citiesDetails.countryName)
@@ -187,62 +212,79 @@ export class AddVendorComponent implements OnInit{
     this.getSingleLanguage(this.citiesDetails.languageId)
   }    
 
-    // get MOT organization
+  // get MOT organization
 
-    async getMOTDetail() {
-      try {
-        const result: any = await this.motSer.getAllModeOfTransportDetails()
-        if (result.status === '1') {
-          this.motDetails = result.data
-
-        }
-        else {
-          // alert("API FAiled")
-          Swal.fire({
-            title: 'warning',
-            text: 'API Failed',
-            icon: 'warning',
-            showCancelButton: true
-          })
-        }
-      } catch (error) {
-        console.error(error); 
+  async getMOTDetail() {
+    try {
+      const result: any = await this.motSer.getAllModeOfTransportDetails()
+      if (result.status === '1') {
+        this.motDetails = result.data
       }
+      else {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
+  }
 
-      // Add the MOT Name
+    
+  // Add the MOT Name
   handleMOT(event: any) {
     const findMOTDetail = this.motDetails.find((el: any) => el._id === event.target.value);
     // console.log()
     // this.vendorFormGroup.controls.purchaseOrganizationName.setValue(findMOTDetail.modeOfTransport)
         this.vendorFormGroup.controls.modeOfTransportName.setValue(findMOTDetail.modeOfTransport)
   }
- 
-    // get INCO TERMS organization
 
-    async getIncoTermsDetail() {
-      try {
-        const result: any = await this.incoSer.getAllIncTermsDetails()
-        console.log(result)
-        if (result.status === '1') {
-          this.incoDetails = result.data
-          
-        }
-        else {
-          // alert("API FAiled")
-          Swal.fire({
-            title: 'warning',
-            text: 'API Failed',
-            icon: 'warning',
-            showCancelButton: true
-          })
-        }
-      } catch (error) {
-        console.error(error);  
+  // get INCO TERMS organization
+
+  async getIncoTermsDetail() {
+    try {
+      const result: any = await this.incoSer.getAllIncTermsDetails()
+      console.log(result)
+      if (result.status === '1') {
+        this.incoDetails = result.data
       }
+      else {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
+  }
 
-     // Add the inco Name
+  // Add the inco Name
   handleInco(event: any) {
 
     const findIncoDetail = this.incoDetails.find((el: any) => el._id === event.target.value);

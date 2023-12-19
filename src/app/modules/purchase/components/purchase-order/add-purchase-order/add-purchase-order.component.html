@@ -3,7 +3,7 @@
         <h2><mat-icon class="back" routerLink="/purchase/purchase-order-list">arrow_back</mat-icon>Purchase Order
             Maintainence</h2>
         <div class="row">
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <span for="" class="">PO Type</span>
                 <select class="form-select " aria-label="Default select example" formControlName="poType">
                     <option [selected]="purchase.value.poType === ''" value="" hidden>Select
@@ -56,7 +56,7 @@
             </div>
                
 
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <span for="" class="">Net Tax</span>
                 <input type="text" class="form-control " placeholder="Enter Net Tax" formControlName="netTax">
                 <span for="" class="">Transaction Currency</span>
@@ -85,7 +85,7 @@
                     style="color: white;background-color: #00acff;">Add Item</button>
             </div>
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th *ngIf="detail.controls.length > 1">Actions</th>
@@ -165,7 +165,7 @@
 
         </div>
         <div class="col-2">
-            <button type="submit" class="btn btn-primary" >Submit</button>
+            <button type="submit" class="btn btn-primary" >Save</button>
         </div>
     </form>
 </div>

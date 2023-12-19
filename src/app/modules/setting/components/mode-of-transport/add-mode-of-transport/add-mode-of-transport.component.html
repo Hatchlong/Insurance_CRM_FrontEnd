@@ -3,7 +3,7 @@
         <h2><mat-icon class="back" routerLink="/settings/modeOf-transport-list">arrow_back</mat-icon>Mode Of Transport
         </h2>
         <div class="row">
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">Mode Of Transport<sup>*</sup></label>
                 <input type="text" class="form-control " placeholder="Enter Mode Of Transport"
                     formControlName="modeOfTransport">
@@ -15,7 +15,7 @@
                     <p class="error-message">Mode Of Transport is required</p>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">Description<sup>*</sup></label>
 
                 <input type="text" class="form-control " placeholder="Description " formControlName="motDescription">
@@ -27,8 +27,8 @@
                     <p class="error-message">Description is required</p>
                 </div>
             </div>
-            <div class="col-2 py-2">
-                <button class="btn btn-primary" type="submit">Submit</button>
+            <div class="col-12 d-flex justify-content-end py-2">
+                <button class="btn btn-primary" type="submit">Save</button>
             </div>
         </div>
     </form>
