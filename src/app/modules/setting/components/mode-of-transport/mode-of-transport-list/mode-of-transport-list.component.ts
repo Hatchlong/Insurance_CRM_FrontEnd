@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModeOfTransportService } from '../../../Services/mode-of-transport/mode-of-transport.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-mode-of-transport-list',
@@ -14,7 +15,8 @@ export class ModeOfTransportListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private motSer: ModeOfTransportService
+    private motSer: ModeOfTransportService,
+    private _snackBar:MatSnackBar
   ) { }
   
   ngOnInit(): void {
@@ -33,9 +35,20 @@ export class ModeOfTransportListComponent implements OnInit {
       if (result.status === '1') {
         this.modeOfDetails = result.data
       }
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error:any) {
+      if (error.error.message) {
+       this._snackBar.open(error.error.message, 'Error', {
+         duration: 5 * 1000, horizontalPosition: 'center',
+         verticalPosition: 'top',
+         panelClass: 'app-notification-error',
+       });
+     }
+     this._snackBar.open('Something went wrong', 'Error', {
+       duration: 5 * 1000, horizontalPosition: 'center',
+       verticalPosition: 'top',
+       panelClass: 'app-notification-error',
+     });;
+   }
 
   }
 

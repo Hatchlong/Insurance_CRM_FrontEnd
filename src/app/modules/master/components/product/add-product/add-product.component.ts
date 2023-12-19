@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@ang
 import { Router } from '@angular/router';
 import { ProductService } from '../../../services/product/product.service';
 import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -16,7 +17,8 @@ export class AddProductComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private productSer: ProductService
+    private productSer: ProductService,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -114,7 +116,7 @@ export class AddProductComponent implements OnInit {
       console.log(this.general);
 
       const username: any = localStorage.getItem('userName')
-      
+
       const currentDate = new Date();
       const year = currentDate.getFullYear();
       const month = currentDate.getMonth() + 1; // Months are zero-indexed, so add 1
@@ -126,7 +128,7 @@ export class AddProductComponent implements OnInit {
       // Format the date and time
       const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-      console.log( fullDate);
+      console.log(fullDate);
       this.general.value.createdOn = fullDate
       this.general.value.createdBy = username
       this.general.value.changedOn = fullDate
@@ -135,21 +137,36 @@ export class AddProductComponent implements OnInit {
       const result: any = await this.productSer.createProduct(this.general.value)
       console.log(result);
       if (result.status === '1') {
-        Swal.fire({
-          title: 'success',
-          text: 'Product Data Processed Successfully ',
-          icon: 'success',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Success', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
         this.router.navigate(['/master/product'])
         return
       }
       if (result.status === '0') {
-        return alert(result.message)
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
 
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
+      if(error.error.message){
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top'
+      });
+     
     }
   }
 }

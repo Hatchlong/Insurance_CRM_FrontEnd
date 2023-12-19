@@ -4,9 +4,9 @@
 
     <form [formGroup]="incoTerm" (ngSubmit)="submitData()">
         <div class="row ">
-            <div class="col-6 py-1">
+            <div class="col-6 py-2">
               <label for="">Inco Term Id <sup>*</sup></label>
-              <input type="number" formControlName="inc_terms_code" class="form-control" placeholder="Enter Inco Term Id" />
+              <input type="number" formControlName="inc_terms_code" class="form-control" placeholder="Enter Inco Term Id" readonly />
               <div
                 *ngIf="incoTerm.controls['inc_terms_code'].touched && incoTerm.controls['inc_terms_code'].dirty && incoTerm.controls['inc_terms_code'].hasError('required') && !isSubmitted">
                 <p class="error-message">Inco Term is required</p>
@@ -15,7 +15,7 @@
                 <p class="error-message">Inco Term is required</p>
               </div>
             </div>
-            <div class="col-6 py-1">
+            <div class="col-6 py-2">
               <label for="">Description<sup>*</sup></label>
               <input type="text" formControlName="description" class="form-control" placeholder="Enter Description" />
               <div
@@ -27,7 +27,7 @@
               </div>
             </div>
           </div>
-        <div class="col-6 py-2">
+        <div class="col-12 d-flex justify-content-end py-2">
             <button type="submit" class="btn btn-primary"> Update </button>
         </div>
 

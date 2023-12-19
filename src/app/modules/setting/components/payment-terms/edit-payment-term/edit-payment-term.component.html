@@ -2,38 +2,38 @@
     <form [formGroup]="payTem" (ngSubmit)="submitData()">
         <h2><mat-icon class="back" routerLink="/settings/payment-terms-list">arrow_back</mat-icon>Payment Term</h2>
         <div class="row">
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">Payment Term</label>
-                <input type="text" class="form-control " placeholder="Enter Payment Term" formControlName="paymentTerm">
+                <input type="text" class="form-control " placeholder="Enter Payment Term" formControlName="paymentTerm" readonly>
             </div>
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">Description</label>
                 <input type="text" class="form-control " placeholder="Enter Description" formControlName="description">
             </div>
 
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">Day Limit</label>
                 <input type="text" class="form-control " placeholder="Enter Day Limit" formControlName="dayLimit">
             </div>
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">Account Type</label>
                 <input type="text" class="form-control " placeholder="Enter Account" formControlName="accountType">
             </div>
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">Fixed Days</label>
                 <input type="text" class="form-control " placeholder="" formControlName="fixedBaseLineDate">
             </div>
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">Additional Month</label>
                 <input type="text" class="form-control " placeholder=""
                     formControlName="additionalBaselineDataCalculation">
             </div>
-            <div class="col-6 ">
+            <div class="col-6 py-2 ">
                 <label for="" class="">Baseline Date</label>
                 <input type="text" class="form-control " placeholder="" formControlName="defaultBaselineDate">
             </div>
         </div>
-        <div class="col-2 py-2">
+        <div class="col-12 d-flex justify-content-end py-2">
             <button type="submit" class="btn btn-primary" >Update</button>
         </div>
     </form>

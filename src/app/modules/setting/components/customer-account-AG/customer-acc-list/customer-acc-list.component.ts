@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CustomerAccountAGService } from '../../../Services/customer-account-AG/customer-account-ag.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-customer-acc-list',
@@ -13,7 +14,8 @@ export class CustomerAccListComponent {
   
   constructor(
     private router:Router,
-    private customerAccountSer : CustomerAccountAGService
+    private customerAccountSer : CustomerAccountAGService,
+    private _snackBar: MatSnackBar
   ){ }
   ngOnInit(): void {
     this.getAllCustomerAccountDetails()
@@ -30,8 +32,19 @@ export class CustomerAccListComponent {
       if(result.status === '1'){
         this.customerAccountDetails = result.data;
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error:any) {
+       if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
     }
   }
 

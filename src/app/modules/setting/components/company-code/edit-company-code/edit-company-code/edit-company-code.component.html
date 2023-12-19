@@ -1,50 +1,100 @@
 <div class="container-fluid">
     <form [formGroup]="companyCode" (ngSubmit)="addCode()">
-        <h2><mat-icon class="back" routerLink="/settings/company-code-list">arrow_back</mat-icon>Company Code</h2>
         <div class="row">
-            <div class="col-6">
-                <label for="">Company Code</label>
-                <input type="text" class="form-control " placeholder="Enter Company code" formControlName="companyCode">
+            <div class="col-12">
+                <h2><mat-icon class="back" routerLink="/settings/company-code-list">arrow_back</mat-icon>Company Code
+                </h2>
             </div>
-            <div class="col-6">
-                <label for="" class="">Company Name</label>
-                <input type="text" class="form-control " placeholder="Enter Company Name" formControlName="companyName">
+            <div class="col-6 py-2">
+                <label for="">Company Code <sup>*</sup></label>
+                <input type="text" class="form-control " placeholder="Enter Company code" formControlName="companyCode">
+                <div
+                    *ngIf="companyCode.controls['companyCode'].touched && companyCode.controls['companyCode'].dirty && companyCode.controls['companyCode'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Company code is required</p>
+                </div>
+                <div *ngIf="isSubmitted && companyCode.controls['companyCode'].hasError('required')">
+                    <p class="error-message">Company code is required</p>
+                </div>
             </div>
 
-            <div class="col-6">
-                <label for="" class="">Country Name</label>
-                <select class="form-select " aria-label="Default select example" formControlName="countryId" (change)="selectCountryName($event)">
+            <div class="col-6 py-2">
+                <label for="" class="">Company Name <sup>*</sup></label>
+                <input type="text" class="form-control " placeholder="Enter Company Name" formControlName="companyName">
+                <div
+                    *ngIf="companyCode.controls['companyName'].touched && companyCode.controls['companyName'].dirty && companyCode.controls['companyName'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Company Name is required</p>
+                </div>
+                <div *ngIf="isSubmitted && companyCode.controls['companyName'].hasError('required')">
+                    <p class="error-message">Company Name is required</p>
+                </div>
+            </div>
+
+            <div class="col-6 py-2">
+                <label for="" class="">Country Name <sup>*</sup></label>
+                <select class="form-select " aria-label="Default select example" formControlName="countryId"
+                    (change)="selectCountryName($event)">
+                    <option [selected]="companyCode.value.countryId === ''" value="" hidden>Select Country</option>
                     <option *ngFor="let list of countryDetials;" [value]="list._id">{{list.countryName}}</option>
                 </select>
+                <div
+                    *ngIf="companyCode.controls['countryId'].touched && companyCode.controls['countryId'].dirty && companyCode.controls['countryId'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Country Name is required</p>
+                </div>
+                <div *ngIf="isSubmitted && companyCode.controls['countryId'].hasError('required')">
+                    <p class="error-message">Country Name is required</p>
+                </div>
             </div>
-            <div class="col-6">
-                <label for="" class="">City</label>
-                <select class="form-select " aria-label="Default select example" formControlName="city">
+            <div class="col-6 py-2">
+                <label for="" class="">City <sup>*</sup></label>
+                <select class="form-select " aria-label="Default select example" formControlName="city"
+                    [ngStyle]="{'pointer-events': !companyCode.value.countryId ? 'none' :  'all'}">
+                    <option [selected]="companyCode.value.city===''" value="" hidden>Select City</option>
                     <option *ngFor="let list of citiesDetails?.cities?.cities" [value]="list">{{list}}</option>
                 </select>
-            </div>
-                
-            <div class="col-6">
-                <label for="" class="">Currency</label>
-                <select class="form-select " aria-label="Default select example" formControlName="currency">
-                    <option  [value]="citiesDetails.countryCurrency">{{citiesDetails.countryCurrency}}</option>
-                </select>
-            </div>
-            <div class="col-6">
-                <label for="">Language</label>
-                <select class="form-select " aria-label="Default select example" formControlName="languageId">
-                    <option  [value]="citiesDetails.languageId">{{languageName}}</option>
-                </select>
+                <div
+                    *ngIf="companyCode.controls['city'].touched && companyCode.controls['city'].dirty && companyCode.controls['city'].hasError('required') && !isSubmitted">
+                    <p class="error-message"> City is required</p>
+                </div>
+                <div *ngIf="isSubmitted && companyCode.controls['city'].hasError('required')">
+                    <p class="error-message"> City is required</p>
+                </div>
             </div>
 
-        <div class="col-2 py-2">
+            <div class="col-6 py-2">
+                <label for="" class="">Currency <sup>*</sup></label>
+                <select class="form-select " aria-label="Default select example" formControlName="currencyId"
+                    (change)="handleCurrency($event)"
+                    [ngStyle]="{'pointer-events': !companyCode.value.countryId ? 'none' :  'all'}">
+                    <option [selected]="companyCode.value.currencyId===''" value="" hidden>Select Currency</option>
+                    <option *ngFor="let list of currencyDetails" [value]="list._id">{{list.code}}</option>
+                </select>
+                <div
+                    *ngIf="companyCode.controls['currencyId'].touched && companyCode.controls['currencyId'].dirty && companyCode.controls['currencyId'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Currency is required</p>
+                </div>
+                <div *ngIf="isSubmitted && companyCode.controls['currencyId'].hasError('required')">
+                    <p class="error-message">Currency is required</p>
+                </div>
+            </div>
+            <div class="col-6 py-2">
+                <label for="">Language <sup>*</sup></label>
+                <select class="form-select " aria-label="Default select example" formControlName="languageId"
+                    [ngStyle]="{'pointer-events': !companyCode.value.countryId ? 'none' :  'all'}">
+                    <option [selected]="companyCode.value.languageId===''" value="" hidden>Select Language</option>
+                    <option [value]="citiesDetails.languageId">{{languageName}}</option>
+                </select>
+                <div
+                    *ngIf="companyCode.controls['languageId'].touched && companyCode.controls['languageId'].dirty && companyCode.controls['languageId'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Language is required</p>
+                </div>
+                <div *ngIf="isSubmitted && companyCode.controls['languageId'].hasError('required')">
+                    <p class="error-message">Language is required</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 d-flex justify-content-end py-2">
             <button type="submit" class="btn btn-primary">Update</button>
         </div>
-    </div>
     </form>
 </div>
-
-
-
-
-

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrderStatusService } from '../../../Services/order-status/order-status.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-order-status',
@@ -17,7 +18,8 @@ export class AddOrderStatusComponent {
   constructor(
     private fb: FormBuilder,
     private orderStatusSer: OrderStatusService,
-    private router: Router
+    private router: Router,
+    private _snackBar:MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -37,29 +39,37 @@ export class AddOrderStatusComponent {
       this.isSubmitted = true
       console.log(this.order);
       if (this.order.invalid)
-        return Swal.fire({
-        title: 'warning',
-        text: 'All Field Are Required',
-        icon: 'warning',
-        showCancelButton: true
-      })
+        return
       const result: any = await this.orderStatusSer.createOrderStatus(this.order.value)
-      console.log(result);
       if (result.status === '1') {
-        Swal.fire({
-          title: 'success',
-          text: 'Order Status Created Succesfully',
-          icon: 'success',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Success', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
         this.router.navigate(['/settings/order-status-list/'])
         return
       }
       if (result.status === '0') {
-        return alert(result.message)
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
       }
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
 
     }
 

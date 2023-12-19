@@ -4,7 +4,7 @@
             <mat-icon class="back" routerLink="/">arrow_back</mat-icon> Sales Order
         </h3>
         <div class="row">
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <span  class="mt-4">Order Type</span>
                 <select class="form-select mb-3" aria-label="Default select example" formControlName="order">
                     <option [selected]="sales.value.order === ''" value="" hidden>Select Order Type</option>
@@ -48,7 +48,7 @@
                 </div>
             </div>
                 
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label  class="">Sales Order <sup>*</sup></label>
                 <input type="text" class="form-control " placeholder="Enter Sales Order"
                     formControlName="saleOrder">
@@ -59,7 +59,7 @@
                     <p class="error-message">Sale Order is required</p>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label  class="">Customer PO <sup>*</sup></label>
                 <input type="text" class="form-control " placeholder="Enter Customer PO" formControlName="customerPO">
                 <div *ngIf="sales.controls['customerPO'].touched && sales.controls['customerPO'].touched && sales.controls['customerPO'].hasError('required') && !isSubmitted">
@@ -70,7 +70,7 @@
                 </div>
             </div>
                
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label  class="">Customer PO Date <sup>*</sup></label>
                 <input type="date" class="form-control " placeholder="Enter PO Date" formControlName="customerPoDate">
                 <div *ngIf="sales.controls['customerPoDate'].touched && sales.controls['customerPoDate'].touched && sales.controls['customerPoDate'].hasError('required') && !isSubmitted">
@@ -80,7 +80,7 @@
                     <p class="error-message">PO Date is required</p>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label  class="">Req Delivery Date <sup>*</sup></label>
                 <input type="date" class="form-control " placeholder="Enter Req Delivery Date"
                     formControlName="reqDeliveryDate">
@@ -125,7 +125,7 @@
             </div>
                
 
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <span  class="mt-4">Exchange Rate</span>
                 <input type="text" class="form-control mb-3" placeholder="Enter Exchange Rate" formControlName="exRate">
                 <span  class="mt-4">Mode of Transport</span>
@@ -181,7 +181,7 @@
             </div>
                 
                 
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label  class="">Net Price <sup>*</sup></label>
                 <input type="number" class="form-control " placeholder="Enter Net Price" formControlName="netPrice">
                 <div *ngIf="sales.controls['netPrice'].touched && sales.controls['netPrice'].touched && sales.controls['netPrice'].hasError('required') && !isSubmitted">
@@ -192,7 +192,7 @@
                 </div>
   
             </div>
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label  class="">Net Tax <sup>*</sup></label>
                 <input type="number" class="form-control " placeholder="Enter Net Tax" formControlName="netTax">
                 <div *ngIf="sales.controls['netTax'].touched && sales.controls['netTax'].touched && sales.controls['netTax'].hasError('required') && !isSubmitted">
@@ -203,7 +203,7 @@
                 </div>
             </div>
                 
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label  class="">Net Discount <sup>*</sup></label>
                 <input type="number" class="form-control " placeholder="Enter Net Discount"
                     formControlName="netDiscount">
@@ -214,7 +214,7 @@
                     <p class="error-message">Net Discount is required</p>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label  class="">Net Freight <sup>*</sup></label>
                 <input type="number" class="form-control " placeholder="enter Net Freight" formControlName="netFreight">
                 <div *ngIf="sales.controls['netFreight'].touched && sales.controls['netFreight'].touched && sales.controls['netFreight'].hasError('required') && !isSubmitted">
@@ -225,7 +225,7 @@
                 </div>
             </div>
                 
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label  class="">Other Charges <sup>*</sup></label>
                 <input type="number" class="form-control " placeholder="Other Charges" formControlName="otherChange">
                 <div *ngIf="sales.controls['otherChange'].touched && sales.controls['otherChange'].touched && sales.controls['otherChange'].hasError('required') && !isSubmitted">
@@ -246,7 +246,7 @@
             </div>
             <div class="row" formArrayName="salesList">
                 <div class="row" *ngFor="let item of sales.get('salesList').controls; let i=index" [formGroupName]="i">
-                    <div class="col-6">
+                    <div class="col-6 py-2">
                         <span  class="mt-4">Product Id</span>
                         <select class="form-select mb-3" aria-label="Default select example" formControlName="proId">
                             <option [selected]="sales.value.proId === ''" value="" hidden>Select Product Id</option>
@@ -264,7 +264,7 @@
 
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-6 py-2">
                             <label  class="">Product Description <sup>*</sup></label>
                         <input type="number" class="form-control " placeholder="Autofetched Product Description"
                             formControlName="productDescription">
@@ -276,51 +276,51 @@
                             </div>
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-6 py-2">
                             <label  class="">Order Qty</label>
                             <input type="number" class="form-control " placeholder="Oredr Qty" formControlName="ordQty">
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-6 py-2">
                             <label  class="">UOM</label>
                             <input type="text" class="form-control " placeholder="Enter UOM" formControlName="uom">
                         </div>
                        
-                        <div class="col-6">
+                        <div class="col-6 py-2">
                             <label  class="">Plant</label>
                             <input type="text" class="form-control " placeholder="Enter Plant" formControlName="plant">
                         </div>
                        
-                        <div class="col-6">
+                        <div class="col-6 py-2">
                             <label  class="">Storage Location</label>
                             <input type="text" class="form-control " placeholder="Auto Storage Location"
                                 formControlName="stLoc">
                         </div>
 
-                       <div class="col-6">
+                       <div class="col-6 py-2">
                         <label  class="">Batch</label>
                         <input type="text" class="form-control " placeholder="Enter Batch" formControlName="batch">
                        </div>
 
-                       <div class="col-6">
+                       <div class="col-6 py-2">
                         <label  class="">Price Amount</label>
                         <input type="number" class="form-control " placeholder="Enter Price Amount"
                             formControlName="price">
                        </div>
                        
-                       <div class="col-6">
+                       <div class="col-6 py-2">
                         <label  class="">Per Unit Price</label>
                         <input type="number" class="form-control " placeholder="Enter Per Unit Price"
                             formControlName="perUnit">
                        </div>
 
-                       <div class="col-6">
+                       <div class="col-6 py-2">
                         <label  class="">Pricing Unit</label>
                         <input type="number" class="form-control " placeholder="Pricing Unit"
                             formControlName="pricingUnit">
                        </div>
 
-                        <div class="col-6">
+                        <div class="col-6 py-2">
                             <label  class="">pricing Date</label>
                         <input type="date" class="form-control " placeholder="pricing Date"
                             formControlName="priDate">
@@ -335,71 +335,71 @@
                         </select>
                        </div>
                        
-                    <div class="col-6">
+                    <div class="col-6 py-2">
                         <label  class="">Tax</label>
                         <input type="number" class="form-control " placeholder=" Enter Tax" formControlName="tax">
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-6 py-2">
                         <label  class="">Per Unit Tax</label>
                         <input type="number" class="form-control " placeholder="Per Unit Tax"
                             formControlName="perUnitTax">
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-6 py-2">
                         <label  class="">Discount</label>
                         <input type="number" class="form-control " placeholder="Discount"
                             formControlName="discount">
                     </div>
                         
-                    <div class="col-6">
+                    <div class="col-6 py-2">
                         <label  class="">Per Unit Discount</label>
                         <input type="number" class="form-control " placeholder="Per Unit Discount"
                             formControlName="perDis">
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-6 py-2">
                         <label  class="">Freight</label>
                         <input type="number" class="form-control " placeholder="Freight" formControlName="fre">
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-6 py-2">
                         <label  class="">Per Unit Freight</label>
                         <input type="number" class="form-control " placeholder="Per Unit Freight"
                             formControlName="perUnitFreight">
                     </div>
                        
-                    <div class="col-6">
+                    <div class="col-6 py-2">
                         <label  class="">Other Charges</label>
                         <input type="number" class="form-control " placeholder="Other Charges"
                             formControlName="otherCharge">
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-6 py-2">
                         <label  class="">Company Currency</label>
                         <input type="text" class="form-control " placeholder="Auto Company Currency"
                             formControlName="computerCurrency">
                     </div>
                       
-                    <div class="col-6">
+                    <div class="col-6 py-2">
                         <label  class="">Transation Currency</label>
                         <input type="text" class="form-control " placeholder="Auto Transation Currency"
                             formControlName="transactionCurrency">
                     </div>
                        
-                    <div class="col-6">
+                    <div class="col-6 py-2">
                         <label  class="">Exchange Rate</label>
                         <input type="text" class="form-control " placeholder="Exchange Rate"
                             formControlName="exchangeRate">
                     </div>
                        
-                    <div class="col-6">
+                    <div class="col-6 py-2">
                         <label  class="">Net Weight</label>
                         <input type="number" class="form-control " placeholder="Net Weight"
                             formControlName="netWeight">
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-6 py-2">
                         <label  class="">Gross Weight</label>
                         <input type="number" class="form-control " placeholder="Gross Weight"
                             formControlName="groWeight">
@@ -416,7 +416,7 @@
                 </div>
             </div>
             <div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </div>
 

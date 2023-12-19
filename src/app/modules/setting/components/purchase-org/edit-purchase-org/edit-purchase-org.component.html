@@ -2,22 +2,22 @@
     <h2><mat-icon class="back" routerLink="/settings/purchase-org-list">arrow_back</mat-icon>Purchase Org</h2>
     <form [formGroup]="purchOrg" (ngSubmit)="submitData()">
         <div class="row ">
-            <div class="col-6 "> 
+            <div class="col-6 py-2 "> 
                 <label>Purchase Org</label>
-                <input type="text" class="form-control" formControlName="purchase_org" >
+                <input type="text" class="form-control" formControlName="purchase_org" readonly>
             </div>
-            <div class="col-6 ">
+            <div class="col-6 py-2 ">
                 <label>Purchase Org Description</label>
                 <input type="text" class="form-control" formControlName="purchase_org_Description">
             </div>       
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="">Company Code</label>
                 <select class="form-select" formControlName="companycode" aria-label="Default select example">
                     <option *ngFor="let list of companyDetails;" [value]="list.companyCode">{{list.companyCode}}
                     </option>
                 </select>
             </div>
-            <div class="col-12 py-2">
+            <div class="col-12 d-flex justify-content-end py-2">
                 <button type="submit" class="btn btn-primary"> Update </button>
             </div>
         </div>

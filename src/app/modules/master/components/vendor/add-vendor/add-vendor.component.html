@@ -1,16 +1,16 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            <h3 class="mt-2">
+            <h3 class="py-2">
                 <mat-icon class="back" routerLink="/master/vendor">arrow_back</mat-icon> Vendor Maintenance
             </h3>
             <form [formGroup]="vendorFormGroup" (ngSubmit)="submitData()">
                 <div class="row">
-                    <div class="col-12 border px-1">
-                        <div class="row ms-3">
-                            <div class="col-6 mt-4">
+                    <div class="col-12 border ">
+                        <div class="row">
+                            <div class="col-6 py-2 ">
                                 <div class="row">
-                                    <div class="col-12 mt-2">
+                                    <div class="col-12 py-2">
                                         <label for="VendorName">Vendor Name <sup>*</sup></label>
                                         <input type="text" class="form-control" formControlName="vendorName"
                                             placeholder="Enter Vendor Name">
@@ -23,7 +23,7 @@
                                             <p class="error-message">Vendor Name is required</p>
                                         </div>
                                     </div>
-                                    <div class="col-12 mt-2">
+                                    <div class="col-12 py-2">
                                         <label for="">Account Group <sup>*</sup></label>
                                         <select class="form-select" formControlName="accountGroup">
                                             <option [selected]="vendorFormGroup.value.accountGroup === ''" value="" hidden>Select
@@ -43,7 +43,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 mt-4">
+                            <div class="col-6 py-2">
                                 <label for="">Address <sup>*</sup></label>
                                 <textarea name="" id="" cols="30" rows="4" class="form-control"
                                     placeholder="Enter address" formControlName="addressCountry"></textarea>
@@ -58,8 +58,8 @@
                             </div>
                         </div>
 
-                        <div class="row ms-3">
-                            <div class="col-6 py-1">
+                        <div class="row">
+                            <div class="col-6 py-2 ">
                                 <label for="">Language <sup>*</sup></label>
                                 <select class="form-select" formControlName="language">
                                     <option [selected]="vendorFormGroup.value.language === ''" value="" hidden>Select language</option>
@@ -73,7 +73,7 @@
                                     <p class="error-message">Language is required</p>
                                 </div>
                             </div>
-                            <div class="col-6 py-1">
+                            <div class="col-6 py-2 ">
                                 <label for="">Country <sup>*</sup> </label>
                                 <select class="form-select" formControlName="country" (change)="selectCountryName($event)">
                                     <option [selected]="vendorFormGroup.value.currency === ''" value="" hidden>Select Currency</option>
@@ -88,7 +88,7 @@
                                     <p class="error-message">Country is required</p>
                                 </div>
                             </div>
-                             <div class="col-6 py-1 ">
+                             <div class="col-6 py-2  ">
                                 <label for="">Mode of transport <sup>*</sup></label>
                                 <select class="form-select" formControlName="modeOfTransport">
                                     <option [selected]="vendorFormGroup.value.modeOfTransport=== ''" value="" hidden>Select Mode Of Transport</option>
@@ -104,7 +104,7 @@
                                     <p class="error-message">Mode Of Transport is required</p>
                                 </div>
                             </div>
-                            <div class="col-6  py-1">
+                            <div class="col-6 py-2  ">
                                 <label for="">Inco Term <sup>*</sup></label>
                                 <select class="form-select" formControlName="incrementTreams">
                                     <option [selected]="vendorFormGroup.value.incrementTreams=== ''" value="" hidden>Select Increment Treams</option>
@@ -128,17 +128,17 @@
                     <div class="col-12 border">
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                <h3 class="mt-2 ">
+                                <h3 class="py-2">
                                     Financial Data
                                 </h3>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex justify-content-end">
-                                <button class="m-2 border-0 rounded btnBg2" (click)="addFinancial()">Add</button>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex justify-content-end align-items-center">
+                                <button class="btn btn-primary" (click)="addFinancial()">Add</button>
                             </div>
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th *ngIf="financialListArray.controls.length > 1">Actions</th>
@@ -251,7 +251,7 @@
                 </div>
                 <div class="row py-2">
                     <div class="col-12 d-flex justify-content-end">
-                        <button class="btn btn-primary">submit</button>
+                        <button class="btn btn-primary">Save</button>
                     </div>
                 </div>
             </form>

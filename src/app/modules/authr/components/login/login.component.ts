@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { AuthrService } from '../../services/authr/authr.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +14,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
   loginFormGroup: any = FormGroup;
   registerFormGroup: any = FormGroup;
   @Output() isShowSide = new EventEmitter<any>();
-  isActive:any = false;
+  isActive: any = false;
+  isSubmitted: any = false;
   constructor(
     private fb: FormBuilder,
     private userSer: AuthrService,
-    private router: Router
-  ) { 
+    private router: Router,
+    private _snackBar: MatSnackBar
+  ) {
   }
 
   ngOnInit(): void {
@@ -36,12 +39,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
   //   const wrapper: any = document.querySelector(".wrapper"),
   //     signupHeader: any = document.querySelector(".signup header"),
   //     loginHeader: any = document.querySelector(".login header");
-  //     console.log(loginHeader, 'kkkk')
   //   loginHeader.addEventListener("click", () => {
   //     wrapper.classList.add("active");
   //   });
   //   signupHeader.addEventListener("click", () => {
-  //     console.log('jjjj')
   //     wrapper.classList.remove("active");
   //   });
 
@@ -63,54 +64,56 @@ export class LoginComponent implements OnInit, AfterViewInit {
     })
   }
 
-  handleHeader(name:any){
-    if(name === 'Signup'){
+  handleHeader(name: any) {
+    if (name === 'Signup') {
       this.isActive = true
-    }else{
+    } else {
       this.isActive = false
     }
   }
 
 
   async signuHandle() {
-    console.log(this.registerFormGroup.value)
+    this.isSubmitted = true
     try {
       if (this.registerFormGroup.invalid) {
-        return alert('please fill all the fields');
+        return
       }
       const result: any = await this.userSer.createUser(this.registerFormGroup.value)
-      console.log(result);
+      this.isSubmitted = false
       if (result.status === '1') {
         this.registerFormGroup.reset();
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: result.message,
-          showConfirmButton: false,
-          timer: 1500
-        })
+        this._snackBar.open(result.message, 'Success', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
         const wrapper: any = document.querySelector(".wrapper");
         wrapper.classList.add("active");
+      } else {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
       }
     } catch (error: any) {
-      console.error(error);
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: error.error.message,
-        showConfirmButton: false,
-        timer: 1500
-      })
+      this.isSubmitted = false
+      this._snackBar.open(error.error.message, 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error'
+      });
     }
   }
   async loginHandle() {
-    console.log(this.loginFormGroup.value)
+    this.isSubmitted = true
     try {
       if (this.loginFormGroup.invalid) {
-        return alert('please fill all the fields');
+        return
       }
       const result: any = await this.userSer.loginUser(this.loginFormGroup.value)
-      console.log(result);
+      this.isSubmitted = false
       if (result.status === '1') {
         this.isShowSide.emit('true')
         const token = result.token.split('.');
@@ -119,25 +122,27 @@ export class LoginComponent implements OnInit, AfterViewInit {
         localStorage.setItem('userId', userDetails.userId)
         localStorage.setItem('token', result.token)
         localStorage.setItem('loginActive', 'true')
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Successfully Login',
-          showConfirmButton: false,
-          timer: 1500
-        })
+        this._snackBar.open('Successfully Login', 'Success', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
         this.loginFormGroup.reset()
         this.router.navigate(['/master/product'])
+      } else {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
       }
     } catch (error: any) {
-      console.error(error);
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: error.error.message,
-        showConfirmButton: false,
-        timer: 1500
-      })
+      this.isSubmitted = false
+      this._snackBar.open(error.error.message, 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
   }
 

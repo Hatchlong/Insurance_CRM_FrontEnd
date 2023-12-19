@@ -2,29 +2,29 @@
     <form [formGroup]="poType" (ngSubmit)="addCode()">
         <h2><mat-icon class="back" routerLink="/settings/po-type-list">arrow_back</mat-icon>PO Type</h2>
         <div class="row">
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">PO Type</label>
-                <input type="text" class="form-control " placeholder="Enter PO" formControlName="poType">
+                <input type="text" class="form-control " placeholder="Enter PO" formControlName="poType" readonly>
             </div>
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">PO Type Description</label>
                 <input type="text" class="form-control " placeholder="Enter Description" formControlName="poTypeDescription">
             </div>
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">Item Number</label>
                 <input type="text" class="form-control " placeholder="Enter Item Number" formControlName="itemNumberInterval">
             </div>
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">Internal Number</label>
                 <input type="text" class="form-control " placeholder="Enter Internal Number" formControlName="internalNumberRangeAssignment">
             </div>
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">External Number</label>
                 <input type="text" class="form-control " placeholder="Enter External Number" formControlName="externalNumberRangeAssignment">
             </div>
         </div>
            
-        <div class="col-2 py-2">
+        <div class="col-12 d-flex justify-content-end py-2">
             <button type="submit" class="btn btn-primary" >Update</button>
         </div>
     </form>

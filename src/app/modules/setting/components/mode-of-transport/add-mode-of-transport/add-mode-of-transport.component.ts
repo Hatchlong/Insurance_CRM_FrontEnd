@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModeOfTransportService } from '../../../Services/mode-of-transport/mode-of-transport.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-mode-of-transport',
@@ -16,8 +17,8 @@ export class AddModeOfTransportComponent {
   constructor(
     private fb: FormBuilder,
     private motSer: ModeOfTransportService,
-    private router: Router
-
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -35,33 +36,38 @@ export class AddModeOfTransportComponent {
   async addMode() {
     try {
       this.isSubmitted = true
-      console.log(this.transport);
       if (this.transport.invalid)
-      return Swal.fire({
-        title: 'warning',
-        text: 'All Field Are Required',
-        icon: 'warning',
-        showCancelButton: true
-      })
-      const result: any = await this.motSer.createModeOfTransport(this.transport.value)
-      console.log(result);
-      if (result.status === '1') {
-        Swal.fire({
-          title: 'success',
-          text: ' Mode Of Transport Created Succesfully',
-          icon: 'success',
-          showCancelButton: true
-        })
-        this.router.navigate(['/settings/modeOf-transport-list'])
         return
+      const result: any = await this.motSer.createModeOfTransport(this.transport.value)
+      if (result.status === '1') {
+        this._snackBar.open(result.message, 'Success', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
+        this.router.navigate(['/settings/modeOf-transport-list/']);
+        return;
       }
-      if (result.status === '0')
-        return alert(result.message);
-    }
-
-    catch (error) {
-      console.error(error);
-
+      if (result.status === '0') {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
 
   }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PoTypeService } from '../../../Services/po-type.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-update-po-type',
@@ -19,7 +20,8 @@ export class UpdatePoTypeComponent {
     private fb: FormBuilder,
     private potypeSer: PoTypeService,
     private router: Router,
-    private activeRouter: ActivatedRoute
+    private activeRouter: ActivatedRoute,
+    private _snackBar:MatSnackBar
 
   ) { }
 
@@ -41,7 +43,6 @@ export class UpdatePoTypeComponent {
       externalNumberRangeAssignment: ['', Validators.required],
 
     });
-    console.warn(this.poType.value);
 
   }
 
@@ -49,12 +50,22 @@ export class UpdatePoTypeComponent {
   async getSinglepotypeDetail() {
     try {
       const result: any = await this.potypeSer.singlePoType(this.potypeId)
-      console.log(result);
       if (result.status === '1') {
         this.poType.patchValue(result.data)
       }
-    } catch (error) {
-      console.error(error);
+    } catch (error:any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
 
     }
   }
@@ -63,42 +74,39 @@ export class UpdatePoTypeComponent {
   async addCode() {
     try {
       if (this.poType.invalid) {
-        Swal.fire({
-          title: 'warning',
-          text: 'All Field Are Required',
-          icon: 'warning',
-          showCancelButton: true
-        })
+       return
       }
       const result: any = await this.potypeSer.updatePoType(this.poType.value)
-      console.log(result);
       if (result.status === '1') {
-        Swal.fire({
-          title: 'success',
-          text: 'Successfully Updated',
-          icon: 'success',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Success', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
         this.router.navigate(['/settings/po-type-list']);
         return;
       }
       if (result.status === '0') {
-        // return alert(result.message)
-        Swal.fire({
-          title: 'warning',
-          text: 'Updation Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
       }
-
-
-    } catch (error) {
-      console.error(error);
-
-
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
-    console.log(this.poType);
 
   }
 
@@ -111,18 +119,25 @@ export class UpdatePoTypeComponent {
         this.poTypeDetail = result.data
       }
       else {
-        // alert('Failed')
-        Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
       }
-      console.log(result);
-
-    } catch (error) {
-      console.error(error)
+    } catch (error:any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
 
     }
   }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DivionService } from '../../../Services/divion/divion.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-divion-list',
@@ -14,7 +15,8 @@ export class DivionListComponent {
   
   constructor(
     private router:Router,
-    private divionSer: DivionService
+    private divionSer: DivionService,
+    private _snackBar: MatSnackBar
   ){ }
 
   ngOnInit(): void {
@@ -33,8 +35,19 @@ export class DivionListComponent {
       if(result.status === '1'){
         this.divisionDetails = result.data;
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error:any) {
+       if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
     }
   }
 

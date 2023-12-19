@@ -7,7 +7,7 @@
     padding: 20px
       30px
       120px;
-    background: #4070f4;
+    background: #00acff;
     box-shadow: 0
       5px
       10px
@@ -140,7 +140,7 @@
   }
   .form.login
     input[type="submit"] {
-    background: #4070f4;
+    background: #00acff;
     color: #fff;
     border: none;
   }

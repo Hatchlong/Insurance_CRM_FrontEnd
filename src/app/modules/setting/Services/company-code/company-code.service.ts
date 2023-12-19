@@ -36,5 +36,10 @@ export class CompanyCodeService {
     return this.http.put(`http://localhost:4000/api/master/companycode/update/${data._id}`, data).toPromise()
   }
 
+  // Get All currecny Details
+
+ getAllCurrencyDetails(companyId:any) {
+    return this.http.get(`http://localhost:4000/api/config/currency/getAll/${companyId}`).toPromise()
+  }
 
 }

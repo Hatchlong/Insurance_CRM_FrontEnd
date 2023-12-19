@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BillingBlockService } from '../../../Services/billing-block/billing-block.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-billing-block-list',
@@ -15,7 +16,8 @@ export class BillingBlockListComponent implements OnInit{
 
   constructor(
     private router:Router,
-    private billingBlockSer:BillingBlockService
+    private billingBlockSer:BillingBlockService,
+    private _snackBar: MatSnackBar
   ){}
 
   ngOnInit(): void {
@@ -33,8 +35,19 @@ export class BillingBlockListComponent implements OnInit{
         this.billingBlockDeatil=result.data
       }
       
-    } catch (error) {
-      console.error(error);
+    } catch (error:any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
       
     }
   }

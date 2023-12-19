@@ -4,6 +4,7 @@ import { CompanyCodeService } from '../../../Services/company-code/company-code.
 import { PurchaseOrgService } from '../../../Services/purchase-org/purchase-org.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-purchase-org',
@@ -18,7 +19,8 @@ export class AddPurchaseOrgComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private companySer: CompanyCodeService,
     private purchaseOrgSer: PurchaseOrgService,
-    private router: Router
+    private router: Router,
+    private _snackBar:MatSnackBar
   ) { }  
 
   ngOnInit(): void {
@@ -42,22 +44,35 @@ export class AddPurchaseOrgComponent implements OnInit {
       if (this.purchOrg.invalid) 
         return 
       const result: any = await this.purchaseOrgSer.createPurchaseOrgDetails(this.purchOrg.value);
-      console.log(result)
       if (result.status === '1') {
-        // alert(result.message);
-        Swal.fire({
-          title: 'success',
-          text: 'Purchase Org Processed Successfully',
-          icon: 'success',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Success', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
         this.router.navigate(['/settings/purchase-org-list']);
         return;
       }
-      if (result.status === '0')
-        return alert(result.message);
-    } catch (error) {
-      console.error(error)
+      if (result.status === '0') {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
   }
 
@@ -69,24 +84,26 @@ export class AddPurchaseOrgComponent implements OnInit {
       if (result.status === '1') {
         this.companyDetails = result.data
       } else {
-        // alert('API failed')
-        Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
       }
-      console.log(result);
-    } catch (error) {
-      console.error(error)
-      // alert('API failed')
-      Swal.fire({
-        title: 'warning',
-        text: 'API Failed',
-        icon: 'warning',
-        showCancelButton: true
-      })
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+
     }
   }
 }

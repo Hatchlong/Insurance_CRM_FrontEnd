@@ -3,24 +3,85 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 @import '~material-icons/iconfont/material-icons.css';
-html, body { height: 100%; }
-body { margin: 0; font-family: Poppins, "Poppins", sans-serif; }
 
-.btnBg2, .btn-primary{
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Poppins, "Poppins", sans-serif;
+    background-color: #f5f5f570;
+}
+
+.btnBg2,
+.btn-primary {
     color: white;
     background-color: #00acff !important;
     border: 0;
 }
+h1,h2,h3,h4,h5,h6,span,p,input,label,button,td,th{
+    font-family: Poppins, "Poppins" !important; 
+  }
 
-h2{
-    font-size: 26px !important;
+h2 {
+    font-size: 18px !important;
 }
 
-.error-message{
+.error-message {
     color: red;
     margin-bottom: 0;
 }
 
-sup{
+sup {
     color: red;
+}
+
+.mdc-snackbar__surface {
+    background-color: white !important;
+    font-family: 'Poppins' !important;
+}
+
+.app-notification-success .mat-mdc-snack-bar-label .mdc-snackbar__label {
+    color: green !important;
+    font-family: 'Poppins' !important;
+}
+
+.app-notification-error .mat-mdc-snack-bar-label .mdc-snackbar__label {
+    color: red !important;
+    font-family: 'Poppins' !important;
+}
+
+.app-notification-success .mdc-button__label{
+    color: green !important;
+    font-family: 'Poppins' !important;
+}
+
+.app-notification-error .mdc-button__label{
+    color: red !important;
+    font-family: 'Poppins' !important;
+}
+
+.success-snackbar {
+    --mdc-snackbar-container-color: green;
+    --mat-mdc-snack-bar-button-color: white;
+}
+
+thead tr th{
+    background-color: #ddd8d875 !important;
+    font-weight: 500;
+}
+
+td{
+    font-weight: 400;
+}
+
+label{
+    font-weight: 600;
+    font-size: 16px;
+}
+
+input[readonly] {
+    background-color: #f6f6f6;
 }

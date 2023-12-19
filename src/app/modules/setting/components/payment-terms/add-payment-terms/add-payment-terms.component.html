@@ -2,7 +2,7 @@
     <form [formGroup]="payTem" (ngSubmit)="submitData()">
         <h2><mat-icon class="back" routerLink="/settings/payment-terms-list">arrow_back</mat-icon>Payment Term</h2>
         <div class="row">
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">Payment Term<sup>*</sup></label>
                 <input type="text" class="form-control " placeholder="Enter Payment Term" formControlName="paymentTerm">
                 <div
@@ -13,7 +13,7 @@
                     <p class="error-message">Payment Term is required</p>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">Description<sup>*</sup></label>
                 <input type="text" class="form-control " placeholder="Enter Description" formControlName="description">
                 <div
@@ -25,7 +25,7 @@
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">Day Limit<sup>*</sup></label>
                 <input type="text" class="form-control " placeholder="Enter Day Limit" formControlName="dayLimit">
                 <div
@@ -36,7 +36,7 @@
                     <p class="error-message">Day Limit is required</p>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">Account Type<sup>*</sup></label>
                 <input type="text" class="form-control " placeholder="Enter Account" formControlName="accountType">
                 <div
@@ -47,7 +47,7 @@
                     <p class="error-message">Account Type is required</p>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">Fixed Days<sup>*</sup></label>
                 <input type="text" class="form-control " placeholder="Enter Fixed Base Line Date"
                     formControlName="fixedBaseLineDate">
@@ -59,7 +59,7 @@
                     <p class="error-message">Fixed Days is required</p>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">Additional Month<sup>*</sup></label>
                 <input type="text" class="form-control " placeholder="Enter Additional Data"
                     formControlName="additionalBaselineDataCalculation">
@@ -71,7 +71,7 @@
                     <p class="error-message">Additional Data is required</p>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="" class="">Baseline Date<sup>*</sup></label>
                 <input type="text" class="form-control " placeholder="Enter Baseline Date"
                     formControlName="defaultBaselineDate">
@@ -84,8 +84,8 @@
                 </div>
             </div>    
         </div>
-        <div class="col-2 py-2">
-                <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="col-12 d-flex justify-content-end py-2">
+                <button type="submit" class="btn btn-primary">Save</button>
             </div>
     </form>
 </div>
