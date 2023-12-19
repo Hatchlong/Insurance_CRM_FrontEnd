@@ -6,11 +6,11 @@
             </h3>
             <form [formGroup]="vendorFormGroup" (ngSubmit)="submitData()">
                 <div class="row">
-                    <div class="col-12 border px-1">
-                        <div class="row ms-3">
-                            <div class="col-6 mt-4">
+                    <div class="col-12 border">
+                        <div class="row">
+                            <div class="col-6">
                                 <div class="row">
-                                    <div class="col-12 mt-2">
+                                    <div class="col-12 mt-2 ">
                                         <label for="VendorName">Vendor Name <sup>*</sup></label>
                                         <input type="text" class="form-control" formControlName="vendorName"
                                             placeholder="Enter Vendor Name">
@@ -43,7 +43,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 mt-4">
+                            <div class="col-6 mt-2">
                                 <label for="">Address <sup>*</sup></label>
                                 <textarea name="" id="" cols="30" rows="4" class="form-control"
                                     placeholder="Enter address" formControlName="addressCountry"></textarea>
@@ -58,65 +58,64 @@
                             </div>
                         </div>
 
-                        <div class="row ms-3">
-                            <div class="col-6 py-1">
+                        <div class="row mb-2">
+                            <div class="col-6">
                                 <label for="">Language <sup>*</sup></label>
-                                <select class="form-select" formControlName="language">
-                                    <option [selected]="vendorFormGroup.value.language === ''" value="" hidden>Select language</option>
+                                <select class="form-select" formControlName="languageId">
+                                    <option [selected]="vendorFormGroup.value.languageId === ''" value="" hidden>Select language</option>
                                     <option [value]="citiesDetails.languageId">{{languageName}}</option>
                                 </select>
                                 <div
-                                    *ngIf="vendorFormGroup.controls['language'].touched && vendorFormGroup.controls['language'].dirty && vendorFormGroup.controls['language'].hasError('required') && !isSubmitted">
+                                    *ngIf="vendorFormGroup.controls['languageId'].touched && vendorFormGroup.controls['languageId'].dirty && vendorFormGroup.controls['languageId'].hasError('required') && !isSubmitted">
                                     <p class="error-message">Language is required</p>
                                 </div>
-                                <div *ngIf="isSubmitted && vendorFormGroup.controls['language'].hasError('required')">
+                                <div *ngIf="isSubmitted && vendorFormGroup.controls['languageId'].hasError('required')">
                                     <p class="error-message">Language is required</p>
                                 </div>
                             </div>
-                            <div class="col-6 py-1">
+                            <div class="col-6">
                                 <label for="">Country <sup>*</sup> </label>
-                                <select class="form-select" formControlName="country" (change)="selectCountryName($event)">
+                                <select class="form-select" formControlName="countryId" (change)="selectCountryName($event)">
                                     <option [selected]="vendorFormGroup.value.currency === ''" value="" hidden>Select Currency</option>
                                     <option *ngFor="let list of countryDetails" [value]="list._id">{{list.countryName}}</option>
 
                                 </select>
                                 <div
-                                    *ngIf="vendorFormGroup.controls['country'].touched && vendorFormGroup.controls['country'].dirty && vendorFormGroup.controls['country'].hasError('required') && !isSubmitted">
+                                    *ngIf="vendorFormGroup.controls['countryId'].touched && vendorFormGroup.controls['countryId'].dirty && vendorFormGroup.controls['countryId'].hasError('required') && !isSubmitted">
                                     <p class="error-message">Country is required</p>
                                 </div>
-                                <div *ngIf="isSubmitted && vendorFormGroup.controls['country'].hasError('required')">
+                                <div *ngIf="isSubmitted && vendorFormGroup.controls['countryId'].hasError('required')">
                                     <p class="error-message">Country is required</p>
                                 </div>
                             </div>
-                             <div class="col-6 py-1 ">
+                             <div class="col-6">
                                 <label for="">Mode of transport <sup>*</sup></label>
-                                <select class="form-select" formControlName="modeOfTransport">
-                                    <option [selected]="vendorFormGroup.value.modeOfTransport=== ''" value="" hidden>Select Mode Of Transport</option>
+                                <select class="form-select" formControlName="modeOfTransportId" (change)="handleMOT($event)">
+                                    <option [selected]="vendorFormGroup.value.modeOfTransportId=== ''" value="" hidden>Select Mode Of Transport</option>
                                     <option *ngFor="let mot of motDetails" [value]="mot._id">{{mot.modeOfTransport}}</option>
      
                                 </select>
                                 <div
-                                    *ngIf="vendorFormGroup.controls['modeOfTransport'].touched && vendorFormGroup.controls['modeOfTransport'].dirty && vendorFormGroup.controls['modeOfTransport'].hasError('required') && !isSubmitted">
+                                    *ngIf="vendorFormGroup.controls['modeOfTransportId'].touched && vendorFormGroup.controls['modeOfTransportId'].dirty && vendorFormGroup.controls['modeOfTransportId'].hasError('required') && !isSubmitted">
                                     <p class="error-message">Mode Of Transport is required</p>
                                 </div>
                                 <div
-                                    *ngIf="isSubmitted && vendorFormGroup.controls['modeOfTransport'].hasError('required')">
+                                    *ngIf="isSubmitted && vendorFormGroup.controls['modeOfTransportId'].hasError('required')">
                                     <p class="error-message">Mode Of Transport is required</p>
                                 </div>
                             </div>
-                            <div class="col-6  py-1">
+                            <div class="col-6">
                                 <label for="">Inco Term <sup>*</sup></label>
-                                <select class="form-select" formControlName="incrementTreams">
-                                    <option [selected]="vendorFormGroup.value.incrementTreams=== ''" value="" hidden>Select Increment Treams</option>
+                                <select class="form-select" formControlName="incrementTreamsId" (change)="handleInco($event)">
+                                    <option [selected]="vendorFormGroup.value.incrementTreamsId=== ''" value="" hidden>Select Increment Treams</option>
                                     <option *ngFor="let inco of incoDetails" [value]="inco._id">{{inco.inc_terms_code}}</option>
-     
                                 </select>                               
                                 <div
-                                    *ngIf="vendorFormGroup.controls['incrementTreams'].touched && vendorFormGroup.controls['incrementTreams'].dirty && vendorFormGroup.controls['incrementTreams'].hasError('required') && !isSubmitted">
+                                    *ngIf="vendorFormGroup.controls['incrementTreamsId'].touched && vendorFormGroup.controls['incrementTreamsId'].dirty && vendorFormGroup.controls['incrementTreamsId'].hasError('required') && !isSubmitted">
                                     <p class="error-message">Inco Term is required</p>
                                 </div>
                                 <div
-                                    *ngIf="isSubmitted && vendorFormGroup.controls['incrementTreams'].hasError('required')">
+                                    *ngIf="isSubmitted && vendorFormGroup.controls['incrementTreamsId'].hasError('required')">
                                     <p class="error-message">Inco Term is required</p>
                                 </div>
                             </div>
@@ -124,7 +123,7 @@
                     </div>
                 </div>
 
-                <div class="row py-2">
+                <div class="row">
                     <div class="col-12 border">
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">

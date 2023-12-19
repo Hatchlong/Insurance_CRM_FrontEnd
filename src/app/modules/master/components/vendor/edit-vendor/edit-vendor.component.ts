@@ -17,9 +17,11 @@ export class EditVendorComponent {
   vendorFormGroup: any = FormGroup
   vendorDetials: any = []
   countryDetails: any = []
-  languageName: any = ''
+  languageName: any = []
+  incrementTreamsName: any = []
+  modeOfTransportName: any = []
   isSubmitted:any=false
-  citiesDetails: any = [];
+  citiesDetails: any = []
   vendorId:any= ''
   motDetails: any = []
   incoDetails: any =[]
@@ -33,30 +35,32 @@ export class EditVendorComponent {
     private activateRouter: ActivatedRoute,
     private motSer: ModeOfTransportService,
     private incoSer: IncTermService
-  ) { }
+  ) { }  
 
   ngOnInit(): void {
     this.vendorId = this.activateRouter.snapshot.paramMap.get('id')
     this.createVendorFormFields()
     this.getCountryDetails()
-    this.getSingleVendorDetails()
     this.getMOTDetail()
     this.getIncoTermsDetail()
+    this.getSingleVendorDetails()
   }
 
   createVendorFormFields() {
     this.vendorFormGroup = this.fb.group({
-      _id: ['',Validators.required],
-      vendorName: ['', Validators.required],
-      accountGroup: ['', Validators.required],
-      addressCountry: ['', Validators.required],
-      language: ['', Validators.required],
- 
-      modeOfTransport: ['',Validators.required],
-      incrementTreams: ['', Validators.required],
-      country: ['', Validators.required],
-      financialData: this.fb.array([this.getFinancialFields()])
-    })
+            vendorName: ['', Validators.required],
+            accountGroup: ['', Validators.required],
+            addressCountry: ['', Validators.required],
+            languageId: ['', Validators.required],
+            languageName: ['', Validators.required],
+            modeOfTransportId: ['',Validators.required],
+            modeOfTransportName: ['', Validators.required],
+            incrementTreamsId: ['', Validators.required],
+            incrementTreamsName: ['', Validators.required],
+            countryId: ['', Validators.required],
+            countryName: ['', Validators.required],
+            financialData: this.fb.array([this.getFinancialFields()])
+          })
   }
 
   getFinancialFields(): FormGroup {
@@ -75,9 +79,7 @@ export class EditVendorComponent {
       backDetailsValidTo:[''],
       reconciliationAccount:[''],
       paymentMethod:[''],
-      paymentTerms:[''],
-
-      
+      paymentTerms:[''],      
     })
   }
 
@@ -90,8 +92,15 @@ export class EditVendorComponent {
       this.vendorFormGroup.value.changedOn = '18/12/2023'
       this.vendorFormGroup.value.changedBy = userName
       console.log(this.vendorFormGroup.value)
-      if (this.vendorFormGroup.invalid)
-      return
+      if (this.vendorFormGroup.invalid){
+        Swal.fire({
+          title: 'warning',
+          text: 'All Field Are Required',
+          icon: 'warning',
+          showCancelButton: true
+        })
+        return
+      }
       const result: any = await this.vendorSer.updateVendor(this.vendorFormGroup.value)
       console.log(result);
       if (result.status === '1') {
@@ -109,10 +118,8 @@ export class EditVendorComponent {
 
     } catch (error) {
       console.error(error);
-
     }
   }
-
 
   get financialListArray() {
     return this.vendorFormGroup.get('financialData') as FormArray
@@ -127,15 +134,13 @@ export class EditVendorComponent {
     this.financialListArray.removeAt(index)
   }
 
- 
-   // Get All details for company code
-   async getCountryDetails() {
+  // Get All details for company code
+  async getCountryDetails() {
     try {
       const result: any = await this.companySer.getAllCountryDetails();
       if (result.status === '1') {
         this.countryDetails = result.data;
       } else {
-
         Swal.fire({
           title: 'warning',
           text: 'API Failed',
@@ -161,9 +166,8 @@ export class EditVendorComponent {
       const result: any = await this.companySer.singleLanguageDetails(id);
       if (result.status === '1') {
         this.languageName = result.data.languageName
-        // this.vendorFormGroup.controls.languageName.setValue(result.data.language)
+        this.vendorFormGroup.controls.languageName.setValue(result.data.languageName)
       } else {
-
         Swal.fire({
           title: 'warning',
           text: 'API Failed',
@@ -174,7 +178,6 @@ export class EditVendorComponent {
       console.log(result);
     } catch (error) {
       console.error(error)
-
       Swal.fire({
         title: 'warning',
         text: 'API Failed',
@@ -189,82 +192,84 @@ export class EditVendorComponent {
       const result : any = await this.vendorSer.singleVendor(this.vendorId)
       if(result.status === '1'){
         console.log(result)
+        this.languageName = result.data.languageName
         this.vendorFormGroup.patchValue(result.data)
         console.log(result.data, this.vendorFormGroup.value.country, this.countryDetails)
-        this.citiesDetails = this.countryDetails.find((el: any)=> el._id === this.vendorFormGroup.value.country)
-        // this.vendorFormGroup.controls.currency.setValue(this.citiesDetails?.countryCurrency)
-        this.vendorFormGroup.controls.language.setValue(this.citiesDetails.languageId)
-        this.getSingleLanguage(this.citiesDetails.languageId)
+        this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
       }
     } catch (error) {
       console.log(error);
     }
   }
 
-   selectCountryName(event: any) {
+  selectCountryName(event: any) {
     console.log(event.target.value)
     this.citiesDetails = this.countryDetails.find((el: any) => el._id === event.target.value);
-    this.vendorFormGroup.controls.language.setValue(this.citiesDetails.languageId)
+    this.vendorFormGroup.controls.countryName.setValue(this.citiesDetails.countryName)
+    // this.vendorFormGroup.controls.currency.setValue(this.citiesDetails?.countryCurrency)
+    this.vendorFormGroup.controls.languageName.setValue(this.countryDetails.languageName)
+    this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
     this.getSingleLanguage(this.citiesDetails.languageId)
+  }    
 
-  }
+    // get MOT organization
 
-   // get MOT organization
-
-   async getMOTDetail() {
-    try {
-      const result: any = await this.motSer.getAllModeOfTransportDetails()
-      if (result.status === '1') {
-        this.motDetails = result.data
+    async getMOTDetail() {
+      try {
+        const result: any = await this.motSer.getAllModeOfTransportDetails()
+        if (result.status === '1') {
+          this.motDetails = result.data
+        }
+        else {
+          // alert("API FAiled")
+          Swal.fire({
+            title: 'warning',
+            text: 'API Failed',
+            icon: 'warning',
+            showCancelButton: true
+          })
+        }
+      } catch (error) {
+        console.error(error); 
       }
-      else {
-        // alert("API FAiled")
-        Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
-      }
-    } catch (error) {
-      console.error(error);
-
     }
+
+      // Add the MOT Name
+  handleMOT(event: any) {
+    const findMOTDetail = this.motDetails.find((el: any) => el._id === event.target.value);
+    this.vendorFormGroup.controls.modeOfTransportName.setValue(findMOTDetail.modeOfTransport)
   }
+ 
+    // get INCO TERMS organization
 
-   // Add the MOT Name
-handleMOT(event: any) {
-  const findMOTDetail = this.motDetails.find((el: any) => el._id === event.target.value);
-  this.vendorFormGroup.controls.purchaseOrganizationName.setValue(findMOTDetail.modeOfTransport)
-}
-
-  // get INCO TERMS organization
-
-  async getIncoTermsDetail() {
-    try {
-      const result: any = await this.incoSer.getAllIncTermsDetails()
-      if (result.status === '1') {
-        this.incoDetails = result.data
+    async getIncoTermsDetail() {
+      try {
+        const result: any = await this.incoSer.getAllIncTermsDetails()
+        console.log(result)
+        if (result.status === '1') {
+          this.incoDetails = result.data
+        }
+        else {
+          // alert("API FAiled")
+          Swal.fire({
+            title: 'warning',
+            text: 'API Failed',
+            icon: 'warning',
+            showCancelButton: true
+          })
+        }
+      } catch (error) {
+        console.error(error);  
       }
-      else {
-        // alert("API FAiled")
-        Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
-      }
-    } catch (error) {
-      console.error(error);
-
     }
+
+     // Add the inco Name
+  handleInco(event: any) {
+    const findIncoDetail = this.incoDetails.find((el: any) => el._id === event.target.value);
+    console.log(findIncoDetail)
+    this.vendorFormGroup.controls.incrementTreamsName.setValue(findIncoDetail.inc_terms_code)
   }
 
-   // Add the inco Name
-handleInco(event: any) {
-  const findIncoDetail = this.incoDetails.find((el: any) => el._id === event.target.value);
-  this.vendorFormGroup.controls.incoTermsName.setValue(findIncoDetail.incrementTreams)
 }
 
-}
+
