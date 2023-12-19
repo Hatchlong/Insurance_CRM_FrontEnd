@@ -13,6 +13,7 @@ export class EditPaymentTermComponent {
 
   payTem: any = FormGroup
   paymentTermId:any=''
+  isSubmitted:any=false
   constructor(
     private fb: FormBuilder,
     private paymentSer: PaymentTermService,
@@ -59,6 +60,7 @@ export class EditPaymentTermComponent {
 
   async submitData() {
     try {
+      this.isSubmitted=true
       if (this.payTem.invalid) {
         return Swal.fire({
           title: 'warning',

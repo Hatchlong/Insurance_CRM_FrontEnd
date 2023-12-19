@@ -74,6 +74,11 @@
             <th scope="col"><input type="checkbox" > Select All</th>
           </tr>
         </thead>
+        <tbody *ngIf="productDetails.length===0">
+          <tr>
+            <td colspan="6">No Records !...</td>
+          </tr>
+        </tbody>
         <tbody>
           <tr *ngFor="let list of productDetails;let i=index">
             <td>{{list.materialDescription}}</td>

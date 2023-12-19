@@ -14,6 +14,7 @@ export class EditPurchaseOrgComponent {
   purchOrg: any = FormGroup;
   companyDetails: any = [];
   purchaseOrgId: any = ''
+  isSubmitted:any=false
  
   constructor(private fb: FormBuilder,
     private companySer: CompanyCodeService,
@@ -54,6 +55,7 @@ export class EditPurchaseOrgComponent {
   // Create the purchase org Details
   async submitData() {
     try {
+      this.isSubmitted=true
       if (this.purchOrg.invalid)
         return Swal.fire({
           title: 'warning',

@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@ang
 import { Router } from '@angular/router';
 import { ProductService } from '../../../services/product/product.service';
 import Swal from 'sweetalert2';
+import { PlantDataService } from 'src/app/modules/setting/Services/plant-data/plant-data.service';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -12,15 +13,20 @@ export class AddProductComponent implements OnInit {
 
   general: any = FormGroup
   isSubmitted: any = false;
-
+  taxDetails: any = []
+  storagePlant: any = []
+  storgaeLocationDetails: any = []
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private productSer: ProductService
+    private productSer: ProductService,
+    private plantSer: PlantDataService
   ) { }
 
   ngOnInit(): void {
     this.create()
+    this.getTaxIndicatorDetail()
+    this.getStoragePlant()
 
   }
 
@@ -51,11 +57,13 @@ export class AddProductComponent implements OnInit {
       width: ['', Validators.required],
       height: ['', Validators.required],
       batchManagment: ['', Validators.required],
+      taxIndicatorId: ['', Validators.required],
       taxClassification: ['', Validators.required],
       manfacturePartNo: ['', Validators.required],
       expirationDataRelavance: ['', Validators.required],
       excessVolumnTol: ['', Validators.required],
       materialCost: ['', Validators.required],
+      storageLocationId: [''],
       plantData: this.fb.array([this.addrow()]),
       salesData: this.fb.array([this.addSales()])
     })
@@ -114,7 +122,7 @@ export class AddProductComponent implements OnInit {
       console.log(this.general);
 
       const username: any = localStorage.getItem('userName')
-      
+
       const currentDate = new Date();
       const year = currentDate.getFullYear();
       const month = currentDate.getMonth() + 1; // Months are zero-indexed, so add 1
@@ -126,7 +134,7 @@ export class AddProductComponent implements OnInit {
       // Format the date and time
       const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-      console.log( fullDate);
+      console.log(fullDate);
       this.general.value.createdOn = fullDate
       this.general.value.createdBy = username
       this.general.value.changedOn = fullDate
@@ -152,4 +160,65 @@ export class AddProductComponent implements OnInit {
       console.error(error);
     }
   }
+
+  // get tax indicator
+
+  async getTaxIndicatorDetail() {
+    try {
+      const result: any = await this.plantSer.getAllTaxDetails()
+      if (result.status === '1') {
+        this.taxDetails = result.data
+      }
+      else {
+        // alert("API FAiled")
+        Swal.fire({
+          title: 'warning',
+          text: 'API Failed',
+          icon: 'warning',
+          showCancelButton: true
+        })
+      }
+    } catch (error) {
+      console.error(error);
+
+    }
+  }
+  // get storage plant
+
+  async getStoragePlant() {
+    try {
+      const result: any = await this.plantSer.getAllStorageLocationsDetails()
+      if (result.status === '1') {
+        this.storagePlant = result.data
+      }
+      else {
+        // alert("API FAiled")
+        Swal.fire({
+          title: 'warning',
+          text: 'API Failed',
+          icon: 'warning',
+          showCancelButton: true
+        })
+      }
+    } catch (error) {
+      console.error(error);
+
+    }
+  }
+
+  // Add the purchase Name
+  handleTax(event: any) {
+    const taxIndicatorDetail = this.taxDetails.find((el: any) => el.tax_ind_code === +event.target.value);
+    console.log(taxIndicatorDetail, this.taxDetails, event.target.value, 'taxIndicatorDetail')
+    // this.general.controls.taxIndicatorName.setValue(taxIndicatorDetail.description)
+  }
+
+  // Add the storage Plant
+  handleStorageLocation(event: any) {
+    const findStorageDetail = this.storgaeLocationDetails.find((el: any) => el.stor_loc_id === +event.target.value);
+    console.log(findStorageDetail,this.storgaeLocationDetails,event.target.value,'storage location');
+    
+    this.general.controls.stoargeLocation.setValue(findStorageDetail.description)
+  }
+
 }

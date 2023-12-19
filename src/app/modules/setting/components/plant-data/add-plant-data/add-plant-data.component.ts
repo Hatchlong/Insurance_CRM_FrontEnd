@@ -195,6 +195,7 @@ export class AddPlantDataComponent {
     }
   }
 
+
   // get purchase organization
 
   async getStorageLocationDetail() {
@@ -225,9 +226,7 @@ export class AddPlantDataComponent {
       if (result.status === '1') {
         this.languageName = result.data.languageName;
         this.plantFormData.controls.languageName.setValue(result.data.languageName)
-
       } else {
-        // alert('API failed')
         Swal.fire({
           title: 'warning',
           text: 'API Failed',
@@ -238,7 +237,6 @@ export class AddPlantDataComponent {
       console.log(result);
     } catch (error) {
       console.error(error)
-      // alert('API failed')
       Swal.fire({
         title: 'warning',
         text: 'API Failed',
@@ -248,6 +246,7 @@ export class AddPlantDataComponent {
     }
   }
 
+  
   selectCountryName(event: any) {
     console.log(event.target.value)
     this.citiesDetails = this.countryDetials.find((el: any) => el._id === event.target.value);
@@ -255,6 +254,7 @@ export class AddPlantDataComponent {
     this.plantFormData.controls.countryName.setValue(this.citiesDetails.countryName)
     this.plantFormData.controls.languageId.setValue(this.citiesDetails.languageId)
     this.getSingleLanguage(this.citiesDetails.languageId)
+    
   }
 
   // Add the purchase Name
