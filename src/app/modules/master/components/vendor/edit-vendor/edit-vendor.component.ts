@@ -93,8 +93,10 @@ export class EditVendorComponent {
       this.vendorFormGroup.value.createdBy = userName
       this.vendorFormGroup.value.changedOn = '18/12/2023'
       this.vendorFormGroup.value.changedBy = userName
-      if (this.vendorFormGroup.invalid)
+      if (this.vendorFormGroup.invalid){
+
         return
+      }
       const result: any = await this.vendorSer.updateVendor(this.vendorFormGroup.value)
       if (result.status === '1') {
         this._snackBar.open(result.message, 'Success', {
@@ -209,9 +211,10 @@ export class EditVendorComponent {
   async getSingleVendorDetails() {
     try {
       const result: any = await this.vendorSer.singleVendor(this.vendorId)
+      console.log(result)
       if (result.status === '1') {
         this.vendorFormGroup.patchValue(result.data)
-        this.citiesDetails = this.countryDetails.find((el: any) => el._id === this.vendorFormGroup.value.country)
+        this.citiesDetails = this.countryDetails.find((el: any) => el._id === this.vendorFormGroup.value.countryId)
         // this.vendorFormGroup.controls.currency.setValue(this.citiesDetails?.countryCurrency)
         this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
         this.getSingleLanguage(this.citiesDetails.languageId)
@@ -237,8 +240,8 @@ export class EditVendorComponent {
     this.citiesDetails = this.countryDetails.find((el: any) => el._id === event.target.value);
     this.vendorFormGroup.controls.countryName.setValue(this.citiesDetails.countryName)
     // this.vendorFormGroup.controls.currency.setValue(this.citiesDetails?.countryCurrency)
-    this.vendorFormGroup.controls.languageName.setValue(this.countryDetails.languageName)
-    this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
+    this.vendorFormGroup.controls.languageId.setValue(this.countryDetails.languageId)
+    // this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
     this.getSingleLanguage(this.citiesDetails.languageId)
   }    
 
