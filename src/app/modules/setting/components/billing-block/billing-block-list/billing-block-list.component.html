@@ -45,7 +45,7 @@
             <thead>
               <tr>
 
-               <th scope="col">SLNo</th>
+               <th scope="col">SL</th>
                <th scope="col">Billing Block</th>
                 <th scope="col">Description</th>
                 <th scope="col">Action</th>
@@ -63,7 +63,7 @@
                       <mat-icon [routerLink]="'/settings/edit-billing-block/'+list._id">edit</mat-icon>
                     </div>
                     <div>
-                      <mat-icon>delete</mat-icon>
+                      <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
                     </div>
                   </div>
                 </td>

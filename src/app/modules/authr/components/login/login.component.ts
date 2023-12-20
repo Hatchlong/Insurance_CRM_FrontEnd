@@ -25,6 +25,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+   localStorage.setItem('loginActive', 'false');
+    // this.isShowSide.emit('false')
     this.createFormFields()
     this.createSignUpFormFields()
   }
@@ -83,7 +85,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       this.isSubmitted = false
       if (result.status === '1') {
         this.registerFormGroup.reset();
-        this._snackBar.open(result.message, 'Success', {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
@@ -91,7 +93,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         const wrapper: any = document.querySelector(".wrapper");
         wrapper.classList.add("active");
       } else {
-        this._snackBar.open(result.message, 'Error', {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
@@ -99,7 +101,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       }
     } catch (error: any) {
       this.isSubmitted = false
-      this._snackBar.open(error.error.message, 'Error', {
+      this._snackBar.open(error.error.message, '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error'
@@ -122,7 +124,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         localStorage.setItem('userId', userDetails.userId)
         localStorage.setItem('token', result.token)
         localStorage.setItem('loginActive', 'true')
-        this._snackBar.open('Successfully Login', 'Success', {
+        this._snackBar.open('Successfully Login','', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
@@ -130,7 +132,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         this.loginFormGroup.reset()
         this.router.navigate(['/master/product'])
       } else {
-        this._snackBar.open(result.message, 'Error', {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
@@ -138,7 +140,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       }
     } catch (error: any) {
       this.isSubmitted = false
-      this._snackBar.open(error.error.message, 'Error', {
+      this._snackBar.open(error.error.message, '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',

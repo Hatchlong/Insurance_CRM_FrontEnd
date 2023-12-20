@@ -37,13 +37,13 @@ export class ModeOfTransportListComponent implements OnInit {
       }
     } catch (error:any) {
       if (error.error.message) {
-       this._snackBar.open(error.error.message, 'Error', {
+       this._snackBar.open(error.error.message, '', {
          duration: 5 * 1000, horizontalPosition: 'center',
          verticalPosition: 'top',
          panelClass: 'app-notification-error',
        });
      }
-     this._snackBar.open('Something went wrong', 'Error', {
+     this._snackBar.open('Something went wrong', '', {
        duration: 5 * 1000, horizontalPosition: 'center',
        verticalPosition: 'top',
        panelClass: 'app-notification-error',
@@ -76,5 +76,44 @@ export class ModeOfTransportListComponent implements OnInit {
         this.selectAll=true
       }
     }
+
+    async deleteRecords(data: any) {
+      try {
+        data.isActive = "C"
+        const result: any = await this.motSer.updatedModeOfTransportDetails(data);
+        if (result.status === '1') {
+          this._snackBar.open("Deleted Successfully", '', {
+            duration: 5 * 1000, horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: 'app-notification-success',
+          });
+          this.getMotDetails()
+          return;
+        }
+        if (result.status === '0') {
+          this._snackBar.open("Deleted Unsuccessfully", '', {
+            duration: 5 * 1000, horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: 'app-notification-error',
+          });
+        }
+  
+      } catch (error: any) {
+        if (error.error.message) {
+          this._snackBar.open(error.error.message, '', {
+            duration: 5 * 1000, horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: 'app-notification-error',
+          });
+          return
+        }
+        this._snackBar.open('Something went wrong', '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    }
+  
   
 }

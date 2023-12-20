@@ -18,8 +18,10 @@ export class AddVendorComponent implements OnInit {
   vendorFormGroup: any = FormGroup
   vendorDetials: any = []
   countryDetails: any = []
-  languageName: any = ''
-  isSubmitted: any = false
+  languageName: any = []
+  incrementTreamsName: any = []
+  modeOfTransportName: any = []
+  isSubmitted:any=false
   citiesDetails: any = []
   motDetails: any = []
   incoDetails: any = []
@@ -44,15 +46,19 @@ export class AddVendorComponent implements OnInit {
 
   createVendorFormFields() {
     this.vendorFormGroup = this.fb.group({
-      vendorName: ['', Validators.required],
-      accountGroup: ['', Validators.required],
-      addressCountry: ['', Validators.required],
-      language: ['', Validators.required],
-      modeOfTransport: ['', Validators.required],
-      incrementTreams: ['', Validators.required],
-      country: ['', Validators.required],
-      financialData: this.fb.array([this.getFinancialFields()])
-    })
+            vendorName: ['', Validators.required],
+            accountGroup: ['', Validators.required],
+            addressCountry: ['', Validators.required],
+            languageId: ['', Validators.required],
+            languageName: ['', Validators.required],
+            modeOfTransportId: ['',Validators.required],
+            modeOfTransportName: ['', Validators.required],
+            incrementTreamsId: ['', Validators.required],
+            incrementTreamsName: ['', Validators.required],
+            countryId: ['', Validators.required],
+            countryName: ['', Validators.required],
+            financialData: this.fb.array([this.getFinancialFields()])
+          })
   }
 
   getFinancialFields(): FormGroup {
@@ -91,7 +97,7 @@ export class AddVendorComponent implements OnInit {
       const result: any = await this.vendorSer.createVendorDetails(this.vendorFormGroup.value)
       console.log(result);
       if (result.status === '1') {
-        this._snackBar.open(result.message, 'Success', {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
@@ -100,7 +106,7 @@ export class AddVendorComponent implements OnInit {
         return
       }
       if (result.status === '0') {
-        this._snackBar.open(result.message, 'Error', {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
@@ -110,13 +116,14 @@ export class AddVendorComponent implements OnInit {
 
     } catch (error: any) {
       if (error.error.message) {
-        this._snackBar.open(error.error.message, 'Error', {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+return
       }
-      this._snackBar.open('Something went wrong', 'Error', {
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
@@ -144,7 +151,7 @@ export class AddVendorComponent implements OnInit {
       if (result.status === '1') {
         this.countryDetails = result.data;
       } else {
-        this._snackBar.open(result.message, 'Error', {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
@@ -152,13 +159,14 @@ export class AddVendorComponent implements OnInit {
       }
     } catch (error: any) {
       if (error.error.message) {
-        this._snackBar.open(error.error.message, 'Error', {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+return
       }
-      this._snackBar.open('Something went wrong', 'Error', {
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
@@ -172,8 +180,9 @@ export class AddVendorComponent implements OnInit {
       const result: any = await this.companySer.singleLanguageDetails(id);
       if (result.status === '1') {
         this.languageName = result.data.languageName
+        this.vendorFormGroup.controls.languageName.setValue(result.data.languageName)
       } else {
-        this._snackBar.open(result.message, 'Error', {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
@@ -181,13 +190,14 @@ export class AddVendorComponent implements OnInit {
       }
     } catch (error: any) {
       if (error.error.message) {
-        this._snackBar.open(error.error.message, 'Error', {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+return
       }
-      this._snackBar.open('Something went wrong', 'Error', {
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
@@ -198,12 +208,12 @@ export class AddVendorComponent implements OnInit {
   selectCountryName(event: any) {
     console.log(event.target.value)
     this.citiesDetails = this.countryDetails.find((el: any) => el._id === event.target.value);
-    // this.vendorFormGroup.controls.countryName.setValue(this.citiesDetails.countryName)
+    this.vendorFormGroup.controls.countryName.setValue(this.citiesDetails.countryName)
     // this.vendorFormGroup.controls.currency.setValue(this.citiesDetails?.countryCurrency)
     // this.vendorFormGroup.controls.languageName.setValue(this.countryDetails.languageName)
-    this.vendorFormGroup.controls.language.setValue(this.citiesDetails.languageId)
+    this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
     this.getSingleLanguage(this.citiesDetails.languageId)
-  }
+  }    
 
   // get MOT organization
 
@@ -214,7 +224,7 @@ export class AddVendorComponent implements OnInit {
         this.motDetails = result.data
       }
       else {
-        this._snackBar.open(result.message, 'Error', {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
@@ -222,13 +232,14 @@ export class AddVendorComponent implements OnInit {
       }
     } catch (error: any) {
       if (error.error.message) {
-        this._snackBar.open(error.error.message, 'Error', {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+return
       }
-      this._snackBar.open('Something went wrong', 'Error', {
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
@@ -236,10 +247,13 @@ export class AddVendorComponent implements OnInit {
     }
   }
 
+    
   // Add the MOT Name
   handleMOT(event: any) {
     const findMOTDetail = this.motDetails.find((el: any) => el._id === event.target.value);
-    this.vendorFormGroup.controls.purchaseOrganizationName.setValue(findMOTDetail.modeOfTransport)
+    // console.log()
+    // this.vendorFormGroup.controls.purchaseOrganizationName.setValue(findMOTDetail.modeOfTransport)
+        this.vendorFormGroup.controls.modeOfTransportName.setValue(findMOTDetail.modeOfTransport)
   }
 
   // get INCO TERMS organization
@@ -252,7 +266,7 @@ export class AddVendorComponent implements OnInit {
         this.incoDetails = result.data
       }
       else {
-        this._snackBar.open(result.message, 'Error', {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
@@ -260,13 +274,14 @@ export class AddVendorComponent implements OnInit {
       }
     } catch (error: any) {
       if (error.error.message) {
-        this._snackBar.open(error.error.message, 'Error', {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+return
       }
-      this._snackBar.open('Something went wrong', 'Error', {
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
@@ -276,8 +291,10 @@ export class AddVendorComponent implements OnInit {
 
   // Add the inco Name
   handleInco(event: any) {
+
     const findIncoDetail = this.incoDetails.find((el: any) => el._id === event.target.value);
-    this.vendorFormGroup.controls.incoTermsName.setValue(findIncoDetail.incrementTreams)
+    console.log(findIncoDetail)
+    this.vendorFormGroup.controls.incrementTreamsName.setValue(findIncoDetail.inc_terms_code)
   }
 
 }
