@@ -94,10 +94,10 @@ export class EditVendorComponent {
       this.vendorFormGroup.value.changedOn = '18/12/2023'
       this.vendorFormGroup.value.changedBy = userName
       if (this.vendorFormGroup.invalid){
-
         return
       }
       const result: any = await this.vendorSer.updateVendor(this.vendorFormGroup.value)
+      console.log(result)
       if (result.status === '1') {
         this._snackBar.open(result.message, 'Success', {
           duration: 5 * 1000, horizontalPosition: 'center',
@@ -215,8 +215,7 @@ export class EditVendorComponent {
       if (result.status === '1') {
         this.vendorFormGroup.patchValue(result.data)
         this.citiesDetails = this.countryDetails.find((el: any) => el._id === this.vendorFormGroup.value.countryId)
-        // this.vendorFormGroup.controls.currency.setValue(this.citiesDetails?.countryCurrency)
-        this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
+        // this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
         this.getSingleLanguage(this.citiesDetails.languageId)
       }
     } catch (error: any) {
@@ -239,9 +238,8 @@ export class EditVendorComponent {
     console.log(event.target.value)
     this.citiesDetails = this.countryDetails.find((el: any) => el._id === event.target.value);
     this.vendorFormGroup.controls.countryName.setValue(this.citiesDetails.countryName)
-    // this.vendorFormGroup.controls.currency.setValue(this.citiesDetails?.countryCurrency)
-    this.vendorFormGroup.controls.languageId.setValue(this.countryDetails.languageId)
-    // this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
+    // this.vendorFormGroup.controls.languageId.setValue(this.countryDetails.languageId)
+    this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
     this.getSingleLanguage(this.citiesDetails.languageId)
   }    
 
