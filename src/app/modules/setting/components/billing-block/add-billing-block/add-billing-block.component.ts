@@ -40,7 +40,7 @@ export class AddBillingBlockComponent {
         return
       const result: any = await this.billingBlockSer.createBillingBlock(this.billing.value)
       if (result.status === '1') {
-        this._snackBar.open(result.message, 'Success', {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
@@ -49,7 +49,7 @@ export class AddBillingBlockComponent {
         return;
       }
       if (result.status === '0') {
-        this._snackBar.open(result.message, 'Error', {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
@@ -57,14 +57,17 @@ export class AddBillingBlockComponent {
       }
 
     } catch (error: any) {
+      console.log(error)
       if (error.error.message) {
-        this._snackBar.open(error.error.message, 'Error', {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+return
+        return
       }
-      this._snackBar.open('Something went wrong', 'Error', {
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',

@@ -30,7 +30,7 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">S.No. </th>
+              <th scope="col">SL </th>
               <th scope="col">Plant Code</th>
               <th scope="col">Name </th>
               <th scope="col">Contact Number</th>
@@ -54,7 +54,7 @@
                     <mat-icon [routerLink]="'/settings/edit-plant-data/'+list._id">edit</mat-icon>
                   </div>
                   <div>
-                    <mat-icon>delete</mat-icon>
+                    <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
                   </div>
                 </div>
               </td>

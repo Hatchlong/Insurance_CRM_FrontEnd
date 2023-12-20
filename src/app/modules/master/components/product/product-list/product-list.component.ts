@@ -38,13 +38,14 @@ export class ProductListComponent implements OnInit{
       
     } catch (error:any) {
       if (error.error.message) {
-        this._snackBar.open(error.error.message, 'Error', {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+return
       }
-      this._snackBar.open('Something went wrong', 'Error', {
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',

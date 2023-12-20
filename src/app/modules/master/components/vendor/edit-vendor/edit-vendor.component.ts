@@ -95,7 +95,7 @@ export class EditVendorComponent {
         return
       const result: any = await this.vendorSer.updateVendor(this.vendorFormGroup.value)
       if (result.status === '1') {
-        this._snackBar.open(result.message, 'Success', {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
@@ -104,7 +104,7 @@ export class EditVendorComponent {
         return
       }
       if (result.status === '0') {
-        this._snackBar.open(result.message, 'Error', {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
@@ -113,13 +113,14 @@ export class EditVendorComponent {
       }
     } catch (error: any) {
       if (error.error.message) {
-        this._snackBar.open(error.error.message, 'Error', {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+return
       }
-      this._snackBar.open('Something went wrong', 'Error', {
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
@@ -150,7 +151,7 @@ export class EditVendorComponent {
         this.countryDetails = result.data;
       } else {
 
-        this._snackBar.open(result.message, 'Error', {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
@@ -159,13 +160,14 @@ export class EditVendorComponent {
       }
     } catch (error: any) {
       if (error.error.message) {
-        this._snackBar.open(error.error.message, 'Error', {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+return
       }
-      this._snackBar.open('Something went wrong', 'Error', {
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
@@ -182,7 +184,7 @@ export class EditVendorComponent {
         // this.vendorFormGroup.controls.languageName.setValue(result.data.language)
       } else {
 
-        this._snackBar.open(result.message, 'Error', {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
@@ -192,13 +194,14 @@ export class EditVendorComponent {
     } catch (error: any) {
 
       if (error.error.message) {
-        this._snackBar.open(error.error.message, 'Error', {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+return
       }
-      this._snackBar.open('Something went wrong', 'Error', {
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
@@ -218,13 +221,14 @@ export class EditVendorComponent {
       }
     } catch (error: any) {
       if (error.error.message) {
-        this._snackBar.open(error.error.message, 'Error', {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+return
       }
-      this._snackBar.open('Something went wrong', 'Error', {
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
@@ -249,7 +253,7 @@ export class EditVendorComponent {
       }
       else {
         // alert("API FAiled")
-        this._snackBar.open(result.message, 'Error', {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
@@ -258,13 +262,14 @@ export class EditVendorComponent {
       }
     } catch (error: any) {
       if (error.error.message) {
-        this._snackBar.open(error.error.message, 'Error', {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+return
       }
-      this._snackBar.open('Something went wrong', 'Error', {
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
@@ -289,7 +294,7 @@ export class EditVendorComponent {
       }
       else {
         // alert("API FAiled")
-        this._snackBar.open(result.message, 'Error', {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
@@ -298,13 +303,14 @@ export class EditVendorComponent {
       }
     } catch (error: any) {
       if (error.error.message) {
-        this._snackBar.open(error.error.message, 'Error', {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+return
       }
-      this._snackBar.open('Something went wrong', 'Error', {
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',

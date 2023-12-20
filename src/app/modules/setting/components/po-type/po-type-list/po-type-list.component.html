@@ -31,7 +31,7 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">SlNo</th>
+              <th scope="col">SL</th>
               <th scope="col">PO Type</th>
               <th scope="col">Description </th>
               <th scope="col">Item Number</th>
@@ -55,7 +55,7 @@
                     <mat-icon [routerLink]="'/settings/update-po-type/'+list._id">edit</mat-icon>
                   </div>
                   <div>
-                    <mat-icon>delete</mat-icon>
+                    <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
                   </div>
                 </div>
               </td>

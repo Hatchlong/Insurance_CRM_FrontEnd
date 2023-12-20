@@ -21,7 +21,7 @@ body {
     background-color: #00acff !important;
     border: 0;
 }
-h1,h2,h3,h4,h5,h6,span,p,input,label,button,td,th{
+h1,h2,h3,h4,h5,h6,span,p,input,label,button,td,th,b{
     font-family: Poppins, "Poppins" !important; 
   }
 
@@ -69,7 +69,7 @@ sup {
 }
 
 thead tr th{
-    background-color: #ddd8d875 !important;
+    background-color: #bdc4ca29 !important;
     font-weight: 500;
 }
 
@@ -84,4 +84,8 @@ label{
 
 input[readonly] {
     background-color: #f6f6f6;
+}
+
+mat-icon{
+    cursor: pointer;
 }
