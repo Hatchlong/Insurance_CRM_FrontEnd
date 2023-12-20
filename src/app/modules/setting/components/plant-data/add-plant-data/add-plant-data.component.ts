@@ -6,6 +6,7 @@ import { CompanyCodeService } from '../../../Services/company-code/company-code.
 import { PurchaseOrgService } from '../../../Services/purchase-org/purchase-org.service';
 import Swal from 'sweetalert2';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SalesOrgService } from '../../../Services/sales-org/sales-org.service';
 
 @Component({
   selector: 'app-add-plant-data',
@@ -21,14 +22,16 @@ export class AddPlantDataComponent {
   taxDetails: any = [];
   timeZone: any = []
   storgaeLocationDetails: any = [];
-  isSubmitted:any = false;
- 
+  salesDetail: any = []
+  isSubmitted: any = false;
+
   constructor(private fb: FormBuilder,
     private plantDataSer: PlantDataService,
     private router: Router,
     private companyCodeSer: CompanyCodeService,
     private purOrgSer: PurchaseOrgService,
-    private _snackBar:MatSnackBar
+    private _snackBar: MatSnackBar,
+    private SalesSer: SalesOrgService
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +41,7 @@ export class AddPlantDataComponent {
     this.getStorageDetails();
     this.getTaxDetails()
     this.getTimeZoneDetail()
-
+    this.getSalesDetail()
   }
 
   plantData() {
@@ -220,6 +223,35 @@ export class AddPlantDataComponent {
     }
   }
 
+  //get sales org details
+
+  async getSalesDetail() {
+    try {
+      const result: any = await this.SalesSer.getAllSalesOrgDetails()
+      if (result.status === '1') {
+        this.salesDetail = result.data
+      } else {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
+    }
+  }
 
   async getSingleLanguage(id: any) {
     try {
@@ -250,8 +282,8 @@ export class AddPlantDataComponent {
     }
   }
 
-   // get time zone
-   async getTimeZoneDetail() {
+  // get time zone
+  async getTimeZoneDetail() {
     try {
       const result: any = await this.plantDataSer.getAllTimeZoneDetails()
       if (result.status === '1') {
@@ -313,5 +345,9 @@ export class AddPlantDataComponent {
   handleTimeZone(event: any) {
     // const timeDetail = this.timeZone.find((el: any) => el.timeZoneType === +event.target.value)
     // this.plantFormData.controls.timeZoneType.setValue(timeDetail.timeZoneType)
+  }
+  handleSalesData(event:any){
+    const findsalesData=this.salesDetail.find((el:any)=>el._id===event.target.value)
+    this.plantFormData.controls.salesOrganizationId.setValue(findsalesData.salesOrg)
   }
 }
