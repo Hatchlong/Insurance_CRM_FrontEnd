@@ -15,6 +15,7 @@ export class UpdatePoTypeComponent {
   poType: any = FormGroup
   poTypeDetail: any = []
   potypeId: any
+  isSubmitted:any=false
 
   constructor(
     private fb: FormBuilder,
@@ -74,6 +75,7 @@ return
   //update  data
   async addCode() {
     try {
+      this.isSubmitted=true
       if (this.poType.invalid) {
        return
       }

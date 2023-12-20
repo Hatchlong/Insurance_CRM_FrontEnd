@@ -23,4 +23,11 @@ export class SalesOrgService {
   updatedSalesOrgDetails(data: any) {
     return this.http.put(`http://localhost:4000/api/master/salesorg/update/${data._id}`, data).toPromise()
 
-  }}
+  }
+
+   //get all region 
+
+   getAllRegionDetails(id:any){
+    return this.http.get(`http://localhost:4000/api/config/region/getAll/${id}`).toPromise()
+  }
+}

@@ -18,6 +18,8 @@ export class AddSalesOrgComponent {
   timeZone: any = []
   countryDetials: any = []
   details: any = []
+  regionDetail:any=[]
+
 
   constructor(
     private fb: FormBuilder,
@@ -157,19 +159,56 @@ return
         panelClass: 'app-notification-error',
       });;
     }
-
   }
+
+  
+  //get region data
+
+  async getRegionDetail(id:any){
+    try {
+      const result:any=await this.salesSer.getAllRegionDetails(id)
+      if(result.status==='1'){
+        console.log(result);
+        
+          this.regionDetail=result.data
+          // this.salesOrg.controls.regionName.setValue(result.data.code)
+      }
+      else{
+        Swal.fire({
+          title: 'warning',
+          text: 'API Failed',
+          icon: 'warning',
+          showCancelButton: true
+        })
+      }
+    } catch (error) {
+      console.error(error);
+      
+    }
+  }
+
   selectCountry(event: any) {
     this.details = this.countryDetials.find((el: any) => el._id === event.target.value);
     this.salesOrg.controls.countryName.setValue(this.details.countryName)
-
+    // this.salesOrg.controls.regionName.setValue(this.details.code)
+    this.getRegionDetail(this.details._id)
 
   }
   handleTimeZone(event: any) {
     const time = this.timeZone.find((el: any) => el._id === event.target.value)
-
+    console.log(time);
     this.salesOrg.controls.timeZoneName.setValue(time.timeZoneType)
   }
+
+
+
+  
+  // handleRegion(event:any){
+  //   const regionData:any=this.regionDetail.find((el:any)=>el._id===event.target.value)
+  //   console.log(regionData);
+  //   this.salesOrg.controls.regionName.setValue(regionData.code)
+    
+  // }
 
 
 }

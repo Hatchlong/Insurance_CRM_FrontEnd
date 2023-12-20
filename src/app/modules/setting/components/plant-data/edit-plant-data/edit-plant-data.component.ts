@@ -24,6 +24,7 @@ export class EditPlantDataComponent {
   timeZone: any = []
   taxDetails: any = [];
   storgaeLocationDetails: any = []
+  isSubmitted:any=false
 
   constructor(
     private fb: FormBuilder,
@@ -144,6 +145,8 @@ return
 
   async submitData() {
     try {
+      this.isSubmitted=true
+      console.log(this.plantsData.value)
       if (this.plantsData.invalid) {
         return
       }

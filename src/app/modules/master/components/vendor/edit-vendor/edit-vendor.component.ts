@@ -18,10 +18,12 @@ export class EditVendorComponent {
   vendorFormGroup: any = FormGroup
   vendorDetials: any = []
   countryDetails: any = []
-  languageName: any = ''
-  isSubmitted: any = false
-  citiesDetails: any = [];
-  vendorId: any = ''
+  languageName: any = []
+  incrementTreamsName: any = []
+  modeOfTransportName: any = []
+  isSubmitted:any=false
+  citiesDetails: any = []
+  vendorId:any= ''
   motDetails: any = []
   incoDetails: any = []
 
@@ -41,24 +43,26 @@ export class EditVendorComponent {
     this.vendorId = this.activateRouter.snapshot.paramMap.get('id')
     this.createVendorFormFields()
     this.getCountryDetails()
-    this.getSingleVendorDetails()
     this.getMOTDetail()
     this.getIncoTermsDetail()
+    this.getSingleVendorDetails()
   }
 
   createVendorFormFields() {
     this.vendorFormGroup = this.fb.group({
-      _id: ['', Validators.required],
-      vendorName: ['', Validators.required],
-      accountGroup: ['', Validators.required],
-      addressCountry: ['', Validators.required],
-      language: ['', Validators.required],
-
-      modeOfTransport: ['', Validators.required],
-      incrementTreams: ['', Validators.required],
-      country: ['', Validators.required],
-      financialData: this.fb.array([this.getFinancialFields()])
-    })
+            vendorName: ['', Validators.required],
+            accountGroup: ['', Validators.required],
+            addressCountry: ['', Validators.required],
+            languageId: ['', Validators.required],
+            languageName: ['', Validators.required],
+            modeOfTransportId: ['',Validators.required],
+            modeOfTransportName: ['', Validators.required],
+            incrementTreamsId: ['', Validators.required],
+            incrementTreamsName: ['', Validators.required],
+            countryId: ['', Validators.required],
+            countryName: ['', Validators.required],
+            financialData: this.fb.array([this.getFinancialFields()])
+          })
   }
 
   getFinancialFields(): FormGroup {
@@ -74,12 +78,10 @@ export class EditVendorComponent {
       referenceDetails: [''],
       accountHolder: [''],
       backDetailsValidFrom: [''],
-      backDetailsValidTo: [''],
-      reconciliationAccount: [''],
-      paymentMethod: [''],
-      paymentTerms: [''],
-
-
+      backDetailsValidTo:[''],
+      reconciliationAccount:[''],
+      paymentMethod:[''],
+      paymentTerms:[''],      
     })
   }
 
@@ -91,8 +93,10 @@ export class EditVendorComponent {
       this.vendorFormGroup.value.createdBy = userName
       this.vendorFormGroup.value.changedOn = '18/12/2023'
       this.vendorFormGroup.value.changedBy = userName
-      if (this.vendorFormGroup.invalid)
+      if (this.vendorFormGroup.invalid){
+
         return
+      }
       const result: any = await this.vendorSer.updateVendor(this.vendorFormGroup.value)
       if (result.status === '1') {
         this._snackBar.open(result.message, '', {
@@ -129,7 +133,6 @@ return
     }
   }
 
-
   get financialListArray() {
     return this.vendorFormGroup.get('financialData') as FormArray
   }
@@ -141,7 +144,6 @@ return
   deleteFinancial(index: any) {
     this.financialListArray.removeAt(index)
   }
-
 
   // Get All details for company code
   async getCountryDetails() {
@@ -181,7 +183,7 @@ return
       const result: any = await this.companySer.singleLanguageDetails(id);
       if (result.status === '1') {
         this.languageName = result.data.languageName
-        // this.vendorFormGroup.controls.languageName.setValue(result.data.language)
+        this.vendorFormGroup.controls.languageName.setValue(result.data.languageName)
       } else {
 
         this._snackBar.open(result.message, '', {
@@ -212,11 +214,12 @@ return
   async getSingleVendorDetails() {
     try {
       const result: any = await this.vendorSer.singleVendor(this.vendorId)
+      console.log(result)
       if (result.status === '1') {
         this.vendorFormGroup.patchValue(result.data)
-        this.citiesDetails = this.countryDetails.find((el: any) => el._id === this.vendorFormGroup.value.country)
+        this.citiesDetails = this.countryDetails.find((el: any) => el._id === this.vendorFormGroup.value.countryId)
         // this.vendorFormGroup.controls.currency.setValue(this.citiesDetails?.countryCurrency)
-        this.vendorFormGroup.controls.language.setValue(this.citiesDetails.languageId)
+        this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
         this.getSingleLanguage(this.citiesDetails.languageId)
       }
     } catch (error: any) {
@@ -237,14 +240,16 @@ return
   }
 
   selectCountryName(event: any) {
+    console.log(event.target.value)
     this.citiesDetails = this.countryDetails.find((el: any) => el._id === event.target.value);
-    this.vendorFormGroup.controls.language.setValue(this.citiesDetails.languageId)
+    this.vendorFormGroup.controls.countryName.setValue(this.citiesDetails.countryName)
+    // this.vendorFormGroup.controls.currency.setValue(this.citiesDetails?.countryCurrency)
+    this.vendorFormGroup.controls.languageId.setValue(this.countryDetails.languageId)
+    // this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
     this.getSingleLanguage(this.citiesDetails.languageId)
+  }    
 
-  }
-
-  // get MOT organization
-
+   // get MOT organization
   async getMOTDetail() {
     try {
       const result: any = await this.motSer.getAllModeOfTransportDetails()
@@ -277,15 +282,14 @@ return
 
     }
   }
-
-  // Add the MOT Name
+  
+      // Add the MOT Name
   handleMOT(event: any) {
     const findMOTDetail = this.motDetails.find((el: any) => el._id === event.target.value);
-    this.vendorFormGroup.controls.purchaseOrganizationName.setValue(findMOTDetail.modeOfTransport)
+    this.vendorFormGroup.controls.modeOfTransportName.setValue(findMOTDetail.modeOfTransport)
   }
-
-  // get INCO TERMS organization
-
+ 
+    // get INCO TERMS organization
   async getIncoTermsDetail() {
     try {
       const result: any = await this.incoSer.getAllIncTermsDetails()
@@ -315,14 +319,14 @@ return
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
       });
-
     }
   }
 
-  // Add the inco Name
+     // Add the inco Name
   handleInco(event: any) {
     const findIncoDetail = this.incoDetails.find((el: any) => el._id === event.target.value);
-    this.vendorFormGroup.controls.incoTermsName.setValue(findIncoDetail.incrementTreams)
+    console.log(findIncoDetail)
+    this.vendorFormGroup.controls.incrementTreamsName.setValue(findIncoDetail.inc_terms_code)
   }
 
 }

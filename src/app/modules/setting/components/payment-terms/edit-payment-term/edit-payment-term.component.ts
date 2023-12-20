@@ -13,7 +13,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class EditPaymentTermComponent {
 
   payTem: any = FormGroup
-  paymentTermId: any = ''
+  paymentTermId:any=''
+  isSubmitted:any=false
   constructor(
     private fb: FormBuilder,
     private paymentSer: PaymentTermService,
@@ -73,6 +74,7 @@ return
 
   async submitData() {
     try {
+      this.isSubmitted=true
       if (this.payTem.invalid) {
         return
       }

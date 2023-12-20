@@ -15,7 +15,8 @@ export class EditPurchaseOrgComponent {
   purchOrg: any = FormGroup;
   companyDetails: any = [];
   purchaseOrgId: any = ''
-
+  isSubmitted:any=false
+ 
   constructor(private fb: FormBuilder,
     private companySer: CompanyCodeService,
     private purchaseOrgSer: PurchaseOrgService,
@@ -68,6 +69,7 @@ return
   // Create the purchase org Details
   async submitData() {
     try {
+      this.isSubmitted=true
       if (this.purchOrg.invalid)
         return 
       const result: any = await this.purchaseOrgSer.updatePurchaseOrg(this.purchOrg.value);

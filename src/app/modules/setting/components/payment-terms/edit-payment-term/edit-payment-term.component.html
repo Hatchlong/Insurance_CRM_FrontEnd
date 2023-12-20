@@ -1,40 +1,91 @@
 <div class="container-fluid">
     <form [formGroup]="payTem" (ngSubmit)="submitData()">
         <h2><mat-icon class="back" routerLink="/settings/payment-terms-list">arrow_back</mat-icon>Payment Term</h2>
-        <div class="row">
-            <div class="col-6 py-2">
-                <label for="" class="">Payment Term</label>
-                <input type="text" class="form-control " placeholder="Enter Payment Term" formControlName="paymentTerm" readonly>
+        <div class="row border">
+            <div class="col-6">
+                <label for="" class="">Payment Term<sup>*</sup></label>
+                <input type="text" class="form-control " placeholder="Enter Payment Term" formControlName="paymentTerm">
+                <div
+                    *ngIf="payTem.controls['paymentTerm'].touched && payTem.controls['paymentTerm'].dirty && payTem.controls['paymentTerm'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Payment Term is required</p>
+                </div>
+                <div *ngIf="isSubmitted && payTem.controls['paymentTerm'].hasError('required')">
+                    <p class="error-message">Payment Term is required</p>
+                </div>
             </div>
-            <div class="col-6 py-2">
-                <label for="" class="">Description</label>
+            <div class="col-6">
+                <label for="" class="">Description<sup>*</sup></label>
                 <input type="text" class="form-control " placeholder="Enter Description" formControlName="description">
+                <div
+                    *ngIf="payTem.controls['description'].touched && payTem.controls['description'].dirty && payTem.controls['description'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Description is required</p>
+                </div>
+                <div *ngIf="isSubmitted && payTem.controls['description'].hasError('required')">
+                    <p class="error-message">Description is required</p>
+                </div>
             </div>
 
-            <div class="col-6 py-2">
-                <label for="" class="">Day Limit</label>
+            <div class="col-6">
+                <label for="" class="">Day Limit<sup>*</sup></label>
                 <input type="text" class="form-control " placeholder="Enter Day Limit" formControlName="dayLimit">
+                <div
+                    *ngIf="payTem.controls['dayLimit'].touched && payTem.controls['dayLimit'].dirty && payTem.controls['dayLimit'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Day Limit is required</p>
+                </div>
+                <div *ngIf="isSubmitted && payTem.controls['dayLimit'].hasError('required')">
+                    <p class="error-message">Day Limit is required</p>
+                </div>
             </div>
-            <div class="col-6 py-2">
-                <label for="" class="">Account Type</label>
+            <div class="col-6">
+                <label for="" class="">Account Type<sup>*</sup></label>
                 <input type="text" class="form-control " placeholder="Enter Account" formControlName="accountType">
+                <div
+                    *ngIf="payTem.controls['accountType'].touched && payTem.controls['accountType'].dirty && payTem.controls['accountType'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Account Type is required</p>
+                </div>
+                <div *ngIf="isSubmitted && payTem.controls['accountType'].hasError('required')">
+                    <p class="error-message">Account Type is required</p>
+                </div>
             </div>
-            <div class="col-6 py-2">
-                <label for="" class="">Fixed Days</label>
-                <input type="text" class="form-control " placeholder="" formControlName="fixedBaseLineDate">
+            <div class="col-6">
+                <label for="" class="">Fixed Days<sup>*</sup></label>
+                <input type="text" class="form-control " placeholder="Enter Fixed Base Line Date"
+                    formControlName="fixedBaseLineDate">
+                <div
+                    *ngIf="payTem.controls['fixedBaseLineDate'].touched && payTem.controls['fixedBaseLineDate'].dirty && payTem.controls['fixedBaseLineDate'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Fixed Days is required</p>
+                </div>
+                <div *ngIf="isSubmitted && payTem.controls['fixedBaseLineDate'].hasError('required')">
+                    <p class="error-message">Fixed Days is required</p>
+                </div>
             </div>
-            <div class="col-6 py-2">
-                <label for="" class="">Additional Month</label>
-                <input type="text" class="form-control " placeholder=""
+            <div class="col-6">
+                <label for="" class="">Additional Month<sup>*</sup></label>
+                <input type="text" class="form-control " placeholder="Enter Additional Data"
                     formControlName="additionalBaselineDataCalculation">
+                <div
+                    *ngIf="payTem.controls['additionalBaselineDataCalculation'].touched && payTem.controls['additionalBaselineDataCalculation'].dirty && payTem.controls['additionalBaselineDataCalculation'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Additional Data is required</p>
+                </div>
+                <div *ngIf="isSubmitted && payTem.controls['additionalBaselineDataCalculation'].hasError('required')">
+                    <p class="error-message">Additional Data is required</p>
+                </div>
             </div>
-            <div class="col-6 py-2 ">
-                <label for="" class="">Baseline Date</label>
-                <input type="text" class="form-control " placeholder="" formControlName="defaultBaselineDate">
+            <div class="col-6">
+                <label for="" class="">Baseline Date<sup>*</sup></label>
+                <input type="text" class="form-control " placeholder="Enter Baseline Date"
+                    formControlName="defaultBaselineDate">
+                <div
+                    *ngIf="payTem.controls['defaultBaselineDate'].touched && payTem.controls['defaultBaselineDate'].dirty && payTem.controls['defaultBaselineDate'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Default BaseLine is required</p>
+                </div>
+                <div *ngIf="isSubmitted && payTem.controls['defaultBaselineDate'].hasError('required')">
+                    <p class="error-message">Default BaseLine is required</p>
+                </div>
+            </div>    
+        </div>
+        <div class="col-2 py-2">
+                <button type="submit" class="btn btn-primary">Update</button>
             </div>
-        </div>
-        <div class="col-12 d-flex justify-content-end py-2">
-            <button type="submit" class="btn btn-primary" >Update</button>
-        </div>
     </form>
 </div>

@@ -67,10 +67,10 @@
       </div>
       <div class="col-6 py-2">
         <label for="">Region</label>
-        <select class="form-select" formControlName="regionId" aria-label="Default select example">
+        <select class="form-select" formControlName="regionId" aria-label="Default select example" >
           <option [selected]="salesOrg.value.regionName=== ''" value="" hidden>Select Region</option>
-          <option value="One">One</option>
-
+          <option *ngFor="let list of regionDetail" [value]="list._id">{{list.description}}</option>
+          <!-- <option [value]="details.countryId">{{regionDetail}}</option> -->
         </select>
         <!-- <div
           *ngIf="salesOrg.controls['regionName'].touched && salesOrg.controls['regionName'].dirty && salesOrg.controls['regionName'].hasError('required') && !isSubmitted">
