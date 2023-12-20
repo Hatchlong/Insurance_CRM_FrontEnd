@@ -34,7 +34,7 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th scope="col">SLNo</th>
+            <th scope="col">SL</th>
             <th scope="col">Payment Term</th>
             <th scope="col">Descriptiion</th>
             <th scope="col">Day Limit</th>
@@ -47,7 +47,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let list of paymentDetails;let i=index">
-            <th scope="row">{{i+1}}</th>
+            <td scope="row">{{i+1}}</td>
             <td>{{list.paymentTerm}}</td>
             <td>{{list.description}}</td>
             <td>{{list.dayLimit}}</td>
@@ -60,7 +60,7 @@
                   <mat-icon [routerLink]="'/settings/edit-payment-term/'+list._id">edit</mat-icon>
                 </div>
                 <div>
-                  <mat-icon>delete</mat-icon>
+                  <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
                 </div>
               </div>
             </td>

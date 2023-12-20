@@ -64,13 +64,14 @@ export class EditCompanyCodeComponent {
     } catch (error: any) {
       console.log(error)
       if (error.error.message) {
-        this._snackBar.open(error.error.message, 'Error', {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+return
       }
-      this._snackBar.open('Something went wrong', 'Error', {
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
@@ -88,7 +89,7 @@ export class EditCompanyCodeComponent {
       const result: any = await this.companyCodeSer.updateCompanyCode(this.companyCode.value);
       this.isSubmitted = false
       if (result.status === '1') {
-        this._snackBar.open(result.message, 'Success', {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
@@ -97,7 +98,7 @@ export class EditCompanyCodeComponent {
         return;
       }
       if (result.status === '0') {
-        this._snackBar.open(result.message, 'Error', {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
@@ -106,13 +107,14 @@ export class EditCompanyCodeComponent {
 
     } catch (error: any) {
       if (error.error.message) {
-        this._snackBar.open(error.error.message, 'Error', {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+return
       }
-      this._snackBar.open('Something went wrong', 'Error', {
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
@@ -128,7 +130,7 @@ export class EditCompanyCodeComponent {
         this.companyDetails = result.data;
 
       } else {
-         this._snackBar.open(result.message, 'Error', {
+         this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
@@ -136,13 +138,14 @@ export class EditCompanyCodeComponent {
       }
     } catch (error: any) {
       if (error.error.message) {
-        this._snackBar.open(error.error.message, 'Error', {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+return
       }
-      this._snackBar.open('Something went wrong', 'Error', {
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
@@ -158,7 +161,7 @@ export class EditCompanyCodeComponent {
         this.countryDetials = result.data;
         this.getSingleCompanyCodeDetails()
       } else {
-         this._snackBar.open(result.message, 'Error', {
+         this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
@@ -166,13 +169,14 @@ export class EditCompanyCodeComponent {
       }
     } catch (error: any) {
       if (error.error.message) {
-        this._snackBar.open(error.error.message, 'Error', {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+return
       }
-      this._snackBar.open('Something went wrong', 'Error', {
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
@@ -188,7 +192,7 @@ export class EditCompanyCodeComponent {
         this.languageName = result.data.languageName;
         this.companyCode.controls.languageName.setValue(this.languageName)
       } else {
-         this._snackBar.open(result.message, 'Error', {
+         this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
@@ -196,13 +200,14 @@ export class EditCompanyCodeComponent {
       }
     } catch (error: any) {
       if (error.error.message) {
-        this._snackBar.open(error.error.message, 'Error', {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+return
       }
-      this._snackBar.open('Something went wrong', 'Error', {
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
@@ -228,7 +233,7 @@ export class EditCompanyCodeComponent {
         this.currencyDetails = result.data;
 
       } else {
-        this._snackBar.open(result.message, 'Error', {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
@@ -236,13 +241,14 @@ export class EditCompanyCodeComponent {
       }
     } catch (error: any) {
       if (error.error.message) {
-        this._snackBar.open(error.error.message, 'Error', {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+return
       }
-      this._snackBar.open('Something went wrong', 'Error', {
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',

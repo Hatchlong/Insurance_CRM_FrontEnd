@@ -43,7 +43,7 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th scope="col">SLNo</th>
+                <th scope="col">SL</th>
                <th scope="col"> Mode Of Transport</th>
                 <th scope="col">Description</th>
                 <th scope="col">Action</th>
@@ -61,7 +61,7 @@
                       <mat-icon [routerLink]="'/settings/edit-mode-of-transport/'+list._id">edit</mat-icon>
                     </div>
                     <div>
-                      <mat-icon>delete</mat-icon>
+                      <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
                     </div>
                   </div>
                 </td>
