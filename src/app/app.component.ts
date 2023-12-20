@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +10,18 @@ export class AppComponent implements OnInit {
   title = 'ERP_FrontEnd_code';
   isShow:any = false;
 
-  constructor(){
+  constructor(
+    private router:Router
+  ){
   
   }
 
   ngOnInit(): void {
     const isShowNav = localStorage.getItem('loginActive');
+    console.log(isShowNav, 'jhhhh')
+    if(!isShowNav){
+      this.router.navigate(['/'])
+    }
    if(isShowNav === 'true'){
     this.isShow = true
    }else{
