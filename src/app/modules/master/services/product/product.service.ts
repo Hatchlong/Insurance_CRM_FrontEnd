@@ -11,20 +11,20 @@ export class ProductService {
   ) { }
 
   createProduct(data: any) {
-    return this.http.post('http://54.151.187.67:4000/api/master/product/create', data).toPromise()
+    return this.http.post('http://localhost:4000/api/master/product/create', data).toPromise()
   }
 
   getAllProductDetails() {
-    return this.http.get('http://54.151.187.67:4000/api/master/product/getAll').toPromise()
+    return this.http.get('http://localhost:4000/api/master/product/getAll').toPromise()
   }
 
  
   singleProductDetails(id: any) {
-    return this.http.get(`http://54.151.187.67:4000/api/master/product/get/${id}`).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/product/get/${id}`).toPromise()
   }
 
   updatedProductDetails(data: any) {
-    return this.http.put(`http://54.151.187.67:4000/api/master/product/update/${data._id}`, data).toPromise()
+    return this.http.put(`http://localhost:4000/api/master/product/update/${data._id}`, data).toPromise()
   }
 
 

@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       localStorage.setItem('loginActive', 'true');
     } else {
       localStorage.setItem('loginActive', 'false');
-      this.router.navigate(['/'])
+      this.router.navigate(['/authr/login'])
     }
     // this.isShowSide.emit('false')
     this.createFormFields()

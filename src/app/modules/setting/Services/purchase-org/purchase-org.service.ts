@@ -12,19 +12,19 @@ export class PurchaseOrgService {
  
 
   createPurchaseOrgDetails(data:any){
-    return this.http.post('http://54.151.187.67:4000/api/master/purchaseOrg/create', data).toPromise()
+    return this.http.post('http://localhost:4000/api/master/purchaseOrg/create', data).toPromise()
   }
  
   getAllPurchaseOrgDetails(){
-    return this.http.get('http://54.151.187.67:4000/api/master/purchaseOrg/getAll').toPromise()
+    return this.http.get('http://localhost:4000/api/master/purchaseOrg/getAll').toPromise()
   }
  
   singlePurchaseOrg(id:any){
-    return this.http.get(`http://54.151.187.67:4000/api/master/purchaseOrg/get/${id}`).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/purchaseOrg/get/${id}`).toPromise()
   } 
 
   updatePurchaseOrg(data:any){
-    return this.http.put(`http://54.151.187.67:4000/api/master/purchaseOrg/update/${data._id}`, data).toPromise()
+    return this.http.put(`http://localhost:4000/api/master/purchaseOrg/update/${data._id}`, data).toPromise()
   }
 } 
    

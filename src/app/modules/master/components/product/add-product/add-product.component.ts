@@ -13,7 +13,7 @@ export class AddProductComponent implements OnInit {
 
   general: any = FormGroup
   isSubmitted: any = false;
-
+  isShowPadding:any = false
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -26,6 +26,10 @@ export class AddProductComponent implements OnInit {
 
   }
 
+  
+  handleSideBar(event:any){
+    this.isShowPadding = event
+  }
 
   create() {
     this.general = this.fb.group({

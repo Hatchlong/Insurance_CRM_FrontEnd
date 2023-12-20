@@ -18,14 +18,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     const isShowNav = localStorage.getItem('loginActive');
-    console.log(isShowNav, 'jhhhh')
     if(!isShowNav){
       this.router.navigate(['/'])
     }
    if(isShowNav === 'true'){
     this.isShow = true
    }else{
-    this.isShow = false
+    this.isShow = false;
    } 
   }
 }

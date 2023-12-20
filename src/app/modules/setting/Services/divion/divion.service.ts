@@ -12,18 +12,18 @@ export class DivionService {
 
    
   createDivionDetails(data:any){
-    return this.http.post('http://54.151.187.67:4000/api/master/division/create', data).toPromise()
+    return this.http.post('http://localhost:4000/api/master/division/create', data).toPromise()
   }
  
   getAllDivionDetails(){
-    return this.http.get('http://54.151.187.67:4000/api/master/division/getAll').toPromise()
+    return this.http.get('http://localhost:4000/api/master/division/getAll').toPromise()
   }
 
   singleDivionDetails(id:any){
-    return this.http.get(`http://54.151.187.67:4000/api/master/division/get/${id}`).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/division/get/${id}`).toPromise()
   }
   updateDivion(data:any){
-    return this.http.put(`http://54.151.187.67:4000/api/master/division/update/${data._id}`, data).toPromise()
+    return this.http.put(`http://localhost:4000/api/master/division/update/${data._id}`, data).toPromise()
   }
 
 }

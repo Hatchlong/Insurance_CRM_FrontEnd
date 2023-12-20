@@ -11,6 +11,7 @@ export class SideNavComponent implements OnInit {
   SelectedName: any = 'Master';
   subFolderName: any = 'Product';
   @Output() isShowNav = new EventEmitter<any>();
+  isFullScreen:any = false
   constructor(
     private router: Router
   ) {
@@ -45,7 +46,8 @@ export class SideNavComponent implements OnInit {
   }
 
   closeNav() {
-
+    this.isFullScreen = !this.isFullScreen;
+    this.isShowNav.emit(this.isFullScreen)
     let sidebar: any = document.querySelector(".sidebar");
     let sidebarBtn: any = document.querySelector(".bx-menu");
     console.log(sidebar && sidebar.classList.contains('close'));

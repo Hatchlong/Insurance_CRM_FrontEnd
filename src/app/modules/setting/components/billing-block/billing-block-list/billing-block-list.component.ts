@@ -36,14 +36,7 @@ export class BillingBlockListComponent implements OnInit {
       }
 
     } catch (error: any) {
-      if (error.error.message) {
-        this._snackBar.open(error.error.message, '', {
-          duration: 5 * 1000, horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: 'app-notification-error',
-        });
-        return
-      }
+     
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
@@ -101,14 +94,7 @@ export class BillingBlockListComponent implements OnInit {
       }
 
     } catch (error: any) {
-      if (error.error.message) {
-        this._snackBar.open(error.error.message, '', {
-          duration: 5 * 1000, horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: 'app-notification-error',
-        });
-        return
-      }
+     
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
