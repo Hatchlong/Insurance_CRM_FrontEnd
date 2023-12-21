@@ -178,22 +178,18 @@
                                                 placeholder="enter vat reg. no.">
                                         </td>
                                         <td>
-                                            <!-- <select class="form-select " aria-label="Default select example" formControlName="currency" (change)="handleCurrency($event)"  [ngStyle]="{'pointer-events': !companyCode.value.countryId ? 'none' :  'all'}">
-                                                <option [selected]="companyCode.value.currencyId===''" value="" hidden>Select Currency</option>
+                                            <select class="form-select " aria-label="Default select example" formControlName="currency"  [ngStyle]="{'pointer-events': !vendorFormGroup.value.countryId ? 'none' :  'all'}">
+                                                <option [selected]="vendorFormGroup.value.currency===''" value="" hidden>Select Currency</option>
                                                 <option *ngFor="let list of currencyDetails" [value]="list._id">{{list.code}}</option>
-                                            </select> -->
-                                            <select class="form-select" formControlName="currency">
-                                               
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
                                             </select>
+                                          
                                         </td>
                                         <td>
-                                            <select class="form-select" formControlName="companyCode">           
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
+                                            
+                                            <select class="form-select" formControlName="companyCode" >
+                                                <option [selected]="vendorFormGroup.value.companyCode=== ''" value="" hidden>Select Company Code</option>
+                                                <option *ngFor="let company of companyCodeDetails" [value]="company._id">{{company.companyCode}}</option>
+                 
                                             </select>
                                           
                                         </td>
@@ -241,11 +237,10 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <select class="form-select" formControlName="paymentTerms">   
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
-                                            </select>
+                                            <select class="form-select" formControlName="paymentTerms">
+                                    <option [selected]="vendorFormGroup.value.paymentTerms=== ''" value="" hidden>Select Payment Terms</option>
+                                    <option *ngFor="let pay of payDetails" [value]="pay._id">{{pay.paymentTerm}}</option>
+                                </select> 
                                         </td>
                                     </tr>
                                 </tbody>

@@ -13,6 +13,9 @@ export class VendorListComponent implements OnInit{
 vendorDetails: any = []
 selectAll:any=false
 
+selectedFile: any = '';
+allVendorDetails:any = []
+
   constructor(
     private router:Router,
     private vendorSer : VendorService,
@@ -36,6 +39,7 @@ selectAll:any=false
         result.data.map((el:any)=>{
           el.check=false
         })
+        this.allVendorDetails = result.data
         this.vendorDetails = result.data;
       }
     } catch (error:any) { 
@@ -116,5 +120,15 @@ return
         });
       }
     }
+
+    
+  handleFilter(event:any){
+    if(!event.target.value){
+      this.vendorDetails = this.allVendorDetails
+    }
+    console.log(event.target.value)
+    const isStringIncluded = this.allVendorDetails.filter((obj:any) => ((obj.vendorName.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.addressCountry.toUpperCase()).includes(event.target.value.toUpperCase())));
+    this.vendorDetails = isStringIncluded
+  }
 
 }
