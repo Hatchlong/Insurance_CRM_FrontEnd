@@ -8,25 +8,27 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './payment-terms-list.component.html',
   styleUrls: ['./payment-terms-list.component.css']
 })
-export class PaymentTermsListComponent implements OnInit{
+export class PaymentTermsListComponent implements OnInit {
 
-  paymentDetails:any=[]
-  selectAll:any=false
+  paymentDetails: any = []
+  selectAll: any = false
+  selectedFile: any = ''; 
+  allPaymentDetails:any = []
 
-   
+
   constructor(
-    private router:Router,
-    private paymentSer:PaymentTermService,
-    private _snackBar:MatSnackBar
-  ){}
-  nextPage(url:any){
+    private router: Router,
+    private paymentSer: PaymentTermService,
+    private _snackBar: MatSnackBar
+  ) { }
+  nextPage(url: any) {
     this.router.navigate([`${url}`])
   }
 
   ngOnInit(): void {
-      this.getAllPayment()
+    this.getAllPayment()
   }
- 
+
   selectdata(event: any) {
     console.log(event.target.checked);
     this.paymentDetails.map((el: any) => {
@@ -53,24 +55,25 @@ export class PaymentTermsListComponent implements OnInit{
   }
 
 
-  async getAllPayment(){
+  async getAllPayment() {
     try {
-      const result:any = await this.paymentSer.getAllPaymentTerm();
+      const result: any = await this.paymentSer.getAllPaymentTerm();
       console.log(result)
-      if(result.status === '1'){
-        result.data.map((el:any)=>{
-          el.check=false
+      if (result.status === '1') {
+        result.data.map((el: any) => {
+          el.check = false
         })
+        this.allPaymentDetails=result.data
         this.paymentDetails = result.data;
       }
-    } catch (error:any) {
-       if (error.error.message) {
+    } catch (error: any) {
+      if (error.error.message) {
         this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -110,4 +113,14 @@ return
       });
     }
   }
+  
+  handleFilter(event:any){
+    if(!event.target.value){
+      this.paymentDetails = this.allPaymentDetails
+    }
+    console.log(event.target.value)
+    const isStringIncluded = this.allPaymentDetails.filter((obj:any) => ((obj.paymentTerm.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.description.toUpperCase()).includes(event.target.value.toUpperCase())));
+    this.paymentDetails = isStringIncluded
+  }
+
 }
