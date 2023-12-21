@@ -5,6 +5,7 @@ import { ProductService } from '../../../services/product/product.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PlantDataService } from 'src/app/modules/setting/Services/plant-data/plant-data.service';
 import { SalesOrgService } from 'src/app/modules/setting/Services/sales-org/sales-org.service';
+import { DistibutionChannelService } from 'src/app/modules/setting/Services/distibution-channel/distibution-channel.service';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -14,6 +15,7 @@ export class AddProductComponent implements OnInit {
 
   general: any = FormGroup
   isSubmitted: any = false;
+  isShowPadding: any = false
   storgaeLocationDetails: any = []
   salesData: any = []
   taxDetails: any = [];
@@ -27,13 +29,15 @@ export class AddProductComponent implements OnInit {
   materialGrpDetail: any = []
   weigthUnitDetail: any = []
   uomDetail: any = []
-  materialTypeDetail:any=[]
+  materialTypeDetail: any = []
+  distributionDetail: any = []
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private productSer: ProductService,
     private plantDataSer: PlantDataService,
+    private distibutionSer: DistibutionChannelService,
     private SalesSer: SalesOrgService,
     private _snackBar: MatSnackBar
   ) { }
@@ -54,12 +58,17 @@ export class AddProductComponent implements OnInit {
     this.getWeightUnit()
     this.getUOMDetail()
     this.getMaterialType()
+    this.getDistributionDetail()
   }
 
 
+  handleSideBar(event: any) {
+    this.isShowPadding = event
+  }
+
   create() {
     this.general = this.fb.group({
-      materialId:['00',Validators.required],
+      materialId: ['00', Validators.required],
       materialDescription: ['', Validators.required],
       materialGroupId: ['', Validators.required],
       materialGroupName: ['', Validators.required],
@@ -77,10 +86,10 @@ export class AddProductComponent implements OnInit {
       transporationGroupName: ['', Validators.required],
       allowedPKGWeight: ['', Validators.required],
       unitOfDeminsion: ['', Validators.required],
-      unitWeight: ['', Validators.required],
+      // unitWeight: ['', Validators.required],
       weightUnit: ['', Validators.required],
       allowedPKGVolume: ['', Validators.required],
-      volumeUnit: ['', Validators.required],
+      // volumeUnit: ['', Validators.required],
       excessWTTolerance: ['', Validators.required],
       oldMaterialNumber: ['', Validators.required],
       baseUnitMeasure: ['', Validators.required],
@@ -90,7 +99,7 @@ export class AddProductComponent implements OnInit {
       width: ['', Validators.required],
       height: ['', Validators.required],
       batchManagment: ['', Validators.required],
-      taxClassificationId:['',Validators.required],
+      taxClassificationId: ['', Validators.required],
       taxClassificationName: ['', Validators.required],
       manfacturePartNo: ['', Validators.required],
       expirationDataRelavance: ['', Validators.required],
@@ -321,7 +330,7 @@ export class AddProductComponent implements OnInit {
       });
     }
   }
- 
+
   // get storage condition
 
   async getStorageCondition() {
@@ -346,17 +355,17 @@ export class AddProductComponent implements OnInit {
       });
     }
   }
-  handleStorage(event:any){
-    const findStorgeCondition=this.storageConditionDetail.find((el:any)=>el._id===event.target.value)
+  handleStorage(event: any) {
+    const findStorgeCondition = this.storageConditionDetail.find((el: any) => el._id === event.target.value)
     console.log(findStorgeCondition);
     this.general.controls.storageConditionName.setValue(findStorgeCondition.description)
-    
+
   }
 
   handleIndustry(event: any) {
     const findIndustry = this.industryDetail.find((el: any) => el._id === event.target.value)
     console.log(findIndustry);
-    
+
     this.general.controls.industrySectorName.setValue(findIndustry.description)
   }
 
@@ -383,11 +392,11 @@ export class AddProductComponent implements OnInit {
       });
     }
   }
-  handleTemp(event:any){
-    const findTemp=this.tempDetails.find((el:any)=>el._id===event.target.value)
+  handleTemp(event: any) {
+    const findTemp = this.tempDetails.find((el: any) => el._id === event.target.value)
     console.log(findTemp);
     this.general.controls.tempConditionName.setValue(findTemp.description)
-    
+
   }
   //get trans details
 
@@ -413,22 +422,22 @@ export class AddProductComponent implements OnInit {
       });
     }
   }
-  handleTransGrp(event:any){
-    const findTransDetail=this.transDetails.find((el:any)=>el._id===event.target.value)
+  handleTransGrp(event: any) {
+    const findTransDetail = this.transDetails.find((el: any) => el._id === event.target.value)
     console.log(findTransDetail);
     this.general.controls.transporationGroupName.setValue(findTransDetail.description)
-    
+
   }
 
   //get material type
 
-  async getMaterialType(){
+  async getMaterialType() {
     try {
-      const result:any=await this.productSer.getAllMaterialTypeDetails()
-      if (result.status==='1') {
-        this.materialTypeDetail=result.data
+      const result: any = await this.productSer.getAllMaterialTypeDetails()
+      if (result.status === '1') {
+        this.materialTypeDetail = result.data
       }
-    }  catch (error: any) {
+    } catch (error: any) {
       if (error.error.message) {
         this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
@@ -444,11 +453,11 @@ export class AddProductComponent implements OnInit {
       });
     }
   }
-  handleMaterialType(event:any){
-    const findMaterialType=this.materialTypeDetail.find((el:any)=>el._id===event.target.value)
+  handleMaterialType(event: any) {
+    const findMaterialType = this.materialTypeDetail.find((el: any) => el._id === event.target.value)
     console.log(findMaterialType);
     this.general.controls.materialTypeName.setValue(findMaterialType.code)
-    
+
   }
 
   //get procuremnent type
@@ -552,11 +561,11 @@ export class AddProductComponent implements OnInit {
     }
   }
 
-  handleMaterialGrp(event:any){
-    const findMaterialGrp=this.materialGrpDetail.find((el:any)=> el._id===event.target.value)
+  handleMaterialGrp(event: any) {
+    const findMaterialGrp = this.materialGrpDetail.find((el: any) => el._id === event.target.value)
     console.log(findMaterialGrp);
     this.general.controls.materialGroupName.setValue(findMaterialGrp.description)
-    
+
   }
 
   //get weight unit
@@ -586,9 +595,34 @@ export class AddProductComponent implements OnInit {
   //get uomDetail
   async getUOMDetail() {
     try {
-      const result: any = await this.productSer.getAllUOMDetails()
+      const result: any = await this.productSer.getAllUOMDetails() 
       if (result.status === '1') {
         this.uomDetail = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+  //get distribution channel
+
+  async getDistributionDetail() {
+    try {
+      const result:any=await this.distibutionSer.getAllDistibutionChannelDetails()
+      if (result.status==='1') {
+        this.distributionDetail=result.data
       }
     } catch (error: any) {
       if (error.error.message) {

@@ -33,7 +33,7 @@ import { EditProductComponent } from './components/product/edit-product/edit-pro
     AddCustomerComponent,
     CustomerListComponent,
     EditVendorComponent,
-    EditProductComponent,
+    EditProductComponent
   ],
   imports: [
     CommonModule,

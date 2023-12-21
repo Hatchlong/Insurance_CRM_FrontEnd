@@ -11,6 +11,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ProductListComponent implements OnInit {
 
   productDetails: any = []
+  selectedFile: any = ''; 
+  allProductDetails:any = []
 
   constructor(
     private router: Router,
@@ -38,6 +40,7 @@ export class ProductListComponent implements OnInit {
       const result: any = await this.productSer.getAllProductDetails()
       console.log(result);
       if (result.status === '1') {
+        this.allProductDetails=result.data
         this.productDetails = result.data
       }
 
@@ -97,6 +100,16 @@ export class ProductListComponent implements OnInit {
         panelClass: 'app-notification-error',
       });
     }
+  }
+
+  
+  handleFilter(event:any){
+    if(!event.target.value){
+      this.productDetails = this.allProductDetails
+    }
+    console.log(event.target.value)
+    const isStringIncluded = this.allProductDetails.filter((obj:any) => ((obj.materialId.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.materialDescription.toUpperCase()).includes(event.target.value.toUpperCase())));
+    this.productDetails = isStringIncluded
   }
 
 }

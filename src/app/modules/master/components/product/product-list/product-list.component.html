@@ -1,16 +1,11 @@
+<!-- <app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav> -->
 <div class="container-fluid ">
   <div class="row mt-3 ">
     <div class="d-grid gap-2 d-md-flex justify-content-md-start ">
 
-      <!-- <select class="form-select w-25" aria-label="Default select example">
-          <option selected>Select Product</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-        -->
       <div class="col-3">
-        <input type="search" name="" id="search-data" placeholder="Material ID / Description.." class="form-control " onkeyup="filterData($event)">
+        <input type="search" name="" id="search-data" placeholder="Material ID / Description.." class="form-control "
+        (input)="handleFilter($event)">
       </div>
       <div class="col-2">
         <select class="form-select " aria-label="Default select example">
@@ -33,82 +28,89 @@
   </div>
 
 
-</div>
-<div class="row mt-3">
-  <div class="col-12">
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
-      <button (click)="nextPage('/master/add-product')" class="btn btn-primary " type="button"
-        style="color: white;background: #00acff;">Add Product</button>
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+        <button (click)="nextPage('/master/add-product')" class="btn btn-primary " type="button"
+          style="color: white;background: #00acff;">Add Product</button>
 
-      <button class="btn btn-danger" type="button" style="color: white;">
-        <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
-        Delete Selected Product</button>
-      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-          <!-- <mat-icon>dialpad</mat-icon> -->
-          <span>Import Product</span>
+        <button class="btn btn-danger" type="button" style="color: white;">
+          <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
+          Delete Selected Product</button>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
         </button>
-        <button mat-menu-item>
-          <!-- <mat-icon>voicemail</mat-icon> -->
-          <span>Export Product</span>
-        </button>
-        <button mat-menu-item>
-          <!-- <mat-icon>notifications_off</mat-icon> -->
-          <span>Sample Product Sheet</span>
-        </button>
-      </mat-menu>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <!-- <mat-icon>dialpad</mat-icon> -->
+            <span>Import Product</span>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <!-- <mat-icon>dialpad</mat-icon> -->
+              <span>Import Product</span>
+            </button>
+            <button mat-menu-item>
+              <!-- <mat-icon>voicemail</mat-icon> -->
+              <span>Export Product</span>
+            </button>
+            <button mat-menu-item>
+              <!-- <mat-icon>notifications_off</mat-icon> -->
+              <span>Sample Product Sheet</span>
+            </button>
+          </mat-menu>
 
-
+        </mat-menu>
+      </div>
     </div>
   </div>
-</div>
-<div class="row mt-4 ms-2">
-  <div class="col-12">
-    <div class="table-responsive">
-      <table class="table table-hover">
-        <thead>
-          <tr>
+ 
 
-            <th scope="col">Material Id</th>
-            <th scope="col">Material Description</th>
-            <th scope="col">Material Type</th>
-            <th scope="col">Industry Sector</th>
-            <th scope="col">Base Unit Of Measurement</th>
-            <th scope="col">Action</th>
-            <th scope="col"><input type="checkbox"> Select All</th>
-          </tr>
-        </thead>
-        <tbody *ngIf="productDetails.length===0">
-          <tr>
-            <td colspan="7" class="text-center">No Records !...</td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr *ngFor="let list of productDetails;let i=index">
-            <td>{{i+1}}</td>
-            <td>{{list.materialDescription}}</td>
-            <td>{{list.materialTypeName}}</td>
-            <td>{{list.industrySectorName}}</td>
-            <td>{{list.baseUnitMeasure}}</td>
-            <td>
-              <div class="d-flex">
-                <div>
-                  <mat-icon [routerLink]="'/master/edit-product/'+list._id">edit</mat-icon>
+  <div class="row mt-4 ms-2">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+
+              <th scope="col">Material Id</th>
+              <th scope="col">Material Description</th>
+              <th scope="col">Material Type</th>
+              <th scope="col">Industry Sector</th>
+              <th scope="col">Base Unit Of Measurement</th>
+              <th scope="col">Action</th>
+              <th scope="col"><input type="checkbox"> Select All</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="productDetails.length===0">
+            <tr>
+              <td colspan="7" class="text-center">No Records !...</td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr *ngFor="let list of productDetails;let i=index">
+              <td>{{i+1}}</td>
+              <td>{{list.materialDescription}}</td>
+              <td>{{list.materialTypeName}}</td>
+              <td>{{list.industrySectorName}}</td>
+              <td>{{list.baseUnitMeasure}}</td>
+              <td>
+                <div class="d-flex">
+                  <div>
+                    <mat-icon [routerLink]="'/master/edit-product/'+list._id">edit</mat-icon>
+                  </div>
+                  <div>
+                    <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
+                  </div>
                 </div>
-                <div>
-                  <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
-                </div>
-              </div>
-            </td>
-            <td><input type="checkbox"></td>
-          </tr>
+              </td>
+              <td><input type="checkbox"></td>
+            </tr>
 
-        </tbody>
+          </tbody>
 
-      </table>
+        </table>
+      </div>
     </div>
   </div>
 </div>

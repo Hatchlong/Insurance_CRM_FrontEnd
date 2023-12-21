@@ -12,6 +12,8 @@ export class PaymentTermsListComponent implements OnInit {
 
   paymentDetails: any = []
   selectAll: any = false
+  selectedFile: any = ''; 
+  allPaymentDetails:any = []
 
 
   constructor(
@@ -61,6 +63,7 @@ export class PaymentTermsListComponent implements OnInit {
         result.data.map((el: any) => {
           el.check = false
         })
+        this.allPaymentDetails=result.data
         this.paymentDetails = result.data;
       }
     } catch (error: any) {
@@ -102,14 +105,7 @@ export class PaymentTermsListComponent implements OnInit {
       }
 
     } catch (error: any) {
-      if (error.error.message) {
-        this._snackBar.open(error.error.message, '', {
-          duration: 5 * 1000, horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: 'app-notification-error',
-        });
-        return
-      }
+     
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
@@ -117,4 +113,14 @@ export class PaymentTermsListComponent implements OnInit {
       });
     }
   }
+  
+  handleFilter(event:any){
+    if(!event.target.value){
+      this.paymentDetails = this.allPaymentDetails
+    }
+    console.log(event.target.value)
+    const isStringIncluded = this.allPaymentDetails.filter((obj:any) => ((obj.paymentTerm.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.description.toUpperCase()).includes(event.target.value.toUpperCase())));
+    this.paymentDetails = isStringIncluded
+  }
+
 }
