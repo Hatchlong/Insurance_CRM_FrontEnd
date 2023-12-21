@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModeOfTransportService } from 'src/app/modules/setting/Services/mode-of-transport/mode-of-transport.service';
 import { IncTermService } from 'src/app/modules/setting/Services/inc-term/inc-term.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PaymentTermService } from 'src/app/modules/setting/Services/payment-term/payment-term.service';
 
 @Component({
   selector: 'app-edit-vendor',
@@ -26,12 +27,17 @@ export class EditVendorComponent {
   vendorId:any= ''
   motDetails: any = []
   incoDetails: any = []
+  currencyDetails:any = []
+  payDetails: any = []
+  companyCodeDetails:any = []
 
   constructor(
     private fb: FormBuilder,
     private countrySer: CountryService,
     private companySer: CompanyCodeService,
     private vendorSer: VendorService,
+    private paySer: PaymentTermService,
+    
     private router: Router,
     private activateRouter: ActivatedRoute,
     private motSer: ModeOfTransportService,
@@ -46,10 +52,13 @@ export class EditVendorComponent {
     this.getMOTDetail()
     this.getIncoTermsDetail()
     this.getSingleVendorDetails()
+    this.getCompanyCodeDetail()
+    this.getPaymentTermsDetail()
   }
 
   createVendorFormFields() {
     this.vendorFormGroup = this.fb.group({
+            _id: ['', Validators.required],
             vendorName: ['', Validators.required],
             accountGroup: ['', Validators.required],
             addressCountry: ['', Validators.required],
@@ -93,11 +102,10 @@ export class EditVendorComponent {
       this.vendorFormGroup.value.createdBy = userName
       this.vendorFormGroup.value.changedOn = '18/12/2023'
       this.vendorFormGroup.value.changedBy = userName
-      if (this.vendorFormGroup.invalid){
-
+      if (this.vendorFormGroup.invalid)
         return
-      }
       const result: any = await this.vendorSer.updateVendor(this.vendorFormGroup.value)
+      console.log(result)
       if (result.status === '1') {
         this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
@@ -177,6 +185,39 @@ return
     }
   }
 
+
+   // Get All details for Currency code
+   async getCurrencyDetails(companyId: any) {
+    try {
+      const result: any = await this.companySer.getAllCurrencyDetails(companyId);
+      if (result.status === '1') {
+        this.currencyDetails = result.data;
+
+      } else {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+
   //  single details for Language Detials
   async getSingleLanguage(id: any) {
     try {
@@ -218,9 +259,11 @@ return
       if (result.status === '1') {
         this.vendorFormGroup.patchValue(result.data)
         this.citiesDetails = this.countryDetails.find((el: any) => el._id === this.vendorFormGroup.value.countryId)
-        // this.vendorFormGroup.controls.currency.setValue(this.citiesDetails?.countryCurrency)
-        this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
+        // this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
         this.getSingleLanguage(this.citiesDetails.languageId)
+        this.getCurrencyDetails(this.vendorFormGroup.value.countryId)
+
+
       }
     } catch (error: any) {
       if (error.error.message) {
@@ -243,10 +286,10 @@ return
     console.log(event.target.value)
     this.citiesDetails = this.countryDetails.find((el: any) => el._id === event.target.value);
     this.vendorFormGroup.controls.countryName.setValue(this.citiesDetails.countryName)
-    // this.vendorFormGroup.controls.currency.setValue(this.citiesDetails?.countryCurrency)
-    this.vendorFormGroup.controls.languageId.setValue(this.countryDetails.languageId)
-    // this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
+    // this.vendorFormGroup.controls.languageId.setValue(this.countryDetails.languageId)
+    this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
     this.getSingleLanguage(this.citiesDetails.languageId)
+    this.getCurrencyDetails(event.target.value)
   }    
 
    // get MOT organization
@@ -286,6 +329,7 @@ return
       // Add the MOT Name
   handleMOT(event: any) {
     const findMOTDetail = this.motDetails.find((el: any) => el._id === event.target.value);
+    console.log(findMOTDetail)
     this.vendorFormGroup.controls.modeOfTransportName.setValue(findMOTDetail.modeOfTransport)
   }
  
@@ -328,5 +372,70 @@ return
     console.log(findIncoDetail)
     this.vendorFormGroup.controls.incrementTreamsName.setValue(findIncoDetail.inc_terms_code)
   }
+
+  async getCompanyCodeDetail() {
+    try {
+      const result: any = await this.companySer.getAllCompanyCodeDetails()
+      console.log(result)
+      if (result.status === '1') {
+        this.companyCodeDetails = result.data
+      }
+      else {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+  
+  // get payment TERMS organization
+
+   async getPaymentTermsDetail() {
+    try {
+      const result: any = await this.paySer.getAllPaymentTerm()
+      console.log(result)
+      if (result.status === '1') {
+        this.payDetails = result.data
+      }
+      else {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
 
 }
