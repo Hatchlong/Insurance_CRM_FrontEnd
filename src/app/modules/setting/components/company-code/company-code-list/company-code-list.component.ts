@@ -241,10 +241,8 @@ export class CompanyCodeListComponent {
 
 
   pageChanged(event: PageChangedEvent): void {
-    console.log(event)
     this.page = event.page;
-    const records = (this.page - 1) * + this.itemsPerPage;
-    console.log(records)
+    const records = (this.page-1) * this.itemsPerPage;
     this.getAllCompanyCodeDetails(records, this.itemsPerPage)
   }
 }
