@@ -4,7 +4,6 @@ import { CountryService } from '../../../services/country/country.service';
 import { VendorService } from '../../../services/vendor/vendor.service';
 import { CompanyCodeService } from 'src/app/modules/setting/Services/company-code/company-code.service';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
 import { ModeOfTransportService } from 'src/app/modules/setting/Services/mode-of-transport/mode-of-transport.service';
 import { IncTermService } from 'src/app/modules/setting/Services/inc-term/inc-term.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -25,6 +24,7 @@ export class AddVendorComponent implements OnInit {
   citiesDetails: any = []
   motDetails: any = []
   incoDetails: any = []
+  companyDetails: any = []
 
   constructor(
     private fb: FormBuilder,
@@ -67,7 +67,7 @@ export class AddVendorComponent implements OnInit {
       financialTax2: [''],
       vatRegistrationNo: [''],
       currency: [''],
-      companyCode: [''],
+      companyCode: ['',],
       bankCountry: [''],
       bankKey: [''],
       bankAccount: [''],
@@ -251,9 +251,8 @@ return
   // Add the MOT Name
   handleMOT(event: any) {
     const findMOTDetail = this.motDetails.find((el: any) => el._id === event.target.value);
-    // console.log()
-    // this.vendorFormGroup.controls.purchaseOrganizationName.setValue(findMOTDetail.modeOfTransport)
-        this.vendorFormGroup.controls.modeOfTransportName.setValue(findMOTDetail.modeOfTransport)
+    console.log(findMOTDetail)
+    this.vendorFormGroup.controls.modeOfTransportName.setValue(findMOTDetail.modeOfTransport)
   }
 
   // get INCO TERMS organization
@@ -291,10 +290,49 @@ return
 
   // Add the inco Name
   handleInco(event: any) {
-
     const findIncoDetail = this.incoDetails.find((el: any) => el._id === event.target.value);
     console.log(findIncoDetail)
     this.vendorFormGroup.controls.incrementTreamsName.setValue(findIncoDetail.inc_terms_code)
   }
+
+
+  async getCompanyCodeDetail() {
+    try {
+      const result: any = await this.companySer.getAllCompanyCodeDetails()
+      console.log(result)
+      if (result.status === '1') {
+        this.companyDetails = result.data
+      }
+      else {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+  // Add the company Name
+  handleCompany(event: any) {
+    const findCompanyDetail = this.companyDetails.find((el: any) => el._id === event.target.value);
+    console.log(findCompanyDetail)
+    this.vendorFormGroup.controls.companyCode.setValue(findCompanyDetail.companyCode)
+  }
+
 
 }

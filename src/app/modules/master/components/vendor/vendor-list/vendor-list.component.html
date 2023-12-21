@@ -5,28 +5,28 @@
     <div class="col-12 ms-0">
       <div class="d-grid gap-2 d-md-flex justify-content-md-start mx-2 ">
 
-        <select class="form-select w-50 mx-2" aria-label="Default select example">
-          <option selected>Select Store</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-        <select class="form-select w-50 mx-2" aria-label="Default select example">
-          <option selected>Store</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-
+        <input type="search" name="" id="" placeholder="Vendor name..." class=" mx-2 form-control w-50">
 
         <select class="form-select w-50 mx-2" aria-label="Default select example">
-          <option selected>Distributor Name</option>
+          <option selected>Select Country</option>
           <option value="1">One</option>
           <option value="2">Two</option>
           <option value="3">Three</option>
         </select>
 
-        <input type="search" name="" id="" placeholder="Search.." class=" mx-2 form-control w-50">
+        <select class="form-select w-50 mx-2" aria-label="Default select example">
+          <option selected>Mode Of Transport</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+
+        <select class="form-select w-50 mx-2" aria-label="Default select example">
+          <option selected>Inco Terms</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
 
       </div>
     </div>
@@ -65,8 +65,8 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>SL</th>
-              <th scope="col">Image</th>
+              <th>S.No.</th>
+              
               <th scope="col">Vendor Name</th>
               <th scope="col">Address</th>
               <th scope="col">Account group</th>
@@ -86,9 +86,7 @@
           <tbody>
             <tr *ngFor="let list of vendorDetails; let i=index">
               <td>{{i+1}}</td>
-              <td scope="row">
-                <mat-icon>inventory_2</mat-icon>
-              </td>
+             
               <td>{{list.vendorName}}</td>
               <td>{{list.addressCountry}}</td>
               <td>{{list.accountGroup}}</td>
@@ -102,7 +100,7 @@
                     <mat-icon [routerLink]="'/master/edit-vendor/'+list._id">edit</mat-icon>
                   </div>
                   <div>
-                    <mat-icon>delete</mat-icon>
+                    <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
                   </div>
                 </div>
               </td>

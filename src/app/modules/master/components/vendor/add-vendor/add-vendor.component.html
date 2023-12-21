@@ -65,7 +65,7 @@
                                     <option [selected]="vendorFormGroup.value.languageId === ''" value="" hidden>Select language</option>
                                     <option [value]="citiesDetails.languageId">{{languageName}}</option>
                                 </select>
-                                <div
+                                <div    
                                     *ngIf="vendorFormGroup.controls['languageId'].touched && vendorFormGroup.controls['languageId'].dirty && vendorFormGroup.controls['languageId'].hasError('required') && !isSubmitted">
                                     <p class="error-message">Language is required</p>
                                 </div>
@@ -178,6 +178,10 @@
                                                 placeholder="enter vat reg. no.">
                                         </td>
                                         <td>
+                                            <!-- <select class="form-select " aria-label="Default select example" formControlName="currency" (change)="handleCurrency($event)"  [ngStyle]="{'pointer-events': !companyCode.value.countryId ? 'none' :  'all'}">
+                                                <option [selected]="companyCode.value.currencyId===''" value="" hidden>Select Currency</option>
+                                                <option *ngFor="let list of currencyDetails" [value]="list._id">{{list.code}}</option>
+                                            </select> -->
                                             <select class="form-select" formControlName="currency">
                                                
                                                 <option value="1">One</option>
@@ -191,6 +195,7 @@
                                                 <option value="2">Two</option>
                                                 <option value="3">Three</option>
                                             </select>
+                                          
                                         </td>
                                         <td>
                                             <select class="form-select" formControlName="bankCountry">                                           

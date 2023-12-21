@@ -1,4 +1,4 @@
-import { Component , OnInit} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { VendorService } from '../../../services/vendor/vendor.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './vendor-list.component.html',
   styleUrls: ['./vendor-list.component.css']
 })
-export class VendorListComponent {
+export class VendorListComponent implements OnInit{
 
 vendorDetails: any = []
 selectAll:any=false
@@ -19,8 +19,8 @@ selectAll:any=false
     private _snackBar: MatSnackBar
   ){ }
 
-  ngOnInit(): void{
-    this.getAllVendorDetails()
+   ngOnInit(): void{
+    this.getAllVendorData()
   }
 
   nextPage(url: any){
@@ -28,11 +28,14 @@ selectAll:any=false
   }
   
    //get data into list
-   async getAllVendorDetails(){
+   async getAllVendorData(){
     try {
       const result:any = await this.vendorSer.getAllVendorDetails();
       console.log(result)
       if(result.status === '1'){
+        result.data.map((el:any)=>{
+          el.check=false
+        })
         this.vendorDetails = result.data;
       }
     } catch (error:any) { 
@@ -71,6 +74,46 @@ return
       }
       else{
         this.selectAll=true
+      }
+    }
+
+
+    async deleteRecords(data: any) {
+      try {
+        data.isActive = "C"
+        const result: any = await this.vendorSer.updateVendor(data);
+        console.log(result)
+        if (result.status === '1') {
+          this._snackBar.open("Deleted Successfully", '', {
+            duration: 5 * 1000, horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: 'app-notification-success',
+          });
+          this.getAllVendorData() 
+          return;
+        }
+        if (result.status === '0') {
+          this._snackBar.open("Deleted Unsuccessfully", '', {
+            duration: 5 * 1000, horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: 'app-notification-error',
+          });
+        }
+  
+      } catch (error: any) {
+        if (error.error.message) {
+          this._snackBar.open(error.error.message, '', {
+            duration: 5 * 1000, horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: 'app-notification-error',
+          });
+          return
+        }
+        this._snackBar.open('Something went wrong', '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
       }
     }
 

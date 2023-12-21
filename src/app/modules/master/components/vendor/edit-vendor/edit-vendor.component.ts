@@ -50,6 +50,7 @@ export class EditVendorComponent {
 
   createVendorFormFields() {
     this.vendorFormGroup = this.fb.group({
+            _id: ['', Validators.required],
             vendorName: ['', Validators.required],
             accountGroup: ['', Validators.required],
             addressCountry: ['', Validators.required],
@@ -93,9 +94,8 @@ export class EditVendorComponent {
       this.vendorFormGroup.value.createdBy = userName
       this.vendorFormGroup.value.changedOn = '18/12/2023'
       this.vendorFormGroup.value.changedBy = userName
-      if (this.vendorFormGroup.invalid){
+      if (this.vendorFormGroup.invalid)
         return
-      }
       const result: any = await this.vendorSer.updateVendor(this.vendorFormGroup.value)
       console.log(result)
       if (result.status === '1') {
