@@ -12,7 +12,8 @@ export class CompanyCodeListComponent {
 
   companyCodeDetails: any = []
   selectAll: any = false
-  selectedFile: any = ''
+  selectedFile: any = '';
+  allCompanyDetails:any = []
 
   constructor(
     private router: Router,
@@ -63,6 +64,7 @@ export class CompanyCodeListComponent {
         result.data.map((el: any) => {
           el.check = false
         })
+        this.allCompanyDetails = result.data
         this.companyCodeDetails = result.data;
         if(result.data.length === 0){
           this.selectAll = false
@@ -211,5 +213,15 @@ export class CompanyCodeListComponent {
         panelClass: 'app-notification-error',
       });
     }
+  }
+
+
+  handleFilter(event:any){
+    if(!event.target.value){
+      this.companyCodeDetails = this.allCompanyDetails
+    }
+    console.log(event.target.value)
+    const isStringIncluded = this.allCompanyDetails.filter((obj:any) => ((obj.companyCode.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.companyName.toUpperCase()).includes(event.target.value.toUpperCase())));
+    this.companyCodeDetails = isStringIncluded
   }
 }
