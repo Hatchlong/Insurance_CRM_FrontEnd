@@ -13,6 +13,8 @@ export class ProductListComponent implements OnInit {
   productDetails: any = []
   selectedFile: any = ''; 
   allProductDetails:any = []
+  selectAll: any = false
+
 
   constructor(
     private router: Router,
@@ -30,16 +32,39 @@ export class ProductListComponent implements OnInit {
     this.getProductDetails()
   }
 
-   filterData=(event:any)=>{
-    const dataf:any=this.productDetails.filter((item:any)=> item===item.materialDescription)
-    console.log(dataf);
-    
+  
+  selectdata(event: any) {
+    console.log(event.target.checked)
+    this.selectAll = event.target.checked;
+    console.log(typeof this.selectAll)
+    this.productDetails.map((el: any) => {
+      el.check = event.target.checked
+    })
+
+
   }
+  particularcheck(event: any, index: any) {
+    this.productDetails[index].check = event.target.checked
+    const findSelect = this.productDetails.find((el: any) => el.check === false)
+
+    if (findSelect) {
+      this.selectAll = false
+    }
+    else {
+      this.selectAll = true
+    }
+  }
+
+
+
   async getProductDetails() {
     try {
       const result: any = await this.productSer.getAllProductDetails()
       console.log(result);
       if (result.status === '1') {
+        result.data.map((el: any) => {
+          el.check = false
+        })
         this.allProductDetails=result.data
         this.productDetails = result.data
       }

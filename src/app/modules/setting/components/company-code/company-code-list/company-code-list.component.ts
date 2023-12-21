@@ -209,7 +209,7 @@ export class CompanyCodeListComponent {
      console.error(error)
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
-        verticalPosition: 'top',
+        verticalPosition: 'top', 
         panelClass: 'app-notification-error',
       });
     }

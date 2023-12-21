@@ -79,7 +79,7 @@
               <th scope="col">Industry Sector</th>
               <th scope="col">Base Unit Of Measurement</th>
               <th scope="col">Action</th>
-              <th scope="col"><input type="checkbox"> Select All</th>
+              <th scope="col"><input type="checkbox"  [checked]="selectAll" (change)="selectdata($event)"> Select All</th>
             </tr>
           </thead>
           <tbody *ngIf="productDetails.length===0">
@@ -104,7 +104,7 @@
                   </div>
                 </div>
               </td>
-              <td><input type="checkbox"></td>
+              <td><input type="checkbox"  [checked]="list.check" (change)="particularcheck($event,i)"></td>
             </tr>
 
           </tbody>
