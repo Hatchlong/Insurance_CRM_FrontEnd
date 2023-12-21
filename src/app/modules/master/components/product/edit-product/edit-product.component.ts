@@ -4,6 +4,8 @@ import Swal from 'sweetalert2';
 import { ProductService } from '../../../services/product/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SalesOrgService } from 'src/app/modules/setting/Services/sales-org/sales-org.service';
+import { PlantDataService } from 'src/app/modules/setting/Services/plant-data/plant-data.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -15,12 +17,18 @@ export class EditProductComponent {
   general: any = FormGroup
   isSubmitted: any = false;
   productId: any = ''
+  salesData: any = []
+  storgaeLocationDetails:any=[]
+  taxDetails: any = [];
+
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private productSer: ProductService,
     private activeRouter: ActivatedRoute,
+    private SalesSer:SalesOrgService,
+    private plantDataSer:PlantDataService,
     private _snackBar: MatSnackBar
 
   ) { }
@@ -29,7 +37,9 @@ export class EditProductComponent {
     this.productId = this.activeRouter.snapshot.paramMap.get('id')
     this.create()
     this.getSingleDetail()
-
+    this.getSalesDetail()
+    this.getStorageDetails()
+    this.getTaxDetails()
   }
 
 
@@ -194,5 +204,92 @@ return
       });
     }
   }
+
+   //get storage location 
+
+   async getStorageDetails() {
+    try {
+      const result: any = await this.plantDataSer.getAllStorageLocationsDetails()
+      if (result.status === '1') {
+        this.storgaeLocationDetails = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+
+    }
+  }
+
+
+  
+  //get sales org details
+
+  async getSalesDetail() {
+    try {
+      const result: any = await this.SalesSer.getAllSalesOrgDetails()
+      if (result.status === '1') {
+        this.salesData = result.data
+      } else {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
+    }
+  }
+//get tax detail
+async getTaxDetails() {
+  try {
+    const result: any = await this.plantDataSer.getAllTaxDetails()
+    if (result.status === '1') {
+      this.taxDetails = result.data
+    }
+  } catch (error: any) {
+    if (error.error.message) {
+      this._snackBar.open(error.error.message, '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+return
+    }
+    this._snackBar.open('Something went wrong', '', {
+      duration: 5 * 1000, horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: 'app-notification-error',
+    });
+  }
+}
+  handleTax(event: any) {
+    const findPurchaseDetail = this.taxDetails.find((el: any) => el.tax_ind_code === +event.target.value);
+    console.log(findPurchaseDetail, this.taxDetails, event.target.value, 'findPurchaseDetail')
+    this.general.controls.taxClassification.setValue(findPurchaseDetail.description)
+  }
+  
 
 }

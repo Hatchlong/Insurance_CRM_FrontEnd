@@ -20,59 +20,61 @@
                     </div>
                     <div class="col-6 py-2 py-1">
                         <label for="example">Material Group <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="materialGroup">
-                            <option [selected]="general.value.materialGroup === ''" value="" hidden>Select Material Group
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="materialGroupId" (change)="handleMaterialGrp($event)">
+                            <option [selected]="general.value.materialGroupId === ''" value="" hidden>Select Material
+                                Group
                             </option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option *ngFor="let list of materialGrpDetail" [value]="list._id">{{list.description}}</option>
+                           
                         </select>
                         <div
-                            *ngIf="general.controls['materialGroup'].touched && general.controls['materialGroup'].dirty && general.controls['materialGroup'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['materialGroupId'].touched && general.controls['materialGroupId'].dirty && general.controls['materialGroupId'].hasError('required') && !isSubmitted">
                             <p class="error-message">Material Group is required</p>
                         </div>
-                        <div *ngIf="isSubmitted && general.controls['materialGroup'].hasError('required')">
+                        <div *ngIf="isSubmitted && general.controls['materialGroupId'].hasError('required')">
                             <p class="error-message">Material Group is required</p>
                         </div>
                     </div>
                     <div class="col-6 py-2 py-1">
                         <label for="" class="">Material Type <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="materialType">
-                            <option [selected]="general.value.materialType === ''" value="" hidden>Select Material Type
+                        <select class="form-select " aria-label="Default select example" formControlName="materialTypeId" (change)="handleMaterialType($event)">
+                            <option [selected]="general.value.materialTypeId === ''" value="" hidden>Select Material Type
                             </option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option *ngFor="let list of materialTypeDetail" [value]="list._id">{{list.code}}</option>
+                            
                         </select>
                         <div
-                            *ngIf="general.controls['materialType'].touched && general.controls['materialType'].dirty && general.controls['materialType'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['materialTypeId'].touched && general.controls['materialTypeId'].dirty && general.controls['materialTypeId'].hasError('required') && !isSubmitted">
                             <p class="error-message">Material Type is required</p>
                         </div>
-                        <div *ngIf="isSubmitted && general.controls['materialType'].hasError('required')">
+                        <div *ngIf="isSubmitted && general.controls['materialTypeId'].hasError('required')">
                             <p class="error-message">Material Type is required</p>
                         </div>
                     </div>
                     <div class="col-6 py-2 py-1">
                         <label for="">Industry Sector <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="industrySector">
-                            <option [selected]="general.value.industrySector === ''" value="" hidden>Select industry Sector
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="industrySectorId" (change)="handleIndustry($event)">
+                            <option [selected]="general.value.industrySectorId === ''" value="" hidden>Select industry
+                                Sector
                             </option>
 
-                            <option value="1">AGR</option>
-                            <option value="2">PHM</option>
+                            <option *ngFor="let list of industryDetail" [value]="list._id">{{list.description}}</option>
                         </select>
                         <div
-                            *ngIf="general.controls['industrySector'].touched && general.controls['industrySector'].dirty && general.controls['industrySector'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['industrySectorId'].touched && general.controls['industrySectorId'].dirty && general.controls['industrySectorId'].hasError('required') && !isSubmitted">
                             <p class="error-message">Industry Sector is required</p>
                         </div>
-                        <div *ngIf="isSubmitted && general.controls['industrySector'].hasError('required')">
+                        <div *ngIf="isSubmitted && general.controls['industrySectorId'].hasError('required')">
                             <p class="error-message">Industry Sector is required</p>
                         </div>
                     </div>
                     <div class="col-6 py-2 py-1">
 
                         <label for="">Net Weight <sup>*</sup></label>
-                        <input type="text" class="form-control " placeholder="Enter Net Weight" formControlName="netWeight">
+                        <input type="text" class="form-control " placeholder="Enter Net Weight"
+                            formControlName="netWeight">
                         <div
                             *ngIf="general.controls['netWeight'].touched && general.controls['netWeight'].dirty && general.controls['netWeight'].hasError('required') && !isSubmitted">
                             <p class="error-message">Net Weight is required</p>
@@ -96,49 +98,52 @@
                     <div class="col-6 py-2 py-1">
 
                         <label for=""> Storage Condition <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="storageCondition">
-                            <option [selected]="general.value.storageCondition === ''" value="" hidden>Select Storage Condition
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="storageConditionId" (change)="handleStorage($event)">
+                            <option [selected]="general.value.storageConditionId === ''" value="" hidden>Select Storage
+                                Condition
                             </option>
-                            <option value="Frz">Frz</option>
-                            <option value="Nor">Nor</option>
+                            <option *ngFor="let list of storageConditionDetail" [value]="list._id">{{list.description}}</option>
                         </select>
                         <div
-                            *ngIf="general.controls['storageCondition'].touched && general.controls['storageCondition'].dirty && general.controls['storageCondition'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['storageConditionId'].touched && general.controls['storageConditionId'].dirty && general.controls['storageConditionId'].hasError('required') && !isSubmitted">
                             <p class="error-message">Storage Condition is required</p>
                         </div>
-                        <div *ngIf="isSubmitted && general.controls['storageCondition'].hasError('required')">
+                        <div *ngIf="isSubmitted && general.controls['storageConditionId'].hasError('required')">
                             <p class="error-message">Storage Condition is required</p>
                         </div>
                     </div>
                     <div class="col-6 py-2 py-1">
                         <label for="">Temp. Condition <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="tempCondition">
-                            <option [selected]="general.value.tempCondition === ''" value="" hidden>Select Temp. Condition
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="tempConditionId" (change)="handleTemp($event)">
+                            <option [selected]="general.value.tempConditionId === ''" value="" hidden>Select Temp.
+                                Condition
                             </option>
-                            <option value="OPA">OPA</option>
-                            <option value="SFA">SFA</option>
+                            <option *ngFor="let list of tempDetails" [value]="list._id">{{list.description}}</option>
                         </select>
                         <div
-                            *ngIf="general.controls['tempCondition'].touched && general.controls['tempCondition'].dirty && general.controls['tempCondition'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['tempConditionId'].touched && general.controls['tempConditionId'].dirty && general.controls['tempConditionId'].hasError('required') && !isSubmitted">
                             <p class="error-message">Temp. Condition is required</p>
                         </div>
-                        <div *ngIf="isSubmitted && general.controls['tempCondition'].hasError('required')">
+                        <div *ngIf="isSubmitted && general.controls['tempConditionId'].hasError('required')">
                             <p class="error-message">Temp. Condition is required</p>
                         </div>
                     </div>
                     <div class="col-6 py-2 py-1">
                         <label for="">Trans Group <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="transporationGroup">
-                            <option [selected]="general.value.transporationGroup === ''" value="" hidden>Select Trans Group</option>
-                            <option value="LQD">LQD</option>
-                            <option value="SLD">SLD</option>
-                            <option value="GAS">GAS</option>
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="transporationGroupId" (change)="handleTransGrp($event)" >
+                            <option [selected]="general.value.transporationGroupId === ''" value="" hidden>Select Trans
+                                Group</option>
+                            <option *ngFor="let list of transDetails" [value]="list._id">{{list.description}}</option>
+                            
                         </select>
                         <div
-                            *ngIf="general.controls['transporationGroup'].touched && general.controls['transporationGroup'].dirty && general.controls['transporationGroup'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['transporationGroupId'].touched && general.controls['transporationGroupId'].dirty && general.controls['transporationGroupId'].hasError('required') && !isSubmitted">
                             <p class="error-message">Trans Group is required</p>
                         </div>
-                        <div *ngIf="isSubmitted && general.controls['transporationGroup'].hasError('required')">
+                        <div *ngIf="isSubmitted && general.controls['transporationGroupId'].hasError('required')">
                             <p class="error-message">Trans Group is required</p>
                         </div>
                     </div>
@@ -156,8 +161,10 @@
                     </div>
                     <div class="col-6 py-2 py-1">
                         <label for="">Unit of Dimension <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="unitOfDeminsion">
-                            <option [selected]="general.value.unitOfDeminsion === ''" value="" hidden>Select Unit Dimension
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="unitOfDeminsion">
+                            <option [selected]="general.value.unitOfDeminsion === ''" value="" hidden>Select Unit
+                                Dimension
                             </option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -174,7 +181,8 @@
                     <div class="col-6 py-2 py-1">
                         <label for="">Unit of Weight <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example" formControlName="unitWeight">
-                            <option [selected]="general.value.unitWeight === ''" value="" hidden>Select Unit of Weight</option>
+                            <option [selected]="general.value.unitWeight === ''" value="" hidden>Select Unit of Weight
+                            </option>
                             <option value="KG">KG</option>
                             <option value="Gram">Gram</option>
                             <option value="MG">MG</option>
@@ -229,7 +237,8 @@
                     </div>
                     <div class="col-6 py-2 py-1">
                         <label for="" class="">Old Material Number <sup>*</sup></label>
-                        <input type="text" class="form-control " placeholder="Number" formControlName="oldMaterialNumber">
+                        <input type="text" class="form-control " placeholder="Number"
+                            formControlName="oldMaterialNumber">
                         <div
                             *ngIf="general.controls['oldMaterialNumber'].touched && general.controls['oldMaterialNumber'].dirty && general.controls['oldMaterialNumber'].hasError('required') && !isSubmitted">
                             <p class="error-message">OLd Material No. is required</p>
@@ -240,8 +249,10 @@
                     </div>
                     <div class="col-6 py-2 py-1">
                         <label for=""> Base Unit of Measure <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="baseUnitMeasure">
-                            <option [selected]="general.value.baseUnitMeasure === ''" value="" hidden>Select Base Unit Of Measure
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="baseUnitMeasure">
+                            <option [selected]="general.value.baseUnitMeasure === ''" value="" hidden>Select Base Unit
+                                Of Measure
                             </option>
                             <option value="1">GRM</option>
                             <option value="2">MTR</option>
@@ -269,10 +280,10 @@
                     <div class="col-6 py-2 py-1">
                         <label for=""> Weight Unit <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example" formControlName="weightUnit">
-                            <option [selected]="general.value.weightUnit === ''" value="" hidden>Select Weight Unit</option>
-                            <option value="KG">KG</option>
-                            <option value="GM">GM</option>
-                            <option value="MLG">MLG</option>
+                            <option [selected]="general.value.weightUnit === ''" value="" hidden>Select Weight Unit
+                            </option>
+                            <option *ngFor="let list of weigthUnitDetail" [value]="list._id">{{list.code}}</option>
+                           
                         </select>
                         <div
                             *ngIf="general.controls['weightUnit'].touched && general.controls['weightUnit'].dirty && general.controls['weightUnit'].hasError('required') && !isSubmitted">
@@ -285,7 +296,8 @@
                     <div class="col-6 py-2 py-1">
                         <label for="">Volume Unit <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example" formControlName="volumnUnit">
-                            <option [selected]="general.value.volumnUnit === ''" value="" hidden>Select Volume Unit</option>
+                            <option [selected]="general.value.volumnUnit === ''" value="" hidden>Select Volume Unit
+                            </option>
                             <option value="LTR">LTR</option>
                             <option value="MLL">MLL</option>
                         </select>
@@ -335,8 +347,10 @@
                     <div class="col-6 py-2 py-1">
 
                         <label for="">Batch Mgmt <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="batchManagment">
-                            <option [selected]="general.value.batchManagment === ''" value="" hidden>Select batch Mgmt</option>
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="batchManagment">
+                            <option [selected]="general.value.batchManagment === ''" value="" hidden>Select batch Mgmt
+                            </option>
                             <option value="YES">YES</option>
                             <option value="NO">NO</option>
                         </select>
@@ -351,18 +365,19 @@
                     <div class="col-6 py-2 py-1">
 
                         <label for="">Tax classification <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="taxClassification">
-                            <option [selected]="general.value.taxClassification === ''" value="" hidden>Select Tax Classification
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="taxClassificationId" (change)="handleTax($event)">
+                            <option [selected]="general.value.taxClassificationId === ''" value="" hidden>Select Tax
+                                Classification
                             </option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option *ngFor="let list of taxDetails" [value]="list._id">{{list.description}}</option>
+
                         </select>
                         <div
-                            *ngIf="general.controls['taxClassification'].touched && general.controls['taxClassification'].dirty && general.controls['taxClassification'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['taxClassificationId'].touched && general.controls['taxClassificationId'].dirty && general.controls['taxClassificationId'].hasError('required') && !isSubmitted">
                             <p class="error-message">Tax Classification is required</p>
                         </div>
-                        <div *ngIf="isSubmitted && general.controls['taxClassification'].hasError('required')">
+                        <div *ngIf="isSubmitted && general.controls['taxClassificationId'].hasError('required')">
                             <p class="error-message">Tax Classification is required</p>
                         </div>
                     </div>
@@ -382,8 +397,10 @@
                     <div class="col-6 py-2 py-1">
 
                         <label for="">Expiration Date relavance <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="expirationDataRelavance">
-                            <option [selected]="general.value.expirationDataRelavance === ''" value="" hidden>Select Expiration Date
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="expirationDataRelavance">
+                            <option [selected]="general.value.expirationDataRelavance === ''" value="" hidden>Select
+                                Expiration Date
                             </option>
                             <option value="YES">YES</option>
                             <option value="NO">NO</option>
@@ -472,33 +489,35 @@
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
-                                                           
+
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="storageLocation">
-                                                                <option [selected]="general.value.storageLocation === ''" value=""
-                                                                    hidden>Select Storage Location</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                <option
+                                                                    [selected]="general.value.storageLocation === ''"
+                                                                    value="" hidden>Select Storage Location</option>
+                                                                <option *ngFor="let list of storgaeLocationDetails"
+                                                                    [value]="list.stor_loc_id">{{list.description}}
+                                                                </option>
                                                             </select>
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="procurementType">
-                                                                <option [selected]="general.value.procurementType === ''" value=""
-                                                                    hidden>Select procurement Type</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                <option
+                                                                    [selected]="general.value.procurementType === ''"
+                                                                    value="" hidden>Select procurement Type</option>
+                                                                <option *ngFor="let list of procurementDetails" [value]="list._id" >{{list.code}}</option>
+                                                               
                                                             </select>
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "
-                                                                placeholder="Enter Safety Stock" formControlName="safetyStock">
+                                                                placeholder="Enter Safety Stock"
+                                                                formControlName="safetyStock">
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "
@@ -522,9 +541,8 @@
                                                                 formControlName="profitCenter">
                                                                 <option [selected]="general.value.profit === ''"
                                                                     value="" hidden>Select profit</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                <option *ngFor="let list of profitCenterDetail" [value]="list._id">{{list.code}}</option>
+                                                               
                                                             </select>
                                                         </td>
                                                         <td>
@@ -578,19 +596,20 @@
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="salesOrganization">
-                                                                <option [selected]="general.value.salesOrganization === ''" value=""
-                                                                    hidden>Select Sales Organization</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                <option
+                                                                    [selected]="general.value.salesOrganization === ''"
+                                                                    value="" hidden>Select Sales Organization</option>
+                                                                <option *ngFor="let list of salesData"
+                                                                    [value]="list._id">{{list.salesOrg}}</option>
                                                             </select>
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="distributionChannel">
-                                                                <option [selected]="general.value.distributionChannel === ''" value=""
-                                                                    hidden>Select distribution Channel</option>
+                                                                <option
+                                                                    [selected]="general.value.distributionChannel === ''"
+                                                                    value="" hidden>Select distribution Channel</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
@@ -599,8 +618,8 @@
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="deliveryUnit">
-                                                                <option [selected]="general.value.deliveryUnit === ''" value=""
-                                                                    hidden>Select Delivery Unit</option>
+                                                                <option [selected]="general.value.deliveryUnit === ''"
+                                                                    value="" hidden>Select Delivery Unit</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
@@ -608,7 +627,8 @@
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "
-                                                                placeholder="Safety Stock" formControlName="deliveringPlant">
+                                                                placeholder="Safety Stock"
+                                                                formControlName="deliveringPlant">
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "
@@ -630,16 +650,17 @@
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="acctAssignmentGrp">
-                                                                <option [selected]="general.value.acctAssignmentGrp === ''"
+                                                                <option
+                                                                    [selected]="general.value.acctAssignmentGrp === ''"
                                                                     value="" hidden>Select Acct. Ass Grp</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                <option *ngFor="let list of acctAssignDetail" [value]="list._id">{{list.description}}</option>
+                                                               
                                                             </select>
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "
-                                                                placeholder="Minimum Order Qty" formControlName="minimumOrderQTY">
+                                                                placeholder="Minimum Order Qty"
+                                                                formControlName="minimumOrderQTY">
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "

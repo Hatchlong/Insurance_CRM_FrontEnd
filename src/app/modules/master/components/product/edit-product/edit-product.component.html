@@ -20,8 +20,10 @@
                     </div>
                     <div class="col-6 py-2 py-1">
                         <label for="example">Material Group <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="materialGroup">
-                            <option [selected]="general.value.materialGroup === ''" value="" hidden>Select Material Group
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="materialGroup">
+                            <option [selected]="general.value.materialGroup === ''" value="" hidden>Select Material
+                                Group
                             </option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -54,8 +56,10 @@
                     </div>
                     <div class="col-6 py-2 py-1">
                         <label for="">Industry Sector <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="industrySector">
-                            <option [selected]="general.value.industrySector === ''" value="" hidden>Select industry Sector
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="industrySector">
+                            <option [selected]="general.value.industrySector === ''" value="" hidden>Select industry
+                                Sector
                             </option>
 
                             <option value="1">AGR</option>
@@ -72,7 +76,8 @@
                     <div class="col-6 py-2 py-1">
 
                         <label for="">Net Weight <sup>*</sup></label>
-                        <input type="text" class="form-control " placeholder="Enter Net Weight" formControlName="netWeight">
+                        <input type="text" class="form-control " placeholder="Enter Net Weight"
+                            formControlName="netWeight">
                         <div
                             *ngIf="general.controls['netWeight'].touched && general.controls['netWeight'].dirty && general.controls['netWeight'].hasError('required') && !isSubmitted">
                             <p class="error-message">Net Weight is required</p>
@@ -96,8 +101,10 @@
                     <div class="col-6 py-2 py-1">
 
                         <label for=""> Storage Condition <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="storageCondition">
-                            <option [selected]="general.value.storageCondition === ''" value="" hidden>Select Storage Condition
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="storageCondition">
+                            <option [selected]="general.value.storageCondition === ''" value="" hidden>Select Storage
+                                Condition
                             </option>
                             <option value="Frz">Frz</option>
                             <option value="Nor">Nor</option>
@@ -112,8 +119,10 @@
                     </div>
                     <div class="col-6 py-2 py-1">
                         <label for="">Temp. Condition <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="tempCondition">
-                            <option [selected]="general.value.tempCondition === ''" value="" hidden>Select Temp. Condition
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="tempCondition">
+                            <option [selected]="general.value.tempCondition === ''" value="" hidden>Select Temp.
+                                Condition
                             </option>
                             <option value="OPA">OPA</option>
                             <option value="SFA">SFA</option>
@@ -128,8 +137,10 @@
                     </div>
                     <div class="col-6 py-2 py-1">
                         <label for="">Trans Group <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="transporationGroup">
-                            <option [selected]="general.value.transporationGroup === ''" value="" hidden>Select Trans Group</option>
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="transporationGroup">
+                            <option [selected]="general.value.transporationGroup === ''" value="" hidden>Select Trans
+                                Group</option>
                             <option value="LQD">LQD</option>
                             <option value="SLD">SLD</option>
                             <option value="GAS">GAS</option>
@@ -156,8 +167,10 @@
                     </div>
                     <div class="col-6 py-2 py-1">
                         <label for="">Unit of Dimension <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="unitOfDeminsion">
-                            <option [selected]="general.value.unitOfDeminsion === ''" value="" hidden>Select Unit Dimension
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="unitOfDeminsion">
+                            <option [selected]="general.value.unitOfDeminsion === ''" value="" hidden>Select Unit
+                                Dimension
                             </option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -174,10 +187,11 @@
                     <div class="col-6 py-2 py-1">
                         <label for="">Unit of Weight <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example" formControlName="unitWeight">
-                            <option [selected]="general.value.unitWeight === ''" value="" hidden>Select Unit Weight</option>
+                            <option [selected]="general.value.unitWeight === ''" value="" hidden>Select Unit of Weight
+                            </option>
                             <option value="KG">KG</option>
-                            <option value="GRAM">Gram</option>
-                            <option value="MGG">MG</option>
+                            <option value="Gram">Gram</option>
+                            <option value="MG">MG</option>
                         </select>
                         <div
                             *ngIf="general.controls['unitWeight'].touched && general.controls['unitWeight'].dirty && general.controls['unitWeight'].hasError('required') && !isSubmitted">
@@ -189,7 +203,7 @@
                     </div>
                     <div class="col-6 py-2 py-1">
                         <label for="">Allowed pkg Volume <sup>*</sup></label>
-                        <input type="text" class="form-control " placeholder="Enter Allowed phg Weight"
+                        <input type="text" class="form-control " placeholder="Enter Allowed phk Weight"
                             formControlName="allowedPKGVolume">
                         <div
                             *ngIf="general.controls['allowedPKGVolume'].touched && general.controls['allowedPKGVolume'].dirty && general.controls['allowedPKGVolume'].hasError('required') && !isSubmitted">
@@ -229,7 +243,8 @@
                     </div>
                     <div class="col-6 py-2 py-1">
                         <label for="" class="">Old Material Number <sup>*</sup></label>
-                        <input type="text" class="form-control " placeholder="Number" formControlName="oldMaterialNumber">
+                        <input type="text" class="form-control " placeholder="Number"
+                            formControlName="oldMaterialNumber">
                         <div
                             *ngIf="general.controls['oldMaterialNumber'].touched && general.controls['oldMaterialNumber'].dirty && general.controls['oldMaterialNumber'].hasError('required') && !isSubmitted">
                             <p class="error-message">OLd Material No. is required</p>
@@ -240,8 +255,10 @@
                     </div>
                     <div class="col-6 py-2 py-1">
                         <label for=""> Base Unit of Measure <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="baseUnitMeasure">
-                            <option [selected]="general.value.baseUnitMeasure === ''" value="" hidden>Select Base Unit Of Measure
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="baseUnitMeasure">
+                            <option [selected]="general.value.baseUnitMeasure === ''" value="" hidden>Select Base Unit
+                                Of Measure
                             </option>
                             <option value="1">GRM</option>
                             <option value="2">MTR</option>
@@ -269,7 +286,8 @@
                     <div class="col-6 py-2 py-1">
                         <label for=""> Weight Unit <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example" formControlName="weightUnit">
-                            <option [selected]="general.value.weightUnit === ''" value="" hidden>Select Weight Unit</option>
+                            <option [selected]="general.value.weightUnit === ''" value="" hidden>Select Weight Unit
+                            </option>
                             <option value="KG">KG</option>
                             <option value="GM">GM</option>
                             <option value="MLG">MLG</option>
@@ -285,7 +303,8 @@
                     <div class="col-6 py-2 py-1">
                         <label for="">Volume Unit <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example" formControlName="volumnUnit">
-                            <option [selected]="general.value.volumnUnit === ''" value="" hidden>Select Volume Unit</option>
+                            <option [selected]="general.value.volumnUnit === ''" value="" hidden>Select Volume Unit
+                            </option>
                             <option value="LTR">LTR</option>
                             <option value="MLL">MLL</option>
                         </select>
@@ -335,8 +354,10 @@
                     <div class="col-6 py-2 py-1">
 
                         <label for="">Batch Mgmt <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="batchManagment">
-                            <option [selected]="general.value.batchManagment === ''" value="" hidden>Select batch Mgmt</option>
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="batchManagment">
+                            <option [selected]="general.value.batchManagment === ''" value="" hidden>Select batch Mgmt
+                            </option>
                             <option value="YES">YES</option>
                             <option value="NO">NO</option>
                         </select>
@@ -351,12 +372,14 @@
                     <div class="col-6 py-2 py-1">
 
                         <label for="">Tax classification <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="taxClassification">
-                            <option [selected]="general.value.taxClassification === ''" value="" hidden>Select Tax Classification
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="taxClassification">
+                            <option [selected]="general.value.taxClassification === ''" value="" hidden>Select Tax
+                                Classification
                             </option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option *ngFor="let list of taxDetails" [value]="list.tax_ind_code">{{list.description}}
+                            </option>
+
                         </select>
                         <div
                             *ngIf="general.controls['taxClassification'].touched && general.controls['taxClassification'].dirty && general.controls['taxClassification'].hasError('required') && !isSubmitted">
@@ -382,8 +405,10 @@
                     <div class="col-6 py-2 py-1">
 
                         <label for="">Expiration Date relavance <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="expirationDataRelavance">
-                            <option [selected]="general.value.expirationDataRelavance === ''" value="" hidden>Select Expiration Date
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="expirationDataRelavance">
+                            <option [selected]="general.value.expirationDataRelavance === ''" value="" hidden>Select
+                                Expiration Date
                             </option>
                             <option value="YES">YES</option>
                             <option value="NO">NO</option>
@@ -472,25 +497,28 @@
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
-                                                           
+
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
-                                                                formControlName="storageLocation">
-                                                                <option [selected]="general.value.storageLocation === ''" value=""
-                                                                    hidden>Select Storage Location</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                formControlName="storageLocation"
+                                                                (change)="handleTax($event)">
+                                                                <option
+                                                                    [selected]="general.value.storageLocation === ''"
+                                                                    value="" hidden>Select Storage Location</option>
+                                                                <option *ngFor="let list of storgaeLocationDetails"
+                                                                    [value]="list.stor_loc_id">{{list.description}}
+                                                                </option>
                                                             </select>
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="procurementType">
-                                                                <option [selected]="general.value.procurementType === ''" value=""
-                                                                    hidden>Select procurement Type</option>
+                                                                <option
+                                                                    [selected]="general.value.procurementType === ''"
+                                                                    value="" hidden>Select procurement Type</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
@@ -498,7 +526,8 @@
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "
-                                                                placeholder="Enter Safety Stock" formControlName="safetyStock">
+                                                                placeholder="Enter Safety Stock"
+                                                                formControlName="safetyStock">
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "
@@ -578,19 +607,20 @@
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="salesOrganization">
-                                                                <option [selected]="general.value.salesOrganization === ''" value=""
-                                                                    hidden>Select Sales Organization</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                <option
+                                                                    [selected]="general.value.salesOrganization === ''"
+                                                                    value="" hidden>Select Sales Organization</option>
+                                                                <option *ngFor="let list of salesData"
+                                                                    [value]="list._id">{{list.salesOrg}}</option>
                                                             </select>
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="distributionChannel">
-                                                                <option [selected]="general.value.distributionChannel === ''" value=""
-                                                                    hidden>Select distribution Channel</option>
+                                                                <option
+                                                                    [selected]="general.value.distributionChannel === ''"
+                                                                    value="" hidden>Select distribution Channel</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
@@ -599,8 +629,8 @@
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="deliveryUnit">
-                                                                <option [selected]="general.value.deliveryUnit === ''" value=""
-                                                                    hidden>Select Delivery Unit</option>
+                                                                <option [selected]="general.value.deliveryUnit === ''"
+                                                                    value="" hidden>Select Delivery Unit</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
@@ -608,7 +638,8 @@
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "
-                                                                placeholder="Safety Stock" formControlName="deliveringPlant">
+                                                                placeholder="Safety Stock"
+                                                                formControlName="deliveringPlant">
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "
@@ -630,7 +661,8 @@
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="acctAssignmentGrp">
-                                                                <option [selected]="general.value.acctAssignmentGrp === ''"
+                                                                <option
+                                                                    [selected]="general.value.acctAssignmentGrp === ''"
                                                                     value="" hidden>Select Acct. Ass Grp</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
@@ -639,7 +671,8 @@
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "
-                                                                placeholder="Minimum Order Qty" formControlName="minimumOrderQTY">
+                                                                placeholder="Minimum Order Qty"
+                                                                formControlName="minimumOrderQTY">
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "
