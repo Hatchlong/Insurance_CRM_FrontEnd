@@ -25,7 +25,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-   localStorage.setItem('loginActive', 'false');
+    const isShowNav = localStorage.getItem('loginActive');
+    if (isShowNav === 'true') {
+      localStorage.setItem('loginActive', 'true');
+    } else {
+      localStorage.setItem('loginActive', 'false');
+      this.router.navigate(['/authr/login'])
+    }
     // this.isShowSide.emit('false')
     this.createFormFields()
     this.createSignUpFormFields()
@@ -124,7 +130,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         localStorage.setItem('userId', userDetails.userId)
         localStorage.setItem('token', result.token)
         localStorage.setItem('loginActive', 'true')
-        this._snackBar.open('Successfully Login','', {
+        this._snackBar.open('Successfully Login', '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-success',

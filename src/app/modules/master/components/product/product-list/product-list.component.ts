@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ProductListComponent implements OnInit{
 
   productDetails:any=[]
-
+  isShowPadding:any = false
   constructor(
     private router:Router,
     private productSer:ProductService,
@@ -28,6 +28,9 @@ export class ProductListComponent implements OnInit{
       this.getProductDetails()
   }
 
+  handleSideBar(event:any){
+    this.isShowPadding = event
+  }
   async getProductDetails(){
     try {
       const result:any=await this.productSer.getAllProductDetails()

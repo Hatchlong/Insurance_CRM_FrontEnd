@@ -15,7 +15,7 @@ export class EditProductComponent {
   general: any = FormGroup
   isSubmitted: any = false;
   productId: any = ''
-
+  isShowPadding:any = false
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -32,6 +32,10 @@ export class EditProductComponent {
 
   }
 
+  
+  handleSideBar(event:any){
+    this.isShowPadding = event
+  }
 
   create() {
     this.general = this.fb.group({

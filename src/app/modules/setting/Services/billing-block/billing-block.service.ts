@@ -22,6 +22,9 @@ export class BillingBlockService {
 
   updatedBillingBlockDetails(data: any) {
     return this.http.put(`http://localhost:4000/api/master/billingblock/update/${data._id}`, data).toPromise()
+  }
 
+  fileUploadBillingBlockDetails(data: any) {
+    return this.http.post(`http://localhost:4000/api/master/billingblock/upload`, data).toPromise()
   }
 }
