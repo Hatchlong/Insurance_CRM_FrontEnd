@@ -173,7 +173,7 @@
 <section class="home-section">
   <div class="home-content">
     <i class='bx bx-menu' (click)="closeNav()"></i>
-    <span class="text"><b>{{subFolderName | uppercase}}</b> / {{SelectedName}}</span>
+    <span class="text"><b>{{subFolderName | uppercase}}</b> / <span class="screenName">{{SelectedName | uppercase}}</span></span>
     <span class="logout" (click)="logout()"><mat-icon>logout</mat-icon></span>
   </div>
 

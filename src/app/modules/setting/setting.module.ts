@@ -9,7 +9,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddCompanyCodeComponent } from './components/company-code/add-company-code/add-company-code.component';
 import { CompanyCodeListComponent } from './components/company-code/company-code-list/company-code-list.component';
 import { AddPoTypeComponent } from './components/po-type/add-po-type/add-po-type.component';
@@ -62,7 +62,7 @@ import { IncTermService } from './Services/inc-term/inc-term.service';
 import { EditIncoTermComponent } from './components/inco-term/edit-inco-term/edit-inco-term.component';
 import { EditSalesOrgComponent } from './components/sales-org/edit-sales-org/edit-sales-org.component';
 import { SalesOrgService } from './Services/sales-org/sales-org.service';
-
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
@@ -117,7 +117,8 @@ import { SalesOrgService } from './Services/sales-org/sales-org.service';
     MatTabsModule,
     ReactiveFormsModule,
     HttpClientModule,
-
+    PaginationModule.forRoot(),
+    FormsModule
   ],
   providers: [ PurchaseOrgService, CompanyCodeService, PoTypeService, PlantDataService, PaymentTermService, DivionService, DistibutionChannelService, ModeOfTransportService, OrderStatusService, BillingBlockService, IncTermService, SalesOrgService ]
 })

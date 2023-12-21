@@ -2,29 +2,29 @@
   <div class="row mt-3">
     <div class="col-12 ">
       <div class="row">
-        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-            <div class="form-group">
-              <label>Filter</label>
-              <input type="text" class="form-control" placeholder="Enter Company Name and Company code" (input)="handleFilter($event)">
-            </div>
-          
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Enter Company Code / Company Name"
+              (input)="handleFilter($event)">
+          </div>
+
         </div>
 
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
           <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
-           
+
             <button (click)="nextPage('/settings/add-company-code')" class="btn btn-primary " type="button">Add
               Company</button>
-    
+
             <button class="btn btn-danger" type="button" (click)="handleDeleteMuliple()">
               <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
               Delete Selected Company</button>
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
               <mat-icon>more_vert</mat-icon>
             </button>
-            <mat-menu #menu="matMenu" >
+            <mat-menu #menu="matMenu">
               <button mat-menu-item (click)="importHandle(inputFile)">
-                <span >Import Company</span>
+                <span>Import Company</span>
                 <input class="d-none" #inputFile type="file" (change)="handleFileData($event)">
               </button>
               <button mat-menu-item (click)="exportExcel()">
@@ -41,7 +41,7 @@
   </div>
   <div class="row mt-4">
     <div class="col-12">
-     
+
     </div>
     <div class="col-12">
       <div class="table-responsive">
@@ -87,5 +87,9 @@
         </table>
       </div>
     </div>
+    <div class="col-xs-12 col-12 d-flex justify-content-center"  *ngIf="companyCodeDetails.length > 10">
+      <pagination [totalItems]="totalItem" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
+    </div>
+
   </div>
 </div>

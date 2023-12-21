@@ -14,8 +14,8 @@ export class CompanyCodeService {
     return this.http.post('http://localhost:4000/api/master/companycode/create', data).toPromise()
   }
 
-  getAllCompanyCodeDetails() {
-    return this.http.get('http://localhost:4000/api/master/companycode/getAll').toPromise()
+  getAllCompanyCodeDetails(skip?:any, itemsPerPage?:any) {
+    return this.http.get(`http://localhost:4000/api/master/companycode/getAll/${skip}/${itemsPerPage}`).toPromise()
   }
 
   // Get Country Detials
