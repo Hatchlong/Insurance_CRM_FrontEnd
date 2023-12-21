@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CompanyCodeService } from '../../../Services/company-code/company-code.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as XLSX from 'xlsx';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 @Component({
   selector: 'app-company-code-list',
   templateUrl: './company-code-list.component.html',
@@ -12,17 +13,17 @@ export class CompanyCodeListComponent {
 
   companyCodeDetails: any = []
   selectAll: any = false
-  selectedFile: any = '';
+  selectedFile: any = ''; 
   allCompanyDetails:any = []
-
-  constructor(
+  totalItem:any = 0
+    constructor(
     private router: Router,
     private companyCodeSer: CompanyCodeService,
     private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
-    this.getAllCompanyCodeDetails()
+    this.getAllCompanyCodeDetails(this.page, this.itemsPerPage)
   }
 
   nextPage(url: any) {
@@ -56,14 +57,15 @@ export class CompanyCodeListComponent {
 
 
   //get data into list
-  async getAllCompanyCodeDetails() {
+  async getAllCompanyCodeDetails(page:any, itemsPerPage:any) {
     try {
-      const result: any = await this.companyCodeSer.getAllCompanyCodeDetails();
+      const result: any = await this.companyCodeSer.getAllCompanyCodeDetails(page, itemsPerPage);
       console.log(result)
       if (result.status === '1') {
         result.data.map((el: any) => {
           el.check = false
         })
+        this.totalItem = result.count
         this.allCompanyDetails = result.data
         this.companyCodeDetails = result.data;
         if(result.data.length === 0){
@@ -91,7 +93,7 @@ export class CompanyCodeListComponent {
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        this.getAllCompanyCodeDetails()
+        this.getAllCompanyCodeDetails(this.page, this.itemsPerPage)
         return;
       }
       if (result.status === '0') {
@@ -137,7 +139,7 @@ export class CompanyCodeListComponent {
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        this.getAllCompanyCodeDetails()
+        this.getAllCompanyCodeDetails(this.page, this.itemsPerPage)
         return;
       }
       if (result.status === '0') {
@@ -194,7 +196,7 @@ export class CompanyCodeListComponent {
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        this.getAllCompanyCodeDetails()
+        this.getAllCompanyCodeDetails(this.page, this.itemsPerPage)
         return;
       }
       if (result.status === '0') {
@@ -209,7 +211,7 @@ export class CompanyCodeListComponent {
      console.error(error)
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
-        verticalPosition: 'top',
+        verticalPosition: 'top', 
         panelClass: 'app-notification-error',
       });
     }
@@ -223,5 +225,17 @@ export class CompanyCodeListComponent {
     console.log(event.target.value)
     const isStringIncluded = this.allCompanyDetails.filter((obj:any) => ((obj.companyCode.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.companyName.toUpperCase()).includes(event.target.value.toUpperCase())));
     this.companyCodeDetails = isStringIncluded
+  }
+
+  currentPage = 1;
+  page?: number = 0;
+  itemsPerPage = 10
+ 
+  pageChanged(event: PageChangedEvent): void {
+    console.log(event)
+    this.page = event.page;
+    const records = (this.page - 1)* + this.itemsPerPage;
+    console.log(records)
+    this.getAllCompanyCodeDetails(records, this.itemsPerPage)
   }
 }

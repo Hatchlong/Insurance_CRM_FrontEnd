@@ -6,6 +6,7 @@ import { CompanyCodeService } from '../../../Services/company-code/company-code.
 import { PurchaseOrgService } from '../../../Services/purchase-org/purchase-org.service';
 import Swal from 'sweetalert2';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SalesOrgService } from '../../../Services/sales-org/sales-org.service';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class EditPlantDataComponent {
   timeZone: any = []
   taxDetails: any = [];
   storgaeLocationDetails: any = []
-  isSubmitted:any=false
+  salesDetail: any = []
+  isSubmitted: any = false
 
   constructor(
     private fb: FormBuilder,
@@ -33,6 +35,7 @@ export class EditPlantDataComponent {
     private activeRouter: ActivatedRoute,
     private companyCodeSer: CompanyCodeService,
     private purOrgSer: PurchaseOrgService,
+    private SalesSer: SalesOrgService,
     private _snackBar: MatSnackBar
 
   ) { }
@@ -46,7 +49,7 @@ export class EditPlantDataComponent {
     this.getTaxDetails()
     this.getStorageDetails()
     this.getTimeZoneDetail()
-
+    this.getSalesDetail()
   }
 
   plantData() {
@@ -145,7 +148,7 @@ return
 
   async submitData() {
     try {
-      this.isSubmitted=true
+      this.isSubmitted = true
       console.log(this.plantsData.value)
       if (this.plantsData.invalid) {
         return
@@ -273,6 +276,37 @@ return
     }
   }
 
+  //get sales org details
+
+  async getSalesDetail() {
+    try {
+      const result: any = await this.SalesSer.getAllSalesOrgDetails()
+      if (result.status === '1') {
+        this.salesDetail = result.data
+      } else {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
+    }
+  }
+
+
   //get storage location 
 
   async getStorageDetails() {
@@ -359,6 +393,9 @@ return
     const timeDetail = this.timeZone.find((el: any) => el.timeZoneType === +event.target.value)
     this.plantsData.controls.timeZone.setValue(timeDetail.timeZoneType)
   }
-
+  handleSalesData(event: any) {
+    const findsalesData = this.salesDetail.find((el: any) => el._id === event.target.value)
+    this.plantsData.controls.salesOrganizationName.setValue(findsalesData.salesOrg)
+  }
 
 }

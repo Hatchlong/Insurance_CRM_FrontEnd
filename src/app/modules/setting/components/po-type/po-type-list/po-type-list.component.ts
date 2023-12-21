@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class PoTypeListComponent implements OnInit{
   potypeDetail:any=[]
   selectAll:any=false
+  allPODetail:any=[]
 
   constructor(
     private router: Router,
@@ -62,6 +63,7 @@ export class PoTypeListComponent implements OnInit{
         result.data.map((el:any)=>{
           el.check=false
         })
+        this.allPODetail=result.data
         this.potypeDetail = result.data
       }
     } catch (error:any) {
@@ -111,5 +113,13 @@ export class PoTypeListComponent implements OnInit{
     }
   }
 
+  handleFilter(event:any){
+    if(!event.target.value){
+      this.potypeDetail = this.allPODetail
+    }
+    console.log(event.target.value)
+    const isStringIncluded = this.allPODetail.filter((obj:any) => ((obj.poType.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.poTypeDescription.toUpperCase()).includes(event.target.value.toUpperCase())));
+    this.potypeDetail = isStringIncluded
+  }
 
 }

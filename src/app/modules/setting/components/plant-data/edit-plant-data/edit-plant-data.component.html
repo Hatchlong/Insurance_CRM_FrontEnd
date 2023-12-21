@@ -198,11 +198,9 @@
 
       <div class="col-6 py-1">
         <label for="">Sales Organization <sup>*</sup></label>
-        <select class="form-select" formControlName="salesOrganizationId">
-          <option selected value="">Select Sales Organization</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+        <select class="form-select" formControlName="salesOrganizationId" (change)="handleSalesData($event)">
+          <option [selected]="plantsData.value.salesOrganizationId === ''" value="" hidden>Select Sales Org</option>
+          <option *ngFor="let list of salesDetail" [value]="list._id">{{list.salesOrg}}</option>
         </select>
         <div
           *ngIf="plantsData.controls['salesOrganizationId'].touched && plantsData.controls['salesOrganizationId'].dirty && plantsData.controls['salesOrganizationId'].hasError('required') && !isSubmitted">

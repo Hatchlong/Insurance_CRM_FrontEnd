@@ -266,3 +266,7 @@
   right: 10px;
   cursor: pointer;
 }
+
+.screenName{
+  font-size: 16px;
+}
