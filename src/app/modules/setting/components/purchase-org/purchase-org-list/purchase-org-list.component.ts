@@ -11,6 +11,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class PurchaseOrgListComponent implements OnInit {
   purchaseOrgDetails:any= []
   selectAll:any=false
+  selectedFile: any = ''; 
+  allPurchaseDetails:any = []
 
   constructor(
     private router: Router,
@@ -37,6 +39,7 @@ export class PurchaseOrgListComponent implements OnInit {
         result.data.map((el:any)=>{
           el.check=false
         })
+        this.allPurchaseDetails=result.data
         this.purchaseOrgDetails = result.data;
       }
     } catch (error:any) {
@@ -121,4 +124,14 @@ return
         });
       }
     }
+
+    handleFilter(event:any){
+      if(!event.target.value){
+        this.purchaseOrgDetails = this.allPurchaseDetails
+      }
+      console.log(event.target.value)
+      const isStringIncluded = this.allPurchaseDetails.filter((obj:any) => ((obj.purchase_org.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.companycode.toUpperCase()).includes(event.target.value.toUpperCase())));
+      this.purchaseOrgDetails = isStringIncluded
+    }
+  
 }

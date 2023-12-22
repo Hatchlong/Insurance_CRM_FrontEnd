@@ -248,7 +248,7 @@ export class EditProductComponent {
 
   async getStorageDetails() {
     try {
-      const result: any = await this.plantDataSer.getAllStorageLocationsDetails()
+      const result: any = await this.plantDataSer.getAllPlantData()
       if (result.status === '1') {
         this.storgaeLocationDetails = result.data
       }
@@ -357,7 +357,7 @@ export class EditProductComponent {
   handleMaterialGrp(event: any) {
     const findMaterialGrp = this.materialGrpDetail.find((el: any) => el._id === event.target.value)
     console.log(findMaterialGrp);
-    this.general.controls.materialGroupName.setValue(findMaterialGrp.description)
+    this.general.controls.materialGroupName.setValue(findMaterialGrp.code)
 
   }
 

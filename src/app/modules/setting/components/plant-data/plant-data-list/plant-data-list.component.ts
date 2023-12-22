@@ -12,6 +12,8 @@ export class PlantDataListComponent {
 
   plantDataDetails: any=[]
   selectAll:any=false
+  allPlantDetails:any = []
+  selectedFile: any = ''; 
 
 
   constructor(
@@ -49,6 +51,10 @@ this.getAllPlantDataDetails()
     try {
       const result:any = await this.plantDataSer.getAllPlantData();
       if(result.status === '1'){
+        result.data.map((el: any) => {
+          el.check = false
+        })
+        this.allPlantDetails=result.data
         this.plantDataDetails = result.data;
       }
     } catch (error:any) {
@@ -97,6 +103,15 @@ return
         panelClass: 'app-notification-error',
       });
     }
+  }
+
+  handleFilter(event:any){
+    if(!event.target.value){
+      this.plantDataDetails = this.allPlantDetails
+    }
+    console.log(event.target.value)
+    const isStringIncluded = this.allPlantDetails.filter((obj:any) => ((obj.plantCode.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.name1.toUpperCase()).includes(event.target.value.toUpperCase())));
+    this.plantDataDetails = isStringIncluded
   }
 
 }

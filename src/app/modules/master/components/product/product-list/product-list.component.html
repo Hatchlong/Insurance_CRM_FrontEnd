@@ -1,18 +1,16 @@
-<!-- <app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav> -->
 <div class="container-fluid ">
   <div class="row mt-3 ">
     <div class="d-grid gap-2 d-md-flex justify-content-md-start ">
 
       <div class="col-3">
         <input type="search" name="" id="search-data" placeholder="Material ID / Description.." class="form-control "
-        (input)="handleFilter($event)">
+          (input)="handleFilter($event)">
       </div>
       <div class="col-2">
-        <select class="form-select " aria-label="Default select example">
+        <select class="form-select " aria-label="Default select example" (change)="handleMaterial($event)">
           <option selected>Select Material Type</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          <option *ngFor="let list of materialTypeDetail" [value]="list._id">{{list.code}}</option>
+
         </select>
       </div>
       <div class="col-2">
@@ -64,7 +62,7 @@
       </div>
     </div>
   </div>
- 
+
 
   <div class="row mt-4 ms-2">
     <div class="col-12">
@@ -79,7 +77,8 @@
               <th scope="col">Industry Sector</th>
               <th scope="col">Base Unit Of Measurement</th>
               <th scope="col">Action</th>
-              <th scope="col"><input type="checkbox"  [checked]="selectAll" (change)="selectdata($event)"> Select All</th>
+              <th scope="col"><input type="checkbox" [checked]="selectAll" (change)="selectdata($event)"> Select All
+              </th>
             </tr>
           </thead>
           <tbody *ngIf="productDetails.length===0">
@@ -104,7 +103,7 @@
                   </div>
                 </div>
               </td>
-              <td><input type="checkbox"  [checked]="list.check" (change)="particularcheck($event,i)"></td>
+              <td><input type="checkbox" [checked]="list.check" (change)="particularcheck($event,i)"></td>
             </tr>
 
           </tbody>
