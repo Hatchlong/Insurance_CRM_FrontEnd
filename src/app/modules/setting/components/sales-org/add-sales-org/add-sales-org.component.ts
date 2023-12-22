@@ -45,7 +45,7 @@ export class AddSalesOrgComponent {
       countryId: ['', Validators.required],
       countryName: ['', Validators.required],
       regionId: ['', Validators.required],
-      regionName: ['rrrr'],
+      regionName: ['', Validators.required],
       timeZoneId: ['', Validators.required],
       timeZoneName: ['', Validators.required],
       contactPerson: ['', Validators.required],
@@ -203,12 +203,12 @@ return
 
 
   
-  // handleRegion(event:any){
-  //   const regionData:any=this.regionDetail.find((el:any)=>el._id===event.target.value)
-  //   console.log(regionData);
-  //   this.salesOrg.controls.regionName.setValue(regionData.code)
+  handleRegion(event:any){
+    const regionData:any=this.regionDetail.find((el:any)=>el._id===event.target.value)
+    console.log(regionData);
+    this.salesOrg.controls.regionName.setValue(regionData.code)
     
-  // }
+  }
 
 
 }

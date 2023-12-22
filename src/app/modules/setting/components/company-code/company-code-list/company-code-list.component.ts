@@ -173,7 +173,6 @@ export class CompanyCodeListComponent {
 
   exportExcel(): void {
     this.companyCodeDetails.map((el: any) => {
-      delete el._id;
       delete el.isActive;
       delete el.__v;
       delete el.check;
@@ -183,12 +182,7 @@ export class CompanyCodeListComponent {
 
 
   downloadExcel(): void {
-    this.companyCodeDetails.map((el: any) => {
-      delete el._id;
-      delete el.isActive;
-      delete el.__v;
-      delete el.check;
-    })
+   
     const sampleRecord = [this.sampleJson]
     this.companyCodeSer.exportToExcel(sampleRecord, 'company_Code', 'Sheet1');
   }
