@@ -66,7 +66,8 @@ export class EditPlantDataComponent {
       cityId: ['', Validators.required],
       contactPersonName: ['', Validators.required],
       contactNumber: ['', Validators.required],
-      timeZone: ['', Validators.required],
+      timeZoneId: ['', Validators.required],
+      timeZoneName: ['', Validators.required],
       searchTerm: ['', Validators.required],
       customerNo_plant: ['', Validators.required],
       vendorNumberPlant: ['', Validators.required],
@@ -390,8 +391,8 @@ return
     this.plantsData.controls.stoargeLocationName.setValue(findPurchaseDetail.description)
   }
   handleTimeZone(event: any) {
-    const timeDetail = this.timeZone.find((el: any) => el.timeZoneType === +event.target.value)
-    this.plantsData.controls.timeZone.setValue(timeDetail.timeZoneType)
+    const timeDetail = this.timeZone.find((el: any) => el._id === event.target.value);
+    this.plantsData.controls.timeZoneName.setValue(timeDetail.timeZoneType)
   }
   handleSalesData(event: any) {
     const findsalesData = this.salesDetail.find((el: any) => el._id === event.target.value)

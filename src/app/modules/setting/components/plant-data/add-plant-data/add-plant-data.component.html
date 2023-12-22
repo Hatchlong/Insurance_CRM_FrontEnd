@@ -130,16 +130,16 @@
 
       <div class="col-6 py-2 ">
         <label for=""> Time Zone <sup>*</sup></label>
-        <select class="form-select" formControlName="timeZone" (change)="handleTimeZone($event)">
-          <option [selected]="plantFormData.value.timeZone === ''" value="" hidden>Select Time Zone
+        <select class="form-select" formControlName="timeZoneId" (change)="handleTimeZone($event)">
+          <option [selected]="plantFormData.value.timeZoneId === ''" value="" hidden>Select Time Zone
           </option>
-          <option *ngFor="let list of timeZone" [value]="list.timeZoneType">{{list.timeZoneType}}</option>
+          <option *ngFor="let list of timeZone" [value]="list._id">{{list.timeZoneType}}</option>
         </select>
         <div
-          *ngIf="plantFormData.controls['timeZone'].touched && plantFormData.controls['timeZone'].dirty && plantFormData.controls['timeZone'].hasError('required') && !isSubmitted">
+          *ngIf="plantFormData.controls['timeZoneId'].touched && plantFormData.controls['timeZoneId'].dirty && plantFormData.controls['timeZoneId'].hasError('required') && !isSubmitted">
           <p class="error-message">Time Zone is required</p>
         </div>
-        <div *ngIf="isSubmitted && plantFormData.controls['timeZone'].hasError('required')">
+        <div *ngIf="isSubmitted && plantFormData.controls['timeZoneId'].hasError('required')">
           <p class="error-message">Time Zone is required</p>
         </div>
       </div>

@@ -21,7 +21,7 @@ export class EditSalesOrgComponent {
   details: any = []
   salesDataId: any = ''
   singleDetail: any = []
-
+  regionDetail: any = []
   constructor(
     private fb: FormBuilder,
     private salesSer: SalesOrgService,
@@ -50,7 +50,7 @@ export class EditSalesOrgComponent {
       countryId: ['', Validators.required],
       countryName: ['', Validators.required],
       regionId: ['', Validators.required],
-      regionName: ['rrrr'],
+      regionName: ['', Validators.required],
       timeZoneId: ['', Validators.required],
       timeZoneName: ['', Validators.required],
       contactPerson: ['', Validators.required],
@@ -90,7 +90,7 @@ export class EditSalesOrgComponent {
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -124,7 +124,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -144,6 +144,8 @@ return
       if (result.status === '1') {
         this.salesOrg.patchValue(result.data)
         this.singleDetail = this.countryDetials.find((el: any) => el._id === this.salesOrg.value.countryId)
+        this.getRegionDetail(this.salesOrg.value.countryId)
+
       }
     } catch (error: any) {
       if (error.error.message) {
@@ -152,7 +154,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -177,14 +179,14 @@ return
           panelClass: 'app-notification-error',
         });
       }
-    } catch (error:any) {
+    } catch (error: any) {
       if (error.error.message) {
         this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -197,12 +199,49 @@ return
   selectCountry(event: any) {
     this.details = this.countryDetials.find((el: any) => el._id === event.target.value);
     this.salesOrg.controls.countryName.setValue(this.details.countryName)
-
+    this.getRegionDetail(this.details._id)
 
   }
   handleTimeZone(event: any) {
-    // const time=this.timeZone.find((el:any)=>el.timeZoneName=+event.target.value)
-    // this.salesOrg.controls.timeZoneName.setValue(time.timeZoneName)
+    const time = this.timeZone.find((el: any) => el._id === event.target.value)
+    console.log(time);
+    this.salesOrg.controls.timeZoneName.setValue(time.timeZoneType)
   }
+
+
+  handleRegion(event: any) {
+    const regionData: any = this.regionDetail.find((el: any) => el._id === event.target.value)
+    console.log(regionData);
+    this.salesOrg.controls.regionName.setValue(regionData.code)
+
+  }
+
+
+
+  //get region data
+
+  async getRegionDetail(id: any) {
+    try {
+      const result: any = await this.salesSer.getAllRegionDetails(id)
+      if (result.status === '1') {
+        console.log(result);
+
+        this.regionDetail = result.data
+        // this.salesOrg.controls.regionName.setValue(result.data.code)
+      }
+      else {
+        Swal.fire({
+          title: 'warning',
+          text: 'API Failed',
+          icon: 'warning',
+          showCancelButton: true
+        })
+      }
+    } catch (error) {
+      console.error(error);
+
+    }
+  }
+
 
 }
