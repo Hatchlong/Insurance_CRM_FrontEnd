@@ -67,7 +67,8 @@ export class IncoTermListComponent implements OnInit {
       console.log(result)
       if (result.status === '1') {
         result.data.map((el: any) => {
-          el.check = false
+          el.check = false;
+          el.inc_terms_code = el.inc_terms_code.toString()
         })
         this.totalItem = result.count
         this.allIncoTermDetails = result.data
@@ -164,12 +165,15 @@ export class IncoTermListComponent implements OnInit {
 
   exportExcel(): void {
     this.incTermDetail.map((el: any) => {
-      delete el._id;
       delete el.isActive;
       delete el.__v;
       delete el.check;
+      el.inc_terms_code = +el.inc_terms_code
     })
     this.incTermSer.exportToExcel(this.incTermDetail, 'incoTerm', 'Sheet1');
+    this.incTermDetail.map((el: any) => {
+      el.inc_terms_code = el.inc_terms_code.toString()
+    })
   }
 
   downloadExcel(): void {
@@ -217,7 +221,7 @@ export class IncoTermListComponent implements OnInit {
       this.incTermDetail = this.allIncoTermDetails
     }
     console.log(event.target.value)
-    const isStringIncluded = this.allIncoTermDetails.filter((obj: any) => ((obj.inc_terms_code).includes(event.target.value) || (obj.description.toUpperCase()).includes(event.target.value.toUpperCase())));
+    const isStringIncluded = this.allIncoTermDetails.filter((obj: any) => ((obj.inc_terms_code.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.description.toUpperCase()).includes(event.target.value.toUpperCase())));
     this.incTermDetail = isStringIncluded
   }
 
