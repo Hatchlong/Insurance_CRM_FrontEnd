@@ -42,7 +42,7 @@
                     <div class="col-6 py-2">
                         <label for="" class="">Material Type <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example"
-                            formControlName="materialTypeId" (change)="handleMaterialType($event)">
+                            formControlName="materialTypeId" (change)="handleMaterialType($event)" >
                             <option [selected]="general.value.materialTypeId === ''" value="" hidden>Select Material
                                 Type
                             </option>
@@ -60,7 +60,7 @@
                     <div class="col-6 py-2" >
                         <label for="">Material Id </label>
                         <input type="text" class="form-control " formControlName="materialTypeId"
-                            placeholder="Material Id" [disabled]="drop.value==='M'?false:true">
+                            placeholder="Material Id" >
                     </div>
                     <div class="col-6 py-2">
                         <label for="">Industry Sector <sup>*</sup></label>

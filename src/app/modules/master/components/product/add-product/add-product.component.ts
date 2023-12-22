@@ -31,6 +31,7 @@ export class AddProductComponent implements OnInit {
   uomDetail: any = []
   materialTypeDetail: any = []
   distributionDetail: any = []
+  selectedValue:any=''
 
   constructor(
     private fb: FormBuilder,

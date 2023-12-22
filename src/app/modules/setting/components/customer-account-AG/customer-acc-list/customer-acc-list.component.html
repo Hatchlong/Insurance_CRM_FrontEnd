@@ -1,78 +1,88 @@
-<!-- <app-side-nav></app-side-nav> -->
-
 <div class="container-fluid ">
-    <div class="row mt-3 ">
-      <div class="col-12 ms-0">
-        <div class="d-grid gap-2 d-md-flex justify-content-md-start mx-2 ">
-    
-          <!-- <input type="search" name="" id="" placeholder="Search.." class=" mx-2 form-control w-50"> -->
-  
+  <div class="row mt-3 ">
+    <div class="col-12 ms-0">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Enter Mode of Transport/Description"
+              (input)="handleFilter($event)">
+          </div>
         </div>
-      </div>
-  
-  
-    </div>
-    <div class="row mt-3">
-      <div class="col-12">
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
-          <button (click)="nextPage('/settings/add-customer-account')" class="btn btn-primary" type="button">Add Customer Acc</button>
-  
-          <button class="btn btn-danger" type="button">
-            <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
-            Delete Selected Customer Acc</button>
-          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item>
-              <span>Import Customer Acc</span>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+            <button (click)="nextPage('/settings/add-customer-account/')" class="btn btn-primary " type="button">Add
+              Customer Acc</button>
+
+            <button class="btn btn-danger" type="button" (click)="handleDeleteMuliple()">
+              <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>Delete Selected Customer Acc</button>
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon>more_vert</mat-icon>
             </button>
-            <button mat-menu-item>
-              <span>Export Customer Acc</span>
-            </button>
-            <button mat-menu-item>
-              <span>Sample Customer Acc Sheet</span>
-            </button>
-          </mat-menu>
-  
-        </div>
-      </div>
-    </div>
-    <div class="row mt-4 ms-2">
-      <div class="col-12">
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>SL</th>
-               <th scope="col">Customer Acc. Asst Grp</th>
-                <th scope="col">Description</th>
-                <th scope="col">Action</th>
-                <th scope="col"><input type="checkbox" id="selectAll" [checked]="selectAll" (change)="selectdata($event)"> Select All</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let list of customerAccountDetails; let i = index;">
-                <td>{{i+1}}</td>
-                <td>{{list.customerAccountAG}}</td>
-                <td>{{list.descriptionCAAG}}</td>
-                <td>
-                  <div class="d-flex">
-                    <div>
-                      <mat-icon [routerLink]="'/settings/edit-customer-account/'+list._id">edit</mat-icon>
-                    </div>
-                    <div>
-                      <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
-                    </div>
-                  </div>
-                </td>
-                <td><input type="checkbox" class="checkbox" [checked]="list.check" (change)="particularcheck($event,i)"></td>
-  
-              </tr>
-            </tbody>
-  
-          </table>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="importHandle(inputFile)">
+                <span>Import Customer Acc</span>
+                <input class="d-none" #inputFile type="file" (change)="handleFileData($event)">
+              </button>
+              <button mat-menu-item (click)="exportExcel()">
+                <span>Export Customer Acc</span>
+              </button>
+              <button mat-menu-item (click)="downloadExcel()">
+                <span>Sample Customer Acc Sheet</span>
+              </button>
+            </mat-menu>
+
+
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="row mt-4 ms-2">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>SL</th>
+              <th scope="col">Customer Acc. Asst Grp</th>
+              <th scope="col">Description</th>
+              <th scope="col">Action</th>
+              <th scope="col"><input type="checkbox" id="selectAll" [checked]="selectAll" (change)="selectdata($event)">
+                Select All</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="customerAccountDetails.length === 0">
+            <tr>
+              <td colspan="5" class="text-center">No Records</td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr *ngFor="let list of customerAccountDetails; let i = index;">
+              <td>{{i+1}}</td>
+              <td>{{list.customerAccountAG}}</td>
+              <td>{{list.descriptionCAAG}}</td>
+              <td>
+                <div class="d-flex">
+                  <div>
+                    <mat-icon [routerLink]="'/settings/edit-customer-account/'+list._id">edit</mat-icon>
+                  </div>
+                  <div>
+                    <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
+                  </div>
+                </div>
+              </td>
+              <td><input type="checkbox" class="checkbox" [checked]="list.check" (change)="particularcheck($event,i)">
+              </td>
+
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+    <div class="col-xs-12 col-12 d-flex justify-content-center" *ngIf="customerAccountDetails.length > 10">
+      <pagination [totalItems]="totalItem" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
+    </div>
+  </div>
+</div>
