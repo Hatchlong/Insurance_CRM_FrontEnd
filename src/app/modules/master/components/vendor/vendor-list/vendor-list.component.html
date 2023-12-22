@@ -1,68 +1,63 @@
-<!-- <app-side-nav></app-side-nav> -->
-
 <div class="container-fluid ">
-  <div class="row mt-3 ">
-    
-      <div class="d-grid gap-2 d-md-flex justify-content-md-start mx-2 ">
-        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-          <div class="form-group">
-            <label>Filter</label>
-            <input type="text" class="form-control w-50" placeholder="Enter vendor Name and Address" (input)="handleFilter($event)">
-           
-          </div>
-        
-      </div>
-
-        
-
-      <!-- <select class="form-select w-50" aria-label="Default select example">
-        <option selected>Select Country</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-
-      <select class="form-select w-50 mx-2" aria-label="Default select example">
-        <option selected>Mode Of Transport</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-
-      <select class="form-select w-50 mx-2" aria-label="Default select example">
-        <option selected>Inco Terms</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select> -->
-    </div>
-
-
-  </div>
   <div class="row mt-3">
     <div class="col-12">
-      <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
-        <button (click)="nextPage('/master/add-vendor')" class="btn btn-primary" type="button">Add Vendor</button>
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+          <div class="form-group form-row">
+            <div class="col">
+              <input type="text" class="form-control w-50" placeholder="Enter vendor Name and Address" (input)="handleFilter($event)">
+            </div>
+              <!-- <div class="col">
+                <select class="form-select  w-50" aria-label="Default select example">
+                  <option selected>Select Country</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div> -->
 
-        <button class="btn btn-danger" type="button">
-          <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
-          Delete Selected Vendor</button>
+      
+            <!-- <select class="form-select w-50 mx-2" aria-label="Default select example">
+              <option selected>Mode Of Transport</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+      
+            <select class="form-select w-50 mx-2" aria-label="Default select example">
+              <option selected>Inco Terms</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select> -->
+          </div>
+        
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+            <button (click)="nextPage('/master/add-vendor')" class="btn btn-primary" type="button">Add Vendor</button>
           
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item>
-            <span>Import Product</span>
-          </button>
-          <button mat-menu-item>
-            <span>Export Export</span>
-          </button>
-          <button mat-menu-item>
-            <span>Sample Product Sheet</span>
-          </button>
-        </mat-menu>
-
+            <button class="btn btn-danger" type="button">
+              <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
+              Delete Selected Vendor</button>
+            
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <span>Import Product</span>
+              </button>
+              <button mat-menu-item>
+                <span>Export Export</span>
+              </button>
+              <button mat-menu-item>
+                <span>Sample Product Sheet</span>
+              </button>
+            </mat-menu>
+          
+          </div>
+        </div>
       </div>
     </div>
   </div>
