@@ -38,7 +38,8 @@ export class EditPurchaseOrgComponent {
       _id: ['', Validators.required],
       purchase_org: ['', Validators.required],
       purchase_org_Description: ['', Validators.required],
-      companycode: ['', Validators.required]
+      companycode: ['', Validators.required],
+      companyId: ['', Validators.required]
     });
   }
 
@@ -136,5 +137,10 @@ return
       });
 
     }
+  }
+
+  handleCompany(event: any) {
+    const findsalesData = this.companyDetails.find((el: any) => el._id === event.target.value)
+    this.purchOrg.controls.companycode.setValue(findsalesData.companyCode)
   }
 }

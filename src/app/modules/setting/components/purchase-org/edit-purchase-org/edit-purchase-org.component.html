@@ -2,8 +2,8 @@
     <h2><mat-icon class="back" routerLink="/settings/purchase-org-list">arrow_back</mat-icon>Purchase Org</h2>
 
     <form [formGroup]="purchOrg" (ngSubmit)="submitData()">
-        <div class="row border">
-            <div class="col-6">
+        <div class="row">
+            <div class="col-6 py-2">
                 <label>Purchase Org</label>
                 <input type="text" class="form-control" formControlName="purchase_org" placeholder="Enter Purchase Org">
                 <div
@@ -15,7 +15,7 @@
                 </div>
             </div>
 
-            <div class="col-6 ">
+            <div class="col-6 py-2 ">
                 <label>Purchase Org Description</label>
                 <input type="text" class="form-control" formControlName="purchase_org_Description"
                     placeholder="Purchase Org Description">
@@ -28,19 +28,19 @@
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-6 py-2">
                 <label for="">Company Code</label>
-                <select class="form-select" formControlName="companycode" aria-label="Default select example">
-                    <option [selected]="purchOrg.value.companyCode === ''" value="" hidden>Select Company</option>
+                <select class="form-select" formControlName="companyId" aria-label="Default select example" (change)="handleCompany($event)">
+                    <option [selected]="purchOrg.value.companyId === ''" value="" hidden>Select Company</option>
 
-                    <option *ngFor="let list of companyDetails;" [value]="list.companyCode">{{list.companyCode}}
+                    <option *ngFor="let list of companyDetails;" [value]="list._id">{{list.companyName}}
                     </option>
                 </select>
                 <div
-                    *ngIf="purchOrg.controls['companycode'].touched && purchOrg.controls['companycode'].dirty && purchOrg.controls['companycode'].hasError('required') && !isSubmitted">
+                    *ngIf="purchOrg.controls['companyId'].touched && purchOrg.controls['companyId'].dirty && purchOrg.controls['companyId'].hasError('required') && !isSubmitted">
                     <p class="error-message">Company Code is required</p>
                 </div>
-                <div *ngIf="isSubmitted && purchOrg.controls['companycode'].hasError('required')">
+                <div *ngIf="isSubmitted && purchOrg.controls['companyId'].hasError('required')">
                     <p class="error-message">Company Code is required</p>
                 </div>
             </div>

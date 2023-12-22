@@ -46,8 +46,8 @@ export class SideNavComponent implements OnInit {
   }
 
   closeNav() {
-    this.isFullScreen = !this.isFullScreen;
-    this.isShowNav.emit(this.isFullScreen)
+    // this.isFullScreen = !this.isFullScreen;
+    // this.isShowNav.emit(this.isFullScreen)
     let sidebar: any = document.querySelector(".sidebar");
     let sidebarBtn: any = document.querySelector(".bx-menu");
     console.log(sidebar && sidebar.classList.contains('close'));

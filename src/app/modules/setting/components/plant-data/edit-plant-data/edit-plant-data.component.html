@@ -1,9 +1,9 @@
 <div class="container-fluid">
   <h2><mat-icon class="back" routerLink="/settings/plant-data-list">arrow_back</mat-icon>Plant Data</h2>
 
-  <form class="border" [formGroup]="plantsData" (ngSubmit)="submitData()">
+  <form  [formGroup]="plantsData" (ngSubmit)="submitData()">
     <div class="row ">
-      <div class="col-6 py-1">
+      <div class="col-6 py-2">
         <label for="">Plant Code<sup>*</sup> </label>
         <input type="text" formControlName="plantCode" class="form-control" placeholder="Enter Plant Code"/>
         <div
@@ -15,7 +15,7 @@
         </div>
       </div>
 
-      <div class="col-6 py-1">
+      <div class="col-6 py-2">
         <label for="">Name 1 <sup>*</sup></label>
         <input type="text" formControlName="name1" class="form-control" placeholder="Enter Name 1">
         <div
@@ -26,7 +26,7 @@
           <p class="error-message">Name 1 is required</p>
         </div>
       </div>
-      <div class="col-6 py-1">
+      <div class="col-6 py-2">
         <label for="">Name 2 <sup>*</sup></label>
         <input type="text" formControlName="name2" class="form-control" placeholder="Enter Name 2">
         <div
@@ -39,7 +39,7 @@
 
       </div>
 
-      <div class="col-6 py-1">
+      <div class="col-6 py-2">
         <label for="">Address <sup>*</sup></label>
         <input type="text" formControlName="address" class="form-control" placeholder="Enter Address">
         <div
@@ -52,7 +52,7 @@
 
       </div>
 
-      <div class="col-6 py-1">
+      <div class="col-6 py-2">
         <label for="">Language <sup>*</sup></label>
         <select class="form-select" formControlName="languageId"
           [ngStyle]="{'pointer-events': !plantsData.value.countryId ? 'none' :  'all'}">
@@ -69,7 +69,7 @@
         </div>
       </div>
 
-      <div class="col-6 py-1">
+      <div class="col-6 py-2">
         <label for="">Country <sup>*</sup></label>
         <select class="form-select" formControlName="countryId" (change)="selectCountryName($event)">
           <option [selected]="plantsData.value.countryId === ''" value="" hidden>Select Country</option>
@@ -84,7 +84,7 @@
         </div>
       </div>
 
-      <div class="col-6 py-1">
+      <div class="col-6 py-2">
         <label for="">City <sup>*</sup></label>
         <select class="form-select" formControlName="cityId"
           [ngStyle]="{'pointer-events': !plantsData.value.countryId ? 'none' :  'all'}">
@@ -100,7 +100,7 @@
         </div>
       </div>
 
-      <div class="col-6 py-1">
+      <div class="col-6 py-2">
         <label for="">Contact Person Name <sup>*</sup></label>
         <input type="text" formControlName="contactPersonName" class="form-control" placeholder="Enter Contact Person ">
         <div
@@ -111,7 +111,7 @@
           <p class="error-message">Person Name is required</p>
         </div>
       </div>
-      <div class="col-6 py-1">
+      <div class="col-6 py-2">
         <label for="">Contact Number <sup>*</sup></label>
         <input type="number" formControlName="contactNumber" class="form-control" placeholder="Enter Contact Number">
         <div
@@ -124,24 +124,24 @@
 
       </div>
 
-      <div class="col-6 py-1">
+      <div class="col-6 py-2 ">
         <label for=""> Time Zone <sup>*</sup></label>
-        <select class="form-select" formControlName="timeZone" (change)="handleTimeZone($event)">
-          <option [selected]="plantsData.value.timeZone === ''" value="" hidden>Select Time Zone
+        <select class="form-select" formControlName="timeZoneId" (change)="handleTimeZone($event)">
+          <option [selected]="plantsData.value.timeZoneId === ''" value="" hidden>Select Time Zone
           </option>
-    <option *ngFor="let list of timeZone" [value]="list.timeZoneType">{{list.timeZoneType}}</option>
+          <option *ngFor="let list of timeZone" [value]="list._id">{{list.timeZoneType}}</option>
         </select>
         <div
-          *ngIf="plantsData.controls['timeZone'].touched && plantsData.controls['timeZone'].dirty && plantsData.controls['timeZone'].hasError('required') && !isSubmitted">
+          *ngIf="plantsData.controls['timeZoneId'].touched && plantsData.controls['timeZoneId'].dirty && plantsData.controls['timeZoneId'].hasError('required') && !isSubmitted">
           <p class="error-message">Time Zone is required</p>
         </div>
-        <div *ngIf="isSubmitted && plantsData.controls['timeZone'].hasError('required')">
+        <div *ngIf="isSubmitted && plantsData.controls['timeZoneId'].hasError('required')">
           <p class="error-message">Time Zone is required</p>
         </div>
       </div>
 
 
-      <div class="col-6 py-1">
+      <div class="col-6 py-2">
         <label for="">Search term <sup>*</sup></label>
         <input type="text" formControlName="searchTerm" class="form-control" placeholder="Enter Search Term">
         <div
@@ -153,7 +153,7 @@
         </div>
       </div>
 
-      <div class="col-6 py-1">
+      <div class="col-6 py-2">
         <label for=""> Customer no.-plant <sup>*</sup></label>
         <input type="text" formControlName="customerNo_plant" class="form-control" placeholder="Enter Customer No">
         <div
@@ -166,7 +166,7 @@
       </div>
 
 
-      <div class="col-6 py-1">
+      <div class="col-6 py-2">
         <label for="">Vendor no.-plant <sup>*</sup></label>
         <input type="text" formControlName="vendorNumberPlant" class="form-control" placeholder="Enter Vendor No Plant">
         <div
@@ -178,7 +178,7 @@
         </div>
       </div>
 
-      <div class="col-6 py-1">
+      <div class="col-6 py-2">
         <label for=""> Purch. Organization <sup>*</sup></label>
         <select class="form-select" formControlName="purchaseOrganizationId" (change)="handlePurchaseOrg($event)">
           <option [selected]="plantsData.value.purchaseOrganizationId === ''" value="" hidden>Select Purchase Org
@@ -196,7 +196,7 @@
 
 
 
-      <div class="col-6 py-1">
+      <div class="col-6 py-2">
         <label for="">Sales Organization <sup>*</sup></label>
         <select class="form-select" formControlName="salesOrganizationId" (change)="handleSalesData($event)">
           <option [selected]="plantsData.value.salesOrganizationId === ''" value="" hidden>Select Sales Org</option>
@@ -211,7 +211,7 @@
         </div>
       </div>
 
-      <div class="col-6 py-1">
+      <div class="col-6 py-2">
         <label for=""> Tax Indicator: Plant <sup>*</sup></label>
         <select class="form-select" formControlName="taxIndicatorId" (change)="handleTax($event)">
           <option [selected]="plantsData.value.taxIndicatorId === ''" value="" hidden>Select Tax</option>
@@ -227,7 +227,7 @@
       </div>
 
 
-      <div class="col-6 py-1">
+      <div class="col-6 py-2">
         <label for="">Storage Location <sup>*</sup></label>
         <select class="form-select" formControlName="stoargeLocationId" (change)="handleStorageLocation($event)">
           <option [selected]="plantsData.value.stoargeLocationId === ''" value="" hidden>Select Storage Location

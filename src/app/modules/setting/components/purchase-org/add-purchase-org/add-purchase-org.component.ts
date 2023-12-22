@@ -14,14 +14,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AddPurchaseOrgComponent implements OnInit {
   purchOrg: any = FormGroup;
   companyDetails: any = []
-  isSubmitted:any=false 
+  isSubmitted: any = false
 
   constructor(private fb: FormBuilder,
     private companySer: CompanyCodeService,
     private purchaseOrgSer: PurchaseOrgService,
     private router: Router,
-    private _snackBar:MatSnackBar
-  ) { }  
+    private _snackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
     this.getCompanyDetails()
@@ -32,7 +32,8 @@ export class AddPurchaseOrgComponent implements OnInit {
     this.purchOrg = this.fb.group({
       purchase_org: ['', Validators.required],
       purchase_org_Description: ['', Validators.required],
-      companycode: ['', Validators.required]
+      companycode: ['', Validators.required],
+      companyId: ['', Validators.required]
     });
     console.warn(this.purchOrg.value)
   }
@@ -40,9 +41,9 @@ export class AddPurchaseOrgComponent implements OnInit {
   // Create the purchase org Details
   async submitData() {
     try {
-      this.isSubmitted=true
-      if (this.purchOrg.invalid) 
-        return 
+      this.isSubmitted = true
+      if (this.purchOrg.invalid)
+        return
       const result: any = await this.purchaseOrgSer.createPurchaseOrgDetails(this.purchOrg.value);
       if (result.status === '1') {
         this._snackBar.open(result.message, '', {
@@ -67,7 +68,7 @@ export class AddPurchaseOrgComponent implements OnInit {
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -98,7 +99,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -107,5 +108,12 @@ return
       });
 
     }
+  }
+
+
+
+  handleCompany(event: any) {
+    const findsalesData = this.companyDetails.find((el: any) => el._id === event.target.value)
+    this.purchOrg.controls.companycode.setValue(findsalesData.companyCode)
   }
 }

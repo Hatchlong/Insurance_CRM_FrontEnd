@@ -1,48 +1,65 @@
-<div class="container-fluid ">
-  <div class="row mt-3">
-    <div class="form-group">
-      <label>Filter</label>
-      <input type="text" class="form-control" placeholder="Enter PO Type / Description" (input)="handleFilter($event)">
-    </div>
-    <div class="col-12">
-      <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
-        <button (click)="nextPage('/settings/add-po-type')" class="btn btn-primary " type="button"
-          >Add PO</button>
-
-        <button class="btn btn-danger" type="button" >
-          <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
-          Delete Selected PO</button>
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item>
-            <span>Import PO</span>
-          </button>
-          <button mat-menu-item>
-            <span>Export PO</span>
-          </button>
-          <button mat-menu-item>
-            <span>Sample PO Sheet</span>
-          </button>
-        </mat-menu>
+ <div class="container-fluid">
+    <div class="row mt-3">
+      <div class="col-12 ">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Enter PO Type / Description"
+                (input)="handleFilter($event)">
+            </div>
+  
+          </div>
+  
+          <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+  
+              <button (click)="nextPage('/settings/add-po-type')" class="btn btn-primary " type="button">Add
+                PO</button>
+  
+              <button class="btn btn-danger" type="button"  (click)="handleDeleteMuliple()">
+               
+                <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
+                Delete Selected PO</button>
+              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item  (click)="importHandle(inputFile)"> 
+                 
+                  <span>Import PO</span>
+                  <input class="d-none" #inputFile type="file"  (change)="handleFileData($event)">
+                 
+                </button>
+                <button mat-menu-item (click)="exportExcel()">
+                  
+                  <span>Export PO</span>
+                </button>
+                <button mat-menu-item  (click)="downloadExcel()">
+                 
+                  <span>Sample PO Sheet</span>
+                </button>
+              </mat-menu>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-4 ms-2">
+  <div class="row mt-4 ">
+    <div class="col-12"></div>
     <div class="col-12">
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">SL</th>
+              <th scope="col">SN</th>
               <th scope="col">PO Type</th>
               <th scope="col">Description </th>
               <th scope="col">Item Number</th>
               <th scope="col">Internal Number</th>
               <th scope="col">External Number</th>
               <th scope="col">Action</th>
-              <th scope="col"><input type="checkbox" > Select All</th>
+              <th><input type="checkbox" [checked]="selectAll" (change)="selectdata($event)">Select All</th>
+
             </tr>
           </thead>
           
@@ -64,11 +81,15 @@
                   </div>
                 </div>
               </td>
-              <td><input type="checkbox" ></td>
+              <td><input type="checkbox" [checked]="list.check" (change)="particularcheck($event,i)"></td>
+
             </tr>
           </tbody>
         </table>
       </div>
+    </div>
+    <div class="col-xs-12 col-12 d-flex justify-content-center"  *ngIf="potypeDetail.length > 10">
+      <pagination [totalItems]="totalItem" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
     </div>
   </div>
 </div>
