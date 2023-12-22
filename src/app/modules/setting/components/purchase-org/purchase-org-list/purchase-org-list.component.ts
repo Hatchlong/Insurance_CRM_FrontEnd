@@ -10,12 +10,6 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
   styleUrls: ['./purchase-org-list.component.css']
 })
 export class PurchaseOrgListComponent implements OnInit {
-<<<<<<< HEAD
-  purchaseOrgDetails:any= []
-  selectAll:any=false
-  selectedFile: any = ''; 
-  allPurchaseDetails:any = []
-=======
   purchaseOrgDetails: any = []
   allPurchaseOrgDetails: any = []
   selectAll: any = false;
@@ -30,7 +24,6 @@ export class PurchaseOrgListComponent implements OnInit {
     "companycode": "TCS234",
   }
 
->>>>>>> 66204a757e1731cdcd76d4e5d133b1162599c5b0
 
   constructor(
     private router: Router,
@@ -57,11 +50,7 @@ export class PurchaseOrgListComponent implements OnInit {
         result.data.map((el: any) => {
           el.check = false
         })
-<<<<<<< HEAD
-        this.allPurchaseDetails=result.data
-=======
         this.allPurchaseOrgDetails = result.data;
->>>>>>> 66204a757e1731cdcd76d4e5d133b1162599c5b0
         this.purchaseOrgDetails = result.data;
       }
     } catch (error: any) {
@@ -145,18 +134,6 @@ export class PurchaseOrgListComponent implements OnInit {
         panelClass: 'app-notification-error',
       });
     }
-<<<<<<< HEAD
-
-    handleFilter(event:any){
-      if(!event.target.value){
-        this.purchaseOrgDetails = this.allPurchaseDetails
-      }
-      console.log(event.target.value)
-      const isStringIncluded = this.allPurchaseDetails.filter((obj:any) => ((obj.purchase_org.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.companycode.toUpperCase()).includes(event.target.value.toUpperCase())));
-      this.purchaseOrgDetails = isStringIncluded
-    }
-  
-=======
   }
 
 
@@ -272,5 +249,4 @@ export class PurchaseOrgListComponent implements OnInit {
     const records = (this.page - 1) * this.itemsPerPage;
     this.getAllPurchaseOrgDetails(records, this.itemsPerPage)
   }
->>>>>>> 66204a757e1731cdcd76d4e5d133b1162599c5b0
 }

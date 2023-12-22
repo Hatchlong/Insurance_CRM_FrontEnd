@@ -11,13 +11,6 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 })
 export class PlantDataListComponent {
 
-<<<<<<< HEAD
-  plantDataDetails: any=[]
-  selectAll:any=false
-  allPlantDetails:any = []
-  selectedFile: any = ''; 
-
-=======
   plantDataDetails: any = [];
   allPlantDataDetails: any = []
   selectAll: any = false;
@@ -45,7 +38,6 @@ export class PlantDataListComponent {
     "taxIndicatorName": "Taxable",
     "stoargeLocationName": "Scrap yard",
   }
->>>>>>> 66204a757e1731cdcd76d4e5d133b1162599c5b0
 
   constructor(
     private router: Router,
@@ -81,21 +73,12 @@ export class PlantDataListComponent {
   }
   async getAllPlantDataDetails(page: any, itemsPerPage: any) {
     try {
-<<<<<<< HEAD
-      const result:any = await this.plantDataSer.getAllPlantData();
-      if(result.status === '1'){
-        result.data.map((el: any) => {
-          el.check = false
-        })
-        this.allPlantDetails=result.data
-=======
       const result: any = await this.plantDataSer.getAllplantdataDetailsPage(page, itemsPerPage);
       if (result.status === '1') {
         result.data.map((el: any) => {
           el.check = false
         })
         this.allPlantDataDetails = result.data
->>>>>>> 66204a757e1731cdcd76d4e5d133b1162599c5b0
         this.plantDataDetails = result.data;
       }
     } catch (error: any) {
@@ -146,17 +129,6 @@ export class PlantDataListComponent {
     }
   }
 
-<<<<<<< HEAD
-  handleFilter(event:any){
-    if(!event.target.value){
-      this.plantDataDetails = this.allPlantDetails
-    }
-    console.log(event.target.value)
-    const isStringIncluded = this.allPlantDetails.filter((obj:any) => ((obj.plantCode.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.name1.toUpperCase()).includes(event.target.value.toUpperCase())));
-    this.plantDataDetails = isStringIncluded
-  }
-
-=======
   // File Upload
   importHandle(inputId: any) {
     inputId.click()
@@ -276,5 +248,4 @@ export class PlantDataListComponent {
     this.getAllPlantDataDetails(records, this.itemsPerPage)
   }
 
->>>>>>> 66204a757e1731cdcd76d4e5d133b1162599c5b0
 }
