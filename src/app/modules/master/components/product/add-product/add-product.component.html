@@ -42,7 +42,7 @@
                     <div class="col-6 py-2">
                         <label for="" class="">Material Type <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example"
-                            formControlName="materialTypeId" (change)="handleMaterialType($event)">
+                            formControlName="materialTypeId" (change)="handleMaterialType($event)" >
                             <option [selected]="general.value.materialTypeId === ''" value="" hidden>Select Material
                                 Type
                             </option>
@@ -56,6 +56,11 @@
                         <div *ngIf="isSubmitted && general.controls['materialTypeId'].hasError('required')">
                             <p class="error-message">Material Type is required</p>
                         </div>
+                    </div>
+                    <div class="col-6 py-2" >
+                        <label for="">Material Id </label>
+                        <input type="text" class="form-control " formControlName="materialTypeId"
+                            placeholder="Material Id" >
                     </div>
                     <div class="col-6 py-2">
                         <label for="">Industry Sector <sup>*</sup></label>
@@ -359,6 +364,8 @@
                             </option>
                             <option value="YES">YES</option>
                             <option value="NO">NO</option>
+                            <option value="BLANK">BLANK</option>
+
                         </select>
                         <div
                             *ngIf="general.controls['batchManagment'].touched && general.controls['batchManagment'].dirty && general.controls['batchManagment'].hasError('required') && !isSubmitted">
@@ -410,6 +417,7 @@
                             </option>
                             <option value="YES">YES</option>
                             <option value="NO">NO</option>
+                            <option value="BLANK">BLANK</option>
                         </select>
                         <div
                             *ngIf="general.controls['expirationDataRelavance'].touched && general.controls['expirationDataRelavance'].dirty && general.controls['expirationDataRelavance'].hasError('required') && !isSubmitted">
@@ -491,9 +499,9 @@
                                                                 formControlName="storagePlant">
                                                                 <option [selected]="general.value.storagePlant === ''"
                                                                     value="" hidden>Select Storage Plant</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                <option *ngFor="let list of storgaeLocationDetails"
+                                                                    [value]="list._id">{{list.plantCode}}
+                                                                </option>
                                                             </select>
 
                                                         </td>
@@ -505,7 +513,7 @@
                                                                     [selected]="general.value.storageLocation === ''"
                                                                     value="" hidden>Select Storage Location</option>
                                                                 <option *ngFor="let list of storgaeLocationDetails"
-                                                                    [value]="list.stor_loc_id">{{list.description}}
+                                                                    [value]="list._id">{{list.name1}}
                                                                 </option>
                                                             </select>
                                                         </td>
@@ -523,8 +531,8 @@
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "
-                                                                formControlName="totalReplLeadTime"
-                                                                placeholder="Total repl lead time">
+                                                                formControlName="safetyStock"
+                                                                placeholder="Safety Stock">
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "
@@ -535,11 +543,12 @@
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="availabilityCheck">
-                                                                <option [selected]="general.value.availabilityCheck === ''" value=""
-                                                                    hidden>Select Availibilty Check</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                <option
+                                                                    [selected]="general.value.availabilityCheck === ''"
+                                                                    value="" hidden>Select Availibilty Check</option>
+                                                                <option value="YES">YES</option>
+                                                                <option value="NO">NO</option>
+                                                                <option value="BLANK">BLANK</option>
                                                             </select>
                                                         </td>
                                                         <td>
@@ -557,8 +566,8 @@
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="bomRelevance">
-                                                                <option [selected]="general.value.bomRelevance === ''" value=""
-                                                                    hidden>
+                                                                <option [selected]="general.value.bomRelevance === ''"
+                                                                    value="" hidden>
                                                                     Select bom</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
@@ -620,7 +629,9 @@
                                                                 <option
                                                                     [selected]="general.value.distributionChannel === ''"
                                                                     value="" hidden>Select distribution Channel</option>
-                                                                <option *ngFor="let list of distributionDetail" [value]="list._id">{{list.distributionChannel}}</option>
+                                                                <option *ngFor="let list of distributionDetail"
+                                                                    [value]="list._id">{{list.distributionChannel}}
+                                                                </option>
                                                             </select>
                                                         <td>
                                                             <select class="form-select "
@@ -628,8 +639,9 @@
                                                                 formControlName="deliveryUnit">
                                                                 <option [selected]="general.value.deliveryUnit === ''"
                                                                     value="" hidden>Select Delivery Unit</option>
-                                                                <option *ngFor="let list of uomDetail" [value]="list._id">{{list.description}}</option>
-                                                                
+                                                                <option *ngFor="let list of uomDetail"
+                                                                    [value]="list._id">{{list.description}}</option>
+
                                                             </select>
                                                         </td>
                                                         <td>

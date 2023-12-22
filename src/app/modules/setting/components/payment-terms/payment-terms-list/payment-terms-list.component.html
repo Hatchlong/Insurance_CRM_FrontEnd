@@ -1,78 +1,95 @@
 <div class="container-fluid ">
-  <div class="form-group">
-    <label>Filter</label>
-    <input type="text" class="form-control" placeholder="Enter Payment Term/Description" (input)="handleFilter($event)">
-  </div>
-</div>
-<div class="row mt-3">
-  <div class="col-12">
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
-      <button (click)="nextPage('/settings/add-payment-terms/')" class="btn btn-primary " type="button">Add
-        Payment</button>
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Enter Payment Term/Description"
+              (input)="handleFilter($event)">
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+            <button (click)="nextPage('/settings/add-payment-terms/')" class="btn btn-primary " type="button">Add
+              Payment</button>
 
-      <button class="btn btn-danger" type="button" style="color: white">
-        <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>Delete Selected Payment</button>
-      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-          <span>Import Payment</span>
-        </button>
-        <button mat-menu-item>
-          <span>Export Payment</span>
-        </button>
-        <button mat-menu-item>
-          <span>Sample Payment Sheet</span>
-        </button>
-      </mat-menu>
+            <button class="btn btn-danger" type="button" (click)="handleDeleteMuliple()" >
+              <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>Delete Selected Payment</button>
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="importHandle(inputFile)">
+                <span>Import Payment</span>
+                <input class="d-none" #inputFile type="file" (change)="handleFileData($event)">
+              </button>
+              <button mat-menu-item (click)="exportExcel()">
+                <span>Export Payment</span>
+              </button>
+              <button mat-menu-item (click)="downloadExcel()">
+                <span>Sample Payment Sheet</span>
+              </button>
+            </mat-menu>
 
+
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>
-</div>
-<div class="row mt-4 ms-2">
-  <div class="col-12">
-    <div class="table-responsive">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">SN</th>
-            <th scope="col">Payment Term</th>
-            <th scope="col">Descriptiion</th>
-            <th scope="col">Day Limit</th>
-            <th scope="col">Fixed Days</th>
-            <th scope="col">Additional Month</th>
-            <th scope="col">Account Type</th>
-            <th scope="col">Action</th>
-            <th scope="col"><input type="checkbox" [checked]="selectAll" (change)="selectdata($event)"> Select All</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let list of paymentDetails;let i=index">
-            <td scope="row">{{i+1}}</td>
-            <td>{{list.paymentTerm}}</td>
-            <td>{{list.description}}</td>
-            <td>{{list.dayLimit}}</td>
-            <td>{{list.fixedBaseLineDate}}</td>
-            <td>{{list.additionalBaselineDataCalculation}}</td>
-            <td>{{list.accountType}}</td>
-            <td>
-              <div class="d-flex">
-                <div>
-                  <mat-icon [routerLink]="'/settings/edit-payment-term/'+list._id">edit</mat-icon>
+  <div class="row mt-4 ms-2">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">SL</th>
+              <th scope="col">Payment Term</th>
+              <th scope="col">Descriptiion</th>
+              <th scope="col">Day Limit</th>
+              <th scope="col">Fixed Days</th>
+              <th scope="col">Additional Month</th>
+              <th scope="col">Account Type</th>
+              <th scope="col">Action</th>
+              <th scope="col"><input type="checkbox" [checked]="selectAll" (change)="selectdata($event)"> Select All
+              </th>
+            </tr>
+          </thead>
+          <tbody *ngIf="paymentDetails.length === 0">
+            <tr>
+              <td colspan="9" class="text-center">No Records</td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr *ngFor="let list of paymentDetails;let i=index">
+              <td scope="row">{{i+1}}</td>
+              <td>{{list.paymentTerm}}</td>
+              <td>{{list.description}}</td>
+              <td>{{list.dayLimit}}</td>
+              <td>{{list.fixedBaseLineDate}}</td>
+              <td>{{list.additionalBaselineDataCalculation}}</td>
+              <td>{{list.accountType}}</td>
+              <td>
+                <div class="d-flex">
+                  <div>
+                    <mat-icon [routerLink]="'/settings/edit-payment-term/'+list._id">edit</mat-icon>
+                  </div>
+                  <div>
+                    <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
+                  </div>
                 </div>
-                <div>
-                  <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
-                </div>
-              </div>
-            </td>
-            <td><input type="checkbox" [checked]="list.check" (change)="particularcheck($event,i)"></td>
-          </tr>
+              </td>
+              <td><input type="checkbox" [checked]="list.check" (change)="particularcheck($event,i)"></td>
+            </tr>
 
-        </tbody>
+          </tbody>
 
-      </table>
+        </table>
+      </div>
+    </div>
+    <div class="col-xs-12 col-12 d-flex justify-content-center" *ngIf="paymentDetails.length > 10">
+      <pagination [totalItems]="totalItem" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
     </div>
   </div>
 </div>

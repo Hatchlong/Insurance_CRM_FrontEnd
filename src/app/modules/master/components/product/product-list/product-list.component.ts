@@ -14,6 +14,7 @@ export class ProductListComponent implements OnInit {
   selectedFile: any = ''; 
   allProductDetails:any = []
   selectAll: any = false
+  materialTypeDetail:any=[]
 
 
   constructor(
@@ -30,6 +31,7 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProductDetails()
+    this.getMaterialType()
   }
 
   
@@ -55,7 +57,40 @@ export class ProductListComponent implements OnInit {
     }
   }
 
+ //get material type
 
+ async getMaterialType() {
+  try {
+    const result: any = await this.productSer.getAllMaterialTypeDetails()
+    if (result.status === '1') {
+      this.materialTypeDetail = result.data
+    }
+  } catch (error: any) {
+    if (error.error.message) {
+      this._snackBar.open(error.error.message, '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+      return
+    }
+    this._snackBar.open('Something went wrong', '', {
+      duration: 5 * 1000, horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: 'app-notification-error',
+    });
+  }
+}
+handleMaterial(event:any){
+  if(!event.target.value){
+    this.productDetails = this.allProductDetails
+  }
+  console.log(event.target.value);
+  const isStringIncluded = this.allProductDetails.filter((obj:any) => ((obj.materialTypeName.toUpperCase()).includes(event.target.value.toUpperCase())));
+  this.productDetails = isStringIncluded
+  
+  
+}
 
   async getProductDetails() {
     try {
@@ -136,6 +171,8 @@ export class ProductListComponent implements OnInit {
     const isStringIncluded = this.allProductDetails.filter((obj:any) => ((obj.materialId.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.materialDescription.toUpperCase()).includes(event.target.value.toUpperCase())));
     this.productDetails = isStringIncluded
   }
+
+  
 
 }
 

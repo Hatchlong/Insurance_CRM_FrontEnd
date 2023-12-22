@@ -494,9 +494,9 @@
                                                                 formControlName="storagePlant">
                                                                 <option [selected]="general.value.storagePlant === ''"
                                                                     value="" hidden>Select Storage Plant</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                    <option *ngFor="let list of storgaeLocationDetails"
+                                                                    [value]="list._id">{{list.plantCode}}
+                                                                </option>
                                                             </select>
 
                                                         </td>
@@ -509,7 +509,7 @@
                                                                     [selected]="general.value.storageLocation === ''"
                                                                     value="" hidden>Select Storage Location</option>
                                                                 <option *ngFor="let list of storgaeLocationDetails"
-                                                                    [value]="list.stor_loc_id">{{list.description}}
+                                                                    [value]="list._id">{{list.name1}}
                                                                 </option>
                                                             </select>
                                                         </td>
@@ -541,9 +541,9 @@
                                                                 formControlName="availabilityCheck">
                                                                 <option [selected]="general.value.availabilityCheck === ''" value=""
                                                                     hidden>Select Availibilty Check</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                <option value="YES">YES</option>
+                                                                <option value="NO">NO</option>
+                                                                <option value="BLANK">BLANK</option>
                                                             </select>
                                                         </td>
                                                         <td>

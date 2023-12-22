@@ -31,6 +31,7 @@ export class AddProductComponent implements OnInit {
   uomDetail: any = []
   materialTypeDetail: any = []
   distributionDetail: any = []
+  selectedValue:any=''
 
   constructor(
     private fb: FormBuilder,
@@ -68,7 +69,7 @@ export class AddProductComponent implements OnInit {
 
   create() {
     this.general = this.fb.group({
-      materialId: ['00', Validators.required],
+      materialId: ['1'],
       materialDescription: ['', Validators.required],
       materialGroupId: ['', Validators.required],
       materialGroupName: ['', Validators.required],
@@ -222,7 +223,7 @@ export class AddProductComponent implements OnInit {
 
   async getStorageDetails() {
     try {
-      const result: any = await this.plantDataSer.getAllStorageLocationsDetails()
+      const result: any = await this.plantDataSer.getAllPlantData()
       if (result.status === '1') {
         this.storgaeLocationDetails = result.data
       }
@@ -456,8 +457,11 @@ export class AddProductComponent implements OnInit {
   handleMaterialType(event: any) {
     const findMaterialType = this.materialTypeDetail.find((el: any) => el._id === event.target.value)
     console.log(findMaterialType);
-    this.general.controls.materialTypeName.setValue(findMaterialType.code)
+    this.general.controls.materialTypeName.setValue(findMaterialType.code)  
 
+  }
+  get drop(){
+    return this.general.get('materialTypeName')
   }
 
   //get procuremnent type
