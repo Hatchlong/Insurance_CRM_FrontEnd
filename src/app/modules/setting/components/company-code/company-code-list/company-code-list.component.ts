@@ -13,10 +13,21 @@ export class CompanyCodeListComponent {
 
   companyCodeDetails: any = []
   selectAll: any = false
-  selectedFile: any = ''; 
-  allCompanyDetails:any = []
-  totalItem:any = 0
-    constructor(
+  selectedFile: any = '';
+  allCompanyDetails: any = []
+  totalItem: any = 0;
+  currentPage = 1;
+  page?: number = 0;
+  itemsPerPage = 10;
+  sampleJson = {
+    "companyCode": "HAT123",
+    "companyName": "Hatchlong",
+    "countryName": "Zambia",
+    "city": "2",
+    "currencyName": "INR",
+    "languageName": "English",
+  }
+  constructor(
     private router: Router,
     private companyCodeSer: CompanyCodeService,
     private _snackBar: MatSnackBar
@@ -57,9 +68,9 @@ export class CompanyCodeListComponent {
 
 
   //get data into list
-  async getAllCompanyCodeDetails(page:any, itemsPerPage:any) {
+  async getAllCompanyCodeDetails(page: any, itemsPerPage: any) {
     try {
-      const result: any = await this.companyCodeSer.getAllCompanyCodeDetails(page, itemsPerPage);
+      const result: any = await this.companyCodeSer.getAllCompanyCodeDetailsPage(page, itemsPerPage);
       console.log(result)
       if (result.status === '1') {
         result.data.map((el: any) => {
@@ -68,12 +79,12 @@ export class CompanyCodeListComponent {
         this.totalItem = result.count
         this.allCompanyDetails = result.data
         this.companyCodeDetails = result.data;
-        if(result.data.length === 0){
+        if (result.data.length === 0) {
           this.selectAll = false
         }
       }
     } catch (error: any) {
-     
+
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
@@ -105,7 +116,7 @@ export class CompanyCodeListComponent {
       }
 
     } catch (error: any) {
-     
+
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
@@ -132,7 +143,7 @@ export class CompanyCodeListComponent {
     try {
       const formData = new FormData();
       formData.append('file', this.selectedFile);
-      const result:any = await this.companyCodeSer.fileUploadCompanyCode(formData);
+      const result: any = await this.companyCodeSer.fileUploadCompanyCode(formData);
       if (result.status === '1') {
         this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
@@ -149,8 +160,8 @@ export class CompanyCodeListComponent {
           panelClass: 'app-notification-error',
         });
       }
-    } catch (error:any) {
-     
+    } catch (error: any) {
+
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
@@ -161,7 +172,7 @@ export class CompanyCodeListComponent {
   }
 
   exportExcel(): void {
-    this.companyCodeDetails.map((el:any) => {
+    this.companyCodeDetails.map((el: any) => {
       delete el._id;
       delete el.isActive;
       delete el.__v;
@@ -172,21 +183,21 @@ export class CompanyCodeListComponent {
 
 
   downloadExcel(): void {
-    this.companyCodeDetails.map((el:any) => {
+    this.companyCodeDetails.map((el: any) => {
       delete el._id;
       delete el.isActive;
       delete el.__v;
       delete el.check;
     })
-    const sampleRecord = [this.companyCodeDetails[0]]
-    this.companyCodeSer.exportToExcel(sampleRecord, 'company Code', 'Sheet1');
+    const sampleRecord = [this.sampleJson]
+    this.companyCodeSer.exportToExcel(sampleRecord, 'company_Code', 'Sheet1');
   }
 
 
-  async handleDeleteMuliple(){
+  async handleDeleteMuliple() {
     try {
-      const filterData = this.companyCodeDetails.filter((el:any) => el.check === true)
-      filterData.map((el:any) => {
+      const filterData = this.companyCodeDetails.filter((el: any) => el.check === true)
+      filterData.map((el: any) => {
         el.isActive = "C"
       })
       const result: any = await this.companyCodeSer.updateCompanyCodeMany(filterData);
@@ -208,34 +219,30 @@ export class CompanyCodeListComponent {
       }
 
     } catch (error: any) {
-     console.error(error)
+      console.error(error)
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
-        verticalPosition: 'top', 
+        verticalPosition: 'top',
         panelClass: 'app-notification-error',
       });
     }
   }
 
 
-  handleFilter(event:any){
-    if(!event.target.value){
+  handleFilter(event: any) {
+    if (!event.target.value) {
       this.companyCodeDetails = this.allCompanyDetails
     }
     console.log(event.target.value)
-    const isStringIncluded = this.allCompanyDetails.filter((obj:any) => ((obj.companyCode.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.companyName.toUpperCase()).includes(event.target.value.toUpperCase())));
+    const isStringIncluded = this.allCompanyDetails.filter((obj: any) => ((obj.companyCode.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.companyName.toUpperCase()).includes(event.target.value.toUpperCase())));
     this.companyCodeDetails = isStringIncluded
   }
 
-  currentPage = 1;
-  page?: number = 0;
-  itemsPerPage = 10
- 
+
+
   pageChanged(event: PageChangedEvent): void {
-    console.log(event)
     this.page = event.page;
-    const records = (this.page - 1)* + this.itemsPerPage;
-    console.log(records)
+    const records = (this.page-1) * this.itemsPerPage;
     this.getAllCompanyCodeDetails(records, this.itemsPerPage)
   }
 }
