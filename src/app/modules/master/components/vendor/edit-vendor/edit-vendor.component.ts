@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CountryService } from '../../../services/country/country.service';
-import Swal from 'sweetalert2';
 import { CompanyCodeService } from 'src/app/modules/setting/Services/company-code/company-code.service';
 import { VendorService } from '../../../services/vendor/vendor.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,13 +23,15 @@ export class EditVendorComponent {
   modeOfTransportName: any = []
   isSubmitted:any=false
   citiesDetails: any = []
-  vendorId:any= ''
   motDetails: any = []
   incoDetails: any = []
-  currencyDetails:any = []
   payDetails: any = []
   companyCodeDetails:any = []
+  currencyDetails:any = []
   isShowPadding:any = false;
+  vendorTypeDetail:any = [];
+  vendorIdisShow:any = true;
+  vendorId:any= ''
   constructor(
     private fb: FormBuilder,
     private countrySer: CountryService,
@@ -54,13 +55,17 @@ export class EditVendorComponent {
     this.getSingleVendorDetails()
     this.getCompanyCodeDetail()
     this.getPaymentTermsDetail()
+    this.getVendorType()
   }
 
   createVendorFormFields() {
     this.vendorFormGroup = this.fb.group({
             _id: ['', Validators.required],
             vendorName: ['', Validators.required],
-            accountGroup: ['', Validators.required],
+            vendorId: [''],
+            vendorTypeFlag: ['', Validators.required],
+            vendorTypeId: ['', Validators.required],
+            vendorTypeName:['', Validators.required],
             addressCountry: ['', Validators.required],
             languageId: ['', Validators.required],
             languageName: ['', Validators.required],
@@ -76,8 +81,7 @@ export class EditVendorComponent {
 
   getFinancialFields(): FormGroup {
     return this.fb.group({
-      financialTax1: [''],
-      financialTax2: [''],
+      taxNumber: [''],
       vatRegistrationNo: [''],
       currency: [''],
       companyCode: [''],
@@ -87,10 +91,12 @@ export class EditVendorComponent {
       referenceDetails: [''],
       accountHolder: [''],
       backDetailsValidFrom: [''],
-      backDetailsValidTo:[''],
-      reconciliationAccount:[''],
-      paymentMethod:[''],
-      paymentTerms:[''],      
+      backDetailsValidTo: [''],
+      reconciliationAccount: [''],
+      paymentMethod: [''],
+      paymentTerms: [''],
+
+   
     })
   }
 
@@ -263,7 +269,6 @@ return
       if (result.status === '1') {
         this.vendorFormGroup.patchValue(result.data)
         this.citiesDetails = this.countryDetails.find((el: any) => el._id === this.vendorFormGroup.value.countryId)
-        // this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
         this.getSingleLanguage(this.citiesDetails.languageId)
         this.getCurrencyDetails(this.vendorFormGroup.value.countryId)
 
@@ -290,7 +295,6 @@ return
     console.log(event.target.value)
     this.citiesDetails = this.countryDetails.find((el: any) => el._id === event.target.value);
     this.vendorFormGroup.controls.countryName.setValue(this.citiesDetails.countryName)
-    // this.vendorFormGroup.controls.languageId.setValue(this.countryDetails.languageId)
     this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
     this.getSingleLanguage(this.citiesDetails.languageId)
     this.getCurrencyDetails(event.target.value)
@@ -304,7 +308,6 @@ return
         this.motDetails = result.data
       }
       else {
-        // alert("API FAiled")
         this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
@@ -441,5 +444,41 @@ return
     }
   }
 
+
+  async getVendorType() {
+    try {
+      const result: any = await this.vendorSer.getVendorTypesDetails()
+      if (result.status === '1') {
+        this.vendorTypeDetail = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+  handleVendorType(event: any) {
+    const findVendorType = this.vendorTypeDetail.find((el: any) => el._id === event.target.value)
+    console.log(findVendorType);
+    if(findVendorType.vendorType === 'M'){
+      this.vendorIdisShow = true;
+    }else{
+      this.vendorIdisShow = false;
+    }
+    this.vendorFormGroup.controls.vendorTypeFlag.setValue(findVendorType.vendorType)
+    this.vendorFormGroup.controls.vendorTypeName.setValue(findVendorType.description)  
+
+  }
 
 }

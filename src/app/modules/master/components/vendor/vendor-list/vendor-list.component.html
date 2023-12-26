@@ -5,32 +5,15 @@
       <div class="row">
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
           <div class="form-group form-row">
-            <div class="col">
-              <input type="text" class="form-control w-50" placeholder="Enter vendor Name and Address" (input)="handleFilter($event)">
+            <div class="col-12 d-grid gap-2 d-md-flex">
+              <input type="text" class="form-control w-50" placeholder="Enter vendor Id/Name" (input)="handleFilter($event)">
+              <select class="form-select  w-50" aria-label="Default select example" (hange)="handleFilter1($event)">
+                <option selected >Select Vendor Type</option>
+                <option *ngFor="let list of vendorTypeDetail;" [value]="list._id">{{list.description}}</option>
+              </select>
+              
             </div>
-              <!-- <div class="col">
-                <select class="form-select  w-50" aria-label="Default select example">
-                  <option selected>Select Country</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
-              </div> -->
-
-      
-            <!-- <select class="form-select w-50 mx-2" aria-label="Default select example">
-              <option selected>Mode Of Transport</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-      
-            <select class="form-select w-50 mx-2" aria-label="Default select example">
-              <option selected>Inco Terms</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select> -->
+            
           </div>
         
         </div>

@@ -227,8 +227,6 @@ export class AddVendorComponent implements OnInit {
     console.log(event.target.value)
     this.citiesDetails = this.countryDetails.find((el: any) => el._id === event.target.value);
     this.vendorFormGroup.controls.countryName.setValue(this.citiesDetails.countryName)
-    // this.vendorFormGroup.controls.currency.setValue(this.citiesDetails?.countryCurrency)
-    // this.vendorFormGroup.controls.languageName.setValue(this.countryDetails.languageName)
     this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
     this.getSingleLanguage(this.citiesDetails.languageId)
     this.getCurrencyDetails(event.target.value)
