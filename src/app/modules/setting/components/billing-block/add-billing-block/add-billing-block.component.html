@@ -9,10 +9,10 @@
         <input type="text" class="form-control " placeholder="Enter Billing Block " formControlName="billingBlock">
         <div
           *ngIf="billing.controls['billingBlock'].touched && billing.controls['billingBlock'].dirty && billing.controls['billingBlock'].hasError('required') && !isSubmitted">
-          <p class="error-message">Billing Block is required</p>
+          <p class="error-message">Billing Block is mandatory</p>
         </div>
         <div *ngIf="isSubmitted && billing.controls['billingBlock'].hasError('required')">
-          <p class="error-message">Billing Block is required</p>
+          <p class="error-message">Billing Block is mandatory</p>
         </div>
       </div>
       <div class="col-6 py-2 ">
@@ -20,10 +20,10 @@
         <input type="text" class="form-control " placeholder="Enter Description " formControlName="description">
         <div
           *ngIf="billing.controls['description'].touched && billing.controls['description'].dirty && billing.controls['description'].hasError('required') && !isSubmitted">
-          <p class="error-message">Description is required</p>
+          <p class="error-message">Description is mandatory</p>
         </div>
         <div *ngIf="isSubmitted && billing.controls['description'].hasError('required')">
-          <p class="error-message">Description is required</p>
+          <p class="error-message">Description is mandatory</p>
         </div>
       </div>
       <div class="col-12 d-flex justify-content-end py-2">

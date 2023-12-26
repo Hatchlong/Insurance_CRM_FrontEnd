@@ -9,10 +9,10 @@
                 <input type="text" class="form-control" formControlName="purchase_org" placeholder="Enter Purchase Org">
                 <div
                     *ngIf="purchOrg.controls['purchase_org'].touched && purchOrg.controls['purchase_org'].dirty && purchOrg.controls['purchase_org'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Purchase Org. is required</p>
+                    <p class="error-message">Purchase Org. is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && purchOrg.controls['purchase_org'].hasError('required')">
-                    <p class="error-message">Purchase Org. is required</p>
+                    <p class="error-message">Purchase Org. is mandatory</p>
                 </div>
             </div>
 
@@ -22,10 +22,10 @@
                     placeholder="Purchase Org Description">
                 <div
                     *ngIf="purchOrg.controls['purchase_org_Description'].touched && purchOrg.controls['purchase_org_Description'].dirty && purchOrg.controls['purchase_org_Description'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Purchase Org Description is required</p>
+                    <p class="error-message">Purchase Org Description is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && purchOrg.controls['purchase_org_Description'].hasError('required')">
-                    <p class="error-message">Purchase Org Description is required</p>
+                    <p class="error-message">Purchase Org Description is mandatory</p>
                 </div>
             </div>
 
@@ -34,15 +34,15 @@
                 <select class="form-select" formControlName="companyId" aria-label="Default select example" (change)="handleCompany($event)">
                     <option [selected]="purchOrg.value.companyId === ''" value="" hidden>Select Company</option>
 
-                    <option *ngFor="let list of companyDetails;" [value]="list._id">{{list.companyName}}
+                    <option *ngFor="let list of companyDetails;" [value]="list._id">{{list.companyCode}}
                     </option>
                 </select>
                 <div
                     *ngIf="purchOrg.controls['companyId'].touched && purchOrg.controls['companyId'].dirty && purchOrg.controls['companyId'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Company Code is required</p>
+                    <p class="error-message">Company Code is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && purchOrg.controls['companyId'].hasError('required')">
-                    <p class="error-message">Company Code is required</p>
+                    <p class="error-message">Company Code is mandatory</p>
                 </div>
             </div>
         </div>

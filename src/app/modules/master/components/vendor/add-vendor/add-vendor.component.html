@@ -17,11 +17,11 @@
                                             placeholder="Enter Vendor Name">
                                         <div
                                             *ngIf="vendorFormGroup.controls['vendorName'].touched && vendorFormGroup.controls['vendorName'].dirty && vendorFormGroup.controls['vendorName'].hasError('required') && !isSubmitted">
-                                            <p class="error-message">Vendor Name is required</p>
+                                            <p class="error-message">Vendor Name is mandatory</p>
                                         </div>
                                         <div
                                             *ngIf="isSubmitted && vendorFormGroup.controls['vendorName'].hasError('required')">
-                                            <p class="error-message">Vendor Name is required</p>
+                                            <p class="error-message">Vendor Name is mandatory</p>
                                         </div>
                                     </div>
                                     <div class="col-12 py-2">
@@ -33,11 +33,11 @@
                                         </select>
                                         <div
                                             *ngIf="vendorFormGroup.controls['vendorTypeId'].touched && vendorFormGroup.controls['vendorTypeId'].dirty && vendorFormGroup.controls['vendorTypeId'].hasError('required') && !isSubmitted">
-                                            <p class="error-message">Vendor Type is required</p>
+                                            <p class="error-message">Vendor Type is mandatory</p>
                                         </div>
                                         <div
                                             *ngIf="isSubmitted && vendorFormGroup.controls['vendorTypeId'].hasError('required')">
-                                            <p class="error-message">Vendor Type is required</p>
+                                            <p class="error-message">Vendor Type is mandatory</p>
                                         </div>
                                     </div>
                                     <div class="col-12 py-2" *ngIf="vendorIdisShow">
@@ -53,11 +53,11 @@
                                     placeholder="Enter address" formControlName="addressCountry"></textarea>
                                 <div
                                     *ngIf="vendorFormGroup.controls['addressCountry'].touched && vendorFormGroup.controls['addressCountry'].dirty && vendorFormGroup.controls['addressCountry'].hasError('required') && !isSubmitted">
-                                    <p class="error-message">Address is required</p>
+                                    <p class="error-message">Address is mandatory</p>
                                 </div>
                                 <div
                                     *ngIf="isSubmitted && vendorFormGroup.controls['addressCountry'].hasError('required')">
-                                    <p class="error-message">Address is required</p>
+                                    <p class="error-message">Address is mandatory</p>
                                 </div>
                             </div>
                         </div>
@@ -71,10 +71,10 @@
                                 </select>
                                 <div    
                                     *ngIf="vendorFormGroup.controls['languageId'].touched && vendorFormGroup.controls['languageId'].dirty && vendorFormGroup.controls['languageId'].hasError('required') && !isSubmitted">
-                                    <p class="error-message">Language is required</p>
+                                    <p class="error-message">Language is mandatory</p>
                                 </div>
                                 <div *ngIf="isSubmitted && vendorFormGroup.controls['languageId'].hasError('required')">
-                                    <p class="error-message">Language is required</p>
+                                    <p class="error-message">Language is mandatory</p>
                                 </div>
                             </div>
                             <div class="col-6 py-2">
@@ -86,10 +86,10 @@
                                 </select>
                                 <div
                                     *ngIf="vendorFormGroup.controls['countryId'].touched && vendorFormGroup.controls['countryId'].dirty && vendorFormGroup.controls['countryId'].hasError('required') && !isSubmitted">
-                                    <p class="error-message">Country is required</p>
+                                    <p class="error-message">Country is mandatory</p>
                                 </div>
                                 <div *ngIf="isSubmitted && vendorFormGroup.controls['countryId'].hasError('required')">
-                                    <p class="error-message">Country is required</p>
+                                    <p class="error-message">Country is mandatory</p>
                                 </div>
                             </div>
                              <div class="col-6 py-2">
@@ -101,11 +101,11 @@
                                 </select>
                                 <div
                                     *ngIf="vendorFormGroup.controls['modeOfTransportId'].touched && vendorFormGroup.controls['modeOfTransportId'].dirty && vendorFormGroup.controls['modeOfTransportId'].hasError('required') && !isSubmitted">
-                                    <p class="error-message">Mode Of Transport is required</p>
+                                    <p class="error-message">Mode Of Transport is mandatory</p>
                                 </div>
                                 <div
                                     *ngIf="isSubmitted && vendorFormGroup.controls['modeOfTransportId'].hasError('required')">
-                                    <p class="error-message">Mode Of Transport is required</p>
+                                    <p class="error-message">Mode Of Transport is mandatory</p>
                                 </div>
                             </div>
                             <div class="col-6 py-2">
@@ -116,11 +116,11 @@
                                 </select>                               
                                 <div
                                     *ngIf="vendorFormGroup.controls['incrementTreamsId'].touched && vendorFormGroup.controls['incrementTreamsId'].dirty && vendorFormGroup.controls['incrementTreamsId'].hasError('required') && !isSubmitted">
-                                    <p class="error-message">Inco Term is required</p>
+                                    <p class="error-message">Inco Term is mandatory</p>
                                 </div>
                                 <div
                                     *ngIf="isSubmitted && vendorFormGroup.controls['incrementTreamsId'].hasError('required')">
-                                    <p class="error-message">Inco Term is required</p>
+                                    <p class="error-message">Inco Term is mandatory</p>
                                 </div>
                             </div>
                         </div>

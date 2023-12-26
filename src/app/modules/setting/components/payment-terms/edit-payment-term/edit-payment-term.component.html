@@ -2,16 +2,16 @@
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
     <form [formGroup]="payTem" (ngSubmit)="submitData()">
         <h2><mat-icon class="back" routerLink="/settings/payment-terms-list">arrow_back</mat-icon>Payment Term</h2>
-        <div class="row border">
+        <div class="row">
             <div class="col-6">
                 <label for="" class="">Payment Term<sup>*</sup></label>
-                <input type="text" class="form-control " placeholder="Enter Payment Term" formControlName="paymentTerm">
+                <input type="text" class="form-control " placeholder="Enter Payment Term" formControlName="paymentTerm" readonly>
                 <div
                     *ngIf="payTem.controls['paymentTerm'].touched && payTem.controls['paymentTerm'].dirty && payTem.controls['paymentTerm'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Payment Term is required</p>
+                    <p class="error-message">Payment Term is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && payTem.controls['paymentTerm'].hasError('required')">
-                    <p class="error-message">Payment Term is required</p>
+                    <p class="error-message">Payment Term is mandatory</p>
                 </div>
             </div>
             <div class="col-6">
@@ -19,10 +19,10 @@
                 <input type="text" class="form-control " placeholder="Enter Description" formControlName="description">
                 <div
                     *ngIf="payTem.controls['description'].touched && payTem.controls['description'].dirty && payTem.controls['description'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Description is required</p>
+                    <p class="error-message">Description is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && payTem.controls['description'].hasError('required')">
-                    <p class="error-message">Description is required</p>
+                    <p class="error-message">Description is mandatory</p>
                 </div>
             </div>
 
@@ -31,10 +31,10 @@
                 <input type="text" class="form-control " placeholder="Enter Day Limit" formControlName="dayLimit">
                 <div
                     *ngIf="payTem.controls['dayLimit'].touched && payTem.controls['dayLimit'].dirty && payTem.controls['dayLimit'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Day Limit is required</p>
+                    <p class="error-message">Day Limit is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && payTem.controls['dayLimit'].hasError('required')">
-                    <p class="error-message">Day Limit is required</p>
+                    <p class="error-message">Day Limit is mandatory</p>
                 </div>
             </div>
             <div class="col-6">
@@ -42,10 +42,10 @@
                 <input type="text" class="form-control " placeholder="Enter Account" formControlName="accountType">
                 <div
                     *ngIf="payTem.controls['accountType'].touched && payTem.controls['accountType'].dirty && payTem.controls['accountType'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Account Type is required</p>
+                    <p class="error-message">Account Type is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && payTem.controls['accountType'].hasError('required')">
-                    <p class="error-message">Account Type is required</p>
+                    <p class="error-message">Account Type is mandatory</p>
                 </div>
             </div>
             <div class="col-6">
@@ -54,10 +54,10 @@
                     formControlName="fixedBaseLineDate">
                 <div
                     *ngIf="payTem.controls['fixedBaseLineDate'].touched && payTem.controls['fixedBaseLineDate'].dirty && payTem.controls['fixedBaseLineDate'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Fixed Days is required</p>
+                    <p class="error-message">Fixed Days is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && payTem.controls['fixedBaseLineDate'].hasError('required')">
-                    <p class="error-message">Fixed Days is required</p>
+                    <p class="error-message">Fixed Days is mandatory</p>
                 </div>
             </div>
             <div class="col-6">
@@ -66,10 +66,10 @@
                     formControlName="additionalBaselineDataCalculation">
                 <div
                     *ngIf="payTem.controls['additionalBaselineDataCalculation'].touched && payTem.controls['additionalBaselineDataCalculation'].dirty && payTem.controls['additionalBaselineDataCalculation'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Additional Data is required</p>
+                    <p class="error-message">Additional Data is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && payTem.controls['additionalBaselineDataCalculation'].hasError('required')">
-                    <p class="error-message">Additional Data is required</p>
+                    <p class="error-message">Additional Data is mandatory</p>
                 </div>
             </div>
             <div class="col-6">
@@ -78,10 +78,10 @@
                     formControlName="defaultBaselineDate">
                 <div
                     *ngIf="payTem.controls['defaultBaselineDate'].touched && payTem.controls['defaultBaselineDate'].dirty && payTem.controls['defaultBaselineDate'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Default BaseLine is required</p>
+                    <p class="error-message">Default BaseLine is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && payTem.controls['defaultBaselineDate'].hasError('required')">
-                    <p class="error-message">Default BaseLine is required</p>
+                    <p class="error-message">Default BaseLine is mandatory</p>
                 </div>
             </div>    
         </div>

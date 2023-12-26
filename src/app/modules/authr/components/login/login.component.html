@@ -10,10 +10,10 @@
               placeholder="Enter Name / PhoneNumber" />
             <div
               *ngIf="registerFormGroup.controls['userName'].touched && registerFormGroup.controls['userName'].dirty && registerFormGroup.controls['userName'].hasError('required') && !isSubmitted">
-              <p class="error-message">Name is required</p>
+              <p class="error-message">Name is mandatory</p>
             </div>
             <div *ngIf="isSubmitted && registerFormGroup.controls['userName'].hasError('required')">
-              <p class="error-message">Name is required</p>
+              <p class="error-message">Name is mandatory</p>
             </div>
           </div>
           <div class="form-group col-12 mb-0">
@@ -21,10 +21,10 @@
             <input type="email" class="form-control" id="email" formControlName="emailId" placeholder="Enter email" />
             <div
               *ngIf="registerFormGroup.controls['emailId'].touched && registerFormGroup.controls['emailId'].dirty && registerFormGroup.controls['emailId'].hasError('required') && !isSubmitted">
-              <p class="error-message">Email Id is required</p>
+              <p class="error-message">Email Id is mandatory</p>
             </div>
             <div *ngIf="isSubmitted && registerFormGroup.controls['emailId'].hasError('required')">
-              <p class="error-message">Email Id is required</p>
+              <p class="error-message">Email Id is mandatory</p>
             </div>
           </div>
           <div class="form-group col-12 mb-0">
@@ -33,10 +33,10 @@
               placeholder="Password" />
               <div
               *ngIf="registerFormGroup.controls['password'].touched && registerFormGroup.controls['password'].dirty && registerFormGroup.controls['password'].hasError('required') && !isSubmitted">
-              <p class="error-message">Password is required</p>
+              <p class="error-message">Password is mandatory</p>
             </div>
             <div *ngIf="isSubmitted && registerFormGroup.controls['password'].hasError('required')">
-              <p class="error-message">Password is required</p>
+              <p class="error-message">Password is mandatory</p>
             </div>
           </div>
           <!-- <div class="form-check">
@@ -57,10 +57,10 @@
               placeholder="Enter User Name" />
               <div
               *ngIf="loginFormGroup.controls['userName'].touched && loginFormGroup.controls['userName'].dirty && loginFormGroup.controls['userName'].hasError('required') && !isSubmitted">
-              <p class="error-message">Username is required</p>
+              <p class="error-message">Username is mandatory</p>
             </div>
             <div *ngIf="isSubmitted && loginFormGroup.controls['userName'].hasError('required')">
-              <p class="error-message">Username is required</p>
+              <p class="error-message">Username is mandatory</p>
             </div>
           </div>
           <div class="form-group col-12 mb-0">
@@ -69,10 +69,10 @@
               placeholder="Password" />
               <div
               *ngIf="loginFormGroup.controls['password'].touched && loginFormGroup.controls['password'].dirty && loginFormGroup.controls['password'].hasError('required') && !isSubmitted">
-              <p class="error-message">Password is required</p>
+              <p class="error-message">Password is mandatory</p>
             </div>
             <div *ngIf="isSubmitted && loginFormGroup.controls['password'].hasError('required')">
-              <p class="error-message">Password is required</p>
+              <p class="error-message">Password is mandatory</p>
             </div>
           </div>
           <div class="col-12 d-flex justify-content-center">

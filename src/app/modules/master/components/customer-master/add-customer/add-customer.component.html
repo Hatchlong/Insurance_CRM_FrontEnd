@@ -14,10 +14,10 @@
                             formControlName="customerId">
                         <div
                             *ngIf="general.controls['customerId'].touched && general.controls['customerId'].dirty && general.controls['customerId'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Customer Id is required</p>
+                            <p class="error-message">Customer Id is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['customerId'].hasError('required')">
-                            <p class="error-message">Customer Id is required</p>
+                            <p class="error-message">Customer Id is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2 py-1">
@@ -31,10 +31,10 @@
                         </select>
                         <div
                             *ngIf="general.controls['country'].touched && general.controls['country'].dirty && general.controls['country'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Country is required</p>
+                            <p class="error-message">Country is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['country'].hasError('required')">
-                            <p class="error-message">Country is required</p>
+                            <p class="error-message">Country is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2 py-1">
@@ -42,10 +42,10 @@
                         <input type="text" class="form-control " placeholder="Enter Address" formControlName="address">
                         <div
                             *ngIf="general.controls['address'].touched && general.controls['address'].dirty && general.controls['address'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Address is required</p>
+                            <p class="error-message">Address is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['address'].hasError('required')">
-                            <p class="error-message">Address is required</p>
+                            <p class="error-message">Address is mandatory</p>
                         </div>
 
                     </div>
@@ -56,10 +56,10 @@
                             formControlName="postalCode">
                         <div
                             *ngIf="general.controls['postalCode'].touched && general.controls['postalCode'].dirty && general.controls['postalCode'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Postal Code is required</p>
+                            <p class="error-message">Postal Code is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['postalCode'].hasError('required')">
-                            <p class="error-message">Postal Code is required</p>
+                            <p class="error-message">Postal Code is mandatory</p>
                         </div>
 
                     </div>
@@ -69,10 +69,10 @@
                         <input type="text" class="form-control " placeholder="Enter City" formControlName="city">
                         <div
                             *ngIf="general.controls['city'].touched && general.controls['city'].dirty && general.controls['city'].hasError('required') && !isSubmitted">
-                            <p class="error-message">City is required</p>
+                            <p class="error-message">City is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['city'].hasError('required')">
-                            <p class="error-message">City is required</p>
+                            <p class="error-message">City is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2 py-1">
@@ -81,10 +81,10 @@
                         <input type="text" class="form-control " placeholder="Enter Region" formControlName="region">
                         <div
                             *ngIf="general.controls['region'].touched && general.controls['region'].dirty && general.controls['region'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Region is required</p>
+                            <p class="error-message">Region is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['region'].hasError('required')">
-                            <p class="error-message">Region is required</p>
+                            <p class="error-message">Region is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2 py-1">
@@ -94,10 +94,10 @@
                             formControlName="telephone">
                         <div
                             *ngIf="general.controls['telephone'].touched && general.controls['telephone'].dirty && general.controls['telephone'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Telephone is required</p>
+                            <p class="error-message">Telephone is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['telephone'].hasError('required')">
-                            <p class="error-message">Telephone is required</p>
+                            <p class="error-message">Telephone is mandatory</p>
                         </div>
 
                     </div>
@@ -107,10 +107,10 @@
                             formControlName="taxOne">
                         <div
                             *ngIf="general.controls['taxOne'].touched && general.controls['taxOne'].dirty && general.controls['taxOne'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Tax No 1 is required</p>
+                            <p class="error-message">Tax No 1 is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['taxOne'].hasError('required')">
-                            <p class="error-message">Tax No 1 is required</p>
+                            <p class="error-message">Tax No 1 is mandatory</p>
                         </div>
 
                     </div>
@@ -121,10 +121,10 @@
                             formControlName="taxTwo">
                         <div
                             *ngIf="general.controls['taxTwo'].touched && general.controls['taxTwo'].dirty && general.controls['taxTwo'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Tax No 2 is required</p>
+                            <p class="error-message">Tax No 2 is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['taxTwo'].hasError('required')">
-                            <p class="error-message">Tax No 2 is required</p>
+                            <p class="error-message">Tax No 2 is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2 py-1">
@@ -133,10 +133,10 @@
                         <input type="text" class="form-control " placeholder="Enter VAT " formControlName="vatReg">
                         <div
                             *ngIf="general.controls['vatReg'].touched && general.controls['vatReg'].dirty && general.controls['vatReg'].hasError('required') && !isSubmitted">
-                            <p class="error-message">VAT is required</p>
+                            <p class="error-message">VAT is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['vatReg'].hasError('required')">
-                            <p class="error-message">VAT is required</p>
+                            <p class="error-message">VAT is mandatory</p>
                         </div>
                     </div>
                 </div>

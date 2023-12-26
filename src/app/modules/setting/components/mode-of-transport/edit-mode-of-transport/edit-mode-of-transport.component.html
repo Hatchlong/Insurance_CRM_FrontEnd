@@ -10,10 +10,10 @@
                     formControlName="modeOfTransport" readonly>
                 <div
                     *ngIf="transport.controls['modeOfTransport'].touched && transport.controls['modeOfTransport'].dirty && transport.controls['modeOfTransport'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Mode Of Transport is required</p>
+                    <p class="error-message">Mode Of Transport is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && transport.controls['modeOfTransport'].hasError('required')">
-                    <p class="error-message">Mode Of Transport is required</p>
+                    <p class="error-message">Mode Of Transport is mandatory</p>
                 </div>
             </div>
             <div class="col-6 py-2">
@@ -22,10 +22,10 @@
                 <input type="text" class="form-control " placeholder="Description " formControlName="motDescription">
                 <div
                     *ngIf="transport.controls['motDescription'].touched && transport.controls['motDescription'].dirty && transport.controls['motDescription'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Description is required</p>
+                    <p class="error-message">Description is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && transport.controls['motDescription'].hasError('required')">
-                    <p class="error-message">Description is required</p>
+                    <p class="error-message">Description is mandatory</p>
                 </div>
             </div>
             <div class="col-12 d-flex justify-content-end py-2">

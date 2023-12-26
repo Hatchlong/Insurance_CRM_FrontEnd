@@ -19,10 +19,10 @@
                         </select>
 
                         <div *ngIf="productFromGroup.controls['billingType'].touched && productFromGroup.controls['billingType'].touched && productFromGroup.controls['billingType'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Billing Type is required</p>
+                            <p class="error-message">Billing Type is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && productFromGroup.controls['billingType'].hasError('required')">
-                            <p class="error-message">Billing Type is required</p>
+                            <p class="error-message">Billing Type is mandatory</p>
                         </div>
 
                     </div>
@@ -42,10 +42,10 @@
                             placeholder="Enter Customer Id">
 
                             <div *ngIf="productFromGroup.controls['customerId'].touched && productFromGroup.controls['customerId'].touched && productFromGroup.controls['customerId'].hasError('required') && !isSubmitted">
-                                <p class="error-message">Customer Id is required</p>
+                                <p class="error-message">Customer Id is mandatory</p>
                             </div>
                             <div *ngIf="isSubmitted && productFromGroup.controls['customerId'].hasError('required')">
-                                <p class="error-message">Customer Id is required</p>
+                                <p class="error-message">Customer Id is mandatory</p>
                             </div>
 
                     </div>
@@ -54,10 +54,10 @@
                         <input type="number" class="form-control" formControlName="netValue" placeholder="Enter Net Value">
 
                         <div *ngIf="productFromGroup.controls['netValue'].touched && productFromGroup.controls['netValue'].touched && productFromGroup.controls['netValue'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Net Value is required</p>
+                            <p class="error-message">Net Value is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && productFromGroup.controls['netValue'].hasError('required')">
-                            <p class="error-message">Net Value is required</p>
+                            <p class="error-message">Net Value is mandatory</p>
                         </div>
 
                     </div>
@@ -67,10 +67,10 @@
                         <input type="number" class="form-control" formControlName="taxAmount" placeholder="Enter Tax Amount">
 
                         <div *ngIf="productFromGroup.controls['taxAmount'].touched && productFromGroup.controls['taxAmount'].touched && productFromGroup.controls['taxAmount'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Tax Amount is required</p>
+                            <p class="error-message">Tax Amount is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && productFromGroup.controls['taxAmount'].hasError('required')">
-                            <p class="error-message">Tax Amount is required</p>
+                            <p class="error-message">Tax Amount is mandatory</p>
                         </div>
 
                     </div>
@@ -84,10 +84,10 @@
                         </select>
 
                         <div *ngIf="productFromGroup.controls['currency'].touched && productFromGroup.controls['currency'].touched && productFromGroup.controls['currency'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Currency is required</p>
+                            <p class="error-message">Currency is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && productFromGroup.controls['currency'].hasError('required')">
-                            <p class="error-message">Currency is required</p>
+                            <p class="error-message">Currency is mandatory</p>
                         </div>
 
                     </div>
@@ -97,10 +97,10 @@
                             placeholder="Exchange Rate">
 
                             <div *ngIf="productFromGroup.controls['exchangeRate'].touched && productFromGroup.controls['exchangeRate'].touched && productFromGroup.controls['exchangeRate'].hasError('required') && !isSubmitted">
-                                <p class="error-message">Exchange Rate is required</p>
+                                <p class="error-message">Exchange Rate is mandatory</p>
                             </div>
                             <div *ngIf="isSubmitted && productFromGroup.controls['exchangeRate'].hasError('required')">
-                                <p class="error-message">Exchange Rate is required</p>
+                                <p class="error-message">Exchange Rate is mandatory</p>
                             </div>
 
                     </div>
@@ -114,10 +114,10 @@
                         </select>
 
                         <div *ngIf="productFromGroup.controls['companyCode'].touched && productFromGroup.controls['companyCode'].touched && productFromGroup.controls['companyCode'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Company Code is required</p>
+                            <p class="error-message">Company Code is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && productFromGroup.controls['companyCode'].hasError('required')">
-                            <p class="error-message">Company Code is required</p>
+                            <p class="error-message">Company Code is mandatory</p>
                         </div>
 
 
@@ -132,10 +132,10 @@
                         </select>
 
                         <div *ngIf="productFromGroup.controls['customerAccount'].touched && productFromGroup.controls['customerAccount'].touched && productFromGroup.controls['customerAccount'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Customer Account is required</p>
+                            <p class="error-message">Customer Account is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && productFromGroup.controls['customerAccount'].hasError('required')">
-                            <p class="error-message">Customer Account is required</p>
+                            <p class="error-message">Customer Account is mandatory</p>
                         </div>
 
                     </div>
@@ -149,10 +149,10 @@
                         </select>
 
                         <div *ngIf="productFromGroup.controls['postingStatus'].touched && productFromGroup.controls['postingStatus'].touched && productFromGroup.controls['postingStatus'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Posting Status is required</p>
+                            <p class="error-message">Posting Status is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && productFromGroup.controls['postingStatus'].hasError('required')">
-                            <p class="error-message">Posting Status is required</p>
+                            <p class="error-message">Posting Status is mandatory</p>
                         </div>
 
                     </div>
@@ -166,10 +166,10 @@
                         </select>
 
                         <div *ngIf="productFromGroup.controls['paymentTerm'].touched && productFromGroup.controls['paymentTerm'].touched && productFromGroup.controls['paymentTerm'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Payment Term is required</p>
+                            <p class="error-message">Payment Term is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && productFromGroup.controls['paymentTerm'].hasError('required')">
-                            <p class="error-message">Payment Term is required</p>
+                            <p class="error-message">Payment Term is mandatory</p>
                         </div>
 
                     </div>
@@ -183,10 +183,10 @@
                         </select>
 
                         <div *ngIf="productFromGroup.controls['incrementTearm'].touched && productFromGroup.controls['incrementTearm'].touched && productFromGroup.controls['incrementTearm'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Inco Term is required</p>
+                            <p class="error-message">Inco Term is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && productFromGroup.controls['incrementTearm'].hasError('required')">
-                            <p class="error-message">Inco Term is required</p>
+                            <p class="error-message">Inco Term is mandatory</p>
                         </div>
 
                     </div>
@@ -200,10 +200,10 @@
                         </select>
 
                         <div *ngIf="productFromGroup.controls['salesOrg'].touched && productFromGroup.controls['salesOrg'].touched && productFromGroup.controls['salesOrg'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Sales Org is required</p>
+                            <p class="error-message">Sales Org is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && productFromGroup.controls['salesOrg'].hasError('required')">
-                            <p class="error-message">Sales Org is required</p>
+                            <p class="error-message">Sales Org is mandatory</p>
                         </div>
 
                     </div>
@@ -217,10 +217,10 @@
                         </select>
 
                         <div *ngIf="productFromGroup.controls['distributionChannel'].touched && productFromGroup.controls['distributionChannel'].touched && productFromGroup.controls['distributionChannel'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Distribution Channel is required</p>
+                            <p class="error-message">Distribution Channel is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && productFromGroup.controls['distributionChannel'].hasError('required')">
-                            <p class="error-message">Distribution Channel is required</p>
+                            <p class="error-message">Distribution Channel is mandatory</p>
                         </div>
                         
                     </div>
@@ -234,10 +234,10 @@
                         </select>
 
                         <div *ngIf="productFromGroup.controls['division'].touched && productFromGroup.controls['division'].touched && productFromGroup.controls['division'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Division is required</p>
+                            <p class="error-message">Division is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && productFromGroup.controls['division'].hasError('required')">
-                            <p class="error-message">Division is required</p>
+                            <p class="error-message">Division is mandatory</p>
                         </div>
 
                     </div>
@@ -251,10 +251,10 @@
                         </select>
 
                         <div *ngIf="productFromGroup.controls['modeOfTransport'].touched && productFromGroup.controls['modeOfTransport'].touched && productFromGroup.controls['modeOfTransport'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Mode Of Transport is required</p>
+                            <p class="error-message">Mode Of Transport is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && productFromGroup.controls['modeOfTransport'].hasError('required')">
-                            <p class="error-message">Mode Of Transport is required</p>
+                            <p class="error-message">Mode Of Transport is mandatory</p>
                         </div>
 
                     </div>
@@ -263,10 +263,10 @@
                         <input type="number" class="form-control" formControlName="netTax" placeholder="Net Tax">
 
                         <div *ngIf="productFromGroup.controls['netTax'].touched && productFromGroup.controls['netTax'].touched && productFromGroup.controls['netTax'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Net Tax is required</p>
+                            <p class="error-message">Net Tax is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && productFromGroup.controls['netTax'].hasError('required')">
-                            <p class="error-message">Net Tax is required</p>
+                            <p class="error-message">Net Tax is mandatory</p>
                         </div>
 
                     </div>
@@ -276,10 +276,10 @@
                             placeholder="Net Discount">
 
                             <div *ngIf="productFromGroup.controls['netDiscount'].touched && productFromGroup.controls['netDiscount'].touched && productFromGroup.controls['netDiscount'].hasError('required') && !isSubmitted">
-                                <p class="error-message">Net Discount is required</p>
+                                <p class="error-message">Net Discount is mandatory</p>
                             </div>
                             <div *ngIf="isSubmitted && productFromGroup.controls['netDiscount'].hasError('required')">
-                                <p class="error-message">Net Discount is required</p>
+                                <p class="error-message">Net Discount is mandatory</p>
                             </div>
 
                     </div>
@@ -289,10 +289,10 @@
                             placeholder="Net Freight">
 
                             <div *ngIf="productFromGroup.controls['netFreight'].touched && productFromGroup.controls['netFreight'].touched && productFromGroup.controls['netFreight'].hasError('required') && !isSubmitted">
-                                <p class="error-message">Net Freight is required</p>
+                                <p class="error-message">Net Freight is mandatory</p>
                             </div>
                             <div *ngIf="isSubmitted && productFromGroup.controls['netFreight'].hasError('required')">
-                                <p class="error-message">Net Freight is required</p>
+                                <p class="error-message">Net Freight is mandatory</p>
                             </div>
 
                     </div>
@@ -302,10 +302,10 @@
                             placeholder="Other Charge">
 
                             <div *ngIf="productFromGroup.controls['otherCharge'].touched && productFromGroup.controls['otherCharge'].touched && productFromGroup.controls['otherCharge'].hasError('required') && !isSubmitted">
-                                <p class="error-message">Other Charge is required</p>
+                                <p class="error-message">Other Charge is mandatory</p>
                             </div>
                             <div *ngIf="isSubmitted && productFromGroup.controls['otherCharge'].hasError('required')">
-                                <p class="error-message">Other Charge is required</p>
+                                <p class="error-message">Other Charge is mandatory</p>
                             </div>
 
                     </div>

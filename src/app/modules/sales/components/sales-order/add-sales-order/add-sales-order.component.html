@@ -51,10 +51,10 @@
                 </select>
                 <div
                     *ngIf="sales.controls['customerAdd'].touched && sales.controls['customerAdd'].touched && sales.controls['customerAdd'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Customer Add is required</p>
+                    <p class="error-message">Customer Add is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && sales.controls['customerAdd'].hasError('required')">
-                    <p class="error-message">Customer Add is required</p>
+                    <p class="error-message">Customer Add is mandatory</p>
                 </div>
             </div>
 
@@ -63,10 +63,10 @@
                 <input type="text" class="form-control " placeholder="Enter Sales Order" formControlName="saleOrder">
                 <div
                     *ngIf="sales.controls['saleOrder'].touched && sales.controls['saleOrder'].touched && sales.controls['saleOrder'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Sale Order is required</p>
+                    <p class="error-message">Sale Order is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && sales.controls['saleOrder'].hasError('required')">
-                    <p class="error-message">Sale Order is required</p>
+                    <p class="error-message">Sale Order is mandatory</p>
                 </div>
             </div>
             <div class="col-6">
@@ -74,10 +74,10 @@
                 <input type="text" class="form-control " placeholder="Enter Customer PO" formControlName="customerPO">
                 <div
                     *ngIf="sales.controls['customerPO'].touched && sales.controls['customerPO'].touched && sales.controls['customerPO'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Customer PO is required</p>
+                    <p class="error-message">Customer PO is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && sales.controls['customerPO'].hasError('required')">
-                    <p class="error-message">Customer PO is required</p>
+                    <p class="error-message">Customer PO is mandatory</p>
                 </div>
             </div>
 
@@ -86,10 +86,10 @@
                 <input type="date" class="form-control " placeholder="Enter PO Date" formControlName="customerPoDate">
                 <div
                     *ngIf="sales.controls['customerPoDate'].touched && sales.controls['customerPoDate'].touched && sales.controls['customerPoDate'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Customer PO Date is required</p>
+                    <p class="error-message">Customer PO Date is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && sales.controls['customerPoDate'].hasError('required')">
-                    <p class="error-message">PO Date is required</p>
+                    <p class="error-message">PO Date is mandatory</p>
                 </div>
             </div>
             <div class="col-6">
@@ -98,10 +98,10 @@
                     formControlName="reqDeliveryDate">
                 <div
                     *ngIf="sales.controls['reqDeliveryDate'].touched && sales.controls['reqDeliveryDate'].touched && sales.controls['reqDeliveryDate'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Req Delivery Date is required</p>
+                    <p class="error-message">Req Delivery Date is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && sales.controls['reqDeliveryDate'].hasError('required')">
-                    <p class="error-message">Req Delivery Date is required</p>
+                    <p class="error-message">Req Delivery Date is mandatory</p>
                 </div>
             </div>
             <div class="col-6">
@@ -136,10 +136,10 @@
                 </select>
                 <div
                     *ngIf="sales.controls['orderStatus'].touched && sales.controls['orderStatus'].touched && sales.controls['orderStatus'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Order Status is required</p>
+                    <p class="error-message">Order Status is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && sales.controls['orderStatus'].hasError('required')">
-                    <p class="error-message">Order Status is required</p>
+                    <p class="error-message">Order Status is mandatory</p>
                 </div>
             </div>
 
@@ -208,10 +208,10 @@
                 </select>
                 <div
                     *ngIf="sales.controls['customerAccount'].touched && sales.controls['customerAccount'].touched && sales.controls['customerAccount'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Customer Account is required</p>
+                    <p class="error-message">Customer Account is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && sales.controls['customerAccount'].hasError('required')">
-                    <p class="error-message">Customer Account is required</p>
+                    <p class="error-message">Customer Account is mandatory</p>
                 </div>
             </div>
 
@@ -221,10 +221,10 @@
                 <input type="number" class="form-control " placeholder="Enter Net Price" formControlName="netPrice">
                 <div
                     *ngIf="sales.controls['netPrice'].touched && sales.controls['netPrice'].touched && sales.controls['netPrice'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Net Price is required</p>
+                    <p class="error-message">Net Price is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && sales.controls['netPrice'].hasError('required')">
-                    <p class="error-message">Net Price is required</p>
+                    <p class="error-message">Net Price is mandatory</p>
                 </div>
 
             </div>
@@ -233,10 +233,10 @@
                 <input type="number" class="form-control " placeholder="Enter Net Tax" formControlName="netTax">
                 <div
                     *ngIf="sales.controls['netTax'].touched && sales.controls['netTax'].touched && sales.controls['netTax'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Net Tax is required</p>
+                    <p class="error-message">Net Tax is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && sales.controls['netTax'].hasError('required')">
-                    <p class="error-message">Net Tax is required</p>
+                    <p class="error-message">Net Tax is mandatory</p>
                 </div>
             </div>
 
@@ -246,10 +246,10 @@
                     formControlName="netDiscount">
                 <div
                     *ngIf="sales.controls['netDiscount'].touched && sales.controls['netDiscount'].touched && sales.controls['netDiscount'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Net Discount is required</p>
+                    <p class="error-message">Net Discount is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && sales.controls['netDiscount'].hasError('required')">
-                    <p class="error-message">Net Discount is required</p>
+                    <p class="error-message">Net Discount is mandatory</p>
                 </div>
             </div>
             <div class="col-6">
@@ -257,10 +257,10 @@
                 <input type="number" class="form-control " placeholder="enter Net Freight" formControlName="netFreight">
                 <div
                     *ngIf="sales.controls['netFreight'].touched && sales.controls['netFreight'].touched && sales.controls['netFreight'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Net Freight is required</p>
+                    <p class="error-message">Net Freight is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && sales.controls['netFreight'].hasError('required')">
-                    <p class="error-message">Net Freight is required</p>
+                    <p class="error-message">Net Freight is mandatory</p>
                 </div>
             </div>
 
@@ -269,10 +269,10 @@
                 <input type="number" class="form-control " placeholder="Other Charges" formControlName="otherChange">
                 <div
                     *ngIf="sales.controls['otherChange'].touched && sales.controls['otherChange'].touched && sales.controls['otherChange'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Customer Add is required</p>
+                    <p class="error-message">Customer Add is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && sales.controls['otherChange'].hasError('required')">
-                    <p class="error-message">Customer Add is required</p>
+                    <p class="error-message">Customer Add is mandatory</p>
                 </div>
             </div>
 
@@ -297,10 +297,10 @@
 
                         <!-- <div
                             *ngIf="sales.controls['productId'].touched && sales.controls['productId'].touched && sales.controls['productId'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Product Id is required</p>
+                            <p class="error-message">Product Id is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && sales.controls['productId'].hasError('required')">
-                            <p class="error-message">Product Id is required</p>
+                            <p class="error-message">Product Id is mandatory</p>
                         </div> -->
 
                     </div>
@@ -311,10 +311,10 @@
                             formControlName="productDescription">
                         <!-- <div
                             *ngIf="sales.controls['productDescription'].touched && sales.controls['productDescription'].touched && sales.controls['productDescription'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Product Description is required</p>
+                            <p class="error-message">Product Description is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && sales.controls['productDescription'].hasError('required')">
-                            <p class="error-message">Product Description is required</p>
+                            <p class="error-message">Product Description is mandatory</p>
                         </div> -->
                     </div>
 
