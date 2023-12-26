@@ -34,6 +34,8 @@ export class EditProductComponent {
   weigthUnitDetail: any = []
   uomDetail: any = []
   materialTypeDetail: any = []
+  materialIdisShow:any = true
+
 
 
   constructor(
@@ -77,12 +79,13 @@ export class EditProductComponent {
   create() {
     this.general = this.fb.group({
       _id: ['', Validators.required],
-      materialId: ['00', Validators.required],
+      materialId: [''],
       materialDescription: ['', Validators.required],
       materialGroupId: ['', Validators.required],
       materialGroupName: ['', Validators.required],
       materialTypeId: ['', Validators.required],
       materialTypeName: ['', Validators.required],
+      materialTypeFlag:['', Validators.required],
       industrySectorId: ['', Validators.required],
       industrySectorName: ['', Validators.required],
       netWeight: ['', Validators.required],
@@ -383,13 +386,26 @@ export class EditProductComponent {
       });
     }
   }
+  // handleMaterialType(event: any) {
+  //   const findMaterialType = this.materialTypeDetail.find((el: any) => el._id === event.target.value)
+  //   console.log(findMaterialType);
+  //   this.general.controls.materialTypeName.setValue(findMaterialType.code)
+
+  // }
+
   handleMaterialType(event: any) {
     const findMaterialType = this.materialTypeDetail.find((el: any) => el._id === event.target.value)
     console.log(findMaterialType);
-    this.general.controls.materialTypeName.setValue(findMaterialType.code)
+    if(findMaterialType.materialType === 'M'){
+      this.materialIdisShow = true;
+    }else{
+      this.materialIdisShow = false;
+    }
+    this.general.controls.materialTypeFlag.setValue(findMaterialType.materialType)
+    this.general.controls.materialTypeName.setValue(findMaterialType.description)  
 
   }
-
+ 
   //get industry sector 
 
   async getIndustryDetails() {

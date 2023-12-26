@@ -47,7 +47,7 @@
                             <option [selected]="general.value.materialTypeId === ''" value="" hidden>Select Material
                                 Type
                             </option>
-                            <option *ngFor="let list of materialTypeDetail" [value]="list._id">{{list.code}}</option>
+                            <option *ngFor="let list of materialTypeDetail" [value]="list._id">{{list.description}}</option>
 
                         </select>
                         <div
@@ -57,6 +57,11 @@
                         <div *ngIf="isSubmitted && general.controls['materialTypeId'].hasError('required')">
                             <p class="error-message">Material Type is required</p>
                         </div>
+                    </div>
+                    <div class="col-6 py-2" *ngIf="materialIdisShow">
+                        <label for="">Material Id </label>
+                        <input type="text" class="form-control " formControlName="materialId"
+                            placeholder="Material Id" >
                     </div>
                     <div class="col-6 py-2">
                         <label for="">Industry Sector <sup>*</sup></label>
@@ -649,10 +654,12 @@
                                                                 aria-label="Default select example"
                                                                 formControlName="materialGroup">
                                                                 <option [selected]="general.value.materialGroup === ''"
-                                                                    value="" hidden>Select availibilty check</option>
+                                                                    value="" hidden>Select Material Group</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
+                                                                <!-- <option *ngFor="let list of materialGrpDetail" [value]="list._id">{{list.description}}
+                                                                </option> -->
                                                             </select>
                                                         </td>
                                                         <td>
