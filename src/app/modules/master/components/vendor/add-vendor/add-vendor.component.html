@@ -64,20 +64,6 @@
 
                         <div class="row mb-2">
                             <div class="col-6 py-2">
-                                <label for="">Language <sup>*</sup></label>
-                                <select class="form-select" formControlName="languageId">
-                                    <option [selected]="vendorFormGroup.value.languageId === ''" value="" hidden>Select language</option>
-                                    <option [value]="citiesDetails.languageId">{{languageName}}</option>
-                                </select>
-                                <div    
-                                    *ngIf="vendorFormGroup.controls['languageId'].touched && vendorFormGroup.controls['languageId'].dirty && vendorFormGroup.controls['languageId'].hasError('required') && !isSubmitted">
-                                    <p class="error-message">Language is mandatory</p>
-                                </div>
-                                <div *ngIf="isSubmitted && vendorFormGroup.controls['languageId'].hasError('required')">
-                                    <p class="error-message">Language is mandatory</p>
-                                </div>
-                            </div>
-                            <div class="col-6 py-2">
                                 <label for="">Country <sup>*</sup> </label>
                                 <select class="form-select" formControlName="countryId" (change)="selectCountryName($event)">
                                     <option [selected]="vendorFormGroup.value.currency === ''" value="" hidden>Select Currency</option>
@@ -92,6 +78,21 @@
                                     <p class="error-message">Country is mandatory</p>
                                 </div>
                             </div>
+                            <div class="col-6 py-2">
+                                <label for="">Language <sup>*</sup></label>
+                                <select class="form-select" aria-label="Default select example" formControlName="languageId"  [ngStyle]="{'pointer-events': !vendorFormGroup.value.countryId ? 'none' :  'all'}">
+                                    <option [selected]="vendorFormGroup.value.languageId === ''" value="" hidden>Select language</option>
+                                    <option [value]="citiesDetails.languageId">{{languageName}}</option>
+                                </select>
+                                <div    
+                                    *ngIf="vendorFormGroup.controls['languageId'].touched && vendorFormGroup.controls['languageId'].dirty && vendorFormGroup.controls['languageId'].hasError('required') && !isSubmitted">
+                                    <p class="error-message">Language is required</p>
+                                </div>
+                                <div *ngIf="isSubmitted && vendorFormGroup.controls['languageId'].hasError('required')">
+                                    <p class="error-message">Language is required</p>
+                                </div>
+                            </div>
+                            
                              <div class="col-6 py-2">
                                 <label for="">Mode of transport <sup>*</sup></label>
                                 <select class="form-select" formControlName="modeOfTransportId" (change)="handleMOT($event)">

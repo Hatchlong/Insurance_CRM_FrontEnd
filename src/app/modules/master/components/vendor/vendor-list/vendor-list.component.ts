@@ -13,6 +13,8 @@ export class VendorListComponent implements OnInit{
 vendorDetails: any = []
 selectAll:any=false
 
+vendorTypeDetail: any = []
+
 selectedFile: any = '';
 allVendorDetails:any = []
 isShowPadding:any = false
@@ -24,6 +26,7 @@ isShowPadding:any = false
 
    ngOnInit(): void{
     this.getAllVendorData()
+    this.getVendorType()
   }
 
   nextPage(url: any){
@@ -88,6 +91,9 @@ return
     }
 
 
+    
+
+
     async deleteRecords(data: any) {
       try {
         data.isActive = "C"
@@ -133,8 +139,40 @@ return
       this.vendorDetails = this.allVendorDetails
     }
     console.log(event.target.value)
-    const isStringIncluded = this.allVendorDetails.filter((obj:any) => ((obj.vendorName.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.addressCountry.toUpperCase()).includes(event.target.value.toUpperCase())));
+    const isStringIncluded = this.allVendorDetails.filter((obj:any) => ((obj.vendorId.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.vendorName.toUpperCase()).includes(event.target.value.toUpperCase())));
     this.vendorDetails = isStringIncluded
   }
 
+  handleFilter1(event:any){
+    if(!event.target.value){
+      this.vendorTypeDetail = this.allVendorDetails
+    }
+    console.log(event.target.value)
+    const isStringIncluded = this.allVendorDetails.filter((obj:any) => ((obj.vendorTypeName === event.target.value)));
+    this.vendorTypeDetail = isStringIncluded
+  }
+
+  async getVendorType() {
+    try {
+      const result: any = await this.vendorSer.getVendorTypesDetails()
+      if (result.status === '1') {
+        this.vendorTypeDetail = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+  
 }

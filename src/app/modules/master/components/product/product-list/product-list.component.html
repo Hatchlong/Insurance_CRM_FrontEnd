@@ -2,7 +2,6 @@
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
   <div class="row mt-3 ">
     <div class="d-grid gap-2 d-md-flex justify-content-md-start ">
-
       <div class="col-3">
         <input type="search" name="" id="search-data" placeholder="Material ID / Description.." class="form-control "
           (input)="handleFilter($event)">
@@ -10,19 +9,16 @@
       <div class="col-2">
         <select class="form-select " aria-label="Default select example" (change)="handleMaterial($event)">
           <option selected>Select Material Type</option>
-          <option *ngFor="let list of materialTypeDetail" [value]="list._id">{{list.code}}</option>
+          <option *ngFor="let list of materialTypeDetail" [value]="list._id">{{list.description}}</option>
 
         </select>
-      </div>
+      </div> 
       <div class="col-2">
-        <select class="form-select " aria-label="Default select example">
+        <select class="form-select " aria-label="Default select example" (change)="handleIndustry($event)">
           <option selected>Industry Sector</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          <option *ngFor="let list of industryDetail" [value]="list._id">{{list.description}}</option>
         </select>
       </div>
-
     </div>
   </div>
 

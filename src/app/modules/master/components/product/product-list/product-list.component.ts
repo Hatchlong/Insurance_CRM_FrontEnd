@@ -11,8 +11,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ProductListComponent implements OnInit {
 
   productDetails: any = []
-  selectedFile: any = ''; 
-  allProductDetails:any = []
+  selectedFile: any = '';
+  allProductDetails: any = []
   selectAll: any = false
   materialTypeDetail:any=[]
   isShowPadding:any = false
@@ -24,6 +24,8 @@ export class ProductListComponent implements OnInit {
     "currencyName": "INR",
     "languageName": "English",
   }
+  industryDetail: any = []
+
   constructor(
     private router: Router,
     private productSer: ProductService,
@@ -39,12 +41,13 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
     this.getProductDetails()
     this.getMaterialType()
+    this.getIndustryDetails()
   }
 
   handleSideBar(event: any) {
     this.isShowPadding = event
   }
-  
+
   selectdata(event: any) {
     console.log(event.target.checked)
     this.selectAll = event.target.checked;
@@ -67,40 +70,75 @@ export class ProductListComponent implements OnInit {
     }
   }
 
- //get material type
+  //get industry sector 
 
- async getMaterialType() {
-  try {
-    const result: any = await this.productSer.getAllMaterialTypeDetails()
-    if (result.status === '1') {
-      this.materialTypeDetail = result.data
-    }
-  } catch (error: any) {
-    if (error.error.message) {
-      this._snackBar.open(error.error.message, '', {
+  async getIndustryDetails() {
+    try {
+      const result: any = await this.productSer.getAllIndustrySectorDetails()
+      if (result.status === '1') {
+        this.industryDetail = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
       });
-      return
     }
-    this._snackBar.open('Something went wrong', '', {
-      duration: 5 * 1000, horizontalPosition: 'center',
-      verticalPosition: 'top',
-      panelClass: 'app-notification-error',
-    });
   }
-}
-handleMaterial(event:any){
-  if(!event.target.value){
-    this.productDetails = this.allProductDetails
+
+  //get material type
+
+  async getMaterialType() {
+    try {
+      const result: any = await this.productSer.getAllMaterialTypeDetails()
+      if (result.status === '1') {
+        this.materialTypeDetail = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
   }
-  console.log(event.target.value);
-  const isStringIncluded = this.allProductDetails.filter((obj:any) => ((obj.materialTypeName.toUpperCase()).includes(event.target.value.toUpperCase())));
-  this.productDetails = isStringIncluded
-  
-  
-}
+  handleMaterial(event: any) {
+    if (!event.target.value) {
+      this.productDetails = this.allProductDetails
+    }
+    console.log(event.target.value);
+    // const isStringIncluded = this.allProductDetails.filter((obj: any) => ((obj.materialTypeName === event.target.value)));
+    const isStringIncluded=this.allProductDetails.filter((obj:any)=>{return obj.materialTypeName===event.target.value})
+
+    this.productDetails = isStringIncluded
+
+
+  }
+  handleIndustry(event:any){
+    if (!event.target.value) {
+      this.productDetails=this.allProductDetails
+    }
+    const industryFilter=this.allProductDetails.filter((obj:any)=>{return obj.industry===event.target.value})
+    // const industryFilter=this.allProductDetails.filter((obj:any)=>((obj.industry)))
+    this.productDetails=industryFilter
+  }
 
   async getProductDetails() {
     try {
@@ -110,7 +148,7 @@ handleMaterial(event:any){
         result.data.map((el: any) => {
           el.check = false
         })
-        this.allProductDetails=result.data
+        this.allProductDetails = result.data
         this.productDetails = result.data
       }
 
@@ -172,13 +210,13 @@ handleMaterial(event:any){
     }
   }
 
-  
-  handleFilter(event:any){
-    if(!event.target.value){
+
+  handleFilter(event: any) {
+    if (!event.target.value) {
       this.productDetails = this.allProductDetails
     }
     console.log(event.target.value)
-    const isStringIncluded = this.allProductDetails.filter((obj:any) => ((obj.materialId.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.materialDescription.toUpperCase()).includes(event.target.value.toUpperCase())));
+    const isStringIncluded = this.allProductDetails.filter((obj: any) => ((obj.materialId.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.materialDescription.toUpperCase()).includes(event.target.value.toUpperCase())));
     this.productDetails = isStringIncluded
   }
 
