@@ -15,7 +15,7 @@ export class AddBillingBlockComponent {
 
   billing: any = FormGroup
   isSubmitted: any = false
-
+  isShowPadding:any = false
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -26,6 +26,11 @@ export class AddBillingBlockComponent {
   ngOnInit(): void {
     this.channeldata()
   }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
+  }
+
 
   channeldata() {
     this.billing = this.fb.group({

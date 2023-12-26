@@ -24,7 +24,7 @@ export class AddPlantDataComponent {
   storgaeLocationDetails: any = [];
   salesDetail: any = []
   isSubmitted: any = false;
-
+  isShowPadding:any = false;
   constructor(private fb: FormBuilder,
     private plantDataSer: PlantDataService,
     private router: Router,
@@ -42,6 +42,10 @@ export class AddPlantDataComponent {
     this.getTaxDetails()
     this.getTimeZoneDetail()
     this.getSalesDetail()
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   plantData() {

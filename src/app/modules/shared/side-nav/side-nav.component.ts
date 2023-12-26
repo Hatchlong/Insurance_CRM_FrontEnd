@@ -46,8 +46,8 @@ export class SideNavComponent implements OnInit {
   }
 
   closeNav() {
-    // this.isFullScreen = !this.isFullScreen;
-    // this.isShowNav.emit(this.isFullScreen)
+    this.isFullScreen = !this.isFullScreen;
+    this.isShowNav.emit(this.isFullScreen)
     let sidebar: any = document.querySelector(".sidebar");
     let sidebarBtn: any = document.querySelector(".bx-menu");
     console.log(sidebar && sidebar.classList.contains('close'));
@@ -63,7 +63,6 @@ export class SideNavComponent implements OnInit {
 
   logout() {
     localStorage.clear();
-    this.isShowNav.emit(false)
     this.router.navigate(['/'])
   }
 }

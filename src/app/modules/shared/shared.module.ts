@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
     SideNavComponent
   ],
   imports: [
-    CommonModule,RouterModule,
+    CommonModule,
     MatIconModule
   ],
   exports:[SideNavComponent]

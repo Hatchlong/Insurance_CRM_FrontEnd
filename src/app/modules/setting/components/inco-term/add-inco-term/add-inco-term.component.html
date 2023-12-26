@@ -1,5 +1,6 @@
 <!-- <p>add-inco-term works!</p> -->
-<div class="container-fluid">
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
   <h2><mat-icon class="back" routerLink="/settings/inco-term-list">arrow_back</mat-icon>Inco Term</h2>
 
   <form [formGroup]="incoTerm" (ngSubmit)="submitData()">

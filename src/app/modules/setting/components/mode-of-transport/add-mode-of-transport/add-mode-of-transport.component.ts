@@ -13,7 +13,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AddModeOfTransportComponent {
 
   transport: any = FormGroup
-  isSubmitted: any = false
+  isSubmitted: any = false;
+  isShowPadding:any = false;
   constructor(
     private fb: FormBuilder,
     private motSer: ModeOfTransportService,
@@ -23,6 +24,10 @@ export class AddModeOfTransportComponent {
 
   ngOnInit(): void {
     this.code()
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   code() {

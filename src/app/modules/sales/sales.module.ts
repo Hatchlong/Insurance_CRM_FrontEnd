@@ -17,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AddDeliveryComponent } from './components/delivery/add-delivery/add-delivery.component';
 import { BillingListComponent } from './components/billing/billing-list/billing-list.component';
 import { AddBillingComponent } from './components/billing/add-billing/add-billing.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { AddBillingComponent } from './components/billing/add-billing/add-billin
     MatDividerModule,
     MatMenuModule,
     MatTabsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class SalesModule { }

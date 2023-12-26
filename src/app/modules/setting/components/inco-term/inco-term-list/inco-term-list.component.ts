@@ -24,6 +24,7 @@ export class IncoTermListComponent implements OnInit {
     "description": "Hatchlong",
   }
 
+  isShowPadding:any = false;
   constructor(
     private router: Router,
     private incTermSer: IncTermService,
@@ -35,6 +36,10 @@ export class IncoTermListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllIncoTermDetails(this.page, this.itemsPerPage)
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   selectdata(event: any) {
@@ -165,9 +170,6 @@ export class IncoTermListComponent implements OnInit {
 
   exportExcel(): void {
     this.incTermDetail.map((el: any) => {
-      delete el.isActive;
-      delete el.__v;
-      delete el.check;
       el.inc_terms_code = +el.inc_terms_code
     })
     this.incTermSer.exportToExcel(this.incTermDetail, 'incoTerm', 'Sheet1');

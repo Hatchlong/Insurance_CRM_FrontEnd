@@ -14,7 +14,7 @@ export class AddOrderStatusComponent {
 
   order: any = FormGroup
   isSubmitted: any = false
-
+  isShowPadding:any = false;
   constructor(
     private fb: FormBuilder,
     private orderStatusSer: OrderStatusService,
@@ -24,6 +24,10 @@ export class AddOrderStatusComponent {
 
   ngOnInit(): void {
     this.code()
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   code() {

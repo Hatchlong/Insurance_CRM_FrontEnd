@@ -14,7 +14,8 @@ export class AddCustomerAccComponent implements OnInit {
 
 
   customerAcc: any = FormGroup;
-  isSubmitted: any = false
+  isSubmitted: any = false;
+  isShowPadding:any = false;
   constructor(
     private fb: FormBuilder,
     private customerAccountSer: CustomerAccountAGService,
@@ -24,6 +25,10 @@ export class AddCustomerAccComponent implements OnInit {
 
   ngOnInit(): void {
     this.channeldata()
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   channeldata() {

@@ -14,7 +14,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AddDivionComponent implements OnInit {
 
   divionData: any = FormGroup
-  isSubmitted: any = false
+  isSubmitted: any = false;
+  isShowPadding:any = false;
   constructor(private fb: FormBuilder,
     private divisionSer: DivionService,
     private router: Router,
@@ -23,6 +24,10 @@ export class AddDivionComponent implements OnInit {
 
   ngOnInit(): void {
     this.channeldata()
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   channeldata() {

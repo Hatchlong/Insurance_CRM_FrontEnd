@@ -15,7 +15,7 @@ export class EditBillingBlockComponent {
   billing: any = FormGroup
   isSubmitted: any = false
   billinBlockId: any = ''
-
+  isShowPadding:any = false;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -28,6 +28,10 @@ export class EditBillingBlockComponent {
     this.billinBlockId = this.activeRouter.snapshot.paramMap.get('id')
     this.channeldata()
     this.getSingleDetail()
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   channeldata() {

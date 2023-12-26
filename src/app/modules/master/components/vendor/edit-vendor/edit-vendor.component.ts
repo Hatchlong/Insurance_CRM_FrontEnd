@@ -30,7 +30,7 @@ export class EditVendorComponent {
   currencyDetails:any = []
   payDetails: any = []
   companyCodeDetails:any = []
-
+  isShowPadding:any = false;
   constructor(
     private fb: FormBuilder,
     private countrySer: CountryService,
@@ -92,6 +92,10 @@ export class EditVendorComponent {
       paymentMethod:[''],
       paymentTerms:[''],      
     })
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   async submitData() {

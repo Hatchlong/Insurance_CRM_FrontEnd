@@ -27,7 +27,7 @@ export class EditPlantDataComponent {
   storgaeLocationDetails: any = []
   salesDetail: any = []
   isSubmitted: any = false
-
+  isShowPadding:any = false;
   constructor(
     private fb: FormBuilder,
     private plantDataSer: PlantDataService,
@@ -50,6 +50,10 @@ export class EditPlantDataComponent {
     this.getStorageDetails()
     this.getTimeZoneDetail()
     this.getSalesDetail()
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   plantData() {

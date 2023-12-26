@@ -63,6 +63,7 @@ import { EditIncoTermComponent } from './components/inco-term/edit-inco-term/edi
 import { EditSalesOrgComponent } from './components/sales-org/edit-sales-org/edit-sales-org.component';
 import { SalesOrgService } from './Services/sales-org/sales-org.service';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -118,7 +119,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     ReactiveFormsModule,
     HttpClientModule,
     PaginationModule.forRoot(),
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   providers: [ PurchaseOrgService, CompanyCodeService, PoTypeService, PlantDataService, PaymentTermService, DivionService, DistibutionChannelService, ModeOfTransportService, OrderStatusService, BillingBlockService, IncTermService, SalesOrgService ]
 })

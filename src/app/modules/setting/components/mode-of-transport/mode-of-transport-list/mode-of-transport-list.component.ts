@@ -23,7 +23,7 @@ export class ModeOfTransportListComponent implements OnInit {
     "modeOfTransport": "Transport",
     "motDescription": "Description 23"
   }
-
+  isShowPadding:any = false;
   constructor(
     private router: Router,
     private motSer: ModeOfTransportService,
@@ -35,6 +35,10 @@ export class ModeOfTransportListComponent implements OnInit {
   }
   nextPage(url: any) {
     this.router.navigate([`${url}`])
+  }
+  
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   // get all details of mode of transport
@@ -183,12 +187,6 @@ export class ModeOfTransportListComponent implements OnInit {
   }
 
   exportExcel(): void {
-    this.modeOfDetails.map((el: any) => {
-      // delete el.isLock;
-      delete el.isActive;
-      delete el.__v;
-      delete el.check;
-    })
     this.motSer.exportToExcel(this.modeOfDetails, 'Mode Of Transport', 'Sheet1');
   }
 

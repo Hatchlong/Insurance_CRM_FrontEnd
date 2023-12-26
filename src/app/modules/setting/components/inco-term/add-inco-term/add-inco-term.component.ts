@@ -13,7 +13,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AddIncoTermComponent {
 
   incoTerm: any = FormGroup;
-  isSubmitted: any = false
+  isSubmitted: any = false;
+  isShowPadding:any = false;
   constructor(
     private fb: FormBuilder,
     private incTermSer: IncTermService,
@@ -24,6 +25,11 @@ export class AddIncoTermComponent {
   ngOnInit(): void {
     this.data()
   }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
+  }
+
 
   data() {
     this.incoTerm = this.fb.group({

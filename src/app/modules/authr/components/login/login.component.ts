@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit, AfterViewInit {
+export class LoginComponent implements OnInit {
   loginFormGroup: any = FormGroup;
   registerFormGroup: any = FormGroup;
   @Output() isShowSide = new EventEmitter<any>();
@@ -25,20 +25,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    const isShowNav = localStorage.getItem('loginActive');
-    if (isShowNav === 'true') {
-      localStorage.setItem('loginActive', 'true');
-    } else {
-      localStorage.setItem('loginActive', 'false');
-      this.router.navigate(['/authr/login'])
-    }
-    // this.isShowSide.emit('false')
     this.createFormFields()
     this.createSignUpFormFields()
-  }
-
-  ngAfterViewInit(): void {
-    // this.changeClassContent()
   }
 
 

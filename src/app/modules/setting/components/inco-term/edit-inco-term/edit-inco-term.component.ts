@@ -15,7 +15,7 @@ export class EditIncoTermComponent {
   incoTerm: any = FormGroup
   isSubmitted: any = false
   incTermId: any = ''
-
+  isShowPadding:any = false;
   constructor(
     private fb: FormBuilder,
     private incTermSer: IncTermService,
@@ -28,6 +28,10 @@ export class EditIncoTermComponent {
     this.incTermId = this.activeRouter.snapshot.paramMap.get('id')
     this.data()
     this.getSingleDetails()
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   data() {

@@ -1,4 +1,5 @@
-<div class="container-fluid">
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
   <h2><mat-icon class="back" routerLink="/purchase/vendor-invoice-list">arrow_back</mat-icon>Vendor Invoice</h2>
   <form [formGroup]="vendorInvoice" (ngSubmit)="submitData()">
     <div class="row">

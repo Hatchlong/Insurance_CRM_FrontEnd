@@ -8,7 +8,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AddBillingComponent {
 isSubmitted:any = false;
-
+isShowPadding:any = false;
   productFromGroup: any = FormGroup
   countryLists: any = ''
 
@@ -23,6 +23,10 @@ isSubmitted:any = false;
   ngOnInit(): void {
     this.createProductFormFields()
     //    this.getCountryList()
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   createProductFormFields() {

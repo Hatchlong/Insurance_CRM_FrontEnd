@@ -15,7 +15,7 @@ export class AddPurchaseOrgComponent implements OnInit {
   purchOrg: any = FormGroup;
   companyDetails: any = []
   isSubmitted: any = false
-
+  isShowPadding:any = false;
   constructor(private fb: FormBuilder,
     private companySer: CompanyCodeService,
     private purchaseOrgSer: PurchaseOrgService,
@@ -26,6 +26,10 @@ export class AddPurchaseOrgComponent implements OnInit {
   ngOnInit(): void {
     this.getCompanyDetails()
     this.purchOrgData()
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   purchOrgData() {

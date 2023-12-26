@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AddGoodsReceiptComponent } from './components/goods-receipt/add-goods-receipt/add-goods-receipt.component';
 import { GoodsReceiptListComponent } from './components/goods-receipt/goods-receipt-list/goods-receipt-list.component';
 import { VendorInvoiceListComponent } from './components/vendor-invoice/vendor-invoice-list/vendor-invoice-list.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { VendorInvoiceListComponent } from './components/vendor-invoice/vendor-i
     MatDividerModule,
     MatMenuModule,
     MatTabsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 }) 
 export class PurchaseModule { }

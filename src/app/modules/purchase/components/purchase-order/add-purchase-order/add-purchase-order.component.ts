@@ -9,7 +9,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AddPurchaseOrderComponent {
   purchase: any = FormGroup
   isSubmitted:any = false;
-
+  isShowPadding:any = false;
 
   constructor(
     private fb: FormBuilder
@@ -17,6 +17,10 @@ export class AddPurchaseOrderComponent {
 
   ngOnInit(): void {
     this.code()
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   code() {

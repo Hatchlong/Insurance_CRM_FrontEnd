@@ -21,15 +21,16 @@ export class AddVendorComponent implements OnInit {
   languageName: any = []
   incrementTreamsName: any = []
   modeOfTransportName: any = []
-  isSubmitted:any=false
+  isSubmitted: any = false
   citiesDetails: any = []
   motDetails: any = []
   incoDetails: any = []
   payDetails: any = []
   companyCodeDetails: any = []
   currencyDetails: any = []
-
-
+  isShowPadding: any = false;
+  vendorTypeDetail:any = [];
+  vendorIdisShow:any = true;
   constructor(
     private fb: FormBuilder,
     private countrySer: CountryService,
@@ -49,30 +50,32 @@ export class AddVendorComponent implements OnInit {
     this.getIncoTermsDetail()
     this.getCompanyCodeDetail()
     this.getPaymentTermsDetail()
+    this.getVendorType()
   }
 
   createVendorFormFields() {
     this.vendorFormGroup = this.fb.group({
-            vendorName: ['', Validators.required],
-            // vendorId: ['123',Validators.required],
-            accountGroup: ['', Validators.required],
-            addressCountry: ['', Validators.required],
-            languageId: ['', Validators.required],
-            languageName: ['', Validators.required],
-            modeOfTransportId: ['',Validators.required],
-            modeOfTransportName: ['', Validators.required],
-            incrementTreamsId: ['', Validators.required],
-            incrementTreamsName: ['', Validators.required],
-            countryId: ['', Validators.required],
-            countryName: ['', Validators.required],
-            financialData: this.fb.array([this.getFinancialFields()])
-          })
+      vendorName: ['', Validators.required],
+      vendorId: [''],
+      vendorTypeFlag: ['', Validators.required],
+      vendorTypeId: ['', Validators.required],
+      vendorTypeName:['', Validators.required],
+      addressCountry: ['', Validators.required],
+      languageId: ['', Validators.required],
+      languageName: ['', Validators.required],
+      modeOfTransportId: ['', Validators.required],
+      modeOfTransportName: ['', Validators.required],
+      incrementTreamsId: ['', Validators.required],
+      incrementTreamsName: ['', Validators.required],
+      countryId: ['', Validators.required],
+      countryName: ['', Validators.required],
+      financialData: this.fb.array([this.getFinancialFields()])
+    })
   }
 
   getFinancialFields(): FormGroup {
     return this.fb.group({
-      financialTax1: [''],
-      financialTax2: [''],
+      taxNumber: [''],
       vatRegistrationNo: [''],
       currency: [''],
       companyCode: [''],
@@ -89,7 +92,11 @@ export class AddVendorComponent implements OnInit {
 
 
     })
-  
+
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
 
@@ -132,7 +139,7 @@ export class AddVendorComponent implements OnInit {
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -175,7 +182,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -206,7 +213,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -226,7 +233,7 @@ return
     this.getSingleLanguage(this.citiesDetails.languageId)
     this.getCurrencyDetails(event.target.value)
 
-  }    
+  }
 
   // get MOT organization
 
@@ -250,7 +257,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -260,7 +267,7 @@ return
     }
   }
 
-    
+
   // Add the MOT Name
   handleMOT(event: any) {
     const findMOTDetail = this.motDetails.find((el: any) => el._id === event.target.value);
@@ -291,7 +298,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -330,7 +337,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -339,7 +346,7 @@ return
       });
     }
   }
-  
+
   // Get All details for Currency code
   async getCurrencyDetails(companyId: any) {
     try {
@@ -361,7 +368,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -372,9 +379,9 @@ return
   }
 
 
-   // get payment TERMS organization
+  // get payment TERMS organization
 
-   async getPaymentTermsDetail() {
+  async getPaymentTermsDetail() {
     try {
       const result: any = await this.paySer.getAllPaymentTerm()
       console.log(result)
@@ -395,7 +402,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -403,6 +410,42 @@ return
         panelClass: 'app-notification-error',
       });
     }
+  }
+
+  async getVendorType() {
+    try {
+      const result: any = await this.vendorSer.getVendorTypesDetails()
+      if (result.status === '1') {
+        this.vendorTypeDetail = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+  handleVendorType(event: any) {
+    const findVendorType = this.vendorTypeDetail.find((el: any) => el._id === event.target.value)
+    console.log(findVendorType);
+    if(findVendorType.vendorType === 'M'){
+      this.vendorIdisShow = true;
+    }else{
+      this.vendorIdisShow = false;
+    }
+    this.vendorFormGroup.controls.vendorTypeFlag.setValue(findVendorType.vendorType)
+    this.vendorFormGroup.controls.vendorTypeName.setValue(findVendorType.description)  
+
   }
 
 

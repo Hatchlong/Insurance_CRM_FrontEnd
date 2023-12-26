@@ -38,7 +38,7 @@ export class PlantDataListComponent {
     "taxIndicatorName": "Taxable",
     "stoargeLocationName": "Scrap yard",
   }
-
+  isShowPadding:any = false;
   constructor(
     private router: Router,
     private plantDataSer: PlantDataService,
@@ -51,6 +51,11 @@ export class PlantDataListComponent {
 
   nextPage(url: any) {
     this.router.navigate([`${url}`])
+  }
+
+  
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   selectdata(event: any) {
@@ -175,23 +180,11 @@ export class PlantDataListComponent {
   }
 
   exportExcel(): void {
-    this.plantDataDetails.map((el: any) => {
-      delete el._id;
-      delete el.isActive;
-      delete el.__v;
-      delete el.check;
-    })
     this.plantDataSer.exportToExcel(this.plantDataDetails, 'Plant_data_records', 'Sheet1');
   }
 
 
   downloadExcel(): void {
-    this.plantDataDetails.map((el: any) => {
-      delete el._id;
-      delete el.isActive;
-      delete el.__v;
-      delete el.check;
-    })
     const sampleRecord = [this.sampleJson]
     this.plantDataSer.exportToExcel(sampleRecord, 'Plant_data_sample', 'Sheet1');
   }

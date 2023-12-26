@@ -1,6 +1,5 @@
-<!-- <app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
-<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '265px' : '80px'}"> -->
-<div class="container-fluid">
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
     <div class="row">
         <div class="col-12">
             <h3 class="mt-2">
@@ -10,7 +9,7 @@
         <div class="col-12 ">
             <form [formGroup]="general" (ngSubmit)="addAll()">
                 <div class="row border">
-                    <div class="col-6 py-2 py-1">
+                    <div class="col-6 py-2">
                         <label for="" class="">Material Description <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Material Description"
                             formControlName="materialDescription">
@@ -77,7 +76,7 @@
                             <p class="error-message">Industry Sector is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-2 py-1">
+                    <div class="col-6 py-2">
 
                         <label for="">Net Weight <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Net Weight"
@@ -90,7 +89,7 @@
                             <p class="error-message">Net Weight is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-2 py-1">
+                    <div class="col-6 py-2">
 
                         <label for="">Volume <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Volume" formControlName="volumn">
@@ -156,7 +155,7 @@
                         </div>
                     </div>
 
-                    <div class="col-6 py-2 py-1">
+                    <div class="col-6 py-2">
                         <label for="">Allowed pkg Weight <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Allowed pkg Weight"
                             formControlName="allowedPKGWeight">
@@ -168,7 +167,7 @@
                             <p class="error-message">Allowed pkg Weight is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-2 py-1">
+                    <div class="col-6 py-2">
                         <label for="">Unit of Dimension <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example"
                             formControlName="unitOfDeminsion">
@@ -187,7 +186,7 @@
                             <p class="error-message">Unit Dimension is required</p>
                         </div>
                     </div>
-                    <!-- <div class="col-6 py-2 py-1">
+                    <!-- <div class="col-6 py-2">
                         <label for="">Unit of Weight <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example" formControlName="unitWeight">
                             <option [selected]="general.value.unitWeight === ''" value="" hidden>Select Unit of Weight
@@ -204,7 +203,7 @@
                             <p class="error-message">Unit Weight is required</p>
                         </div>
                     </div> -->
-                    <div class="col-6 py-2 py-1">
+                    <div class="col-6 py-2">
                         <label for="">Allowed pkg Volume <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Allowed phk Weight"
                             formControlName="allowedPKGVolume">
@@ -216,7 +215,7 @@
                             <p class="error-message">Allowed pkg Volume is required</p>
                         </div>
                     </div>
-                    <!-- <div class="col-6 py-2 py-1">
+                    <!-- <div class="col-6 py-2">
                         <label for="">Volume Unit <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example" formControlName="volumeUnit">
                             <option [selected]="general.value.volumeUnit === ''" value="" hidden>Select Volume Unit
@@ -232,7 +231,7 @@
                             <p class="error-message">Volume Unit is required</p>
                         </div>
                     </div> -->
-                    <div class="col-6 py-2 py-1">
+                    <div class="col-6 py-2">
                         <label for="">Excess wt tolerance <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Excess Weight Tolerance"
                             formControlName="excessWTTolerance">
@@ -244,7 +243,7 @@
                             <p class="error-message">Excess Weight is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-2 py-1">
+                    <div class="col-6 py-2">
                         <label for="" class="">Old Material Number <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Number"
                             formControlName="oldMaterialNumber">
@@ -256,7 +255,7 @@
                             <p class="error-message">OLd Material No. is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-2 py-1">
+                    <div class="col-6 py-2">
                         <label for=""> Base Unit of Measure <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example"
                             formControlName="baseUnitMeasure">
@@ -274,7 +273,7 @@
                             <p class="error-message">Base Unit is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-2 py-1">
+                    <div class="col-6 py-2">
                         <label for=""> Gross Weight <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Gross Weight"
                             formControlName="grossWeight">
@@ -302,7 +301,7 @@
                             <p class="error-message">Weight Unit is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-2 py-1">
+                    <div class="col-6 py-2">
                         <label for="">Volume Unit <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example" formControlName="volumnUnit">
                             <option [selected]="general.value.volumnUnit === ''" value="" hidden>Select Volume Unit
@@ -318,7 +317,7 @@
                             <p class="error-message">Volume Unit is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-2 py-1">
+                    <div class="col-6 py-2">
                         <label for="">Length <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Length" formControlName="length">
                         <div
@@ -329,7 +328,7 @@
                             <p class="error-message">Length is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-2 py-1">
+                    <div class="col-6 py-2">
 
                         <label for="">Width <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Width" formControlName="width">
@@ -341,7 +340,7 @@
                             <p class="error-message">Width is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-2 py-1">
+                    <div class="col-6 py-2">
 
                         <label for="">Height <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Height" formControlName="height">
@@ -353,7 +352,7 @@
                             <p class="error-message">Height is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-2 py-1">
+                    <div class="col-6 py-2">
 
                         <label for="">Batch Mgmt <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example"
@@ -390,7 +389,7 @@
                             <p class="error-message">Tax Classification is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-2 py-1">
+                    <div class="col-6 py-2">
 
                         <label for="">Manufacturer Part No. <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Manufacturer Part No."
@@ -403,7 +402,7 @@
                             <p class="error-message">Manufacture Part is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-2 py-1">
+                    <div class="col-6 py-2">
 
                         <label for="">Expiration Date relavance <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example"
@@ -422,7 +421,7 @@
                             <p class="error-message">Expiration Date is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-2 py-1">
+                    <div class="col-6 py-2">
 
                         <label for="">Excess Volume tol. <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Excess Vol tol"
@@ -435,7 +434,7 @@
                             <p class="error-message">Excess Volume is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-2 py-1">
+                    <div class="col-6 py-2">
 
                         <label for="">Material Cost <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Material Cost"

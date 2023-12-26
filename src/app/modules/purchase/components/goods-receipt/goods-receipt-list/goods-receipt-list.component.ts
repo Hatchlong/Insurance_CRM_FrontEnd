@@ -7,10 +7,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./goods-receipt-list.component.css']
 })
 export class GoodsReceiptListComponent {
+  isShowPadding:any = false;
   constructor(
     private router:Router
   ){}
   nextPage(url:any){
     this.router.navigate([`${url}`])
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 }

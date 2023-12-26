@@ -8,7 +8,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AddDeliveryComponent implements OnInit{
   isSubmitted:any = true;
-
+  isShowPadding:any = false;
   productFromGroup: any = FormGroup
   constructor(
     private fb: FormBuilder,
@@ -16,7 +16,10 @@ export class AddDeliveryComponent implements OnInit{
 
   }
 
-
+  
+  handleSideBar(event: any) {
+    this.isShowPadding = event
+  }
   ngOnInit(): void {
     this.createProductFormFields()
   }

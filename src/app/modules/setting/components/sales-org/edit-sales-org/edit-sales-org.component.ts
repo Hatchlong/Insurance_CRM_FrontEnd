@@ -21,7 +21,8 @@ export class EditSalesOrgComponent {
   details: any = []
   salesDataId: any = ''
   singleDetail: any = []
-  regionDetail: any = []
+  regionDetail: any = [];
+  isShowPadding:any = false;
   constructor(
     private fb: FormBuilder,
     private salesSer: SalesOrgService,
@@ -38,6 +39,10 @@ export class EditSalesOrgComponent {
     this.getSingleDetail()
     this.getTimeZoneDetail()
     this.getCountryDetails()
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   code() {

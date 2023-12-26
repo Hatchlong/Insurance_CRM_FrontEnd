@@ -17,7 +17,8 @@ export class AddCompanyCodeComponent {
   citiesDetails: any = [];
   languageName: any = ''
   isSubmitted: any = false
-  currencyDetails: any = []
+  currencyDetails: any = [];
+  isShowPadding:any = false;
   constructor(
     private fb: FormBuilder,
     private companySer: CompanyCodeService,
@@ -45,6 +46,10 @@ export class AddCompanyCodeComponent {
       languageName: ['', Validators.required]
 
     })
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   // Create the purchase org Details

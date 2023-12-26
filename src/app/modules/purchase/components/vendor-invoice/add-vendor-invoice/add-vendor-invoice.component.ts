@@ -9,12 +9,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AddVendorInvoiceComponent {
   vendorInvoice: any= FormGroup;
   isSubmitted:any = false;
-
+  isShowPadding:any = false;
 
   constructor (private fb: FormBuilder){}
 
   ngOnInit(): void {
     this.vendorData()
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   vendorData(){

@@ -7,12 +7,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./delivery-list.component.css']
 })
 export class DeliveryListComponent {
-  
+  isShowPadding:any = false;
   constructor(
     private router:Router
   ){}
   nextPage(url:any){
     this.router.navigate([`${url}`])
+  }
+
+  
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
 }

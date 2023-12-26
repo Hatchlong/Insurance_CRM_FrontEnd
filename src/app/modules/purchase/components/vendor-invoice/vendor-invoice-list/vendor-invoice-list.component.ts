@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./vendor-invoice-list.component.css']
 })
 export class VendorInvoiceListComponent {
+  isShowPadding:any = false
   constructor(
     private router:Router
   ){}
@@ -20,5 +21,9 @@ export class VendorInvoiceListComponent {
     }else{
       this.checks=false;
     }
+  }
+  
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 }

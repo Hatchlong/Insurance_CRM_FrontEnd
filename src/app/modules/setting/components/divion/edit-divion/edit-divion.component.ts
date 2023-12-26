@@ -15,7 +15,7 @@ export class EditDivionComponent {
   divionData: any = FormGroup
   isSubmitted: any = false
   divionId: any = ''
-
+  isShowPadding:any = false
   constructor(private fb: FormBuilder,
     private divisionSer: DivionService,
     private router: Router,
@@ -28,6 +28,10 @@ export class EditDivionComponent {
     console.log(this.divionId)
     this.getSingleDivionDetails()
     this.channeldata()
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   channeldata() {

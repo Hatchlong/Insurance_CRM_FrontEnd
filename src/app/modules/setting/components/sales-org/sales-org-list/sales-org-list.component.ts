@@ -24,7 +24,7 @@ export class SalesOrgListComponent implements OnInit {
     "purchase_org_Description": "des12",
     "companycode": "TCS234",
   }
-
+  isShowPadding:any = false;
 
   constructor(
     private router: Router,
@@ -37,6 +37,10 @@ export class SalesOrgListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllDeatils(this.page, this.itemsPerPage)
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   async getAllDeatils(page:any, itemsPerPage:any) {
@@ -69,6 +73,7 @@ return
    
   selectdata(event: any) {
     console.log(event.target.checked);
+    this.selectAll = event.target.checked;
     this.salesDeatils.map((el: any) => {
       el.check = event.target.checked
     })
@@ -76,16 +81,11 @@ return
 
   }
   particularcheck(event: any, index: any) {
-    console.log(event.target.checked);
-
     this.salesDeatils[index].check = event.target.checked
     const findSelect = this.salesDeatils.find((el: any) => el.check === false)
-    console.log(findSelect);
 
     if (findSelect) {
-
       this.selectAll = false
-
     }
     else {
       this.selectAll = true
@@ -171,12 +171,7 @@ return
   }
 
   exportExcel(): void {
-    this.salesDeatils.map((el: any) => {
-      delete el.isLock;
-      delete el.isActive;
-      delete el.__v;
-      delete el.check;
-    })
+  
     this.salesOrgSer.exportToExcel(this.salesDeatils, 'sales_org_records', 'Sheet1');
   }
 

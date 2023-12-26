@@ -10,7 +10,7 @@ export class AddGoodsReceiptComponent {
 
   goodsReceipt: any = FormGroup
   isSubmitted: any= false;
-
+  isShowPadding:any = false;
   constructor(
     private fb: FormBuilder
   ) { }
@@ -20,8 +20,9 @@ export class AddGoodsReceiptComponent {
   }
 
 
-
-
+  handleSideBar(event: any) {
+    this.isShowPadding = event
+  }
   code() {
     this.goodsReceipt = this.fb.group({
       referencePo:['', Validators.required],

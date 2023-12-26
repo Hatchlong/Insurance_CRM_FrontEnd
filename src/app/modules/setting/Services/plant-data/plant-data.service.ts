@@ -60,6 +60,12 @@ export class PlantDataService {
     return this.http.post(`http://localhost:4000/api/master/plantData/upload`, data).toPromise()
   }
   exportToExcel(data: any[], fileName: string, sheetName: string): void {
+    data.map((el: any) => {
+      delete el._id;
+      delete el.isActive;
+      delete el.__v;
+      delete el.check;
+    })
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, sheetName);

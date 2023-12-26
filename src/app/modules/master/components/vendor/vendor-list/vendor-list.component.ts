@@ -15,7 +15,7 @@ selectAll:any=false
 
 selectedFile: any = '';
 allVendorDetails:any = []
-
+isShowPadding:any = false
   constructor(
     private router:Router,
     private vendorSer : VendorService,
@@ -58,6 +58,12 @@ return
       });
     }
   }
+
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
+  }
+
 
 // selectAll (check-box)
   selectdata(event:any){

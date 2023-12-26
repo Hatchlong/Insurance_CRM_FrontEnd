@@ -25,6 +25,8 @@ export class BillingBlockListComponent implements OnInit {
     "description": "Hatchlong",
   }
 
+  isShowPadding:any = false
+
 
   constructor(
     private router: Router,
@@ -37,6 +39,10 @@ export class BillingBlockListComponent implements OnInit {
   }
   nextPage(url: any) {
     this.router.navigate([`${url}`])
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   selectdata(event: any) {
@@ -165,12 +171,7 @@ export class BillingBlockListComponent implements OnInit {
   }
 
   exportExcel(): void {
-    this.billingBlockDeatil.map((el: any) => {
-      delete el.isLock;
-      delete el.isActive;
-      delete el.__v;
-      delete el.check;
-    })
+   
     this.billingBlockSer.exportToExcel(this.billingBlockDeatil, 'billing block', 'Sheet1');
   }
 

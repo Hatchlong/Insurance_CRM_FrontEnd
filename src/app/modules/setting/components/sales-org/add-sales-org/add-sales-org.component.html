@@ -1,4 +1,5 @@
-<div class="container-fluid">
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
   <form [formGroup]="salesOrg" (ngSubmit)="addCode()">
     <h2>
       <mat-icon class="back" routerLink="/settings/sales-org-list">arrow_back</mat-icon>Sales Org

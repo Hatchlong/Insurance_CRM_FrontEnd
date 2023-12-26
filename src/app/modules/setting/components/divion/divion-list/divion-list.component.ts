@@ -25,7 +25,7 @@ export class DivionListComponent {
     "divion": "HAT123",
     "divionDescription": "Hatchlong"
   }
-
+  isShowPadding:any = false;
   constructor(
     private router:Router,
     private divionSer: DivionService,
@@ -39,6 +39,11 @@ export class DivionListComponent {
   nextPage(url: any){
     this.router.navigate([`${url}`])
   }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
+  }
+
   
   selectdata(event: any) {
     console.log(event.target.checked)
@@ -178,12 +183,6 @@ return
   }
 
   exportExcel(): void {
-    this.divisionDetails.map((el: any) => {
-      delete el.isLock;
-      delete el.isActive;
-      delete el.__v;
-      delete el.check;
-    })
     this.divionSer.exportToExcel(this.divisionDetails, 'divion', 'Sheet1');
   }
 

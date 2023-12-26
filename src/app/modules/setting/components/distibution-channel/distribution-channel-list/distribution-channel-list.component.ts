@@ -23,7 +23,7 @@ export class DistributionChannelListComponent {
     "distributionChannel":"1",
     "distributionDescription":"distribution Description"
     }
-
+    isShowPadding:any = false;
   constructor(
     private router: Router,
     private distributionSer: DistibutionChannelService,
@@ -35,6 +35,10 @@ export class DistributionChannelListComponent {
 
   ngOnInit(): void {
     this.getAlldistributionChannelDetailsPage(this.page, this.itemsPerPage)
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   nextPage(url: any) {
@@ -189,12 +193,6 @@ export class DistributionChannelListComponent {
   }
 
   exportExcel(): void {
-    this.distributionDetails.map((el: any) => {
-      delete el.isLock;
-      delete el.isActive;
-      delete el.__v;
-      delete el.check;
-    })
     this.distributionSer.exportToExcel(this.distributionDetails, 'Distribution Channel', 'Sheet1');
   }
 

@@ -1,6 +1,5 @@
-<!-- <p>add-goods-receipt works!</p> -->
-<!-- <p>add-goods-receipt works!</p> -->
-<div class="container-fluid">
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
     <form [formGroup]="goodsReceipt" (ngSubmit)="addCode()">
         <h2><mat-icon class="back" routerLink="/purchase/goods-receipt-list">arrow_back</mat-icon>Goods Receipt</h2>
         <div class="row">

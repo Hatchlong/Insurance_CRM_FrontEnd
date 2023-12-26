@@ -19,7 +19,7 @@ export class AddSalesOrgComponent {
   countryDetials: any = []
   details: any = []
   regionDetail:any=[]
-
+  isShowPadding:any = false;
 
   constructor(
     private fb: FormBuilder,
@@ -34,6 +34,10 @@ export class AddSalesOrgComponent {
     this.code()
     this.getTimeZoneDetail()
     this.getCountryDetails()
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   code() {

@@ -14,7 +14,7 @@ export class EditOrderStatusComponent implements OnInit {
   order: any = FormGroup
   orderStatusId: any = ''
   isSubmitted: any = false
-
+  isShowPadding:any = false;
 
   constructor(
     private orderStatusSer: OrderStatusService,
@@ -28,6 +28,10 @@ export class EditOrderStatusComponent implements OnInit {
     this.orderStatusId = this.activeRouter.snapshot.paramMap.get('id')
     this.code()
     this.getSingleOrderDetail()
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   code() {

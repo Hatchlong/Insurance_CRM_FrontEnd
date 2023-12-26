@@ -1,5 +1,6 @@
 <!-- <p>vendor-invoice-list works!</p> -->
-<div class="container-fluid ">
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
     <div class="row mt-3 ">
       <!-- <div class="col-10 ms-0">
         <div class="d-grid gap-2 d-md-flex justify-content-md-start ">

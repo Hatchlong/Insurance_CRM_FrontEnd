@@ -1,15 +1,16 @@
-<div class="container-fluid ">
-    <div class="row mt-3 ">
-      <div class="col-10 ms-0">
-        <div class="d-grid gap-2 d-md-flex justify-content-md-start ">
-  
-          <select class="form-select w-25" aria-label="Default select example">
-            <option selected>Select Customer</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-          <!-- <select class="form-select w-25" aria-label="Default select example">
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
+  <div class="row mt-3 ">
+    <div class="col-10 ms-0">
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start ">
+
+        <select class="form-select w-25" aria-label="Default select example">
+          <option selected>Select Customer</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+        <!-- <select class="form-select w-25" aria-label="Default select example">
             <option selected>Store</option>
             <option value="1">One</option>
             <option value="2">Two</option>
@@ -23,18 +24,17 @@
             <option value="2">Two</option>
             <option value="3">Three</option>
           </select> -->
-        </div>
       </div>
-  
-  
     </div>
+
+
   </div>
   <div class="row mt-3">
     <div class="col-12">
       <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
         <button (click)="nextPage('/master/add-customer')" class="btn btn-primary " type="button"
           style="color: white;background: #00acff;">Add Customer</button>
-  
+
         <button class="btn btn-danger" type="button" style="color: white;">
           <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
           Delete Selected Customer</button>
@@ -55,12 +55,12 @@
             <span>Sample Customer Sheet</span>
           </button>
         </mat-menu>
-  
-  
+
+
       </div>
     </div>
   </div>
-  <div class="row mt-4 ms-2">
+  <div class="row mt-4">
     <div class="col-12">
       <div class="table-responsive">
         <table class="table table-hover">
@@ -71,7 +71,7 @@
               <th scope="col">Address</th>
               <th scope="col">Telephone</th>
               <th scope="col">Action</th>
-              <th scope="col"><input type="checkbox" > Select All</th>
+              <th scope="col"><input type="checkbox"> Select All</th>
             </tr>
           </thead>
           <tbody>
@@ -90,7 +90,7 @@
                   </div>
                 </div>
               </td>
-              <td><input type="checkbox" ></td>
+              <td><input type="checkbox"></td>
             </tr>
             <tr>
               <td>Jacob</td>
@@ -107,7 +107,7 @@
                   </div>
                 </div>
               </td>
-              <td><input type="checkbox" ></td>
+              <td><input type="checkbox"></td>
             </tr>
             <tr>
               <td>Larry</td>
@@ -124,13 +124,14 @@
                   </div>
                 </div>
               </td>
-  
-              <td><input type="checkbox" ></td>
-  
+
+              <td><input type="checkbox"></td>
+
             </tr>
           </tbody>
-  
+
         </table>
       </div>
     </div>
   </div>
+</div>

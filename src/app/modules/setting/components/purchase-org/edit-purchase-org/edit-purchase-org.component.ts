@@ -16,7 +16,7 @@ export class EditPurchaseOrgComponent {
   companyDetails: any = [];
   purchaseOrgId: any = ''
   isSubmitted:any=false
- 
+  isShowPadding:any = false;
   constructor(private fb: FormBuilder,
     private companySer: CompanyCodeService,
     private purchaseOrgSer: PurchaseOrgService,
@@ -41,6 +41,12 @@ export class EditPurchaseOrgComponent {
       companycode: ['', Validators.required],
       companyId: ['', Validators.required]
     });
+  }
+
+
+  
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
 

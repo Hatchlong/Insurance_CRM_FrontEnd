@@ -15,7 +15,7 @@ export class EditDistibutionChannelComponent implements OnInit {
   channel: any = FormGroup
   isSubmitted: any = false
   distributionId: any = ''
-
+  isShowPadding:any = false;
 
   constructor(private fb: FormBuilder,
     private distribustionSer: DistibutionChannelService,
@@ -29,6 +29,10 @@ export class EditDistibutionChannelComponent implements OnInit {
     console.log(this.distributionId)
     this.getSingleDistributionDetails()
     this.channeldata()
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   channeldata() {

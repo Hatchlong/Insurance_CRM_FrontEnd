@@ -15,7 +15,7 @@ export class AddPoTypeComponent {
   poType: any = FormGroup
   poTypeDetail: any = []
   isSubmitted: any = false
-
+  isShowPadding:any = false;
   constructor(
     private fb: FormBuilder,
     private potypeSer: PoTypeService,
@@ -26,6 +26,10 @@ export class AddPoTypeComponent {
   ngOnInit(): void {
     this.getPotype()
     this.code()
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   code() {

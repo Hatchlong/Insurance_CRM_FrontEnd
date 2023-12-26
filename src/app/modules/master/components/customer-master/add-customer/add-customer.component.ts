@@ -10,7 +10,7 @@ export class AddCustomerComponent implements OnInit{
 
   general: any = FormGroup
   isSubmitted:any=false
-
+  isShowPadding:any = false;
   constructor(
     private fb: FormBuilder
   ) { }
@@ -107,4 +107,10 @@ export class AddCustomerComponent implements OnInit{
     console.log(this.general);
     
   }
+
+  
+  handleSideBar(event: any) {
+    this.isShowPadding = event
+  }
+  
 }

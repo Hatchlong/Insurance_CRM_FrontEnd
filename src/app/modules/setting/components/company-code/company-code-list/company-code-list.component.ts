@@ -27,6 +27,7 @@ export class CompanyCodeListComponent {
     "currencyName": "INR",
     "languageName": "English",
   }
+  isShowPadding:any = false;
   constructor(
     private router: Router,
     private companyCodeSer: CompanyCodeService,
@@ -39,6 +40,9 @@ export class CompanyCodeListComponent {
 
   nextPage(url: any) {
     this.router.navigate([`${url}`])
+  }
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   selectdata(event: any) {
@@ -172,11 +176,6 @@ export class CompanyCodeListComponent {
   }
 
   exportExcel(): void {
-    this.companyCodeDetails.map((el: any) => {
-      delete el.isActive;
-      delete el.__v;
-      delete el.check;
-    })
     this.companyCodeSer.exportToExcel(this.companyCodeDetails, 'company Code', 'Sheet1');
   }
 

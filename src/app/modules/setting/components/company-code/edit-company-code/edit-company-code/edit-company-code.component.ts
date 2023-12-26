@@ -19,6 +19,7 @@ export class EditCompanyCodeComponent {
   languageName: any = '';
   currencyDetails:any = []
   isSubmitted:any = false;
+  isShowPadding:any =false;
   constructor(
     private fb: FormBuilder,
     private companyCodeSer: CompanyCodeService,
@@ -32,6 +33,10 @@ export class EditCompanyCodeComponent {
     this.getCompanyDetails()
     this.getCountryDetails()
     this.code()
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   code() {

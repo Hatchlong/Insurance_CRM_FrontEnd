@@ -24,7 +24,7 @@ export class OrderStatusListComponent implements OnInit {
     "orderStatus": "delivered",
     "description": "Description 23"
   }
-
+  isShowPadding:any =false;
   constructor(
     private router: Router,
     private orderStatusSer: OrderStatusService,
@@ -34,6 +34,10 @@ export class OrderStatusListComponent implements OnInit {
   }
   nextPage(url: any) {
     this.router.navigate([`${url}`])
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   ngOnInit(): void {
@@ -182,12 +186,6 @@ export class OrderStatusListComponent implements OnInit {
   }
 
   exportExcel(): void {
-    this.orderStatusDetail.map((el: any) => {
-      // delete el.isLock;
-      delete el.isActive;
-      delete el.__v;
-      delete el.check;
-    })
     this.orderStatusSer.exportToExcel(this.orderStatusDetail, 'Order Status', 'Sheet1');
   }
 

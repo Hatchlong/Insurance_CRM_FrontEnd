@@ -14,7 +14,8 @@ export class EditPaymentTermComponent {
 
   payTem: any = FormGroup
   paymentTermId:any=''
-  isSubmitted:any=false
+  isSubmitted:any=false;
+  isShowPadding:any =false;
   constructor(
     private fb: FormBuilder,
     private paymentSer: PaymentTermService,
@@ -27,6 +28,10 @@ export class EditPaymentTermComponent {
     this.paymentTermId = this.activeRouter.snapshot.paramMap.get('id')
     this.getSinglePayment()
     this.code()
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   code() {

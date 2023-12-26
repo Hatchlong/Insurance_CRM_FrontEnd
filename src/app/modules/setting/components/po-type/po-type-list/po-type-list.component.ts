@@ -29,7 +29,7 @@ export class PoTypeListComponent implements OnInit{
     "internalNumberRangeAssignment":"h",
     "externalNumberRangeAssignment":"h"
   }
-
+  isShowPadding:any = false;
 
   constructor(
     private router: Router,
@@ -45,6 +45,10 @@ export class PoTypeListComponent implements OnInit{
   }
 
  
+  handleSideBar(event: any) {
+    this.isShowPadding = event
+  }
+
   selectdata(event: any) {
     console.log(event.target.checked)
     this.selectAll = event.target.checked;
@@ -170,22 +174,10 @@ export class PoTypeListComponent implements OnInit{
   }
 
   exportExcel(): void {
-    this.potypeDetail.map((el: any) => {
-      delete el._id;
-      delete el.isActive;
-      delete el.__v;
-      delete el.check;
-    })
     this.poTypeSer.exportToExcel(this.potypeDetail, 'po Type', 'Sheet1');
   }
 
   downloadExcel(): void {
-    this.potypeDetail.map((el: any) => {
-      delete el._id;
-      delete el.isActive;
-      delete el.__v;
-      delete el.check;
-    })
     const sampleRecord = [this.sampleJson]
     this.poTypeSer.exportToExcel(sampleRecord, 'po_type', 'Sheet1');
   }

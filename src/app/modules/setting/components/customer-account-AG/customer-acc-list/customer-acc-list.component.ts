@@ -22,7 +22,7 @@ export class CustomerAccListComponent {
     "customerAccountAG":"Transport",
     "descriptionCAAG":"Description 23"
     }
-
+    isShowPadding:any = false;
   constructor(
     private router: Router,
     private customerAccountSer: CustomerAccountAGService,
@@ -34,6 +34,10 @@ export class CustomerAccListComponent {
 
   nextPage(url: any) {
     this.router.navigate([`${url}`])
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   async getAllCustomerAccountACGDetailsPage(page: any, itemsPerPage: any) {
@@ -181,12 +185,6 @@ export class CustomerAccListComponent {
   }
 
   exportExcel(): void {
-    this.customerAccountDetails.map((el: any) => {
-      // delete el.isLock;
-      delete el.isActive;
-      delete el.__v;
-      delete el.check;
-    })
     this.customerAccountSer.exportToExcel(this.customerAccountDetails, 'Customer Acc AG', 'Sheet1');
   }
 

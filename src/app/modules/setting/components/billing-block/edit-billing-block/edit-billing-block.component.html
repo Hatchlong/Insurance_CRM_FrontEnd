@@ -1,4 +1,5 @@
-<div class="container-fluid">
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
   <form [formGroup]="billing" (ngSubmit)="addCustomerAcc()">
     <h2><mat-icon class="back" routerLink="/settings/billing-block-list">arrow_back</mat-icon>Billing Block </h2>
 

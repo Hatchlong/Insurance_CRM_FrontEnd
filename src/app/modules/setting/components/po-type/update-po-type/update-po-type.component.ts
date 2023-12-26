@@ -16,7 +16,7 @@ export class UpdatePoTypeComponent {
   poTypeDetail: any = []
   potypeId: any
   isSubmitted:any=false
-
+  isShowPadding:any = false;
   constructor(
     private fb: FormBuilder,
     private potypeSer: PoTypeService,
@@ -45,6 +45,11 @@ export class UpdatePoTypeComponent {
 
     });
 
+  }
+
+   
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   //get single data on 

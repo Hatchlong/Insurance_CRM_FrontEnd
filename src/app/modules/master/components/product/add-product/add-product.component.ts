@@ -32,7 +32,7 @@ export class AddProductComponent implements OnInit {
   materialTypeDetail: any = []
   distributionDetail: any = []
   selectedValue:any=''
-
+  materialIdisShow:any = true
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -69,12 +69,13 @@ export class AddProductComponent implements OnInit {
 
   create() {
     this.general = this.fb.group({
-      materialId: ['1'],
+      materialId: [''],
       materialDescription: ['', Validators.required],
       materialGroupId: ['', Validators.required],
       materialGroupName: ['', Validators.required],
       materialTypeId: ['', Validators.required],
       materialTypeName: ['', Validators.required],
+      materialTypeFlag:['', Validators.required],
       industrySectorId: ['', Validators.required],
       industrySectorName: ['', Validators.required],
       netWeight: ['', Validators.required],
@@ -457,7 +458,13 @@ export class AddProductComponent implements OnInit {
   handleMaterialType(event: any) {
     const findMaterialType = this.materialTypeDetail.find((el: any) => el._id === event.target.value)
     console.log(findMaterialType);
-    this.general.controls.materialTypeName.setValue(findMaterialType.code)  
+    if(findMaterialType.materialType === 'M'){
+      this.materialIdisShow = true;
+    }else{
+      this.materialIdisShow = false;
+    }
+    this.general.controls.materialTypeFlag.setValue(findMaterialType.materialType)
+    this.general.controls.materialTypeName.setValue(findMaterialType.description)  
 
   }
   get drop(){

@@ -1,4 +1,5 @@
-<div class="container-fluid ">
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
   <div class="row mt-3">
     <div class="col-12">
       <div class="row">
@@ -38,7 +39,7 @@
 
     </div>
   </div>
-  <div class="row mt-4 ms-2">
+  <div class="row mt-4">
     <div class="col-12">
       <div class="table-responsive">
         <table class="table table-hover">
@@ -88,7 +89,7 @@
         </table>
       </div>
     </div>
-    <div class="col-xs-12 col-12 d-flex justify-content-center" *ngIf="paymentDetails.length > 10">
+    <div class="col-xs-12 col-12 d-flex justify-content-center" *ngIf="totalItem > 10">
       <pagination [totalItems]="totalItem" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
     </div>
   </div>

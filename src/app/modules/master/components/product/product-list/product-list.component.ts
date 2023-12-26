@@ -15,7 +15,7 @@ export class ProductListComponent implements OnInit {
   allProductDetails:any = []
   selectAll: any = false
   materialTypeDetail:any=[]
-
+  isShowPadding:any = false
 
   constructor(
     private router: Router,
@@ -34,6 +34,9 @@ export class ProductListComponent implements OnInit {
     this.getMaterialType()
   }
 
+  handleSideBar(event: any) {
+    this.isShowPadding = event
+  }
   
   selectdata(event: any) {
     console.log(event.target.checked)

@@ -8,7 +8,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AddSalesOrderComponent {
   isSubmitted:any = true;
-
+  isShowPadding:any = false;
   sales:any=FormGroup
   constructor(private fb:FormBuilder){}
 
@@ -16,6 +16,12 @@ export class AddSalesOrderComponent {
   ngOnInit(): void {
       this.add()
   }
+
+  
+  handleSideBar(event: any) {
+    this.isShowPadding = event
+  }
+
   add(){
     this.isSubmitted = false
     this.sales=this.fb.group({

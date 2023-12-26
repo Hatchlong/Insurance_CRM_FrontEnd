@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class PurchaseOrderListComponent {
 
-  
+  isShowPadding:any = false;
   constructor(
     private router:Router
   ){}
@@ -22,5 +22,9 @@ export class PurchaseOrderListComponent {
     }else{
       this.checks=false;
     }
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 }

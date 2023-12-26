@@ -1,4 +1,5 @@
-<div class="container-fluid">
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
     <form [formGroup]="purchase" (ngSubmit)="addCode()">
         <h2><mat-icon class="back" routerLink="/purchase/purchase-order-list">arrow_back</mat-icon>Purchase Order
             Maintainence</h2>

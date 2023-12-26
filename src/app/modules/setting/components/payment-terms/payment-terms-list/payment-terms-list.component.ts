@@ -30,7 +30,7 @@ export class PaymentTermsListComponent implements OnInit {
     "additionalBaselineDataCalculation":"20/11/2023"
 
 }
-
+isShowPadding:any = false;
 
   constructor(
     private router: Router,
@@ -39,6 +39,9 @@ export class PaymentTermsListComponent implements OnInit {
   ) { }
   nextPage(url: any) {
     this.router.navigate([`${url}`])
+  }
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   ngOnInit(): void {
@@ -187,12 +190,6 @@ export class PaymentTermsListComponent implements OnInit {
   }
 
   exportExcel(): void {
-    this.paymentDetails.map((el: any) => {
-      delete el.isLock;
-      delete el.isActive;
-      delete el.__v;
-      delete el.check;
-    })
     this.paymentSer.exportToExcel(this.paymentDetails, 'payment Term', 'Sheet1');
   }
 

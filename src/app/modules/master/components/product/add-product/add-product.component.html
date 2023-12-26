@@ -1,6 +1,5 @@
-<!-- <app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav> -->
-<!-- <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '265px' : '80px'}"> -->
-<div class="container-fluid">
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
     <h2 class="mt-2">
         <mat-icon class="back" routerLink="/master/product">arrow_back</mat-icon> Product Maintainence
     </h2>
@@ -39,14 +38,14 @@
                             <p class="error-message">Material Group is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-2">
+                    <div class="col-6 py-2" >
                         <label for="" class="">Material Type <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example"
                             formControlName="materialTypeId" (change)="handleMaterialType($event)" >
                             <option [selected]="general.value.materialTypeId === ''" value="" hidden>Select Material
                                 Type
                             </option>
-                            <option *ngFor="let list of materialTypeDetail" [value]="list._id">{{list.code}}</option>
+                            <option *ngFor="let list of materialTypeDetail" [value]="list._id">{{list.description}}</option>
 
                         </select>
                         <div
@@ -57,9 +56,9 @@
                             <p class="error-message">Material Type is required</p>
                         </div>
                     </div>
-                    <div class="col-6 py-2" >
+                    <div class="col-6 py-2" *ngIf="materialIdisShow">
                         <label for="">Material Id </label>
-                        <input type="text" class="form-control " formControlName="materialTypeId"
+                        <input type="text" class="form-control " formControlName="materialId"
                             placeholder="Material Id" >
                     </div>
                     <div class="col-6 py-2">

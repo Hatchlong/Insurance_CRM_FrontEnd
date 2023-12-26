@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class CustomerListComponent {
 
-  
+  isShowPadding:any = false
   constructor(
     private router:Router
   ){
@@ -16,6 +16,10 @@ export class CustomerListComponent {
   }
   nextPage(url: any){
     this.router.navigate([`${url}`])
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
 }

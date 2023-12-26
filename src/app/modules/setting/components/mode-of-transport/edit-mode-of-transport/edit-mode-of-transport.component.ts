@@ -15,7 +15,8 @@ export class EditModeOfTransportComponent {
   transport: any = FormGroup
   modeOfTransportId: any = ''
 
-  isSubmitted: any = false
+  isSubmitted: any = false;
+  isShowPadding:any = false
   constructor(
     private fb: FormBuilder,
     private motSer: ModeOfTransportService,
@@ -30,6 +31,10 @@ export class EditModeOfTransportComponent {
     this.modeOfTransportId = this.activeRouter.snapshot.paramMap.get('id')
     this.code()
     this.getSingleModeOfTransportDetails()
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
   code() {

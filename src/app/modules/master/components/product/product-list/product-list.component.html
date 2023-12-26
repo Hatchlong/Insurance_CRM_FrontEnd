@@ -1,4 +1,5 @@
-<div class="container-fluid ">
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
   <div class="row mt-3 ">
     <div class="d-grid gap-2 d-md-flex justify-content-md-start ">
 
@@ -64,13 +65,13 @@
   </div>
 
 
-  <div class="row mt-4 ms-2">
+  <div class="row mt-4">
     <div class="col-12">
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
             <tr>
-
+              <th>SN</th>
               <th scope="col">Material Id</th>
               <th scope="col">Material Description</th>
               <th scope="col">Material Type</th>
@@ -89,6 +90,7 @@
           <tbody>
             <tr *ngFor="let list of productDetails;let i=index">
               <td>{{i+1}}</td>
+              <td>{{list.materialId}}</td>
               <td>{{list.materialDescription}}</td>
               <td>{{list.materialTypeName}}</td>
               <td>{{list.industrySectorName}}</td>

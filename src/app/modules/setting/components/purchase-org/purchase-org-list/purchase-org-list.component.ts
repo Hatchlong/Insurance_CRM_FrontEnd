@@ -24,7 +24,7 @@ export class PurchaseOrgListComponent implements OnInit {
     "companycode": "TCS234",
   }
 
-
+  isShowPadding:any = false;
   constructor(
     private router: Router,
     private purchaseSer: PurchaseOrgService,
@@ -33,6 +33,10 @@ export class PurchaseOrgListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllPurchaseOrgDetails(this.page, this.itemsPerPage)
+  }
+
+  handleSideBar(event: any) {
+    this.isShowPadding = event
   }
 
 
@@ -73,6 +77,7 @@ export class PurchaseOrgListComponent implements OnInit {
 
   selectdata(event: any) {
     console.log(event.target.checked);
+    this.selectAll = event.target.checked;
     this.purchaseOrgDetails.map((el: any) => {
       el.check = event.target.checked
     })
@@ -183,12 +188,6 @@ export class PurchaseOrgListComponent implements OnInit {
   }
 
   exportExcel(): void {
-    this.purchaseOrgDetails.map((el: any) => {
-      delete el.isLock;
-      delete el.isActive;
-      delete el.__v;
-      delete el.check;
-    })
     this.purchaseSer.exportToExcel(this.purchaseOrgDetails, 'Purchase_org_records', 'Sheet1');
   }
 
