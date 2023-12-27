@@ -11,19 +11,19 @@
           <div class="col-2">
             <select class="form-select " aria-label="Default select example" (change)="handleMaterial($event)">
               <option selected>Select Material Type</option>
-              <option *ngFor="let list of materialTypeDetail" [value]="list._id">{{list.description}}</option>
+              <option *ngFor="let list of materialTypeDetail" [value]="list.description">{{list.description}}</option>
 
             </select>
           </div>
           <div class="col-2">
             <select class="form-select " aria-label="Default select example" (change)="handleIndustry($event)">
               <option selected>Industry Sector</option>
-              <option *ngFor="let list of industryDetail" [value]="list._id">{{list.description}}</option>
+              <option *ngFor="let list of industryDetail" [value]="list.description">{{list.description}}</option>
             </select>
           </div>
 
           <div class="col-4 ms-5">
-            
+
             <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
               <button (click)="nextPage('/master/add-product')" class="btn btn-primary " type="button"
                 style="color: white;background: #00acff;">Add Product</button>
@@ -51,53 +51,56 @@
         </div>
       </div>
     </div>
-    <div class="row mt-4">
-      <div class="col-12">
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>SN</th>
-                <th scope="col">Material Id</th>
-                <th scope="col">Material Description</th>
-                <th scope="col">Material Type</th>
-                <th scope="col">Industry Sector</th>
-                <th scope="col">Base Unit Of Measurement</th>
-                <th scope="col">Action</th>
-                <th scope="col"><input type="checkbox" [checked]="selectAll" (change)="selectdata($event)"> Select All
-                </th>
-              </tr>
-            </thead>
-            <tbody *ngIf="productDetails.length===0">
-              <tr>
-                <td colspan="7" class="text-center">No Records !...</td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr *ngFor="let list of productDetails;let i=index">
-                <td>{{i+1}}</td>
-                <td>{{list.materialId}}</td>
-                <td>{{list.materialDescription}}</td>
-                <td>{{list.materialTypeName}}</td>
-                <td>{{list.industrySectorName}}</td>
-                <td>{{list.baseUnitMeasure}}</td>
-                <td>
-                  <div class="d-flex">
-                    <div>
-                      <mat-icon [routerLink]="'/master/edit-product/'+list._id">edit</mat-icon>
-                    </div>
-                    <div>
-                      <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
-                    </div>
+  </div>
+
+
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>SN</th>
+              <th scope="col">Material Id</th>
+              <th scope="col">Material Description</th>
+              <th scope="col">Material Type</th>
+              <th scope="col">Industry Sector</th>
+              <th scope="col">Base Unit Of Measurement</th>
+              <th scope="col">Action</th>
+              <th scope="col"><input type="checkbox" [checked]="selectAll" (change)="selectdata($event)"> Select All
+              </th>
+            </tr>
+          </thead>
+          <tbody *ngIf="productDetails.length===0">
+            <tr>
+              <td colspan="8" class="text-center">No Records !...</td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr *ngFor="let list of productDetails;let i=index">
+              <td>{{i+1}}</td>
+              <td>{{list.materialId}}</td>
+              <td>{{list.materialDescription}}</td>
+              <td>{{list.materialTypeName}}</td>
+              <td>{{list.industrySectorName}}</td>
+              <td>{{list.baseUnitMeasure}}</td>
+              <td>
+                <div class="d-flex">
+                  <div>
+                    <mat-icon [routerLink]="'/master/edit-product/'+list._id">edit</mat-icon>
                   </div>
-                </td>
-                <td><input type="checkbox" [checked]="list.check" (change)="particularcheck($event,i)"></td>
-              </tr>
+                </div>
+              </td>
+              <td><input type="checkbox" [checked]="list.check" (change)="particularcheck($event,i)"></td>
+            </tr>
 
-            </tbody>
+          </tbody>
 
-          </table>
-        </div>
+        </table>
       </div>
     </div>
   </div>
+  <div class="col-xs-12 col-12 py-2 d-flex justify-content-center" *ngIf="totalItem > 10">
+    <pagination [totalItems]="totalItem" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
+  </div>
+</div>

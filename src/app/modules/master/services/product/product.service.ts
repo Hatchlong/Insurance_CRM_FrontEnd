@@ -68,7 +68,7 @@ export class ProductService {
 
 
   updatedManyProductDetails(data: any) {
-    return this.http.put(`http://localhost:4000/api/master/customerAccAG/update`, data).toPromise()
+    return this.http.put(`http://localhost:4000/api/master/product/update`, data).toPromise()
   }
 
   exportToExcel(data: any[], fileName: string, sheetName: string): void {
@@ -109,10 +109,10 @@ export class ProductService {
     XLSX.writeFile(workbook, `${fileName}.xlsx`);
   }
   getAllProductDetailsPage(skip?: any, itemsPerPage?: any) {
-    return this.http.get(`http://localhost:4000/api/master/customerAccAG/getAll/${skip}/${itemsPerPage}`).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/product/getAll/${skip}/${itemsPerPage}`).toPromise()
 
   }
   fileUploadXlsx(data: any) {
-    return this.http.post(`http://localhost:4000/api/master/customerAccAG/upload`, data).toPromise()
+    return this.http.post(`http://localhost:4000/api/master/product/upload`, data).toPromise()
   }
 }
