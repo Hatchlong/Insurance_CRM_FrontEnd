@@ -30,13 +30,14 @@
             </button>
             <mat-menu #menu="matMenu">
               <button mat-menu-item>
-                <span>Import Product</span>
+                <span>Import Vendor</span>
+                <!-- (click)="importHandle(inputFile)" -->
               </button>
-              <button mat-menu-item>
-                <span>Export Export</span>
+              <button mat-menu-item (click)="exportExcel()">
+                <span>Export Vendor</span>
               </button>
-              <button mat-menu-item>
-                <span>Sample Product Sheet</span>
+              <button mat-menu-item (click)="downloadExcel()">
+                <span>Sample vendor Sheet</span>
               </button>
             </mat-menu>
           

@@ -18,6 +18,32 @@ vendorTypeDetail: any = []
 selectedFile: any = '';
 allVendorDetails:any = []
 isShowPadding:any = false
+totalItem: any = 0;
+  currentPage = 1;
+  page?: number = 0;
+  itemsPerPage = 10;
+sampleJson = {
+   
+  "vendorName": "Test",
+  "vendorTypeId": "1",
+  "vendorTypeName":"A",
+  "vendorId":"123",
+  "addressCountry": "zam",
+  "language": "english",
+  "modeOfTransport": "1",
+  "incrementTreams": "1",
+  "country": "1",
+  "createdOn": "1",
+  "createdBy": "1",
+  "changedOn": "1",
+  "changedBy": "1",
+  "financialData":[{
+      "vatRegistrationNo":"1"
+  },{
+    "vatRegistrationNo":"2"  
+  }]
+}
+
   constructor(
     private router:Router,
     private vendorSer : VendorService,
@@ -33,6 +59,33 @@ isShowPadding:any = false
     this.router.navigate([`${url}`])
   }
   
+  handleSideBar(event: any) {
+    this.isShowPadding = event
+  }
+
+  selectdata(event: any) {
+    console.log(event.target.checked)
+    this.selectAll = event.target.checked;
+    console.log(typeof this.selectAll)
+    this.vendorDetails.map((el: any) => {
+      el.check = event.target.checked
+    })
+
+
+  }
+  particularcheck(event: any, index: any) {
+    this.vendorDetails[index].check = event.target.checked
+    const findSelect = this.vendorDetails.find((el: any) => el.check === false)
+
+    if (findSelect) {
+      this.selectAll = false
+    }
+    else {
+      this.selectAll = true
+    }
+  }
+
+
    //get data into list
    async getAllVendorData(){
     try {
@@ -61,38 +114,6 @@ return
       });
     }
   }
-
-
-  handleSideBar(event: any) {
-    this.isShowPadding = event
-  }
-
-
-// selectAll (check-box)
-  selectdata(event:any){
-    console.log(event.target.checked);
-    this.vendorDetails.map((el:any)=>{
-        el.check=event.target.checked
-    })
-  }
-
-   particularcheck(event:any,index:any){
-      console.log(event.target.checked);
-      this.vendorDetails[index].check=event.target.checked
-      const findSelect=this.vendorDetails.find((el:any)=>el.check===false)
-      console.log(findSelect);
-      
-      if(findSelect){
-        this.selectAll=false
-      }
-      else{
-        this.selectAll=true
-      }
-    }
-
-
-    
-
 
     async deleteRecords(data: any) {
       try {
@@ -124,7 +145,7 @@ return
             panelClass: 'app-notification-error',
           });
           return
-        }
+        } 
         this._snackBar.open('Something went wrong', '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
@@ -132,6 +153,21 @@ return
         });
       }
     }
+
+
+
+
+    downloadExcel(): void {
+   
+      const sampleRecord = [this.sampleJson]
+      this.vendorSer.exportToExcel(sampleRecord, 'vendor_master', 'Sheet1');
+    }
+
+    exportExcel(): void {
+      this.vendorSer.exportToExcel(this.vendorDetails, 'vendor', 'Sheet1');
+    }
+
+
 
     
   handleFilter(event:any){
