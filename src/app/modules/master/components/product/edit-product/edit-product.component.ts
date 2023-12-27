@@ -53,6 +53,7 @@ export class EditProductComponent {
   ngOnInit(): void {
     this.productId = this.activeRouter.snapshot.paramMap.get('id')
     this.create()
+    this.getDistributionDetail()
     this.getSingleDetail()
     this.getSalesDetail()
     this.getStorageDetails()
@@ -68,7 +69,6 @@ export class EditProductComponent {
     this.getWeightUnit()
     this.getUOMDetail()
     this.getMaterialType()
-    this.getDistributionDetail()
   }
 
 
@@ -178,6 +178,7 @@ export class EditProductComponent {
       if (result.status === '1') {
         console.log(result);
         this.general.patchValue(result.data)
+        console.log(this.general.value)
       }
     } catch (error) {
       console.error(error);
@@ -396,12 +397,12 @@ export class EditProductComponent {
   handleMaterialType(event: any) {
     const findMaterialType = this.materialTypeDetail.find((el: any) => el._id === event.target.value)
     console.log(findMaterialType);
-    if(findMaterialType.materialType === 'M'){
+    if(findMaterialType.num_range === 'M'){
       this.materialIdisShow = true;
     }else{
       this.materialIdisShow = false;
     }
-    this.general.controls.materialTypeFlag.setValue(findMaterialType.materialType)
+    this.general.controls.materialTypeFlag.setValue(findMaterialType.num_range)
     this.general.controls.materialTypeName.setValue(findMaterialType.description)  
 
   }

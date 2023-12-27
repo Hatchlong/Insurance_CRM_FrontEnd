@@ -56,10 +56,10 @@
                             <p class="error-message">Material Type is mandatory</p>
                         </div>
                     </div>
-                    <div class="col-6 py-2" *ngIf="materialIdisShow">
+                    <div class="col-6 py-2" [ngStyle]="{'pointer-events' : !materialIdisShow ? 'none' : 'all'}">
                         <label for="">Material Id </label>
                         <input type="text" class="form-control " formControlName="materialId"
-                            placeholder="Material Id" >
+                            placeholder="Material Id" [readOnly]="!materialIdisShow">
                     </div>
                     <div class="col-6 py-2">
                         <label for="">Industry Sector <sup>*</sup></label>

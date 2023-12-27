@@ -626,7 +626,7 @@
                                                                 <option
                                                                     [selected]="general.value.distributionChannel === ''"
                                                                     value="" hidden>Select distribution Channel</option>
-                                                                <option *ngFor="let list of distributionDetail" [value]="list._id">{{list.distributionChannel}}</option>
+                                                                <option *ngFor="let list of distributionDetail" [value]="list._id">{{list.distributionChannel}}{{list._id}}</option>
                                                             </select>
                                                         <td>
                                                            

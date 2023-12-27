@@ -32,7 +32,7 @@ export class AddProductComponent implements OnInit {
   materialTypeDetail: any = []
   distributionDetail: any = []
   selectedValue:any=''
-  materialIdisShow:any = true
+  materialIdisShow:any = false
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -458,12 +458,13 @@ export class AddProductComponent implements OnInit {
   handleMaterialType(event: any) {
     const findMaterialType = this.materialTypeDetail.find((el: any) => el._id === event.target.value)
     console.log(findMaterialType);
-    if(findMaterialType.materialType === 'M'){
+    if(findMaterialType.num_range === 'M'){
       this.materialIdisShow = true;
+      this.general.controls.materialId.setValue("")
     }else{
       this.materialIdisShow = false;
     }
-    this.general.controls.materialTypeFlag.setValue(findMaterialType.materialType)
+    this.general.controls.materialTypeFlag.setValue(findMaterialType.num_range)
     this.general.controls.materialTypeName.setValue(findMaterialType.description)  
 
   }
