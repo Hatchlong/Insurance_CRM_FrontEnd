@@ -64,6 +64,7 @@ import { EditSalesOrgComponent } from './components/sales-org/edit-sales-org/edi
 import { SalesOrgService } from './Services/sales-org/sales-org.service';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { SharedModule } from '../shared/shared.module';
+import { FilterPipesPipe } from './Services/filter/filter-pipes.pipe';
 
 @NgModule({
   declarations: [
@@ -106,6 +107,7 @@ import { SharedModule } from '../shared/shared.module';
     EditBillingBlockComponent,
     EditIncoTermComponent,
     EditSalesOrgComponent,
+    FilterPipesPipe,
   ],
   imports: [
     CommonModule,

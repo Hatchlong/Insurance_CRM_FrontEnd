@@ -163,7 +163,8 @@ export class AddProductComponent implements OnInit {
     try {
       this.isSubmitted = true
       console.log(this.general.value);
-
+      if(this.general.invalid)
+      return
       const username: any = localStorage.getItem('userName')
 
       const currentDate = new Date();

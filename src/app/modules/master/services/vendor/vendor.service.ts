@@ -46,15 +46,32 @@ export class VendorService {
   }
 
   exportToExcel(data: any[], fileName: string, sheetName: string): void {
+    const vendorFinancialData: any = [];
     data.map((el: any) => {
+      el.financialData.map((ele: any) => {
+        ele.vendorId = el.vendorId;
+        vendorFinancialData.push(ele)
+      })
+
+    })
+    data.map((el: any) => {
+      delete el.isLock;
       delete el.isActive;
       delete el.__v;
       delete el.check;
+      delete el.financialData
     })
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, sheetName);
-    XLSX.writeFile(wb, `${fileName}.xlsx`);
+    const workbook: XLSX.WorkBook = XLSX.utils.book_new();
+
+    // Add sheets to the workbook
+    const sheet1: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+    XLSX.utils.book_append_sheet(workbook, sheet1, 'Vendor_Data');
+
+    const sheet2: XLSX.WorkSheet = XLSX.utils.json_to_sheet(vendorFinancialData);
+    XLSX.utils.book_append_sheet(workbook, sheet2, 'FinancialData');
+
+
+    XLSX.writeFile(workbook, `${fileName}.xlsx`);
   }
 
 }

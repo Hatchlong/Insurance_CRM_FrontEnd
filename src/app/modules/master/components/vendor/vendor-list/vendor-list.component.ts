@@ -157,49 +157,50 @@ return
 
     // File Upload
 
-  // importHandle(inputId: any) {
-  //   inputId.click()
-  // }
+  importHandle(inputId: any) {
+    inputId.click()
+  }
 
 
-  // // File Input
-  // handleFileData(event: any) {
-  //   console.log(event.target.files[0]);
-  //   this.selectedFile = event.target.files[0];
-  //   this.uploadFile()
-  // }
+  // File Input
+  handleFileData(event: any, inputId:any) {
+    console.log(event.target.files[0]);
+    this.selectedFile = event.target.files[0];
+    this.uploadFile(inputId)
+  }
 
-  // async uploadFile() {
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append('file', this.selectedFile);
-  //     const result: any = await this.vendorSer.fileUploadVendor(formData);
-  //     if (result.status === '1') {
-  //       this._snackBar.open(result.message, '', {
-  //         duration: 5 * 1000, horizontalPosition: 'center',
-  //         verticalPosition: 'top',
-  //         panelClass: 'app-notification-success',
-  //       });
-  //       this.getAllVendorData(this.page, this.itemsPerPage)
-  //       return;
-  //     }
-  //     if (result.status === '0') {
-  //       this._snackBar.open(result.message, '', {
-  //         duration: 5 * 1000, horizontalPosition: 'center',
-  //         verticalPosition: 'top',
-  //         panelClass: 'app-notification-error',
-  //       });
-  //     }
-  //   } catch (error: any) {
+  async uploadFile(inputId:any) {
+    try {
+      const formData = new FormData();
+      formData.append('file', this.selectedFile);
+      const result: any = await this.vendorSer.fileUploadVendor(formData);
+      if (result.status === '1') {
+        inputId.value = ''
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
+        // this.getAllVendorData(this.page, this.itemsPerPage)
+        return;
+      }
+      if (result.status === '0') {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
 
-  //     this._snackBar.open('Something went wrong', '', {
-  //       duration: 5 * 1000, horizontalPosition: 'center',
-  //       verticalPosition: 'top',
-  //       panelClass: 'app-notification-error',
-  //     });
-  //   }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
 
-  // }
+  }
 
 
 
@@ -217,7 +218,7 @@ return
 
     // async handleDeleteMuliple() {
     //   try {
-    //     const filterData = this.vendorDetails.filter((el: any) => el.check === true)
+    //     const filterData = handleFilter1.vendorDetails.filter((el: any) => el.check === true)
     //     filterData.map((el: any) => {
     //       el.isActive = "C"
     //     })
@@ -255,6 +256,7 @@ return
   handleFilter(event:any){
     if(!event.target.value){
       this.vendorDetails = this.allVendorDetails
+      return
     }
     console.log(event.target.value)
     const isStringIncluded = this.allVendorDetails.filter((obj:any) => ((obj.vendorId.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.vendorName.toUpperCase()).includes(event.target.value.toUpperCase())));
@@ -263,10 +265,11 @@ return
 
   handleFilter1(event:any){
     if(!event.target.value){
-      this.vendorTypeDetail = this.allVendorDetails
+      this.vendorDetails = this.allVendorDetails
+      return
     }
     console.log(event.target.value)
-    const isStringIncluded = this.allVendorDetails.filter((obj:any) => ((obj.vendorTypeName === event.target.value)));
+    const isStringIncluded = this.allVendorDetails.filter((obj:any) => ((obj.vendorTypeName.toLowerCase() === (event.target.value).toLowerCase())));
     console.log(isStringIncluded, "table filter")
     this.vendorDetails = isStringIncluded
   }

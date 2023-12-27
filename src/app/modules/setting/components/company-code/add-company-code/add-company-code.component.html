@@ -35,7 +35,7 @@
                 <select class="form-select " aria-label="Default select example" formControlName="countryId"
                     (change)="selectCountryName($event)">
                     <option [selected]="companyCode.value.countryId === ''" value="" hidden>Select Country</option>
-                    <option *ngFor="let list of countryDetials;" [value]="list._id">{{list.countryName}}</option>
+                    <option *ngFor="let list of countryDetials | filterPipes:'countryName'" [value]="list._id">{{list.countryName}}</option>
                 </select>
                 <div
                     *ngIf="companyCode.controls['countryId'].touched && companyCode.controls['countryId'].dirty && companyCode.controls['countryId'].hasError('required') && !isSubmitted">
@@ -49,7 +49,7 @@
                 <label for="" class="">City <sup>*</sup></label>
                 <select class="form-select " aria-label="Default select example" formControlName="city"  [ngStyle]="{'pointer-events': !companyCode.value.countryId ? 'none' :  'all'}">
                     <option [selected]="companyCode.value.city===''" value="" hidden>Select City</option>
-                    <option *ngFor="let list of citiesDetails?.cities?.cities" [value]="list">{{list}}</option>
+                    <option *ngFor="let list of (citiesDetails?.cities?.cities).sort()" [value]="list">{{list}}</option>
                 </select>
                 <div
                     *ngIf="companyCode.controls['city'].touched && companyCode.controls['city'].dirty && companyCode.controls['city'].hasError('required') && !isSubmitted">
@@ -64,7 +64,7 @@
                 <label for="" class="">Currency <sup>*</sup></label>
                 <select class="form-select " aria-label="Default select example" formControlName="currencyId" (change)="handleCurrency($event)"  [ngStyle]="{'pointer-events': !companyCode.value.countryId ? 'none' :  'all'}">
                     <option [selected]="companyCode.value.currencyId===''" value="" hidden>Select Currency</option>
-                    <option *ngFor="let list of currencyDetails" [value]="list._id">{{list.code}}</option>
+                    <option *ngFor="let list of currencyDetails | filterPipes:'code'" [value]="list._id">{{list.code}}</option>
                 </select>
                 <div
                     *ngIf="companyCode.controls['currencyId'].touched && companyCode.controls['currencyId'].dirty && companyCode.controls['currencyId'].hasError('required') && !isSubmitted">

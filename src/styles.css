@@ -32,6 +32,7 @@ h2 {
 .error-message {
     color: red;
     margin-bottom: 0;
+    font-size: 14px;
 }
 
 sup {
@@ -89,3 +90,7 @@ input[readonly] {
 mat-icon{
     cursor: pointer;
 }
+
+option,select {
+    text-transform: capitalize !important; /* change first letter to uppercase */
+  }
