@@ -32,11 +32,11 @@
                                            <option *ngFor="let list of vendorTypeDetail; let i = index" [value]="list._id">{{list.description}}</option>
                                         </select>
                                         <div
-                                            *ngIf="vendorFormGroup.controls['accountGroup'].touched && vendorFormGroup.controls['accountGroup'].dirty && vendorFormGroup.controls['accountGroup'].hasError('required') && !isSubmitted">
+                                            *ngIf="vendorFormGroup.controls['vendorTypeId'].touched && vendorFormGroup.controls['vendorTypeId'].dirty && vendorFormGroup.controls['vendorTypeId'].hasError('required') && !isSubmitted">
                                             <p class="error-message">Account Group is mandatory</p>
                                         </div>
                                         <div
-                                            *ngIf="isSubmitted && vendorFormGroup.controls['accountGroup'].hasError('required')">
+                                            *ngIf="isSubmitted && vendorFormGroup.controls['vendorTypeId'].hasError('required')">
                                             <p class="error-message">Account Group is mandatory</p>
                                         </div>
                                     </div>

@@ -7,9 +7,9 @@
           <div class="form-group form-row">
             <div class="col-12 d-grid gap-2 d-md-flex">
               <input type="text" class="form-control w-50" placeholder="Enter vendor Id/Name" (input)="handleFilter($event)">
-              <select class="form-select  w-50" aria-label="Default select example" (hange)="handleFilter1($event)">
+              <select class="form-select  w-50" aria-label="Default select example" (change)="handleFilter1($event)">
                 <option selected >Select Vendor Type</option>
-                <option *ngFor="let list of vendorTypeDetail;" [value]="list._id">{{list.description}}</option>
+                <option *ngFor="let list of vendorTypeDetail;" [value]="list.description">{{list.description}}</option>
               </select>
               
             </div>
@@ -30,13 +30,14 @@
             </button>
             <mat-menu #menu="matMenu">
               <button mat-menu-item>
-                <span>Import Product</span>
+                <span>Import Vendor</span>
+                <!-- (click)="importHandle(inputFile)" -->
               </button>
-              <button mat-menu-item>
-                <span>Export Export</span>
+              <button mat-menu-item (click)="exportExcel()">
+                <span>Export Vendor</span>
               </button>
-              <button mat-menu-item>
-                <span>Sample Product Sheet</span>
+              <button mat-menu-item (click)="downloadExcel()">
+                <span>Sample vendor Sheet</span>
               </button>
             </mat-menu>
           
