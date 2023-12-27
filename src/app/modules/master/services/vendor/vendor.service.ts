@@ -31,6 +31,11 @@ export class VendorService {
     return this.http.put(`http://localhost:4000/api/master/vendor/update/${data._id}`, data).toPromise()
   }
 
+  
+  updateVendorMany(data: any) {
+    return this.http.put(`http://localhost:4000/api/master/vendor/update`, data).toPromise()
+  }
+
   getVendorTypesDetails(){
     return this.http.get(`http://localhost:4000/api/config/vendorType/getAll`).toPromise()
   }

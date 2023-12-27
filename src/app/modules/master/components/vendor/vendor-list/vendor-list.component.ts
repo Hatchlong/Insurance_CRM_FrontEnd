@@ -155,6 +155,53 @@ return
     }
 
 
+    // File Upload
+
+  // importHandle(inputId: any) {
+  //   inputId.click()
+  // }
+
+
+  // // File Input
+  // handleFileData(event: any) {
+  //   console.log(event.target.files[0]);
+  //   this.selectedFile = event.target.files[0];
+  //   this.uploadFile()
+  // }
+
+  // async uploadFile() {
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append('file', this.selectedFile);
+  //     const result: any = await this.vendorSer.fileUploadVendor(formData);
+  //     if (result.status === '1') {
+  //       this._snackBar.open(result.message, '', {
+  //         duration: 5 * 1000, horizontalPosition: 'center',
+  //         verticalPosition: 'top',
+  //         panelClass: 'app-notification-success',
+  //       });
+  //       this.getAllVendorData(this.page, this.itemsPerPage)
+  //       return;
+  //     }
+  //     if (result.status === '0') {
+  //       this._snackBar.open(result.message, '', {
+  //         duration: 5 * 1000, horizontalPosition: 'center',
+  //         verticalPosition: 'top',
+  //         panelClass: 'app-notification-error',
+  //       });
+  //     }
+  //   } catch (error: any) {
+
+  //     this._snackBar.open('Something went wrong', '', {
+  //       duration: 5 * 1000, horizontalPosition: 'center',
+  //       verticalPosition: 'top',
+  //       panelClass: 'app-notification-error',
+  //     });
+  //   }
+
+  // }
+
+
 
 
     downloadExcel(): void {
@@ -167,6 +214,41 @@ return
       this.vendorSer.exportToExcel(this.vendorDetails, 'vendor', 'Sheet1');
     }
 
+
+    // async handleDeleteMuliple() {
+    //   try {
+    //     const filterData = this.vendorDetails.filter((el: any) => el.check === true)
+    //     filterData.map((el: any) => {
+    //       el.isActive = "C"
+    //     })
+    //     const result: any = await this.vendorSer.updateVendorMany(filterData);
+    //     if (result.status === '1') {
+    //       this._snackBar.open("Deleted Successfully", '', {
+    //         duration: 5 * 1000, horizontalPosition: 'center',
+    //         verticalPosition: 'top',
+    //         panelClass: 'app-notification-success',
+    //       });
+    //       this.getAllVendorData(this.page, this.itemsPerPage)
+    //       return;
+    //     }
+    //     if (result.status === '0') {
+    //       this._snackBar.open("Deleted Unsuccessfully", '', {
+    //         duration: 5 * 1000, horizontalPosition: 'center',
+    //         verticalPosition: 'top',
+    //         panelClass: 'app-notification-error',
+    //       });
+    //     }
+  
+    //   } catch (error: any) {
+    //     console.error(error)
+    //     this._snackBar.open('Something went wrong', '', {
+    //       duration: 5 * 1000, horizontalPosition: 'center',
+    //       verticalPosition: 'top',
+    //       panelClass: 'app-notification-error',
+    //     });
+    //   }
+    // }
+  
 
 
     
@@ -185,7 +267,8 @@ return
     }
     console.log(event.target.value)
     const isStringIncluded = this.allVendorDetails.filter((obj:any) => ((obj.vendorTypeName === event.target.value)));
-    this.vendorTypeDetail = isStringIncluded
+    console.log(isStringIncluded, "table filter")
+    this.vendorDetails = isStringIncluded
   }
 
   async getVendorType() {
