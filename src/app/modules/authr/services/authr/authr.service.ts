@@ -13,11 +13,11 @@ export class AuthrService {
 
 
   createUser(data:any){
-    return this.http.post('http://54.151.187.67:4000/api/auth/user/create', data).toPromise()
+    return this.http.post('http://localhost:4000/api/auth/user/create', data).toPromise()
   }
 
 
   loginUser(data:any){
-    return this.http.post('http://54.151.187.67:4000/api/auth/user/login', data).toPromise()
+    return this.http.post('http://localhost:4000/api/auth/user/login', data).toPromise()
   }
 }

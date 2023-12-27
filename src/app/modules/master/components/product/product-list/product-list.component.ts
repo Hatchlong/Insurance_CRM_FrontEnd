@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from '../../../services/product/product.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 @Component({
   selector: 'app-product-list',
@@ -25,7 +26,10 @@ export class ProductListComponent implements OnInit {
     "languageName": "English",
   }
   industryDetail: any = []
-
+  totalItem: any = 0;
+  currentPage = 1;
+  page?: number = 0;
+  itemsPerPage = 10;
   constructor(
     private router: Router,
     private productSer: ProductService,
@@ -39,7 +43,7 @@ export class ProductListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getProductDetails()
+    this.getProductDetails(this.page, this.itemsPerPage)
     this.getMaterialType()
     this.getIndustryDetails()
   }
@@ -140,9 +144,9 @@ export class ProductListComponent implements OnInit {
     this.productDetails=industryFilter
   }
 
-  async getProductDetails() {
+  async getProductDetails(page: any, itemsPerPage: any) {
     try {
-      const result: any = await this.productSer.getAllProductDetails()
+      const result: any = await this.productSer.getAllProductDetailsPage(page, itemsPerPage)
       console.log(result);
       if (result.status === '1') {
         result.data.map((el: any) => {
@@ -182,7 +186,7 @@ export class ProductListComponent implements OnInit {
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        this.getProductDetails()
+        this.getProductDetails(this.page, this.itemsPerPage)
         return;
       }
       if (result.status === '0') {
@@ -246,7 +250,7 @@ export class ProductListComponent implements OnInit {
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        // this.getAllCompanyCodeDetails(this.page, this.itemsPerPage)
+        this.getProductDetails(this.page, this.itemsPerPage)
         return;
       }
       if (result.status === '0') {
@@ -292,7 +296,7 @@ export class ProductListComponent implements OnInit {
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        // this.getAllCompanyCodeDetails(this.page, this.itemsPerPage)
+        this.getProductDetails(this.page, this.itemsPerPage)
         return;
       }
       if (result.status === '0') {
@@ -314,6 +318,11 @@ export class ProductListComponent implements OnInit {
   }
 
   
+  pageChanged(event: PageChangedEvent): void {
+    this.page = event.page;
+    const records = (this.page - 1) * this.itemsPerPage;
+    this.getProductDetails(records, this.itemsPerPage)
+  }
 
 }
 
