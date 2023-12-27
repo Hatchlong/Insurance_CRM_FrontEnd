@@ -15,15 +15,70 @@ export class ProductListComponent implements OnInit {
   selectedFile: any = '';
   allProductDetails: any = []
   selectAll: any = false
-  materialTypeDetail:any=[]
-  isShowPadding:any = false
+  materialTypeDetail: any = []
+  isShowPadding: any = false
   sampleJson = {
-    "companyCode": "HAT123",
-    "companyName": "Hatchlong",
-    "countryName": "Zambia",
-    "city": "2",
-    "currencyName": "INR",
-    "languageName": "English",
+    "materialId": "pro123",
+    "materialDescription": "Test",
+    "materialTypeId": "7465766876876876",
+    "materialTypeName": "A",
+    "industrySectorId": "1",
+    "industrySectorName": "test",
+    "materialGroupId": "1",
+    "materialGroupName": "hh",
+    "oldMaterialNumber": "1",
+    "baseUnitMeasure": "1",
+    "grossWeight": "1",
+    "createdOn": "1",
+    "createdBy": "1",
+    "changedOn": "1",
+    "changedBy": "1",
+    "netWeight": "1",
+    "weightUnit": "1",
+    "volumn": "1",
+    "volumnUnit": "1",
+    "storageConditionName": "1",
+    "storageConditionId": "1",
+    "tempConditionId": "1",
+    "tempConditionName": "1",
+    "transporationGroupId": "1",
+    "transporationGroupName": "1",
+    "length": "1",
+    "width": "1",
+    "height": "1",
+    "unitOfDeminsion": "1",
+    "allowedPKGWeight": "1",
+    "allowedPKGVolume": "1",
+    "excessWTTolerance": "1",
+    "excessVolumnTol": "1",
+    "batchManagment": "1",
+    "taxClassificationId": "1",
+    "taxClassificationName": "1",
+    "manfacturePartNo": "1",
+    "expirationDataRelavance": "1",
+    "materialCost": "1",
+    "plantData": [{
+      "storagePlant": "new plant",
+      "storageLocation":"storage location",
+      "procurementType": "tab",
+      "safetyStock": "323",
+      "totalReplLeadTime": "768",
+      "availabilityCheck": "yes",
+      "profitCenter": "profit",
+      "bomRelevance": "no",
+    }],
+    "salesData": [{
+      "salesOrganization": "sales",
+      "distributionChannel": "channel",
+      "deliveryUnit": "33",
+      "deliveringPlant": "1",
+      "maxDeliveryQTY": "4",
+      "materialGroup": "4",
+      "acctAssignmentGrp": "acct",
+      "minimumOrderQTY": "44",
+      "minimumDeliveryQTY": "90",
+    
+    }]
   }
   industryDetail: any = []
   totalItem: any = 0;
@@ -129,19 +184,19 @@ export class ProductListComponent implements OnInit {
     }
     console.log(event.target.value);
     // const isStringIncluded = this.allProductDetails.filter((obj: any) => ((obj.materialTypeName === event.target.value)));
-    const isStringIncluded=this.allProductDetails.filter((obj:any)=>{return obj.materialTypeName===event.target.value})
+    const isStringIncluded = this.allProductDetails.filter((obj: any) => { return obj.materialTypeName === event.target.value })
 
     this.productDetails = isStringIncluded
 
 
   }
-  handleIndustry(event:any){
+  handleIndustry(event: any) {
     if (!event.target.value) {
-      this.productDetails=this.allProductDetails
+      this.productDetails = this.allProductDetails
     }
-    const industryFilter=this.allProductDetails.filter((obj:any)=>{return obj.industry===event.target.value})
+    const industryFilter = this.allProductDetails.filter((obj: any) => { return obj.industry === event.target.value })
     // const industryFilter=this.allProductDetails.filter((obj:any)=>((obj.industry)))
-    this.productDetails=industryFilter
+    this.productDetails = industryFilter
   }
 
   async getProductDetails(page: any, itemsPerPage: any) {
@@ -225,7 +280,7 @@ export class ProductListComponent implements OnInit {
   }
 
 
-  
+
   // File Upload
   importHandle(inputId: any) {
     inputId.click()
@@ -277,7 +332,7 @@ export class ProductListComponent implements OnInit {
 
 
   downloadExcel(): void {
-   
+
     const sampleRecord = [this.sampleJson]
     this.productSer.exportToExcel(sampleRecord, 'Product', 'Sheet1');
   }
