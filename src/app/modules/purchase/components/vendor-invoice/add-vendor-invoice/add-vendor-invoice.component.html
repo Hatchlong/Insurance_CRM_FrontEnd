@@ -9,10 +9,10 @@
 
         <div
           *ngIf="vendorInvoice.controls['invoiceDate'].touched && vendorInvoice.controls['invoiceDate'].touched && vendorInvoice.controls['invoiceDate'].hasError('required') && !isSubmitted">
-          <p class="error-message">Invoice Date is required</p>
+          <p class="error-message">Invoice Date is mandatory</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['invoiceDate'].hasError('required')">
-          <p class="error-message">Invoice Date is required</p>
+          <p class="error-message">Invoice Date is mandatory</p>
         </div>
 
       </div>
@@ -28,10 +28,10 @@
 
         <div
           *ngIf="vendorInvoice.controls['amount'].touched && vendorInvoice.controls['amount'].dirty && vendorInvoice.controls['amount'].hasError('required') && !isSubmitted">
-          <p class="error-message">Amount is required</p>
+          <p class="error-message">Amount is mandatory</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['amount'].hasError('required')">
-          <p class="error-message">Amount is required</p>
+          <p class="error-message">Amount is mandatory</p>
         </div>
 
       </div>
@@ -42,10 +42,10 @@
 
         <div
           *ngIf="vendorInvoice.controls['taxAmount'].touched && vendorInvoice.controls['taxAmount'].dirty && vendorInvoice.controls['taxAmount'].hasError('required') && !isSubmitted">
-          <p class="error-message">Tax Amount is required</p>
+          <p class="error-message">Tax Amount is mandatory</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['taxAmount'].hasError('required')">
-          <p class="error-message">Tax Amount is required</p>
+          <p class="error-message">Tax Amount is mandatory</p>
         </div>
 
       </div>
@@ -56,10 +56,10 @@
 
         <div
           *ngIf="vendorInvoice.controls['currnecy'].touched && vendorInvoice.controls['currnecy'].dirty && vendorInvoice.controls['currnecy'].hasError('required') && !isSubmitted">
-          <p class="error-message">Currency is required</p>
+          <p class="error-message">Currency is mandatory</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['currnecy'].hasError('required')">
-          <p class="error-message">Currency is required</p>
+          <p class="error-message">Currency is mandatory</p>
         </div>
 
       </div>
@@ -71,10 +71,10 @@
 
         <div
           *ngIf="vendorInvoice.controls['text'].touched && vendorInvoice.controls['text'].dirty && vendorInvoice.controls['text'].hasError('required') && !isSubmitted">
-          <p class="error-message">Text is required</p>
+          <p class="error-message">Text is mandatory</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['text'].hasError('required')">
-          <p class="error-message">Text is required</p>
+          <p class="error-message">Text is mandatory</p>
         </div>
 
       </div>
@@ -85,10 +85,10 @@
 
         <div
           *ngIf="vendorInvoice.controls['companyCode'].touched && vendorInvoice.controls['companyCode'].dirty && vendorInvoice.controls['companyCode'].hasError('required') && !isSubmitted">
-          <p class="error-message">Company Code is required</p>
+          <p class="error-message">Company Code is mandatory</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['companyCode'].hasError('required')">
-          <p class="error-message">Company Code is required</p>
+          <p class="error-message">Company Code is mandatory</p>
         </div>
 
       </div>
@@ -100,10 +100,10 @@
 
         <div
           *ngIf="vendorInvoice.controls['referenceDocument'].touched && vendorInvoice.controls['referenceDocument'].dirty && vendorInvoice.controls['referenceDocument'].hasError('required') && !isSubmitted">
-          <p class="error-message">Reference Document is required</p>
+          <p class="error-message">Reference Document is mandatory</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['referenceDocument'].hasError('required')">
-          <p class="error-message">Reference Document is required</p>
+          <p class="error-message">Reference Document is mandatory</p>
         </div>
 
       </div>
@@ -114,10 +114,10 @@
 
         <div
           *ngIf="vendorInvoice.controls['vendor'].touched && vendorInvoice.controls['vendor'].dirty && vendorInvoice.controls['vendor'].hasError('required') && !isSubmitted">
-          <p class="error-message">Vendor is required</p>
+          <p class="error-message">Vendor is mandatory</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['vendor'].hasError('required')">
-          <p class="error-message">Vendor is required</p>
+          <p class="error-message">Vendor is mandatory</p>
         </div>
       </div>
 
@@ -127,10 +127,10 @@
 
         <div
           *ngIf="vendorInvoice.controls['vendorAddress'].touched && vendorInvoice.controls['vendorAddress'].dirty && vendorInvoice.controls['vendorAddress'].hasError('required') && !isSubmitted">
-          <p class="error-message">Vendor Address is required</p>
+          <p class="error-message">Vendor Address is mandatory</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['vendorAddress'].hasError('required')">
-          <p class="error-message">Vendor Address is required</p>
+          <p class="error-message">Vendor Address is mandatory</p>
         </div>
       </div>
 
@@ -141,10 +141,10 @@
 
         <div
           *ngIf="vendorInvoice.controls['vendorBankDetails'].touched && vendorInvoice.controls['vendorBankDetails'].dirty && vendorInvoice.controls['vendorBankDetails'].hasError('required') && !isSubmitted">
-          <p class="error-message">Vendor Bank Details is required</p>
+          <p class="error-message">Vendor Bank Details is mandatory</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['vendorBankDetails'].hasError('required')">
-          <p class="error-message">Vendor Bank Details is required</p>
+          <p class="error-message">Vendor Bank Details is mandatory</p>
         </div>
       </div>
 
@@ -154,10 +154,10 @@
 
         <div
           *ngIf="vendorInvoice.controls['paymentTerms'].touched && vendorInvoice.controls['paymentTerms'].dirty && vendorInvoice.controls['paymentTerms'].hasError('required') && !isSubmitted">
-          <p class="error-message"> Payment Terms is required</p>
+          <p class="error-message"> Payment Terms is mandatory</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['paymentTerms'].hasError('required')">
-          <p class="error-message"> Payment Terms is required</p>
+          <p class="error-message"> Payment Terms is mandatory</p>
         </div>
       </div>
 
@@ -167,10 +167,10 @@
 
         <div
           *ngIf="vendorInvoice.controls['baseLineDate'].touched && vendorInvoice.controls['baseLineDate'].dirty && vendorInvoice.controls['baseLineDate'].hasError('required') && !isSubmitted">
-          <p class="error-message">Baseline Date is required</p>
+          <p class="error-message">Baseline Date is mandatory</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['baseLineDate'].hasError('required')">
-          <p class="error-message">Baseline Date is required</p>
+          <p class="error-message">Baseline Date is mandatory</p>
         </div>
 
       </div>
@@ -181,10 +181,10 @@
 
         <div
           *ngIf="vendorInvoice.controls['paymentDueDate'].touched && vendorInvoice.controls['paymentDueDate'].dirty && vendorInvoice.controls['paymentDueDate'].hasError('required') && !isSubmitted">
-          <p class="error-message">Payment due date is required</p>
+          <p class="error-message">Payment due date is mandatory</p>
         </div>
         <div *ngIf="isSubmitted && vendorInvoice.controls['paymentDueDate'].hasError('required')">
-          <p class="error-message">Payment due date is required</p>
+          <p class="error-message">Payment due date is mandatory</p>
         </div>
 
       </div>

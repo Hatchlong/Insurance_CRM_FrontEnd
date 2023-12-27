@@ -62,7 +62,8 @@ export class EditCompanyCodeComponent {
       if (result.status === '1') {
         this.companyCode.patchValue(result.data)
         this.citiesDetails = this.countryDetials.find((el: any) => el._id === this.companyCode.value.countryId);
-        // this.companyCode.controls.languageId.setValue(this.citiesDetails.languageId)
+        // this.companyCode.controls.languageId.setValue(this.citiesDetails.languageId);
+        console.log(this.citiesDetails, 'jjjj')
         this.getSingleLanguage(this.citiesDetails.languageId);
         this.getCurrencyDetails(this.companyCode.value.countryId)
       }

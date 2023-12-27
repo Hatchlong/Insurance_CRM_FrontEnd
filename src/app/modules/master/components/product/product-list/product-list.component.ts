@@ -14,8 +14,16 @@ export class ProductListComponent implements OnInit {
   selectedFile: any = '';
   allProductDetails: any = []
   selectAll: any = false
-  materialTypeDetail: any = []
-  isShowPadding: any = false
+  materialTypeDetail:any=[]
+  isShowPadding:any = false
+  sampleJson = {
+    "companyCode": "HAT123",
+    "companyName": "Hatchlong",
+    "countryName": "Zambia",
+    "city": "2",
+    "currencyName": "INR",
+    "languageName": "English",
+  }
   industryDetail: any = []
 
   constructor(
@@ -213,6 +221,99 @@ export class ProductListComponent implements OnInit {
   }
 
 
+  
+  // File Upload
+  importHandle(inputId: any) {
+    inputId.click()
+  }
+
+
+  // File Input
+  handleFileData(event: any) {
+    console.log(event.target.files[0]);
+    this.selectedFile = event.target.files[0];
+    this.uploadFile()
+  }
+
+  async uploadFile() {
+    try {
+      const formData = new FormData();
+      formData.append('file', this.selectedFile);
+      const result: any = await this.productSer.fileUploadXlsx(formData);
+      if (result.status === '1') {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
+        // this.getAllCompanyCodeDetails(this.page, this.itemsPerPage)
+        return;
+      }
+      if (result.status === '0') {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+
+  }
+
+  exportExcel(): void {
+    this.productSer.exportToExcel(this.productDetails, 'Product', 'Sheet1');
+  }
+
+
+  downloadExcel(): void {
+   
+    const sampleRecord = [this.sampleJson]
+    this.productSer.exportToExcel(sampleRecord, 'Product', 'Sheet1');
+  }
+
+
+  async handleDeleteMuliple() {
+    try {
+      const filterData = this.productDetails.filter((el: any) => el.check === true)
+      filterData.map((el: any) => {
+        el.isActive = "C"
+      })
+      const result: any = await this.productSer.updatedManyProductDetails(filterData);
+      if (result.status === '1') {
+        this._snackBar.open("Deleted Successfully", '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
+        // this.getAllCompanyCodeDetails(this.page, this.itemsPerPage)
+        return;
+      }
+      if (result.status === '0') {
+        this._snackBar.open("Deleted Unsuccessfully", '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+
+    } catch (error: any) {
+      console.error(error)
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+  
 
 }
 

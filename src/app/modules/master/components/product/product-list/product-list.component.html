@@ -29,25 +29,25 @@
         <button (click)="nextPage('/master/add-product')" class="btn btn-primary " type="button"
           style="color: white;background: #00acff;">Add Product</button>
 
-        <button class="btn btn-danger" type="button" style="color: white;">
+        <button class="btn btn-danger" type="button" style="color: white;" (click)="handleDeleteMuliple()">
           <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
           Delete Selected Product</button>
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-          
+
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>
+            <button mat-menu-item (click)="importHandle(inputFile)">
               <span>Import Product</span>
+              <input class="d-none" #inputFile type="file" (change)="handleFileData($event)">
             </button>
-            <button mat-menu-item>
+            <button mat-menu-item (click)="exportExcel()">
               <span>Export Product</span>
             </button>
-            <button mat-menu-item>
+            <button mat-menu-item (click)="downloadExcel()">
               <span>Sample Product Sheet</span>
             </button>
           </mat-menu>
-
       </div>
     </div>
   </div>

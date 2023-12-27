@@ -29,10 +29,10 @@
                                     <option value="3">Three</option>
                                 </select>
                                 <div *ngIf="productFromGroup.controls['plant'].touched && productFromGroup.controls['plant'].touched && productFromGroup.controls['plant'].hasError('required') && !isSubmitted">
-                                    <p class="error-message">Plant is required</p>
+                                    <p class="error-message">Plant is mandatory</p>
                                 </div>
                                 <div *ngIf="isSubmitted && productFromGroup.controls['plant'].hasError('required')">
-                                    <p class="error-message">Plant is required</p>
+                                    <p class="error-message">Plant is mandatory</p>
                                 </div>
                     </div>
                                     
@@ -41,10 +41,10 @@
                         <input type="number" class="form-control " placeholder=" Delivery"
                             formControlName="delivery">
                             <div *ngIf="productFromGroup.controls['delivery'].touched && productFromGroup.controls['delivery'].touched && productFromGroup.controls['delivery'].hasError('required') && !isSubmitted">
-                                    <p class="error-message">Delivery is required</p>
+                                    <p class="error-message">Delivery is mandatory</p>
                                 </div>
                                 <div *ngIf="isSubmitted && productFromGroup.controls['delivery'].hasError('required')">
-                                    <p class="error-message">Delivery is required</p>
+                                    <p class="error-message">Delivery is mandatory</p>
                                 </div>
 
                     </div>
@@ -104,10 +104,10 @@
                                     formControlName="deliveryAddress">
                                     
                             <div *ngIf="productFromGroup.controls['deliveryAddress'].touched && productFromGroup.controls['deliveryAddress'].touched && productFromGroup.controls['deliveryAddress'].hasError('required') && !isSubmitted">
-                                    <p class="error-message">Delivery Address is required</p>
+                                    <p class="error-message">Delivery Address is mandatory</p>
                                 </div>
                                 <div *ngIf="isSubmitted && productFromGroup.controls['deliveryAddress'].hasError('required')">
-                                    <p class="error-message">Delivery Address is required</p>
+                                    <p class="error-message">Delivery Address is mandatory</p>
                                 </div>
                     </div>
 
@@ -120,10 +120,10 @@
                             <option value="3">Three</option>
                         </select>
                         <div *ngIf="productFromGroup.controls['deliveryPartner'].touched && productFromGroup.controls['deliveryPartner'].touched && productFromGroup.controls['deliveryPartner'].hasError('required') && !isSubmitted">
-                                    <p class="error-message">Delivery Partner is required</p>
+                                    <p class="error-message">Delivery Partner is mandatory</p>
                                 </div>
                                 <div *ngIf="isSubmitted && productFromGroup.controls['deliveryPartner'].hasError('required')">
-                                    <p class="error-message">Delivery Partner is required</p>
+                                    <p class="error-message">Delivery Partner is mandatory</p>
                                 </div>
                     </div>
                            

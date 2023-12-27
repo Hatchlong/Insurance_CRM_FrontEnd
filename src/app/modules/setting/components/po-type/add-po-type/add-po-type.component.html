@@ -8,10 +8,10 @@
                 <input type="text" class="form-control " placeholder="Enter PO" formControlName="poType">
                 <div
                     *ngIf="poType.controls['poType'].touched && poType.controls['poType'].dirty && poType.controls['poType'].hasError('required') && !isSubmitted">
-                    <p class="error-message">PO Type is required</p>
+                    <p class="error-message">PO Type is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && poType.controls['poType'].hasError('required')">
-                    <p class="error-message">PO Type is required</p>
+                    <p class="error-message">PO Type is mandatory</p>
                 </div>
             </div>
             <div class="col-6 py-2">
@@ -20,10 +20,10 @@
                     formControlName="poTypeDescription">
                 <div
                     *ngIf="poType.controls['poTypeDescription'].touched && poType.controls['poTypeDescription'].dirty && poType.controls['poTypeDescription'].hasError('required') && !isSubmitted">
-                    <p class="error-message">PO Type Description is required</p>
+                    <p class="error-message">PO Type Description is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && poType.controls['poTypeDescription'].hasError('required')">
-                    <p class="error-message">PO Type Description is required</p>
+                    <p class="error-message">PO Type Description is mandatory</p>
                 </div>
             </div>
             <div class="col-6 py-2">
@@ -32,10 +32,10 @@
                     formControlName="itemNumberInterval">
                 <div
                     *ngIf="poType.controls['itemNumberInterval'].touched && poType.controls['itemNumberInterval'].dirty && poType.controls['itemNumberInterval'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Item Number is required</p>
+                    <p class="error-message">Item Number is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && poType.controls['itemNumberInterval'].hasError('required')">
-                    <p class="error-message">Item Number is required</p>
+                    <p class="error-message">Item Number is mandatory</p>
                 </div>
             </div>
             <div class="col-6 py-2">
@@ -44,10 +44,10 @@
                     formControlName="internalNumberRangeAssignment">
                 <div
                     *ngIf="poType.controls['internalNumberRangeAssignment'].touched && poType.controls['internalNumberRangeAssignment'].dirty && poType.controls['internalNumberRangeAssignment'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Internal Number is required</p>
+                    <p class="error-message">Internal Number is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && poType.controls['internalNumberRangeAssignment'].hasError('required')">
-                    <p class="error-message">Internal Number is required</p>
+                    <p class="error-message">Internal Number is mandatory</p>
                 </div>
             </div>
             <div class="col-6 py-2">
@@ -56,10 +56,10 @@
                     formControlName="externalNumberRangeAssignment">
                 <div
                     *ngIf="poType.controls['externalNumberRangeAssignment'].touched && poType.controls['externalNumberRangeAssignment'].dirty && poType.controls['externalNumberRangeAssignment'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Externel Number is required</p>
+                    <p class="error-message">Externel Number is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && poType.controls['externalNumberRangeAssignment'].hasError('required')">
-                    <p class="error-message">Externel Number is required</p>
+                    <p class="error-message">Externel Number is mandatory</p>
                 </div>
             </div>
         </div>

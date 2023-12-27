@@ -10,10 +10,10 @@
               <input type="number" formControlName="inc_terms_code" class="form-control" placeholder="Enter Inco Term Id" readonly />
               <div
                 *ngIf="incoTerm.controls['inc_terms_code'].touched && incoTerm.controls['inc_terms_code'].dirty && incoTerm.controls['inc_terms_code'].hasError('required') && !isSubmitted">
-                <p class="error-message">Inco Term is required</p>
+                <p class="error-message">Inco Term is mandatory</p>
               </div>
               <div *ngIf="isSubmitted && incoTerm.controls['inc_terms_code'].hasError('required')">
-                <p class="error-message">Inco Term is required</p>
+                <p class="error-message">Inco Term is mandatory</p>
               </div>
             </div>
             <div class="col-6 py-2">
@@ -21,10 +21,10 @@
               <input type="text" formControlName="description" class="form-control" placeholder="Enter Description" />
               <div
                 *ngIf="incoTerm.controls['description'].touched && incoTerm.controls['description'].dirty && incoTerm.controls['description'].hasError('required') && !isSubmitted">
-                <p class="error-message">Description is required</p>
+                <p class="error-message">Description is mandatory</p>
               </div>
               <div *ngIf="isSubmitted && incoTerm.controls['description'].hasError('required')">
-                <p class="error-message">Description is required</p>
+                <p class="error-message">Description is mandatory</p>
               </div>
             </div>
           </div>

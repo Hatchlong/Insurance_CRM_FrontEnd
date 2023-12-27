@@ -15,10 +15,10 @@
                             formControlName="materialDescription">
                         <div
                             *ngIf="general.controls['materialDescription'].touched && general.controls['materialDescription'].dirty && general.controls['materialDescription'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Material Description is required</p>
+                            <p class="error-message">Material Description is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['materialDescription'].hasError('required')">
-                            <p class="error-message">Material Description is required</p>
+                            <p class="error-message">Material Description is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -34,10 +34,10 @@
                         </select>
                         <div
                             *ngIf="general.controls['materialGroupId'].touched && general.controls['materialGroupId'].dirty && general.controls['materialGroupId'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Material Group is required</p>
+                            <p class="error-message">Material Group is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['materialGroupId'].hasError('required')">
-                            <p class="error-message">Material Group is required</p>
+                            <p class="error-message">Material Group is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -52,10 +52,10 @@
                         </select>
                         <div
                             *ngIf="general.controls['materialTypeId'].touched && general.controls['materialTypeId'].dirty && general.controls['materialTypeId'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Material Type is required</p>
+                            <p class="error-message">Material Type is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['materialTypeId'].hasError('required')">
-                            <p class="error-message">Material Type is required</p>
+                            <p class="error-message">Material Type is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2" *ngIf="materialIdisShow">
@@ -75,10 +75,10 @@
                         </select>
                         <div
                             *ngIf="general.controls['industrySectorId'].touched && general.controls['industrySectorId'].dirty && general.controls['industrySectorId'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Industry Sector is required</p>
+                            <p class="error-message">Industry Sector is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['industrySectorId'].hasError('required')">
-                            <p class="error-message">Industry Sector is required</p>
+                            <p class="error-message">Industry Sector is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -88,10 +88,10 @@
                             formControlName="netWeight">
                         <div
                             *ngIf="general.controls['netWeight'].touched && general.controls['netWeight'].dirty && general.controls['netWeight'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Net Weight is required</p>
+                            <p class="error-message">Net Weight is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['netWeight'].hasError('required')">
-                            <p class="error-message">Net Weight is required</p>
+                            <p class="error-message">Net Weight is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -100,10 +100,10 @@
                         <input type="text" class="form-control " placeholder="Enter Volume" formControlName="volumn">
                         <div
                             *ngIf="general.controls['volumn'].touched && general.controls['volumn'].dirty && general.controls['volumn'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Volume is required</p>
+                            <p class="error-message">Volume is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['volumn'].hasError('required')">
-                            <p class="error-message">Volume is required</p>
+                            <p class="error-message">Volume is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -119,10 +119,10 @@
                         <div *ngIf="general.controls['storageConditionId'].touched &&
                             general.controls['storageConditionId'].dirty &&
                             general.controls['storageConditionId'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Storage Condition is required</p>
+                            <p class="error-message">Storage Condition is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['storageConditionId'].hasError('required')">
-                            <p class="error-message">Storage Condition is required</p>
+                            <p class="error-message">Storage Condition is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -135,10 +135,10 @@
                         </select>
                         <div
                             *ngIf="general.controls['tempConditionId'].touched && general.controls['tempConditionId'].dirty && general.controls['tempConditionId'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Temp. Condition is required</p>
+                            <p class="error-message">Temp. Condition is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['tempConditionId'].hasError('required')">
-                            <p class="error-message">Temp. Condition is required</p>
+                            <p class="error-message">Temp. Condition is mandatory</p>
                         </div>
 
                     </div>
@@ -153,10 +153,10 @@
                         </select>
                         <div
                             *ngIf="general.controls['transporationGroupId'].touched && general.controls['transporationGroupId'].dirty && general.controls['transporationGroupId'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Trans Group is required</p>
+                            <p class="error-message">Trans Group is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['transporationGroupId'].hasError('required')">
-                            <p class="error-message">Trans Group is required</p>
+                            <p class="error-message">Trans Group is mandatory</p>
                         </div>
                     </div>
 
@@ -166,10 +166,10 @@
                             formControlName="allowedPKGWeight">
                         <div
                             *ngIf="general.controls['allowedPKGWeight'].touched && general.controls['allowedPKGWeight'].dirty && general.controls['allowedPKGWeight'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Allowed pkg Weight is required</p>
+                            <p class="error-message">Allowed pkg Weight is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['allowedPKGWeight'].hasError('required')">
-                            <p class="error-message">Allowed pkg Weight is required</p>
+                            <p class="error-message">Allowed pkg Weight is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -185,10 +185,10 @@
                         </select>
                         <div
                             *ngIf="general.controls['unitOfDeminsion'].touched && general.controls['unitOfDeminsion'].dirty && general.controls['unitOfDeminsion'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Unit Dimension is required</p>
+                            <p class="error-message">Unit Dimension is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['unitOfDeminsion'].hasError('required')">
-                            <p class="error-message">Unit Dimension is required</p>
+                            <p class="error-message">Unit Dimension is mandatory</p>
                         </div>
                     </div>
                     <!-- <div class="col-6 py-2">
@@ -202,10 +202,10 @@
                         </select>
                         <div
                             *ngIf="general.controls['unitWeight'].touched && general.controls['unitWeight'].dirty && general.controls['unitWeight'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Unit Weight is required</p>
+                            <p class="error-message">Unit Weight is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['unitWeight'].hasError('required')">
-                            <p class="error-message">Unit Weight is required</p>
+                            <p class="error-message">Unit Weight is mandatory</p>
                         </div>
                     </div> -->
                     <div class="col-6 py-2">
@@ -214,10 +214,10 @@
                             formControlName="allowedPKGVolume">
                         <div
                             *ngIf="general.controls['allowedPKGVolume'].touched && general.controls['allowedPKGVolume'].dirty && general.controls['allowedPKGVolume'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Allowed pkg Volume is required</p>
+                            <p class="error-message">Allowed pkg Volume is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['allowedPKGVolume'].hasError('required')">
-                            <p class="error-message">Allowed pkg Volume is required</p>
+                            <p class="error-message">Allowed pkg Volume is mandatory</p>
                         </div>
                     </div>
                     <!-- <div class="col-6 py-2">
@@ -230,10 +230,10 @@
                         </select>
                         <div
                             *ngIf="general.controls['volumeUnit'].touched && general.controls['volumeUnit'].dirty && general.controls['volumeUnit'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Volume Unit is required</p>
+                            <p class="error-message">Volume Unit is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['volumeUnit'].hasError('required')">
-                            <p class="error-message">Volume Unit is required</p>
+                            <p class="error-message">Volume Unit is mandatory</p>
                         </div>
                     </div> -->
                     <div class="col-6 py-2">
@@ -242,10 +242,10 @@
                             formControlName="excessWTTolerance">
                         <div
                             *ngIf="general.controls['excessWTTolerance'].touched && general.controls['excessWTTolerance'].dirty && general.controls['excessWTTolerance'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Excess Weight is required</p>
+                            <p class="error-message">Excess Weight is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['excessWTTolerance'].hasError('required')">
-                            <p class="error-message">Excess Weight is required</p>
+                            <p class="error-message">Excess Weight is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -254,10 +254,10 @@
                             formControlName="oldMaterialNumber">
                         <div
                             *ngIf="general.controls['oldMaterialNumber'].touched && general.controls['oldMaterialNumber'].dirty && general.controls['oldMaterialNumber'].hasError('required') && !isSubmitted">
-                            <p class="error-message">OLd Material No. is required</p>
+                            <p class="error-message">OLd Material No. is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['oldMaterialNumber'].hasError('required')">
-                            <p class="error-message">OLd Material No. is required</p>
+                            <p class="error-message">OLd Material No. is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -272,10 +272,10 @@
                         </select>
                         <div
                             *ngIf="general.controls['baseUnitMeasure'].touched && general.controls['baseUnitMeasure'].dirty && general.controls['baseUnitMeasure'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Base Unit is required</p>
+                            <p class="error-message">Base Unit is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['baseUnitMeasure'].hasError('required')">
-                            <p class="error-message">Base Unit is required</p>
+                            <p class="error-message">Base Unit is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -284,10 +284,10 @@
                             formControlName="grossWeight">
                         <div
                             *ngIf="general.controls['grossWeight'].touched && general.controls['grossWeight'].dirty && general.controls['grossWeight'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Gross Weight is required</p>
+                            <p class="error-message">Gross Weight is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['grossWeight'].hasError('required')">
-                            <p class="error-message">Gross Weight is required</p>
+                            <p class="error-message">Gross Weight is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -300,10 +300,10 @@
                         </select>
                         <div
                             *ngIf="general.controls['weightUnit'].touched && general.controls['weightUnit'].dirty && general.controls['weightUnit'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Weight Unit is required</p>
+                            <p class="error-message">Weight Unit is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['weightUnit'].hasError('required')">
-                            <p class="error-message">Weight Unit is required</p>
+                            <p class="error-message">Weight Unit is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -316,10 +316,10 @@
                         </select>
                         <div
                             *ngIf="general.controls['volumnUnit'].touched && general.controls['volumnUnit'].dirty && general.controls['volumnUnit'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Volume Unit is required</p>
+                            <p class="error-message">Volume Unit is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['volumnUnit'].hasError('required')">
-                            <p class="error-message">Volume Unit is required</p>
+                            <p class="error-message">Volume Unit is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -327,10 +327,10 @@
                         <input type="text" class="form-control " placeholder="Enter Length" formControlName="length">
                         <div
                             *ngIf="general.controls['length'].touched && general.controls['length'].touched && general.controls['length'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Length is required</p>
+                            <p class="error-message">Length is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['length'].hasError('required')">
-                            <p class="error-message">Length is required</p>
+                            <p class="error-message">Length is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -339,10 +339,10 @@
                         <input type="text" class="form-control " placeholder="Enter Width" formControlName="width">
                         <div
                             *ngIf="general.controls['width'].touched && general.controls['width'].dirty && general.controls['width'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Width is required</p>
+                            <p class="error-message">Width is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['width'].hasError('required')">
-                            <p class="error-message">Width is required</p>
+                            <p class="error-message">Width is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -351,10 +351,10 @@
                         <input type="text" class="form-control " placeholder="Enter Height" formControlName="height">
                         <div
                             *ngIf="general.controls['height'].touched && general.controls['height'].dirty && general.controls['height'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Height is required</p>
+                            <p class="error-message">Height is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['height'].hasError('required')">
-                            <p class="error-message">Height is required</p>
+                            <p class="error-message">Height is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -369,10 +369,10 @@
                         </select>
                         <div
                             *ngIf="general.controls['batchManagment'].touched && general.controls['batchManagment'].dirty && general.controls['batchManagment'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Batch MAanagement is required</p>
+                            <p class="error-message">Batch MAanagement is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['batchManagment'].hasError('required')">
-                            <p class="error-message">Batch MAanagement is required</p>
+                            <p class="error-message">Batch MAanagement is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -388,10 +388,10 @@
                         </select>
                         <div
                             *ngIf="general.controls['taxClassificationId'].touched && general.controls['taxClassificationId'].dirty && general.controls['taxClassificationId'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Tax Classification is required</p>
+                            <p class="error-message">Tax Classification is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['taxClassificationId'].hasError('required')">
-                            <p class="error-message">Tax Classification is required</p>
+                            <p class="error-message">Tax Classification is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -401,10 +401,10 @@
                             formControlName="manfacturePartNo">
                         <div
                             *ngIf="general.controls['manfacturePartNo'].touched && general.controls['manfacturePartNo'].dirty && general.controls['manfacturePartNo'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Manufacture Part is required</p>
+                            <p class="error-message">Manufacture Part is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['manfacturePartNo'].hasError('required')">
-                            <p class="error-message">Manufacture Part is required</p>
+                            <p class="error-message">Manufacture Part is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -420,10 +420,10 @@
                         </select>
                         <div
                             *ngIf="general.controls['expirationDataRelavance'].touched && general.controls['expirationDataRelavance'].dirty && general.controls['expirationDataRelavance'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Expiration Date is required</p>
+                            <p class="error-message">Expiration Date is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['expirationDataRelavance'].hasError('required')">
-                            <p class="error-message">Expiration Date is required</p>
+                            <p class="error-message">Expiration Date is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -433,10 +433,10 @@
                             formControlName="excessVolumnTol">
                         <div
                             *ngIf="general.controls['excessVolumnTol'].touched && general.controls['excessVolumnTol'].dirty && general.controls['excessVolumnTol'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Excess Volume is required</p>
+                            <p class="error-message">Excess Volume is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['excessVolumnTol'].hasError('required')">
-                            <p class="error-message">Excess Volume is required</p>
+                            <p class="error-message">Excess Volume is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -446,10 +446,10 @@
                             formControlName="materialCost">
                         <div
                             *ngIf="general.controls['materialCost'].touched && general.controls['materialCost'].dirty && general.controls['materialCost'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Material Cost is required</p>
+                            <p class="error-message">Material Cost is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['materialCost'].hasError('required')">
-                            <p class="error-message">Material Cost is required</p>
+                            <p class="error-message">Material Cost is mandatory</p>
                         </div>
                     </div>
                 </div>

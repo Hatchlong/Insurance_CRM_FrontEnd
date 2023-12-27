@@ -92,7 +92,8 @@ export class EditPlantDataComponent {
     try {
       const result: any = await this.plantDataSer.singlePlantData(this.plantDataId)
       if (result.status === '1') {
-        this.plantsData.patchValue(result.data)
+        this.plantsData.patchValue(result.data);
+        console.log(this.plantsData.value)
         this.citiesDetails = this.countryDetials.find((el: any) => el._id === this.plantsData.value.countryId);
         this.plantsData.controls.languageId.setValue(this.citiesDetails.languageId)
         this.getSingleLanguage(this.citiesDetails.languageId)

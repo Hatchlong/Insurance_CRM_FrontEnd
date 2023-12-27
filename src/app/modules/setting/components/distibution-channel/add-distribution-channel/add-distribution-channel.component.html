@@ -11,10 +11,10 @@
                     formControlName="distributionChannel">
                 <div
                     *ngIf="channel.controls['distributionChannel'].touched && channel.controls['distributionChannel'].dirty && channel.controls['distributionChannel'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Distribution Channel is required</p>
+                    <p class="error-message">Distribution Channel is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && channel.controls['distributionChannel'].hasError('required')">
-                    <p class="error-message">Distribution Channel is required</p>
+                    <p class="error-message">Distribution Channel is mandatory</p>
                 </div>
             </div>
             <div class="col-6 py-2 py-1">
@@ -23,10 +23,10 @@
                     formControlName="distributionDescription">
                     <div
                     *ngIf="channel.controls['distributionDescription'].touched && channel.controls['distributionDescription'].dirty && channel.controls['distributionDescription'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Description is required</p>
+                    <p class="error-message">Description is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && channel.controls['distributionDescription'].hasError('required')">
-                    <p class="error-message">Description is required</p>
+                    <p class="error-message">Description is mandatory</p>
                 </div>
             </div>
             <div class="col-12 d-flex justify-content-end py-2">
