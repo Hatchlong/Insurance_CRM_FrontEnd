@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MasterRoutingModule } from './master-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import {MatTabsModule} from '@angular/material/tabs';
-import {ReactiveFormsModule} from '@angular/forms'
+import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
@@ -23,6 +23,7 @@ import { EditVendorComponent } from './components/vendor/edit-vendor/edit-vendor
 import { VendorService } from './services/vendor/vendor.service';
 import { ProductService } from './services/product/product.service';
 import { EditProductComponent } from './components/product/edit-product/edit-product.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,9 @@ import { EditProductComponent } from './components/product/edit-product/edit-pro
     MatDividerModule,
     MatMenuModule,
     MatTabsModule,
-    HttpClientModule
+    HttpClientModule,
+    PaginationModule.forRoot(),
+    FormsModule
   ],
   providers:[CountryService, VendorService, ProductService]
 })
