@@ -21,7 +21,7 @@
           <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
             <button (click)="nextPage('/master/add-vendor')" class="btn btn-primary" type="button">Add Vendor</button>
           
-            <button class="btn btn-danger" type="button">
+            <button class="btn btn-danger" type="button" (click)="handleDeleteMuliple()">
               <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
               Delete Selected Vendor</button>
             
@@ -99,6 +99,9 @@
 
         </table>
       </div>
+    </div>
+    <div class="col-xs-12 col-12 d-flex justify-content-center" *ngIf="vendorDetails.length > 10">
+      <pagination [totalItems]="totalItem" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
     </div>
   </div>
 </div>

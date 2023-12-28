@@ -40,10 +40,10 @@
                                             <p class="error-message">Vendor Type is mandatory</p>
                                         </div>
                                     </div>
-                                    <div class="col-12 py-2" *ngIf="vendorIdisShow">
+                                    <div class="col-12 py-2" [ngStyle]="{'pointer-events' : !vendorIdisShow ? 'none' : 'all'}" >
                                         <label for="">Vendor Id </label>
                                         <input type="text" class="form-control " formControlName="vendorId"
-                                            placeholder="Vendor Id" >
+                                            placeholder="Enter Vendor Id" [readOnly]="!vendorIdisShow" >
                                     </div>
                                 </div>
                             </div>
@@ -66,7 +66,7 @@
                             <div class="col-6 py-2">
                                 <label for="">Country <sup>*</sup> </label>
                                 <select class="form-select" formControlName="countryId" (change)="selectCountryName($event)">
-                                    <option [selected]="vendorFormGroup.value.currency === ''" value="" hidden>Select Currency</option>
+                                    <option [selected]="vendorFormGroup.value.currency === ''" value="" hidden>Select Country</option>
                                     <option *ngFor="let list of countryDetails" [value]="list._id">{{list.countryName}}</option>
 
                                 </select>
@@ -110,18 +110,18 @@
                                 </div>
                             </div>
                             <div class="col-6 py-2">
-                                <label for="">Inco Term <sup>*</sup></label>
+                                <label for="">Increment Terms<sup>*</sup></label>
                                 <select class="form-select" formControlName="incrementTreamsId" (change)="handleInco($event)">
                                     <option [selected]="vendorFormGroup.value.incrementTreamsId=== ''" value="" hidden>Select Increment Treams</option>
                                     <option *ngFor="let inco of incoDetails" [value]="inco._id">{{inco.inc_terms_code}}</option>
                                 </select>                               
                                 <div
                                     *ngIf="vendorFormGroup.controls['incrementTreamsId'].touched && vendorFormGroup.controls['incrementTreamsId'].dirty && vendorFormGroup.controls['incrementTreamsId'].hasError('required') && !isSubmitted">
-                                    <p class="error-message">Inco Term is mandatory</p>
+                                    <p class="error-message">Increment Terms is mandatory</p>
                                 </div>
                                 <div
                                     *ngIf="isSubmitted && vendorFormGroup.controls['incrementTreamsId'].hasError('required')">
-                                    <p class="error-message">Inco Term is mandatory</p>
+                                    <p class="error-message">Increment Terms is mandatory</p>
                                 </div>
                             </div>
                         </div>
@@ -171,14 +171,14 @@
                                         </td>
                                         <td>
                                             <input type="text" formControlName="taxNumber" class="form-control"
-                                                placeholder="enter tax number">
+                                                placeholder="Enter Tax Number">
                                         </td>
                                         <td>
                                             <input type="text" formControlName="vatRegistrationNo" class="form-control"
-                                                placeholder="enter vat reg. no.">
+                                                placeholder="Enter Vat Reg. No.">
                                         </td>
                                         <td>
-                                            <select class="form-select " aria-label="Default select example" formControlName="currency"  [ngStyle]="{'pointer-events': !vendorFormGroup.value.countryId ? 'none' :  'all'}">
+                                            <select class="form-select " aria-label="Default select example" formControlName="currency" (change)="handleCurrency($event)" [ngStyle]="{'pointer-events': !vendorFormGroup.value.countryId ? 'none' :  'all'}">
                                                 <option [selected]="vendorFormGroup.value.currency===''" value="" hidden>Select Currency</option>
                                                 <option *ngFor="let list of currencyDetails" [value]="list._id">{{list.code}}</option>
                                             </select>
@@ -194,27 +194,27 @@
                                           
                                         </td>
                                         <td>
-                                            <select class="form-select" formControlName="bankCountry">                                           
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
-                                            </select>
+                                                <select class="form-select" formControlName="bankCountry" (change)="selectCountryName($event)">
+                                                    <option [selected]="vendorFormGroup.value.currency === ''" value="" hidden>Select Country</option>
+                                                    <option *ngFor="let list of countryDetails" [value]="list._id">{{list.countryName}}</option>
+                
+                                                </select>
                                         </td>
                                         <td>
                                             <input type="text" formControlName="bankKey" class="form-control"
-                                                placeholder="enter bank key">
+                                                placeholder="Enter Bank Key">
                                         </td>
                                         <td>
                                             <input type="text" formControlName="bankAccount" class="form-control"
-                                                placeholder="enter bank account">
+                                                placeholder="Enter Bank Account">
                                         </td>
                                         <td>
                                             <input type="text" formControlName="referenceDetails" class="form-control"
-                                                placeholder="enter reference details">
+                                                placeholder="Enter Reference Details">
                                         </td>
                                         <td>
                                             <input type="text" formControlName="accountHolder" class="form-control"
-                                                placeholder="enter account holder">
+                                                placeholder="Enter Account Holder">
                                         </td>
                                         <td>
                                             <input type="date" formControlName="backDetailsValidFrom" class="form-control">
@@ -223,17 +223,20 @@
                                             <input type="date" formControlName="backDetailsValidTo" class="form-control">
                                         </td>
                                         <td>
-                                            <select class="form-select" formControlName="reconciliationAccount">        
+                                            <select class="form-select" formControlName="reconciliationAccount"> 
+                                                <option value="">Select Reconciliation Account</option>       
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
                                                 <option value="3">Three</option>
                                             </select>
                                         </td>
                                         <td>
-                                            <select class="form-select" formControlName="paymentMethod">                                              
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
+
+                                            
+                                            <select class="form-select" formControlName="paymentMethod">   
+                                                <option [selected]="vendorFormGroup.value.paymentMethod === ''" value="" hidden>Select Payment Method</option>
+                                                <option *ngFor="let payment of paymentMethodDetails" [value]="payment._id">{{payment.description}}</option>
+                                                
                                             </select>
                                         </td>
                                         <td>

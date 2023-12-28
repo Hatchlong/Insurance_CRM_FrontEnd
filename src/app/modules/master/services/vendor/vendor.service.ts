@@ -20,7 +20,7 @@ export class VendorService {
   }
 
   getAllVendorDetailsPage(skip?:any, itemsPerPage?:any) {
-    return this.http.get(`http://localhost:4000/api/master/vendor/getAll/${skip}/${itemsPerPage}`).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/vendor/getAll/`).toPromise()
   }
 
   singleVendor(id: any) {
@@ -40,6 +40,10 @@ export class VendorService {
     return this.http.get(`http://localhost:4000/api/config/vendorType/getAll`).toPromise()
   }
 
+    // payment_method
+    getAllPaymentMethodDetails(){
+      return this.http.get('http://localhost:4000/api/config/payment/getAll').toPromise()
+    }
   
   fileUploadVendor(data: any) {
     return this.http.post(`http://localhost:4000/api/master/vendor/upload`, data).toPromise()

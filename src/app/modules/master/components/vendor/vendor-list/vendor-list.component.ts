@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { VendorService } from '../../../services/vendor/vendor.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 @Component({
   selector: 'app-vendor-list',
@@ -22,27 +23,42 @@ totalItem: any = 0;
   currentPage = 1;
   page?: number = 0;
   itemsPerPage = 10;
-sampleJson = {
-   
+sampleJson = {   
+  "vendorId":"12345",
   "vendorName": "Test",
-  "vendorTypeId": "1",
-  "vendorTypeName":"A",
-  "vendorId":"123",
-  "addressCountry": "zam",
-  "language": "english",
-  "modeOfTransport": "1",
-  "incrementTreams": "1",
-  "country": "1",
-  "createdOn": "1",
-  "createdBy": "1",
-  "changedOn": "1",
-  "changedBy": "1",
+  "vendorTypeId": "abc",
+  "vendorTypeName":"ABC",
+  "vendorTypeFlag":"M",
+  "addressCountry": "zambia",
+  "languageName": "english",
+  "modeOfTransportName": "abc",
+  "incrementTreamsName": "ABC",
+  "countryName": "zambia",
+  "createdOn": "xx/yy/zzzz",
+  "createdBy": "ABC",
+  "changedOn": "xx/yy/zzzz",
+  "changedBy": "1abc",
   "financialData":[{
-      "vatRegistrationNo":"1"
-  },{
-    "vatRegistrationNo":"2"  
-  }]
+     "taxNumber":"12345",  
+      "vatRegistrationNo":"012345",
+      "currency":"Dollar",
+      "companyCode":"123abc",  
+      "bankCountry":"Zambia",  
+      "bankKey":"000",  
+      "bankAccount":"7313XXXXX0001",  
+      "referenceDetails":"xyz",  
+      "accountHolder":"ABC",  
+      "backDetailsValidFrom":"xx/yy/zzzz",  
+      "backDetailsValidTo":"xx/yy/zzzz",  
+      "reconciliationAccount":"12345",  
+      "paymentMethod":"test2",  
+      "paymentTerms":"test3",  
+    },
+
+]
 }
+
+
 
   constructor(
     private router:Router,
@@ -51,7 +67,7 @@ sampleJson = {
   ){ }
 
    ngOnInit(): void{
-    this.getAllVendorData()
+    this.getAllVendorData(this.page, this.itemsPerPage)
     this.getVendorType()
   }
 
@@ -87,9 +103,9 @@ sampleJson = {
 
 
    //get data into list
-   async getAllVendorData(){
+   async getAllVendorData(page: any, itemsPerPage: any){
     try {
-      const result:any = await this.vendorSer.getAllVendorDetails();
+      const result:any = await this.vendorSer.getAllVendorDetailsPage(page, itemsPerPage);
       console.log(result)
       if(result.status === '1'){
         result.data.map((el:any)=>{
@@ -126,7 +142,7 @@ return
             verticalPosition: 'top',
             panelClass: 'app-notification-success',
           });
-          this.getAllVendorData() 
+          this.getAllVendorData(this.page, this.itemsPerPage) 
           return;
         }
         if (result.status === '0') {
@@ -181,7 +197,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        // this.getAllVendorData(this.page, this.itemsPerPage)
+        this.getAllVendorData(this.page, this.itemsPerPage)
         return;
       }
       if (result.status === '0') {
@@ -216,39 +232,39 @@ return
     }
 
 
-    // async handleDeleteMuliple() {
-    //   try {
-    //     const filterData = handleFilter1.vendorDetails.filter((el: any) => el.check === true)
-    //     filterData.map((el: any) => {
-    //       el.isActive = "C"
-    //     })
-    //     const result: any = await this.vendorSer.updateVendorMany(filterData);
-    //     if (result.status === '1') {
-    //       this._snackBar.open("Deleted Successfully", '', {
-    //         duration: 5 * 1000, horizontalPosition: 'center',
-    //         verticalPosition: 'top',
-    //         panelClass: 'app-notification-success',
-    //       });
-    //       this.getAllVendorData(this.page, this.itemsPerPage)
-    //       return;
-    //     }
-    //     if (result.status === '0') {
-    //       this._snackBar.open("Deleted Unsuccessfully", '', {
-    //         duration: 5 * 1000, horizontalPosition: 'center',
-    //         verticalPosition: 'top',
-    //         panelClass: 'app-notification-error',
-    //       });
-    //     }
+    async handleDeleteMuliple() {
+      try {
+        const filterData = this.vendorDetails.filter((el: any) => el.check === true)
+        filterData.map((el: any) => {
+          el.isActive = "C"
+        })
+        const result: any = await this.vendorSer.updateVendorMany(filterData);
+        if (result.status === '1') {
+          this._snackBar.open("Deleted Successfully", '', {
+            duration: 5 * 1000, horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: 'app-notification-success',
+          });
+          this.getAllVendorData(this.page, this.itemsPerPage)
+          return;
+        }
+        if (result.status === '0') {
+          this._snackBar.open("Deleted Unsuccessfully", '', {
+            duration: 5 * 1000, horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: 'app-notification-error',
+          });
+        }
   
-    //   } catch (error: any) {
-    //     console.error(error)
-    //     this._snackBar.open('Something went wrong', '', {
-    //       duration: 5 * 1000, horizontalPosition: 'center',
-    //       verticalPosition: 'top',
-    //       panelClass: 'app-notification-error',
-    //     });
-    //   }
-    // }
+      } catch (error: any) {
+        console.error(error)
+        this._snackBar.open('Something went wrong', '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    }
   
 
 
@@ -295,6 +311,13 @@ return
         panelClass: 'app-notification-error',
       });
     }
+  }
+
+  
+  pageChanged(event: PageChangedEvent): void {
+    this.page = event.page;
+    const records = (this.page-1) * this.itemsPerPage;
+    this.getAllVendorData(records, this.itemsPerPage)
   }
   
 }
