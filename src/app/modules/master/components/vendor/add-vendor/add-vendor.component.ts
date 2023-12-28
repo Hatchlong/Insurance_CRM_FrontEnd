@@ -49,6 +49,7 @@ export class AddVendorComponent implements OnInit {
     this.getMOTDetail()
     this.getIncoTermsDetail()
     this.getCompanyCodeDetail()
+    this.getCurrencyDetails()
     this.getPaymentTermsDetail()
     this.getVendorType()
   }
@@ -229,7 +230,6 @@ export class AddVendorComponent implements OnInit {
     this.vendorFormGroup.controls.countryName.setValue(this.citiesDetails.countryName)
     this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
     this.getSingleLanguage(this.citiesDetails.languageId)
-    this.getCurrencyDetails(event.target.value)
 
   }
 
@@ -346,9 +346,9 @@ export class AddVendorComponent implements OnInit {
   }
 
   // Get All details for Currency code
-  async getCurrencyDetails(companyId: any) {
+  async getCurrencyDetails() {
     try {
-      const result: any = await this.companySer.getAllCurrencyDetails(companyId);
+      const result: any = await this.companySer.getAllCurrencyDetails();
       if (result.status === '1') {
         this.currencyDetails = result.data;
 
