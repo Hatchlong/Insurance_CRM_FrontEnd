@@ -429,14 +429,14 @@
                     <div class="col-6 py-2">
 
                         <label for="">Excess Volume tolerance <sup>*</sup></label>
-                        <input type="text" class="form-control " placeholder="Enter Excess Vol tol"
+                        <input type="text" class="form-control " placeholder="Enter Excess Volume tolerance"
                             formControlName="excessVolumnTol">
                         <div
                             *ngIf="general.controls['excessVolumnTol'].touched && general.controls['excessVolumnTol'].dirty && general.controls['excessVolumnTol'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Excess Volume is mandatory</p>
+                            <p class="error-message">Excess Volume tolerance is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['excessVolumnTol'].hasError('required')">
-                            <p class="error-message">Excess Volume is mandatory</p>
+                            <p class="error-message">Excess Volume tolerance is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">

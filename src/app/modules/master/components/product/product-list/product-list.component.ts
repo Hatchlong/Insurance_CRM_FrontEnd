@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from '../../../services/product/product.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,6 +10,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
+  @ViewChild('searchDataInput', { static: true }) searchInput!: ElementRef;
 
   productDetails: any = []
   selectedFile: any = '';
@@ -17,6 +18,16 @@ export class ProductListComponent implements OnInit {
   selectAll: any = false
   materialTypeDetail: any = []
   isShowPadding: any = false
+  selectedMaterialType: string = '';
+  selectedIndustry:string=''
+  industryDetail: any = []
+  totalItem: any = 0;
+  currentPage = 1;
+  page?: number = 0;
+  itemsPerPage = 10;
+
+  filterDetails: any = []
+
   sampleJson = {
     "materialId": "pro123",
     "materialDescription": "Test",
@@ -80,11 +91,6 @@ export class ProductListComponent implements OnInit {
 
     }]
   }
-  industryDetail: any = []
-  totalItem: any = 0;
-  currentPage = 1;
-  page?: number = 0;
-  itemsPerPage = 10;
   constructor(
     private router: Router,
     private productSer: ProductService,
@@ -128,6 +134,8 @@ export class ProductListComponent implements OnInit {
       this.selectAll = true
     }
   }
+
+
 
   //get industry sector 
 
@@ -178,25 +186,72 @@ export class ProductListComponent implements OnInit {
       });
     }
   }
+
+  handleFilter(event: any) {
+    const filterValue = event.target.value.toUpperCase();
+    if (!filterValue && !this.selectedMaterialType && !this.selectedIndustry) {
+      this.productDetails = this.allProductDetails;
+      return;
+    }
+  
+    this.productDetails = this.allProductDetails.filter((obj: any) =>
+      ((obj.materialId.toUpperCase()).includes(filterValue) || (obj.materialDescription.toUpperCase()).includes(filterValue)) &&
+      (!this.selectedMaterialType || obj.materialTypeName.toLowerCase() === this.selectedMaterialType.toLowerCase()) &&
+      (!this.selectedIndustry || obj.industrySectorName.toLowerCase() === this.selectedIndustry.toLowerCase())
+
+    );
+  }
+  
   handleMaterial(event: any) {
-    if (!event.target.value) {
-      this.productDetails = this.allProductDetails
-      return
-    }
-    console.log(event.target.value);
-    const isStringIncluded = this.allProductDetails.filter((obj: any) => ((obj.materialTypeName.toLowerCase() === (event.target.value).toLowerCase())))
-    // const isStringIncluded = this.allVendorDetails.filter((obj:any) => ((obj.vendorTypeName.toLowerCase() === (event.target.value).toLowerCase())));
-    this.productDetails = isStringIncluded
+    this.selectedMaterialType = event.target.value;
+    this.filterData();
   }
-  handleIndustry(event: any) {
-    if (!event.target.value) {
-      this.productDetails = this.allProductDetails
-      return
-    }
-    const industryFilter = this.allProductDetails.filter((obj: any) => { return obj.industrySectorName === event.target.value })
-    // const industryFilter=this.allProductDetails.filter((obj:any)=>((obj.industry)))
-    this.productDetails = industryFilter
+  handleIndustry(event:any){
+    this.selectedIndustry = event.target.value;
+      this.filterData();
   }
+  
+  filterData() {
+    const filterValue = this.searchInput.nativeElement.value.toUpperCase();
+    this.productDetails = this.allProductDetails.filter((obj: any) =>
+      ((obj.materialId.toUpperCase()).includes(filterValue) || (obj.materialDescription.toUpperCase()).includes(filterValue)) &&
+      (!this.selectedMaterialType || obj.materialTypeName.toLowerCase() === this.selectedMaterialType.toLowerCase()) &&
+      (!this.selectedIndustry || obj.industrySectorName.toLowerCase() === this.selectedIndustry.toLowerCase()) 
+    );
+  }
+  
+  // handleFilter(event: any) {
+  //   if (!event.target.value) {
+  //     this.productDetails = this.allProductDetails
+  //   }
+  //   console.log(event.target.value)
+  //   const isStringIncluded = this.allProductDetails.filter((obj: any) => ((obj.materialId.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.materialDescription.toUpperCase()).includes(event.target.value.toUpperCase())));
+  //   this.productDetails = isStringIncluded 
+  // }
+
+
+  // handleMaterial(event: any) {
+  //   if (!event.target.value) {
+  //     this.productDetails = this.allProductDetails
+  //     return
+  //   }
+    
+  //   console.log(event.target.value);
+  //   const isStringIncluded = this.allProductDetails.filter((obj: any) => ((obj.materialTypeName.toLowerCase() === (event.target.value).toLowerCase())))
+  //   this.productDetails = isStringIncluded
+  // }
+  // handleIndustry(event: any) {
+  //   // if (!event.target.value) {
+  //   //   this.productDetails = this.allProductDetails
+  //   //   return
+  //   // }
+  //   // const industryFilter = this.allProductDetails.filter((obj: any) => { return obj.industrySectorName === event.target.value })
+  //   // this.productDetails = industryFilter
+  //   this.selectedMaterialType = event.target.value;
+  //   this.filterData();
+  // }
+
+
 
   async getProductDetails(page: any, itemsPerPage: any) {
     try {
@@ -206,6 +261,7 @@ export class ProductListComponent implements OnInit {
         result.data.map((el: any) => {
           el.check = false
         })
+        this.filterDetails = result.data
         this.allProductDetails = result.data
         this.productDetails = result.data
       }
@@ -269,14 +325,6 @@ export class ProductListComponent implements OnInit {
   }
 
 
-  handleFilter(event: any) {
-    if (!event.target.value) {
-      this.productDetails = this.allProductDetails
-    }
-    console.log(event.target.value)
-    const isStringIncluded = this.allProductDetails.filter((obj: any) => ((obj.materialId.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.materialDescription.toUpperCase()).includes(event.target.value.toUpperCase())));
-    this.productDetails = isStringIncluded
-  }
 
 
 
