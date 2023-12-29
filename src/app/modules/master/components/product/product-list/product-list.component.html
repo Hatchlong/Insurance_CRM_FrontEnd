@@ -10,19 +10,19 @@
           </div>
           <div class="col-2">
             <select class="form-select " aria-label="Default select example" (change)="handleMaterial($event)">
-              <option selected>Select Material Type</option>
+              <option selected value = ''>Select Material Type</option>
               <option *ngFor="let list of materialTypeDetail" [value]="list.description">{{list.description}}</option>
 
             </select>
           </div>
           <div class="col-2">
             <select class="form-select " aria-label="Default select example" (change)="handleIndustry($event)">
-              <option selected>Industry Sector</option>
+              <option selected value = ''>Select Industry Sector</option>
               <option *ngFor="let list of industryDetail" [value]="list.description">{{list.description}}</option>
             </select>
           </div>
 
-          <div class="col-4 ms-5">
+          <div class="col-4 ms-auto">
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
               <button (click)="nextPage('/master/add-product')" class="btn btn-primary " type="button"

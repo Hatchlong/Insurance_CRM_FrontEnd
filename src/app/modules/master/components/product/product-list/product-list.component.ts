@@ -59,7 +59,7 @@ export class ProductListComponent implements OnInit {
     "materialCost": "1",
     "plantData": [{
       "storagePlant": "new plant",
-      "storageLocation":"storage location",
+      "storageLocation": "storage location",
       "procurementType": "tab",
       "safetyStock": "323",
       "totalReplLeadTime": "768",
@@ -77,7 +77,7 @@ export class ProductListComponent implements OnInit {
       "acctAssignmentGrp": "acct",
       "minimumOrderQTY": "44",
       "minimumDeliveryQTY": "90",
-    
+
     }]
   }
   industryDetail: any = []
@@ -181,20 +181,19 @@ export class ProductListComponent implements OnInit {
   handleMaterial(event: any) {
     if (!event.target.value) {
       this.productDetails = this.allProductDetails
+      return
     }
     console.log(event.target.value);
-    // const isStringIncluded = this.allProductDetails.filter((obj: any) => ((obj.materialTypeName === event.target.value)));
-    const isStringIncluded = this.allProductDetails.filter((obj: any) => { return obj.materialTypeName === event.target.value })
-
+    const isStringIncluded = this.allProductDetails.filter((obj: any) => ((obj.materialTypeName.toLowerCase() === (event.target.value).toLowerCase())))
+    // const isStringIncluded = this.allVendorDetails.filter((obj:any) => ((obj.vendorTypeName.toLowerCase() === (event.target.value).toLowerCase())));
     this.productDetails = isStringIncluded
-
-
   }
   handleIndustry(event: any) {
     if (!event.target.value) {
       this.productDetails = this.allProductDetails
+      return
     }
-    const industryFilter = this.allProductDetails.filter((obj: any) => { return obj.industry === event.target.value })
+    const industryFilter = this.allProductDetails.filter((obj: any) => { return obj.industrySectorName === event.target.value })
     // const industryFilter=this.allProductDetails.filter((obj:any)=>((obj.industry)))
     this.productDetails = industryFilter
   }
@@ -372,7 +371,7 @@ export class ProductListComponent implements OnInit {
     }
   }
 
-  
+
   pageChanged(event: PageChangedEvent): void {
     this.page = event.page;
     const records = (this.page - 1) * this.itemsPerPage;
