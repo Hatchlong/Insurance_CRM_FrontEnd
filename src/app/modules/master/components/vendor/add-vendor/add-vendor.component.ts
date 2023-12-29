@@ -30,7 +30,7 @@ export class AddVendorComponent implements OnInit {
   currencyDetails: any = []
   isShowPadding: any = false;
   vendorTypeDetail:any = [];
-  vendorIdisShow:any = true;
+  vendorIdisShow:any = false;
   paymentMethodDetails: any = [] 
 
 
@@ -94,10 +94,7 @@ export class AddVendorComponent implements OnInit {
       reconciliationAccount: [''],
       paymentMethod: [''],
       paymentTerms: [''],
-
-
     })
-
   }
 
   handleSideBar(event: any) {
@@ -446,15 +443,19 @@ export class AddVendorComponent implements OnInit {
   handleVendorType(event: any) {
     const findVendorType = this.vendorTypeDetail.find((el: any) => el._id === event.target.value)
     console.log(findVendorType);
-    if(findVendorType.vendorType === 'M'){
+    if(findVendorType.num_range === 'M'){
       this.vendorIdisShow = true;
       this.vendorFormGroup.controls.vendorId.setValue("")
     }else{
       this.vendorIdisShow = false;
+      this.vendorFormGroup.controls.vendorId.reset()
     }
-    this.vendorFormGroup.controls.vendorTypeFlag.setValue(findVendorType.vendorType)
+    this.vendorFormGroup.controls.vendorTypeFlag.setValue(findVendorType.num_range)
     this.vendorFormGroup.controls.vendorTypeName.setValue(findVendorType.description)  
 
+  }
+  get drop(){
+    return this.vendorFormGroup.get('vendorTypeName')
   }
 
 
