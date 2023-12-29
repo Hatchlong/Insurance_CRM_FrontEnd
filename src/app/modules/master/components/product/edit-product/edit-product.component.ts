@@ -19,7 +19,7 @@ export class EditProductComponent {
   general: any = FormGroup
   isSubmitted: any = false;
   isShowPadding: any = false
-  storgaeLocationDetails: any = []
+  plantDetail: any = []
   salesData: any = []
   taxDetails: any = [];
   industryDetail: any = []
@@ -254,7 +254,7 @@ export class EditProductComponent {
     try {
       const result: any = await this.plantDataSer.getAllPlantData()
       if (result.status === '1') {
-        this.storgaeLocationDetails = result.data
+        this.plantDetail = result.data
       }
     } catch (error: any) {
       if (error.error.message) {

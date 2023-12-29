@@ -16,7 +16,7 @@ export class AddProductComponent implements OnInit {
   general: any = FormGroup
   isSubmitted: any = false;
   isShowPadding: any = false
-  storgaeLocationDetails: any = []
+  plantDetail: any = []
   salesData: any = []
   taxDetails: any = [];
   industryDetail: any = []
@@ -229,7 +229,7 @@ export class AddProductComponent implements OnInit {
     try {
       const result: any = await this.plantDataSer.getAllPlantData()
       if (result.status === '1') {
-        this.storgaeLocationDetails = result.data
+        this.plantDetail = result.data
       }
     } catch (error: any) {
       if (error.error.message) {
@@ -249,7 +249,7 @@ export class AddProductComponent implements OnInit {
     }
   }
   selectPlant(event: any) {
-    this.plantDetails = this.storgaeLocationDetails.find((el: any) => el._id === event.target.value);
+    this.plantDetails = this.plantDetail.find((el: any) => el._id === event.target.value);
     // this.general.controls.storagePlant.setValue(this.plantDetails.plantCode)
     // this.general.controls.storageLocation.setValue(this.plantDetails.stoargeLocationName)
 

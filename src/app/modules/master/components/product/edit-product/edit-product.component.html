@@ -498,7 +498,7 @@
                                                                 formControlName="storagePlant">
                                                                 <option [selected]="general.value.storagePlant === ''"
                                                                     value="" hidden>Select Storage Plant</option>
-                                                                    <option *ngFor="let list of storgaeLocationDetails"
+                                                                    <option *ngFor="let list of plantDetail"
                                                                     [value]="list._id">{{list.plantCode}}
                                                                 </option>
                                                             </select>
@@ -512,7 +512,7 @@
                                                                 <option
                                                                     [selected]="general.value.storageLocation === ''"
                                                                     value="" hidden>Select Storage Location</option>
-                                                                <option *ngFor="let list of storgaeLocationDetails"
+                                                                <option *ngFor="let list of plantDetail"
                                                                     [value]="list._id">{{list.stoargeLocationName}}
                                                                 </option>
                                                             </select>
