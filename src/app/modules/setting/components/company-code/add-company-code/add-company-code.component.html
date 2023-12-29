@@ -1,33 +1,80 @@
 <app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
-    <form [formGroup]="companyCode" (ngSubmit)="addCode()">
+    <form [formGroup]="companyCode">
         <div class="row">
             <div class="col-12">
                 <h2><mat-icon class="back" routerLink="/settings/company-code-list">arrow_back</mat-icon>Company Code
                 </h2>
             </div>
-            <div class="col-6 py-2">
-                <label for="">Company Code <sup>*</sup></label>
-                <input type="text" class="form-control " placeholder="Enter Company code" formControlName="companyCode">
-                <div
-                    *ngIf="companyCode.controls['companyCode'].touched && companyCode.controls['companyCode'].dirty && companyCode.controls['companyCode'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Company code is mandatory</p>
+          
+
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-12 py-2">
+                        <label for="">Company Code <sup>*</sup></label>
+                        <input type="text" class="form-control " placeholder="Enter Company code"
+                            formControlName="companyCode" >
+                        <div
+                            *ngIf="companyCode.controls['companyCode'].touched && companyCode.controls['companyCode'].dirty && companyCode.controls['companyCode'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Company code is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && companyCode.controls['companyCode'].hasError('required')">
+                            <p class="error-message">Company code is mandatory</p>
+                        </div>
+                    </div>
+
+                    <div class="col-12 py-2">
+                        <label for="" class="">Company Name <sup>*</sup></label>
+                        <input type="text" class="form-control " placeholder="Enter Company Name"
+                            formControlName="companyName">
+                        <div
+                            *ngIf="companyCode.controls['companyName'].touched && companyCode.controls['companyName'].dirty && companyCode.controls['companyName'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Company Name is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && companyCode.controls['companyName'].hasError('required')">
+                            <p class="error-message">Company Name is mandatory</p>
+                        </div>
+                    </div>
                 </div>
-                <div *ngIf="isSubmitted && companyCode.controls['companyCode'].hasError('required')">
-                    <p class="error-message">Company code is mandatory</p>
+            </div>
+
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-12 py-2">
+                        <section class="file-border">
+                            <div class="row">
+                                <div class="col-12 d-flex justify-content-center py-1" style="position: relative;">
+                                    <img class="img-ava" [src]="imageSrc?imageSrc:'/assets/logs/profile.png'"><sup class="delete_img" (click)="deletePerview()" *ngIf="imageSrc"><mat-icon style="font-size: 20px;display: flex;align-items: center;justify-content: center;">delete</mat-icon></sup>
+
+                                </div>
+                                <div class="col-12 d-flex justify-content-center py-1">
+                                    <span (click)="uploadFile(inputFile)" class="upload_text">
+                                        Choose Company Logo</span>
+                                    <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
+                                </div>
+                            </div>
+                        </section>
+                    </div>
                 </div>
             </div>
 
             <div class="col-6 py-2">
-                <label for="" class="">Company Name <sup>*</sup></label>
-                <input type="text" class="form-control " placeholder="Enter Company Name" formControlName="companyName">
+                <label for="address1">Address 1 <sup>*</sup></label>
+                <textarea class="form-control" id="address1" formControlName="address1" placeholder="Address 1"
+                    rows="3"></textarea>
                 <div
-                    *ngIf="companyCode.controls['companyName'].touched && companyCode.controls['companyName'].dirty && companyCode.controls['companyName'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Company Name is mandatory</p>
+                    *ngIf="companyCode.controls['address1'].touched && companyCode.controls['address1'].dirty && companyCode.controls['address1'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Address 1 is mandatory</p>
                 </div>
-                <div *ngIf="isSubmitted && companyCode.controls['companyName'].hasError('required')">
-                    <p class="error-message">Company Name is mandatory</p>
+                <div *ngIf="isSubmitted && companyCode.controls['address1'].hasError('required')">
+                    <p class="error-message">Address 1 is mandatory</p>
                 </div>
+            </div>
+
+            <div class="col-6 py-2">
+                <label for="address1">Address 2</label>
+                <textarea class="form-control" id="address2" placeholder="Address 2" formControlName="address2"
+                    rows="3"></textarea>
             </div>
 
             <div class="col-6 py-2">
@@ -35,7 +82,8 @@
                 <select class="form-select " aria-label="Default select example" formControlName="countryId"
                     (change)="selectCountryName($event)">
                     <option [selected]="companyCode.value.countryId === ''" value="" hidden>Select Country</option>
-                    <option *ngFor="let list of countryDetials | filterPipes:'countryName'" [value]="list._id">{{list.countryName}}</option>
+                    <option *ngFor="let list of countryDetials | filterPipes:'countryName'" [value]="list._id">
+                        {{list.countryName}}</option>
                 </select>
                 <div
                     *ngIf="companyCode.controls['countryId'].touched && companyCode.controls['countryId'].dirty && companyCode.controls['countryId'].hasError('required') && !isSubmitted">
@@ -47,7 +95,8 @@
             </div>
             <div class="col-6 py-2">
                 <label for="" class="">City <sup>*</sup></label>
-                <select class="form-select " aria-label="Default select example" formControlName="city"  [ngStyle]="{'pointer-events': !companyCode.value.countryId ? 'none' :  'all'}">
+                <select class="form-select " aria-label="Default select example" formControlName="city"
+                    [ngStyle]="{'pointer-events': !companyCode.value.countryId ? 'none' :  'all'}">
                     <option [selected]="companyCode.value.city===''" value="" hidden>Select City</option>
                     <option *ngFor="let list of (citiesDetails?.cities?.cities).sort()" [value]="list">{{list}}</option>
                 </select>
@@ -62,9 +111,12 @@
 
             <div class="col-6 py-2">
                 <label for="" class="">Currency <sup>*</sup></label>
-                <select class="form-select " aria-label="Default select example" formControlName="currencyId" (change)="handleCurrency($event)"  [ngStyle]="{'pointer-events': !companyCode.value.countryId ? 'none' :  'all'}">
+                <select class="form-select " aria-label="Default select example" formControlName="currencyId"
+                    (change)="handleCurrency($event)"
+                    [ngStyle]="{'pointer-events': !companyCode.value.countryId ? 'none' :  'all'}">
                     <option [selected]="companyCode.value.currencyId===''" value="" hidden>Select Currency</option>
-                    <option *ngFor="let list of currencyDetails | filterPipes:'code'" [value]="list._id">{{list.code}}</option>
+                    <option *ngFor="let list of currencyDetails | filterPipes:'code'" [value]="list._id">{{list.code}}
+                    </option>
                 </select>
                 <div
                     *ngIf="companyCode.controls['currencyId'].touched && companyCode.controls['currencyId'].dirty && companyCode.controls['currencyId'].hasError('required') && !isSubmitted">
@@ -76,7 +128,8 @@
             </div>
             <div class="col-6 py-2">
                 <label for="">Language <sup>*</sup></label>
-                <select class="form-select " aria-label="Default select example" formControlName="languageId"  [ngStyle]="{'pointer-events': !companyCode.value.countryId ? 'none' :  'all'}">
+                <select class="form-select " aria-label="Default select example" formControlName="languageId"
+                    [ngStyle]="{'pointer-events': !companyCode.value.countryId ? 'none' :  'all'}">
                     <option [selected]="companyCode.value.languageId===''" value="" hidden>Select Language</option>
                     <option [value]="citiesDetails.languageId">{{languageName}}</option>
                 </select>
@@ -88,9 +141,14 @@
                     <p class="error-message">Language is mandatory</p>
                 </div>
             </div>
+
+
+           
+
+           
         </div>
         <div class="col-12 d-flex justify-content-end py-2">
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-primary" (click)="fileUpload()">Save</button>
         </div>
     </form>
 </div>

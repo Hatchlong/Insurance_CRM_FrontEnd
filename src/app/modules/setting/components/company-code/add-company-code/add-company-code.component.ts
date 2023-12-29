@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompanyCodeService } from '../../../Services/company-code/company-code.service';
 import { Router } from '@angular/router';
@@ -18,7 +18,11 @@ export class AddCompanyCodeComponent {
   languageName: any = ''
   isSubmitted: any = false
   currencyDetails: any = [];
-  isShowPadding:any = false;
+  isShowPadding: any = false;
+  selectedFile: any = '';
+  fileName: any = '';
+  imageSrc:any = '';
+  @ViewChild('inputFile') inputFile:any;
   constructor(
     private fb: FormBuilder,
     private companySer: CompanyCodeService,
@@ -30,6 +34,7 @@ export class AddCompanyCodeComponent {
   ngOnInit(): void {
     this.getCountryDetails()
     this.getCompanyDetails()
+    this.getCurrencyDetails()
     this.code()
   }
 
@@ -43,8 +48,10 @@ export class AddCompanyCodeComponent {
       currencyId: ['', Validators.required],
       currencyName: ['', Validators.required],
       languageId: ['', Validators.required],
-      languageName: ['', Validators.required]
-
+      languageName: ['', Validators.required],
+      address1:['', Validators.required],
+      address2:[''],
+      filePath:[''],
     })
   }
 
@@ -55,7 +62,8 @@ export class AddCompanyCodeComponent {
   // Create the purchase org Details
   async addCode() {
     try {
-      this.isSubmitted = true
+      this.isSubmitted = true;
+      console.log(this.companyCode.value)
       if (this.companyCode.invalid)
         return
       const result: any = await this.companyCodeSer.createCompanyCodeDetails(this.companyCode.value);
@@ -83,7 +91,7 @@ export class AddCompanyCodeComponent {
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -114,7 +122,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -126,9 +134,9 @@ return
 
 
   // Get All details for Currency code
-  async getCurrencyDetails(companyId: any) {
+  async getCurrencyDetails() {
     try {
-      const result: any = await this.companyCodeSer.getAllCurrencyDetails(companyId);
+      const result: any = await this.companyCodeSer.getAllCurrencyDetails();
       if (result.status === '1') {
         this.currencyDetails = result.data;
 
@@ -146,7 +154,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -176,7 +184,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -207,7 +215,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -222,8 +230,9 @@ return
     this.citiesDetails = this.countryDetials.find((el: any) => el._id === event.target.value);
     this.companyCode.controls.countryName.setValue(this.citiesDetails.countryName)
     this.companyCode.controls.languageId.setValue(this.citiesDetails.languageId)
+    const findDefaultCurrency = this.currencyDetails.find((el:any) => el.countryId === event.target.value);
+    this.companyCode.controls.currencyId.setValue(findDefaultCurrency._id)
     this.getSingleLanguage(this.citiesDetails.languageId)
-    this.getCurrencyDetails(event.target.value)
 
 
   }
@@ -233,5 +242,81 @@ return
     const findCurrencyCode = this.currencyDetails.find((el: any) => el._id === event.target.value);
     this.companyCode.controls.currencyName.setValue(findCurrencyCode.code)
   }
+
+
+
+  uploadFile(inputData: any) {
+    inputData.click()
+  }
+
+
+  handleUploadFile(event: any) {
+  
+    if (event.target.value) {
+      const splitValue = event.target.files[0].name.split('.');
+      if (splitValue[1] === 'png' || splitValue[1] === 'jpg' || splitValue[1] === 'jpeg') {
+        this.fileName = event.target.files[0].name;
+        this.selectedFile = event.target.files[0];;
+        const file = event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = e => this.imageSrc = reader.result;
+
+      reader.readAsDataURL(file);
+      } else {
+        this._snackBar.open('Only support image', '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+
+    }
+  }
+
+  async fileUpload() {
+    if(!this.selectedFile){
+      this.addCode()
+      return
+    }
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+    const result: any = await this.companyCodeSer.companyLogUpload(formData);
+    if (result.status === '1') {
+      // this._snackBar.open(result.message, '', {
+      //   duration: 5 * 1000, horizontalPosition: 'center',
+      //   verticalPosition: 'top',
+      //   panelClass: 'app-notification-success',
+      // });
+      this.companyCode.controls.filePath.setValue(result.fileName)
+      this.addCode()
+      return;
+    }
+    if (result.status === '0') {
+      this._snackBar.open(result.message, '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  } catch(error: any) {
+    this._snackBar.open('Something went wrong', '', {
+      duration: 5 * 1000, horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: 'app-notification-error',
+    });
+  }
+
+
+  deletePerview(){
+    this.inputFile.nativeElement.value = '';
+    this.imageSrc = '';
+    this.selectedFile = ''
+  }
+
+ async getAllCurrecnyDetails(){
+
+  }
+
 
 }

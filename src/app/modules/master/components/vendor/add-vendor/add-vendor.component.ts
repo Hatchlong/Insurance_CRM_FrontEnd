@@ -31,6 +31,9 @@ export class AddVendorComponent implements OnInit {
   isShowPadding: any = false;
   vendorTypeDetail:any = [];
   vendorIdisShow:any = true;
+  paymentMethodDetails: any = [] 
+
+
   constructor(
     private fb: FormBuilder,
     private countrySer: CountryService,
@@ -49,8 +52,10 @@ export class AddVendorComponent implements OnInit {
     this.getMOTDetail()
     this.getIncoTermsDetail()
     this.getCompanyCodeDetail()
+    this.getCurrencyDetails()
     this.getPaymentTermsDetail()
     this.getVendorType()
+    this.getPaymentMethodDetails()
   }
 
   createVendorFormFields() {
@@ -229,8 +234,13 @@ export class AddVendorComponent implements OnInit {
     this.vendorFormGroup.controls.countryName.setValue(this.citiesDetails.countryName)
     this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
     this.getSingleLanguage(this.citiesDetails.languageId)
-    this.getCurrencyDetails(event.target.value)
 
+  }
+
+  
+  handleCurrency(event: any) {
+    const findCurrencyCode = this.currencyDetails.find((el: any) => el._id === event.target.value);
+    this.vendorDetials.controls.currencyName.setValue(findCurrencyCode.code)
   }
 
   // get MOT organization
@@ -346,9 +356,9 @@ export class AddVendorComponent implements OnInit {
   }
 
   // Get All details for Currency code
-  async getCurrencyDetails(companyId: any) {
+  async getCurrencyDetails() {
     try {
-      const result: any = await this.companySer.getAllCurrencyDetails(companyId);
+      const result: any = await this.companySer.getAllCurrencyDetails();
       if (result.status === '1') {
         this.currencyDetails = result.data;
 
@@ -438,6 +448,7 @@ export class AddVendorComponent implements OnInit {
     console.log(findVendorType);
     if(findVendorType.vendorType === 'M'){
       this.vendorIdisShow = true;
+      this.vendorFormGroup.controls.vendorId.setValue("")
     }else{
       this.vendorIdisShow = false;
     }
@@ -446,5 +457,37 @@ export class AddVendorComponent implements OnInit {
 
   }
 
+
+   //get payment_method 
+
+   async getPaymentMethodDetails() {
+    try {
+      const result: any = await this.vendorSer.getAllPaymentMethodDetails()
+      if (result.status === '1') {
+        this.paymentMethodDetails = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+  handlePaymentMethod(event: any) {
+    const findPaymentMethod = this.paymentMethodDetails.find((el: any) => el._id === event.target.value)
+    console.log(findPaymentMethod);
+
+    this.vendorFormGroup.controls.paymentMethod.setValue(findPaymentMethod.description)
+  }
 
 }

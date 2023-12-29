@@ -1,33 +1,81 @@
 <app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
-    <form [formGroup]="companyCode" (ngSubmit)="addCode()">
+    <form [formGroup]="companyCode">
         <div class="row">
             <div class="col-12">
                 <h2><mat-icon class="back" routerLink="/settings/company-code-list">arrow_back</mat-icon>Company Code
                 </h2>
             </div>
-            <div class="col-6 py-2">
-                <label for="">Company Code <sup>*</sup></label>
-                <input type="text" class="form-control " placeholder="Enter Company code" formControlName="companyCode" readonly>
-                <div
-                    *ngIf="companyCode.controls['companyCode'].touched && companyCode.controls['companyCode'].dirty && companyCode.controls['companyCode'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Company code is mandatory</p>
+           
+
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-12 py-2">
+                        <label for="">Company Code <sup>*</sup></label>
+                        <input type="text" class="form-control " placeholder="Enter Company code"
+                            formControlName="companyCode" readonly>
+                        <div
+                            *ngIf="companyCode.controls['companyCode'].touched && companyCode.controls['companyCode'].dirty && companyCode.controls['companyCode'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Company code is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && companyCode.controls['companyCode'].hasError('required')">
+                            <p class="error-message">Company code is mandatory</p>
+                        </div>
+                    </div>
+
+                    <div class="col-12 py-2">
+                        <label for="" class="">Company Name <sup>*</sup></label>
+                        <input type="text" class="form-control " placeholder="Enter Company Name"
+                            formControlName="companyName">
+                        <div
+                            *ngIf="companyCode.controls['companyName'].touched && companyCode.controls['companyName'].dirty && companyCode.controls['companyName'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Company Name is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && companyCode.controls['companyName'].hasError('required')">
+                            <p class="error-message">Company Name is mandatory</p>
+                        </div>
+                    </div>
                 </div>
-                <div *ngIf="isSubmitted && companyCode.controls['companyCode'].hasError('required')">
-                    <p class="error-message">Company code is mandatory</p>
+            </div>
+
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-12 py-2">
+                        <section class="file-border">
+                            <div class="row">
+                                <div class="col-12 d-flex justify-content-center py-1" style="position: relative;">
+                                    <img *ngIf="!isImageShow" class="img-ava" [src]="imageSrc?imageSrc:'/assets/logs/profile.png'"><sup  class="delete_img" (click)="deletePerview()" *ngIf="imageSrc && !filePath"><mat-icon>delete</mat-icon></sup>
+                                    <img *ngIf="isImageShow" class="img-ava" [src]="filePath"><sup class="delete_img" (click)="deleteImage()" *ngIf="!imageSrc && filePath"><mat-icon style="font-size: 20px;display: flex;align-items: center;justify-content: center;">delete</mat-icon></sup>
+
+                                </div>
+                                <div class="col-12 d-flex justify-content-center py-1">
+                                    <span (click)="uploadFile(inputFile)" class="upload_text">
+                                        Choose Company Log</span>
+                                    <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-6 py-2">
+                <label for="address1">Address 1 <sup>*</sup></label>
+                <textarea class="form-control" id="address1" formControlName="address1" placeholder="Address 1"
+                    rows="3"></textarea>
+                <div
+                    *ngIf="companyCode.controls['address1'].touched && companyCode.controls['address1'].dirty && companyCode.controls['address1'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Address 1 is mandatory</p>
+                </div>
+                <div *ngIf="isSubmitted && companyCode.controls['address1'].hasError('required')">
+                    <p class="error-message">Address 1 is mandatory</p>
                 </div>
             </div>
 
             <div class="col-6 py-2">
-                <label for="" class="">Company Name <sup>*</sup></label>
-                <input type="text" class="form-control " placeholder="Enter Company Name" formControlName="companyName">
-                <div
-                    *ngIf="companyCode.controls['companyName'].touched && companyCode.controls['companyName'].dirty && companyCode.controls['companyName'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Company Name is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && companyCode.controls['companyName'].hasError('required')">
-                    <p class="error-message">Company Name is mandatory</p>
-                </div>
+                <label for="address1">Address 2</label>
+                <textarea class="form-control" id="address2" placeholder="Address 2" formControlName="address2"
+                    rows="3"></textarea>
             </div>
 
             <div class="col-6 py-2">
@@ -77,6 +125,7 @@
                     <p class="error-message">Currency is mandatory</p>
                 </div>
             </div>
+            
             <div class="col-6 py-2">
                 <label for="">Language <sup>*</sup></label>
                 <select class="form-select " aria-label="Default select example" formControlName="languageId"
@@ -92,10 +141,11 @@
                     <p class="error-message">Language is mandatory</p>
                 </div>
             </div>
+            
         </div>
 
         <div class="col-12 d-flex justify-content-end py-2">
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="button" class="btn btn-primary" (click)="fileUpload()">Update</button>
         </div>
     </form>
 </div>

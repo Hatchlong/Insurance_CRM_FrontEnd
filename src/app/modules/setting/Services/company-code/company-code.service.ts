@@ -46,9 +46,15 @@ export class CompanyCodeService {
 
   // Get All currecny Details
 
- getAllCurrencyDetails(companyId:any) {
+ getAllCurrencyDetails(companyId?:any) {
+    return this.http.get(`http://localhost:4000/api/config/currency/getAll/`).toPromise()
+  }
+
+
+  getAllCurrencyDetailsCCompany(companyId:any) {
     return this.http.get(`http://localhost:4000/api/config/currency/getAll/${companyId}`).toPromise()
   }
+
 
 
   fileUploadCompanyCode(data: any) {
@@ -64,6 +70,11 @@ export class CompanyCodeService {
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, sheetName);
     XLSX.writeFile(wb, `${fileName}.xlsx`);
+  }
+
+
+  companyLogUpload(data:any){
+    return this.http.post('http://localhost:4000/api/upload', data).toPromise()
   }
 
 }
