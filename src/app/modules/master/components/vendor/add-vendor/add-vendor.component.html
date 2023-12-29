@@ -29,7 +29,7 @@
                                         <select class="form-select" formControlName="vendorTypeId" (change)="handleVendorType($event)">
                                             <option [selected]="vendorFormGroup.value.vendorTypeId === ''" value="" hidden>Select
                                                 Vendor Type</option>
-                                           <option *ngFor="let list of vendorTypeDetail; let i = index" [value]="list._id">{{list.description}}</option>
+                                           <option *ngFor="let list of vendorTypeDetail;" [value]="list._id">{{list.description}}</option>
                                         </select>
                                         <div
                                             *ngIf="vendorFormGroup.controls['vendorTypeId'].touched && vendorFormGroup.controls['vendorTypeId'].dirty && vendorFormGroup.controls['vendorTypeId'].hasError('required') && !isSubmitted">
@@ -40,7 +40,7 @@
                                             <p class="error-message">Vendor Type is mandatory</p>
                                         </div>
                                     </div>
-                                    <div class="col-12 py-2" [ngStyle]="{'pointer-events' : !vendorIdisShow ? 'none' : 'all'}" >
+                                    <div class="col-12 py-2" [ngStyle]="{'pointer-events' : !vendorIdisShow ? 'none' : 'all' }" >
                                         <label for="">Vendor Id </label>
                                         <input type="text" class="form-control " formControlName="vendorId"
                                             placeholder="Enter Vendor Id" [readOnly]="!vendorIdisShow" >
@@ -92,7 +92,7 @@
                                     <p class="error-message">Language is required</p>
                                 </div>
                             </div>
-                            
+                             
                              <div class="col-6 py-2">
                                 <label for="">Mode of transport <sup>*</sup></label>
                                 <select class="form-select" formControlName="modeOfTransportId" (change)="handleMOT($event)">

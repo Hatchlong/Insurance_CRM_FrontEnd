@@ -479,12 +479,12 @@ return
   handleVendorType(event: any) {
     const findVendorType = this.vendorTypeDetail.find((el: any) => el._id === event.target.value)
     console.log(findVendorType);
-    if(findVendorType.vendorType === 'M'){
+    if(findVendorType.num_range === 'M'){
       this.vendorIdisShow = true;
     }else{
       this.vendorIdisShow = false;
     }
-    this.vendorFormGroup.controls.vendorTypeFlag.setValue(findVendorType.vendorType)
+    this.vendorFormGroup.controls.vendorTypeFlag.setValue(findVendorType.num_range)
     this.vendorFormGroup.controls.vendorTypeName.setValue(findVendorType.description)  
 
   }

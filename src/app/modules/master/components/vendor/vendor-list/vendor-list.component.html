@@ -6,7 +6,7 @@
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
           <div class="form-group form-row">
             <div class="col-12 d-grid gap-2 d-md-flex">
-              <input type="text" class="form-control w-50" placeholder="Enter vendor Id/Name" (input)="handleFilter($event)">
+              <input type="text" class="form-control w-50" placeholder="Enter vendor Id/Name" (input)="handleFilter($event)" #searchDataInput>
               <select class="form-select  w-50" aria-label="Default select example" (change)="handleFilter1($event)">
                 <option selected  value = ''>Select Vendor Type</option>
                 <option *ngFor="let list of vendorTypeDetail;" [value]="list.description">{{list.description}}</option>
