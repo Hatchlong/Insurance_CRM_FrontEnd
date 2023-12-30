@@ -13,6 +13,8 @@ export class VendorListComponent implements OnInit{
 
 vendorDetails: any = []
 selectAll:any=false
+isFilterInputData:any = ''
+isFilterDropDownData:any = ''
 
 vendorTypeDetail: any = []
 
@@ -271,23 +273,28 @@ return
     
   handleFilter(event:any){
     if(!event.target.value){
-      this.vendorDetails = this.allVendorDetails
+      this.vendorDetails = this.allVendorDetails;
+      this.isFilterInputData = ''
       return
     }
     console.log(event.target.value)
-    const isStringIncluded = this.allVendorDetails.filter((obj:any) => ((obj.vendorId.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.vendorName.toUpperCase()).includes(event.target.value.toUpperCase())));
-    this.vendorDetails = isStringIncluded
+    const isStringIncluded = this.allVendorDetails.filter((obj:any) => ((obj.vendorId.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.vendorName.toUpperCase()).includes(event.target.value.toUpperCase())) || (obj.vendorTypeName.toLowerCase() === this.isFilterDropDownData));
+    this.vendorDetails = isStringIncluded;
+    this.isFilterInputData = event.target.value
   }
 
   handleFilter1(event:any){
     if(!event.target.value){
-      this.vendorDetails = this.allVendorDetails
+      this.vendorDetails = this.allVendorDetails;
+      this.isFilterDropDownData = ''
       return
     }
-    console.log(event.target.value)
-    const isStringIncluded = this.allVendorDetails.filter((obj:any) => ((obj.vendorTypeName.toLowerCase() === (event.target.value).toLowerCase())));
+    console.log(event.target.value);
+    // if()
+    const isStringIncluded = this.allVendorDetails.filter((obj:any) => ((obj.vendorTypeName.toLowerCase() === (event.target.value).toLowerCase())) || (obj.vendorId.toUpperCase()).includes(this.isFilterInputData.toUpperCase())  (obj.vendorName.toUpperCase()).includes(this.isFilterInputData));
     console.log(isStringIncluded, "table filter")
-    this.vendorDetails = isStringIncluded
+    this.vendorDetails = isStringIncluded;
+    this.isFilterDropDownData = event.target.value
   }
 
   async getVendorType() {

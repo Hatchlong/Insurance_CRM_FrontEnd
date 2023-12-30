@@ -39,6 +39,7 @@ export class EditCompanyCodeComponent {
     this.companyCodeId = this.activeRouter.snapshot.paramMap.get('id');
     this.getCompanyDetails()
     this.getCountryDetails()
+    this.getCurrencyDetails()
     this.code()
   }
 
@@ -79,7 +80,7 @@ export class EditCompanyCodeComponent {
         // this.companyCode.controls.languageId.setValue(this.citiesDetails.languageId);
         console.log(this.citiesDetails, 'jjjj')
         this.getSingleLanguage(this.citiesDetails.languageId);
-        this.getCurrencyDetails(this.companyCode.value.countryId)
+        // this.getCurrencyDetails(this.companyCode.value.countryId)
       }
     } catch (error: any) {
       console.log(error)
@@ -241,12 +242,14 @@ return
 
     this.companyCode.controls.currency.setValue(this.citiesDetails?.countryCurrency)
     this.companyCode.controls.languageId.setValue(this.citiesDetails.languageId)
-
+    const findDefaultCurrency = this.currencyDetails.find((el:any) => el.countryId === event.target.value);
+    this.companyCode.controls.currencyId.setValue(findDefaultCurrency._id)
+    this.companyCode.controls.currencyName.setValue(findDefaultCurrency.currencyName)
     this.getSingleLanguage(this.citiesDetails.languageId)
   }
 
    // Get All details for Currency code
-   async getCurrencyDetails(companyId: any) {
+   async getCurrencyDetails() {
     try {
       const result: any = await this.companyCodeSer.getAllCurrencyDetails();
       if (result.status === '1') {
