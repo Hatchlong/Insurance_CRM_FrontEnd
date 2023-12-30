@@ -16,7 +16,7 @@ export class AddProductComponent implements OnInit {
   general: any = FormGroup
   isSubmitted: any = false;
   isShowPadding: any = false
-  storgaeLocationDetails: any = []
+  plantDetail: any = []
   salesData: any = []
   taxDetails: any = [];
   industryDetail: any = []
@@ -31,8 +31,10 @@ export class AddProductComponent implements OnInit {
   uomDetail: any = []
   materialTypeDetail: any = []
   distributionDetail: any = []
-  selectedValue:any=''
-  materialIdisShow:any = false
+  selectedValue: any = ''
+  materialIdisShow: any = false
+  plantDetails: any = []
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -75,7 +77,7 @@ export class AddProductComponent implements OnInit {
       materialGroupName: ['', Validators.required],
       materialTypeId: ['', Validators.required],
       materialTypeName: ['', Validators.required],
-      materialTypeFlag:['', Validators.required],
+      materialTypeFlag: ['', Validators.required],
       industrySectorId: ['', Validators.required],
       industrySectorName: ['', Validators.required],
       netWeight: ['', Validators.required],
@@ -163,8 +165,8 @@ export class AddProductComponent implements OnInit {
     try {
       this.isSubmitted = true
       console.log(this.general.value);
-      if(this.general.invalid)
-      return
+      if (this.general.invalid)
+        return
       const username: any = localStorage.getItem('userName')
 
       const currentDate = new Date();
@@ -227,7 +229,7 @@ export class AddProductComponent implements OnInit {
     try {
       const result: any = await this.plantDataSer.getAllPlantData()
       if (result.status === '1') {
-        this.storgaeLocationDetails = result.data
+        this.plantDetail = result.data
       }
     } catch (error: any) {
       if (error.error.message) {
@@ -246,7 +248,12 @@ export class AddProductComponent implements OnInit {
 
     }
   }
+  selectPlant(event: any) {
+    this.plantDetails = this.plantDetail.find((el: any) => el._id === event.target.value);
+    // this.general.controls.storagePlant.setValue(this.plantDetails.plantCode)
+    // this.general.controls.storageLocation.setValue(this.plantDetails.stoargeLocationName)
 
+  }
 
   //get sales org details
 
@@ -459,17 +466,18 @@ export class AddProductComponent implements OnInit {
   handleMaterialType(event: any) {
     const findMaterialType = this.materialTypeDetail.find((el: any) => el._id === event.target.value)
     console.log(findMaterialType);
-    if(findMaterialType.num_range === 'M'){
+    if (findMaterialType.num_range === 'M') {
       this.materialIdisShow = true;
       this.general.controls.materialId.setValue("")
-    }else{
+    } else {
       this.materialIdisShow = false;
+      this.general.controls.materialId.reset()
     }
     this.general.controls.materialTypeFlag.setValue(findMaterialType.num_range)
-    this.general.controls.materialTypeName.setValue(findMaterialType.description)  
+    this.general.controls.materialTypeName.setValue(findMaterialType.description)
 
   }
-  get drop(){
+  get drop() {
     return this.general.get('materialTypeName')
   }
 
@@ -608,7 +616,7 @@ export class AddProductComponent implements OnInit {
   //get uomDetail
   async getUOMDetail() {
     try {
-      const result: any = await this.productSer.getAllUOMDetails() 
+      const result: any = await this.productSer.getAllUOMDetails()
       if (result.status === '1') {
         this.uomDetail = result.data
       }
@@ -633,9 +641,9 @@ export class AddProductComponent implements OnInit {
 
   async getDistributionDetail() {
     try {
-      const result:any=await this.distibutionSer.getAllDistibutionChannelDetails()
-      if (result.status==='1') {
-        this.distributionDetail=result.data
+      const result: any = await this.distibutionSer.getAllDistibutionChannelDetails()
+      if (result.status === '1') {
+        this.distributionDetail = result.data
       }
     } catch (error: any) {
       if (error.error.message) {

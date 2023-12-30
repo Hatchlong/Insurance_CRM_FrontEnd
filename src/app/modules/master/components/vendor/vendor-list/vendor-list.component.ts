@@ -1,8 +1,9 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { VendorService } from '../../../services/vendor/vendor.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+
 
 @Component({
   selector: 'app-vendor-list',
@@ -10,6 +11,9 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
   styleUrls: ['./vendor-list.component.css']
 })
 export class VendorListComponent implements OnInit{
+  @ViewChild('searchDataInput', { static: true }) searchInput!: ElementRef;
+
+  selectedVendorType: string = '';
 
 vendorDetails: any = []
 selectAll:any=false
@@ -268,33 +272,58 @@ return
       }
     }
   
-
+dropDownDetails:any =[]
 
     
-  handleFilter(event:any){
-    if(!event.target.value){
-      this.vendorDetails = this.allVendorDetails;
-      this.isFilterInputData = ''
-      return
-    }
-    console.log(event.target.value)
-    const isStringIncluded = this.allVendorDetails.filter((obj:any) => ((obj.vendorId.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.vendorName.toUpperCase()).includes(event.target.value.toUpperCase())) || (obj.vendorTypeName.toLowerCase() === this.isFilterDropDownData));
-    this.vendorDetails = isStringIncluded;
-    this.isFilterInputData = event.target.value
-  }
+  // handleFilter(event:any){
+  //   if(!event.target.value){
+  //     this.vendorDetails = this.vendorDetails
+  //     return
+  //   }
+  //   console.log(event.target.value)
+  //   const isStringIncluded = this.allVendorDetails.filter((obj:any) => ((obj.vendorId.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.vendorName.toUpperCase()).includes(event.target.value.toUpperCase())));
+  //   this.vendorDetails = isStringIncluded
+  // }
 
-  handleFilter1(event:any){
-    if(!event.target.value){
+  // handleFilter1(event:any){
+  //   if(!event.target.value){
+  //     this.vendorDetails = this.allVendorDetails
+  //     return
+  //   }
+  //   console.log(event.target.value)
+  //   const isStringIncluded = this.allVendorDetails.filter((obj:any) => ((obj.vendorTypeName.toLowerCase() === (event.target.value).toLowerCase())));
+  //   console.log(isStringIncluded, "table filter")
+  //   this.vendorDetails = isStringIncluded
+    
+  // }
+
+
+//filter text
+  handleFilter(event: any) {
+    const filterValue = event.target.value.toUpperCase();
+    if (!filterValue && !this.selectedVendorType) {
       this.vendorDetails = this.allVendorDetails;
-      this.isFilterDropDownData = ''
-      return
+      return;
     }
-    console.log(event.target.value);
-    // if()
-    const isStringIncluded = this.allVendorDetails.filter((obj:any) => ((obj.vendorTypeName.toLowerCase() === (event.target.value).toLowerCase())) || (obj.vendorId.toUpperCase()).includes(this.isFilterInputData.toUpperCase())  (obj.vendorName.toUpperCase()).includes(this.isFilterInputData));
-    console.log(isStringIncluded, "table filter")
-    this.vendorDetails = isStringIncluded;
-    this.isFilterDropDownData = event.target.value
+  
+    this.vendorDetails = this.allVendorDetails.filter((obj: any) =>
+      ((obj.vendorId.toUpperCase()).includes(filterValue) || (obj.vendorName.toUpperCase()).includes(filterValue)) &&
+      (!this.selectedVendorType || obj.vendorTypeName.toLowerCase() === this.selectedVendorType.toLowerCase())
+    );
+  }
+  
+  // filter drop-down
+  handleFilter1(event: any) {
+    this.selectedVendorType = event.target.value;
+    this.filterData();
+  }
+  
+  filterData() {
+    const filterValue = this.searchInput.nativeElement.value.toUpperCase();
+    this.vendorDetails = this.allVendorDetails.filter((obj: any) =>
+      ((obj.vendorId.toUpperCase()).includes(filterValue) || (obj.vendorName.toUpperCase()).includes(filterValue)) &&
+      (!this.selectedVendorType || obj.vendorTypeName.toLowerCase() === this.selectedVendorType.toLowerCase())
+    );
   }
 
   async getVendorType() {

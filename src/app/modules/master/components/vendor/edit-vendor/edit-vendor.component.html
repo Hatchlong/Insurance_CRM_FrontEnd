@@ -29,7 +29,7 @@
                                         <select class="form-select" formControlName="vendorTypeId" (change)="handleVendorType($event)">
                                             <option [selected]="vendorFormGroup.value.vendorTypeId === ''" value="" hidden>Select
                                                 Vendor Type</option>
-                                           <option *ngFor="let list of vendorTypeDetail; let i = index" [value]="list._id">{{list.description}}</option>
+                                           <option *ngFor="let list of vendorTypeDetail;" [value]="list._id">{{list.description}}</option>
                                         </select>
                                         <div
                                             *ngIf="vendorFormGroup.controls['vendorTypeId'].touched && vendorFormGroup.controls['vendorTypeId'].dirty && vendorFormGroup.controls['vendorTypeId'].hasError('required') && !isSubmitted">
@@ -43,7 +43,7 @@
                                     <div class="col-12 py-2" *ngIf="vendorIdisShow">
                                         <label for="">Vendor Id </label>
                                         <input type="text" class="form-control " formControlName="vendorId"
-                                            placeholder="Enter Vendor Id" >
+                                            placeholder="Enter Vendor Id" [readOnly]="vendorIdisShow">
                                     </div>
                                 </div>
                             </div>

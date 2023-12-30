@@ -124,37 +124,37 @@
                         </div>
                     </div>
                     <div class="col-6 py-2">
-                        <label for="">Temp. Condition <sup>*</sup></label>
+                        <label for="">Temparature Condition <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example"
                             formControlName="tempConditionId" (change)="handleTemp($event)">
-                            <option [selected]="general.value.tempConditionId === ''" value="" hidden>Select Temp.
+                            <option [selected]="general.value.tempConditionId === ''" value="" hidden>Select Temparature
                                 Condition
                             <option *ngFor="let list of tempDetails" [value]="list._id">{{list.description}}</option>
                         </select>
                         <div
                             *ngIf="general.controls['tempConditionId'].touched && general.controls['tempConditionId'].dirty && general.controls['tempConditionId'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Temp. Condition is mandatory</p>
+                            <p class="error-message">Temparature Condition is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['tempConditionId'].hasError('required')">
-                            <p class="error-message">Temp. Condition is mandatory</p>
+                            <p class="error-message">Temparature Condition is mandatory</p>
                         </div>
 
                     </div>
                     <div class="col-6 py-2">
-                        <label for="">Trans Group <sup>*</sup></label>
+                        <label for="">Transportation Group <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example"
                             formControlName="transporationGroupId" (change)="handleTransGrp($event)">
-                            <option [selected]="general.value.transporationGroupId === ''" value="" hidden>Select Trans
+                            <option [selected]="general.value.transporationGroupId === ''" value="" hidden>Select Transportation
                                 Group</option>
                             <option *ngFor="let list of transDetails" [value]="list._id">{{list.description}}</option>
 
                         </select>
                         <div
                             *ngIf="general.controls['transporationGroupId'].touched && general.controls['transporationGroupId'].dirty && general.controls['transporationGroupId'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Trans Group is mandatory</p>
+                            <p class="error-message">Transportation Group is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['transporationGroupId'].hasError('required')">
-                            <p class="error-message">Trans Group is mandatory</p>
+                            <p class="error-message">Transportation Group is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -207,7 +207,7 @@
                     </div> -->
                     <div class="col-6 py-2">
                         <label for="">Allowed pkg Volume <sup>*</sup></label>
-                        <input type="text" class="form-control " placeholder="Enter Allowed phg Weight"
+                        <input type="text" class="form-control " placeholder="Enter Allowed pkg Weight"
                             formControlName="allowedPKGVolume">
                         <div
                             *ngIf="general.controls['allowedPKGVolume'].touched && general.controls['allowedPKGVolume'].dirty && general.controls['allowedPKGVolume'].hasError('required') && !isSubmitted">
@@ -356,10 +356,10 @@
                     </div>
                     <div class="col-6 py-2">
 
-                        <label for="">Batch Mgmt <sup>*</sup></label>
+                        <label for="">Batch Management <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example"
                             formControlName="batchManagment">
-                            <option [selected]="general.value.batchManagment === ''" value="" hidden>Select batch Mgmt
+                            <option [selected]="general.value.batchManagment === ''" value="" hidden>Select batch Management
                             </option>
                             <option value="YES">YES</option>
                             <option value="NO">NO</option>
@@ -428,15 +428,15 @@
                     </div>
                     <div class="col-6 py-2">
 
-                        <label for="">Excess Volume tol. <sup>*</sup></label>
-                        <input type="text" class="form-control " placeholder="Enter Excess Vol tol"
+                        <label for="">Excess Volume tolerance <sup>*</sup></label>
+                        <input type="text" class="form-control " placeholder="Enter Excess Volume tolerance"
                             formControlName="excessVolumnTol">
                         <div
                             *ngIf="general.controls['excessVolumnTol'].touched && general.controls['excessVolumnTol'].dirty && general.controls['excessVolumnTol'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Excess Volume is mandatory</p>
+                            <p class="error-message">Excess Volume tolerance is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && general.controls['excessVolumnTol'].hasError('required')">
-                            <p class="error-message">Excess Volume is mandatory</p>
+                            <p class="error-message">Excess Volume tolerance is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2">
@@ -498,7 +498,7 @@
                                                                 formControlName="storagePlant">
                                                                 <option [selected]="general.value.storagePlant === ''"
                                                                     value="" hidden>Select Storage Plant</option>
-                                                                <option *ngFor="let list of storgaeLocationDetails"
+                                                                <option *ngFor="let list of plantDetail"
                                                                     [value]="list._id">{{list.plantCode}}
                                                                 </option>
                                                             </select>
@@ -511,8 +511,8 @@
                                                                 <option
                                                                     [selected]="general.value.storageLocation === ''"
                                                                     value="" hidden>Select Storage Location</option>
-                                                                <option *ngFor="let list of storgaeLocationDetails"
-                                                                    [value]="list._id">{{list.name1}}
+                                                                <option *ngFor="let list of plantDetail"
+                                                                    [value]="list._id">{{list.stoargeLocationName}}
                                                                 </option>
                                                             </select>
                                                         </td>
@@ -568,9 +568,9 @@
                                                                 <option [selected]="general.value.bomRelevance === ''"
                                                                     value="" hidden>
                                                                     Select bom</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                <option value="NO">NO</option>
+                                                                <option value="YES">YES</option>
+                                                                <option value="BLANK">BLANK</option>
                                                             </select>
                                                         </td>
 
@@ -645,7 +645,7 @@
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "
-                                                                placeholder="Safety Stock"
+                                                                placeholder="Delivery Plant"
                                                                 formControlName="deliveringPlant">
                                                         </td>
                                                         <td>
