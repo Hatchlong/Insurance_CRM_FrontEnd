@@ -1,0 +1,30 @@
+.imgbg{
+    background-image: url("/assets/login_bg.jpeg/");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    object-fit: cover;
+    background-size: 100% 100%;
+    
+}
+
+.wrapper {
+    position: relative;
+    width: 31rem;
+    height: 23rem;
+    padding: 20px 30px 120px;
+    background: white;
+    box-shadow: 0 5px 10px rgba(  0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: auto;
+    top: 150px;
+  }
+  img{
+    width: 15rem;
+    /* background-position: fixed; */
+    background-attachment: fixed;
+    background-position: center;
+  }
+  
+  .contain {object-fit: contain;}

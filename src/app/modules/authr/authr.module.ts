@@ -9,12 +9,14 @@ import { SharedModule } from '../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthrService } from './services/authr/authr.service';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { NewLoginComponent } from './components/new-login/new-login.component';
 
 
 @NgModule({
   declarations: [
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    NewLoginComponent
   ],
   imports: [
     CommonModule,

@@ -11,13 +11,11 @@ export class AddSalesOrderComponent {
   isShowPadding:any = false;
   sales:any=FormGroup
   constructor(private fb:FormBuilder){}
-
   
   ngOnInit(): void {
       this.add()
   }
 
-  
   handleSideBar(event: any) {
     this.isShowPadding = event
   }
