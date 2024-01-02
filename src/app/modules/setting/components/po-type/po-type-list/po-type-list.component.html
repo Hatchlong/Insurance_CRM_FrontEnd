@@ -63,7 +63,11 @@
 
             </tr>
           </thead>
-          
+          <tbody *ngIf="potypeDetail.length === 0">
+            <tr>
+              <td colspan="6" class="text-center">No Records</td>
+            </tr>
+          </tbody>
           <tbody>
             <tr *ngFor="let list of potypeDetail; let i=index">
               <td>{{i+1}}</td>
