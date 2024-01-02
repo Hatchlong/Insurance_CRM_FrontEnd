@@ -231,8 +231,9 @@ export class AddCompanyCodeComponent {
     this.companyCode.controls.countryName.setValue(this.citiesDetails.countryName)
     this.companyCode.controls.languageId.setValue(this.citiesDetails.languageId)
     const findDefaultCurrency = this.currencyDetails.find((el:any) => el.countryId === event.target.value);
+
     this.companyCode.controls.currencyId.setValue(findDefaultCurrency._id)
-    this.companyCode.controls.currencyName.setValue(findDefaultCurrency.currencyName)
+    this.companyCode.controls.currencyName.setValue(findDefaultCurrency.code)
 
     this.getSingleLanguage(this.citiesDetails.languageId)
 

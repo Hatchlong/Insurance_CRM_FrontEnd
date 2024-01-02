@@ -7,7 +7,6 @@ export class FilterPipesPipe implements PipeTransform {
 
   transform(array: any, field: string): any[] {
     array.sort((a: any, b: any) => {
-      console.log(a,b, 'kkkk')
       if (a[field] < b[field]) {
         return -1;
       } else if (a[field] > b[field]) {
