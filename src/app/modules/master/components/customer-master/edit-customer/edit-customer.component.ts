@@ -1,36 +1,27 @@
-import { Component ,OnInit} from '@angular/core';
+import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BillingBlockService } from 'src/app/modules/setting/Services/billing-block/billing-block.service';
-import { CompanyCodeService } from 'src/app/modules/setting/Services/company-code/company-code.service';
-import { CustomerAccountAGService } from 'src/app/modules/setting/Services/customer-account-AG/customer-account-ag.service';
-import { DistibutionChannelService } from 'src/app/modules/setting/Services/distibution-channel/distibution-channel.service';
-import { DivionService } from 'src/app/modules/setting/Services/divion/divion.service';
-import { ModeOfTransportService } from 'src/app/modules/setting/Services/mode-of-transport/mode-of-transport.service';
-import { PaymentTermService } from 'src/app/modules/setting/Services/payment-term/payment-term.service';
-import { PlantDataService } from 'src/app/modules/setting/Services/plant-data/plant-data.service';
-import { SalesOrgService } from 'src/app/modules/setting/Services/sales-org/sales-org.service';
 
 @Component({
-  selector: 'app-add-customer',
-  templateUrl: './add-customer.component.html',
-  styleUrls: ['./add-customer.component.css']
+  selector: 'app-edit-customer',
+  templateUrl: './edit-customer.component.html',
+  styleUrls: ['./edit-customer.component.css']
 })
-export class AddCustomerComponent implements OnInit{
+export class EditCustomerComponent {
 
   general: any = FormGroup
   isSubmitted:any=false
   isShowPadding:any = false;
   constructor(
     private fb: FormBuilder,
-    private companyCodeSer:CompanyCodeService,
-    private salesOrgSer:SalesOrgService,
-    private paymentTermSer:PaymentTermService,
-    private billingSer:BillingBlockService,
-    private distributionSer:DistibutionChannelService,
-    private divisionSer:DivionService,
-    private modeOfTransportSer:ModeOfTransportService,
-    private plantDataSer:PlantDataService,
-    private acctAssignmentSer:CustomerAccountAGService
+    // private companyCodeSer:CompanyCodeService,
+    // private salesOrgSer:SalesOrgService,
+    // private paymentTermSer:PaymentTermService,
+    // private billingSer:BillingBlockService,
+    // private distributionSer:DistibutionChannelService,
+    // private divisionSer:DivionService,
+    // private modeOfTransportSer:ModeOfTransportService,
+    // private plantDataSer:PlantDataService,
+    // private acctAssignmentSer:CustomerAccountAGService
 
   ) { }
 
@@ -132,4 +123,5 @@ export class AddCustomerComponent implements OnInit{
     this.isShowPadding = event
   }
   
+
 }

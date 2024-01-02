@@ -2,11 +2,11 @@
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
   <h2><mat-icon class="back" routerLink="/settings/plant-data-list">arrow_back</mat-icon>Plant Data</h2>
 
-  <form  [formGroup]="plantsData" (ngSubmit)="submitData()">
+  <form [formGroup]="plantsData" (ngSubmit)="submitData()">
     <div class="row ">
       <div class="col-6 py-2">
         <label for="">Plant Code<sup>*</sup> </label>
-        <input type="text" formControlName="plantCode" class="form-control" placeholder="Enter Plant Code" readonly/>
+        <input type="text" formControlName="plantCode" class="form-control" placeholder="Enter Plant Code" readonly />
         <div
           *ngIf="plantsData.controls['plantCode'].touched && plantsData.controls['plantCode'].dirty && plantsData.controls['plantCode'].hasError('required') && !isSubmitted">
           <p class="error-message">Plant code is mandatory</p>
@@ -59,7 +59,7 @@
           [ngStyle]="{'pointer-events': !plantsData.value.countryId ? 'none' :  'all'}">
           <option [selected]="plantsData.value.languageId === ''" value="" hidden>Select Language</option>
 
-          <option [value]="citiesDetails.languageId">{{languageName}}</option> 
+          <option [value]="citiesDetails.languageId">{{languageName}}</option>
         </select>
         <div
           *ngIf="plantsData.controls['languageId'].touched && plantsData.controls['languageId'].dirty && plantsData.controls['languageId'].hasError('required') && !isSubmitted">
@@ -244,10 +244,8 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-6 mt-3">
-          <button type="submit" class="btn btn-primary">
-            Update
-          </button>
+        <div class="col-12 d-flex justify-content-end py-2">
+          <button type="submit" class="btn btn-primary">Save</button>
         </div>
       </div>
     </div>

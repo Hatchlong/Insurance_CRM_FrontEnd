@@ -24,6 +24,7 @@ import { VendorService } from './services/vendor/vendor.service';
 import { ProductService } from './services/product/product.service';
 import { EditProductComponent } from './components/product/edit-product/edit-product.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { EditCustomerComponent } from './components/customer-master/edit-customer/edit-customer.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     AddCustomerComponent,
     CustomerListComponent,
     EditVendorComponent,
-    EditProductComponent
+    EditProductComponent,
+    EditCustomerComponent
   ],
   imports: [
     CommonModule,
