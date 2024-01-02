@@ -2,7 +2,7 @@
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
     <form [formGroup]="sales" (ngSubmit)="add()">
         <h3 class="mt-2">
-            <mat-icon class="back" routerLink="/">arrow_back</mat-icon> Sales Order
+            <mat-icon class="back" routerLink="/sales/sales-order-list">arrow_back</mat-icon> Sales Order
         </h3>
         <div class="row border">
             <div class="col-6">
@@ -264,7 +264,7 @@
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-6 mb-2">
                 <label class="">Other Charges <sup>*</sup></label>
                 <input type="number" class="form-control " placeholder="Other Charges" formControlName="otherChange">
                 <div
