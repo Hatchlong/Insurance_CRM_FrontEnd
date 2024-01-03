@@ -1,4 +1,3 @@
-
 <app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
     <h3 class="mt-2">
@@ -22,18 +21,17 @@
                     </div>
                     <div class="col-6 py-2 py-1">
                         <label for="example">Country <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="country">
-                            <option [selected]="general.value.country === ''" value="" hidden>Select Country</option>
-
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select class="form-select " aria-label="Default select example" formControlName="countryId"
+                            (change)="selectCountryName($event)">
+                            <option [selected]="general.value.countryId === ''" value="" hidden>Select Country</option>
+                            <option *ngFor="let list of countryDetials" [value]="list._id">
+                                {{list.countryName}}</option>
                         </select>
                         <div
-                            *ngIf="general.controls['country'].touched && general.controls['country'].dirty && general.controls['country'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['countryId'].touched && general.controls['countryId'].dirty && general.controls['countryId'].hasError('required') && !isSubmitted">
                             <p class="error-message">Country is mandatory</p>
                         </div>
-                        <div *ngIf="isSubmitted && general.controls['country'].hasError('required')">
+                        <div *ngIf="isSubmitted && general.controls['countryId'].hasError('required')">
                             <p class="error-message">Country is mandatory</p>
                         </div>
                     </div>
@@ -104,12 +102,12 @@
                     <div class="col-6 py-2 py-1">
                         <label for="">Tax No 1 <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Tax Number 1"
-                            formControlName="taxOne">
+                            formControlName="taxNumber1">
                         <div
-                            *ngIf="general.controls['taxOne'].touched && general.controls['taxOne'].dirty && general.controls['taxOne'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['taxNumber1'].touched && general.controls['taxNumber1'].dirty && general.controls['taxNumber1'].hasError('required') && !isSubmitted">
                             <p class="error-message">Tax No 1 is mandatory</p>
                         </div>
-                        <div *ngIf="isSubmitted && general.controls['taxOne'].hasError('required')">
+                        <div *ngIf="isSubmitted && general.controls['taxNumber1'].hasError('required')">
                             <p class="error-message">Tax No 1 is mandatory</p>
                         </div>
 
@@ -118,24 +116,25 @@
 
                         <label for="">Tax NO 2 <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Tax Number 2"
-                            formControlName="taxTwo">
+                            formControlName="taxNumber2">
                         <div
-                            *ngIf="general.controls['taxTwo'].touched && general.controls['taxTwo'].dirty && general.controls['taxTwo'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['taxNumber2'].touched && general.controls['taxNumber2'].dirty && general.controls['taxNumber2'].hasError('required') && !isSubmitted">
                             <p class="error-message">Tax No 2 is mandatory</p>
                         </div>
-                        <div *ngIf="isSubmitted && general.controls['taxTwo'].hasError('required')">
+                        <div *ngIf="isSubmitted && general.controls['taxNumber2'].hasError('required')">
                             <p class="error-message">Tax No 2 is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2 py-1">
 
                         <label for="">VAT Registration Number <sup>*</sup></label>
-                        <input type="text" class="form-control " placeholder="Enter VAT Registration Number" formControlName="vatReg">
+                        <input type="text" class="form-control " placeholder="Enter VAT Registration Number"
+                            formControlName="vatRegNO">
                         <div
-                            *ngIf="general.controls['vatReg'].touched && general.controls['vatReg'].dirty && general.controls['vatReg'].hasError('required') && !isSubmitted">
+                            *ngIf="general.controls['vatRegNO'].touched && general.controls['vatRegNO'].dirty && general.controls['vatRegNO'].hasError('required') && !isSubmitted">
                             <p class="error-message">VAT Registration Number is mandatory</p>
                         </div>
-                        <div *ngIf="isSubmitted && general.controls['vatReg'].hasError('required')">
+                        <div *ngIf="isSubmitted && general.controls['vatRegNO'].hasError('required')">
                             <p class="error-message">VAT Registration Number is mandatory</p>
                         </div>
                     </div>
@@ -173,7 +172,7 @@
                                                     </tr>
                                                 </thead>
 
-                                                <tbody formArrayName="plantList">
+                                                <tbody formArrayName="plantData">
                                                     <tr *ngFor="let financial of detail.controls; let i = index;"
                                                         [formGroupName]="i">
                                                         <td *ngIf="detail.controls.length > 1">
@@ -183,108 +182,110 @@
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
-                                                                formControlName="currency">
+                                                                formControlName="currency"
+                                                                >
                                                                 <option [selected]="general.value.currency === ''"
                                                                     value="" hidden>Select Currency</option>
 
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                <option *ngFor="let list of currencyDetails"
+                                                                    [value]="list._id">{{list.code}}</option>
+
                                                             </select>
 
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
-                                                                formControlName="termOfPayment">
-                                                                <option [selected]="general.value.termOfPayment === ''"
+                                                                formControlName="termsPayment"
+                                                                >
+                                                                <option [selected]="general.value.termsPayment === ''"
                                                                     value="" hidden>Select Term Of Payment</option>
 
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                <option *ngFor="let list of paymentTermDetail"
+                                                                    [value]="list._id">{{list.paymentTerm}}</option>
+                                                               
                                                             </select>
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
-                                                                aria-label="Default select example"
                                                                 formControlName="companyCode">
-                                                                 <option [selected]="general.value.companyCode === ''"
-                                                                value="" hidden>Select Company</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                <option [selected]="general.value.companyCode === ''"
+                                                                    value="" hidden>Select Company</option>
+                                                                <option *ngFor="let list of companyDetails;"
+                                                                    [value]="list._id">{{list.companyCode}}
+                                                              
                                                             </select>
-                                                           
+
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
-                                                                formControlName="reconciliation">
-                                                                <option [selected]="general.value.reconciliation === ''"
-                                                                value="" hidden>Select Reconciliation</option>
+                                                                formControlName="reconciliationAcct">
+                                                                <option
+                                                                    [selected]="general.value.reconciliationAcct === ''"
+                                                                    value="" hidden>Select Reconciliation</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                             </select>
-                                                            
+
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="tax1">
-                                                                 <option [selected]="general.value.tax1 === ''" value=""
-                                                                hidden>Select Tax</option>
+                                                                <option [selected]="general.value.tax1 === ''" value=""
+                                                                    hidden>Select Tax</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                             </select>
-                                                           
+
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="tax2">
-                                                                 <option [selected]="general.value.tax2 === ''" value=""
-                                                                hidden>Select Tax2</option>
+                                                                <option [selected]="general.value.tax2 === ''" value=""
+                                                                    hidden>Select Tax2</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
-                                                           
+
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="tax3">
-                                                                 <option [selected]="general.value.tax3 === ''" value=""
-                                                                hidden>Select Tax3</option>
+                                                                <option [selected]="general.value.tax3 === ''" value=""
+                                                                    hidden>Select Tax3</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
-                                                           
+
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="tax4">
-                                                                 <option [selected]="general.value.tax4 === ''" value=""
-                                                                hidden>Select Tax4</option>
+                                                                <option [selected]="general.value.tax4 === ''" value=""
+                                                                    hidden>Select Tax4</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
-                                                           
+
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="tax5">
                                                                 <option [selected]="general.value.tax5 === ''" value=""
-                                                                hidden>Select Tax5</option>
+                                                                    hidden>Select Tax5</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
-                                                            
+
                                                         </td>
 
                                                     </tr>
@@ -319,7 +320,7 @@
                                                     </tr>
                                                 </thead>
 
-                                                <tbody formArrayName="salesList">
+                                                <tbody formArrayName="salesData">
                                                     <tr *ngFor="let financial of salesDetail.controls; let j = index;"
                                                         [formGroupName]="j">
                                                         <td *ngIf="salesDetail.controls.length > 1">
@@ -329,38 +330,37 @@
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
-                                                                formControlName="billingBlock">
-                                                                 <option [selected]="general.value.billingBlock === ''"
-                                                                value="" hidden>Select billing Block</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                formControlName="billingBlock" >
+                                                                <option [selected]="general.value.billingBlock === ''"
+                                                                    value="" hidden>Select billing Block</option>
+                                                                <option *ngFor="let list of billingBlockDetail" [value]="list._id">{{list.billingBlock}}</option>
+                                                               
                                                             </select>
-                                                           
+
 
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="workingTime">
-                                                               <option [selected]="general.value.workingTime === ''"
-                                                                value="" hidden>Select working Time</option>
-                                                       
+                                                                <option [selected]="general.value.workingTime === ''"
+                                                                    value="" hidden>Select working Time</option>
+
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
-                                                             <td>
+                                                        <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="accountGroup">
                                                                 <option [selected]="general.value.accountGroup === ''"
-                                                                value="" hidden>Select account Group</option>
+                                                                    value="" hidden>Select account Group</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option>
                                                             </select>
-                                                            
+
                                                         </td>
                                                         <td>
                                                             <input type="checkbox" class="form-control "
@@ -370,98 +370,94 @@
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="deliveryBlock">
-                                                                 <option [selected]="general.value.deliveryBlock === ''"
-                                                                value="" hidden>Select delivery Block</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                <option [selected]="general.value.deliveryBlock === ''"
+                                                                    value="" hidden>Select delivery Block</option>
+                                                                <option *ngFor="let list of deliveryBlockDetail" [value]="list._id">{{list.deliveryBlockId}}</option>
+                                                                
                                                             </select>
-                                                           
+
 
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
-                                                                formControlName="salesOrg">
-                                                                 <option [selected]="general.value.salesOrg === ''" value=""
-                                                                hidden>Select sales Org</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                formControlName="salesOrganization">
+                                                                <option
+                                                                    [selected]="general.value.salesOrganization === ''"
+                                                                    value="" hidden>Select sales Org</option>
+                                                                    <option *ngFor="let list of salesData"
+                                                                    [value]="list._id">
+                                                                    {{list.salesOrg}}</option>
                                                             </select>
-                                                           
+
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="distributionChannel">
-                                                                 <option
-                                                                [selected]="general.value.distributionChannel === ''"
-                                                                value="" hidden>Select distribution Channel</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                <option
+                                                                    [selected]="general.value.distributionChannel === ''"
+                                                                    value="" hidden>Select distribution Channel</option>
+                                                                    <option *ngFor="let list of distributionDetail"
+                                                                    [value]="list._id">{{list.distributionChannel}}
+                                                                </option>
                                                             </select>
-                                                           
+
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="division">
-                                                                 <option [selected]="general.value.division === ''" value=""
-                                                                hidden>Select division</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                <option [selected]="general.value.division === ''"
+                                                                    value="" hidden>Select division</option>
+                                                                <option *ngFor="let list of divisionDetail" [value]="list._id">{{list.divion}}</option>
+                                                               
                                                             </select>
-                                                           
+
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="customerGroup">
-                                                               <option [selected]="general.value.customerGroup === ''"
-                                                                value="" hidden>Select customerGroup</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
-                                                            </select>
-                                                            
+                                                                <option [selected]="general.value.customerGroup === ''"
+                                                                    value="" hidden>Select customerGroup</option>
+                                                                <option *ngFor="let list of customerGroupDetail" [value]="list._id">{{list.customerGroupId}}</option>
+                                                                </select>
+
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="modeOfTransport">
-                                                                 <option [selected]="general.value.modeOfTransport === ''"
-                                                                value="" hidden>Select modeOfTransport</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                <option
+                                                                    [selected]="general.value.modeOfTransport === ''"
+                                                                    value="" hidden>Select modeOfTransport</option>
+                                                                <option *ngFor="let list of motDetails" [value]="list._id">{{list.modeOfTransport}}</option>
+                                                               
                                                             </select>
-                                                           
+
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
-                                                                formControlName="acctAsmt">
-                                                                 <option [selected]="general.value.acctAsmt === ''" value=""
-                                                                hidden>Select acctAsmt</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                formControlName="acctAssGrpCustomer">
+                                                                <option
+                                                                    [selected]="general.value.acctAssGrpCustomer === ''"
+                                                                    value="" hidden>Select acctAsmt</option>
+                                                                <option *ngFor="let list of acctAssignmentDetail" [value]="list._id">{{list.customerAccountAG}}</option>
+                                                                
                                                             </select>
-                                                           
+
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="deliveryPlant">
-                                                                 <option [selected]="general.value.deliveryPlant === ''"
-                                                                value="" hidden>Select delivery Plant</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                <option [selected]="general.value.deliveryPlant === ''"
+                                                                    value="" hidden>Select delivery Plant</option>
+                                                                <option *ngFor="let list of plantDetail" [value]="list._id">{{list.plantCode}}</option>
+                                                               
                                                             </select>
-                                                           
+
                                                         </td>
                                                         <td>
                                                             <input type="checkbox" class="form-control "

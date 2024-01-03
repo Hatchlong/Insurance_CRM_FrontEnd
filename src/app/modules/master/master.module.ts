@@ -25,6 +25,7 @@ import { ProductService } from './services/product/product.service';
 import { EditProductComponent } from './components/product/edit-product/edit-product.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { EditCustomerComponent } from './components/customer-master/edit-customer/edit-customer.component';
+import { CustomerService } from './services/customer/customer.service';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,6 @@ import { EditCustomerComponent } from './components/customer-master/edit-custome
     PaginationModule.forRoot(),
     FormsModule
   ],
-  providers:[CountryService, VendorService, ProductService]
+  providers:[CountryService, VendorService, ProductService,CustomerService]
 })
 export class MasterModule { }
