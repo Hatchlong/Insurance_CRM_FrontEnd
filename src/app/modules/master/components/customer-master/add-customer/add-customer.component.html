@@ -182,8 +182,7 @@
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
-                                                                formControlName="currency"
-                                                                >
+                                                                formControlName="currency">
                                                                 <option [selected]="general.value.currency === ''"
                                                                     value="" hidden>Select Currency</option>
 
@@ -196,24 +195,22 @@
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
-                                                                formControlName="termsPayment"
-                                                                >
+                                                                formControlName="termsPayment">
                                                                 <option [selected]="general.value.termsPayment === ''"
                                                                     value="" hidden>Select Term Of Payment</option>
 
                                                                 <option *ngFor="let list of paymentTermDetail"
                                                                     [value]="list._id">{{list.paymentTerm}}</option>
-                                                               
+
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <select class="form-select "
-                                                                formControlName="companyCode">
+                                                            <select class="form-select " formControlName="companyCode">
                                                                 <option [selected]="general.value.companyCode === ''"
                                                                     value="" hidden>Select Company</option>
                                                                 <option *ngFor="let list of companyDetails;"
                                                                     [value]="list._id">{{list.companyCode}}
-                                                              
+
                                                             </select>
 
                                                         </td>
@@ -330,25 +327,24 @@
                                                         <td>
                                                             <select class="form-select"
                                                                 aria-label="Default select example"
-                                                                formControlName="billingBlock" >
+                                                                formControlName="billingBlock">
                                                                 <option [selected]="general.value.billingBlock === ''"
                                                                     value="" hidden>Select billing Block</option>
-                                                                <option *ngFor="let list of billingBlockDetail" [value]="list._id">{{list.billingBlock}}</option>
-                                                               
+                                                                <option *ngFor="let list of billingBlockDetail"
+                                                                    [value]="list._id">{{list.billingBlock}}</option>
+
                                                             </select>
-
-
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
-                                                                formControlName="workingTime">
-                                                                <option [selected]="general.value.workingTime === ''"
+                                                                formControlName="workingTimes">
+                                                                <option [selected]="general.value.workingTimes === ''"
                                                                     value="" hidden>Select working Time</option>
 
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                <option value="One">One</option>
+                                                                <option value="Two">Two</option>
+                                                                <option value="Three">Three</option>
                                                             </select>
                                                         <td>
                                                             <select class="form-select "
@@ -363,8 +359,7 @@
 
                                                         </td>
                                                         <td>
-                                                            <input type="checkbox" class="form-control "
-                                                                formControlName="deletionFlag">
+                                                            <input type="checkbox" formControlName="deletionFlag">
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
@@ -372,8 +367,9 @@
                                                                 formControlName="deliveryBlock">
                                                                 <option [selected]="general.value.deliveryBlock === ''"
                                                                     value="" hidden>Select delivery Block</option>
-                                                                <option *ngFor="let list of deliveryBlockDetail" [value]="list._id">{{list.deliveryBlockId}}</option>
-                                                                
+                                                                <option *ngFor="let list of deliveryBlockDetail"
+                                                                    [value]="list._id">{{list.deliveryBlockId}}</option>
+
                                                             </select>
 
 
@@ -384,7 +380,7 @@
                                                                 <option
                                                                     [selected]="general.value.salesOrganization === ''"
                                                                     value="" hidden>Select sales Org</option>
-                                                                    <option *ngFor="let list of salesData"
+                                                                <option *ngFor="let list of salesData"
                                                                     [value]="list._id">
                                                                     {{list.salesOrg}}</option>
                                                             </select>
@@ -397,7 +393,7 @@
                                                                 <option
                                                                     [selected]="general.value.distributionChannel === ''"
                                                                     value="" hidden>Select distribution Channel</option>
-                                                                    <option *ngFor="let list of distributionDetail"
+                                                                <option *ngFor="let list of distributionDetail"
                                                                     [value]="list._id">{{list.distributionChannel}}
                                                                 </option>
                                                             </select>
@@ -409,8 +405,9 @@
                                                                 formControlName="division">
                                                                 <option [selected]="general.value.division === ''"
                                                                     value="" hidden>Select division</option>
-                                                                <option *ngFor="let list of divisionDetail" [value]="list._id">{{list.divion}}</option>
-                                                               
+                                                                <option *ngFor="let list of divisionDetail"
+                                                                    [value]="list._id">{{list.divion}}</option>
+
                                                             </select>
 
                                                         </td>
@@ -420,8 +417,9 @@
                                                                 formControlName="customerGroup">
                                                                 <option [selected]="general.value.customerGroup === ''"
                                                                     value="" hidden>Select customerGroup</option>
-                                                                <option *ngFor="let list of customerGroupDetail" [value]="list._id">{{list.customerGroupId}}</option>
-                                                                </select>
+                                                                <option *ngFor="let list of customerGroupDetail"
+                                                                    [value]="list._id">{{list.customerGroupId}}</option>
+                                                            </select>
 
                                                         </td>
                                                         <td>
@@ -431,8 +429,9 @@
                                                                 <option
                                                                     [selected]="general.value.modeOfTransport === ''"
                                                                     value="" hidden>Select modeOfTransport</option>
-                                                                <option *ngFor="let list of motDetails" [value]="list._id">{{list.modeOfTransport}}</option>
-                                                               
+                                                                <option *ngFor="let list of motDetails"
+                                                                    [value]="list._id">{{list.modeOfTransport}}</option>
+
                                                             </select>
 
                                                         </td>
@@ -443,8 +442,10 @@
                                                                 <option
                                                                     [selected]="general.value.acctAssGrpCustomer === ''"
                                                                     value="" hidden>Select acctAsmt</option>
-                                                                <option *ngFor="let list of acctAssignmentDetail" [value]="list._id">{{list.customerAccountAG}}</option>
-                                                                
+                                                                <option *ngFor="let list of acctAssignmentDetail"
+                                                                    [value]="list._id">{{list.customerAccountAG}}
+                                                                </option>
+
                                                             </select>
 
                                                         </td>
@@ -454,15 +455,15 @@
                                                                 formControlName="deliveryPlant">
                                                                 <option [selected]="general.value.deliveryPlant === ''"
                                                                     value="" hidden>Select delivery Plant</option>
-                                                                <option *ngFor="let list of plantDetail" [value]="list._id">{{list.plantCode}}</option>
-                                                               
+                                                                <option *ngFor="let list of plantDetail"
+                                                                    [value]="list._id">{{list.plantCode}}</option>
+
                                                             </select>
 
                                                         </td>
                                                         <td>
-                                                            <input type="checkbox" name="" id="" class="form-control "
-                                                            formControlName="partial">
-                                                            
+                                                            <input type="checkbox" formControlName="partialDeliveryAllowed">
+
                                                         </td>
                                                     </tr>
                                                 </tbody>

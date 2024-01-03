@@ -137,7 +137,7 @@ export class EditCustomerComponent {
     console.log("sales array");
     return this.fb.group({
       billingBlock: [''],
-      workingTime: [''],
+      workingTimes: [''],
       accountGroup: [''],
       deletionFlag: [''],
       deliveryBlock: [''],

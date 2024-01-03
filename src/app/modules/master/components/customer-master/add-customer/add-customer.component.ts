@@ -132,7 +132,7 @@ export class AddCustomerComponent implements OnInit {
     console.log("sales array");
     return this.fb.group({
       billingBlock: [''],
-      workingTime: [''],
+      workingTimes: [''],
       accountGroup: [''],
       deletionFlag: [''],
       deliveryBlock: [''],
@@ -143,7 +143,7 @@ export class AddCustomerComponent implements OnInit {
       modeOfTransport: [''],
       acctAssGrpCustomer: [''],
       deliveryPlant: [''],
-      partial: ['']
+      partialDeliveryAllowed: ['']
     })
   }
   addSec() {
