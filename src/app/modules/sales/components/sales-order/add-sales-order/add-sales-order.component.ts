@@ -140,14 +140,7 @@ export class AddSalesOrderComponent {
     }
   }
  
-  // addSales() {
-  //   this.detail.push(this.getSalesFields());
-  //   console.log(this.detail.value)
-  // }
-
-  // deleterow(index: any) {
-  //   this.detail.removeAt(index)
-  // }
+ 
 
   get salesOrderArray() {
     return this.salesFormGroup.get('salesOrderData') as FormArray
