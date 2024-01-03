@@ -93,11 +93,13 @@ export class AddSalesOrderComponent {
     
   }
 
-  addSales(){
-    this.detail.push(this.addValue())
-
+ 
+  addSales() {
+    this.detail.push(this.addValue());
+    console.log(this.detail.value)
   }
-  deleterow(index:any){
+
+  deleterow(index: any) {
     this.detail.removeAt(index)
   }
 
