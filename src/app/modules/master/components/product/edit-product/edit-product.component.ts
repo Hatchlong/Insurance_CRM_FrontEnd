@@ -34,7 +34,7 @@ export class EditProductComponent {
   weigthUnitDetail: any = []
   uomDetail: any = []
   materialTypeDetail: any = []
-  materialIdisShow:any = true
+  materialIdisShow: any = true
 
 
 
@@ -46,7 +46,7 @@ export class EditProductComponent {
     private SalesSer: SalesOrgService,
     private plantDataSer: PlantDataService,
     private _snackBar: MatSnackBar,
-    private distibutionSer:DistibutionChannelService
+    private distibutionSer: DistibutionChannelService
 
   ) { }
 
@@ -76,7 +76,53 @@ export class EditProductComponent {
     this.isShowPadding = event
   }
 
-  create() {
+  create(data?: any) {
+    if (data) {
+      this.general = this.fb.group({
+        _id: [data._id, Validators.required],
+        materialId: [data.materialId],
+        materialDescription: [data.materialDescription, Validators.required],
+        materialGroupId: [data.materialGroupId, Validators.required],
+        materialGroupName: [data.materialGroupName, Validators.required],
+        materialTypeId: [data.materialTypeId, Validators.required],
+        materialTypeName: [data.materialTypeName, Validators.required],
+        materialTypeFlag: [data.materialTypeFlag, Validators.required],
+        industrySectorId: [data.industrySectorId, Validators.required],
+        industrySectorName: [data.industrySectorName, Validators.required],
+        netWeight: [data.netWeight, Validators.required],
+        volumn: [data.volumn, Validators.required],
+        storageConditionId: [data.storageConditionId, Validators.required],
+        storageConditionName: [data.storageConditionName, Validators.required],
+        tempConditionId: [data.tempConditionId, Validators.required],
+        tempConditionName: [data.tempConditionName, Validators.required],
+        transporationGroupId: [data.transporationGroupId, Validators.required],
+        transporationGroupName: [data.transporationGroupName, Validators.required],
+        allowedPKGWeight: [data.allowedPKGWeight, Validators.required],
+        unitOfDeminsion: [data.unitOfDeminsion, Validators.required],
+        // unitWeight: ['', Validators.required],
+        weightUnit: [data.weightUnit, Validators.required],
+        allowedPKGVolume: [data.allowedPKGVolume, Validators.required],
+        // volumeUnit: ['', Validators.required],
+        excessWTTolerance: [data.excessWTTolerance, Validators.required],
+        oldMaterialNumber: [data.oldMaterialNumber, Validators.required],
+        baseUnitMeasure: [data.baseUnitMeasure, Validators.required],
+        grossWeight: [data.grossWeight, Validators.required],
+        volumnUnit: [data.volumnUnit, Validators.required],
+        length: [data.length, Validators.required],
+        width: [data.width, Validators.required],
+        height: [data.height, Validators.required],
+        batchManagment: [data.batchManagment, Validators.required],
+        taxClassificationId: [data.taxClassificationId, Validators.required],
+        taxClassificationName: [data.taxClassificationName, Validators.required],
+        manfacturePartNo: [data.manfacturePartNo, Validators.required],
+        expirationDataRelavance: [data.expirationDataRelavance, Validators.required],
+        excessVolumnTol: [data.excessVolumnTol, Validators.required],
+        materialCost: [data.materialCost, Validators.required],
+        plantData: this.fb.array(data.plantData.map((ele: any) => this.addrow(ele))),
+        salesData: this.fb.array(data.salesData.map((ele: any) => this.addSales(ele)))
+      })
+      return;
+    }
     this.general = this.fb.group({
       _id: ['', Validators.required],
       materialId: [''],
@@ -85,7 +131,7 @@ export class EditProductComponent {
       materialGroupName: ['', Validators.required],
       materialTypeId: ['', Validators.required],
       materialTypeName: ['', Validators.required],
-      materialTypeFlag:['', Validators.required],
+      materialTypeFlag: ['', Validators.required],
       industrySectorId: ['', Validators.required],
       industrySectorName: ['', Validators.required],
       netWeight: ['', Validators.required],
@@ -124,7 +170,19 @@ export class EditProductComponent {
   get detail() {
     return this.general.get('plantData') as FormArray
   }
-  addrow() {
+  addrow(data?: any) {
+    if (data) {
+      return this.fb.group({
+        storagePlant: [data.storagePlant],
+        storageLocation: [data.storageLocation],
+        procurementType: [data.procurementType],
+        safetyStock: [data.safetyStock],
+        totalReplLeadTime: [data.totalReplLeadTime],
+        availabilityCheck: [data.availabilityCheck],
+        profitCenter: [data.profitCenter],
+        bomRelevance: [data.bomRelevance],
+      })
+    }
     return this.fb.group({
       storagePlant: [''],
       storageLocation: [''],
@@ -150,7 +208,20 @@ export class EditProductComponent {
     return this.general.get('salesData') as FormArray
 
   }
-  addSales() {
+  addSales(data?:any) {
+    if(data){
+      return this.fb.group({
+        salesOrganization: [data.salesOrganization],
+        distributionChannel: [data.distributionChannel],
+        deliveryUnit: [data.deliveryUnit],
+        deliveringPlant: [data.deliveringPlant],
+        maxDeliveryQTY: [data.maxDeliveryQTY],
+        materialGroup: [data.materialGroup],
+        acctAssignmentGrp: [data.acctAssignmentGrp],
+        minimumOrderQTY: [data.minimumOrderQTY],
+        minimumDeliveryQTY: [data.minimumDeliveryQTY],
+      })
+    }
     return this.fb.group({
       salesOrganization: [''],
       distributionChannel: [''],
@@ -177,8 +248,7 @@ export class EditProductComponent {
       const result: any = await this.productSer.singleProductDetails(this.productId)
       if (result.status === '1') {
         console.log(result);
-        this.general.patchValue(result.data)
-        console.log(this.general.value)
+        this.create(result.data)
       }
     } catch (error) {
       console.error(error);
@@ -397,16 +467,16 @@ export class EditProductComponent {
   handleMaterialType(event: any) {
     const findMaterialType = this.materialTypeDetail.find((el: any) => el._id === event.target.value)
     console.log(findMaterialType);
-    if(findMaterialType.num_range === 'M'){
+    if (findMaterialType.num_range === 'M') {
       this.materialIdisShow = true;
-    }else{
+    } else {
       this.materialIdisShow = false;
     }
     this.general.controls.materialTypeFlag.setValue(findMaterialType.num_range)
-    this.general.controls.materialTypeName.setValue(findMaterialType.description)  
+    this.general.controls.materialTypeName.setValue(findMaterialType.description)
 
   }
- 
+
   //get industry sector 
 
   async getIndustryDetails() {
@@ -493,11 +563,11 @@ export class EditProductComponent {
       });
     }
   }
-  handleTemp(event:any){
-    const findTemp=this.tempDetails.find((el:any)=>el._id===event.target.value)
+  handleTemp(event: any) {
+    const findTemp = this.tempDetails.find((el: any) => el._id === event.target.value)
     console.log(findTemp);
     this.general.controls.tempConditionName.setValue(findTemp.description)
-    
+
   }
   //get trans details
 
@@ -523,16 +593,16 @@ export class EditProductComponent {
       });
     }
   }
-  handleTransGrp(event:any){
-    const findTransDetail=this.transDetails.find((el:any)=>el._id===event.target.value)
+  handleTransGrp(event: any) {
+    const findTransDetail = this.transDetails.find((el: any) => el._id === event.target.value)
     console.log(findTransDetail);
     this.general.controls.transporationGroupName.setValue(findTransDetail.description)
-    
+
   }
 
-   //get weight unit
+  //get weight unit
 
-   async getWeightUnit() {
+  async getWeightUnit() {
     try {
       const result: any = await this.productSer.getAllWeightUnitDetails()
       if (result.status === '1') {
@@ -578,32 +648,32 @@ export class EditProductComponent {
     }
   }
 
-    //get Account Assign detail
+  //get Account Assign detail
 
-    async getAcctAssign() {
-      try {
-        const result: any = await this.productSer.getAllAcctAssignDetails()
-        if (result.status === '1') {
-          this.acctAssignDetail = result.data
-        }
-      } catch (error: any) {
-        if (error.error.message) {
-          this._snackBar.open(error.error.message, '', {
-            duration: 5 * 1000, horizontalPosition: 'center',
-            verticalPosition: 'top',
-            panelClass: 'app-notification-error',
-          });
-          return
-        }
-        this._snackBar.open('Something went wrong', '', {
+  async getAcctAssign() {
+    try {
+      const result: any = await this.productSer.getAllAcctAssignDetails()
+      if (result.status === '1') {
+        this.acctAssignDetail = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+        return
       }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
+  }
 
-    //get procuremnent type
+  //get procuremnent type
 
   async getProcurementDetail() {
     try {
@@ -657,9 +727,9 @@ export class EditProductComponent {
 
   async getDistributionDetail() {
     try {
-      const result:any=await this.distibutionSer.getAllDistibutionChannelDetails()
-      if (result.status==='1') {
-        this.distributionDetail=result.data
+      const result: any = await this.distibutionSer.getAllDistibutionChannelDetails()
+      if (result.status === '1') {
+        this.distributionDetail = result.data
       }
     } catch (error: any) {
       if (error.error.message) {
@@ -684,5 +754,5 @@ export class EditProductComponent {
 
   }
 
-  
+
 }
