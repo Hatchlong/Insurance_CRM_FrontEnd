@@ -21,7 +21,7 @@
             <button (click)="nextPage('/master/add-customer')" class="btn btn-primary " type="button"
               style="color: white;background: #00acff;">Add Customer</button>
 
-            <button class="btn btn-danger" type="button" style="color: white;">
+            <button class="btn btn-danger" type="button" style="color: white;" (click)="handleDeleteMuliple()">
               <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
               Delete Selected Customer</button>
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
@@ -31,10 +31,10 @@
               <button mat-menu-item>
                 <span>Import Customer</span>
               </button>
-              <button mat-menu-item>
+              <button mat-menu-item (click)="exportExcel()">
                 <span>Export Customer</span>
               </button>
-              <button mat-menu-item>
+              <button mat-menu-item (click)="downloadExcel()">
                 <span>Sample Customer Sheet</span>
               </button>
             </mat-menu>
