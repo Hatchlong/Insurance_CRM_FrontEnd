@@ -1,26 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BillingBlockService } from 'src/app/modules/setting/Services/billing-block/billing-block.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CustomerService } from '../../../services/customer/customer.service';
 import { CompanyCodeService } from 'src/app/modules/setting/Services/company-code/company-code.service';
-import { CustomerAccountAGService } from 'src/app/modules/setting/Services/customer-account-AG/customer-account-ag.service';
+import { SalesOrgService } from 'src/app/modules/setting/Services/sales-org/sales-org.service';
+import { PaymentTermService } from 'src/app/modules/setting/Services/payment-term/payment-term.service';
 import { DistibutionChannelService } from 'src/app/modules/setting/Services/distibution-channel/distibution-channel.service';
 import { DivionService } from 'src/app/modules/setting/Services/divion/divion.service';
 import { ModeOfTransportService } from 'src/app/modules/setting/Services/mode-of-transport/mode-of-transport.service';
-import { PaymentTermService } from 'src/app/modules/setting/Services/payment-term/payment-term.service';
 import { PlantDataService } from 'src/app/modules/setting/Services/plant-data/plant-data.service';
-import { SalesOrgService } from 'src/app/modules/setting/Services/sales-org/sales-org.service';
-import { CustomerService } from '../../../services/customer/customer.service';
-import { Router } from '@angular/router';
+import { CustomerAccountAGService } from 'src/app/modules/setting/Services/customer-account-AG/customer-account-ag.service';
+import { BillingBlockService } from 'src/app/modules/setting/Services/billing-block/billing-block.service';
 
 @Component({
-  selector: 'app-add-customer',
-  templateUrl: './add-customer.component.html',
-  styleUrls: ['./add-customer.component.css']
+  selector: 'app-edit-customer',
+  templateUrl: './edit-customer.component.html',
+  styleUrls: ['./edit-customer.component.css']
 })
-export class AddCustomerComponent implements OnInit {
+export class EditCustomerComponent {
 
   general: any = FormGroup
+  customerMasterId:any=''
   isSubmitted: any = false
   isShowPadding: any = false;
   countryDetials: any = [];
@@ -41,6 +42,7 @@ export class AddCustomerComponent implements OnInit {
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private router:Router,
+    private activeRouter: ActivatedRoute,
 
     private customerSer:CustomerService,
 
@@ -57,6 +59,7 @@ export class AddCustomerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.customerMasterId=this.activeRouter.snapshot.paramMap.get('id')
     this.create()
     this.getCountryDetails()
     this.getCurrencyDetails()
@@ -71,9 +74,11 @@ export class AddCustomerComponent implements OnInit {
     this.getPlantDetail()
     this.getCustomergroup()
     this.getDeliveryBlock()
+    this.singleCustomerDetails()
   }
   create() {
     this.general = this.fb.group({
+      _id: ['', Validators.required],
       customerId: ['', Validators.required],
       countryId: ['', Validators.required],
       countryName: [''],
@@ -153,6 +158,23 @@ export class AddCustomerComponent implements OnInit {
   deleteSalesrow(index: any) {
     this.salesDetail.removeAt(index);
   }
+
+   //get single data
+
+   async singleCustomerDetails() {
+    try {
+      const result: any = await this.customerSer.singleCustomerDetails(this.customerMasterId)
+      if (result.status === '1') {
+        console.log(result);
+        this.general.patchValue(result.data)
+        console.log(this.general.value)
+      }
+    } catch (error) {
+      console.error(error);
+
+    }
+  }
+
  async addAll() {
   try {
     this.isSubmitted = true
@@ -178,7 +200,7 @@ export class AddCustomerComponent implements OnInit {
     this.general.value.changedOn = fullDate
     this.general.value.changedBy = username
 
-    const result: any = await this.customerSer.createCustomer(this.general.value)
+    const result: any = await this.customerSer.updatedCustomerDetails(this.general.value)
     console.log(result);
     if (result.status === '1') {
       this._snackBar.open(result.message, '', {
@@ -583,4 +605,6 @@ export class AddCustomerComponent implements OnInit {
        });;
      }
   }
+
+
 }

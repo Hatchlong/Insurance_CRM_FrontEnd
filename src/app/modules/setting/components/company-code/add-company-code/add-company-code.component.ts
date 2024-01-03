@@ -23,7 +23,7 @@ export class AddCompanyCodeComponent {
   fileName: any = '';
   imageSrc:any = '';
   @ViewChild('inputFile') inputFile:any;
-  constructor(
+  constructor(  
     private fb: FormBuilder,
     private companySer: CompanyCodeService,
     private companyCodeSer: CompanyCodeService,
@@ -228,6 +228,8 @@ export class AddCompanyCodeComponent {
 
   selectCountryName(event: any) {
     this.citiesDetails = this.countryDetials.find((el: any) => el._id === event.target.value);
+    console.log(this.citiesDetails.value);
+    
     this.companyCode.controls.countryName.setValue(this.citiesDetails.countryName)
     this.companyCode.controls.languageId.setValue(this.citiesDetails.languageId)
     const findDefaultCurrency = this.currencyDetails.find((el:any) => el.countryId === event.target.value);
