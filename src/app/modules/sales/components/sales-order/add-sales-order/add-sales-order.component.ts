@@ -7,22 +7,21 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./add-sales-order.component.css']
 })
 export class AddSalesOrderComponent {
-  isSubmitted:any = true;
+  salesFormGroup:any=FormGroup
+  isSubmitted:any = false;
   isShowPadding:any = false;
-  sales:any=FormGroup
   constructor(private fb:FormBuilder){}
   
   ngOnInit(): void {
-      this.add()
+      this.createSalesFormFields()
   }
 
   handleSideBar(event: any) {
     this.isShowPadding = event
   }
 
-  add(){
-    this.isSubmitted = false
-    this.sales=this.fb.group({
+  createSalesFormFields() {
+    this.salesFormGroup = this.fb.group({
       orderType:['', Validators.required], 
       saleOrg:['', Validators.required],
       distributionChannel:['', Validators.required],
@@ -52,17 +51,16 @@ export class AddSalesOrderComponent {
       netFreight:['', Validators.required],
       otherChange:['', Validators.required],
 
-      salesList:this.fb.array([this.addValue()])
+      salesData:this.fb.array([this.getSalesFields()])
 
 
     })
   }
 
-  get detail(){
-    return this.sales.get('salesList') as FormArray
-  }
-  addValue(){
-    console.log("Data Added");
+  // get detail(){
+  //   return this.sales.get('salesList') as FormArray
+  // }
+  getSalesFields(): FormGroup{
     return this.fb.group({
       productId:['', Validators.required],
       proDes:['', Validators.required],
@@ -93,14 +91,75 @@ export class AddSalesOrderComponent {
     
   }
 
+  async submitData() {
+    try {
+      this.isSubmitted = true
+      const userName: any = localStorage.getItem('userName')
+      this.salesFormGroup.value.createdOn = '18/12/2023'
+      this.salesFormGroup.value.createdBy = userName
+      this.salesFormGroup.value.changedOn = '18/12/2023'
+      this.salesFormGroup.value.changedBy = userName
+      console.log(this.salesFormGroup.value)
+      if (this.salesFormGroup.invalid)
+        return
+      // const result: any = await this.vendorSer.createVendorDetails(this.vendorFormGroup.value)
+      // console.log(result);
+      // if (result.status === '1') {
+      //   this._snackBar.open(result.message, '', {
+      //     duration: 5 * 1000, horizontalPosition: 'center',
+      //     verticalPosition: 'top',
+      //     panelClass: 'app-notification-success',
+      //   });
+      //   this.router.navigate(['/master/vendor'])
+      //   return
+      // }
+      // if (result.status === '0') {
+      //   this._snackBar.open(result.message, '', {
+      //     duration: 5 * 1000, horizontalPosition: 'center',
+      //     verticalPosition: 'top',
+      //     panelClass: 'app-notification-error',
+      //   });
+      //   return
+      // }
+
+    } catch (error: any) {
+      console.error(error)
+      // if (error.error.message) {
+      //   this._snackBar.open(error.error.message, '', {
+      //     duration: 5 * 1000, horizontalPosition: 'center',
+      //     verticalPosition: 'top',
+      //     panelClass: 'app-notification-error',
+      //   });
+      //   return
+      // }
+      // this._snackBar.open('Something went wrong', '', {
+      //   duration: 5 * 1000, horizontalPosition: 'center',
+      //   verticalPosition: 'top',
+      //   panelClass: 'app-notification-error',
+      // });
+    }
+  }
  
-  addSales() {
-    this.detail.push(this.addValue());
-    console.log(this.detail.value)
+  // addSales() {
+  //   this.detail.push(this.getSalesFields());
+  //   console.log(this.detail.value)
+  // }
+
+  // deleterow(index: any) {
+  //   this.detail.removeAt(index)
+  // }
+
+  get salesOrderArray() {
+    return this.salesFormGroup.get('salesOrderData') as FormArray
   }
 
-  deleterow(index: any) {
-    this.detail.removeAt(index)
+  addSalesItem() {
+    this.salesOrderArray.push(this.getSalesFields());
+    console.log(this.salesOrderArray.value)
+  }
+
+  deleteSalesItem(index: any) {
+    this.salesOrderArray.removeAt(index)
   }
 
 }
