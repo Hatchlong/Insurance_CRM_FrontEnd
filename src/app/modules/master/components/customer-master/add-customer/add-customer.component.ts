@@ -384,7 +384,7 @@ export class AddCustomerComponent implements OnInit {
   }
   handleBilling(event: any) {
     const findbillingData = this.billingBlockDetail.find((el: any) => el._id === event.target.value)
-    this.general.controls.billingBlock.setValue(findbillingData.billingBlock)
+    // this.general.controls.billingBlock.setValue(findbillingData.billingBlock)
   }
 
    //get distribution channel

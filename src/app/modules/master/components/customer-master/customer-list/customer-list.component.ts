@@ -13,6 +13,7 @@ export class CustomerListComponent implements OnInit{
   isShowPadding:any = false
   customerDetails:any=[]
   selectAll: any;
+  allCustomerDetails:any=[]
 
   constructor(
     private router:Router,
@@ -52,6 +53,16 @@ export class CustomerListComponent implements OnInit{
     }
   }
 
+  handleFilter(event:any){
+    if(!event.target.value){
+      this.customerDetails = this.allCustomerDetails
+    }
+    console.log(event.target.value)
+    const isStringIncluded = this.allCustomerDetails.filter((obj:any) => ((obj.customerId.toUpperCase()).includes(event.target.value.toUpperCase()) ));
+    this.customerDetails = isStringIncluded
+  }
+
+ 
 
   async getCustomerDetail() {
     try {
@@ -63,6 +74,10 @@ export class CustomerListComponent implements OnInit{
         })
        
         this.customerDetails = result.data
+        this.allCustomerDetails=result.data
+        if (result.data.length === 0) {
+          this.selectAll = false
+        }
       }
 
     } catch (error: any) {
