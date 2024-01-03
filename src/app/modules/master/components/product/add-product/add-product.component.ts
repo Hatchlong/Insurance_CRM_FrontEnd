@@ -248,12 +248,7 @@ export class AddProductComponent implements OnInit {
 
     }
   }
-  selectPlant(event: any) {
-    this.plantDetails = this.plantDetail.find((el: any) => el._id === event.target.value);
-    // this.general.controls.storagePlant.setValue(this.plantDetails.plantCode)
-    // this.general.controls.storageLocation.setValue(this.plantDetails.stoargeLocationName)
-
-  }
+ 
 
   //get sales org details
 
