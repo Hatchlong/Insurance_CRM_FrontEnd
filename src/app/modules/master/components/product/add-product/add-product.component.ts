@@ -75,7 +75,7 @@ export class AddProductComponent implements OnInit {
       materialDescription: ['', Validators.required],
       materialGroupId: ['', Validators.required],
       materialGroupName: ['', Validators.required],
-      materialTypeId: ['', Validators.required],
+      materialTypeId: ['', Validators.required], 
       materialTypeName: ['', Validators.required],
       materialTypeFlag: ['', Validators.required],
       industrySectorId: ['', Validators.required],

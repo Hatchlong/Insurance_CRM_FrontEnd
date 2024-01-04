@@ -10,7 +10,9 @@ export class AddSalesOrderComponent {
   salesFormGroup:any=FormGroup
   isSubmitted:any = false;
   isShowPadding:any = false;
-  constructor(private fb:FormBuilder){}
+  constructor(
+    private fb:FormBuilder
+    ){}
   
   ngOnInit(): void {
       this.createSalesFormFields()
@@ -57,8 +59,9 @@ export class AddSalesOrderComponent {
       netFreight:['', Validators.required],
       orderStatusId:['', Validators.required],
       orderStatusName:[''],
+      otherCharge:['',Validators.required],
 
-      salesData:this.fb.array([this.getSalesFields()])
+      financialData:this.fb.array([this.getSalesFields()])
 
 
     })
@@ -69,33 +72,49 @@ export class AddSalesOrderComponent {
   // }
   getSalesFields(): FormGroup{
     return this.fb.group({
-      productId:['', Validators.required],
-      proDes:['', Validators.required],
-      ordQty:['', Validators.required],
-      uom:['', Validators.required],
-      plant:['', Validators.required],
-      stLoc:['', Validators.required],
-      batch:['', Validators.required],
-      price:['', Validators.required],
-      perUnit:['', Validators.required],
-      pricingUnit:['', Validators.required],
-      priDate:['', Validators.required],
-      vol:['', Validators.required],
-      priuom:['', Validators.required],
-      tax:['', Validators.required],
-      perUnitTax:['', Validators.required],
-      discount:['', Validators.required],
-      perDis:['', Validators.required],
-      fre:['', Validators.required],
-      perFre:['', Validators.required],
-      otherCharge:['', Validators.required],
-      computerCurrency:['', Validators.required],
-      transactionCurrency:['', Validators.required],
-      exchangeRate:['', Validators.required],
-      netWeight:['', Validators.required],
-      groWeight:['', Validators.required],
+      productId:[''],
+      productDescription:[''],
+      ordQty:[''],
+      uom:[''],
+      plant:[''],
+      storageLocation:[''],
+      batchSerial:[''],
+      priceAmount:[''],
+      priceUnitPrice:[''],
+      priceUnit:[''],
+      priDate:[''],
+      vol:[''],
+      priceUOM:[''],
+      tax:[''],
+      perUnitTax:[''],
+      discount:[''],
+      perUnitDiscount:[''],
+      freight:[''],
+      perUnitFreight:[''],
+      otherCharges:[''],
+      companyCurrency:[''],
+      transactionCurrency:[''],
+      exchangeRate:[''],
+      priceDate:[''],
+      netWeight:[''],
+      grossWeight:[''],
+      volumn:['']
     })
     
+  }
+
+  
+  get salesOrderArray() {
+    return this.salesFormGroup.get('financialData') as FormArray
+  }
+
+  addSalesItem() {
+    this.salesOrderArray.push(this.getSalesFields());
+    console.log(this.salesOrderArray.value)
+  }
+
+  deleteSalesItem(index: any) {
+    this.salesOrderArray.removeAt(index)
   }
 
   async submitData() {
@@ -148,18 +167,5 @@ export class AddSalesOrderComponent {
   }
  
  
-
-  get salesOrderArray() {
-    return this.salesFormGroup.get('salesOrderData') as FormArray
-  }
-
-  addSalesItem() {
-    this.salesOrderArray.push(this.getSalesFields());
-    console.log(this.salesOrderArray.value)
-  }
-
-  deleteSalesItem(index: any) {
-    this.salesOrderArray.removeAt(index)
-  }
 
 }
