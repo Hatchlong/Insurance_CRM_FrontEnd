@@ -1,487 +1,3 @@
-<!-- <app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
-<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
-    <form [formGroup]="salesFormGroup" (ngSubmit)="submitData()">
-        <h3 class="mt-2">
-            <mat-icon class="back" routerLink="/">arrow_back</mat-icon> Sales Order
-        </h3>
-        <div class="row border">
-            <div class="col-6">
-                <span class="">Order Type</span>
-                <select class="form-select " aria-label="Default select example" formControlName="order">
-                    <option [selected]="salesFormGroup.value.order === ''" value="" hidden>Select Order Type</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-            <div class="col-6">
-                <span class="">salesFormGroup Org</span>
-                <select class="form-select " aria-label="Default select example" formControlName="saleOrg">
-                    <option [selected]="salesFormGroup.value.payTerm === ''" value="" hidden>Select salesFormGroup Org</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-            <div class="col-6">
-                <span class="">Division</span>
-                <select class="form-select " aria-label="Default select example" formControlName="division">
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-            <div class="col-6">
-                <span class="">Customer Id</span>
-                <select class="form-select " aria-label="Default select example" formControlName="custId">
-                    <option [selected]="salesFormGroup.value.custId=== ''" value="" hidden>Select Customer Id</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-            <div class="col-6">
-                <span class="">Customer Add</span>
-                <select class="form-select " aria-label="Default select example" formControlName="custAdd">
-                    <option [selected]="salesFormGroup.value.custAdd=== ''" value="" hidden>Select Customer Add</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-                <div
-                    *ngIf="salesFormGroup.controls['customerAdd'].touched && salesFormGroup.controls['customerAdd'].touched && salesFormGroup.controls['customerAdd'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Customer Add is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && salesFormGroup.controls['customerAdd'].hasError('required')">
-                    <p class="error-message">Customer Add is mandatory</p>
-                </div>
-            </div>
-
-            <div class="col-6">
-                <label class="">Sales Order <sup>*</sup></label>
-                <input type="text" class="form-control " placeholder="Enter Sales Order" formControlName="saleOrder">
-                <div
-                    *ngIf="salesFormGroup.controls['saleOrder'].touched && salesFormGroup.controls['saleOrder'].touched && salesFormGroup.controls['saleOrder'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Sale Order is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && salesFormGroup.controls['saleOrder'].hasError('required')">
-                    <p class="error-message">Sale Order is mandatory</p>
-                </div>
-            </div>
-            <div class="col-6">
-                <label class="">Customer PO <sup>*</sup></label>
-                <input type="text" class="form-control " placeholder="Enter Customer PO" formControlName="customerPO">
-                <div
-                    *ngIf="salesFormGroup.controls['customerPO'].touched && salesFormGroup.controls['customerPO'].touched && salesFormGroup.controls['customerPO'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Customer PO is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && salesFormGroup.controls['customerPO'].hasError('required')">
-                    <p class="error-message">Customer PO is mandatory</p>
-                </div>
-            </div>
-
-            <div class="col-6">
-                <label class="">Customer PO Date <sup>*</sup></label>
-                <input type="date" class="form-control " placeholder="Enter PO Date" formControlName="customerPoDate">
-                <div
-                    *ngIf="salesFormGroup.controls['customerPoDate'].touched && salesFormGroup.controls['customerPoDate'].touched && salesFormGroup.controls['customerPoDate'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Customer PO Date is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && salesFormGroup.controls['customerPoDate'].hasError('required')">
-                    <p class="error-message">PO Date is mandatory</p>
-                </div>
-            </div>
-            <div class="col-6">
-                <label class="">Req Delivery Date <sup>*</sup></label>
-                <input type="date" class="form-control " placeholder="Enter Req Delivery Date"
-                    formControlName="reqDeliveryDate">
-                <div
-                    *ngIf="salesFormGroup.controls['reqDeliveryDate'].touched && salesFormGroup.controls['reqDeliveryDate'].touched && salesFormGroup.controls['reqDeliveryDate'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Req Delivery Date is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && salesFormGroup.controls['reqDeliveryDate'].hasError('required')">
-                    <p class="error-message">Req Delivery Date is mandatory</p>
-                </div>
-            </div>
-            <div class="col-6">
-                <span class="">Company Currency</span>
-                <select class="form-select " aria-label="Default select example" formControlName="comCur">
-                    <option [selected]="salesFormGroup.value.comCur=== ''" value="" hidden>Select Company Currency</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-            <div class="col-6">
-                <span class="">Transaction Curr</span>
-                <select class="form-select " aria-label="Default select example" formControlName="traCurr">
-                    <option [selected]="salesFormGroup.value.traCurr=== ''" value="" hidden>Select Transaction Curr</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-            <div class="col-6">
-                <span class=""> Text</span>
-                <input type="text" class="form-control " placeholder=" Enter Text" formControlName="txt">
-            </div>
-            <div class="col-6">
-                <span class="">Order Status</span>
-                <select class="form-select " aria-label="Default select example" formControlName="orderStatus">
-                    <option [selected]="salesFormGroup.value.orderStatus === ''" value="" hidden>Select Order Status</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-                <div
-                    *ngIf="salesFormGroup.controls['orderStatus'].touched && salesFormGroup.controls['orderStatus'].touched && salesFormGroup.controls['orderStatus'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Order Status is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && salesFormGroup.controls['orderStatus'].hasError('required')">
-                    <p class="error-message">Order Status is mandatory</p>
-                </div>
-            </div>
-
-
-            <div class="col-6">
-                <span class="">Exchange Rate</span>
-                <input type="text" class="form-control " placeholder="Enter Exchange Rate" formControlName="exRate">
-            </div>
-            <div class="col-6">
-                <span class="">Mode of Transport</span>
-                <select class="form-select " aria-label="Default select example" formControlName="modeTra">
-                    <option [selected]="salesFormGroup.value.modeTra=== ''" value="" hidden>Select Mode of Transport</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-            <div class="col-6">
-                <span class="">Total Net Weight</span>
-                <input type="text" class="form-control " placeholder="Calculated Total Net Weight"
-                    formControlName="netWt">
-            </div>
-            <div class="col-6">
-                <span class="">Total Gross Wt</span>
-                <input type="text" class="form-control " placeholder="Calculated Total Gross Wt"
-                    formControlName="grossWt">
-            </div>
-            <div class="col-6">
-                <span class="">Total Volume</span>
-                <input type="text" class="form-control " placeholder="Calculated Total Volume" formControlName="totVol">
-            </div>
-            <div class="col-6">
-                <span class="">Payment Term</span>
-                <select class="form-select " aria-label="Default select example" formControlName="payTerm">
-                    <option [selected]="salesFormGroup.value.payTerm === ''" value="" hidden>Select Payment Term</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-            <div class="col-6">
-                <span class="">Billing Block</span>
-                <select class="form-select " aria-label="Default select example" formControlName="billBlock">
-                    <option [selected]="salesFormGroup.value.billBlock=== ''" value="" hidden>Select Billing Block</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-            <div class="col-6">
-                <span class="">Company Code</span>
-                <select class="form-select " aria-label="Default select example" formControlName="comCode">
-                    <option [selected]="salesFormGroup.value.comCode === ''" value="" hidden>Select Company Code</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-            <div class="col-6">
-                <span class="">Customer Account</span>
-                <select class="form-select " aria-label="Default select example" formControlName="custAcc">
-                    <option [selected]="salesFormGroup.value.custAcc === ''" value="" hidden>Select Customer Account</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-                <div
-                    *ngIf="salesFormGroup.controls['customerAccount'].touched && salesFormGroup.controls['customerAccount'].touched && salesFormGroup.controls['customerAccount'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Customer Account is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && salesFormGroup.controls['customerAccount'].hasError('required')">
-                    <p class="error-message">Customer Account is mandatory</p>
-                </div>
-            </div>
-
-
-            <div class="col-6">
-                <label class="">Net Price <sup>*</sup></label>
-                <input type="number" class="form-control " placeholder="Enter Net Price" formControlName="netPrice">
-                <div
-                    *ngIf="salesFormGroup.controls['netPrice'].touched && salesFormGroup.controls['netPrice'].touched && salesFormGroup.controls['netPrice'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Net Price is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && salesFormGroup.controls['netPrice'].hasError('required')">
-                    <p class="error-message">Net Price is mandatory</p>
-                </div>
-
-            </div>
-            <div class="col-6">
-                <label class="">Net Tax <sup>*</sup></label>
-                <input type="number" class="form-control " placeholder="Enter Net Tax" formControlName="netTax">
-                <div
-                    *ngIf="salesFormGroup.controls['netTax'].touched && salesFormGroup.controls['netTax'].touched && salesFormGroup.controls['netTax'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Net Tax is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && salesFormGroup.controls['netTax'].hasError('required')">
-                    <p class="error-message">Net Tax is mandatory</p>
-                </div>
-            </div>
-
-            <div class="col-6">
-                <label class="">Net Discount <sup>*</sup></label>
-                <input type="number" class="form-control " placeholder="Enter Net Discount"
-                    formControlName="netDiscount">
-                <div
-                    *ngIf="salesFormGroup.controls['netDiscount'].touched && salesFormGroup.controls['netDiscount'].touched && salesFormGroup.controls['netDiscount'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Net Discount is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && salesFormGroup.controls['netDiscount'].hasError('required')">
-                    <p class="error-message">Net Discount is mandatory</p>
-                </div>
-            </div>
-            <div class="col-6">
-                <label class="">Net Freight <sup>*</sup></label>
-                <input type="number" class="form-control " placeholder="enter Net Freight" formControlName="netFreight">
-                <div
-                    *ngIf="salesFormGroup.controls['netFreight'].touched && salesFormGroup.controls['netFreight'].touched && salesFormGroup.controls['netFreight'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Net Freight is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && salesFormGroup.controls['netFreight'].hasError('required')">
-                    <p class="error-message">Net Freight is mandatory</p>
-                </div>
-            </div>
-
-            <div class="col-6">
-                <label class="">Other Charges <sup>*</sup></label>
-                <input type="number" class="form-control " placeholder="Other Charges" formControlName="otherChange">
-                <div
-                    *ngIf="salesFormGroup.controls['otherChange'].touched && salesFormGroup.controls['otherChange'].touched && salesFormGroup.controls['otherChange'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Customer Add is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && salesFormGroup.controls['otherChange'].hasError('required')">
-                    <p class="error-message">Customer Add is mandatory</p>
-                </div>
-            </div>
-
-        </div>
-
-        <h2>Item Data</h2>
-        <div class="row">
-            <div>
-                <button type="button" class="btn btn-primary m-1" (click)="getSalesFields()"
-                    style="color: white;background-color: #00acff;">Add Sales Item</button>
-            </div>
-            <div class="row" formArrayName="salesList">
-                <div class="row" *ngFor="let item of salesFormGroup.get('salesList').controls; let i=index" [formGroupName]="i">
-                    <div class="col-6">
-                        <span class="">Product Id</span>
-                        <select class="form-select " aria-label="Default select example" formControlName="proId">
-                            <option [selected]="salesFormGroup.value.proId === ''" value="" hidden>Select Product Id</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-
-                      
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">Product Description <sup>*</sup></label>
-                        <input type="number" class="form-control " placeholder="Autofetched Product Description"
-                            formControlName="productDescription">
-                        
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">Order Qty</label>
-                        <input type="number" class="form-control " placeholder="Oredr Qty" formControlName="ordQty">
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">UOM</label>
-                        <input type="text" class="form-control " placeholder="Enter UOM" formControlName="uom">
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">Plant</label>
-                        <input type="text" class="form-control " placeholder="Enter Plant" formControlName="plant">
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">Storage Location</label>
-                        <input type="text" class="form-control " placeholder="Auto Storage Location"
-                            formControlName="stLoc">
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">Batch</label>
-                        <input type="text" class="form-control " placeholder="Enter Batch" formControlName="batch">
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">Price Amount</label>
-                        <input type="number" class="form-control " placeholder="Enter Price Amount"
-                            formControlName="price">
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">Per Unit Price</label>
-                        <input type="number" class="form-control " placeholder="Enter Per Unit Price"
-                            formControlName="perUnit">
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">Pricing Unit</label>
-                        <input type="number" class="form-control " placeholder="Pricing Unit"
-                            formControlName="pricingUnit">
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">pricing Date</label>
-                        <input type="date" class="form-control " placeholder="pricing Date" formControlName="priDate">
-                        <span class="">Volume</span>
-                        <input type="number" class="form-control " placeholder="Volume" formControlName="vol">
-                        <span class="">Pricing UOM</span>
-                        <select class="form-select " aria-label="Default select example" formControlName="priuom">
-                            <option [selected]="salesFormGroup.value.priuom === ''" value="" hidden>Select Pricing UOM</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">Tax</label>
-                        <input type="number" class="form-control " placeholder=" Enter Tax" formControlName="tax">
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">Per Unit Tax</label>
-                        <input type="number" class="form-control " placeholder="Per Unit Tax"
-                            formControlName="perUnitTax">
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">Discount</label>
-                        <input type="number" class="form-control " placeholder="Discount" formControlName="discount">
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">Per Unit Discount</label>
-                        <input type="number" class="form-control " placeholder="Per Unit Discount"
-                            formControlName="perDis">
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">Freight</label>
-                        <input type="number" class="form-control " placeholder="Freight" formControlName="fre">
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">Per Unit Freight</label>
-                        <input type="number" class="form-control " placeholder="Per Unit Freight"
-                            formControlName="perUnitFreight">
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">Other Charges</label>
-                        <input type="number" class="form-control " placeholder="Other Charges"
-                            formControlName="otherCharge">
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">Company Currency</label>
-                        <input type="text" class="form-control " placeholder="Auto Company Currency"
-                            formControlName="computerCurrency">
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">Transation Currency</label>
-                        <input type="text" class="form-control " placeholder="Auto Transation Currency"
-                            formControlName="transactionCurrency">
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">Exchange Rate</label>
-                        <input type="text" class="form-control " placeholder="Exchange Rate"
-                            formControlName="exchangeRate">
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">Net Weight</label>
-                        <input type="number" class="form-control " placeholder="Net Weight" formControlName="netWeight">
-                    </div>
-
-                    <div class="col-6">
-                        <label class="">Gross Weight</label>
-                        <input type="number" class="form-control " placeholder="Gross Weight"
-                            formControlName="groWeight">
-                    </div>
-
-
-
-
-
-                    <div *ngIf="salesFormGroup.get('salesList').controls.length > 1">
-                        <button (click)="deleteSalesItem(i)" type="button" class="btn btn-danger "
-                            style="width: 100px;">Delete</button>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <button type="submit" class="btn btn-primary">Save</button>
-            </div>
-        </div>
-
-    </form>
-</div> -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
@@ -501,18 +17,28 @@
                 </select>
             </div>
             <div class="col-6">
-                <span class="">salesFormGroup Org</span>
-                <select class="form-select " aria-label="Default select example" formControlName="saleOrg">
-                    <option [selected]="salesFormGroup.value.payTerm === ''" value="" hidden>Select salesFormGroup Org</option>
+                <span class="">Sales Org</span>
+                <select class="form-select " aria-label="Default select example" formControlName="saleOrgId">
+                    <option [selected]="salesFormGroup.value.saleOrgId === ''" value="" hidden>Select Sales Org</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
             </div>
             <div class="col-6">
+                <span class="">Distribution Channel</span>
+                <select class="form-select " aria-label="Default select example" formControlName="distributionChannelsId">
+                    <option [selected]="salesFormGroup.value.distributionChannelsId === ''" value="" hidden>Select Distribution Channel</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+            
+            <div class="col-6">
                 <span class="">Division</span>
-                <select class="form-select " aria-label="Default select example" formControlName="division">
-                    <!-- <option [selected]="salesFormGroupFormGroup.value.division=== ''" value="" hidden>Select Division</option> -->
+                <select class="form-select " aria-label="Default select example" formControlName="divisionId">
+                    <!-- <option [selected]="salesFormGroupFormGroup.value.divisionId=== ''" value="" hidden>Select Division</option> -->
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -520,32 +46,32 @@
             </div>
             <div class="col-6">
                 <span class="">Customer Id</span>
-                <select class="form-select " aria-label="Default select example" formControlName="custId">
-                    <option [selected]="salesFormGroup.value.custId=== ''" value="" hidden>Select Customer Id</option>
+                <select class="form-select " aria-label="Default select example" formControlName="customerId">
+                    <option [selected]="salesFormGroup.value.customerId=== ''" value="" hidden>Select Customer Id</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
             </div>
             <div class="col-6">
-                <span class="">Customer Add</span>
-                <select class="form-select " aria-label="Default select example" formControlName="custAdd">
-                    <option [selected]="salesFormGroup.value.custAdd=== ''" value="" hidden>Select Customer Add</option>
+                <span class="">Customer Address</span>
+                <select class="form-select " aria-label="Default select example" formControlName="customerAddress">
+                    <option [selected]="salesFormGroup.value.customerAddress=== ''" value="" hidden>Select Customer Add</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
                 <div
-                    *ngIf="salesFormGroup.controls['customerAdd'].touched && salesFormGroup.controls['customerAdd'].touched && salesFormGroup.controls['customerAdd'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Customer Add is mandatory</p>
+                    *ngIf="salesFormGroup.controls['customerAddress'].touched && salesFormGroup.controls['customerAddress'].touched && salesFormGroup.controls['customerAddress'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Customer Address is mandatory</p>
                 </div>
-                <div *ngIf="isSubmitted && salesFormGroup.controls['customerAdd'].hasError('required')">
-                    <p class="error-message">Customer Add is mandatory</p>
+                <div *ngIf="isSubmitted && salesFormGroup.controls['customerAddress'].hasError('required')">
+                    <p class="error-message">Customer Address is mandatory</p>
                 </div>
             </div>
 
             <div class="col-6">
-                <label class="">Sales Order <sup>*</sup></label>
+                <label >Sales Order <sup>*</sup></label>
                 <input type="text" class="form-control " placeholder="Enter Sales Order" formControlName="saleOrder">
                 <div
                     *ngIf="salesFormGroup.controls['saleOrder'].touched && salesFormGroup.controls['saleOrder'].touched && salesFormGroup.controls['saleOrder'].hasError('required') && !isSubmitted">
@@ -557,12 +83,12 @@
             </div>
             <div class="col-6">
                 <label class="">Customer PO <sup>*</sup></label>
-                <input type="text" class="form-control " placeholder="Enter Customer PO" formControlName="customerPO">
+                <input type="text" class="form-control " placeholder="Enter Customer PO" formControlName="customerPo">
                 <div
-                    *ngIf="salesFormGroup.controls['customerPO'].touched && salesFormGroup.controls['customerPO'].touched && salesFormGroup.controls['customerPO'].hasError('required') && !isSubmitted">
+                    *ngIf="salesFormGroup.controls['customerPo'].touched && salesFormGroup.controls['customerPo'].touched && salesFormGroup.controls['customerPo'].hasError('required') && !isSubmitted">
                     <p class="error-message">Customer PO is mandatory</p>
                 </div>
-                <div *ngIf="isSubmitted && salesFormGroup.controls['customerPO'].hasError('required')">
+                <div *ngIf="isSubmitted && salesFormGroup.controls['customerPo'].hasError('required')">
                     <p class="error-message">Customer PO is mandatory</p>
                 </div>
             </div>
@@ -581,28 +107,28 @@
             <div class="col-6">
                 <label class="">Req Delivery Date <sup>*</sup></label>
                 <input type="date" class="form-control " placeholder="Enter Req Delivery Date"
-                    formControlName="reqDeliveryDate">
+                    formControlName="requestedDeliveryDate">
                 <div
-                    *ngIf="salesFormGroup.controls['reqDeliveryDate'].touched && salesFormGroup.controls['reqDeliveryDate'].touched && salesFormGroup.controls['reqDeliveryDate'].hasError('required') && !isSubmitted">
+                    *ngIf="salesFormGroup.controls['requestedDeliveryDate'].touched && salesFormGroup.controls['requestedDeliveryDate'].touched && salesFormGroup.controls['requestedDeliveryDate'].hasError('required') && !isSubmitted">
                     <p class="error-message">Req Delivery Date is mandatory</p>
                 </div>
-                <div *ngIf="isSubmitted && salesFormGroup.controls['reqDeliveryDate'].hasError('required')">
+                <div *ngIf="isSubmitted && salesFormGroup.controls['requestedDeliveryDate'].hasError('required')">
                     <p class="error-message">Req Delivery Date is mandatory</p>
                 </div>
             </div>
             <div class="col-6">
                 <span class="">Company Currency</span>
-                <select class="form-select " aria-label="Default select example" formControlName="comCur">
-                    <option [selected]="salesFormGroup.value.comCur=== ''" value="" hidden>Select Company Currency</option>
+                <select class="form-select " aria-label="Default select example" formControlName="companyCurrency">
+                    <option [selected]="salesFormGroup.value.companyCurrency=== ''" value="" hidden>Select Company Currency</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
             </div>
             <div class="col-6">
-                <span class="">Transaction Curr</span>
-                <select class="form-select " aria-label="Default select example" formControlName="traCurr">
-                    <option [selected]="salesFormGroup.value.traCurr=== ''" value="" hidden>Select Transaction Curr</option>
+                <span class="">Transaction Currency</span>
+                <select class="form-select " aria-label="Default select example" formControlName="transactionCurrency">
+                    <option [selected]="salesFormGroup.value.transactionCurrency=== ''" value="" hidden>Select Transaction Currency</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -632,12 +158,12 @@
 
             <div class="col-6">
                 <span class="">Exchange Rate</span>
-                <input type="text" class="form-control " placeholder="Enter Exchange Rate" formControlName="exRate">
+                <input type="text" class="form-control " placeholder="Enter Exchange Rate" formControlName="exchangeRate">
             </div>
             <div class="col-6">
                 <span class="">Mode of Transport</span>
-                <select class="form-select " aria-label="Default select example" formControlName="modeTra">
-                    <option [selected]="salesFormGroup.value.modeTra=== ''" value="" hidden>Select Mode of Transport</option>
+                <select class="form-select " aria-label="Default select example" formControlName="modeOfTransport">
+                    <option [selected]="salesFormGroup.value.modeOfTransport=== ''" value="" hidden>Select Mode of Transport</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -646,21 +172,21 @@
             <div class="col-6">
                 <span class="">Total Net Weight</span>
                 <input type="text" class="form-control " placeholder="Calculated Total Net Weight"
-                    formControlName="netWt">
+                    formControlName="totalNetWeight">
             </div>
             <div class="col-6">
                 <span class="">Total Gross Wt</span>
                 <input type="text" class="form-control " placeholder="Calculated Total Gross Wt"
-                    formControlName="grossWt">
+                    formControlName="totalGrossWeight">
             </div>
             <div class="col-6">
                 <span class="">Total Volume</span>
-                <input type="text" class="form-control " placeholder="Calculated Total Volume" formControlName="totVol">
+                <input type="text" class="form-control " placeholder="Calculated Total Volume" formControlName="totalVolume">
             </div>
             <div class="col-6">
                 <span class="">Payment Term</span>
-                <select class="form-select " aria-label="Default select example" formControlName="payTerm">
-                    <option [selected]="salesFormGroup.value.payTerm === ''" value="" hidden>Select Payment Term</option>
+                <select class="form-select " aria-label="Default select example" formControlName="paymentTerms">
+                    <option [selected]="salesFormGroup.value.paymentTerms === ''" value="" hidden>Select Payment Term</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -668,8 +194,8 @@
             </div>
             <div class="col-6">
                 <span class="">Billing Block</span>
-                <select class="form-select " aria-label="Default select example" formControlName="billBlock">
-                    <option [selected]="salesFormGroup.value.billBlock=== ''" value="" hidden>Select Billing Block</option>
+                <select class="form-select " aria-label="Default select example" formControlName="billingBlockId">
+                    <option [selected]="salesFormGroup.value.billingBlockId=== ''" value="" hidden>Select Billing Block</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -677,8 +203,8 @@
             </div>
             <div class="col-6">
                 <span class="">Company Code</span>
-                <select class="form-select " aria-label="Default select example" formControlName="comCode">
-                    <option [selected]="salesFormGroup.value.comCode === ''" value="" hidden>Select Company Code</option>
+                <select class="form-select " aria-label="Default select example" formControlName="companyCodeId">
+                    <option [selected]="salesFormGroup.value.companyCodeId === ''" value="" hidden>Select Company Code</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -686,8 +212,8 @@
             </div>
             <div class="col-6">
                 <span class="">Customer Account</span>
-                <select class="form-select " aria-label="Default select example" formControlName="custAcc">
-                    <option [selected]="salesFormGroup.value.custAcc === ''" value="" hidden>Select Customer Account</option>
+                <select class="form-select " aria-label="Default select example" formControlName="customerAcctAss">
+                    <option [selected]="salesFormGroup.value.customerAcctAss === ''" value="" hidden>Select Customer Account</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>

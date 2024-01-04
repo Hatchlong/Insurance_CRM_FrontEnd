@@ -8,15 +8,15 @@
             <form [formGroup]="general" (ngSubmit)="addAll()">
                 <div class="row border">
                     <div class="col-6 py-2 py-1">
-                        <label for="" class="">Customer Id <sup>*</sup></label>
+                        <label for="" class="">Customer Name <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Customer Id"
-                            formControlName="customerId">
+                            formControlName="customerName">
                         <div
-                            *ngIf="general.controls['customerId'].touched && general.controls['customerId'].dirty && general.controls['customerId'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Customer Id is mandatory</p>
+                            *ngIf="general.controls['customerName'].touched && general.controls['customerName'].dirty && general.controls['customerName'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Customer Name is mandatory</p>
                         </div>
-                        <div *ngIf="isSubmitted && general.controls['customerId'].hasError('required')">
-                            <p class="error-message">Customer Id is mandatory</p>
+                        <div *ngIf="isSubmitted && general.controls['customerName'].hasError('required')">
+                            <p class="error-message">Customer Name is mandatory</p>
                         </div>
                     </div>
                     <div class="col-6 py-2 py-1">
@@ -342,13 +342,13 @@
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
-                                                                formControlName="workingTime">
-                                                                <option [selected]="general.value.workingTime === ''"
+                                                                formControlName="workingTimes">
+                                                                <option [selected]="general.value.workingTimes === ''"
                                                                     value="" hidden>Select working Time</option>
 
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
+                                                                    <option value="One">One</option>
+                                                                    <option value="Two">Two</option>
+                                                                    <option value="Three">Three</option>
                                                             </select>
                                                         <td>
                                                             <select class="form-select "
@@ -459,7 +459,7 @@
 
                                                         </td>
                                                         <td>
-                                                            <input type="checkbox" formControlName="partial">
+                                                            <input type="checkbox" formControlName="partialDeliveryAllowed">
                                                         </td>
                                                     </tr>
                                                 </tbody>

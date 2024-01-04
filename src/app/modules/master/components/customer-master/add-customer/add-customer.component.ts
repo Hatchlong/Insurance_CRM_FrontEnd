@@ -74,7 +74,7 @@ export class AddCustomerComponent implements OnInit {
   }
   create() {
     this.general = this.fb.group({
-      customerId: ['', Validators.required],
+      customerName: ['', Validators.required],
       countryId: ['', Validators.required],
       countryName: [''],
       address: ['', Validators.required],
@@ -127,12 +127,12 @@ export class AddCustomerComponent implements OnInit {
     return this.general.get('salesData') as FormArray
 
   }
-
+ 
   addSales() {
     console.log("sales array");
     return this.fb.group({
       billingBlock: [''],
-      workingTime: [''],
+      workingTimes: [''],
       accountGroup: [''],
       deletionFlag: [''],
       deliveryBlock: [''],
@@ -143,7 +143,7 @@ export class AddCustomerComponent implements OnInit {
       modeOfTransport: [''],
       acctAssGrpCustomer: [''],
       deliveryPlant: [''],
-      partial: ['']
+      partialDeliveryAllowed: ['']
     })
   }
   addSec() {
