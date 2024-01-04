@@ -85,76 +85,36 @@
               <th scope="col">Action</th>
               <th scope="col"><input type="checkbox"> Select All</th>
             </tr>
+          </thead>
+          <tbody *ngIf="salesOrderDetail.length === 0">
             <tr>
-              <td>1</td>
-              <td scope="col">abc</td>
-              <td scope="col">abcd </td>
-              <td scope="col">abcde</td>
-              <td scope="col">abcdef</td>
-              <td scope="col">01</td>
-              <td scope="col">
+              <td colspan="8" class="text-center">No Records</td>
+            </tr>
+          </tbody> 
+           <tbody>
+            <tr *ngFor="let list of salesOrderDetail; let i=index">
+              <td>{{i+1}}</td>
+             <td>{{list.orderType}}</td>
+              <td>{{list.saleOrgName}}</td>
+              <td>{{list.distributionChannelsName}}</td>
+              <td>{{list.divisionName}}</td>
+              <td>{{list.customerId}}</td>
+             <td>
                 <div class="d-flex">
                   <div>
                     <mat-icon >edit</mat-icon>
-                    <!-- [routerLink]="'/master/edit-vendor/'+list._id" -->
                   </div>
                   <div>
                     <mat-icon >delete</mat-icon>
-                    <!-- (click)="deleteRecords(list)" -->
                   </div>
                 </div>
               </td>
-              <td scope="col"><input type="checkbox"> Select All</td>
-            </tr>
-            <!-- <tr>
-              <th>SN</th>
-              <th>Vendor Id</th>
-              <th scope="col">Vendor Name</th>
-              <th scope="col">Vendor Type</th>
-              <th scope="col">Address</th>
-              <th scope="col">Language</th>
-              <th scope="col">Country</th>
-              <th scope="col">Mode Of Transport</th>
-              <th scope="col">Inco Term</th>
-              <th>Action</th>
-              <th scope="col"><input type="checkbox" id="selectAll" [checked]="selectAll" (change)="selectdata($event)"> Select All </th>
-            </tr> -->
-          </thead>
-          <!-- <tbody *ngIf="vendorDetails.length === 0">
-            <tr>
-              <td colspan="11" class="text-center">No Records</td>
-            </tr>
-          </tbody> -->
-          <!-- <tbody>
-            <tr *ngFor="let list of vendorDetails; let i=index">
-              <td>{{i+1}}</td>
-             <td>{{list.vendorId}}</td>
-              <td>{{list.vendorName}}</td>
-              <td>{{list.vendorTypeName}}</td>
-              <td>{{list.addressCountry}}</td>
-              <td>{{list.languageName}}</td>
-              <td>{{list.countryName}}</td>
-              <td>{{list.modeOfTransportName}}</td>
-              <td>{{list.incrementTreamsName}}</td>
-              <td>
-                <div class="d-flex">
-                  <div>
-                    <mat-icon [routerLink]="'/master/edit-vendor/'+list._id">edit</mat-icon>
-                  </div>
-                  <div>
-                    <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
-                  </div>
-                </div>
-              </td>
-              <td><input type="checkbox" class="checkbox" [checked]="list.check" (change)="particularcheck($event,i)"></td>
+              <td><input type="checkbox" class="checkbox" ></td>
             </tr>           
-          </tbody> -->
+          </tbody>
 
         </table>
       </div>
     </div>
-    <!-- <div class="col-xs-12 col-12 d-flex justify-content-center" *ngIf="vendorDetails.length > 10">
-      <pagination [totalItems]="totalItem" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
-    </div> -->
   </div>
 </div>
