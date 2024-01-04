@@ -2,18 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CustomerService } from '../../../services/customer/customer.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 @Component({
   selector: 'app-customer-list',
   templateUrl: './customer-list.component.html',
   styleUrls: ['./customer-list.component.css']
-})
+}) 
 export class CustomerListComponent implements OnInit{
 
   isShowPadding:any = false
   customerDetails:any=[]
   selectAll: any;
   allCustomerDetails:any=[]
+
+  totalItem: any = 0;
+  currentPage = 1;
+  page?: number = 0;
+  itemsPerPage = 10;
 
   sampleJson ={
     "customerId":"cus123",
@@ -69,7 +75,7 @@ export class CustomerListComponent implements OnInit{
   ){ }
 
   ngOnInit(): void {
-      this.getCustomerDetail()
+      this.getCustomerDetail(this.page, this.itemsPerPage)
   }
 
   nextPage(url: any){
@@ -110,9 +116,9 @@ export class CustomerListComponent implements OnInit{
 
  
 
-  async getCustomerDetail() {
+  async getCustomerDetail(page: any, itemsPerPage: any) {
     try {
-      const result: any = await this.customerSer.getAllCustomerDetails()
+      const result: any = await this.customerSer.getAllCustomerDetailsPage(page, itemsPerPage)
       console.log(result);
       if (result.status === '1') {
         result.data.map((el: any) => {
@@ -167,7 +173,7 @@ export class CustomerListComponent implements OnInit{
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        this.getCustomerDetail()
+        this.getCustomerDetail(this.page, this.itemsPerPage)
         return;
       }
       if (result.status === '0') {
@@ -188,6 +194,10 @@ export class CustomerListComponent implements OnInit{
     }
   }
 
-
+  pageChanged(event: PageChangedEvent): void {
+    this.page = event.page;
+    const records = (this.page-1) * this.itemsPerPage;
+    this.getCustomerDetail(records, this.itemsPerPage)
+  }
 
 }
