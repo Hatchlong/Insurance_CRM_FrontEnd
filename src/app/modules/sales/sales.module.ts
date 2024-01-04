@@ -18,6 +18,7 @@ import { AddDeliveryComponent } from './components/delivery/add-delivery/add-del
 import { BillingListComponent } from './components/billing/billing-list/billing-list.component';
 import { AddBillingComponent } from './components/billing/add-billing/add-billing.component';
 import { SharedModule } from '../shared/shared.module';
+import { SalesOrderService } from './services/sales-order/sales-order.service';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { SharedModule } from '../shared/shared.module';
     MatTabsModule,
     ReactiveFormsModule,
     SharedModule
-  ]
+  ],
+  providers:[SalesOrderService]
 })
 export class SalesModule { }

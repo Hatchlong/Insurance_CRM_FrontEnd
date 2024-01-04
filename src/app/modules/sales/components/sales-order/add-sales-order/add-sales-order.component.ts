@@ -10,7 +10,9 @@ export class AddSalesOrderComponent {
   salesFormGroup:any=FormGroup
   isSubmitted:any = false;
   isShowPadding:any = false;
-  constructor(private fb:FormBuilder){}
+  constructor(
+    private fb:FormBuilder
+    ){}
   
   ngOnInit(): void {
       this.createSalesFormFields()
@@ -23,35 +25,43 @@ export class AddSalesOrderComponent {
   createSalesFormFields() {
     this.salesFormGroup = this.fb.group({
       orderType:['', Validators.required], 
-      saleOrg:['', Validators.required],
-      distributionChannel:['', Validators.required],
-      division:['', Validators.required],
+      saleOrgId:['', Validators.required],
+      saleOrgName:[''],
+      distributionChannelsId:['', Validators.required],
+      distributionChannelsName:['', Validators.required],
+      divisionId:['', Validators.required],
+      divisionName:['', Validators.required],
       customerId:['', Validators.required],
-      customerAdd:['', Validators.required],
+      customerName:[''],
+      customerAddress:['', Validators.required],
       saleOrder:['', Validators.required],
-      customerPO:['', Validators.required],
+      customerPo:['', Validators.required],
       customerPoDate:['', Validators.required],
-      reqDeliveryDate:['', Validators.required],
+      requestedDeliveryDate:['', Validators.required],
       companyCurrency:['', Validators.required],
-      transactionCurr:['', Validators.required],
+      transactionCurrency:['', Validators.required],
       text:['', Validators.required],
       orderStatus:['', Validators.required],
       exchangeRate:['', Validators.required],
-      modeOfTransaction:['', Validators.required],
-      netWeight:['', Validators.required],
+      modeOfTransport:['', Validators.required],
+      totalNetWeight:['', Validators.required],
       totalGrossWeight:['', Validators.required],
       totalVolume:['', Validators.required],
-      paymentTerm:['', Validators.required],
-      billingBlock:['', Validators.required],
-      companyCode:['', Validators.required],
-      customerAccount:['', Validators.required],
+      paymentTerms:['', Validators.required],
+      billingBlockId:['', Validators.required],
+      billingBlockName:[''],
+      companyCodeId:['', Validators.required],
+      companyCodeName:[''],
+      customerAcctAss:['', Validators.required],
       netPrice:['', Validators.required],
       netTax:['', Validators.required],
       netDiscount:['', Validators.required],
       netFreight:['', Validators.required],
-      otherChange:['', Validators.required],
+      orderStatusId:['', Validators.required],
+      orderStatusName:[''],
+      otherCharge:['',Validators.required],
 
-      salesData:this.fb.array([this.getSalesFields()])
+      financialData:this.fb.array([this.getSalesFields()])
 
 
     })
@@ -62,33 +72,49 @@ export class AddSalesOrderComponent {
   // }
   getSalesFields(): FormGroup{
     return this.fb.group({
-      productId:['', Validators.required],
-      proDes:['', Validators.required],
-      ordQty:['', Validators.required],
-      uom:['', Validators.required],
-      plant:['', Validators.required],
-      stLoc:['', Validators.required],
-      batch:['', Validators.required],
-      price:['', Validators.required],
-      perUnit:['', Validators.required],
-      pricingUnit:['', Validators.required],
-      priDate:['', Validators.required],
-      vol:['', Validators.required],
-      priuom:['', Validators.required],
-      tax:['', Validators.required],
-      perUnitTax:['', Validators.required],
-      discount:['', Validators.required],
-      perDis:['', Validators.required],
-      fre:['', Validators.required],
-      perFre:['', Validators.required],
-      otherCharge:['', Validators.required],
-      computerCurrency:['', Validators.required],
-      transactionCurrency:['', Validators.required],
-      exchangeRate:['', Validators.required],
-      netWeight:['', Validators.required],
-      groWeight:['', Validators.required],
+      productId:[''],
+      productDescription:[''],
+      ordQty:[''],
+      uom:[''],
+      plant:[''],
+      storageLocation:[''],
+      batchSerial:[''],
+      priceAmount:[''],
+      priceUnitPrice:[''],
+      priceUnit:[''],
+      priDate:[''],
+      vol:[''],
+      priceUOM:[''],
+      tax:[''],
+      perUnitTax:[''],
+      discount:[''],
+      perUnitDiscount:[''],
+      freight:[''],
+      perUnitFreight:[''],
+      otherCharges:[''],
+      companyCurrency:[''],
+      transactionCurrency:[''],
+      exchangeRate:[''],
+      priceDate:[''],
+      netWeight:[''],
+      grossWeight:[''],
+      volumn:['']
     })
     
+  }
+
+  
+  get salesOrderArray() {
+    return this.salesFormGroup.get('financialData') as FormArray
+  }
+
+  addSalesItem() {
+    this.salesOrderArray.push(this.getSalesFields());
+    console.log(this.salesOrderArray.value)
+  }
+
+  deleteSalesItem(index: any) {
+    this.salesOrderArray.removeAt(index)
   }
 
   async submitData() {
@@ -141,18 +167,5 @@ export class AddSalesOrderComponent {
   }
  
  
-
-  get salesOrderArray() {
-    return this.salesFormGroup.get('salesOrderData') as FormArray
-  }
-
-  addSalesItem() {
-    this.salesOrderArray.push(this.getSalesFields());
-    console.log(this.salesOrderArray.value)
-  }
-
-  deleteSalesItem(index: any) {
-    this.salesOrderArray.removeAt(index)
-  }
 
 }
