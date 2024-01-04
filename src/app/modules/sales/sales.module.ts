@@ -20,6 +20,7 @@ import { AddBillingComponent } from './components/billing/add-billing/add-billin
 import { SharedModule } from '../shared/shared.module';
 import { SalesOrderService } from './services/sales-order/sales-order.service';
 import { EditSalesOrderComponent } from './components/sales-order/edit-sales-order/edit-sales-order.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 
 @NgModule({
@@ -43,7 +44,10 @@ import { EditSalesOrderComponent } from './components/sales-order/edit-sales-ord
     MatTabsModule,
     ReactiveFormsModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    PaginationModule.forRoot(),
+
+    
   ],
   providers:[SalesOrderService]
 })

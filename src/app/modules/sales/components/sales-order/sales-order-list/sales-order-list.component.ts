@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SalesOrderService } from '../../../services/sales-order/sales-order.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+
 
 @Component({
   selector: 'app-sales-order-list',
@@ -20,6 +22,7 @@ export class SalesOrderListComponent implements OnInit{
   currentPage = 1;
   page?: number = 0;
   itemsPerPage = 10;
+
 sampleJson = {
   "orderType":"Domestic",
   "saleOrgName": "SALES ORGANIZATION",
@@ -92,7 +95,7 @@ sampleJson = {
 
   ){}
   ngOnInit(): void {
-      this.getSalesOrderDetail()
+      this.getSalesOrderDetail(this.page, this.itemsPerPage)
   }
   nextPage(url:any){
     this.router.navigate([`${url}`])
@@ -142,9 +145,9 @@ sampleJson = {
  
   //get all details
 
-  async getSalesOrderDetail(){
+  async getSalesOrderDetail(page: any, itemsPerPage: any){
     try {
-      const result:any= await this.salesOrderSer.getAllSalesOrderDetails()
+      const result:any= await this.salesOrderSer.getAllSalesOrderDetailsPage(page, itemsPerPage)
       console.log(result)
       if (result.status==='1') {
         this.salesOrderDetail=result.data
@@ -171,6 +174,52 @@ sampleJson = {
     }
   }
 
+  async deleteRecords(data: any) {
+    try {
+      data.isActive = "C"
+      const result: any = await this.salesOrderSer.updatedSalesOrderDetails(data);
+      console.log(result)
+      if (result.status === '1') {
+        this._snackBar.open("Deleted Successfully", '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
+        this.getSalesOrderDetail(this.page, this.itemsPerPage) 
+        return;
+      }
+      if (result.status === '0') {
+        this._snackBar.open("Deleted Unsuccessfully", '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      } 
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+
+  pageChanged(event: PageChangedEvent): void {
+    this.page = event.page;
+    const records = (this.page-1) * this.itemsPerPage;
+    this.getSalesOrderDetail(records, this.itemsPerPage)
+  }
+
   downloadExcel(): void {   
     const sampleRecord = [this.sampleJson]
     this.salesOrderSer.exportToExcel(sampleRecord, 'sales_orfer', 'Sheet1');
@@ -193,7 +242,7 @@ sampleJson = {
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        this.getSalesOrderDetail()
+        this.getSalesOrderDetail(this.page, this.itemsPerPage)
         return;
       }
       if (result.status === '0') {
@@ -213,38 +262,6 @@ sampleJson = {
       });
     }
   }
-
-
-  // async deleteRecords(data: any) {
-  //   try {
-  //     data.isActive = "C"
-  //     const result: any = await this.salesOrderSer.updatedSalesOrderDetails(data);
-  //     if (result.status === '1') {
-  //       this._snackBar.open("Deleted Successfully", '', {
-  //         duration: 5 * 1000, horizontalPosition: 'center',
-  //         verticalPosition: 'top',
-  //         panelClass: 'app-notification-success',
-  //       });
-  //       this.getSalesOrderDetail()
-  //       return;
-  //     }
-  //     if (result.status === '0') {
-  //       this._snackBar.open("Deleted Unsuccessfully", '', {
-  //         duration: 5 * 1000, horizontalPosition: 'center',
-  //         verticalPosition: 'top',
-  //         panelClass: 'app-notification-error',
-  //       });
-  //     }
-
-  //   } catch (error: any) {
-
-  //     this._snackBar.open('Something went wrong', '', {
-  //       duration: 5 * 1000, horizontalPosition: 'center',
-  //       verticalPosition: 'top',
-  //       panelClass: 'app-notification-error',
-  //     });
-  //   }
-  // }
 
 
 }
