@@ -19,9 +19,7 @@ export class CustomerService {
     return this.http.get('http://localhost:4000/api/master/customer/getAll').toPromise()
   }
 
-  getAllCustomerDetailsPage(skip?:any, itemsPerPage?:any) {
-    return this.http.get(`http://localhost:4000/api/master/customer/getAll/`).toPromise()
-  }
+  
 
   singleCustomerDetails(id: any) {
     return this.http.get(`http://localhost:4000/api/master/customer/get/${id}`).toPromise()
@@ -84,6 +82,15 @@ export class CustomerService {
     XLSX.utils.book_append_sheet(workbook, sheet3, 'Sales_Data');
 
     XLSX.writeFile(workbook, `${fileName}.xlsx`);
+  }
+
+  fileUploadXlsx(data: any) {
+    return this.http.post(`http://localhost:4000/api/master/customer/upload`, data).toPromise()
+  }
+
+  getAllCustomerDetailsPage(skip?: any, itemsPerPage?: any) {
+    return this.http.get(`http://localhost:4000/api/master/customer/getAll/${skip}/${itemsPerPage}`).toPromise()
+
   }
 
 

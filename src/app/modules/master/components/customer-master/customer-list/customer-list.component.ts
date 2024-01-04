@@ -15,12 +15,11 @@ export class CustomerListComponent implements OnInit{
   customerDetails:any=[]
   selectAll: any;
   allCustomerDetails:any=[]
-
   totalItem: any = 0;
   currentPage = 1;
   page?: number = 0;
   itemsPerPage = 10;
-
+  selectedFile: any = '';
   sampleJson ={
     "customerId":"cus123",
     "countryName": "zambia",
@@ -116,7 +115,7 @@ export class CustomerListComponent implements OnInit{
 
  
 
-  async getCustomerDetail(page: any, itemsPerPage: any) {
+  async getCustomerDetail(page:any, itemsPerPage:any) {
     try {
       const result: any = await this.customerSer.getAllCustomerDetailsPage(page, itemsPerPage)
       console.log(result);
@@ -148,6 +147,69 @@ export class CustomerListComponent implements OnInit{
       });
 
     }
+  }
+
+  // File Upload
+  importHandle(inputId: any) {
+    inputId.click()
+  }
+
+
+  // File Input
+  handleFileData(event: any) {
+    console.log(event.target.files[0]);
+    this.selectedFile = event.target.files[0];
+    this.uploadFile()
+  }
+
+  async uploadFile() {
+    try {
+      const username: any = localStorage.getItem('userName')
+
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1; // Months are zero-indexed, so add 1
+      const day = currentDate.getDate();
+      const hours = currentDate.getHours();
+      const minutes = currentDate.getMinutes();
+      const seconds = currentDate.getSeconds();
+
+      // Format the date and time
+      const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      console.log(fullDate);
+      const formData = new FormData();
+      formData.append('file', this.selectedFile);
+      formData.append('createdOn', fullDate);
+      formData.append('createdBy', username);
+      formData.append('changedOn', fullDate);
+      formData.append('changedBy', username);
+
+      const result: any = await this.customerSer.fileUploadXlsx(formData);
+      if (result.status === '1') {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
+        this.getCustomerDetail(this.page, this.itemsPerPage)
+        return;
+      }
+      if (result.status === '0') {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+
   }
 
 
