@@ -23,8 +23,9 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item>
+              <button mat-menu-item (click)="importHandle(inputFile)">
                 <span>Import Customer</span>
+                <input class="d-none" #inputFile type="file" (change)="handleFileData($event)">
               </button>
               <button mat-menu-item (click)="exportExcel()">
                 <span>Export Customer</span>
