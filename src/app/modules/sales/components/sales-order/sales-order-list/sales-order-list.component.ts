@@ -30,6 +30,7 @@ export class SalesOrderListComponent implements OnInit{
     this.isShowPadding = event
   }
 
+  
   //get all details
 
   async getSalesOrderDetail(){

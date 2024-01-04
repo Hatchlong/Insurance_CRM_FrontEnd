@@ -8,19 +8,21 @@ import { OrderStatusService } from 'src/app/modules/setting/Services/order-statu
 import { PaymentTermService } from 'src/app/modules/setting/Services/payment-term/payment-term.service';
 import { SalesOrgService } from 'src/app/modules/setting/Services/sales-org/sales-org.service';
 import { SalesOrderService } from '../../../services/sales-order/sales-order.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModeOfTransportService } from 'src/app/modules/setting/Services/mode-of-transport/mode-of-transport.service';
 import { BillingBlockService } from 'src/app/modules/setting/Services/billing-block/billing-block.service';
 import { CustomerAccountAGService } from 'src/app/modules/setting/Services/customer-account-AG/customer-account-ag.service';
 import { CustomerService } from 'src/app/modules/master/services/customer/customer.service';
 import { ProductService } from 'src/app/modules/master/services/product/product.service';
 
+
 @Component({
-  selector: 'app-add-sales-order',
-  templateUrl: './add-sales-order.component.html',
-  styleUrls: ['./add-sales-order.component.css']
+  selector: 'app-edit-sales-order',
+  templateUrl: './edit-sales-order.component.html',
+  styleUrls: ['./edit-sales-order.component.css']
 })
-export class AddSalesOrderComponent {
+export class EditSalesOrderComponent {
+
   salesFormGroup: any = FormGroup
   isSubmitted: any = false;
   isShowPadding: any = false;
@@ -32,12 +34,15 @@ export class AddSalesOrderComponent {
   paymentTermDetail: any = []
   motDetails: any = []
   billingBlockDetail: any = []
-  customerAccountAsstGroup: any = []
-  customerMasterDetail: any = []
-  productDeatail: any = []
+  customerAccountAsstGroup:any=[]
+  customerMasterDetail:any=[]
+  productDeatail:any=[]
   currencyDetails: any;
+  salesOrderId:any=''
   constructor(
     private fb: FormBuilder,
+    private activeRouter: ActivatedRoute,
+
     private salesOrderSer: SalesOrderService,
     private SalesSer: SalesOrgService,
     private _snackBar: MatSnackBar,
@@ -48,14 +53,15 @@ export class AddSalesOrderComponent {
     private paymentTermSer: PaymentTermService,
     private modeOfTransportSer: ModeOfTransportService,
     private billinBlockSer: BillingBlockService,
-    private customerAcctAG: CustomerAccountAGService,
-    private customerSer: CustomerService,
-    private productSer: ProductService,
+    private customerAcctAG:CustomerAccountAGService,
+    private customerSer:CustomerService,
+    private productSer:ProductService,
     private router: Router,
 
   ) { }
 
   ngOnInit(): void {
+    this.salesOrderId=this.activeRouter.snapshot.paramMap.get('id')
     this.createSalesFormFields()
     this.getSalesDetail()
     this.getDistributionDetail()
@@ -70,15 +76,62 @@ export class AddSalesOrderComponent {
     this.getCurrencyDetails()
     this.getCustomerMaster()
 
-
+    this.singleSalesDetail()
   }
 
   handleSideBar(event: any) {
     this.isShowPadding = event
   }
 
-  createSalesFormFields() {
+  createSalesFormFields(data?:any) {
+    if (data) {
+     
     this.salesFormGroup = this.fb.group({
+      _id:[data._id,Validators.required],
+      orderType: [data.orderType, Validators.required],
+      saleOrgId: [data.saleOrgId, Validators.required],
+      saleOrgName: [data.saleOrgName],
+      distributionChannelsId: [data.distributionChannelsId, Validators.required],
+      distributionChannelsName: [data.distributionChannelsName, Validators.required],
+      divisionId: [data.divisionId, Validators.required],
+      divisionName: [data.divisionName, Validators.required],
+      customerId: [data.customerId, Validators.required],
+      customerName: [data.customerName],
+      customerAddress: [data.customerAddress, Validators.required],
+      salesOrder: [data.salesOrder, Validators.required],
+      customerPo: [data.customerPo, Validators.required],
+      customerPoDate: [data.customerPoDate, Validators.required],
+      requestedDeliveryDate: [data.requestedDeliveryDate, Validators.required],
+      companyCurrency: [data.companyCurrency, Validators.required],
+      transactionCurrency: [data.transactionCurrency, Validators.required],
+      text: [data.text, Validators.required],
+     
+      exchangeRate: [data.exchangeRate, Validators.required],
+      modeOfTransport: [data.modeOfTransport, Validators.required],
+      totalNetWeight: [data.totalNetWeight, Validators.required],
+      totalGrossWeight: [data.totalGrossWeight, Validators.required],
+      totalVolume: [data.totalVolume, Validators.required],
+      paymentTerms: [data.paymentTerms, Validators.required],
+      billingBlockId: [data.billingBlockId, Validators.required],
+      billingBlockName: [data.billingBlockName],
+      companyCodeId: [data.companyCodeId, Validators.required],
+      companyCodeName: [data.companyCodeName],
+      customerAcctAss: [data.customerAcctAss, Validators.required],
+      netPrice: [data.netPrice, Validators.required],
+      netTax: [data.netTax, Validators.required],
+      netDiscount: [data.netDiscount, Validators.required],
+      netFreight: [data.netFreight, Validators.required],
+      orderStatusId: [data.orderStatusId, Validators.required],
+      orderStatusName: [data.orderStatusName],
+      otherCharges: [data.otherCharges, Validators.required],
+
+      itemList: this.fb.array(data.itemList.map((el:any)=>this.getSalesFields(el)))
+
+    })
+    return 
+    }
+    this.salesFormGroup = this.fb.group({
+      _id:['',Validators.required],
       orderType: ['', Validators.required],
       saleOrgId: ['', Validators.required],
       saleOrgName: [''],
@@ -87,7 +140,7 @@ export class AddSalesOrderComponent {
       divisionId: ['', Validators.required],
       divisionName: ['', Validators.required],
       customerId: ['', Validators.required],
-      customerName: ['11'],
+      customerName: [''],
       customerAddress: ['', Validators.required],
       salesOrder: ['', Validators.required],
       customerPo: ['', Validators.required],
@@ -96,7 +149,7 @@ export class AddSalesOrderComponent {
       companyCurrency: ['', Validators.required],
       transactionCurrency: ['', Validators.required],
       text: ['', Validators.required],
-
+     
       exchangeRate: ['', Validators.required],
       modeOfTransport: ['', Validators.required],
       totalNetWeight: ['', Validators.required],
@@ -122,7 +175,40 @@ export class AddSalesOrderComponent {
     })
   }
 
-  getSalesFields(): FormGroup {
+  getSalesFields(data?:any): FormGroup {
+    if (data) {
+      
+    return this.fb.group({
+      materialId: [data.materialId],
+      materialDescription: [data.materialDescription],
+      ordQty: [data.ordQty],
+      uom: [data.uom],
+      plant: [data.plant],
+      storageLocation: [data.storageLocation],
+      batchSerial: [data.batchSerial],
+      priceAmount: [data.priceAmount],
+      priceUnitPrice: [data.priceUnitPrice],
+      priceUnit: [data.priceUnit],
+      priDate: [data.priDate],
+      vol: [data.vol],
+      priceUOM: [data.priceUOM],
+      tax: [data.tax],
+      perUnitTax: [data.perUnitTax],
+      discount: [data.discount],
+      perUnitDiscount: [data.perUnitDiscount],
+      freight: [data.freight],
+      perUnitFreight: [data.perUnitFreight],
+      otherCharges: [data.otherCharges],
+      companyCurrency: [data.companyCurrency],
+      transactionCurrency: [data.transactionCurrency],
+      exchangeRate: [data.exchangeRate],
+      priceDate: [data.priceDate],
+      netWeight: [data.netWeight],
+      grossWeight: [data.grossWeight],
+      volumn: [data.volumn]
+    })
+
+    }
     return this.fb.group({
       materialId: [''],
       materialDescription: [''],
@@ -169,6 +255,20 @@ export class AddSalesOrderComponent {
     this.salesOrderArray.removeAt(index)
   }
 
+  async singleSalesDetail() {
+    try {
+      const result: any = await this.salesOrderSer.singleSalesOrderDetails(this.salesOrderId)
+      if (result.status === '1') {
+        console.log(result);
+        this.createSalesFormFields(result.data)
+      }
+    } catch (error) {
+      console.error(error);
+
+    }
+  }
+
+
   async submitData() {
     try {
       this.isSubmitted = true
@@ -180,7 +280,7 @@ export class AddSalesOrderComponent {
       console.log(this.salesFormGroup.value)
       if (this.salesFormGroup.invalid)
         return
-      const result: any = await this.salesOrderSer.createSalesOrder(this.salesFormGroup.value)
+      const result: any = await this.salesOrderSer.updatedSalesOrderDetails(this.salesFormGroup.value)
       console.log(result);
       if (result.status === '1') {
         this._snackBar.open(result.message, '', {
@@ -251,8 +351,8 @@ export class AddSalesOrderComponent {
       });;
     }
   }
-  handleSales(event: any) {
-    const findSales = this.salesData.find((el: any) => el._id === event.target.value)
+  handleSales(event:any){
+    const findSales=this.salesData.find((el:any)=>el._id===event.target.value)
     this.salesFormGroup.controls.saleOrgName.setValue(findSales.salesOrg)
   }
 
@@ -282,8 +382,8 @@ export class AddSalesOrderComponent {
     }
   }
 
-  handleDistribution(event: any) {
-    const findDistribution = this.distributionDetail.find((el: any) => el._id === event.target.value)
+  handleDistribution(event:any){
+    const findDistribution=this.distributionDetail.find((el:any)=>el._id===event.target.value)
     this.salesFormGroup.controls.distributionChannelsName.setValue(findDistribution.distributionChannel)
   }
   //get dividion
@@ -309,8 +409,8 @@ export class AddSalesOrderComponent {
     }
   }
 
-  handleDivision(event: any) {
-    const findDivision = this.divisionDetail.find((el: any) => el._id === event.target.value)
+  handleDivision(event:any){
+    const findDivision=this.divisionDetail.find((el:any)=>el._id===event.target.value)
     this.salesFormGroup.controls.divisionName.setValue(findDivision.divion)
   }
 
@@ -344,11 +444,9 @@ export class AddSalesOrderComponent {
       });
     }
   }
-  handleCountry(event: any) {
-    const findCompany = this.companyCodeDetails.find((el: any) => el._id === event.target.value)
+  handleCountry(event:any){
+    const findCompany=this.companyCodeDetails.find((el:any)=>el._id===event.target.value)
     this.salesFormGroup.controls.companyCodeName.setValue(findCompany.companyCode)
-    const findDefaultCurrency = this.currencyDetails.find((el: any) => el._id === event.target.value);
-    // this.salesFormGroup.controls.currencyId.setValue(findDefaultCurrency._id)
   }
 
   //get order status 
@@ -375,8 +473,8 @@ export class AddSalesOrderComponent {
     }
   }
 
-  handleOrder(event: any) {
-    const findOrder = this.orderStatusDetail.find((el: any) => el._id === event.target.value)
+  handleOrder(event:any){
+    const findOrder=this.orderStatusDetail.find((el:any)=>el._id===event.target.value)
     this.salesFormGroup.controls.orderStatusName.setValue(findOrder.orderStatus)
   }
   //get Payment terms
@@ -429,12 +527,12 @@ export class AddSalesOrderComponent {
   }
 
   //get billing block
-  async getBillingBlock() {
+  async getBillingBlock(){
     try {
-      const result: any = await this.billinBlockSer.getAllBillingBlockDetails()
-      if (result.status === '1') {
-        this.billingBlockDetail = result.data
-      }
+     const result:any=await this.billinBlockSer.getAllBillingBlockDetails()
+     if (result.status==='1') {
+      this.billingBlockDetail=result.data
+     } 
     } catch (error: any) {
       if (error.error.message) {
         this._snackBar.open(error.error.message, 'Error', {
@@ -451,17 +549,17 @@ export class AddSalesOrderComponent {
     }
   }
 
-  handleBillingBlock(event: any) {
-    const findBilling = this.billingBlockDetail.find((el: any) => el._id === event.target.value)
+  handleBillingBlock(event:any){
+    const findBilling=this.billingBlockDetail.find((el:any)=>el._id===event.target.value)
     this.salesFormGroup.controls.billingBlockName.setValue(findBilling.billingBlock)
   }
 
   //get customer acct ag
-  async getCustomerAcctAG() {
+  async getCustomerAcctAG(){
     try {
-      const result: any = await this.customerAcctAG.getAllCustomerAccountDetails()
-      if (result.status === '1') {
-        this.customerAccountAsstGroup = result.data
+      const result:any=await this.customerAcctAG.getAllCustomerAccountDetails()
+      if (result.status==='1') {
+        this.customerAccountAsstGroup=result.data
       }
     } catch (error: any) {
       if (error.error.message) {
@@ -481,11 +579,11 @@ export class AddSalesOrderComponent {
 
   //get product detail
 
-  async getProductMasterDetail() {
+  async getProductMasterDetail(){
     try {
-      const result: any = await this.productSer.getAllProductDetails()
-      if (result.status === '1') {
-        this.productDeatail = result.data
+      const result:any=await this.productSer.getAllProductDetails()
+      if (result.status==='1') {
+        this.productDeatail=result.data
       }
     } catch (error: any) {
       if (error.error.message) {
@@ -502,8 +600,8 @@ export class AddSalesOrderComponent {
       });;
     }
   }
-  // Get All details for Currency code
-  async getCurrencyDetails() {
+   // Get All details for Currency code
+   async getCurrencyDetails() {
     try {
       const result: any = await this.companyCodeSer.getAllCurrencyDetails();
       if (result.status === '1') {
@@ -533,14 +631,15 @@ export class AddSalesOrderComponent {
     }
   }
 
+  
   //get customer master
-  async getCustomerMaster() {
+  async getCustomerMaster(){
     try {
-      const result: any = await this.customerSer.getAllCustomerDetails()
-      if (result.status === '1') {
-        this.customerMasterDetail = result.data
+      const result:any=await this.customerSer.getAllCustomerDetails()
+      if (result.status==='1') {
+        this.customerMasterDetail=result.data
       }
-    } catch (error: any) {
+    }  catch (error: any) {
       if (error.error.message) {
         this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
@@ -556,6 +655,7 @@ export class AddSalesOrderComponent {
       });
     }
   }
+
   handleCustomer(event: any) {
     const selectedCustomer = this.customerMasterDetail.find((el: any) => el.customerId === event.target.value);
     console.log(selectedCustomer);

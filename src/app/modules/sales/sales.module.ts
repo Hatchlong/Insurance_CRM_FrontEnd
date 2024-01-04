@@ -13,12 +13,13 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatTabsModule} from '@angular/material/tabs';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddDeliveryComponent } from './components/delivery/add-delivery/add-delivery.component';
 import { BillingListComponent } from './components/billing/billing-list/billing-list.component';
 import { AddBillingComponent } from './components/billing/add-billing/add-billing.component';
 import { SharedModule } from '../shared/shared.module';
 import { SalesOrderService } from './services/sales-order/sales-order.service';
+import { EditSalesOrderComponent } from './components/sales-order/edit-sales-order/edit-sales-order.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { SalesOrderService } from './services/sales-order/sales-order.service';
     AddSalesOrderComponent,
     AddDeliveryComponent,
     BillingListComponent,
-    AddBillingComponent
+    AddBillingComponent,
+    EditSalesOrderComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +42,8 @@ import { SalesOrderService } from './services/sales-order/sales-order.service';
     MatMenuModule,
     MatTabsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ],
   providers:[SalesOrderService]
 })
