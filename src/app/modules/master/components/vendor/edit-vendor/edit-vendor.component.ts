@@ -61,7 +61,29 @@ export class EditVendorComponent {
     this.getPaymentMethodDetails()
   }
 
-  createVendorFormFields() {
+  createVendorFormFields(data? : any) {
+    if(data){
+      this.vendorFormGroup = this.fb.group({
+        _id: [data._id, Validators.required],
+        vendorName: [data.vendorName, Validators.required],
+        vendorId: [data.vendorId],
+        vendorTypeFlag: [data.vendorTypeFlag, Validators.required],
+        vendorTypeId: [data.vendorTypeId, Validators.required],
+        vendorTypeName:[data.vendorTypeName, Validators.required],
+        addressCountry: [data.addressCountry, Validators.required],
+        languageId: [data.languageId, Validators.required],
+        languageName: [data.languageName, Validators.required],
+        modeOfTransportId: [data.modeOfTransportId,Validators.required],
+        modeOfTransportName: [data.modeOfTransportName, Validators.required],
+        incrementTreamsId: [data.incrementTreamsId, Validators.required],
+        incrementTreamsName: [data.incrementTreamsName, Validators.required],
+        countryId: [data.countryId, Validators.required],
+        countryName: [data.countryName, Validators.required],
+        financialData: this.fb.array(data.financialData.map((ele: any)=> this.getFinancialFields(ele)))
+
+      })
+      return;
+    }
     this.vendorFormGroup = this.fb.group({
             _id: ['', Validators.required],
             vendorName: ['', Validators.required],
@@ -79,10 +101,31 @@ export class EditVendorComponent {
             countryId: ['', Validators.required],
             countryName: ['', Validators.required],
             financialData: this.fb.array([this.getFinancialFields()])
+
           })
   }
 
-  getFinancialFields(): FormGroup {
+  getFinancialFields(data?: any) {
+    if(data){
+      return this.fb.group({
+        taxNumber: [data.taxNumber],
+        vatRegistrationNo: [data.vatRegistrationNo],
+        currency: [data.currency],
+        companyCode: [data.companyCode],
+        bankCountry: [data.bankCountry],
+        bankKey: [data.bankKey],
+        bankAccount: [data.bankAccount],
+        referenceDetails: [data.referenceDetails],
+        accountHolder: [data.accountHolder],
+        backDetailsValidFrom: [data.backDetailsValidFrom],
+        backDetailsValidTo: [data.backDetailsValidTo],
+        reconciliationAccount: [data.reconciliationAccount],
+        paymentMethod: [data.paymentMethod],
+        paymentTerms: [data.paymentTerms],
+  
+     
+      })
+    }
     return this.fb.group({
       taxNumber: [''],
       vatRegistrationNo: [''],
@@ -269,6 +312,8 @@ return
     try {
       const result: any = await this.vendorSer.singleVendor(this.vendorId)
       console.log(result)
+        this.createVendorFormFields(result.data)
+
       if (result.status === '1') {
         this.vendorFormGroup.patchValue(result.data)
         this.citiesDetails = this.countryDetails.find((el: any) => el._id === this.vendorFormGroup.value.countryId)
@@ -304,7 +349,7 @@ return
   
   handleCurrency(event: any) {
     const findCurrencyCode = this.currencyDetails.find((el: any) => el._id === event.target.value);
-    this.vendorDetials.controls.currencyName.setValue(findCurrencyCode.code)
+    // this.vendorDetials.controls.currencyName.setValue(findCurrencyCode.code)
   }
   
 

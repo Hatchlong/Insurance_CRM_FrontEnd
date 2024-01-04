@@ -83,7 +83,7 @@
         </table>
       </div>
     </div>
-    <div class="col-xs-12 col-12 d-flex justify-content-center" *ngIf="customerDetails.length > 10">
+    <div class="col-xs-12 col-12 d-flex justify-content-center" *ngIf="totalItem > 10">
       <pagination [totalItems]="totalItem" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
     </div>
   </div>

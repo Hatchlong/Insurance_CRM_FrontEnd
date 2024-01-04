@@ -57,6 +57,7 @@ export class AddSalesOrderComponent {
       netFreight:['', Validators.required],
       orderStatusId:['', Validators.required],
       orderStatusName:[''],
+      otherCharges:['',Validators.required],
 
       salesData:this.fb.array([this.getSalesFields()])
 
