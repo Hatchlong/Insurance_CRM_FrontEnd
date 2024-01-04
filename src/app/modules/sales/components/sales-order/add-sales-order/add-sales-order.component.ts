@@ -115,7 +115,7 @@ export class AddSalesOrderComponent {
       orderStatusId: ['', Validators.required],
       orderStatusName: [''],
       otherCharges: ['', Validators.required],
-
+      materialId: [''],
       itemList: this.fb.array([this.getSalesFields()])
 
 
