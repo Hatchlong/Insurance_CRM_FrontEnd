@@ -19,6 +19,9 @@ export class CustomerService {
     return this.http.get('http://localhost:4000/api/master/customer/getAll').toPromise()
   }
 
+  getAllCustomerDetailsPage(skip?:any, itemsPerPage?:any) {
+    return this.http.get(`http://localhost:4000/api/master/customer/getAll/`).toPromise()
+  }
 
   singleCustomerDetails(id: any) {
     return this.http.get(`http://localhost:4000/api/master/customer/get/${id}`).toPromise()
