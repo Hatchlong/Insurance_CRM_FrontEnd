@@ -25,6 +25,39 @@ export class DeliveryService {
     return this.http.put(`http://localhost:4000/api/sales/delivery/update/${data._id}`, data).toPromise()
   }
 
- 
+  updateDeliveryMany(data: any) {
+    return this.http.put(`http://localhost:4000/api/sales/delivery/update`, data).toPromise()
+  }
+  
+
+  exportToExcel(data: any[], fileName: string, sheetName: string): void {
+    const delivery: any = [];
+    console.log(delivery)
+    data.map((el: any) => {
+      el.ItemList.map((ele: any) => {
+        ele.deliveryType = el.deliveryType;
+        delivery.push(ele)
+      })
+
+    })
+    data.map((el: any) => {
+      delete el.isLock;
+      delete el.isActive;
+      delete el.__v;
+      delete el.check;
+      delete el.ItemList
+    })
+    const workbook: XLSX.WorkBook = XLSX.utils.book_new();
+
+    // Add sheets to the workbook
+    const sheet1: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+    XLSX.utils.book_append_sheet(workbook, sheet1, 'delivery');
+
+    const sheet2: XLSX.WorkSheet = XLSX.utils.json_to_sheet(delivery);
+    XLSX.utils.book_append_sheet(workbook, sheet2, 'Item Data');
+
+
+    XLSX.writeFile(workbook, `${fileName}.xlsx`);
+  }
 
 }
