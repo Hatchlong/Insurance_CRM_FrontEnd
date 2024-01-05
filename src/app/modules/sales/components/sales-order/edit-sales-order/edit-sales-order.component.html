@@ -451,15 +451,15 @@
                                         <td>
                                             
                                             <select class="form-select " aria-label="Default select example"
-                                            formControlName="plant">
-                                            <option [selected]="salesFormGroup.value.plant === ''" value=""
-                                                hidden>
-                                                Select
-                                                Plant </option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                        </select>
+                                                formControlName="plant" >
+                                                <option [selected]="salesFormGroup.value.plant === ''" value=""
+                                                    hidden>
+                                                    Select
+                                                    Plant </option>
+                                                    <!-- <option *ngFor="let list of productDeatail" [value]="list.materialId">{{list.materialId}}</option> -->
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
 
 
                                         </td>
