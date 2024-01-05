@@ -79,8 +79,8 @@
                     <mat-icon [routerLink]="'/sales/edit-sales-order/'+list._id">edit</mat-icon>
                   </div>
                   <div>
-                    <mat-icon  >delete</mat-icon>
-                    <!-- (click)="deleteRecords(list)" -->
+                    <mat-icon  (click)="deleteRecords(list)">delete</mat-icon>
+                    
                   </div>
                 </div>
               </td>
@@ -90,6 +90,10 @@
 
         </table>
       </div>
+    </div>
+    <div class="col-xs-12 col-12 d-flex justify-content-center" *ngIf="salesOrderDetail.length > 10">
+      <pagination [totalItems]="totalItem" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
+
     </div>
   </div>
 </div>

@@ -1,133 +1,121 @@
 <app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
-    
+    <div class="row">
+        <div class="col-12">
             <h3 class="mt-2">
-                <mat-icon class="back" routerLink="/">arrow_back</mat-icon> Delivery
+                <mat-icon class="back" routerLink="/sales/delivery-list">arrow_back</mat-icon> Delivery Maintenance
             </h3>
-            <form [formGroup]="productFromGroup" (ngSubmit)="createProductFormFields()">
+            <form [formGroup]="deliveryFormGroup" (ngSubmit)="submitData()">
 
                 <div class="row border">
-                    <div class="col-12  px-1">
-                        <div class="row ms-3">
-                            <div class="col-6 py-2 ">
-                                <div class="row">
-                                    <div class="col-12 ">
-                                        <label>Delivery Type</label>
-                                        <input type="text" class="form-control" formControlName="deliveryType"
-                                            placeholder="Vendor Name">
-                                    </div>
 
-                                </div>
-                            </div>
-                            <div class="col-6 py-2 ">
-                                <label for="">Plant</label>
-                                <select class="form-select" formControlName="plant">
-                                    <option [selected]="productFromGroup.value.payTerm === ''" value="" hidden>Select
-                                        Plant</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                                <div *ngIf="productFromGroup.controls['plant'].touched && productFromGroup.controls['plant'].touched && productFromGroup.controls['plant'].hasError('required') && !isSubmitted">
-                                    <p class="error-message">Plant is mandatory</p>
-                                </div>
-                                <div *ngIf="isSubmitted && productFromGroup.controls['plant'].hasError('required')">
-                                    <p class="error-message">Plant is mandatory</p>
-                                </div>
-                    </div>
-                                    
-                    <div class="col-6 py-2">
-                        <span for="" class="">Delivery <sup>*</sup></span>
-                        <input type="number" class="form-control " placeholder=" Delivery"
-                            formControlName="delivery">
-                            <div *ngIf="productFromGroup.controls['delivery'].touched && productFromGroup.controls['delivery'].touched && productFromGroup.controls['delivery'].hasError('required') && !isSubmitted">
-                                    <p class="error-message">Delivery is mandatory</p>
-                                </div>
-                                <div *ngIf="isSubmitted && productFromGroup.controls['delivery'].hasError('required')">
-                                    <p class="error-message">Delivery is mandatory</p>
-                                </div>
-
-                    </div>
-
-                        </div>
-
-                        <div class="row ms-3">
-                            <div class="col-6 py-2 ">
-                                <span for="" class="">Delivery</span>
-                                <input type="number" class="form-control " placeholder=" Delivery"
-                                    formControlName="delivery">
-
-                            </div>
-                            <div class="col-6 py-2 ">
-                                <span for="" class="">Delivery Date</span>
-                                <input type="date" class="form-control " placeholder=" Delivery Date"
-                                    formControlName="deliveryDate">
-                            </div>
-
-                            <div class="col-6 py-2  ">
-                                <span for="" class="mt-4">Customer Id</span>
-                                <select class="form-select " aria-label="Default select example"
-                                    formControlName="customerId">
-                                    <option [selected]="productFromGroup.value.customerId=== ''" value="" hidden>Select
-                                        Customer Id</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>
-                            <div class="col-6 py-2 ">
-                                <span for="" class="">Delivery Address</span>
-                                <input type="text" class="form-control " placeholder=" Delivery Address"
-                                    formControlName="deliveryAddress">
-                            </div>
-                            <div class="col-6 py-2 ">
-                                <span for="" class="">Delivery Partener</span>
-                                <select class="form-select " aria-label="Default select example"
-                                    formControlName="deliveryPartner">
-                                    <option [selected]="productFromGroup.value.deliveryPartner=== ''" value="" hidden>
-                                        Select
-                                        Delivery Partener</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                              
-                    <div class="col-6 py-2">
-                        <span for="" class="">Delivery Address <sup>*</sup></span>
-                                <input type="text" class="form-control " placeholder=" Delivery Address"
-                                    formControlName="deliveryAddress">
-                                    
-                            <div *ngIf="productFromGroup.controls['deliveryAddress'].touched && productFromGroup.controls['deliveryAddress'].touched && productFromGroup.controls['deliveryAddress'].hasError('required') && !isSubmitted">
-                                    <p class="error-message">Delivery Address is mandatory</p>
-                                </div>
-                                <div *ngIf="isSubmitted && productFromGroup.controls['deliveryAddress'].hasError('required')">
-                                    <p class="error-message">Delivery Address is mandatory</p>
-                                </div>
-                    </div>
-
-                    <div class="col-6 py-2">
-                        <span for="" class="mt-4">Delivery Partener <sup>*</sup></span>
-                        <select class="form-select " aria-label="Default select example"
-                            formControlName="deliveryPartner">
+                    <div class="col-6 mt-2">
+                        <label for="">Delivery Type <sup>*</sup> </label>
+                        <select class="form-select" formControlName="deliveryType">
+                            <option [selected]="deliveryFormGroup.value.deliveryType=== ''" value="" hidden>Select Delivery Type</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
-                        <div *ngIf="productFromGroup.controls['deliveryPartner'].touched && productFromGroup.controls['deliveryPartner'].touched && productFromGroup.controls['deliveryPartner'].hasError('required') && !isSubmitted">
-                                    <p class="error-message">Delivery Partner is mandatory</p>
-                                </div>
-                                <div *ngIf="isSubmitted && productFromGroup.controls['deliveryPartner'].hasError('required')">
-                                    <p class="error-message">Delivery Partner is mandatory</p>
-                                </div>
+
+                        <div *ngIf="deliveryFormGroup.controls['deliveryType'].touched && deliveryFormGroup.controls['deliveryType'].touched && deliveryFormGroup.controls['deliveryType'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Delivery Type is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliveryType'].hasError('required')">
+                            <p class="error-message">Delivery Type is mandatory</p>
+                        </div>
+
                     </div>
-                           
-                               
+                    <div class="col-6 mt-2">
+                        <label for="">Plant<sup>*</sup> </label>
+                        <select class="form-select" formControlName="plantName">
+                            <option [selected]="deliveryFormGroup.value.plant=== ''" value="" hidden>Select plant</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+
+                        <div *ngIf="deliveryFormGroup.controls['plantName'].touched && deliveryFormGroup.controls['plantName'].touched && deliveryFormGroup.controls['plantName'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Plant is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && deliveryFormGroup.controls['plantName'].hasError('required')">
+                            <p class="error-message">Plant is mandatory</p>
+                        </div>
+
+                    </div>
+                    <div class="col-6 mt-2">
+                        <label for="delivery">Delivery #<sup>*</sup></label>
+                        <input type="text" class="form-control" formControlName="deliivery"
+                            placeholder="Enter delivery">
+
+                            <div *ngIf="deliveryFormGroup.controls['deliivery'].touched && deliveryFormGroup.controls['deliivery'].touched && deliveryFormGroup.controls['deliivery'].hasError('required') && !isSubmitted">
+                                <p class="error-message">Delivery is mandatory</p>
+                            </div>
+                            <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliivery'].hasError('required')">
+                                <p class="error-message">Delivery is mandatory</p>
+                            </div>
+
+                    </div>
+
+                    <div class="col-6 mt-2 ">
+                        <label for="">Delivery Date<sup>*</sup></label>
+                        <input type="date" class="form-control" formControlName="deliveryDate"
+                            placeholder="Enter delivery date">
+
+                            <div *ngIf="deliveryFormGroup.controls['deliveryDate'].touched && deliveryFormGroup.controls['deliveryDate'].touched && deliveryFormGroup.controls['deliveryDate'].hasError('required') && !isSubmitted">
+                                <p class="error-message">Delivery Date is mandatory</p>
+                            </div>
+                            <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliveryDate'].hasError('required')">
+                                <p class="error-message">Delivery Date is mandatory</p>
+                            </div>
+
+                    </div>
+                    <div class="col-6 mt-2">
+                        <label for="">Customer Id <sup>*</sup></label>
+                        <input type="text" class="form-control" formControlName="customerId" placeholder="Enter Customer Id">
+
+                        <div *ngIf="deliveryFormGroup.controls['customerId'].touched && deliveryFormGroup.controls['customerId'].touched && deliveryFormGroup.controls['customerId'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Customer Id Value is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && deliveryFormGroup.controls['customerId'].hasError('required')">
+                            <p class="error-message">Customer Id Value is mandatory</p>
+                        </div>
+
+                    </div>
+
+                    <div class="col-6 mt-2 mb-2">
+                        <label for="TaxAmount">Delivery Address <sup>*</sup></label>
+                        <input type="number" class="form-control" formControlName="deliveryAddress" placeholder="Enter Delivery Address">
+
+                        <div *ngIf="deliveryFormGroup.controls['deliveryAddress'].touched && deliveryFormGroup.controls['deliveryAddress'].touched && deliveryFormGroup.controls['deliveryAddress'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Delivery Address is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliveryAddress'].hasError('required')">
+                            <p class="error-message">Delivery Address is mandatory</p>
+                        </div>
+
+                    </div>
+                    
+                   
+                   
+                                       
+                    <div class="col-6 py-2  mb-2">
+                        <label for="">Delivery Partner <sup>*</sup></label>
+                        <select class="form-select" formControlName="deliveryPartner">
+                            <option [selected]="deliveryFormGroup.value.deliveryPartner=== ''" value="" hidden>Select delivery Partner</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+
+                        <div *ngIf="deliveryFormGroup.controls['deliveryPartner'].touched && deliveryFormGroup.controls['deliveryPartner'].touched && deliveryFormGroup.controls['deliveryPartner'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Delivery Partner is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliveryPartner'].hasError('required')">
+                            <p class="error-message">Delivery Partner is mandatory</p>
+                        </div>
+
+                    </div>
                 
 
                 </div>
@@ -143,7 +131,7 @@
                                 </h3>
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex justify-content-end">
-                                <button class="btn btn-primary" (click)="addFinancial()">Add</button>
+                                <button class="btn btn-primary" type="button" (click)="adddelivery()">Add</button>
 
                             </div>
                         </div>
@@ -154,83 +142,71 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th *ngIf="financialListArray.controls.length > 1">Actions</th>
-                                        <th>Plant</th>
+                                        <th *ngIf="deliveryListArray.controls.length > 1">Actions</th>
                                         <th>Delivery Item</th>
-                                        <th>Delivery Date</th>
-
                                         <th>Product Id</th>
-                                        <th>Delivery Qty</th>
-                                        <th>UOM</th>
+                                        <th>Delivery QTY</th>
+                                        <th>UoM</th>
                                         <th>Open Qty</th>
                                         <th>Storage Location</th>
-                                        <th>Reference Sales Order</th>
-                                        <th>Reference Sales Item</th>
+                                        <th>Reference sales order #</th>
+                                        <th>Reference sales order item #</th>
                                     </tr>
                                 </thead>
 
-                                <tbody formArrayName="financialList">
-                                    <tr *ngFor="let financial of financialListArray.controls; let i = index;"
+                                <tbody formArrayName="deliveryList">
+                                    <tr *ngFor="let delivery of deliveryListArray.controls; let i = index;"
                                         [formGroupName]="i">
-                                        <td *ngIf="financialListArray.controls.length > 1">
+                                        <td *ngIf="deliveryListArray.controls.length > 1">
                                             <mat-icon style="cursor:pointer"
-                                                (click)="deleteFinancial(i)">delete</mat-icon>
+                                                (click)="deletedelivery(i)">delete</mat-icon>
+                                        </td>
+                                         <td>
+                                            <input type="number" class="form-control " placeholder="Enter delivery item" formControlName="deliveryItem">
                                         </td>
                                         <td>
-                                            <select class="form-select" formControlName="plantItem">
-                                                <option [selected]="productFromGroup.value.plantItem=== ''" value=""
-                                                    hidden>Select Plant Item</option>
+                                            <input type="text" class="form-control " placeholder="Enter product id"
+                                            formControlName="productId">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control " placeholder="Enter delivery qty"
+                                            formControlName="deliveryQty">
+                                          
+                                        </td>
+                                        <td>                                       
+                                            <select class="form-select" formControlName="uomName">
+                
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+                                          
+                                        </td>
+                                        <td>
+                                            <select class="form-select" formControlName="openQty">
+                
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+                                        </td>
+                                        <td>    
+                                            <select class="form-select" formControlName="storageLocationName">
+                
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
                                                 <option value="3">Three</option>
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" formControlName="deliveryItem"
-                                                placeholder="enter item number">
+                                            <input type="text" formControlName="referenceSalesOrder" class="form-control"
+                                                placeholder="Enter Reference Sales Order">
                                         </td>
                                         <td>
-                                            <input type="date" formControlName="deliveryDate" class="form-control"
-                                                placeholder="enter Product Id">
+                                            <input type="text" formControlName="referenceSalesOrderItem" class="form-control"
+                                                placeholder="Enter Reference Sales Order Item">
+                                     
                                         </td>
-                                        <td>
-                                            <input type="text" formControlName="productId" class="form-control"
-                                                placeholder="enter Product Id">
-                                        </td>
-
-                                        <td>
-                                            <input type="text" formControlName="deliveryQty" class="form-control"
-                                                placeholder="enter delivery qty">
-                                        </td>
-                                        <td>
-                                            <select class="form-select">
-                                                <option selected></option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input type="text" formControlName="openQty" class="form-control"
-                                                placeholder="calculated qty">
-                                        </td>
-                                        <td>
-                                            <select class="form-select" formControlName="storagelocation">
-                                                <option selected></option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input type="text" formControlName="refOrder" class="form-control"
-                                                placeholder="enter reference sales order">
-                                        </td>
-                                        <td>
-                                            <input type="text" formControlName="refItem" class="form-control"
-                                                placeholder="enter ref sales item">
-                                        </td>
-
                                     </tr>
                                 </tbody>
                             </table>
@@ -244,4 +220,7 @@
                 </div>
 
             </form>
+
         </div>
+    </div>
+</div>

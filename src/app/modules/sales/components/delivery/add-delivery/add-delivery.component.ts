@@ -1,5 +1,9 @@
 import { Component ,OnInit} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DeliveryService } from '../../../services/delivery/delivery.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-add-delivery',
@@ -7,67 +11,121 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./add-delivery.component.css']
 })
 export class AddDeliveryComponent implements OnInit{
-  isSubmitted:any = true;
-  isShowPadding:any = false;
-  productFromGroup: any = FormGroup
+isSubmitted:any = false;
+isShowPadding:any = false;
+  deliveryFormGroup: any = FormGroup
+  countryLists: any = ''
+
   constructor(
     private fb: FormBuilder,
-  ) {
+    private deliverySer: DeliveryService,
+    private router: Router,
+    private _snackBar: MatSnackBar
 
+  ) {  }
+
+  ngOnInit(): void {
+    this.createDeliveryFormFields()
+    //    this.getCountryList()
   }
 
-  
   handleSideBar(event: any) {
     this.isShowPadding = event
   }
-  ngOnInit(): void {
-    this.createProductFormFields()
-  }
 
-  createProductFormFields() {
-    this.isSubmitted = false
-
-    console.log("frrrrrfre");
-    
-    this.productFromGroup = this.fb.group({
+  createDeliveryFormFields() {
+    this.deliveryFormGroup = this.fb.group({
       deliveryType: ['', Validators.required],
-      plant: ['', Validators.required],
-      delivery: ['', Validators.required],
+      plantId: ['', Validators.required],
+      plantName: ['', Validators.required],
+      deliivery: ['', Validators.required],
       deliveryDate: ['', Validators.required],
       customerId: ['', Validators.required],
+      customerName: ['', Validators.required],
       deliveryAddress: ['', Validators.required],
       deliveryPartner: ['', Validators.required],
-      financialList: this.fb.array([this.getFinancialFields()])
+
+      deliveryList: this.fb.array([this.getdeliveryFields()])
     })
   }
 
 
-  getFinancialFields(): FormGroup {
+  getdeliveryFields(): FormGroup {
     return this.fb.group({
-      plantItem: ['', Validators.required],
-      deliveryItem: ['', Validators.required],
-      productId: ['', Validators.required],
-      deliveryDate:['', Validators.required],
-      deliveryQty: ['', Validators.required],
-      openQty: ['', Validators.required],
-      storagelocation: ['', Validators.required],
-      refOrder: ['', Validators.required],
-      refItem: ['', Validators.required]
+      deliveryItem: [''],
+      productId: [''],
+      deliveryQty: [''],
+      uomName:[''],
+      openQty: [''],
+      storageLocationName: [''],
+      referenceSalesOrder: [''],
+      referenceSalesOrderItem: ['']
     })
   }
 
-  get financialListArray() {
-    return this.productFromGroup.get('financialList') as FormArray
+  get deliveryListArray() {
+    return this.deliveryFormGroup.get('deliveryList') as FormArray
   }
 
-  addFinancial() {
-    this.financialListArray.push(this.getFinancialFields());
+  adddelivery() {
+    this.deliveryListArray.push(this.getdeliveryFields());
   }
 
-  deleteFinancial(index: any) {
-    this.financialListArray.removeAt(index)
+  deletedelivery(index: any) {
+    this.deliveryListArray.removeAt(index)
   }
 
+  // submitData() {
+  //   this.isSubmitted = true;
+  //   console.log(this.deliveryFormGroup);
+  // }
 
+  async submitData() {
+    try {
+      this.isSubmitted = true
+      const userName: any = localStorage.getItem('userName')
+      this.deliveryFormGroup.value.createdOn = '18/12/2023'
+      this.deliveryFormGroup.value.createdBy = userName
+      this.deliveryFormGroup.value.changedOn = '18/12/2023'
+      this.deliveryFormGroup.value.changedBy = userName
+      console.log(this.deliveryFormGroup.value)
+      if (this.deliveryFormGroup.invalid)
+        return
+      const result: any = await this.deliverySer.createDeliveryDetails(this.deliveryFormGroup.value)
+      console.log(result);
+      if (result.status === '1') {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
+        this.router.navigate(['/sales/delivery'])
+        return
+      }
+      if (result.status === '0') {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
  
 }
