@@ -19,7 +19,7 @@ export class DeliveryListComponent implements OnInit{
 
   ){}
   ngOnInit(): void {
-      
+      this.getAllDeliveryDetail()
   }
   nextPage(url:any){
     this.router.navigate([`${url}`])

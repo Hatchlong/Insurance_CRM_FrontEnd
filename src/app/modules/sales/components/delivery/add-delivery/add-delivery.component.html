@@ -154,7 +154,7 @@
                                     </tr>
                                 </thead>
 
-                                <tbody formArrayName="deliveryList">
+                                <tbody formArrayName="itemList">
                                     <tr *ngFor="let delivery of deliveryListArray.controls; let i = index;"
                                         [formGroupName]="i">
                                         <td *ngIf="deliveryListArray.controls.length > 1">

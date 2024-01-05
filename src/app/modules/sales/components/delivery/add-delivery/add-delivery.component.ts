@@ -51,7 +51,7 @@ export class AddDeliveryComponent implements OnInit {
       deliveryAddress: ['', Validators.required],
       deliveryPartner: ['', Validators.required],
 
-      deliveryList: this.fb.array([this.getdeliveryFields()])
+      itemList: this.fb.array([this.getdeliveryFields()])
     })
   }
 
@@ -70,7 +70,7 @@ export class AddDeliveryComponent implements OnInit {
   }
 
   get deliveryListArray() {
-    return this.deliveryFormGroup.get('deliveryList') as FormArray
+    return this.deliveryFormGroup.get('itemList') as FormArray
   }
 
   adddelivery() {
@@ -100,7 +100,7 @@ export class AddDeliveryComponent implements OnInit {
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        this.router.navigate(['/sales/delivery'])
+        this.router.navigate(['/sales/delivery-list'])
         return
       }
       if (result.status === '0') {
