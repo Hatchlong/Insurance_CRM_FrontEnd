@@ -1,5 +1,9 @@
 import { Component ,OnInit} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DeliveryService } from '../../../services/delivery/delivery.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-add-delivery',
@@ -14,11 +18,11 @@ isShowPadding:any = false;
 
   constructor(
     private fb: FormBuilder,
+    private deliverySer: DeliveryService,
+    private router: Router,
+    private _snackBar: MatSnackBar
 
-  ) {
-
-  }
-
+  ) {  }
 
   ngOnInit(): void {
     this.createDeliveryFormFields()
@@ -71,10 +75,57 @@ isShowPadding:any = false;
     this.deliveryListArray.removeAt(index)
   }
 
-  submitData() {
-    this.isSubmitted = true;
-    console.log(this.deliveryFormGroup);
-  }
+  // submitData() {
+  //   this.isSubmitted = true;
+  //   console.log(this.deliveryFormGroup);
+  // }
 
+  async submitData() {
+    try {
+      this.isSubmitted = true
+      const userName: any = localStorage.getItem('userName')
+      this.deliveryFormGroup.value.createdOn = '18/12/2023'
+      this.deliveryFormGroup.value.createdBy = userName
+      this.deliveryFormGroup.value.changedOn = '18/12/2023'
+      this.deliveryFormGroup.value.changedBy = userName
+      console.log(this.deliveryFormGroup.value)
+      if (this.deliveryFormGroup.invalid)
+        return
+      const result: any = await this.deliverySer.createDeliveryDetails(this.deliveryFormGroup.value)
+      console.log(result);
+      if (result.status === '1') {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
+        this.router.navigate(['/sales/delivery'])
+        return
+      }
+      if (result.status === '0') {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
  
 }
