@@ -17,6 +17,10 @@ export class DeliveryService {
     return this.http.get('http://localhost:4000/api/sales/delivery/getAll').toPromise()
   }
 
+  getAllDeliveryDetailsPage(skip?:any, itemsPerPage?:any) {
+    return this.http.get(`http://localhost:4000/api/sales/delivery/getAll/`).toPromise()
+  }
+
   singleDeliveryDetails(id: any) {
     return this.http.get(`http://localhost:4000/api/sales/delivery/get/${id}`).toPromise()
   }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DeliveryService } from '../../../services/delivery/delivery.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 @Component({
   selector: 'app-delivery-list',
@@ -93,7 +94,7 @@ export class DeliveryListComponent implements OnInit{
 
   ){}
   ngOnInit(): void {
-      this.getAllDeliveryDetail()
+      this.getAllDeliveryDetail(this.page, this.itemsPerPage)
   }
   nextPage(url:any){
     this.router.navigate([`${url}`])
@@ -102,6 +103,12 @@ export class DeliveryListComponent implements OnInit{
   
   handleSideBar(event: any) {
     this.isShowPadding = event
+  }
+
+  pageChanged(event: PageChangedEvent): void {
+    this.page = event.page;
+    const records = (this.page-1) * this.itemsPerPage;
+    this.getAllDeliveryDetail(records, this.itemsPerPage)
   }
 
   downloadExcel(): void {
@@ -115,9 +122,9 @@ export class DeliveryListComponent implements OnInit{
   }
   
 // data into list
-  async getAllDeliveryDetail(){
+  async getAllDeliveryDetail(page: any, itemsPerPage: any){
     try {
-      const result:any=await this.deliverySer.getAllDeliveryDetails()
+      const result:any=await this.deliverySer.getAllDeliveryDetailsPage(page, itemsPerPage)
       if (result.status==='1') {
         this.deliveryDetail = result.data
         this.allDeliveryDetails  = result.data
@@ -190,7 +197,7 @@ export class DeliveryListComponent implements OnInit{
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        this.getAllDeliveryDetail() 
+        this.getAllDeliveryDetail(this.page, this.itemsPerPage) 
         return;
       }
       if (result.status === '0') {
@@ -232,7 +239,7 @@ export class DeliveryListComponent implements OnInit{
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        this.getAllDeliveryDetail()
+        this.getAllDeliveryDetail(this.page, this.itemsPerPage)
         return;
       }
       if (result.status === '0') {
