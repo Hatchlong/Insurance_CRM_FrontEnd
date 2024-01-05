@@ -32,10 +32,12 @@ isShowPadding:any = false;
   createDeliveryFormFields() {
     this.deliveryFormGroup = this.fb.group({
       deliveryType: ['', Validators.required],
-      plant: ['', Validators.required],
-      delivery: ['', Validators.required],
+      plantId: ['', Validators.required],
+      plantName: ['', Validators.required],
+      deliivery: ['', Validators.required],
       deliveryDate: ['', Validators.required],
       customerId: ['', Validators.required],
+      customerName: ['', Validators.required],
       deliveryAddress: ['', Validators.required],
       deliveryPartner: ['', Validators.required],
 
@@ -49,9 +51,9 @@ isShowPadding:any = false;
       deliveryItem: [''],
       productId: [''],
       deliveryQty: [''],
-      uom:[''],
+      uomName:[''],
       openQty: [''],
-      storagelocation: [''],
+      storageLocationName: [''],
       referenceSalesOrder: [''],
       referenceSalesOrderItem: ['']
     })

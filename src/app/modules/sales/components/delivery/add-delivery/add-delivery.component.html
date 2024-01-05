@@ -11,34 +11,50 @@
 
                     <div class="col-6 mt-2">
                         <label for="">Order Type <sup>*</sup> </label>
-                        <select class="form-select" formControlName="orderType">
-                            <option [selected]="deliveryFormGroup.value.orderType=== ''" value="" hidden>Select Order Type</option>
+                        <select class="form-select" formControlName="deliveryType">
+                            <option [selected]="deliveryFormGroup.value.deliveryType=== ''" value="" hidden>Select Order Type</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
 
-                        <!-- <div *ngIf="deliveryFormGroup.controls['orderType'].touched && deliveryFormGroup.controls['orderType'].touched && deliveryFormGroup.controls['orderType'].hasError('required') && !isSubmitted">
+                        <div *ngIf="deliveryFormGroup.controls['deliveryType'].touched && deliveryFormGroup.controls['deliveryType'].touched && deliveryFormGroup.controls['deliveryType'].hasError('required') && !isSubmitted">
                             <p class="error-message">Order Type is mandatory</p>
                         </div>
-                        <div *ngIf="isSubmitted && deliveryFormGroup.controls['orderType'].hasError('required')">
+                        <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliveryType'].hasError('required')">
                             <p class="error-message">Order Type is mandatory</p>
-                        </div> -->
+                        </div>
 
                     </div>
                     <div class="col-6 mt-2">
                         <label for="">Plant<sup>*</sup> </label>
-                        <select class="form-select" formControlName="plant">
+                        <select class="form-select" formControlName="plantName">
                             <option [selected]="deliveryFormGroup.value.plant=== ''" value="" hidden>Select plant</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
+
+                        <div *ngIf="deliveryFormGroup.controls['plantName'].touched && deliveryFormGroup.controls['plantName'].touched && deliveryFormGroup.controls['plantName'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Plant is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && deliveryFormGroup.controls['plantName'].hasError('required')">
+                            <p class="error-message">Plant is mandatory</p>
+                        </div>
+
                     </div>
                     <div class="col-6 mt-2">
-                        <label for="delivery">Delivery #</label>
-                        <input type="text" class="form-control" formControlName="delivery"
+                        <label for="delivery">Delivery #<sup>*</sup></label>
+                        <input type="text" class="form-control" formControlName="deliivery"
                             placeholder="Enter delivery">
+
+                            <div *ngIf="deliveryFormGroup.controls['deliivery'].touched && deliveryFormGroup.controls['deliivery'].touched && deliveryFormGroup.controls['deliivery'].hasError('required') && !isSubmitted">
+                                <p class="error-message">Delivery is mandatory</p>
+                            </div>
+                            <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliivery'].hasError('required')">
+                                <p class="error-message">Delivery is mandatory</p>
+                            </div>
+
                     </div>
 
                     <div class="col-6 mt-2 ">
@@ -46,37 +62,37 @@
                         <input type="date" class="form-control" formControlName="deliveryDate"
                             placeholder="Enter delivery date">
 
-                            <!-- <div *ngIf="deliveryFormGroup.controls['customerId'].touched && deliveryFormGroup.controls['customerId'].touched && deliveryFormGroup.controls['customerId'].hasError('required') && !isSubmitted">
-                                <p class="error-message">Customer Id is mandatory</p>
+                            <div *ngIf="deliveryFormGroup.controls['deliveryDate'].touched && deliveryFormGroup.controls['deliveryDate'].touched && deliveryFormGroup.controls['deliveryDate'].hasError('required') && !isSubmitted">
+                                <p class="error-message">Delivery Date is mandatory</p>
                             </div>
-                            <div *ngIf="isSubmitted && deliveryFormGroup.controls['customerId'].hasError('required')">
-                                <p class="error-message">Customer Id is mandatory</p>
-                            </div> -->
+                            <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliveryDate'].hasError('required')">
+                                <p class="error-message">Delivery Date is mandatory</p>
+                            </div>
 
                     </div>
                     <div class="col-6 mt-2">
-                        <label for="">Customer Id</label>
+                        <label for="">Customer Id <sup>*</sup></label>
                         <input type="text" class="form-control" formControlName="customerId" placeholder="Enter Customer Id">
 
-                        <!-- <div *ngIf="deliveryFormGroup.controls['netValue'].touched && deliveryFormGroup.controls['netValue'].touched && deliveryFormGroup.controls['netValue'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Net Value is mandatory</p>
+                        <div *ngIf="deliveryFormGroup.controls['customerId'].touched && deliveryFormGroup.controls['customerId'].touched && deliveryFormGroup.controls['customerId'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Customer Id Value is mandatory</p>
                         </div>
-                        <div *ngIf="isSubmitted && deliveryFormGroup.controls['netValue'].hasError('required')">
-                            <p class="error-message">Net Value is mandatory</p>
-                        </div> -->
+                        <div *ngIf="isSubmitted && deliveryFormGroup.controls['customerId'].hasError('required')">
+                            <p class="error-message">Customer Id Value is mandatory</p>
+                        </div>
 
                     </div>
 
                     <div class="col-6 mt-2 mb-2">
-                        <label for="TaxAmount">Delivery Address</label>
+                        <label for="TaxAmount">Delivery Address <sup>*</sup></label>
                         <input type="number" class="form-control" formControlName="deliveryAddress" placeholder="Enter Delivery Address">
 
-                        <!-- <div *ngIf="deliveryFormGroup.controls['taxAmount'].touched && deliveryFormGroup.controls['taxAmount'].touched && deliveryFormGroup.controls['taxAmount'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Tax Amount is mandatory</p>
+                        <div *ngIf="deliveryFormGroup.controls['deliveryAddress'].touched && deliveryFormGroup.controls['deliveryAddress'].touched && deliveryFormGroup.controls['deliveryAddress'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Delivery Address is mandatory</p>
                         </div>
-                        <div *ngIf="isSubmitted && deliveryFormGroup.controls['taxAmount'].hasError('required')">
-                            <p class="error-message">Tax Amount is mandatory</p>
-                        </div> -->
+                        <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliveryAddress'].hasError('required')">
+                            <p class="error-message">Delivery Address is mandatory</p>
+                        </div>
 
                     </div>
                     
@@ -92,12 +108,12 @@
                             <option value="3">Three</option>
                         </select>
 
-                        <!-- <div *ngIf="deliveryFormGroup.controls['modeOfTransport'].touched && deliveryFormGroup.controls['modeOfTransport'].touched && deliveryFormGroup.controls['modeOfTransport'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Mode Of Transport is mandatory</p>
+                        <div *ngIf="deliveryFormGroup.controls['deliveryPartner'].touched && deliveryFormGroup.controls['deliveryPartner'].touched && deliveryFormGroup.controls['deliveryPartner'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Delivery Partner is mandatory</p>
                         </div>
-                        <div *ngIf="isSubmitted && deliveryFormGroup.controls['modeOfTransport'].hasError('required')">
-                            <p class="error-message">Mode Of Transport is mandatory</p>
-                        </div> -->
+                        <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliveryPartner'].hasError('required')">
+                            <p class="error-message">Delivery Partner is mandatory</p>
+                        </div>
 
                     </div>
                 
@@ -158,7 +174,7 @@
                                           
                                         </td>
                                         <td>                                       
-                                            <select class="form-select" formControlName="uom">
+                                            <select class="form-select" formControlName="uomName">
                 
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
@@ -175,7 +191,7 @@
                                             </select>
                                         </td>
                                         <td>    
-                                            <select class="form-select" formControlName="storageLocation">
+                                            <select class="form-select" formControlName="storageLocationName">
                 
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
