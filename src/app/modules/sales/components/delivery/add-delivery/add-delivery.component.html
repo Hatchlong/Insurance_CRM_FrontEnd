@@ -10,19 +10,19 @@
                 <div class="row border">
 
                     <div class="col-6 mt-2">
-                        <label for="">Order Type <sup>*</sup> </label>
+                        <label for="">Delivery Type <sup>*</sup> </label>
                         <select class="form-select" formControlName="deliveryType">
-                            <option [selected]="deliveryFormGroup.value.deliveryType=== ''" value="" hidden>Select Order Type</option>
+                            <option [selected]="deliveryFormGroup.value.deliveryType=== ''" value="" hidden>Select Delivery Type</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
 
                         <div *ngIf="deliveryFormGroup.controls['deliveryType'].touched && deliveryFormGroup.controls['deliveryType'].touched && deliveryFormGroup.controls['deliveryType'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Order Type is mandatory</p>
+                            <p class="error-message">Delivery Type is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliveryType'].hasError('required')">
-                            <p class="error-message">Order Type is mandatory</p>
+                            <p class="error-message">Delivery Type is mandatory</p>
                         </div>
 
                     </div>
