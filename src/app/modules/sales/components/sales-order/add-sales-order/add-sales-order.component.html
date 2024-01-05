@@ -452,12 +452,12 @@
                                         <td>
                                             
                                                 <select class="form-select " aria-label="Default select example"
-                                                formControlName="plant">
+                                                formControlName="plant" (change)="handlePlant($event)">
                                                 <option [selected]="salesFormGroup.value.plant === ''" value=""
                                                     hidden>
                                                     Select
                                                     Plant </option>
-                                                <option value="1">One</option>
+                                                    <option *ngFor="let list of customerplant" [value]="list._id">{{list.deliveringPlant}}</option>
                                                 <option value="2">Two</option>
                                                 <option value="3">Three</option>
                                             </select>

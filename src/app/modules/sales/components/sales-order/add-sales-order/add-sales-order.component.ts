@@ -37,6 +37,7 @@ export class AddSalesOrderComponent {
   productDeatail: any = []
   currencyDetails: any;
   customerCurrency: any = []
+  customerplant:any=[]
   constructor(
     private fb: FormBuilder,
     private salesOrderSer: SalesOrderService,
@@ -606,6 +607,17 @@ export class AddSalesOrderComponent {
     // formGroup.patchValue({
     //   companyCurrency: selectCurrency ? selectCurrency.currencyName : ''
     // })
+  }
+
+  handlePlant(event: any) {
+    const selectedPlant = this.productDeatail.find((el: any) => el.productId === event.target.value);
+    this.customerplant = selectedPlant.plantData
+    console.log(this.customerplant,'oioiioi');
+    
+    this.salesFormGroup.patchValue({
+      deliveringPlant: selectedPlant ? selectedPlant.plant : ''
+    });
+
   }
 
 }
