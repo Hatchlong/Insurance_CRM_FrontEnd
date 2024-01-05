@@ -47,14 +47,19 @@
               <th scope="col"><input type="checkbox"> Select All</th>
             </tr>
           </thead>
+          <tbody *ngIf="deliveryDetail.length === 0">
+            <tr>
+              <td colspan="7" class="text-center">No Records</td>
+            </tr>
+          </tbody> 
           <tbody>
-            <tr>
-              <td scope="row">1</td>
+            <tr *ngFor="let list of deliveryDetail;let i=index">
+              <td scope="row">{{i+1}}</td>
               
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>mdo</td>
-              <td>Mark</td>
+              <td>{{list.deliveryType}}</td>
+              <td>{{list.plantName}}</td>
+              <td>{{list.deliveryAddress}}</td>
+              <td>{{list.deliveryPartner}}</td>
               <td>
                 <div class="d-flex">
                   <div>
@@ -67,45 +72,7 @@
               </td>
               <td><input type="checkbox"></td>
             </tr>
-            <tr>
-              <td scope="row">2</td>
-              
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>fat</td>
-              <td>Mark</td>
-              <td>
-                <div class="d-flex">
-                  <div>
-                    <mat-icon>edit</mat-icon>
-                  </div>
-                  <div>
-                    <mat-icon>delete</mat-icon>
-                  </div>
-                </div>
-              </td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td scope="row">3</td>
-             
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>twitter</td>
-              <td>Mark</td>
-              <td>
-                <div class="d-flex">
-                  <div>
-                    <mat-icon>edit</mat-icon>
-                  </div>
-                  <div>
-                    <mat-icon>delete</mat-icon>
-                  </div>
-                </div>
-              </td>
-              <td><input type="checkbox"></td>
-
-            </tr>
+            
           </tbody>
 
         </table>

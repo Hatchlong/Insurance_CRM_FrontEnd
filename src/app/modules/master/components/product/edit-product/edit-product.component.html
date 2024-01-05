@@ -640,9 +640,16 @@
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control "
-                                                                placeholder="Safety Stock"
-                                                                formControlName="deliveringPlant">
+                                                            <select class="form-select "
+                                                            aria-label="Default select example"
+                                                            formControlName="deliveringPlant">
+                                                            <option [selected]="general.value.deliveringPlant === ''"
+                                                                value="" hidden>Select Delivery Plant</option>
+                                                            <option *ngFor="let list of plantDetail"
+                                                                [value]="list._id">{{list.plantCode}}
+                                                            </option>
+                                                        </select>
+
                                                         </td>
                                                         <td>
                                                             <input type="text" class="form-control "

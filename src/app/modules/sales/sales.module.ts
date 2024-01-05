@@ -21,6 +21,7 @@ import { SharedModule } from '../shared/shared.module';
 import { SalesOrderService } from './services/sales-order/sales-order.service';
 import { EditSalesOrderComponent } from './components/sales-order/edit-sales-order/edit-sales-order.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { DeliveryService } from './services/delivery/delivery.service';
 
 
 @NgModule({
@@ -49,6 +50,6 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 
     
   ],
-  providers:[SalesOrderService]
+  providers:[SalesOrderService,DeliveryService]
 })
 export class SalesModule { }

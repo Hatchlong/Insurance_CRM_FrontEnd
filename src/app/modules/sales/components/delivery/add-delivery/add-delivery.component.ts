@@ -1,8 +1,10 @@
-import { Component ,OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DeliveryService } from '../../../services/delivery/delivery.service';
 import { Router } from '@angular/router';
+import { ProductService } from 'src/app/modules/master/services/product/product.service';
+import { PlantDataService } from 'src/app/modules/setting/Services/plant-data/plant-data.service';
 
 
 @Component({
@@ -10,23 +12,27 @@ import { Router } from '@angular/router';
   templateUrl: './add-delivery.component.html',
   styleUrls: ['./add-delivery.component.css']
 })
-export class AddDeliveryComponent implements OnInit{
-isSubmitted:any = false;
-isShowPadding:any = false;
+export class AddDeliveryComponent implements OnInit {
+  isSubmitted: any = false;
+  isShowPadding: any = false;
   deliveryFormGroup: any = FormGroup
   countryLists: any = ''
-
+  uomDetail: any = []
+  storageLocationDetail:any=[]
   constructor(
     private fb: FormBuilder,
     private deliverySer: DeliveryService,
     private router: Router,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private productSer: ProductService,
+    private plantDataSer:PlantDataService
 
-  ) {  }
+  ) { }
 
   ngOnInit(): void {
     this.createDeliveryFormFields()
-    //    this.getCountryList()
+    this.getAllUomDetail()
+    this.getStorageLocation()
   }
 
   handleSideBar(event: any) {
@@ -36,12 +42,12 @@ isShowPadding:any = false;
   createDeliveryFormFields() {
     this.deliveryFormGroup = this.fb.group({
       deliveryType: ['', Validators.required],
-      plantId: ['', Validators.required],
-      plantName: ['', Validators.required],
+      plantId: ['33', Validators.required],
+      plantName: [''],
       deliivery: ['', Validators.required],
       deliveryDate: ['', Validators.required],
       customerId: ['', Validators.required],
-      customerName: ['', Validators.required],
+      customerName: ['11'],
       deliveryAddress: ['', Validators.required],
       deliveryPartner: ['', Validators.required],
 
@@ -55,7 +61,7 @@ isShowPadding:any = false;
       deliveryItem: [''],
       productId: [''],
       deliveryQty: [''],
-      uomName:[''],
+      uomName: [''],
       openQty: [''],
       storageLocationName: [''],
       referenceSalesOrder: [''],
@@ -75,16 +81,11 @@ isShowPadding:any = false;
     this.deliveryListArray.removeAt(index)
   }
 
-  // submitData() {
-  //   this.isSubmitted = true;
-  //   console.log(this.deliveryFormGroup);
-  // }
-
   async submitData() {
     try {
       this.isSubmitted = true
       const userName: any = localStorage.getItem('userName')
-      this.deliveryFormGroup.value.createdOn = '18/12/2023'
+      this.deliveryFormGroup.value.createdOn = '18/12/2023' 
       this.deliveryFormGroup.value.createdBy = userName
       this.deliveryFormGroup.value.changedOn = '18/12/2023'
       this.deliveryFormGroup.value.changedBy = userName
@@ -127,5 +128,51 @@ isShowPadding:any = false;
       });
     }
   }
- 
+
+  //get uom detail
+  async getAllUomDetail() {
+    try {
+      const result: any = await this.productSer.getAllUOMDetails()
+      if (result.status === '1') {
+        this.uomDetail = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+  //get storage location
+  async getStorageLocation(){
+    try {
+     const result:any=await this.plantDataSer.getAllStorageLocationsDetails()
+     if (result.status==='1') {
+      this.storageLocationDetail=result.data
+     } 
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
 }
