@@ -118,7 +118,7 @@ export class CustomerListComponent implements OnInit{
   async getCustomerDetail(page:any, itemsPerPage:any) {
     try {
       const result: any = await this.customerSer.getAllCustomerDetailsPage(page, itemsPerPage)
-      console.log(result);
+      console.log(result.data,'customer detail');
       if (result.status === '1') {
         result.data.map((el: any) => {
           el.check = false

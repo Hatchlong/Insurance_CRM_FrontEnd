@@ -36,6 +36,7 @@ export class AddSalesOrderComponent {
   customerMasterDetail: any = []
   productDeatail: any = []
   currencyDetails: any;
+  customerCurrency: any = []
   constructor(
     private fb: FormBuilder,
     private salesOrderSer: SalesOrderService,
@@ -317,7 +318,7 @@ export class AddSalesOrderComponent {
   async getCompanyCodeDetail() {
     try {
       const result: any = await this.companyCodeSer.getAllCompanyCodeDetails()
-      console.log(result)
+      console.log(result, 'company data')
       if (result.status === '1') {
         this.companyCodeDetails = result.data
       }
@@ -346,9 +347,12 @@ export class AddSalesOrderComponent {
   }
   handleCountry(event: any) {
     const findCompany = this.companyCodeDetails.find((el: any) => el._id === event.target.value)
+    console.log(findCompany);
+    
     this.salesFormGroup.controls.companyCodeName.setValue(findCompany.companyCode)
-    const findDefaultCurrency = this.currencyDetails.find((el: any) => el._id === event.target.value);
-    // this.salesFormGroup.controls.currencyId.setValue(findDefaultCurrency._id)
+
+
+
   }
 
   //get order status 
@@ -537,6 +541,8 @@ export class AddSalesOrderComponent {
   async getCustomerMaster() {
     try {
       const result: any = await this.customerSer.getAllCustomerDetails()
+      // console.log(result.data, 'çustomer data');
+
       if (result.status === '1') {
         this.customerMasterDetail = result.data
       }
@@ -558,14 +564,23 @@ export class AddSalesOrderComponent {
   }
   handleCustomer(event: any) {
     const selectedCustomer = this.customerMasterDetail.find((el: any) => el.customerId === event.target.value);
-    console.log(selectedCustomer);
+    // console.log(selectedCustomer);
+    this.customerCurrency = selectedCustomer.plantData
+    console.log(this.customerCurrency);
+    
+
+    // const formArray = this.salesFormGroup.get('itemList') as FormArray;
+    // const formGroup = formArray.at(index) as FormGroup;
+    // formGroup.patchValue({
+    //   transactionCurrency:selectedCustomer?selectedCustomer.transactionCurrency:''
+    // })
 
     this.salesFormGroup.patchValue({
       customerAddress: selectedCustomer ? selectedCustomer.address : ''
     });
   }
-  handleMaterial(event: any,index:any) {
-    
+  handleMaterial(event: any, index: any) {
+
     const selectMaterial = this.productDeatail.find((el: any) => el.materialId === event.target.value)
     console.log(selectMaterial);
 
@@ -575,11 +590,22 @@ export class AddSalesOrderComponent {
 
     formGroup.patchValue({
       materialDescription: selectMaterial ? selectMaterial.materialDescription : ''
-      
+
     });
     console.log(this.salesFormGroup.materialDescription);
-    
-    
+
+
+  }
+
+  handleCurrency(event: any) {
+    const selectCurrency = this.companyCodeDetails.find((el: any) => el.currencyId === event.target.value)
+    console.log(selectCurrency, 'currency ');
+
+    // const formArray = this.salesFormGroup.get('itemList') as FormArray
+    // const formGroup = formArray.at(index) as FormGroup
+    // formGroup.patchValue({
+    //   companyCurrency: selectCurrency ? selectCurrency.currencyName : ''
+    // })
   }
 
 }

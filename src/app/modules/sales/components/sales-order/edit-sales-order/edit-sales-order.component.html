@@ -191,7 +191,7 @@
                             <option [selected]="salesFormGroup.value.companyCurrency=== ''" value="" hidden>Select
                                 Company
                                 Currency</option>
-                            <option *ngFor="let company of companyCodeDetails" [value]="company._id">
+                            <option *ngFor="let company of companyCodeDetails" [value]="company.currencyId">
                                 {{company.currencyName}}</option>
                         </select>
                     </div>

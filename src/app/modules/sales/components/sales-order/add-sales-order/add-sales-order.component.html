@@ -177,7 +177,7 @@
                             <option [selected]="salesFormGroup.value.companyCodeId === ''" value="" hidden>Select
                                 Company Code
                             </option>
-                            <option *ngFor="let company of companyCodeDetails" [value]="company._id">
+                            <option *ngFor="let company of companyCodeDetails; let i=index" [value]="company._id">
                                 {{company.companyCode}}</option>
 
                         </select>
@@ -186,12 +186,12 @@
                     <div class="col-6 py-2">
                         <label class="">Company Currency</label>
                         <select class="form-select " aria-label="Default select example"
-                            formControlName="companyCurrency"
+                            formControlName="companyCurrency" (change)="handleCurrency($event)"
                             [ngStyle]="{'pointer-events': !salesFormGroup.value.companyCodeId ? 'none' :  'all'}">
                             <option [selected]="salesFormGroup.value.companyCurrency=== ''" value="" hidden>Select
                                 Company
                                 Currency</option>
-                            <option *ngFor="let company of companyCodeDetails" [value]="company._id">
+                            <option *ngFor="let company of companyCodeDetails" [value]="company.currencyId" >
                                 {{company.currencyName}}</option>
                         </select>
                     </div>
@@ -202,8 +202,9 @@
                             [ngStyle]="{'pointer-events': !salesFormGroup.value.customerId ? 'none' :  'all'}">
                             <option [selected]="salesFormGroup.value.transactionCurrency=== ''" value="" hidden>Select
                                 Transaction Currency</option>
-                            <option *ngFor="let list of currencyDetails" [value]="list._id">{{list.code}}</option>
-                           
+                            <option *ngFor="let list of customerCurrency" [value]="list.currencyId">{{list.currencyName}}</option>
+                            <!-- <option *ngFor="let list of customerMasterDetail" [value]="list.customerId">{{list.transactionCurrency}}</option> -->
+
                         </select>
                     </div>
                     <div class="col-6 py-2">

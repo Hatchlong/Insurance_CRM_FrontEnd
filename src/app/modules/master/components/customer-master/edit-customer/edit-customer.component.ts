@@ -12,6 +12,7 @@ import { ModeOfTransportService } from 'src/app/modules/setting/Services/mode-of
 import { PlantDataService } from 'src/app/modules/setting/Services/plant-data/plant-data.service';
 import { CustomerAccountAGService } from 'src/app/modules/setting/Services/customer-account-AG/customer-account-ag.service';
 import { BillingBlockService } from 'src/app/modules/setting/Services/billing-block/billing-block.service';
+import { ProductService } from '../../../services/product/product.service';
 
 @Component({
   selector: 'app-edit-customer',
@@ -38,6 +39,7 @@ export class EditCustomerComponent {
   plantDetail: any = []
   deliveryBlockDetail: any = []
   customerGroupDetail: any = []
+  acctAssignDetail: any;
   constructor(
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
@@ -54,7 +56,8 @@ export class EditCustomerComponent {
     private modeOfTransportSer: ModeOfTransportService,
     private plantDataSer: PlantDataService,
     private acctAssignmentSer: CustomerAccountAGService,
-    private billingblockSer: BillingBlockService
+    private billingblockSer: BillingBlockService,
+    private productSer: ProductService
 
   ) { }
 
@@ -75,12 +78,14 @@ export class EditCustomerComponent {
     this.getCustomergroup()
     this.getDeliveryBlock()
     this.singleCustomerDetails()
+    this.getAcctAssign()
   }
   create(data?: any) {
     if (data) {
 
       this.general = this.fb.group({
         _id: [data._id, Validators.required],
+        customerId: [data.customerId],
         customerName: [data.customerName, Validators.required],
         countryId: [data.countryId, Validators.required],
         countryName: [data.countryName],
@@ -102,6 +107,7 @@ export class EditCustomerComponent {
     }
     this.general = this.fb.group({
       _id: ['', Validators.required],
+      customerId: [''],
       customerName: ['', Validators.required],
       countryId: ['', Validators.required],
       countryName: [''],
@@ -130,7 +136,8 @@ export class EditCustomerComponent {
     console.log("ajs");
     if (data) {
       return this.fb.group({
-        currency: [data.currency],
+        currencyId: [data.currencyId],
+        currencyName: [data.currencyName],
         termsPayment: [data.termsPayment],
         companyCode: [data.companyCode],
         reconciliationAcct: [data.reconciliationAcct],
@@ -143,7 +150,8 @@ export class EditCustomerComponent {
     }
 
     return this.fb.group({
-      currency: [''],
+      currencyId: [''],
+      currencyName: [''],
       termsPayment: [''],
       companyCode: [''],
       reconciliationAcct: [''],
@@ -658,5 +666,45 @@ export class EditCustomerComponent {
     }
   }
 
+  //get Account Assign detail
 
+  async getAcctAssign() {
+    try {
+      const result: any = await this.productSer.getAllAcctAssignDetails()
+      if (result.status === '1') {
+        this.acctAssignDetail = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+  handleCurrency(event: any, index: any) {
+    const findCurrency = this.currencyDetails.find((el: any) => el._id === event.target.value)
+    console.log(findCurrency);
+    // this.general.controls.currencyId.setValue(findCurrency._id)
+    // this.general.get('plantData').controls.currencyName.setValue(findCurrency.code)
+    const formArray = this.general.get('plantData') as FormArray;
+    const formGroup = formArray.at(index) as FormGroup;
+
+
+    formGroup.patchValue({
+      currencyName: findCurrency ? findCurrency.code : ''
+
+    });
+
+
+  }
 }

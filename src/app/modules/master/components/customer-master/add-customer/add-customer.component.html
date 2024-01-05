@@ -182,8 +182,8 @@
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
-                                                                formControlName="currency">
-                                                                <option [selected]="general.value.currency === ''"
+                                                                formControlName="currencyId" (change)="handleCurrency($event,i)">
+                                                                <option [selected]="general.value.currencyId === ''"
                                                                     value="" hidden>Select Currency</option>
 
                                                                 <option *ngFor="let list of currencyDetails"
@@ -442,8 +442,8 @@
                                                                 <option
                                                                     [selected]="general.value.acctAssGrpCustomer === ''"
                                                                     value="" hidden>Select acctAsmt</option>
-                                                                <option *ngFor="let list of acctAssignmentDetail"
-                                                                    [value]="list._id">{{list.customerAccountAG}}
+                                                                <option *ngFor="let list of acctAssignDetail"
+                                                                    [value]="list._id">{{list.description}}
                                                                 </option>
 
                                                             </select>

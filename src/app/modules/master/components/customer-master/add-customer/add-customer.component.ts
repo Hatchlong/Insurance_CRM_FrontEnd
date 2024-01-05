@@ -12,6 +12,7 @@ import { PlantDataService } from 'src/app/modules/setting/Services/plant-data/pl
 import { SalesOrgService } from 'src/app/modules/setting/Services/sales-org/sales-org.service';
 import { CustomerService } from '../../../services/customer/customer.service';
 import { Router } from '@angular/router';
+import { ProductService } from '../../../services/product/product.service';
 
 @Component({
   selector: 'app-add-customer',
@@ -27,22 +28,24 @@ export class AddCustomerComponent implements OnInit {
   citiesDetails: any = [];
   currencyDetails: any = [];
   paymentTermDetail: any = []
-  companyDetails: any=[];
-  billingBlockDetail:any=[]
+  companyDetails: any = [];
+  billingBlockDetail: any = []
   distributionDetail: any;
-  salesData: any=[];
-  divisionDetail:any=[]
-  motDetails:any=[]
-  acctAssignmentDetail:any=[]
-  plantDetail:any=[]
-  deliveryBlockDetail:any=[]
-  customerGroupDetail:any=[]
+  salesData: any = [];
+  divisionDetail: any = []
+  motDetails: any = []
+  acctAssignmentDetail: any = []
+  plantDetail: any = []
+  deliveryBlockDetail: any = []
+  customerGroupDetail: any = []
+  acctAssignDetail: any = []
+
   constructor(
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
-    private router:Router,
+    private router: Router,
 
-    private customerSer:CustomerService,
+    private customerSer: CustomerService,
 
     private companyCodeSer: CompanyCodeService,
     private salesOrgSer: SalesOrgService,
@@ -52,7 +55,8 @@ export class AddCustomerComponent implements OnInit {
     private modeOfTransportSer: ModeOfTransportService,
     private plantDataSer: PlantDataService,
     private acctAssignmentSer: CustomerAccountAGService,
-    private billingblockSer:BillingBlockService
+    private billingblockSer: BillingBlockService,
+    private productSer: ProductService
 
   ) { }
 
@@ -71,6 +75,7 @@ export class AddCustomerComponent implements OnInit {
     this.getPlantDetail()
     this.getCustomergroup()
     this.getDeliveryBlock()
+    this.getAcctAssign()
   }
   create() {
     this.general = this.fb.group({
@@ -102,7 +107,8 @@ export class AddCustomerComponent implements OnInit {
     console.log("ajs");
 
     return this.fb.group({
-      currency: [''],
+      currencyId: [''],
+      currencyName: [''],
       termsPayment: [''],
       companyCode: [''],
       reconciliationAcct: [''],
@@ -127,7 +133,7 @@ export class AddCustomerComponent implements OnInit {
     return this.general.get('salesData') as FormArray
 
   }
- 
+
   addSales() {
     console.log("sales array");
     return this.fb.group({
@@ -153,67 +159,67 @@ export class AddCustomerComponent implements OnInit {
   deleteSalesrow(index: any) {
     this.salesDetail.removeAt(index);
   }
- async addAll() {
-  try {
-    this.isSubmitted = true
-    console.log(this.general.value);
-    if (this.general.invalid)
-      return
-    const username: any = localStorage.getItem('userName')
+  async addAll() {
+    try {
+      this.isSubmitted = true
+      console.log(this.general.value);
+      if (this.general.invalid)
+        return
+      const username: any = localStorage.getItem('userName')
 
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth() + 1; // Months are zero-indexed, so add 1
-    const day = currentDate.getDate();
-    const hours = currentDate.getHours();
-    const minutes = currentDate.getMinutes();
-    const seconds = currentDate.getSeconds();
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1; // Months are zero-indexed, so add 1
+      const day = currentDate.getDate();
+      const hours = currentDate.getHours();
+      const minutes = currentDate.getMinutes();
+      const seconds = currentDate.getSeconds();
 
-    // Format the date and time
-    const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      // Format the date and time
+      const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-    console.log(fullDate);
-    this.general.value.createdOn = fullDate
-    this.general.value.createdBy = username
-    this.general.value.changedOn = fullDate
-    this.general.value.changedBy = username
+      console.log(fullDate);
+      this.general.value.createdOn = fullDate
+      this.general.value.createdBy = username
+      this.general.value.changedOn = fullDate
+      this.general.value.changedBy = username
 
-    const result: any = await this.customerSer.createCustomer(this.general.value)
-    console.log(result);
-    if (result.status === '1') {
-      this._snackBar.open(result.message, '', {
+      const result: any = await this.customerSer.createCustomer(this.general.value)
+      console.log(result);
+      if (result.status === '1') {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
+        this.router.navigate(['/master/customer-list'])
+        return
+      }
+      if (result.status === '0') {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+
+      }
+    } catch (error: any) {
+      console.error(error);
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
-        verticalPosition: 'top',
-        panelClass: 'app-notification-success',
-      });
-      this.router.navigate(['/master/customer-list'])
-      return
-    }
-    if (result.status === '0') {
-      this._snackBar.open(result.message, '', {
-        duration: 5 * 1000, horizontalPosition: 'center',
-        verticalPosition: 'top',
-        panelClass: 'app-notification-error',
+        verticalPosition: 'top'
       });
 
     }
-  } catch (error: any) {
-    console.error(error);
-    if (error.error.message) {
-      this._snackBar.open(error.error.message, '', {
-        duration: 5 * 1000, horizontalPosition: 'center',
-        verticalPosition: 'top',
-        panelClass: 'app-notification-error',
-      });
-      return
-    }
-    this._snackBar.open('Something went wrong', '', {
-      duration: 5 * 1000, horizontalPosition: 'center',
-      verticalPosition: 'top'
-    });
 
-  }
- 
   }
 
 
@@ -297,7 +303,7 @@ export class AddCustomerComponent implements OnInit {
 
   async getPaymentTerm() {
     try {
-      const result: any =await this.paymentTermSer.getAllPaymentTerm()
+      const result: any = await this.paymentTermSer.getAllPaymentTerm()
       if (result.status === '1') {
         this.paymentTermDetail = result.data
       }
@@ -358,14 +364,14 @@ export class AddCustomerComponent implements OnInit {
   }
 
   //get billing block
-  async getBillingBlock(){
+  async getBillingBlock() {
     try {
-     const result:any=await this.billingblockSer.getAllBillingBlockDetails()
-     console.log(result.data);
-     
-     if (result.status==='1') {
-      this.billingBlockDetail=result.data
-     } 
+      const result: any = await this.billingblockSer.getAllBillingBlockDetails()
+      console.log(result.data);
+
+      if (result.status === '1') {
+        this.billingBlockDetail = result.data
+      }
     } catch (error: any) {
       if (error.error.message) {
         this._snackBar.open(error.error.message, '', {
@@ -387,9 +393,9 @@ export class AddCustomerComponent implements OnInit {
     // this.general.controls.billingBlock.setValue(findbillingData.billingBlock)
   }
 
-   //get distribution channel
+  //get distribution channel
 
-   async getDistributionDetail() {
+  async getDistributionDetail() {
     try {
       const result: any = await this.distributionSer.getAllDistibutionChannelDetails()
       if (result.status === '1') {
@@ -412,9 +418,9 @@ export class AddCustomerComponent implements OnInit {
     }
   }
 
-   //get sales org details
+  //get sales org details
 
-   async getSalesDetail() {
+  async getSalesDetail() {
     try {
       const result: any = await this.salesOrgSer.getAllSalesOrgDetails()
       console.log(result);
@@ -443,13 +449,13 @@ export class AddCustomerComponent implements OnInit {
       });;
     }
   }
- 
+
   //get dividion
-  async getDivisionDetail(){
+  async getDivisionDetail() {
     try {
-      const result:any=await this.divisionSer.getAllDivionDetails()
-      if (result.status==='1') {
-        this.divisionDetail=result.data
+      const result: any = await this.divisionSer.getAllDivionDetails()
+      if (result.status === '1') {
+        this.divisionDetail = result.data
       }
     } catch (error: any) {
       if (error.error.message) {
@@ -469,12 +475,12 @@ export class AddCustomerComponent implements OnInit {
 
   //get mode of transport detail
 
-  async getModeOfTransport(){
+  async getModeOfTransport() {
     try {
-     const result:any=await this.modeOfTransportSer.getAllModeOfTransportDetails()
-     if (result.status==='1') {
-      this.motDetails=result.data
-     } 
+      const result: any = await this.modeOfTransportSer.getAllModeOfTransportDetails()
+      if (result.status === '1') {
+        this.motDetails = result.data
+      }
     } catch (error: any) {
       if (error.error.message) {
         this._snackBar.open(error.error.message, 'Error', {
@@ -492,11 +498,11 @@ export class AddCustomerComponent implements OnInit {
   }
   //get customer acct assi
 
-  async getAcctGroupDetail(){
+  async getAcctGroupDetail() {
     try {
-      const result:any=await this.acctAssignmentSer.getAllCustomerAccountDetails()
-      if (result.status==='1') {
-        this.acctAssignmentDetail=result.data
+      const result: any = await this.acctAssignmentSer.getAllCustomerAccountDetails()
+      if (result.status === '1') {
+        this.acctAssignmentDetail = result.data
       }
     } catch (error: any) {
       if (error.error.message) {
@@ -516,12 +522,12 @@ export class AddCustomerComponent implements OnInit {
 
   //get plant detail
 
-  async getPlantDetail(){
+  async getPlantDetail() {
     try {
-     const result:any=await this.plantDataSer.getAllPlantData()
-     if (result.status==='1') {
-      this.plantDetail=result.data
-     } 
+      const result: any = await this.plantDataSer.getAllPlantData()
+      if (result.status === '1') {
+        this.plantDetail = result.data
+      }
     } catch (error: any) {
       if (error.error.message) {
         this._snackBar.open(error.error.message, 'Error', {
@@ -540,47 +546,88 @@ export class AddCustomerComponent implements OnInit {
 
   //get delivery block
 
-  async getDeliveryBlock(){
+  async getDeliveryBlock() {
     try {
-      const result:any=await this.customerSer.getDeliveryBlock()
-      if (result.status==='1') {
-       this.deliveryBlockDetail=result.data
-      } 
-     } catch (error: any) {
-       if (error.error.message) {
-         this._snackBar.open(error.error.message, 'Error', {
-           duration: 5 * 1000, horizontalPosition: 'center',
-           verticalPosition: 'top',
-           panelClass: 'app-notification-error',
-         });
-       }
-       this._snackBar.open('Something went wrong', 'Error', {
-         duration: 5 * 1000, horizontalPosition: 'center',
-         verticalPosition: 'top',
-         panelClass: 'app-notification-error',
-       });;
-     }
+      const result: any = await this.customerSer.getDeliveryBlock()
+      if (result.status === '1') {
+        this.deliveryBlockDetail = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
+    }
   }
 
-  async getCustomergroup(){
+  async getCustomergroup() {
     try {
-      const result:any=await this.customerSer.getCustomerGroup()
-      if (result.status==='1') {
-       this.customerGroupDetail=result.data
-      } 
-     } catch (error: any) {
-       if (error.error.message) {
-         this._snackBar.open(error.error.message, 'Error', {
-           duration: 5 * 1000, horizontalPosition: 'center',
-           verticalPosition: 'top',
-           panelClass: 'app-notification-error',
-         });
-       }
-       this._snackBar.open('Something went wrong', 'Error', {
-         duration: 5 * 1000, horizontalPosition: 'center',
-         verticalPosition: 'top',
-         panelClass: 'app-notification-error',
-       });;
-     }
+      const result: any = await this.customerSer.getCustomerGroup()
+      if (result.status === '1') {
+        this.customerGroupDetail = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
+    }
   }
+  //get Account Assign detail
+
+  async getAcctAssign() {
+    try {
+      const result: any = await this.productSer.getAllAcctAssignDetails()
+      if (result.status === '1') {
+        this.acctAssignDetail = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+  handleCurrency(event: any,index:any) {
+    const findCurrency = this.currencyDetails.find((el: any) => el._id === event.target.value)
+    console.log(findCurrency);
+    // this.general.controls.currencyId.setValue(findCurrency._id)
+    // this.general.get('plantData').controls.currencyName.setValue(findCurrency.code)
+    const formArray = this.general.get('plantData') as FormArray;
+    const formGroup = formArray.at(index) as FormGroup;
+
+
+    formGroup.patchValue({
+      currencyName: findCurrency ? findCurrency.code : ''
+
+    });
+
+  }
+
 }
