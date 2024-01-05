@@ -7,29 +7,30 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./add-delivery.component.css']
 })
 export class AddDeliveryComponent implements OnInit{
-  isSubmitted:any = true;
-  isShowPadding:any = false;
-  productFromGroup: any = FormGroup
+isSubmitted:any = false;
+isShowPadding:any = false;
+  deliveryFormGroup: any = FormGroup
+  countryLists: any = ''
+
   constructor(
     private fb: FormBuilder,
+
   ) {
 
   }
 
-  
+
+  ngOnInit(): void {
+    this.createDeliveryFormFields()
+    //    this.getCountryList()
+  }
+
   handleSideBar(event: any) {
     this.isShowPadding = event
   }
-  ngOnInit(): void {
-    this.createProductFormFields()
-  }
 
-  createProductFormFields() {
-    this.isSubmitted = false
-
-    console.log("frrrrrfre");
-    
-    this.productFromGroup = this.fb.group({
+  createDeliveryFormFields() {
+    this.deliveryFormGroup = this.fb.group({
       deliveryType: ['', Validators.required],
       plant: ['', Validators.required],
       delivery: ['', Validators.required],
@@ -37,37 +38,41 @@ export class AddDeliveryComponent implements OnInit{
       customerId: ['', Validators.required],
       deliveryAddress: ['', Validators.required],
       deliveryPartner: ['', Validators.required],
-      financialList: this.fb.array([this.getFinancialFields()])
+
+      deliveryList: this.fb.array([this.getdeliveryFields()])
     })
   }
 
 
-  getFinancialFields(): FormGroup {
+  getdeliveryFields(): FormGroup {
     return this.fb.group({
-      plantItem: ['', Validators.required],
-      deliveryItem: ['', Validators.required],
-      productId: ['', Validators.required],
-      deliveryDate:['', Validators.required],
-      deliveryQty: ['', Validators.required],
-      openQty: ['', Validators.required],
-      storagelocation: ['', Validators.required],
-      refOrder: ['', Validators.required],
-      refItem: ['', Validators.required]
+      deliveryItem: [''],
+      productId: [''],
+      deliveryQty: [''],
+      uom:[''],
+      openQty: [''],
+      storagelocation: [''],
+      referenceSalesOrder: [''],
+      referenceSalesOrderItem: ['']
     })
   }
 
-  get financialListArray() {
-    return this.productFromGroup.get('financialList') as FormArray
+  get deliveryListArray() {
+    return this.deliveryFormGroup.get('deliveryList') as FormArray
   }
 
-  addFinancial() {
-    this.financialListArray.push(this.getFinancialFields());
+  adddelivery() {
+    this.deliveryListArray.push(this.getdeliveryFields());
   }
 
-  deleteFinancial(index: any) {
-    this.financialListArray.removeAt(index)
+  deletedelivery(index: any) {
+    this.deliveryListArray.removeAt(index)
   }
 
+  submitData() {
+    this.isSubmitted = true;
+    console.log(this.deliveryFormGroup);
+  }
 
  
 }
