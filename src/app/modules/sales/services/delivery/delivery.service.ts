@@ -39,7 +39,7 @@ export class DeliveryService {
     console.log(deliveryData)
     data.map((el: any) => {
       el.itemList.map((ele: any) => {
-        ele.deliveryType = el.deliveryType;
+        ele.itemData = el.itemData;
         deliveryData.push(ele)
       })
 

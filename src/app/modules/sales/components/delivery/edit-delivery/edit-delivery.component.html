@@ -143,7 +143,9 @@
                                 <thead>
                                     <tr>
                                         <th *ngIf="deliveryListArray.controls.length > 1">Actions</th>
+                                        <th>Plant</th>
                                         <th>Delivery Item</th>
+                                        <th>Delivery Date</th>
                                         <th>Product Id</th>
                                         <th>Delivery QTY</th>
                                         <th>UoM</th>
@@ -161,8 +163,20 @@
                                             <mat-icon style="cursor:pointer"
                                                 (click)="deletedelivery(i)">delete</mat-icon>
                                         </td>
+                                        <td>
+                                            <select class="form-select" formControlName="plantName">
+                                                <option [selected]="deliveryFormGroup.value.plant=== ''" value="" hidden>Select plant</option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+                                        </td>
                                          <td>
                                             <input type="number" class="form-control " placeholder="Enter delivery item" formControlName="deliveryItem">
+                                        </td>
+                                        <td>
+                                            <input type="date" class="form-control" formControlName="deliveryDate"
+                                            placeholder="Enter delivery date">
                                         </td>
                                         <td>
                                             <input type="text" class="form-control " placeholder="Enter product id"

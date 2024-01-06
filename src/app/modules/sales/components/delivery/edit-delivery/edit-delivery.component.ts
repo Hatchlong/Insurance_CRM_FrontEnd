@@ -33,10 +33,11 @@ export class EditDeliveryComponent {
 
   ngOnInit(): void {
     this.deliveryId=this.activeRouter.snapshot.paramMap.get('id')
+    console.log(this.deliveryId)
     this.createDeliveryFormFields()
     this.getAllUomDetail()
     this.getStorageLocation()
-    this.singleDeliveryDetails
+    this.getSingleDeliveryDetails
   }
 
   handleSideBar(event: any) {
@@ -81,7 +82,9 @@ export class EditDeliveryComponent {
   getdeliveryFields(data?:any): FormGroup {
     if(data){
       return this.fb.group({
+      plantName: [data.plantName],
         deliveryItem: [data.deliveryItem],
+      deliveryDate: [data.deliveryDate],
         productId: [data.productId],
         deliveryQty: [data.deliveryQty],
         uomName: [data.uomName],
@@ -92,7 +95,9 @@ export class EditDeliveryComponent {
       })
     }
     return this.fb.group({
+      plantName: [''],
       deliveryItem: [''],
+      deliveryDate:[''],
       productId: [''],
       deliveryQty: [''],
       uomName: [''],
@@ -164,16 +169,26 @@ export class EditDeliveryComponent {
   }
 
   // singleDeliveryDetails
-  async singleDeliveryDetails() {
+  async getSingleDeliveryDetails() {
     try {
-      const result: any = await this.deliverySer.singleDeliveryDetails(this.deliveryId)
+      const result: any = await this.deliverySer.singleDeliveryDetails(this.deliveryId);
       if (result.status === '1') {
-        console.log(result);
-        this.createDeliveryFormFields(result.data)
+        this.deliveryFormGroup.patchValue(result.data);
       }
-    } catch (error) {
-      console.error(error);
-
+    } catch (error:any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
   }
 

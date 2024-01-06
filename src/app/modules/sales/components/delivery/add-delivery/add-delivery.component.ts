@@ -58,7 +58,10 @@ export class AddDeliveryComponent implements OnInit {
 
   getdeliveryFields(): FormGroup {
     return this.fb.group({
+      plantName: [''],
       deliveryItem: [''],
+      deliveryDate: ['' ],
+
       productId: [''],
       deliveryQty: [''],
       uomName: [''],
