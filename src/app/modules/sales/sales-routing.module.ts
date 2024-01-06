@@ -7,6 +7,7 @@ import { AddDeliveryComponent } from './components/delivery/add-delivery/add-del
 import { BillingListComponent } from './components/billing/billing-list/billing-list.component';
 import { AddBillingComponent } from './components/billing/add-billing/add-billing.component';
 import { EditSalesOrderComponent } from './components/sales-order/edit-sales-order/edit-sales-order.component';
+import { EditDeliveryComponent } from './components/delivery/edit-delivery/edit-delivery.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path:'add-delivery',
     component:AddDeliveryComponent
+  },
+  {
+    path:'edit-delivery/:id',
+    component:EditDeliveryComponent
   },
   {
     path:'billing-list',
