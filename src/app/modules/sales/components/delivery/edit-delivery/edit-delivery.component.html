@@ -72,8 +72,13 @@
                     </div>
                     <div class="col-6 mt-2">
                         <label for="">Customer Id <sup>*</sup></label>
-                        <input type="text" class="form-control" formControlName="customerId" placeholder="Enter Customer Id">
-
+                        <select class="form-select " aria-label="Default select example" formControlName="customerId">
+                            <option [selected]="deliveryFormGroup.value.customerId=== ''" value="" hidden>Select Customer
+                                Id
+                            </option>
+                            <option *ngFor="let list of customerMasterDetail" [value]="list.customerId">{{list.customerId}}</option>
+                            
+                        </select>
                         <div *ngIf="deliveryFormGroup.controls['customerId'].touched && deliveryFormGroup.controls['customerId'].touched && deliveryFormGroup.controls['customerId'].hasError('required') && !isSubmitted">
                             <p class="error-message">Customer Id Value is mandatory</p>
                         </div>
@@ -179,8 +184,15 @@
                                             placeholder="Enter delivery date">
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control " placeholder="Enter product id"
-                                            formControlName="productId">
+                                            <select class="form-select " aria-label="Default select example"
+                                            formControlName="materialId" >
+                                            <option [selected]="deliveryFormGroup.value.materialId === ''" value=""
+                                                hidden>
+                                                Select
+                                                Product Id</option>
+                                                <option *ngFor="let list of productDetails" [value]="list.materialId">{{list.materialId}}</option>
+
+                                        </select>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control " placeholder="Enter delivery qty"

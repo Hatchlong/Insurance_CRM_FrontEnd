@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/modules/master/services/product/product.service';
 import { PlantDataService } from 'src/app/modules/setting/Services/plant-data/plant-data.service';
 import { DeliveryService } from '../../../services/delivery/delivery.service';
+import { CustomerService } from 'src/app/modules/master/services/customer/customer.service';
 
 @Component({
   selector: 'app-edit-delivery',
@@ -19,6 +20,9 @@ export class EditDeliveryComponent {
   uomDetail: any = []
   storageLocationDetail:any=[]
   deliveryId: any = []
+  productDetails: any = []
+  customerMasterDetail: any = []
+
 
   constructor(
     private fb: FormBuilder,
@@ -27,7 +31,9 @@ export class EditDeliveryComponent {
     private _snackBar: MatSnackBar,
     private productSer: ProductService,
     private plantDataSer:PlantDataService,
-    private activeRouter: ActivatedRoute
+    private activeRouter: ActivatedRoute,
+    private customerSer: CustomerService
+
 
   ) { }
 
@@ -37,7 +43,8 @@ export class EditDeliveryComponent {
     this.createDeliveryFormFields()
     this.getAllUomDetail()
     this.getStorageLocation()
-    this.getSingleDeliveryDetails
+    this.getSingleDeliveryDetails()
+    this.getCustomerMaster()
   }
 
   handleSideBar(event: any) {
@@ -99,6 +106,8 @@ export class EditDeliveryComponent {
       deliveryItem: [''],
       deliveryDate:[''],
       productId: [''],
+      materialId: [''],
+
       deliveryQty: [''],
       uomName: [''],
       openQty: [''],
@@ -240,5 +249,55 @@ return
       });
     }
   }
+
+
+  async getProductMasterDetail() {
+    try {
+      const result: any = await this.productSer.getAllProductDetails()
+      if (result.status === '1') {
+        this.productDetails = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
+    }
+  }
+
+  
+ //get customer master
+ async getCustomerMaster() {
+  try {
+    const result: any = await this.customerSer.getAllCustomerDetails()
+    // console.log(result.data, 'çustomer data');
+
+    if (result.status === '1') {
+      this.customerMasterDetail = result.data
+    }
+  } catch (error: any) {
+    if (error.error.message) {
+      this._snackBar.open(error.error.message, '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+      return
+    }
+    this._snackBar.open('Something went wrong', '', {
+      duration: 5 * 1000, horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: 'app-notification-error',
+    });
+  }
+}
 
 }
