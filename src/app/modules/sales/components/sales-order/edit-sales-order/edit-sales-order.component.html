@@ -527,13 +527,28 @@
                                                 formControlName="otherCharges">
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control " placeholder="Auto Company Currency"
-                                                formControlName="companyCurrency">
+                                           
+                                                <select class="form-select " aria-label="Default select example"
+                                                formControlName="companyCurrency" 
+                                                [ngStyle]="{'pointer-events': !salesFormGroup.value.companyCodeId ? 'none' :  'all'}">
+                                                <option [selected]="salesFormGroup.value.companyCurrency=== ''" value="" hidden>Select
+                                                    Company
+                                                    Currency</option>
+                                                <option *ngFor="let company of companyCodeDetails" [value]="company.currencyId" >
+                                                    {{company.currencyName}}</option>
+                                            </select>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control "
-                                                placeholder="Auto Transation Currency"
-                                                formControlName="transactionCurrency">
+                                           
+                                                <select class="form-select " aria-label="Default select example"
+                                                formControlName="transactionCurrency"
+                                                [ngStyle]="{'pointer-events': !salesFormGroup.value.customerId ? 'none' :  'all'}">
+                                                <option [selected]="salesFormGroup.value.transactionCurrency=== ''" value="" hidden>Select
+                                                    Transaction Currency</option>
+                                                <option *ngFor="let list of customerCurrency" [value]="list.currencyId">{{list.currencyName}}</option>
+                                                <!-- <option *ngFor="let list of customerMasterDetail" [value]="list.customerId">{{list.transactionCurrency}}</option> -->
+                    
+                                            </select>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control " placeholder="Exchange Rate"

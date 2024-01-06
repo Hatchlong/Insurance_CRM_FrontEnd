@@ -119,7 +119,8 @@ export class AddProductComponent implements OnInit {
   addrow() {
     return this.fb.group({
       storagePlant: [''],
-      storageLocation: [''],
+      storageLocationId: [''],
+      storageLocationName: [''],
       procurementType: [''],
       safetyStock: [''],
       totalReplLeadTime: [''],
@@ -147,7 +148,8 @@ export class AddProductComponent implements OnInit {
       salesOrganization: [''],
       distributionChannel: [''],
       deliveryUnit: [''],
-      deliveringPlant: [''],
+      deliveringPlantId: [''],
+      deliveringPlantName: [''],
       maxDeliveryQTY: [''],
       materialGroup: [''],
       acctAssignmentGrp: [''],
@@ -656,4 +658,23 @@ export class AddProductComponent implements OnInit {
       });
     }
   }
+
+  handleDeliveryPlant(event:any,index:any){
+    const findPlant = this.plantDetail.find((el: any) => el._id === event.target.value)
+    console.log(findPlant);
+
+    // this.general.controls.currencyId.setValue(findPlant._id)
+    // this.general.get('plantData').controls.currencyName.setValue(findPlant.code)
+    const formArray = this.general.get('salesData') as FormArray;
+    const formGroup = formArray.at(index) as FormGroup;
+
+    formGroup.patchValue({
+      deliveringPlantName: findPlant ? findPlant.plantCode : ''
+
+    });
+ }
+
+  // handleStorageLocation($event:any,index:any){
+  //   const findStorage=
+  // }
 }

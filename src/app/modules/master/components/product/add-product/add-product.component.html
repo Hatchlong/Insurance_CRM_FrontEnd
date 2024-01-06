@@ -507,9 +507,9 @@
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
-                                                                formControlName="storageLocation">
+                                                                formControlName="storageLocationId" >
                                                                 <option
-                                                                    [selected]="general.value.storageLocation === ''"
+                                                                    [selected]="general.value.storageLocationId === ''"
                                                                     value="" hidden>Select Storage Location</option>
                                                                 <option *ngFor="let list of plantDetail"
                                                                     [value]="list._id">{{list.stoargeLocationName}}
@@ -646,8 +646,8 @@
                                                         <td>
                                                                 <select class="form-select "
                                                                 aria-label="Default select example"
-                                                                formControlName="deliveringPlant">
-                                                                <option [selected]="general.value.deliveringPlant === ''"
+                                                                formControlName="deliveringPlantId" (change)="handleDeliveryPlant($event,j)">
+                                                                <option [selected]="general.value.deliveringPlantId === ''"
                                                                     value="" hidden>Select Delivery Plant</option>
                                                                 <option *ngFor="let list of plantDetail"
                                                                     [value]="list._id">{{list.plantCode}}

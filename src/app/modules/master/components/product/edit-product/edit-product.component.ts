@@ -174,7 +174,8 @@ export class EditProductComponent {
     if (data) {
       return this.fb.group({
         storagePlant: [data.storagePlant],
-        storageLocation: [data.storageLocation],
+        storageLocationId: [data.storageLocation],
+        storageLocationName: [data.storageLocation],
         procurementType: [data.procurementType],
         safetyStock: [data.safetyStock],
         totalReplLeadTime: [data.totalReplLeadTime],
@@ -185,7 +186,8 @@ export class EditProductComponent {
     }
     return this.fb.group({
       storagePlant: [''],
-      storageLocation: [''],
+      storageLocationId: [''],
+      storageLocationName: [''],
       procurementType: [''],
       safetyStock: [''],
       totalReplLeadTime: [''],
