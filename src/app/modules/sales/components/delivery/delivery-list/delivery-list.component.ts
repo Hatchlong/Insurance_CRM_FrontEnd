@@ -23,7 +23,7 @@ export class DeliveryListComponent implements OnInit{
 
   sampleJson={
     
-      "orderType":"Domestic",
+      "deliveryType":"Domestic",
       "saleOrgName": "SALES ORGANIZATION",
       "distributionChannelsName": "D123",
       "divisionName": "TEST DIVISION",
@@ -119,6 +119,7 @@ export class DeliveryListComponent implements OnInit{
 
   exportExcel(): void {
     this.deliverySer.exportToExcel(this.deliveryDetail, 'delivery', 'Sheet1');
+    console.log(this.exportExcel)
   }
   
 // data into list

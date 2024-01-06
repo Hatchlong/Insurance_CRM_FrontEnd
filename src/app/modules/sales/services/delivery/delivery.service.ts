@@ -35,12 +35,12 @@ export class DeliveryService {
   
 
   exportToExcel(data: any[], fileName: string, sheetName: string): void {
-    const delivery: any = [];
-    console.log(delivery)
+    const deliveryData: any = [];
+    console.log(deliveryData)
     data.map((el: any) => {
-      el.ItemList.map((ele: any) => {
+      el.itemList.map((ele: any) => {
         ele.deliveryType = el.deliveryType;
-        delivery.push(ele)
+        deliveryData.push(ele)
       })
 
     })
@@ -49,7 +49,7 @@ export class DeliveryService {
       delete el.isActive;
       delete el.__v;
       delete el.check;
-      delete el.ItemList
+      delete el.itemList
     })
     const workbook: XLSX.WorkBook = XLSX.utils.book_new();
 
@@ -57,7 +57,7 @@ export class DeliveryService {
     const sheet1: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
     XLSX.utils.book_append_sheet(workbook, sheet1, 'delivery');
 
-    const sheet2: XLSX.WorkSheet = XLSX.utils.json_to_sheet(delivery);
+    const sheet2: XLSX.WorkSheet = XLSX.utils.json_to_sheet(deliveryData);
     XLSX.utils.book_append_sheet(workbook, sheet2, 'Item Data');
 
 
