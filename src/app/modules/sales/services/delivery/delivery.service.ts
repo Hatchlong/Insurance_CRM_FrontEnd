@@ -10,27 +10,27 @@ export class DeliveryService {
   constructor(private http:HttpClient) { }
 
   createDeliveryDetails(data: any) {
-    return this.http.post('http://localhost:4000/api/sales/delivery/create', data).toPromise()
+    return this.http.post('http://54.151.187.67:4000/api/sales/delivery/create', data).toPromise()
   }
 
   getAllDeliveryDetails() {
-    return this.http.get('http://localhost:4000/api/sales/delivery/getAll').toPromise()
+    return this.http.get('http://54.151.187.67:4000/api/sales/delivery/getAll').toPromise()
   }
 
   getAllDeliveryDetailsPage(skip?:any, itemsPerPage?:any) {
-    return this.http.get(`http://localhost:4000/api/sales/delivery/getAll/`).toPromise()
+    return this.http.get(`http://54.151.187.67:4000/api/sales/delivery/getAll/`).toPromise()
   }
 
   singleDeliveryDetails(id: any) {
-    return this.http.get(`http://localhost:4000/api/sales/delivery/get/${id}`).toPromise()
+    return this.http.get(`http://54.151.187.67:4000/api/sales/delivery/get/${id}`).toPromise()
   }
 
   updateDeliveryDetails(data: any) {
-    return this.http.put(`http://localhost:4000/api/sales/delivery/update/${data._id}`, data).toPromise()
+    return this.http.put(`http://54.151.187.67:4000/api/sales/delivery/update/${data._id}`, data).toPromise()
   }
 
   updateDeliveryMany(data: any) {
-    return this.http.put(`http://localhost:4000/api/sales/delivery/update`, data).toPromise()
+    return this.http.put(`http://54.151.187.67:4000/api/sales/delivery/update`, data).toPromise()
   }
   
 

@@ -74,7 +74,7 @@ export class EditCompanyCodeComponent {
         this.companyCode.patchValue(result.data)
         if(result.data.filePath){
           this.isImageShow = true;
-          this.filePath = 'http://localhost:4000/' + result.data.filePath
+          this.filePath = 'http://54.151.187.67:4000/' + result.data.filePath
         }
         this.citiesDetails = this.countryDetials.find((el: any) => el._id === this.companyCode.value.countryId);
         // this.companyCode.controls.languageId.setValue(this.citiesDetails.languageId);

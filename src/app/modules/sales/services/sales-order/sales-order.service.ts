@@ -10,27 +10,27 @@ export class SalesOrderService {
   constructor(private http:HttpClient) { }
 
   createSalesOrder(data: any) {
-    return this.http.post('http://localhost:4000/api/sales/salesOrder/create', data).toPromise()
+    return this.http.post('http://54.151.187.67:4000/api/sales/salesOrder/create', data).toPromise()
   }
 
   getAllSalesOrderDetails() {
-    return this.http.get('http://localhost:4000/api/sales/salesOrder/getAll').toPromise()
+    return this.http.get('http://54.151.187.67:4000/api/sales/salesOrder/getAll').toPromise()
   }
 
   getAllSalesOrderDetailsPage(skip?:any, itemsPerPage?:any) {
-    return this.http.get(`http://localhost:4000/api/sales/salesOrder/getAll/`).toPromise()
+    return this.http.get(`http://54.151.187.67:4000/api/sales/salesOrder/getAll/`).toPromise()
   }
 
   singleSalesOrderDetails(id: any) {
-    return this.http.get(`http://localhost:4000/api/sales/salesOrder/get/${id}`).toPromise()
+    return this.http.get(`http://54.151.187.67:4000/api/sales/salesOrder/get/${id}`).toPromise()
   }
 
   updatedSalesOrderDetails(data: any) {
-    return this.http.put(`http://localhost:4000/api/sales/salesOrder/update/${data._id}`, data).toPromise()
+    return this.http.put(`http://54.151.187.67:4000/api/sales/salesOrder/update/${data._id}`, data).toPromise()
   }
 
   updateSalesOrderMany(data: any) {
-    return this.http.put(`http://localhost:4000/api/sales/salesOrder/update`, data).toPromise()
+    return this.http.put(`http://54.151.187.67:4000/api/sales/salesOrder/update`, data).toPromise()
   }
 
   exportToExcel(data: any[], fileName: string, sheetName: string): void {
