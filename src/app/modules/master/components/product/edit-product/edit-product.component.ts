@@ -216,7 +216,8 @@ export class EditProductComponent {
         salesOrganization: [data.salesOrganization],
         distributionChannel: [data.distributionChannel],
         deliveryUnit: [data.deliveryUnit],
-        deliveringPlant: [data.deliveringPlant],
+        deliveringPlantId: [data.deliveringPlant],
+        deliveringPlantName: [data.deliveringPlant],
         maxDeliveryQTY: [data.maxDeliveryQTY],
         materialGroup: [data.materialGroup],
         acctAssignmentGrp: [data.acctAssignmentGrp],
@@ -224,11 +225,12 @@ export class EditProductComponent {
         minimumDeliveryQTY: [data.minimumDeliveryQTY],
       })
     }
-    return this.fb.group({
+    return this.fb.group({ 
       salesOrganization: [''],
       distributionChannel: [''],
       deliveryUnit: [''],
-      deliveringPlant: [''],
+      deliveringPlantId: [''],
+      deliveringPlantName: [''],
       maxDeliveryQTY: [''],
       materialGroup: [''],
       acctAssignmentGrp: [''],
