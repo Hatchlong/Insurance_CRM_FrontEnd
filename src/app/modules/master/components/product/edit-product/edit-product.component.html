@@ -47,7 +47,8 @@
                             <option [selected]="general.value.materialTypeId === ''" value="" hidden>Select Material
                                 Type
                             </option>
-                            <option *ngFor="let list of materialTypeDetail" [value]="list._id">{{list.description}}</option>
+                            <option *ngFor="let list of materialTypeDetail" [value]="list._id">{{list.description}}
+                            </option>
 
                         </select>
                         <div
@@ -60,8 +61,7 @@
                     </div>
                     <div class="col-6 py-2" *ngIf="materialIdisShow">
                         <label for="">Material Id </label>
-                        <input type="text" class="form-control " formControlName="materialId"
-                            placeholder="Material Id" >
+                        <input type="text" class="form-control " formControlName="materialId" placeholder="Material Id">
                     </div>
                     <div class="col-6 py-2">
                         <label for="">Industry Sector <sup>*</sup></label>
@@ -146,7 +146,8 @@
                         <label for="">Transportation Group <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example"
                             formControlName="transporationGroupId" (change)="handleTransGrp($event)">
-                            <option [selected]="general.value.transporationGroupId === ''" value="" hidden>Select Transportation
+                            <option [selected]="general.value.transporationGroupId === ''" value="" hidden>Select
+                                Transportation
                                 Group</option>
                             <option *ngFor="let list of transDetails" [value]="list._id">{{list.description}}</option>
 
@@ -267,8 +268,8 @@
                             <option [selected]="general.value.baseUnitMeasure === ''" value="" hidden>Select Base Unit
                                 Of Measure
                             </option>
-                            <option value="1">GRM</option>
-                            <option value="2">MTR</option>
+                            <option *ngFor="let list of uomDetail"
+                            [value]="list._id">{{list.description}}</option>
                         </select>
                         <div
                             *ngIf="general.controls['baseUnitMeasure'].touched && general.controls['baseUnitMeasure'].dirty && general.controls['baseUnitMeasure'].hasError('required') && !isSubmitted">
@@ -362,7 +363,8 @@
                         <label for="">Batch MAanagement <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example"
                             formControlName="batchManagment">
-                            <option [selected]="general.value.batchManagment === ''" value="" hidden>Select batch MAanagement
+                            <option [selected]="general.value.batchManagment === ''" value="" hidden>Select batch
+                                MAanagement
                             </option>
                             <option value="YES">YES</option>
                             <option value="NO">NO</option>
@@ -495,10 +497,11 @@
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
-                                                                formControlName="storagePlant">
+                                                                formControlName="storagePlant"
+                                                                (change)="handleStorageLocation($event,i)">
                                                                 <option [selected]="general.value.storagePlant === ''"
                                                                     value="" hidden>Select Storage Plant</option>
-                                                                    <option *ngFor="let list of plantDetail"
+                                                                <option *ngFor="let list of plantDetail"
                                                                     [value]="list._id">{{list.plantCode}}
                                                                 </option>
                                                             </select>
@@ -507,8 +510,7 @@
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
-                                                                formControlName="storageLocationId"
-                                                                (change)="handleTax($event)">
+                                                                formControlName="storageLocationId">
                                                                 <option
                                                                     [selected]="general.value.storageLocationId === ''"
                                                                     value="" hidden>Select Storage Location</option>
@@ -543,8 +545,9 @@
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="availabilityCheck">
-                                                                <option [selected]="general.value.availabilityCheck === ''" value=""
-                                                                    hidden>Select Availibilty Check</option>
+                                                                <option
+                                                                    [selected]="general.value.availabilityCheck === ''"
+                                                                    value="" hidden>Select Availibilty Check</option>
                                                                 <option value="YES">YES</option>
                                                                 <option value="NO">NO</option>
                                                                 <option value="BLANK">BLANK</option>
@@ -565,11 +568,11 @@
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="bomRelevance">
-                                                                <option [selected]="general.value.bomRelevance === ''" value=""
-                                                                    hidden>Select bom</option>
-                                                                    <option value="NO">NO</option>
-                                                                    <option value="YES">YES</option>
-                                                                    <option value="BLANK">BLANK</option>
+                                                                <option [selected]="general.value.bomRelevance === ''"
+                                                                    value="" hidden>Select bom</option>
+                                                                <option value="NO">NO</option>
+                                                                <option value="YES">YES</option>
+                                                                <option value="BLANK">BLANK</option>
                                                             </select>
                                                         </td>
 
@@ -626,31 +629,34 @@
                                                                 <option
                                                                     [selected]="general.value.distributionChannel === ''"
                                                                     value="" hidden>Select distribution Channel</option>
-                                                                <option *ngFor="let list of distributionDetail" [value]="list._id">{{list.distributionChannel}}{{list._id}}</option>
+                                                                <option *ngFor="let list of distributionDetail"
+                                                                    [value]="list._id">
+                                                                    {{list.distributionChannel}}{{list._id}}</option>
                                                             </select>
                                                         <td>
-                                                           
+
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
                                                                 formControlName="deliveryUnit">
                                                                 <option [selected]="general.value.deliveryUnit === ''"
                                                                     value="" hidden>Select Delivery Unit</option>
-                                                                <option *ngFor="let list of uomDetail" [value]="list._id">{{list.description}}</option>
-                                                                
+                                                                <option *ngFor="let list of uomDetail"
+                                                                    [value]="list._id">{{list.description}}</option>
+
                                                             </select>
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
                                                             aria-label="Default select example"
-                                                            formControlName="deliveringPlant">
-                                                            <option [selected]="general.value.deliveringPlant === ''"
+                                                            formControlName="deliveringPlantId" (change)="handleDeliveryPlant($event,j)">
+                                                            <option [selected]="general.value.deliveringPlantId === ''"
                                                                 value="" hidden>Select Delivery Plant</option>
                                                             <option *ngFor="let list of plantDetail"
                                                                 [value]="list._id">{{list.plantCode}}
                                                             </option>
                                                         </select>
-
-                                                        </td>
+                                                    </td>
+                                                   
                                                         <td>
                                                             <input type="text" class="form-control "
                                                                 placeholder="Minimum Delievery qty"
@@ -662,9 +668,10 @@
                                                                 formControlName="materialGroup">
                                                                 <option [selected]="general.value.materialGroup === ''"
                                                                     value="" hidden>Select Material Group</option>
-                                                               
-                                                                 <option *ngFor="let list of materialGrpDetail" [value]="list._id">{{list.description}}
-                                                                </option> 
+
+                                                                <option *ngFor="let list of materialGrpDetail"
+                                                                    [value]="list._id">{{list.description}}
+                                                                </option>
                                                             </select>
                                                         </td>
                                                         <td>

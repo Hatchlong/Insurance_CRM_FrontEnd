@@ -174,8 +174,8 @@ export class EditProductComponent {
     if (data) {
       return this.fb.group({
         storagePlant: [data.storagePlant],
-        storageLocationId: [data.storageLocation],
-        storageLocationName: [data.storageLocation],
+        storageLocationId: [data.storageLocationId],
+        storageLocationName: [data.storageLocationName],
         procurementType: [data.procurementType],
         safetyStock: [data.safetyStock],
         totalReplLeadTime: [data.totalReplLeadTime],
@@ -216,7 +216,8 @@ export class EditProductComponent {
         salesOrganization: [data.salesOrganization],
         distributionChannel: [data.distributionChannel],
         deliveryUnit: [data.deliveryUnit],
-        deliveringPlant: [data.deliveringPlant],
+        deliveringPlantId: [data.deliveringPlantId],
+        deliveringPlantName: [data.deliveringPlantName],
         maxDeliveryQTY: [data.maxDeliveryQTY],
         materialGroup: [data.materialGroup],
         acctAssignmentGrp: [data.acctAssignmentGrp],
@@ -224,11 +225,12 @@ export class EditProductComponent {
         minimumDeliveryQTY: [data.minimumDeliveryQTY],
       })
     }
-    return this.fb.group({
+    return this.fb.group({ 
       salesOrganization: [''],
       distributionChannel: [''],
       deliveryUnit: [''],
-      deliveringPlant: [''],
+      deliveringPlantId: [''],
+      deliveringPlantName: [''],
       maxDeliveryQTY: [''],
       materialGroup: [''],
       acctAssignmentGrp: [''],
@@ -755,6 +757,36 @@ export class EditProductComponent {
     this.general.controls.distributionChannel.setValue(findDistribution.distributionChannel)
 
   }
+
+  handleStorageLocation(event: any, index: any) {
+    const selectedStoragePlantId = event.target.value;
+  
+    const formArray = this.general.get('plantData') as FormArray;
+    const formGroup = formArray.at(index) as FormGroup;
+  
+    // Find the selected storage plant in the plantDetail array
+    const findStorage = this.plantDetail.find((el: any) => el._id === selectedStoragePlantId);
+  
+    // Update formGroup values
+    formGroup.patchValue({
+        storageLocationName: findStorage ? findStorage.stoargeLocationName : '',
+        storageLocationId: findStorage ? findStorage._id : '', // Assuming _id is the ID for storage location
+    });
+  }
+   handleDeliveryPlant(event:any,index:any){
+    const findPlant = this.plantDetail.find((el: any) => el._id === event.target.value)
+    console.log(findPlant);
+
+    // this.general.controls.currencyId.setValue(findPlant._id)
+    // this.general.get('plantData').controls.currencyName.setValue(findPlant.code)
+    const formArray = this.general.get('salesData') as FormArray;
+    const formGroup = formArray.at(index) as FormGroup;
+
+    formGroup.patchValue({
+      deliveringPlantName: findPlant ? findPlant.plantCode : ''
+
+    });
+ }
 
 
 }

@@ -602,7 +602,7 @@ export class AddSalesOrderComponent {
     const formGroup = formArray.at(index) as FormGroup;
 
     formGroup.patchValue({
-      plant: selectedPlant ? selectedPlant.deliveringPlantName : ''
+      plant: this.customerplant ? this.customerplant.deliveringPlantName : ''
     });
 
   }
