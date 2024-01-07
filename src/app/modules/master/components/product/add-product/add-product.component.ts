@@ -681,8 +681,8 @@ export class AddProductComponent implements OnInit {
   const formGroup = formArray.at(index) as FormGroup;
 
   formGroup.patchValue({
-    storageLocationName: findStorage ? findStorage.stoargeLocationName : ''
-
+    storageLocationName: findStorage ? findStorage.stoargeLocationName : '',
+    storageLocationId:findStorage ? findStorage.stoargeLocationId : ''
   });
  }
 }
