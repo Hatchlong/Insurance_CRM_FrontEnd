@@ -495,7 +495,7 @@
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
-                                                                formControlName="storagePlant">
+                                                                formControlName="storagePlant" (change)="handleStorageLocation($event,i)">
                                                                 <option [selected]="general.value.storagePlant === ''"
                                                                     value="" hidden>Select Storage Plant</option>
                                                                 <option *ngFor="let list of plantDetail"
@@ -507,7 +507,7 @@
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
-                                                                formControlName="storageLocationId" (change)="handleStorageLocation($event,i)">
+                                                                formControlName="storageLocationId" >
                                                                 <option
                                                                     [selected]="general.value.storageLocationId === ''"
                                                                     value="" hidden>Select Storage Location</option>
