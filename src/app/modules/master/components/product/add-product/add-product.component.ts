@@ -674,7 +674,15 @@ export class AddProductComponent implements OnInit {
     });
  }
 
-  // handleStorageLocation($event:any,index:any){
-  //   const findStorage=
-  // }
+ handleStorageLocation(event:any,index:any){
+  const findStorage=this.plantDetail.find((el:any)=>el._id===event.target.value)
+  console.log(findStorage);
+  const formArray = this.general.get('plantData') as FormArray;
+  const formGroup = formArray.at(index) as FormGroup;
+
+  formGroup.patchValue({
+    storageLocationName: findStorage ? findStorage.stoargeLocationName : ''
+
+  });
+ }
 }
