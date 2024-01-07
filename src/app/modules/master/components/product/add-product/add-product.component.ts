@@ -34,6 +34,7 @@ export class AddProductComponent implements OnInit {
   selectedValue: any = ''
   materialIdisShow: any = false
   plantDetails: any = []
+  filteredPlantDetail: any;
 
   constructor(
     private fb: FormBuilder,
@@ -674,15 +675,41 @@ export class AddProductComponent implements OnInit {
     });
  }
 
- handleStorageLocation(event:any,index:any){
-  const findStorage=this.plantDetail.find((el:any)=>el._id===event.target.value)
-  console.log(findStorage);
+
+//  handleStorageLocation(event:any,index:any){
+//   const findStorage=this.plantDetail.find((el:any)=>el._id===event.target.value)
+//   console.log(findStorage);
+//   const formArray = this.general.get('plantData') as FormArray;
+//   const formGroup = formArray.at(index) as FormGroup;
+
+//   // formGroup.patchValue({
+//   //   storageLocationName: findStorage ? findStorage.stoargeLocationName : '',
+//   //   storageLocationId:findStorage ? findStorage.stoargeLocationId : ''
+//   // });
+//   formGroup.patchValue({
+//     storageLocationName: '',
+//     storageLocationId: '',
+// });
+
+// // Filter plantDetail based on selectedPlantId
+// this.filteredPlantDetail = this.plantDetail.filter((el: any) => el._id === selectedPlantId);
+
+//  }
+
+handleStorageLocation(event: any, index: any) {
+  const selectedStoragePlantId = event.target.value;
+
   const formArray = this.general.get('plantData') as FormArray;
   const formGroup = formArray.at(index) as FormGroup;
 
+  // Find the selected storage plant in the plantDetail array
+  const findStorage = this.plantDetail.find((el: any) => el._id === selectedStoragePlantId);
+
+  // Update formGroup values
   formGroup.patchValue({
-    storageLocationName: findStorage ? findStorage.stoargeLocationName : '',
-    storageLocationId:findStorage ? findStorage.stoargeLocationId : ''
+      storageLocationName: findStorage ? findStorage.stoargeLocationName : '',
+      storageLocationId: findStorage ? findStorage._id : '', // Assuming _id is the ID for storage location
   });
- }
+}
+
 }
