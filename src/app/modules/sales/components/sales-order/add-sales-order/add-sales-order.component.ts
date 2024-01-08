@@ -37,7 +37,9 @@ export class AddSalesOrderComponent {
   productDeatail: any = []
   currencyDetails: any;
   customerCurrency: any = []
-  customerplant:any=[]
+  customerplant: any = []
+  productPlant: any = []
+
   constructor(
     private fb: FormBuilder,
     private salesOrderSer: SalesOrderService,
@@ -130,7 +132,8 @@ export class AddSalesOrderComponent {
       materialDescription: [''],
       ordQty: [''],
       uom: [''],
-      plant: [''],
+      plantId: [''],
+      plantName: [''],
       storageLocation: [''],
       batchSerial: [''],
       priceAmount: [''],
@@ -349,7 +352,7 @@ export class AddSalesOrderComponent {
   handleCountry(event: any) {
     const findCompany = this.companyCodeDetails.find((el: any) => el._id === event.target.value)
     console.log(findCompany);
-    
+
     this.salesFormGroup.controls.companyCodeName.setValue(findCompany.companyCode)
 
 
@@ -567,7 +570,7 @@ export class AddSalesOrderComponent {
     const selectedCustomer = this.customerMasterDetail.find((el: any) => el.customerId === event.target.value);
     this.customerCurrency = selectedCustomer.plantData
     console.log(this.customerCurrency);
-    
+
     this.salesFormGroup.patchValue({
       customerAddress: selectedCustomer ? selectedCustomer.address : ''
     });
@@ -576,14 +579,20 @@ export class AddSalesOrderComponent {
     const selectMaterial = this.productDeatail.find((el: any) => el.materialId === event.target.value)
     console.log(selectMaterial);
 
+    this.productPlant = selectMaterial ? selectMaterial.plantData : [];
+
+    this.customerplant = selectMaterial ? selectMaterial.salesData : [];
+
     const formArray = this.salesFormGroup.get('itemList') as FormArray;
     const formGroup = formArray.at(index) as FormGroup;
 
     formGroup.patchValue({
-      materialDescription: selectMaterial ? selectMaterial.materialDescription : ''
+      materialDescription: selectMaterial ? selectMaterial.materialDescription : '',
+      plantName: selectMaterial ? selectMaterial.deliveringPlantName : '',
+      storageLocationId: selectMaterial ? selectMaterial.storageLocation : ''
 
     });
-   
+
   }
 
   handleCurrency(event: any) {
@@ -591,20 +600,6 @@ export class AddSalesOrderComponent {
     console.log(selectCurrency, 'currency ');
   }
 
-  handlePlant(event: any,index:any) {
-    const selectedPlant = this.productDeatail.find((el: any) => el._id === event.target.value);
-    console.log(selectedPlant);
-    
-    this.customerplant = selectedPlant.salesData
-    console.log(this.customerplant,'oioiioi');
 
-    const formArray = this.salesFormGroup.get('itemList') as FormArray;
-    const formGroup = formArray.at(index) as FormGroup;
-
-    formGroup.patchValue({
-      plant: this.customerplant ? this.customerplant.deliveringPlantName : ''
-    });
-
-  }
 
 }
