@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { CustomerService } from 'src/app/modules/master/services/customer/custom
   templateUrl: './edit-delivery.component.html',
   styleUrls: ['./edit-delivery.component.css']
 })
-export class EditDeliveryComponent {
+export class EditDeliveryComponent implements OnInit{
   isSubmitted: any = false;
   isShowPadding: any = false;
   deliveryFormGroup: any = FormGroup
@@ -38,7 +38,7 @@ export class EditDeliveryComponent {
   ) { }
 
   ngOnInit(): void {
-    this.deliveryId=this.activeRouter.snapshot.paramMap.get('id')
+    this.deliveryId = this.activeRouter.snapshot.paramMap.get('id')
     console.log(this.deliveryId)
     this.createDeliveryFormFields()
     this.getAllUomDetail()
@@ -53,10 +53,10 @@ export class EditDeliveryComponent {
     this.isShowPadding = event
   }
 
-  createDeliveryFormFields(data? : any) {
-    if(data){
+  createDeliveryFormFields(data?: any) {
+    if (data) {
       this.deliveryFormGroup = this.fb.group({
-        _id:[data._id,Validators.required],
+        _id: [data._id, Validators.required],
         deliveryType: [data.deliveryType, Validators.required],
         plantId: [data.plantId, Validators.required],
         plantName: [data.plantName],
@@ -66,13 +66,13 @@ export class EditDeliveryComponent {
         customerName: [data.customerName],
         deliveryAddress: [data.deliveryAddress, Validators.required],
         deliveryPartner: [data.deliveryPartner, Validators.required],
-  
-        itemList: this.fb.array(data.itemList.map((el:any)=>this.getdeliveryFields(el)))
+
+        itemList: this.fb.array(data.itemList.map((el: any) => this.getdeliveryFields(el)))
       })
       return
     }
     this.deliveryFormGroup = this.fb.group({
-      _id:['',Validators.required],
+      _id: ['', Validators.required],
       deliveryType: ['', Validators.required],
       plantId: ['33', Validators.required],
       plantName: [''],
@@ -88,12 +88,12 @@ export class EditDeliveryComponent {
   }
 
 
-  getdeliveryFields(data?:any): FormGroup {
-    if(data){
+  getdeliveryFields(data?: any): FormGroup {
+    if (data) {
       return this.fb.group({
-      plantName: [data.plantName],
+        plantName: [data.plantName],
         deliveryItem: [data.deliveryItem],
-      deliveryDate: [data.deliveryDate],
+        deliveryDate: [data.deliveryDate],
         productId: [data.productId],
       materialId: [data.materialId],
         deliveryQty: [data.deliveryQty],
@@ -107,7 +107,7 @@ export class EditDeliveryComponent {
     return this.fb.group({
       plantName: [''],
       deliveryItem: [''],
-      deliveryDate:[''],
+      deliveryDate: [''],
       productId: [''],
       materialId: [''],
 
@@ -132,11 +132,38 @@ export class EditDeliveryComponent {
     this.deliveryListArray.removeAt(index)
   }
 
+  // singleDeliveryDetails
+  async getSingleDeliveryDetails() {
+    try {
+      const result:any=await this.deliverySer.singleDeliveryDetails(this.deliveryId)
+      if (result.status === '1') {
+        this.deliveryFormGroup.patchValue(result.data);
+        console.log(result);
+        this.createDeliveryFormFields(result.data)
+
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
   async submitData() {
     try {
       this.isSubmitted = true
       const userName: any = localStorage.getItem('userName')
-      this.deliveryFormGroup.value.createdOn = '18/12/2023' 
+      this.deliveryFormGroup.value.createdOn = '18/12/2023'
       this.deliveryFormGroup.value.createdBy = userName
       this.deliveryFormGroup.value.changedOn = '18/12/2023'
       this.deliveryFormGroup.value.changedBy = userName
@@ -180,31 +207,6 @@ export class EditDeliveryComponent {
     }
   }
 
-  // singleDeliveryDetails
-  async getSingleDeliveryDetails() {
-    try {
-      const result: any = await this.deliverySer.singleDeliveryDetails(this.deliveryId);
-      if (result.status === '1') {
-        this.deliveryFormGroup.patchValue(result.data);
-        console.log(result)
-      }
-    } catch (error:any) {
-      if (error.error.message) {
-        this._snackBar.open(error.error.message, '', {
-          duration: 5 * 1000, horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: 'app-notification-error',
-        });
-return
-      }
-      this._snackBar.open('Something went wrong', '', {
-        duration: 5 * 1000, horizontalPosition: 'center',
-        verticalPosition: 'top',
-        panelClass: 'app-notification-error',
-      });
-    }
-  }
-
 
   //get uom detail
   async getAllUomDetail() {
@@ -231,12 +233,12 @@ return
   }
 
   //get storage location
-  async getStorageLocation(){
+  async getStorageLocation() {
     try {
-     const result:any=await this.plantDataSer.getAllStorageLocationsDetails()
-     if (result.status==='1') {
-      this.storageLocationDetail=result.data
-     } 
+      const result: any = await this.plantDataSer.getAllStorageLocationsDetails()
+      if (result.status === '1') {
+        this.storageLocationDetail = result.data
+      }
     } catch (error: any) {
       if (error.error.message) {
         this._snackBar.open(error.error.message, '', {

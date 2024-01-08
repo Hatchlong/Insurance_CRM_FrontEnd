@@ -39,6 +39,10 @@ export class EditSalesOrderComponent {
   productDeatail:any=[]
   currencyDetails: any;
   salesOrderId:any=''
+  customerCurrency: any = []
+
+
+
   constructor(
     private fb: FormBuilder,
     private activeRouter: ActivatedRoute,
@@ -658,11 +662,14 @@ export class EditSalesOrderComponent {
 
   handleCustomer(event: any) {
     const selectedCustomer = this.customerMasterDetail.find((el: any) => el.customerId === event.target.value);
-    console.log(selectedCustomer);
-
+    // console.log(selectedCustomer);
+    this.customerCurrency = selectedCustomer.plantData
+    console.log(this.customerCurrency);
+    
     this.salesFormGroup.patchValue({
       customerAddress: selectedCustomer ? selectedCustomer.address : ''
     });
+ 
   }
   handleMaterial(event: any,index:any) {
     
@@ -677,9 +684,9 @@ export class EditSalesOrderComponent {
       materialDescription: selectMaterial ? selectMaterial.materialDescription : ''
       
     });
-    console.log(this.salesFormGroup.materialDescription);
-    
-    
+    console.log(this.salesFormGroup.materialDescription);  
   }
+
+  
 
 }

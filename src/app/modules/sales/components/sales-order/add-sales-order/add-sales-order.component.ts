@@ -117,7 +117,7 @@ export class AddSalesOrderComponent {
       orderStatusId: ['', Validators.required],
       orderStatusName: [''],
       otherCharges: ['', Validators.required],
-      materialId: ['',Validators.required],
+      // materialId: ['',Validators.required],
       itemList: this.fb.array([this.getSalesFields()])
 
 
@@ -565,57 +565,44 @@ export class AddSalesOrderComponent {
   }
   handleCustomer(event: any) {
     const selectedCustomer = this.customerMasterDetail.find((el: any) => el.customerId === event.target.value);
-    // console.log(selectedCustomer);
     this.customerCurrency = selectedCustomer.plantData
     console.log(this.customerCurrency);
     
-
-    // const formArray = this.salesFormGroup.get('itemList') as FormArray;
-    // const formGroup = formArray.at(index) as FormGroup;
-    // formGroup.patchValue({
-    //   transactionCurrency:selectedCustomer?selectedCustomer.transactionCurrency:''
-    // })
-
     this.salesFormGroup.patchValue({
       customerAddress: selectedCustomer ? selectedCustomer.address : ''
     });
   }
   handleMaterial(event: any, index: any) {
-
     const selectMaterial = this.productDeatail.find((el: any) => el.materialId === event.target.value)
     console.log(selectMaterial);
 
     const formArray = this.salesFormGroup.get('itemList') as FormArray;
     const formGroup = formArray.at(index) as FormGroup;
 
-
     formGroup.patchValue({
       materialDescription: selectMaterial ? selectMaterial.materialDescription : ''
 
     });
-    console.log(this.salesFormGroup.materialDescription);
-
-
+   
   }
 
   handleCurrency(event: any) {
     const selectCurrency = this.companyCodeDetails.find((el: any) => el.currencyId === event.target.value)
     console.log(selectCurrency, 'currency ');
-
-    // const formArray = this.salesFormGroup.get('itemList') as FormArray
-    // const formGroup = formArray.at(index) as FormGroup
-    // formGroup.patchValue({
-    //   companyCurrency: selectCurrency ? selectCurrency.currencyName : ''
-    // })
   }
 
-  handlePlant(event: any) {
-    const selectedPlant = this.productDeatail.find((el: any) => el.productId === event.target.value);
-    this.customerplant = selectedPlant.plantData
-    console.log(this.customerplant,'oioiioi');
+  handlePlant(event: any,index:any) {
+    const selectedPlant = this.productDeatail.find((el: any) => el._id === event.target.value);
+    console.log(selectedPlant);
     
-    this.salesFormGroup.patchValue({
-      deliveringPlant: selectedPlant ? selectedPlant.plant : ''
+    this.customerplant = selectedPlant.salesData
+    console.log(this.customerplant,'oioiioi');
+
+    const formArray = this.salesFormGroup.get('itemList') as FormArray;
+    const formGroup = formArray.at(index) as FormGroup;
+
+    formGroup.patchValue({
+      plant: this.customerplant ? this.customerplant.deliveringPlantName : ''
     });
 
   }
