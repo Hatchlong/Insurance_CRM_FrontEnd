@@ -44,6 +44,8 @@ export class EditDeliveryComponent {
     this.getAllUomDetail()
     this.getStorageLocation()
     this.getSingleDeliveryDetails()
+    this.getProductMasterDetail()
+
     this.getCustomerMaster()
   }
 
@@ -93,6 +95,7 @@ export class EditDeliveryComponent {
         deliveryItem: [data.deliveryItem],
       deliveryDate: [data.deliveryDate],
         productId: [data.productId],
+      materialId: [data.materialId],
         deliveryQty: [data.deliveryQty],
         uomName: [data.uomName],
         openQty: [data.openQty],
@@ -183,6 +186,7 @@ export class EditDeliveryComponent {
       const result: any = await this.deliverySer.singleDeliveryDetails(this.deliveryId);
       if (result.status === '1') {
         this.deliveryFormGroup.patchValue(result.data);
+        console.log(result)
       }
     } catch (error:any) {
       if (error.error.message) {
