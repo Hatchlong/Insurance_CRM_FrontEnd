@@ -11,54 +11,54 @@ export class CompanyCodeService {
   ) { }
 
   createCompanyCodeDetails(data: any) {
-    return this.http.post('http://54.151.187.67:4000/api/master/companycode/create', data).toPromise()
+    return this.http.post('http://localhost:4000/api/master/companycode/create', data).toPromise()
   }
 
   getAllCompanyCodeDetailsPage(skip?:any, itemsPerPage?:any) {
-    return this.http.get(`http://54.151.187.67:4000/api/master/companycode/getAll/${skip}/${itemsPerPage}`).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/companycode/getAll/${skip}/${itemsPerPage}`).toPromise()
   }
 
   getAllCompanyCodeDetails() {
-    return this.http.get(`http://54.151.187.67:4000/api/master/companycode/getAll`).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/companycode/getAll`).toPromise()
   }
 
   // Get Country Detials
   getAllCountryDetails() {
-    return this.http.get('http://54.151.187.67:4000/api/master/country/getAll').toPromise()
+    return this.http.get('http://localhost:4000/api/master/country/getAll').toPromise()
   }
 
   // Single Language API Details
   singleLanguageDetails(id: any) {
-    return this.http.get(`http://54.151.187.67:4000/api/master/language/get/${id}`).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/language/get/${id}`).toPromise()
   }
 
   singleCompanyCode(id: any) {
-    return this.http.get(`http://54.151.187.67:4000/api/master/companycode/get/${id}`).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/companycode/get/${id}`).toPromise()
   }
 
   updateCompanyCode(data: any) {
-    return this.http.put(`http://54.151.187.67:4000/api/master/companycode/update/${data._id}`, data).toPromise()
+    return this.http.put(`http://localhost:4000/api/master/companycode/update/${data._id}`, data).toPromise()
   }
 
   updateCompanyCodeMany(data: any) {
-    return this.http.put(`http://54.151.187.67:4000/api/master/companycode/update`, data).toPromise()
+    return this.http.put(`http://localhost:4000/api/master/companycode/update`, data).toPromise()
   }
 
   // Get All currecny Details
 
  getAllCurrencyDetails(companyId?:any) {
-    return this.http.get(`http://54.151.187.67:4000/api/config/currency/getAll/`).toPromise()
+    return this.http.get(`http://localhost:4000/api/config/currency/getAll/`).toPromise()
   }
 
 
   getAllCurrencyDetailsCCompany(companyId:any) {
-    return this.http.get(`http://54.151.187.67:4000/api/config/currency/getAll/${companyId}`).toPromise()
+    return this.http.get(`http://localhost:4000/api/config/currency/getAll/${companyId}`).toPromise()
   }
 
 
 
   fileUploadCompanyCode(data: any) {
-    return this.http.post(`http://54.151.187.67:4000/api/master/companycode/upload`, data).toPromise()
+    return this.http.post(`http://localhost:4000/api/master/companycode/upload`, data).toPromise()
   }
   exportToExcel(data: any[], fileName: string, sheetName: string): void {
     data.map((el: any) => {
@@ -74,7 +74,7 @@ export class CompanyCodeService {
 
 
   companyLogUpload(data:any){
-    return this.http.post('http://54.151.187.67:4000/api/upload', data).toPromise()
+    return this.http.post('http://localhost:4000/api/upload', data).toPromise()
   }
 
 }

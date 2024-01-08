@@ -10,23 +10,23 @@ export class OrderStatusService {
   constructor(private http: HttpClient) { }
 
   createOrderStatus(data: any) {
-    return this.http.post('http://54.151.187.67:4000/api/master/orderStatus/create', data).toPromise()
+    return this.http.post('http://localhost:4000/api/master/orderStatus/create', data).toPromise()
   }
 
   getAllOrderStatusDetails() {
-    return this.http.get('http://54.151.187.67:4000/api/master/orderStatus/getAll').toPromise()
+    return this.http.get('http://localhost:4000/api/master/orderStatus/getAll').toPromise()
   }
 
   singleOrderStatusDetails(id: any) {
-    return this.http.get(`http://54.151.187.67:4000/api/master/orderStatus/get/${id}`).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/orderStatus/get/${id}`).toPromise()
   }
 
   updatedOrderStatusDetails(data: any) {
-    return this.http.put(`http://54.151.187.67:4000/api/master/orderStatus/update/${data._id}`, data).toPromise()
+    return this.http.put(`http://localhost:4000/api/master/orderStatus/update/${data._id}`, data).toPromise()
 
   }
   updatedManyorderStatusDetails(data: any) {
-    return this.http.put(`http://54.151.187.67:4000/api/master/orderStatus/update`, data).toPromise()
+    return this.http.put(`http://localhost:4000/api/master/orderStatus/update`, data).toPromise()
   }
 
   exportToExcel(data: any[], fileName: string, sheetName: string): void {
@@ -43,11 +43,11 @@ export class OrderStatusService {
     XLSX.writeFile(wb, `${fileName}.xlsx`);
   }
   getAllorderStatusDetailsPage(skip?: any, itemsPerPage?: any) {
-    return this.http.get(`http://54.151.187.67:4000/api/master/orderStatus/getAll/${skip}/${itemsPerPage}`).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/orderStatus/getAll/${skip}/${itemsPerPage}`).toPromise()
 
   }
   fileUploadXlsx(data: any) {
-    return this.http.post(`http://54.151.187.67:4000/api/master/orderStatus/upload`, data).toPromise()
+    return this.http.post(`http://localhost:4000/api/master/orderStatus/upload`, data).toPromise()
   }
 
 }

@@ -12,63 +12,63 @@ export class ProductService {
   ) { }
 
   createProduct(data: any) {
-    return this.http.post('http://54.151.187.67:4000/api/master/product/create', data).toPromise()
+    return this.http.post('http://localhost:4000/api/master/product/create', data).toPromise()
   }
 
   getAllProductDetails() {
-    return this.http.get('http://54.151.187.67:4000/api/master/product/getAll').toPromise()
+    return this.http.get('http://localhost:4000/api/master/product/getAll').toPromise()
   }
 
 
   singleProductDetails(id: any) {
-    return this.http.get(`http://54.151.187.67:4000/api/master/product/get/${id}`).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/product/get/${id}`).toPromise()
   }
 
   updatedProductDetails(data: any) {
-    return this.http.put(`http://54.151.187.67:4000/api/master/product/update/${data._id}`, data).toPromise()
+    return this.http.put(`http://localhost:4000/api/master/product/update/${data._id}`, data).toPromise()
   }
 
   getAllIndustrySectorDetails() {
-    return this.http.get('http://54.151.187.67:4000/api/config/industrySector/getAll').toPromise()
+    return this.http.get('http://localhost:4000/api/config/industrySector/getAll').toPromise()
   }
   getAllStorageConditionsDetails() {
-    return this.http.get('http://54.151.187.67:4000/api/config/storageConditions/getAll').toPromise()
+    return this.http.get('http://localhost:4000/api/config/storageConditions/getAll').toPromise()
   }
   getAllTemperatureConditionsDetails() {
-    return this.http.get('http://54.151.187.67:4000/api/config/temperature/getAll').toPromise()
+    return this.http.get('http://localhost:4000/api/config/temperature/getAll').toPromise()
   }
   getAllTransportationGroupDetails() {
-    return this.http.get('http://54.151.187.67:4000/api/config/transport/getAll').toPromise()
+    return this.http.get('http://localhost:4000/api/config/transport/getAll').toPromise()
   }
   getAllprocurementTypeDetails() {
-    return this.http.get('http://54.151.187.67:4000/api/config/procurement/getAll').toPromise()
+    return this.http.get('http://localhost:4000/api/config/procurement/getAll').toPromise()
   }
   getAllProfitCenterDetails() {
-    return this.http.get('http://54.151.187.67:4000/api/config/profitcenter/getAll').toPromise()
+    return this.http.get('http://localhost:4000/api/config/profitcenter/getAll').toPromise()
   }
 
   getAllAcctAssignDetails() {
-    return this.http.get('http://54.151.187.67:4000/api/config/acctAssign/getAll').toPromise()
+    return this.http.get('http://localhost:4000/api/config/acctAssign/getAll').toPromise()
   }
 
   getAllMaterialGroupDetails() {
-    return this.http.get('http://54.151.187.67:4000/api/config/materialGroup/getAll').toPromise()
+    return this.http.get('http://localhost:4000/api/config/materialGroup/getAll').toPromise()
   }
   getAllWeightUnitDetails() {
-    return this.http.get('http://54.151.187.67:4000/api/config/weightUnit/getAll').toPromise()
+    return this.http.get('http://localhost:4000/api/config/weightUnit/getAll').toPromise()
 
   }
   getAllUOMDetails() {
-    return this.http.get('http://54.151.187.67:4000/api/config/uom/getAll').toPromise()
+    return this.http.get('http://localhost:4000/api/config/uom/getAll').toPromise()
   }
   getAllMaterialTypeDetails() {
-    return this.http.get('http://54.151.187.67:4000/api/config/materialType/getAll').toPromise()
+    return this.http.get('http://localhost:4000/api/config/materialType/getAll').toPromise()
   }
 
 
 
   updatedManyProductDetails(data: any) {
-    return this.http.put(`http://54.151.187.67:4000/api/master/product/update`, data).toPromise()
+    return this.http.put(`http://localhost:4000/api/master/product/update`, data).toPromise()
   }
 
   exportToExcel(data: any[], fileName: string, sheetName: string): void {
@@ -109,10 +109,10 @@ export class ProductService {
     XLSX.writeFile(workbook, `${fileName}.xlsx`);
   }
   getAllProductDetailsPage(skip?: any, itemsPerPage?: any) {
-    return this.http.get(`http://54.151.187.67:4000/api/master/product/getAll/${skip}/${itemsPerPage}`).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/product/getAll/${skip}/${itemsPerPage}`).toPromise()
 
   }
   fileUploadXlsx(data: any) {
-    return this.http.post(`http://54.151.187.67:4000/api/master/product/upload`, data).toPromise()
+    return this.http.post(`http://localhost:4000/api/master/product/upload`, data).toPromise()
   }
 }

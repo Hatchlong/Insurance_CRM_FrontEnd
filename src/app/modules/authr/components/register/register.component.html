@@ -1,5 +1,5 @@
-<div class="container-fluid">
-    <div class="imageL">
+<div class="imageL">
+    <div class="container-fluid">
 
         <div class="row">
             <section class="wrapper">
@@ -35,13 +35,13 @@
                     <div class="form-group col-12 py-2">
                         <label for="password">Password <sup>*</sup></label>
                         <input type="password" class="form-control" id="password" formControlName="password"
-                          placeholder="Password" />
-                          <div
-                          *ngIf="registerFormGroup.controls['password'].touched && registerFormGroup.controls['password'].dirty && registerFormGroup.controls['password'].hasError('required') && !isSubmitted">
-                          <p class="error-message">Password is mandatory</p>
+                            placeholder="Password" />
+                        <div
+                            *ngIf="registerFormGroup.controls['password'].touched && registerFormGroup.controls['password'].dirty && registerFormGroup.controls['password'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Password is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && registerFormGroup.controls['password'].hasError('required')">
-                          <p class="error-message">Password is mandatory</p>
+                            <p class="error-message">Password is mandatory</p>
                         </div>
                     </div>
                     <div class="form-group form-check py-2">
@@ -50,15 +50,15 @@
                     </div>
                     <div class=" col-12 d-flex justify-content-center py-2">
                         <button type="submit" class="btn btn-primary h-100 w-100"
-                            style="background-color: #00acff !important; "  >Sign
+                            style="background-color: #00acff !important; ">Sign
                             Up</button>
                     </div>
 
 
                     <div class="form-group col-12 py-2">
-                        <p style="margin-left: 20%; font-size: 14px;">Already have an account <span
-                                class="text-primary" style="cursor: pointer;" routerLink="/authr/login">Sign
-                                    In</span></p>
+                        <p style="margin-left: 20%; font-size: 14px;">Already have an account <span class="text-primary"
+                                style="cursor: pointer;" routerLink="/authr/login">Sign
+                                In</span></p>
                     </div>
                     <div class="form-group col-12 py-2">
                         <p style="font-size: 14px;">© 2024-25 Hatchlong I Privacy Police I Terms and Conditions</p>
