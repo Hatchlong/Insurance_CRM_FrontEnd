@@ -202,7 +202,7 @@
                             >
                             <option [selected]="salesFormGroup.value.transactionCurrency=== ''" value="" hidden>Select
                                 Transaction Currency</option>
-                            <option *ngFor="let list of customerCurrency" [value]="list.currencyId">{{list.currencyName}}</option>
+                            <option *ngFor="let list of customerCurrency" [value]="list.currencyName">{{list.currencyName}}</option>
                             <!-- <option *ngFor="let list of customerMasterDetail" [value]="list.customerId">{{list.transactionCurrency}}</option> -->
 
                         </select>
@@ -306,7 +306,7 @@
 
                     <div class="col-6 py-2">
                         <label class="">Net Price <sup>*</sup></label>
-                        <input type="number" class="form-control " placeholder="Enter Net Price"
+                        <input type="number" class="form-control " min="0" placeholder="Enter Net Price"
                             formControlName="netPrice">
                         <div
                             *ngIf="salesFormGroup.controls['netPrice'].touched && salesFormGroup.controls['netPrice'].touched && salesFormGroup.controls['netPrice'].hasError('required') && !isSubmitted">
@@ -319,7 +319,7 @@
                     </div>
                     <div class="col-6 py-2">
                         <label class="">Net Tax <sup>*</sup></label>
-                        <input type="number" class="form-control " placeholder="Enter Net Tax" formControlName="netTax">
+                        <input type="number" class="form-control " min="0" placeholder="Enter Net Tax" formControlName="netTax">
                         <div
                             *ngIf="salesFormGroup.controls['netTax'].touched && salesFormGroup.controls['netTax'].touched && salesFormGroup.controls['netTax'].hasError('required') && !isSubmitted">
                             <p class="error-message">Net Tax is mandatory</p>
@@ -331,7 +331,7 @@
 
                     <div class="col-6 py-2">
                         <label class="">Net Discount <sup>*</sup></label>
-                        <input type="number" class="form-control " placeholder="Enter Net Discount"
+                        <input type="number" class="form-control " min="0" placeholder="Enter Net Discount"
                             formControlName="netDiscount">
                         <div
                             *ngIf="salesFormGroup.controls['netDiscount'].touched && salesFormGroup.controls['netDiscount'].touched && salesFormGroup.controls['netDiscount'].hasError('required') && !isSubmitted">
@@ -343,7 +343,7 @@
                     </div>
                     <div class="col-6 py-2">
                         <label class="">Net Freight <sup>*</sup></label>
-                        <input type="number" class="form-control " placeholder="enter Net Freight"
+                        <input type="number" class="form-control " min="0" placeholder="enter Net Freight"
                             formControlName="netFreight">
                         <div
                             *ngIf="salesFormGroup.controls['netFreight'].touched && salesFormGroup.controls['netFreight'].touched && salesFormGroup.controls['netFreight'].hasError('required') && !isSubmitted">
@@ -356,7 +356,7 @@
 
                     <div class="col-6 py-2">
                         <label class="">Other Charges <sup>*</sup></label>
-                        <input type="number" class="form-control " placeholder="Other Charges"
+                        <input type="number" class="form-control " min="0" placeholder="Other Charges"
                             formControlName="otherCharges">
                         <div
                             *ngIf="salesFormGroup.controls['otherCharges'].touched && salesFormGroup.controls['otherCharges'].touched && salesFormGroup.controls['otherCharges'].hasError('required') && !isSubmitted">
@@ -439,33 +439,49 @@
                                                 formControlName="materialDescription" />
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control " placeholder="Oredr Qty"
+                                            <input type="number" min="0" class="form-control " placeholder="Oredr Qty"
                                                 formControlName="ordQty">
 
 
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control " placeholder="Enter UOM"
+                                            <!-- <input type="text" class="form-control " placeholder="Enter UOM"
+                                                formControlName="uom"> -->
+                                                <select class="form-select w-100" aria-label="Default select example"
                                                 formControlName="uom">
-
-                                        </td>
-                                        <td>
-                                            
-                                                <select class="form-select " aria-label="Default select example"
-                                                formControlName="plant" (change)="handlePlant($event,i)">
-                                                <option [selected]="salesFormGroup.value.plant === ''" value=""
+                                                <option [selected]="salesFormGroup.value.uom === ''" value=""
                                                     hidden>
                                                     Select
-                                                    Plant </option>
-                                                    <option *ngFor="let list of customerplant" [value]="list.deliveringPlantId">{{list.deliveringPlantName}}</option>
-                                                <!-- <option value="2">Two</option>
-                                                <option value="3">Three</option> -->
+                                                     UOM</option>
+                                                <option *ngFor="let list of productDeatail" [value]="list._id">{{list.baseUnitMeasure}}</option>
+                                                
                                             </select>
 
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control " placeholder="Auto Storage Location"
-                                                formControlName="storageLocation">
+                                            
+                                                <select class="form-select w-100" aria-label="Default select example"
+                                                formControlName="plantId" >
+                                                <option [selected]="salesFormGroup.value.plantId === ''" value=""
+                                                    hidden>
+                                                    Select
+                                                    Plant </option>
+                                                    <option *ngFor="let list of customerplant" [value]="list.deliveringPlantId">{{list.deliveringPlantName}}</option>
+                          
+                                            </select>
+
+                                        </td>
+                                        <td>
+                                           
+                                                <select class="form-select w-100" aria-label="Default select example"
+                                                formControlName="storageLocation" >
+                                                <option [selected]="salesFormGroup.value.storageLocation === ''" value=""
+                                                    hidden>
+                                                    Select
+                                                    storage Location </option>
+                                                    <option *ngFor="let list of productPlant" [value]="list.storageLocationId">{{list.storageLocationId}}</option>
+                                               
+                                            </select>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control " placeholder="Enter Batch"
@@ -473,15 +489,15 @@
 
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control " placeholder="Enter Price Amount"
+                                            <input type="number" min="0" class="form-control " placeholder="Enter Price Amount"
                                                 formControlName="priceAmount">
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control"
+                                            <input type="number" min="0" class="form-control"
                                                 placeholder="Enter Per Unit Price" formControlName="priceUnitPrice">
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control " placeholder="Pricing Unit"
+                                            <input type="number" min="0" class="form-control " placeholder="Pricing Unit"
                                                 formControlName="priceUnit">
                                         </td>
                                         <td>
@@ -502,28 +518,28 @@
 
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control " placeholder="Per Unit Tax"
+                                            <input type="number" min="0" class="form-control " placeholder="Per Unit Tax"
                                                 formControlName="perUnitTax">
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control " placeholder="Discount"
+                                            <input type="number" min="0" class="form-control " placeholder="Discount"
                                                 formControlName="discount">
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control " placeholder="Per Unit Discount"
+                                            <input type="number" min="0" class="form-control " placeholder="Per Unit Discount"
                                                 formControlName="perUnitDiscount">
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control " placeholder="Freight"
+                                            <input type="number" min="0" class="form-control " placeholder="Freight"
                                                 formControlName="freight">
 
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control " placeholder="Per Unit Freight"
+                                            <input type="number" min="0" class="form-control " placeholder="Per Unit Freight"
                                                 formControlName="perUnitFreight">
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control " placeholder="Other Charges"
+                                            <input type="number" min="0" class="form-control " placeholder="Other Charges"
                                                 formControlName="otherCharges">
                                         </td>
                                         <td>
@@ -548,7 +564,7 @@
                                                 [ngStyle]="{'pointer-events': !salesFormGroup.value.customerId ? 'none' :  'all'}">
                                                 <option [selected]="salesFormGroup.value.transactionCurrency=== ''" value="" hidden>Select
                                                     Transaction Currency</option>
-                                                <option *ngFor="let list of customerCurrency" [value]="list.currencyId">{{list.currencyName}}</option>
+                                                <option *ngFor="let list of customerCurrency" [value]="list.currencyName">{{list.currencyName}}</option>
                                                 <!-- <option *ngFor="let list of customerMasterDetail" [value]="list.customerId">{{list.transactionCurrency}}</option> -->
                     
                                             </select>
@@ -558,20 +574,20 @@
                                                 formControlName="exchangeRate">
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control " placeholder="price Date"
+                                            <input type="date" class="form-control " placeholder="price Date"
                                                 formControlName="priceDate">
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control " placeholder="Net Weight"
+                                            <input type="number" min="0" class="form-control " placeholder="Net Weight"
                                                 formControlName="netWeight">
 
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control " placeholder="Gross Weight"
+                                            <input type="number" min="0" class="form-control " placeholder="Gross Weight"
                                                 formControlName="grossWeight">
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control " placeholder="Volume"
+                                            <input type="number" min="0" class="form-control " placeholder="Volume"
                                                 formControlName="volumn">
                                         </td>
                                     </tr>
