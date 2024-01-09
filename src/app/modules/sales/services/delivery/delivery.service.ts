@@ -18,7 +18,7 @@ export class DeliveryService {
   }
 
   getAllDeliveryDetailsPage(skip?:any, itemsPerPage?:any) {
-    return this.http.get(`http://localhost:4000/api/sales/delivery/getAll/`).toPromise()
+    return this.http.get(`http://localhost:4000/api/sales/delivery/getAll`).toPromise()
   }
 
   singleDeliveryDetails(id: any) {
@@ -62,6 +62,11 @@ export class DeliveryService {
 
 
     XLSX.writeFile(workbook, `${fileName}.xlsx`);
+  }
+
+
+  getDeliveryDetails(){
+    return this.http.get(`http://localhost:4000/api/config/deliveryType/getAll`).toPromise()
   }
 
 }

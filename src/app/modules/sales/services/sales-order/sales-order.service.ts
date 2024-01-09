@@ -1,11 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import * as XLSX from 'xlsx';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SalesOrderService {
+
+  passSalesDetails:any = new BehaviorSubject({})
 
   constructor(private http:HttpClient) { }
 

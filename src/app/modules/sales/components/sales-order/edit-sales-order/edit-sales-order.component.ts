@@ -14,6 +14,7 @@ import { BillingBlockService } from 'src/app/modules/setting/Services/billing-bl
 import { CustomerAccountAGService } from 'src/app/modules/setting/Services/customer-account-AG/customer-account-ag.service';
 import { CustomerService } from 'src/app/modules/master/services/customer/customer.service';
 import { ProductService } from 'src/app/modules/master/services/product/product.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -42,7 +43,7 @@ export class EditSalesOrderComponent {
   customerCurrency: any = []
   customerplant: any = []
   productPlant: any = []
-
+  isShowDeliveryButton: any = false;
 
 
 
@@ -65,7 +66,9 @@ export class EditSalesOrderComponent {
     private productSer: ProductService,
     private router: Router,
 
-  ) { }
+  ) { 
+    this.getCustomerMaster()
+  }
 
   ngOnInit(): void {
     this.salesOrderId = this.activeRouter.snapshot.paramMap.get('id')
@@ -81,7 +84,6 @@ export class EditSalesOrderComponent {
     this.getCustomerAcctAG()
     this.getProductMasterDetail()
     this.getCurrencyDetails()
-    this.getCustomerMaster()
 
     this.singleSalesDetail()
   }
@@ -92,7 +94,7 @@ export class EditSalesOrderComponent {
 
   createSalesFormFields(data?: any) {
     if (data) {
-      console.log(this.customerCurrency,"currency")
+      console.log(this.customerCurrency, "currency")
       this.salesFormGroup = this.fb.group({
         _id: [data._id, Validators.required],
         orderType: [data.orderType, Validators.required],
@@ -135,8 +137,10 @@ export class EditSalesOrderComponent {
         itemList: this.fb.array(data.itemList.map((el: any) => this.getSalesFields(el)))
 
       })
-      const customer:any=this.customerMasterDetail.find((el:any)=> el._id===data.customerId)
-      
+      const selectedCustomer: any = this.customerMasterDetail.find((el: any) => el.customerId === data.customerId);
+      console.log(selectedCustomer, 'k')
+      this.customerCurrency = selectedCustomer.plantData
+
       return
     }
     this.salesFormGroup = this.fb.group({
@@ -186,15 +190,20 @@ export class EditSalesOrderComponent {
 
   getSalesFields(data?: any): FormGroup {
     if (data) {
-
+      this.productDeatail.map((el:any) => {
+        if(el.materialId === data.materialId){
+          el.disable = true
+        }
+      })
       return this.fb.group({
         materialId: [data.materialId],
         materialDescription: [data.materialDescription],
         ordQty: [data.ordQty],
         uom: [data.uom],
         plantId: [data.plantId],
-        plantName: [data.plantId],
-        storageLocation: [data.storageLocation],
+        plantName: [data.plantName],
+        storageLocationId: [data.storageLocationId],
+        storageLocationName: [data.storageLocationName],
         batchSerial: [data.batchSerial],
         priceAmount: [data.priceAmount],
         priceUnitPrice: [data.priceUnitPrice],
@@ -215,7 +224,10 @@ export class EditSalesOrderComponent {
         priceDate: [data.priceDate],
         netWeight: [data.netWeight],
         grossWeight: [data.grossWeight],
-        volumn: [data.volumn]
+        volumn: [data.volumn],
+        orderStatusId: [data.orderStatusId],
+        orderStatusName: [data.orderStatusName],
+        deliveryCheck: ['']
       })
 
     }
@@ -226,7 +238,8 @@ export class EditSalesOrderComponent {
       uom: [''],
       plantId: [''],
       plantName: [''],
-      storageLocation: [''],
+      storageLocationId: [''],
+      storageLocationName: [''],
       batchSerial: [''],
       priceAmount: [''],
       priceUnitPrice: [''],
@@ -247,7 +260,10 @@ export class EditSalesOrderComponent {
       priceDate: [''],
       netWeight: [''],
       grossWeight: [''],
-      volumn: ['']
+      volumn: [''],
+      orderStatusId: [''],
+      orderStatusName: [''],
+      deliveryCheck: [''],
     })
 
   }
@@ -262,7 +278,10 @@ export class EditSalesOrderComponent {
     console.log(this.salesOrderArray.value)
   }
 
-  deleteSalesItem(index: any) {
+  deleteSalesItem(index: any, orderStatus: any) {
+    if (orderStatus !== 'NON DELIVERED') {
+      return
+    }
     this.salesOrderArray.removeAt(index)
   }
 
@@ -594,7 +613,10 @@ export class EditSalesOrderComponent {
     try {
       const result: any = await this.productSer.getAllProductDetails()
       if (result.status === '1') {
-        this.productDeatail = result.data
+        this.productDeatail = result.data;
+        this.productDeatail.map((el:any) => {
+          el.disable = false
+        })
       }
     } catch (error: any) {
       if (error.error.message) {
@@ -646,7 +668,8 @@ export class EditSalesOrderComponent {
   //get customer master
   async getCustomerMaster() {
     try {
-      const result: any = await this.customerSer.getAllCustomerDetails()
+      const result: any = await this.customerSer.getAllCustomerDetails();
+      console.log(result)
       if (result.status === '1') {
         this.customerMasterDetail = result.data
       }
@@ -681,19 +704,20 @@ export class EditSalesOrderComponent {
   handleMaterial(event: any, index: any) {
     const selectMaterial = this.productDeatail.find((el: any) => el.materialId === event.target.value)
     console.log(selectMaterial);
-
+    this.productDeatail.map((el:any) => {
+      if(el.materialId === event.target.value){
+        el.disable = true
+      }
+    })
     this.productPlant = selectMaterial ? selectMaterial.plantData : [];
 
     this.customerplant = selectMaterial ? selectMaterial.salesData : [];
 
     const formArray = this.salesFormGroup.get('itemList') as FormArray;
     const formGroup = formArray.at(index) as FormGroup;
-    
+
     formGroup.patchValue({
       materialDescription: selectMaterial ? selectMaterial.materialDescription : '',
-      plantName: selectMaterial ? selectMaterial.deliveringPlantName : '',
-      storageLocationId: selectMaterial ? selectMaterial.storageLocation : ''
-
     });
 
   }
@@ -703,6 +727,89 @@ export class EditSalesOrderComponent {
     console.log(selectCurrency, 'currency ');
   }
 
+  handlePlant(event: any, materialId: any, index: any) {
+    const selectMaterial = this.productDeatail.find((el: any) => el.materialId === materialId)
+    console.log(selectMaterial);
+
+    const formArray = this.salesFormGroup.get('itemList') as FormArray;
+    const formGroup = formArray.at(index) as FormGroup;
+    const selectPlant = selectMaterial.salesData.find((el: any) => el.deliveringPlantId === event.target.value);
+    console.log(selectPlant, 'selectPlant')
+    formGroup.patchValue({
+      plantName: selectPlant ? selectPlant.deliveringPlantName : '',
+    });
+
+  }
+
+  handleStorage(event: any, materialId: any, index: any) {
+    const selectMaterial = this.productDeatail.find((el: any) => el.materialId === materialId)
+    console.log(selectMaterial);
+
+    const formArray = this.salesFormGroup.get('itemList') as FormArray;
+    const formGroup = formArray.at(index) as FormGroup;
+    const selectPlant = selectMaterial.plantData.find((el: any) => el.storageLocationId === event.target.value);
+    console.log(selectPlant, 'selectPlant')
+    formGroup.patchValue({
+      storageLocationName: selectPlant ? selectPlant.storageLocationName : '',
+    });
+    console.log(formGroup.value.storageLocationName)
+
+  }
+
+
+  handleOrderStatus(event: any, index: any) {
+    const findOrder = this.orderStatusDetail.find((el: any) => el._id === event.target.value)
+    const formArray = this.salesFormGroup.get('itemList') as FormArray;
+    const formGroup = formArray.at(index) as FormGroup;
+
+    formGroup.patchValue({
+      orderStatusName: findOrder ? findOrder.orderStatus : '',
+    });
+  }
+
+  handleDeliveryDetails(event: any, index: any, orderStatus: any) {
+    if (orderStatus !== 'NON DELIVERED') {
+      return
+    }
+    const formArray = this.salesFormGroup.get('itemList') as FormArray;
+    const formGroup = formArray.at(index) as FormGroup;
+
+    formGroup.patchValue({
+      deliveryCheck: !formGroup.value.deliveryCheck,
+    });
+    const findDetials = this.salesFormGroup.value.itemList.find((el: any) => el.deliveryCheck === true)
+    if (findDetials) {
+      this.isShowDeliveryButton = true;
+    } else {
+      this.isShowDeliveryButton = false
+    }
+  }
+
+
+  handleDeliveryMessage() {
+    var notMatchingPlant = false;
+    const filterDeliveryDetails = this.salesFormGroup.value.itemList.filter((el: any) => el.deliveryCheck === true);
+    filterDeliveryDetails.map((el: any) => {
+      if (el.plantName !== filterDeliveryDetails[0].plantName) {
+        notMatchingPlant = true;
+      }
+    })
+    if (filterDeliveryDetails.length > 1) {
+      if (notMatchingPlant) {
+        Swal.fire({
+          icon: "info",
+          title: "info...",
+          text: "Plant on selected items are different hence delivery cannot be processed",
+        });
+        return
+      }
+    }
+    this.salesFormGroup.value.itemList = filterDeliveryDetails
+
+    this.salesOrderSer.passSalesDetails.next(this.salesFormGroup.value);
+    console.log(this.salesFormGroup.value)
+    this.router.navigate(['/sales/add-delivery-sales'])
+  }
 
 
 

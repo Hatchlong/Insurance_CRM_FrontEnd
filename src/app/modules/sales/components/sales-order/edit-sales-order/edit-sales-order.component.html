@@ -413,14 +413,22 @@
                                         <th>Net Weight</th>
                                         <th>Gross Weight</th>
                                         <th>Volume</th>
+                                        <th>Order Status</th>
                                     </tr>
                                 </thead>
                                 <tbody formArrayName="itemList">
-                                    <tr *ngFor="let sales of salesOrderArray.controls; let i = index;"
+                                    <tr *ngFor="let sales of salesFormGroup.get('itemList')['controls']; let i = index;"
                                         [formGroupName]="i">
                                         <td *ngIf="salesOrderArray.controls.length > 1">
-                                            <mat-icon style="cursor:pointer"
-                                                (click)="deleteSalesItem(i)">delete</mat-icon>
+                                            <div class="d-flex gap-2 d-grid" >
+                                                <div>
+                                                    <mat-icon [ngStyle]="{'cursor':sales.value.orderStatusName === 'NON DELIVERED' ? 'pointer' : 'no-drop'} "
+                                                (click)="deleteSalesItem(i, sales.value.orderStatusName)">delete</mat-icon>
+                                                </div>
+                                                <div class="mt-1">
+                                                    <input type="checkbox" [ngStyle]="{'cursor':sales.value.orderStatusName === 'NON DELIVERED' ? 'pointer' : 'no-drop'} " [disabled]="sales.value.orderStatusName === 'NON DELIVERED' ? false : true" [checked]="sales.value.deliveryCheck" (change)="handleDeliveryDetails($event, i, sales.value.orderStatusName)">
+                                                </div>
+                                            </div>
                                         </td>
                                         <td>
                                             <select class="form-select " aria-label="Default select example"
@@ -429,7 +437,7 @@
                                                     hidden>
                                                     Select
                                                     Product Id</option>
-                                                    <option *ngFor="let list of productDeatail" [value]="list.materialId">{{list.materialId}}</option>
+                                                    <option *ngFor="let list of productDeatail" [disabled]="list.disable" [value]="list.materialId">{{list.materialId}}</option>
 
                                             </select>
                                         </td>
@@ -459,28 +467,38 @@
 
                                         </td>
                                         <td>
-                                            
-                                                <select class="form-select w-100" aria-label="Default select example"
-                                                formControlName="plantId" >
+
+                                            <select class="form-select w-100" aria-label="Default select example"
+                                                formControlName="plantId" (change)="handlePlant($event, sales.value.materialId, i)">
                                                 <option [selected]="salesFormGroup.value.plantId === ''" value=""
                                                     hidden>
                                                     Select
                                                     Plant </option>
-                                                    <option *ngFor="let list of customerplant" [value]="list.deliveringPlantId">{{list.deliveringPlantName}}</option>
-                                               
+                                                <ng-container *ngFor="let list of productDeatail"
+                                                   >
+                                                    <option *ngFor="let listSales of list.salesData"  [ngStyle]="{'display': sales.value.materialId === list.materialId ? 'block' : 'none' }" 
+                                                        [value]="listSales.deliveringPlantId">{{listSales.deliveringPlantName}}
+                                                    </option>
+                                                </ng-container>
+
                                             </select>
 
                                         </td>
                                         <td>
-                                           
-                                                <select class="form-select w-100" aria-label="Default select example"
-                                                formControlName="storageLocation" >
-                                                <option [selected]="salesFormGroup.value.storageLocation === ''" value=""
-                                                    hidden>
+
+                                            <select class="form-select w-100" aria-label="Default select example"
+                                                formControlName="storageLocationId" (change)="handleStorage($event, sales.value.materialId, i)">
+                                                <option [selected]="salesFormGroup.value.storageLocationId === ''"
+                                                    value="" hidden>
                                                     Select
                                                     storage Location </option>
-                                                    <option *ngFor="let list of productPlant" [value]="list.storageLocationId">{{list.storageLocationId}}</option>
-                                               
+                                                <ng-container *ngFor="let list of productDeatail"
+                                                    >
+                                                    <option *ngFor="let listPlant of list.plantData" [ngStyle]="{'display': sales.value.materialId === list.materialId ? 'block' : 'none' }" 
+                                                        [value]="listPlant.storageLocationId">{{listPlant.storageLocationName}}
+                                                    </option>
+                                                </ng-container>
+
                                             </select>
                                         </td>
                                         <td>
@@ -590,6 +608,19 @@
                                             <input type="number" min="0" class="form-control " placeholder="Volume"
                                                 formControlName="volumn">
                                         </td>
+                                        <td>
+                                            <select class="form-select " aria-label="Default select example"
+                                                formControlName="orderStatusId" (change)="handleOrderStatus($event, i)">
+                                                <option [selected]="sales.value.orderStatusId === ''" value=""
+                                                    hidden>Select Order
+                                                    Status
+                                                </option>
+                                                <option *ngFor="let list of orderStatusDetail" [value]="list._id">
+                                                    {{list.orderStatus}}
+                                                </option>
+
+                                            </select>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -597,8 +628,14 @@
                     </div>
                 </div>
                 <div class="row py-2">
-                    <div class="col-12 d-flex justify-content-end">
+                    <div class="col-12 d-flex justify-content-end ">
+                      
+                       <div style="position: relative; right: 10px;" *ngIf="isShowDeliveryButton">
+                        <button type="button" class="btn btn-primary" (click)="handleDeliveryMessage()">Delivery</button>
+                       </div>
+                       <div class="">
                         <button type="submit" class="btn btn-primary">Save</button>
+                       </div>
                     </div>
                 </div>
             </form>

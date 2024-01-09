@@ -39,7 +39,7 @@ export class AddSalesOrderComponent {
   customerCurrency: any = []
   customerplant: any = []
   productPlant: any = []
-
+  companyCurrency: any = []
   constructor(
     private fb: FormBuilder,
     private salesOrderSer: SalesOrderService,
@@ -134,7 +134,8 @@ export class AddSalesOrderComponent {
       uom: [''],
       plantId: [''],
       plantName: [''],
-      storageLocation: [''],
+      storageLocationId: [''],
+      storageLocationName: [''],
       batchSerial: [''],
       priceAmount: [''],
       priceUnitPrice: [''],
@@ -155,7 +156,9 @@ export class AddSalesOrderComponent {
       priceDate: [''],
       netWeight: [''],
       grossWeight: [''],
-      volumn: ['']
+      volumn: [''],
+      orderStatusId: [''],
+      orderStatusName: [''],
     })
 
   }
@@ -170,7 +173,14 @@ export class AddSalesOrderComponent {
     console.log(this.salesOrderArray.value)
   }
 
-  deleteSalesItem(index: any) {
+  deleteSalesItem(index: any, materialId:any) {
+    if(materialId){
+      this.productDeatail.map((el:any) => {
+        if(el.materialId === materialId){
+          el.disable = false
+        }
+      })
+    }
     this.salesOrderArray.removeAt(index)
   }
 
@@ -350,11 +360,15 @@ export class AddSalesOrderComponent {
     }
   }
   handleCountry(event: any) {
+    this.companyCurrency = []
     const findCompany = this.companyCodeDetails.find((el: any) => el._id === event.target.value)
-    console.log(findCompany);
 
     this.salesFormGroup.controls.companyCodeName.setValue(findCompany.companyCode)
-
+    const reqBody = {
+      currencyId: findCompany.currencyId,
+      currencyName: findCompany.currencyName
+    }
+    this.companyCurrency.push(reqBody)
 
 
   }
@@ -493,7 +507,10 @@ export class AddSalesOrderComponent {
     try {
       const result: any = await this.productSer.getAllProductDetails()
       if (result.status === '1') {
-        this.productDeatail = result.data
+        this.productDeatail = result.data;
+        this.productDeatail.map((el:any) => {
+          el.disable = false
+        })
       }
     } catch (error: any) {
       if (error.error.message) {
@@ -578,7 +595,15 @@ export class AddSalesOrderComponent {
   handleMaterial(event: any, index: any) {
     const selectMaterial = this.productDeatail.find((el: any) => el.materialId === event.target.value)
     console.log(selectMaterial);
-
+    this.productDeatail.map((el:any) => el.disable = false)
+    this.salesFormGroup.value.itemList.map((el:any) => {
+      this.productDeatail.map((ele:any) => {
+        if(el.materialId === ele.materialId){
+          ele.disable = true
+        }
+      })
+     
+    })
     this.productPlant = selectMaterial ? selectMaterial.plantData : [];
 
     this.customerplant = selectMaterial ? selectMaterial.salesData : [];
@@ -598,6 +623,17 @@ export class AddSalesOrderComponent {
   handleCurrency(event: any) {
     const selectCurrency = this.companyCodeDetails.find((el: any) => el.currencyId === event.target.value)
     console.log(selectCurrency, 'currency ');
+  }
+
+
+  handleOrderStatus(event: any, index: any) {
+    const findOrder = this.orderStatusDetail.find((el: any) => el._id === event.target.value)
+    const formArray = this.salesFormGroup.get('itemList') as FormArray;
+    const formGroup = formArray.at(index) as FormGroup;
+
+    formGroup.patchValue({
+      orderStatusName: findOrder ? findOrder.orderStatus : '',
+    });
   }
 
 

@@ -495,7 +495,7 @@
                                                         <td>
                                                             <select class="form-select "
                                                                 aria-label="Default select example"
-                                                                formControlName="storagePlant" (change)="handleStorageLocation($event,i)">
+                                                                formControlName="storagePlant">
                                                                 <option [selected]="general.value.storagePlant === ''"
                                                                     value="" hidden>Select Storage Plant</option>
                                                                 <option *ngFor="let list of plantDetail"
@@ -505,15 +505,17 @@
 
                                                         </td>
                                                         <td>
-                                                            <select class="form-select "
+                                                            <select class="form-select " [ngStyle]="{'pointer-events' : financial.value.storagePlant ? 'all': 'none', 'cursor' : financial.value.storagePlant ? 'pointer': 'no-drop'}"
                                                                 aria-label="Default select example"
-                                                                formControlName="storageLocationId" >
+                                                                formControlName="storageLocationId" (change)="handleStorageLocation($event,financial.value.storagePlant , i)">
                                                                 <option
                                                                     [selected]="general.value.storageLocationId === ''"
                                                                     value="" hidden>Select Storage Location</option>
-                                                                <option *ngFor="let list of plantDetail"
-                                                                    [value]="list.stoargeLocationName">{{list.stoargeLocationName}}
+                                                                <ng-container *ngFor="let list of plantDetail">
+                                                                    <option *ngIf="list._id === financial.value.storagePlant"
+                                                                    [value]="list.stoargeLocationId">{{list.stoargeLocationName}}
                                                                 </option>
+                                                                </ng-container>
                                                             </select>
                                                         </td>
                                                         <td>
