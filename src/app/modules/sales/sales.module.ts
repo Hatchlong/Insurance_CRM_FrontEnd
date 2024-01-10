@@ -23,6 +23,7 @@ import { EditSalesOrderComponent } from './components/sales-order/edit-sales-ord
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { DeliveryService } from './services/delivery/delivery.service';
 import { EditDeliveryComponent } from './components/delivery/edit-delivery/edit-delivery.component';
+import { DeliverySalesOrderComponent } from './components/sales-order/delivery-sales-order/delivery-sales-order.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { EditDeliveryComponent } from './components/delivery/edit-delivery/edit-
     BillingListComponent,
     AddBillingComponent,
     EditSalesOrderComponent,
-    EditDeliveryComponent
+    EditDeliveryComponent,
+    DeliverySalesOrderComponent
   ],
   imports: [
     CommonModule,

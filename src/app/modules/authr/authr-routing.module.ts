@@ -7,20 +7,20 @@ import { NewLoginComponent } from './components/new-login/new-login.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo:'login',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
-    path:'login',
-    component:LoginComponent
+    path: 'login',
+    component: NewLoginComponent
   },
   {
-    path:'register',
-    component:RegisterComponent
+    path: 'register',
+    component: RegisterComponent
   },
   {
-    path:'new_login',
-    component:NewLoginComponent
+    path: 'new_login',
+    component: NewLoginComponent
   }
 ];
 

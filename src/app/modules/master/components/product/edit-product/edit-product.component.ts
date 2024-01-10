@@ -36,8 +36,8 @@ export class EditProductComponent {
   materialTypeDetail: any = []
   materialIdisShow: any = true
 
-
-
+  filteredPlantDetail:any = []
+  selectedStoragePlantId:any = ''
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -54,7 +54,6 @@ export class EditProductComponent {
     this.productId = this.activeRouter.snapshot.paramMap.get('id')
     this.create()
     this.getDistributionDetail()
-    this.getSingleDetail()
     this.getSalesDetail()
     this.getStorageDetails()
     this.getTaxDetails()
@@ -69,6 +68,7 @@ export class EditProductComponent {
     this.getWeightUnit()
     this.getUOMDetail()
     this.getMaterialType()
+    this.getSingleDetail()
   }
 
 
@@ -121,6 +121,7 @@ export class EditProductComponent {
         plantData: this.fb.array(data.plantData.map((ele: any) => this.addrow(ele))),
         salesData: this.fb.array(data.salesData.map((ele: any) => this.addSales(ele)))
       })
+
       return;
     }
     this.general = this.fb.group({
@@ -172,6 +173,8 @@ export class EditProductComponent {
   }
   addrow(data?: any) {
     if (data) {
+      this.filteredPlantDetail = this.plantDetail.find((el: any) => el._id === data.storagePlant);
+      console.log(data.storagePlant, data.storageLocationName)
       return this.fb.group({
         storagePlant: [data.storagePlant],
         storageLocationId: [data.storageLocationId],
@@ -183,6 +186,7 @@ export class EditProductComponent {
         profitCenter: [data.profitCenter],
         bomRelevance: [data.bomRelevance],
       })
+
     }
     return this.fb.group({
       storagePlant: [''],
@@ -210,8 +214,8 @@ export class EditProductComponent {
     return this.general.get('salesData') as FormArray
 
   }
-  addSales(data?:any) {
-    if(data){
+  addSales(data?: any) {
+    if (data) {
       return this.fb.group({
         salesOrganization: [data.salesOrganization],
         distributionChannel: [data.distributionChannel],
@@ -225,7 +229,7 @@ export class EditProductComponent {
         minimumDeliveryQTY: [data.minimumDeliveryQTY],
       })
     }
-    return this.fb.group({ 
+    return this.fb.group({
       salesOrganization: [''],
       distributionChannel: [''],
       deliveryUnit: [''],
@@ -758,22 +762,22 @@ export class EditProductComponent {
 
   }
 
-  handleStorageLocation(event: any, index: any) {
-    const selectedStoragePlantId = event.target.value;
-  
+  handleStorageLocation(event: any, productId:any ,index: any) {
+
     const formArray = this.general.get('plantData') as FormArray;
     const formGroup = formArray.at(index) as FormGroup;
-  
+
     // Find the selected storage plant in the plantDetail array
-    const findStorage = this.plantDetail.find((el: any) => el._id === selectedStoragePlantId);
-  
+    const findStorage = this.plantDetail.find((el: any) => el._id === productId);
+
     // Update formGroup values
     formGroup.patchValue({
-        storageLocationName: findStorage ? findStorage.stoargeLocationName : '',
-        storageLocationId: findStorage ? findStorage._id : '', // Assuming _id is the ID for storage location
+      storageLocationName: findStorage ? findStorage.stoargeLocationName : '',
+      storageLocationId: findStorage ? findStorage.stoargeLocationId : '',
+
     });
   }
-   handleDeliveryPlant(event:any,index:any){
+  handleDeliveryPlant(event: any, index: any) {
     const findPlant = this.plantDetail.find((el: any) => el._id === event.target.value)
     console.log(findPlant);
 
@@ -786,7 +790,7 @@ export class EditProductComponent {
       deliveringPlantName: findPlant ? findPlant.plantCode : ''
 
     });
- }
+  }
 
 
 }
