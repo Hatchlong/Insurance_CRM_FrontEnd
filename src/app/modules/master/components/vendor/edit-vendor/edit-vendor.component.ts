@@ -32,7 +32,9 @@ export class EditVendorComponent {
   vendorTypeDetail:any = [];
   paymentMethodDetails:any = []
   vendorIdisShow:any = true;
+  reconcilationAccountDetails: any = []
   vendorId:any= ''
+
   constructor(
     private fb: FormBuilder,
     private countrySer: CountryService,
@@ -59,6 +61,7 @@ export class EditVendorComponent {
     this.getPaymentTermsDetail()
     this.getVendorType()
     this.getPaymentMethodDetails()
+    this.getReconcilationAccountDetails()
   }
 
   createVendorFormFields(data? : any) {
@@ -564,6 +567,32 @@ return
     console.log(findPaymentMethod);
 
     this.vendorFormGroup.controls.paymentMethod.setValue(findPaymentMethod.description)
+  }
+
+
+   //get ReconcilationAccount 
+
+   async getReconcilationAccountDetails() {
+    try {
+      const result: any = await this.vendorSer.getAllReconcilationAccountDetails()
+      if (result.status === '1') {
+        this.reconcilationAccountDetails = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
   }
 
 

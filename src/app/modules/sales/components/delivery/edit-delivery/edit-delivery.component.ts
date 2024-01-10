@@ -22,6 +22,7 @@ export class EditDeliveryComponent implements OnInit{
   deliveryId: any = []
   productDetails: any = []
   customerMasterDetail: any = []
+  deliveryTypeDetails:any = []
 
 
   constructor(
@@ -47,6 +48,7 @@ export class EditDeliveryComponent implements OnInit{
     this.getProductMasterDetail()
 
     this.getCustomerMaster()
+    this.getDeliveryTypeDetails()
   }
 
   handleSideBar(event: any) {
@@ -60,7 +62,7 @@ export class EditDeliveryComponent implements OnInit{
         deliveryType: [data.deliveryType, Validators.required],
         plantId: [data.plantId, Validators.required],
         plantName: [data.plantName],
-        deliivery: [data.deliivery, Validators.required],
+        deliveryId: [data.deliveryId, Validators.required],
         deliveryDate: [data.deliveryDate, Validators.required],
         customerId: [data.customerId, Validators.required],
         customerName: [data.customerName],
@@ -76,7 +78,7 @@ export class EditDeliveryComponent implements OnInit{
       deliveryType: ['', Validators.required],
       plantId: ['33', Validators.required],
       plantName: [''],
-      deliivery: ['', Validators.required],
+      deliveryId: ['', Validators.required],
       deliveryDate: ['', Validators.required],
       customerId: ['', Validators.required],
       customerName: ['11'],
@@ -305,5 +307,30 @@ export class EditDeliveryComponent implements OnInit{
     });
   }
 }
+
+// delivery type
+
+async getDeliveryTypeDetails() {
+  try {
+    const result: any = await this.deliverySer.getAllDeliveryTypeDetails()
+    if (result.status === '1') {
+      this.deliveryTypeDetails = result.data
+    }
+  } catch (error: any) {
+    if (error.error.message) {
+      this._snackBar.open(error.error.message, 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+    this._snackBar.open('Something went wrong', 'Error', {
+      duration: 5 * 1000, horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: 'app-notification-error',
+    });;
+  }
+}
+
 
 }

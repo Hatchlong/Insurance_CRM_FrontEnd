@@ -13,9 +13,8 @@
                         <label for="">Delivery Type <sup>*</sup> </label>
                         <select class="form-select" formControlName="deliveryType">
                             <option [selected]="deliveryFormGroup.value.deliveryType=== ''" value="" hidden>Select Delivery Type</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option *ngFor="let list of deliveryTypeDetails" [value]="list.code">{{list.description}}</option>
+                           
                         </select>
 
                         <div *ngIf="deliveryFormGroup.controls['deliveryType'].touched && deliveryFormGroup.controls['deliveryType'].touched && deliveryFormGroup.controls['deliveryType'].hasError('required') && !isSubmitted">
@@ -45,13 +44,13 @@
                     </div>
                     <div class="col-6 mt-2">
                         <label for="delivery">Delivery #<sup>*</sup></label>
-                        <input type="text" class="form-control" formControlName="deliivery"
+                        <input type="text" class="form-control" formControlName="deliveryId"
                             placeholder="Enter delivery">
 
-                            <div *ngIf="deliveryFormGroup.controls['deliivery'].touched && deliveryFormGroup.controls['deliivery'].touched && deliveryFormGroup.controls['deliivery'].hasError('required') && !isSubmitted">
+                            <div *ngIf="deliveryFormGroup.controls['deliveryId'].touched && deliveryFormGroup.controls['deliveryId'].touched && deliveryFormGroup.controls['deliveryId'].hasError('required') && !isSubmitted">
                                 <p class="error-message">Delivery is mandatory</p>
                             </div>
-                            <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliivery'].hasError('required')">
+                            <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliveryId'].hasError('required')">
                                 <p class="error-message">Delivery is mandatory</p>
                             </div>
 

@@ -13,6 +13,7 @@ import { PlantDataService } from 'src/app/modules/setting/Services/plant-data/pl
 import { CustomerAccountAGService } from 'src/app/modules/setting/Services/customer-account-AG/customer-account-ag.service';
 import { BillingBlockService } from 'src/app/modules/setting/Services/billing-block/billing-block.service';
 import { ProductService } from '../../../services/product/product.service';
+import { VendorService } from '../../../services/vendor/vendor.service';
 
 @Component({
   selector: 'app-edit-customer',
@@ -40,6 +41,8 @@ export class EditCustomerComponent {
   deliveryBlockDetail: any = []
   customerGroupDetail: any = []
   acctAssignDetail: any;
+  reconcilationAccountDetails: any = []
+
   constructor(
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
@@ -57,7 +60,8 @@ export class EditCustomerComponent {
     private plantDataSer: PlantDataService,
     private acctAssignmentSer: CustomerAccountAGService,
     private billingblockSer: BillingBlockService,
-    private productSer: ProductService
+    private productSer: ProductService,
+    private vendorSer: VendorService
 
   ) { }
 
@@ -79,6 +83,7 @@ export class EditCustomerComponent {
     this.getDeliveryBlock()
     this.singleCustomerDetails()
     this.getAcctAssign()
+    this.getReconcilationAccountDetails()
   }
   create(data?: any) {
     if (data) {
@@ -704,7 +709,31 @@ export class EditCustomerComponent {
       currencyName: findCurrency ? findCurrency.code : ''
 
     });
-
-
   }
+
+    //get ReconcilationAccount 
+
+    async getReconcilationAccountDetails() {
+      try {
+        const result: any = await this.vendorSer.getAllReconcilationAccountDetails()
+        if (result.status === '1') {
+          this.reconcilationAccountDetails = result.data
+        }
+      } catch (error: any) {
+        if (error.error.message) {
+          this._snackBar.open(error.error.message, '', {
+            duration: 5 * 1000, horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: 'app-notification-error',
+          });
+          return
+        }
+        this._snackBar.open('Something went wrong', '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    }
+
 }

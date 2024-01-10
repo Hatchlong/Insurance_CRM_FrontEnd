@@ -44,6 +44,14 @@ export class VendorService {
     getAllPaymentMethodDetails(){
       return this.http.get('http://localhost:4000/api/config/payment/getAll').toPromise()
     }
+
+     // reconcilationAccount
+     getAllReconcilationAccountDetails(){
+      return this.http.get('http://localhost:4000/api/config/reconcilationAccount/getAll').toPromise()
+    }  
+
+
+
   
   fileUploadVendor(data: any) {
     return this.http.post(`http://localhost:4000/api/master/vendor/upload`, data).toPromise()

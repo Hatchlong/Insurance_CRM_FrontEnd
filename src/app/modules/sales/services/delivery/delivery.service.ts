@@ -32,6 +32,13 @@ export class DeliveryService {
   updateDeliveryMany(data: any) {
     return this.http.put(`http://localhost:4000/api/sales/delivery/update`, data).toPromise()
   }
+
+
+  getAllDeliveryTypeDetails() {
+    return this.http.get('http://localhost:4000/api/config/deliveryType/getAll').toPromise()
+  }
+
+  
   
 
   exportToExcel(data: any[], fileName: string, sheetName: string): void {

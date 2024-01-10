@@ -13,6 +13,7 @@ import { SalesOrgService } from 'src/app/modules/setting/Services/sales-org/sale
 import { CustomerService } from '../../../services/customer/customer.service';
 import { Router } from '@angular/router';
 import { ProductService } from '../../../services/product/product.service';
+import { VendorService } from '../../../services/vendor/vendor.service';
 
 @Component({
   selector: 'app-add-customer',
@@ -39,6 +40,7 @@ export class AddCustomerComponent implements OnInit {
   deliveryBlockDetail: any = []
   customerGroupDetail: any = []
   acctAssignDetail: any = []
+  reconcilationAccountDetails: any =[]
 
   constructor(
     private fb: FormBuilder,
@@ -56,7 +58,8 @@ export class AddCustomerComponent implements OnInit {
     private plantDataSer: PlantDataService,
     private acctAssignmentSer: CustomerAccountAGService,
     private billingblockSer: BillingBlockService,
-    private productSer: ProductService
+    private productSer: ProductService,
+    private vendorSer: VendorService
 
   ) { }
 
@@ -76,6 +79,7 @@ export class AddCustomerComponent implements OnInit {
     this.getCustomergroup()
     this.getDeliveryBlock()
     this.getAcctAssign()
+    this.getReconcilationAccountDetails()
   }
   create() {
     this.general = this.fb.group({
@@ -629,5 +633,32 @@ export class AddCustomerComponent implements OnInit {
     });
 
   }
+
+
+   //get ReconcilationAccount 
+
+   async getReconcilationAccountDetails() {
+    try {
+      const result: any = await this.vendorSer.getAllReconcilationAccountDetails()
+      if (result.status === '1') {
+        this.reconcilationAccountDetails = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
 
 }

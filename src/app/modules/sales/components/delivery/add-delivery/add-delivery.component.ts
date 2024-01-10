@@ -22,6 +22,7 @@ export class AddDeliveryComponent implements OnInit {
   storageLocationDetail:any=[]
   productDetails:any = []
   customerMasterDetail: any = []
+  deliveryTypeDetails: any = []
 
   constructor(
     private fb: FormBuilder,
@@ -40,6 +41,7 @@ export class AddDeliveryComponent implements OnInit {
     this.getStorageLocation()
     this.getProductMasterDetail()
     this.getCustomerMaster()
+    this.getDeliveryTypeDetails()
   }
 
   handleSideBar(event: any) {
@@ -51,7 +53,7 @@ export class AddDeliveryComponent implements OnInit {
       deliveryType: ['', Validators.required],
       plantId: ['33', Validators.required],
       plantName: [''],
-      deliivery: ['', Validators.required],
+      deliveryId: ['', Validators.required],
       deliveryDate: ['', Validators.required],
       customerId: ['', Validators.required],
       customerName: ['11'],
@@ -236,5 +238,31 @@ export class AddDeliveryComponent implements OnInit {
     });
   }
 }
+
+// delivery type
+
+async getDeliveryTypeDetails() {
+  try {
+    const result: any = await this.deliverySer.getAllDeliveryTypeDetails()
+    if (result.status === '1') {
+      this.deliveryTypeDetails = result.data
+      console.log(result)
+    }
+  } catch (error: any) {
+    if (error.error.message) {
+      this._snackBar.open(error.error.message, 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+    this._snackBar.open('Something went wrong', 'Error', {
+      duration: 5 * 1000, horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: 'app-notification-error',
+    });;
+  }
+}
+
 
 }
