@@ -363,9 +363,8 @@
                             <option [selected]="general.value.batchManagment === ''" value="" hidden>Select batch
                                 Management
                             </option>
-                            <option value="YES">YES</option>
-                            <option value="NO">NO</option>
-                            <option value="BLANK">BLANK</option>
+                            <option *ngFor="let list of batchManagementDetail" [value]="list._id">{{list.code}}</option>
+                            
 
                         </select>
                         <div
@@ -416,9 +415,8 @@
                             <option [selected]="general.value.expirationDataRelavance === ''" value="" hidden>Select
                                 Expiration Date
                             </option>
-                            <option value="YES">YES</option>
-                            <option value="NO">NO</option>
-                            <option value="BLANK">BLANK</option>
+                            <option *ngFor="let list of expirateDataRelavanceDetail" [value]="list._id">{{list.code}}</option>
+                         
                         </select>
                         <div
                             *ngIf="general.controls['expirationDataRelavance'].touched && general.controls['expirationDataRelavance'].dirty && general.controls['expirationDataRelavance'].hasError('required') && !isSubmitted">
@@ -551,9 +549,8 @@
                                                                 <option
                                                                     [selected]="general.value.availabilityCheck === ''"
                                                                     value="" hidden>Select Availibilty Check</option>
-                                                                <option value="YES">YES</option>
-                                                                <option value="NO">NO</option>
-                                                                <option value="BLANK">BLANK</option>
+                                                                    <option *ngFor="let list of availibilityCheckDetail" [value]="list._id">{{list.code}}</option>
+
                                                             </select>
                                                         </td>
                                                         <td>
@@ -574,9 +571,8 @@
                                                                 <option [selected]="general.value.bomRelevance === ''"
                                                                     value="" hidden>
                                                                     Select bom</option>
-                                                                <option value="NO">NO</option>
-                                                                <option value="YES">YES</option>
-                                                                <option value="BLANK">BLANK</option>
+                                                                    <option *ngFor="let list of bomRelavanceDetail" [value]="list._id">{{list.code}}</option>
+                                                               
                                                             </select>
                                                         </td>
 

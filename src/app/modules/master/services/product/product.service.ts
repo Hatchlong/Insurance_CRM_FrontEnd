@@ -115,4 +115,21 @@ export class ProductService {
   fileUploadXlsx(data: any) {
     return this.http.post(`http://localhost:4000/api/master/product/upload`, data).toPromise()
   }
+  
+  getAllBatchManagmentDetails() {
+    return this.http.get('http://localhost:4000/api/config/batch/getAll').toPromise()
+  }
+  getAllAvailibityCheckDetails(){
+    return this.http.get('http://localhost:4000/api/config/availibityCheck/getAll').toPromise()
+
+  }
+  getAllBOMRelevanceDetails(){
+    return this.http.get('http://localhost:4000/api/config/BOM/getAll').toPromise()
+
+  }
+  getAllExpirationRelavanceDetails(){
+    return this.http.get('http://localhost:4000/api/config/expirationData/getAll').toPromise()
+
+  }
+
 }

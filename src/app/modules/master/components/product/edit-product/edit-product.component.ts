@@ -38,6 +38,11 @@ export class EditProductComponent {
 
   filteredPlantDetail:any = []
   selectedStoragePlantId:any = ''
+  batchManagementDetail:any=[]
+  expirateDataRelavanceDetail:any=[]
+  availibilityCheckDetail:any=[]
+  bomRelavanceDetail:any=[]
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -69,6 +74,11 @@ export class EditProductComponent {
     this.getUOMDetail()
     this.getMaterialType()
     this.getSingleDetail()
+    this.getAllBatchDetail()
+    this.getAllExpirationDate()
+    this.getAllAvailibilityCheck()
+    this.getAllBomRelavanceDetail()
+
   }
 
 
@@ -791,6 +801,104 @@ export class EditProductComponent {
 
     });
   }
+ //get batch management detail
+
+ async getAllBatchDetail(){
+  try {
+   const result:any=await this.productSer.getAllBatchManagmentDetails()
+   if (result.status==='1') {
+    this.batchManagementDetail=result.data
+   } 
+  }catch (error: any) {
+    if (error.error.message) {
+      this._snackBar.open(error.error.message, '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+      return
+    }
+    this._snackBar.open('Something went wrong', '', {
+      duration: 5 * 1000, horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: 'app-notification-error',
+    });
+  }
+}
+
+
+//get Expiration data detail
+async getAllExpirationDate(){
+  try {
+    const result:any=await this.productSer.getAllExpirationRelavanceDetails()
+    if (result.status==='1') {
+      this.expirateDataRelavanceDetail=result.data
+    }
+  } catch (error: any) {
+    if (error.error.message) {
+      this._snackBar.open(error.error.message, '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+      return
+    }
+    this._snackBar.open('Something went wrong', '', {
+      duration: 5 * 1000, horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: 'app-notification-error',
+    });
+  }
+}
+
+//get availibility check detail
+async getAllAvailibilityCheck(){
+  try {
+   const result:any=await this.productSer.getAllAvailibityCheckDetails()
+   if (result.status==='1') {
+    this.availibilityCheckDetail=result.data
+   } 
+  } catch (error: any) {
+    if (error.error.message) {
+      this._snackBar.open(error.error.message, '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+      return
+    }
+    this._snackBar.open('Something went wrong', '', {
+      duration: 5 * 1000, horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: 'app-notification-error',
+    });
+  }
+}
+
+//get all bom detail
+
+async getAllBomRelavanceDetail(){
+  try {
+    const result:any=await this.productSer.getAllBOMRelevanceDetails()
+    if (result.status==='1') {
+      this.bomRelavanceDetail=result.data
+    }
+  } catch (error: any) {
+    if (error.error.message) {
+      this._snackBar.open(error.error.message, '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+      return
+    }
+    this._snackBar.open('Something went wrong', '', {
+      duration: 5 * 1000, horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: 'app-notification-error',
+    });
+  }
+}
 
 
 }
