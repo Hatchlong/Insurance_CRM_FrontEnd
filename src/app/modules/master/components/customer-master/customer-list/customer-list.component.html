@@ -4,13 +4,26 @@
   <div class="row mt-3">
     <div class="col-12 ">
       <div class="row">
-        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 py-2">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Enter Customer Id"
+            <input type="text" class="form-control" #searchDataInput placeholder="Customer Id / Customer Name"
               (input)="handleFilter($event)">
           </div>
         </div>
-        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 py-2">
+          <select class="form-select " aria-label="Default select example" (change)="selectCountryName($event)">
+            <option selected value=''>Select Country</option>
+            <option *ngFor="let list of countryDetails | filterPipes: 'countryName'" [value]="list.countryName">
+              {{list.countryName}}</option>
+          </select>
+        </div>
+        <!-- <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 py-2">
+          <select class="form-select " aria-label="Default select example" (change)="selectCitiesName($event)">
+            <option selected value=''>Select Cities</option>
+            <option *ngFor="let list of (citiesDetails?.cities?.cities).sort()" [value]="list">{{list}}</option>
+          </select>
+        </div> -->
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
 
             <button (click)="nextPage('/master/add-customer')" class="btn btn-primary " type="button"
@@ -47,22 +60,25 @@
             <tr>
               <th scope="col">SLNO</th>
               <th scope="col">Customer Id</th>
+              <th scope="col">Customer Name</th>
               <th scope="col">Country</th>
               <th scope="col">Address</th>
               <th scope="col">Telephone</th>
               <th scope="col">Action</th>
-              <th scope="col"><input type="checkbox" [checked]="selectAll" (change)="selectdata($event)"> Select All</th>
+              <th scope="col"><input type="checkbox" [checked]="selectAll" (change)="selectdata($event)"> Select All
+              </th>
             </tr>
           </thead>
           <tbody *ngIf="customerDetails.length===0">
             <tr>
-              <td colspan="7" class="text-center">No Records !...</td>
+              <td colspan="8" class="text-center">No Records !...</td>
             </tr>
           </tbody>
           <tbody>
             <tr *ngFor="let list of customerDetails;let i=index">
               <td>{{i+1}}</td>
               <td>{{list.customerId}}</td>
+              <td>{{list.customerName}}</td>
               <td>{{list.countryName}}</td>
               <td>{{list.address}}</td>
               <td>{{list.telephone}}</td>
@@ -78,7 +94,7 @@
               </td>
               <td><input type="checkbox" [checked]="list.check" (change)="particularcheck($event,i)"></td>
             </tr>
-            
+
           </tbody>
 
         </table>

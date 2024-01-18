@@ -40,8 +40,8 @@ export class AddCustomerComponent implements OnInit {
   deliveryBlockDetail: any = []
   customerGroupDetail: any = []
   acctAssignDetail: any = []
-  reconcilationAccountDetails: any =[]
-
+  reconcilationAccountDetails: any =[];
+  accountGroupDetails:any = []
   constructor(
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
@@ -80,6 +80,7 @@ export class AddCustomerComponent implements OnInit {
     this.getDeliveryBlock()
     this.getAcctAssign()
     this.getReconcilationAccountDetails()
+    this.getAllAccountGroup()
   }
   create() {
     this.general = this.fb.group({
@@ -116,11 +117,11 @@ export class AddCustomerComponent implements OnInit {
       termsPayment: [''],
       companyCode: [''],
       reconciliationAcct: [''],
-      tax1: [''],
-      tax2: [''],
-      tax3: [''],
-      tax4: [''],
-      tax5: ['']
+      taxClassification1: [''],
+      taxClassification2: [''],
+      taxClassification3: [''],
+      taxClassification4: [''],
+      taxClassification5: ['']
     })
   }
 
@@ -260,6 +261,38 @@ export class AddCustomerComponent implements OnInit {
       });
     }
   }
+
+
+    // get Account Group detail
+    async getAllAccountGroup() {
+      try {
+        const result: any = await this.companyCodeSer.getAllAccountGroup();
+        if (result.status === '1') {
+          this.accountGroupDetails = result.data;
+        } else {
+          this._snackBar.open(result.message, '', {
+            duration: 5 * 1000, horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: 'app-notification-error',
+          });
+        }
+      } catch (error: any) {
+        if (error.error.message) {
+          this._snackBar.open(error.error.message, '', {
+            duration: 5 * 1000, horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: 'app-notification-error',
+          });
+          return
+        }
+        this._snackBar.open('Something went wrong', '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    }
+  
 
   selectCountryName(event: any) {
     this.citiesDetails = this.countryDetials.find((el: any) => el._id === event.target.value);

@@ -55,7 +55,7 @@
         <label for="">Country</label>
         <select class="form-select" formControlName="countryId" aria-label="Default select example" (change)="selectCountry($event)">
           <option [selected]="salesOrg.value.countryId === ''" value="" hidden>Select Country</option>
-          <option *ngFor="let list of countryDetials;" [value]="list._id"> {{list.countryName}} </option>
+          <option *ngFor="let list of countryDetials | filterPipes:'countryName';" [value]="list._id"> {{list.countryName}} </option>
 
         </select>
         <div
@@ -68,10 +68,9 @@
       </div>
       <div class="col-6 py-2">
         <label for="">Region</label>
-        <select class="form-select" formControlName="regionId" aria-label="Default select example" (change)="handleRegion($event)">
+        <select class="form-select" formControlName="regionId" aria-label="Default select example" [ngStyle]="{'pointer-events': !salesOrg.value.countryId ? 'none':'all'}" (change)="handleRegion($event)">
           <option [selected]="salesOrg.value.regionId=== ''" value="" hidden>Select Region</option>
-          <option *ngFor="let list of regionDetail" [value]="list._id">{{list.code}}</option>
-          <!-- <option [value]="details.countryId">{{regionDetail}}</option> -->
+          <option *ngFor="let list of regionDetail | filterPipes:'code'" [value]="list._id">{{list.code}}</option>
         </select>
         <div
           *ngIf="salesOrg.controls['regionId'].touched && salesOrg.controls['regionId'].dirty && salesOrg.controls['regionId'].hasError('required') && !isSubmitted">
@@ -85,7 +84,7 @@
         <label for="">Time Zone</label>
         <select class="form-select" formControlName="timeZoneId" aria-label="Default select example" (change)="handleTimeZone($event)">
           <option [selected]="salesOrg.value.timeZoneId=== ''" value="" hidden>Select Time Zone</option>
-          <option *ngFor="let list of timeZone" [value]="list._id">{{list.timeZoneType}}</option>
+          <option *ngFor="let list of timeZone  | filterPipes:'timeZoneType'" [value]="list._id">{{list.timeZoneType}}</option>
 
 
         </select>

@@ -2,252 +2,256 @@
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
   <h2><mat-icon class="back" routerLink="/settings/plant-data-list">arrow_back</mat-icon>Plant Data</h2>
 
-  <form [formGroup]="plantsData" (ngSubmit)="submitData()">
-    <div class="row ">
-      <div class="col-6 py-2">
-        <label for="">Plant Code<sup>*</sup> </label>
-        <input type="text" formControlName="plantCode" class="form-control" placeholder="Enter Plant Code" readonly />
-        <div
-          *ngIf="plantsData.controls['plantCode'].touched && plantsData.controls['plantCode'].dirty && plantsData.controls['plantCode'].hasError('required') && !isSubmitted">
-          <p class="error-message">Plant code is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && plantsData.controls['plantCode'].hasError('required')">
-          <p class="error-message">Plant code is mandatory</p>
-        </div>
+ = <form [formGroup]="plantFormData" (ngSubmit)="submitData()">
+  <div class="row">
+    <div class="col-12">
+      <h2><mat-icon class="back" routerLink="/settings/plant-data-list">arrow_back</mat-icon>Plant Data</h2>
+    </div>
+    <div class="col-6 py-2 ">
+      <label for="">Plant Code<sup>*</sup> </label>
+      <input type="text" formControlName="plantCode" class="form-control" placeholder="Enter Plant Code" />
+      <div
+        *ngIf="plantFormData.controls['plantCode'].touched && plantFormData.controls['plantCode'].dirty && plantFormData.controls['plantCode'].hasError('required') && !isSubmitted">
+        <p class="error-message">Plant code is mandatory</p>
       </div>
-
-      <div class="col-6 py-2">
-        <label for="">Name 1 <sup>*</sup></label>
-        <input type="text" formControlName="name1" class="form-control" placeholder="Enter Name 1">
-        <div
-          *ngIf="plantsData.controls['name1'].touched && plantsData.controls['name1'].dirty && plantsData.controls['name1'].hasError('required') && !isSubmitted">
-          <p class="error-message">Name 1 is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && plantsData.controls['name1'].hasError('required')">
-          <p class="error-message">Name 1 is mandatory</p>
-        </div>
-      </div>
-      <div class="col-6 py-2">
-        <label for="">Name 2 <sup>*</sup></label>
-        <input type="text" formControlName="name2" class="form-control" placeholder="Enter Name 2">
-        <div
-          *ngIf="plantsData.controls['name2'].touched && plantsData.controls['name2'].dirty && plantsData.controls['name2'].hasError('required') && !isSubmitted">
-          <p class="error-message">Name 2 is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && plantsData.controls['name2'].hasError('required')">
-          <p class="error-message">Name 2 is mandatory</p>
-        </div>
-
-      </div>
-
-      <div class="col-6 py-2">
-        <label for="">Address <sup>*</sup></label>
-        <input type="text" formControlName="address" class="form-control" placeholder="Enter Address">
-        <div
-          *ngIf="plantsData.controls['address'].touched && plantsData.controls['address'].dirty && plantsData.controls['address'].hasError('required') && !isSubmitted">
-          <p class="error-message">Address is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && plantsData.controls['address'].hasError('required')">
-          <p class="error-message">Address is mandatory</p>
-        </div>
-
-      </div>
-
-      <div class="col-6 py-2">
-        <label for="">Language <sup>*</sup></label>
-        <select class="form-select" formControlName="languageId"
-          [ngStyle]="{'pointer-events': !plantsData.value.countryId ? 'none' :  'all'}">
-          <option [selected]="plantsData.value.languageId === ''" value="" hidden>Select Language</option>
-
-          <option [value]="citiesDetails.languageId">{{languageName}}</option>
-        </select>
-        <div
-          *ngIf="plantsData.controls['languageId'].touched && plantsData.controls['languageId'].dirty && plantsData.controls['languageId'].hasError('required') && !isSubmitted">
-          <p class="error-message">Language is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && plantsData.controls['languageId'].hasError('required')">
-          <p class="error-message">Language is mandatory</p>
-        </div>
-      </div>
-
-      <div class="col-6 py-2">
-        <label for="">Country <sup>*</sup></label>
-        <select class="form-select" formControlName="countryId" (change)="selectCountryName($event)">
-          <option [selected]="plantsData.value.countryId === ''" value="" hidden>Select Country</option>
-          <option *ngFor="let list of countryDetials;" [value]="list._id"> {{list.countryName}} </option>
-        </select>
-        <div
-          *ngIf="plantsData.controls['countryId'].touched && plantsData.controls['countryId'].dirty && plantsData.controls['countryId'].hasError('required') && !isSubmitted">
-          <p class="error-message">Country is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && plantsData.controls['countryId'].hasError('required')">
-          <p class="error-message">Country is mandatory</p>
-        </div>
-      </div>
-
-      <div class="col-6 py-2">
-        <label for="">City <sup>*</sup></label>
-        <select class="form-select" formControlName="cityId"
-          [ngStyle]="{'pointer-events': !plantsData.value.countryId ? 'none' :  'all'}">
-          <option [selected]="plantsData.value.cityId === ''" value="" hidden>Select cities</option>
-          <option *ngFor="let list of citiesDetails?.cities?.cities" [value]="list">{{list}}</option>
-        </select>
-        <div
-          *ngIf="plantsData.controls['cityId'].touched && plantsData.controls['cityId'].dirty && plantsData.controls['cityId'].hasError('required') && !isSubmitted">
-          <p class="error-message">City is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && plantsData.controls['cityId'].hasError('required')">
-          <p class="error-message">City is mandatory</p>
-        </div>
-      </div>
-
-      <div class="col-6 py-2">
-        <label for="">Contact Person Name <sup>*</sup></label>
-        <input type="text" formControlName="contactPersonName" class="form-control" placeholder="Enter Contact Person ">
-        <div
-          *ngIf="plantsData.controls['contactPersonName'].touched && plantsData.controls['contactPersonName'].dirty && plantsData.controls['contactPersonName'].hasError('required') && !isSubmitted">
-          <p class="error-message">Person Name is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && plantsData.controls['contactPersonName'].hasError('required')">
-          <p class="error-message">Person Name is mandatory</p>
-        </div>
-      </div>
-      <div class="col-6 py-2">
-        <label for="">Contact Number <sup>*</sup></label>
-        <input type="number" formControlName="contactNumber" class="form-control" placeholder="Enter Contact Number">
-        <div
-          *ngIf="plantsData.controls['contactNumber'].touched && plantsData.controls['contactNumber'].dirty && plantsData.controls['contactNumber'].hasError('required') && !isSubmitted">
-          <p class="error-message">Contact Number is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && plantsData.controls['contactNumber'].hasError('required')">
-          <p class="error-message">Contact Number is mandatory</p>
-        </div>
-
-      </div>
-
-      <div class="col-6 py-2 ">
-        <label for=""> Time Zone <sup>*</sup></label>
-        <select class="form-select" formControlName="timeZoneId" (change)="handleTimeZone($event)">
-          <option [selected]="plantsData.value.timeZoneId === ''" value="" hidden>Select Time Zone
-          </option>
-          <option *ngFor="let list of timeZone" [value]="list._id">{{list.timeZoneType}}</option>
-        </select>
-        <div
-          *ngIf="plantsData.controls['timeZoneId'].touched && plantsData.controls['timeZoneId'].dirty && plantsData.controls['timeZoneId'].hasError('required') && !isSubmitted">
-          <p class="error-message">Time Zone is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && plantsData.controls['timeZoneId'].hasError('required')">
-          <p class="error-message">Time Zone is mandatory</p>
-        </div>
-      </div>
-
-
-      <div class="col-6 py-2">
-        <label for="">Search term <sup>*</sup></label>
-        <input type="text" formControlName="searchTerm" class="form-control" placeholder="Enter Search Term">
-        <div
-          *ngIf="plantsData.controls['searchTerm'].touched && plantsData.controls['searchTerm'].dirty && plantsData.controls['searchTerm'].hasError('required') && !isSubmitted">
-          <p class="error-message">Search Term is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && plantsData.controls['searchTerm'].hasError('required')">
-          <p class="error-message">Search Term is mandatory</p>
-        </div>
-      </div>
-
-      <div class="col-6 py-2">
-        <label for=""> Customer no: plant <sup>*</sup></label>
-        <input type="text" formControlName="customerNo_plant" class="form-control" placeholder="Enter Customer No">
-        <div
-          *ngIf="plantsData.controls['customerNo_plant'].touched && plantsData.controls['customerNo_plant'].dirty && plantsData.controls['customerNo_plant'].hasError('required') && !isSubmitted">
-          <p class="error-message">Customer No Plant is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && plantsData.controls['customerNo_plant'].hasError('required')">
-          <p class="error-message">Customer No Plant is mandatory</p>
-        </div>
-      </div>
-
-
-      <div class="col-6 py-2">
-        <label for="">Vendor no: plant <sup>*</sup></label>
-        <input type="text" formControlName="vendorNumberPlant" class="form-control" placeholder="Enter Vendor No Plant">
-        <div
-          *ngIf="plantsData.controls['vendorNumberPlant'].touched && plantsData.controls['vendorNumberPlant'].dirty && plantsData.controls['vendorNumberPlant'].hasError('required') && !isSubmitted">
-          <p class="error-message">Vendor Number is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && plantsData.controls['vendorNumberPlant'].hasError('required')">
-          <p class="error-message">Vendor Number is mandatory</p>
-        </div>
-      </div>
-
-      <div class="col-6 py-2">
-        <label for=""> Purchase Organization <sup>*</sup></label>
-        <select class="form-select" formControlName="purchaseOrganizationId" (change)="handlePurchaseOrg($event)">
-          <option [selected]="plantsData.value.purchaseOrganizationId === ''" value="" hidden>Select Purchase Org
-          </option>
-          <option *ngFor="let pur of purDetails" [value]="pur._id">{{pur.purchase_org}}</option>
-        </select>
-        <div
-          *ngIf="plantsData.controls['purchaseOrganizationId'].touched && plantsData.controls['purchaseOrganizationId'].dirty && plantsData.controls['purchaseOrganizationId'].hasError('required') && !isSubmitted">
-          <p class="error-message">Purchase Org. is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && plantsData.controls['purchaseOrganizationId'].hasError('required')">
-          <p class="error-message">Purchase Org. is mandatory</p>
-        </div>
-      </div>
-
-
-
-      <div class="col-6 py-2">
-        <label for="">Sales Organization <sup>*</sup></label>
-        <select class="form-select" formControlName="salesOrganizationId" (change)="handleSalesData($event)">
-          <option [selected]="plantsData.value.salesOrganizationId === ''" value="" hidden>Select Sales Org</option>
-          <option *ngFor="let list of salesDetail" [value]="list._id">{{list.salesOrg}}</option>
-        </select>
-        <div
-          *ngIf="plantsData.controls['salesOrganizationId'].touched && plantsData.controls['salesOrganizationId'].dirty && plantsData.controls['salesOrganizationId'].hasError('required') && !isSubmitted">
-          <p class="error-message">Sales Org. is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && plantsData.controls['salesOrganizationId'].hasError('required')">
-          <p class="error-message">Sales Org. is mandatory</p>
-        </div>
-      </div>
-
-      <div class="col-6 py-2">
-        <label for=""> Tax Indicator: Plant <sup>*</sup></label>
-        <select class="form-select" formControlName="taxIndicatorId" (change)="handleTax($event)">
-          <option [selected]="plantsData.value.taxIndicatorId === ''" value="" hidden>Select Tax</option>
-          <option *ngFor="let list of taxDetails" [value]="list.tax_ind_code">{{list.description}}</option>
-        </select>
-        <div
-          *ngIf="plantsData.controls['taxIndicatorId'].touched && plantsData.controls['taxIndicatorId'].dirty && plantsData.controls['taxIndicatorId'].hasError('required') && !isSubmitted">
-          <p class="error-message">Tax Indicator is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && plantsData.controls['taxIndicatorId'].hasError('required')">
-          <p class="error-message">Tax Indicator is mandatory</p>
-        </div>
-      </div>
-
-
-      <div class="col-6 py-2">
-        <label for="">Storage Location <sup>*</sup></label>
-        <select class="form-select" formControlName="stoargeLocationId" (change)="handleStorageLocation($event)">
-          <option [selected]="plantsData.value.stoargeLocationId === ''" value="" hidden>Select Storage Location
-          </option>
-          <option *ngFor="let list of storgaeLocationDetails" [value]="list.stor_loc_id">{{list.description}}</option>
-        </select>
-        <div
-          *ngIf="plantsData.controls['stoargeLocationId'].touched && plantsData.controls['stoargeLocationId'].dirty && plantsData.controls['stoargeLocationId'].hasError('required') && !isSubmitted">
-          <p class="error-message">Storage Location is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && plantsData.controls['stoargeLocationId'].hasError('required')">
-          <p class="error-message">Storage Location is mandatory</p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12 d-flex justify-content-end py-2">
-          <button type="submit" class="btn btn-primary">Save</button>
-        </div>
+      <div *ngIf="isSubmitted && plantFormData.controls['plantCode'].hasError('required')">
+        <p class="error-message">Plant code is mandatory</p>
       </div>
     </div>
-  </form>
+
+    <div class="col-6 py-2 ">
+      <label for="">Name 1 <sup>*</sup></label>
+      <input type="text" formControlName="name1" class="form-control" placeholder="Enter Name 1">
+      <div
+        *ngIf="plantFormData.controls['name1'].touched && plantFormData.controls['name1'].dirty && plantFormData.controls['name1'].hasError('required') && !isSubmitted">
+        <p class="error-message">Name 1 is mandatory</p>
+      </div>
+      <div *ngIf="isSubmitted && plantFormData.controls['name1'].hasError('required')">
+        <p class="error-message">Name 1 is mandatory</p>
+      </div>
+    </div>
+    <div class="col-6 py-2 ">
+      <label for="">Name 2 <sup>*</sup></label>
+      <input type="text" formControlName="name2" class="form-control" placeholder="Enter Name 2">
+      <div
+        *ngIf="plantFormData.controls['name2'].touched && plantFormData.controls['name2'].dirty && plantFormData.controls['name2'].hasError('required') && !isSubmitted">
+        <p class="error-message">Name 2 is mandatory</p>
+      </div>
+      <div *ngIf="isSubmitted && plantFormData.controls['name2'].hasError('required')">
+        <p class="error-message">Name 2 is mandatory</p>
+      </div>
+
+    </div>
+
+    <div class="col-6 py-2 ">
+      <label for="">Address <sup>*</sup></label>
+      <input type="text" formControlName="address" class="form-control" placeholder="Enter Address">
+      <div
+        *ngIf="plantFormData.controls['address'].touched && plantFormData.controls['address'].dirty && plantFormData.controls['address'].hasError('required') && !isSubmitted">
+        <p class="error-message">Address is mandatory</p>
+      </div>
+      <div *ngIf="isSubmitted && plantFormData.controls['address'].hasError('required')">
+        <p class="error-message">Address is mandatory</p>
+      </div>
+
+    </div>
+
+
+
+    <div class="col-6 py-2 ">
+      <label for="">Country <sup>*</sup></label>
+      <select class="form-select" formControlName="countryId" (change)="selectCountryName($event)">
+        <option [selected]="plantFormData.value.countryId === ''" value="" hidden>Select Country</option>
+        <option *ngFor="let list of countryDetials| filterPipes:'countryName';" [value]="list._id"> {{list.countryName}} </option>
+      </select>
+      <div
+        *ngIf="plantFormData.controls['countryId'].touched && plantFormData.controls['countryId'].dirty && plantFormData.controls['countryId'].hasError('required') && !isSubmitted">
+        <p class="error-message">Country is mandatory</p>
+      </div>
+      <div *ngIf="isSubmitted && plantFormData.controls['countryId'].hasError('required')">
+        <p class="error-message">Country is mandatory</p>
+      </div>
+    </div>
+
+    <div class="col-6 py-2 ">
+      <label for="">City <sup>*</sup></label>
+      <select class="form-select" formControlName="cityId"
+        [ngStyle]="{'pointer-events': !plantFormData.value.countryId ? 'none' :  'all'}">
+        <option [selected]="plantFormData.value.cityId === ''" value="" hidden>Select cities</option>
+        <option *ngFor="let list of (citiesDetails?.cities?.cities).sort()" [value]="list">{{list}}</option>
+      </select>
+      <div
+        *ngIf="plantFormData.controls['cityId'].touched && plantFormData.controls['cityId'].dirty && plantFormData.controls['cityId'].hasError('required') && !isSubmitted">
+        <p class="error-message">City is mandatory</p>
+      </div>
+      <div *ngIf="isSubmitted && plantFormData.controls['cityId'].hasError('required')">
+        <p class="error-message">City is mandatory</p>
+      </div>
+    </div>
+
+    <div class="col-6 py-2 ">
+      <label for="">Language <sup>*</sup></label>
+      <select class="form-select " aria-label="Default select example" formControlName="languageId">
+        <option [selected]="plantFormData.value.languageId===''" value="" hidden>Select Language</option>
+        <option *ngFor="let list of languageDetails | filterPipes:'languageCode';" [value]="list._id">
+          {{list.languageCode}}</option>
+      </select>
+      <div
+        *ngIf="plantFormData.controls['languageId'].touched && plantFormData.controls['languageId'].dirty && plantFormData.controls['languageId'].hasError('required') && !isSubmitted">
+        <p class="error-message">Language is mandatory</p>
+      </div>
+      <div *ngIf="isSubmitted && plantFormData.controls['languageId'].hasError('required')">
+        <p class="error-message">Language is mandatory</p>
+      </div>
+    </div>
+
+    <div class="col-6 py-2 ">
+      <label for="">Contact Person Name <sup>*</sup></label>
+      <input type="text" formControlName="contactPersonName" class="form-control" placeholder="Enter Contact Person ">
+      <div
+        *ngIf="plantFormData.controls['contactPersonName'].touched && plantFormData.controls['contactPersonName'].dirty && plantFormData.controls['contactPersonName'].hasError('required') && !isSubmitted">
+        <p class="error-message">Person Name is mandatory</p>
+      </div>
+      <div *ngIf="isSubmitted && plantFormData.controls['contactPersonName'].hasError('required')">
+        <p class="error-message">Person Name is mandatory</p>
+      </div>
+    </div>
+    <div class="col-6 py-2 ">
+      <label for="">Contact Number <sup>*</sup></label>
+      <input type="number" formControlName="contactNumber" class="form-control" placeholder="Enter Contact Number">
+      <div
+        *ngIf="plantFormData.controls['contactNumber'].touched && plantFormData.controls['contactNumber'].dirty && plantFormData.controls['contactNumber'].hasError('required') && !isSubmitted">
+        <p class="error-message">Contact Number is mandatory</p>
+      </div>
+      <div *ngIf="isSubmitted && plantFormData.controls['contactNumber'].hasError('required')">
+        <p class="error-message">Contact Number is mandatory</p>
+      </div>
+
+    </div>
+
+    <div class="col-6 py-2 ">
+      <label for=""> Time Zone <sup>*</sup></label>
+      <select class="form-select" formControlName="timeZoneId" (change)="handleTimeZone($event)">
+        <option [selected]="plantFormData.value.timeZoneId === ''" value="" hidden>Select Time Zone
+        </option>
+        <option *ngFor="let list of timeZone | filterPipes:'timeZoneType'" [value]="list._id">{{list.timeZoneType}}</option>
+      </select>
+      <div
+        *ngIf="plantFormData.controls['timeZoneId'].touched && plantFormData.controls['timeZoneId'].dirty && plantFormData.controls['timeZoneId'].hasError('required') && !isSubmitted">
+        <p class="error-message">Time Zone is mandatory</p>
+      </div>
+      <div *ngIf="isSubmitted && plantFormData.controls['timeZoneId'].hasError('required')">
+        <p class="error-message">Time Zone is mandatory</p>
+      </div>
+    </div>
+
+
+    <div class="col-6 py-2 ">
+      <label for="">Search term <sup>*</sup></label>
+      <input type="text" formControlName="searchTerm" class="form-control" placeholder="Enter Search Term">
+      <div
+        *ngIf="plantFormData.controls['searchTerm'].touched && plantFormData.controls['searchTerm'].dirty && plantFormData.controls['searchTerm'].hasError('required') && !isSubmitted">
+        <p class="error-message">Search Term is mandatory</p>
+      </div>
+      <div *ngIf="isSubmitted && plantFormData.controls['searchTerm'].hasError('required')">
+        <p class="error-message">Search Term is mandatory</p>
+      </div>
+    </div>
+
+    <div class="col-6 py-2 ">
+      <label for=""> Customer no: plant <sup>*</sup></label>
+      <input type="text" formControlName="customerNo_plant" class="form-control" placeholder="Enter Customer No">
+      <div
+        *ngIf="plantFormData.controls['customerNo_plant'].touched && plantFormData.controls['customerNo_plant'].dirty && plantFormData.controls['customerNo_plant'].hasError('required') && !isSubmitted">
+        <p class="error-message">Customer No Plant is mandatory</p>
+      </div>
+      <div *ngIf="isSubmitted && plantFormData.controls['customerNo_plant'].hasError('required')">
+        <p class="error-message">Customer No Plant is mandatory</p>
+      </div>
+    </div>
+
+
+    <div class="col-6 py-2 ">
+      <label for="">Vendor no: plant <sup>*</sup></label>
+      <input type="text" formControlName="vendorNumberPlant" class="form-control" placeholder="Enter Vendor No Plant">
+      <div
+        *ngIf="plantFormData.controls['vendorNumberPlant'].touched && plantFormData.controls['vendorNumberPlant'].dirty && plantFormData.controls['vendorNumberPlant'].hasError('required') && !isSubmitted">
+        <p class="error-message">Vendor Number is mandatory</p>
+      </div>
+      <div *ngIf="isSubmitted && plantFormData.controls['vendorNumberPlant'].hasError('required')">
+        <p class="error-message">Vendor Number is mandatory</p>
+      </div>
+    </div>
+
+    <div class="col-6 py-2 ">
+      <label for=""> Purchase Organization <sup>*</sup></label>
+      <select class="form-select" formControlName="purchaseOrganizationId" (change)="handlePurchaseOrg($event)">
+        <option [selected]="plantFormData.value.purchaseOrganizationId === ''" value="" hidden>Select Purchase Org
+        </option>
+        <option *ngFor="let pur of purDetails | filterPipes:'purchase_org'" [value]="pur._id">{{pur.purchase_org}}</option>
+      </select>
+      <div
+        *ngIf="plantFormData.controls['purchaseOrganizationId'].touched && plantFormData.controls['purchaseOrganizationId'].dirty && plantFormData.controls['purchaseOrganizationId'].hasError('required') && !isSubmitted">
+        <p class="error-message">Purchase Org. is mandatory</p>
+      </div>
+      <div *ngIf="isSubmitted && plantFormData.controls['purchaseOrganizationId'].hasError('required')">
+        <p class="error-message">Purchase Org. is mandatory</p>
+      </div>
+    </div>
+
+
+
+    <div class="col-6 py-2 ">
+      <label for="">Sales Organization <sup>*</sup></label>
+      <select class="form-select" formControlName="salesOrganizationId">
+        <option [selected]="plantFormData.value.salesOrganizationId === ''" value="" hidden>Select Sales Org</option>
+        <option *ngFor="let list of salesDetail | filterPipes:'salesOrg'" [value]="list._id">{{list.salesOrg}}</option>
+      </select>
+      <div
+        *ngIf="plantFormData.controls['salesOrganizationId'].touched && plantFormData.controls['salesOrganizationId'].dirty && plantFormData.controls['salesOrganizationId'].hasError('required') && !isSubmitted">
+        <p class="error-message">Sales Org. is mandatory</p>
+      </div>
+      <div *ngIf="isSubmitted && plantFormData.controls['salesOrganizationId'].hasError('required')">
+        <p class="error-message">Sales Org. is mandatory</p>
+      </div>
+    </div>
+
+    <div class="col-6 py-2 ">
+      <label for=""> Tax Indicator: Plant <sup>*</sup></label>
+      <select class="form-select" formControlName="taxIndicatorId" (change)="handleTax($event)">
+        <option [selected]="plantFormData.value.taxIndicatorId === ''" value="" hidden>Select Tax</option>
+        <option *ngFor="let list of taxDetails | filterPipes:'description'" [value]="list.tax_ind_code">{{list.description}}</option>
+      </select>
+      <div
+        *ngIf="plantFormData.controls['taxIndicatorId'].touched && plantFormData.controls['taxIndicatorId'].dirty && plantFormData.controls['taxIndicatorId'].hasError('required') && !isSubmitted">
+        <p class="error-message">Tax Indicator is mandatory</p>
+      </div>
+      <div *ngIf="isSubmitted && plantFormData.controls['taxIndicatorId'].hasError('required')">
+        <p class="error-message">Tax Indicator is mandatory</p>
+      </div>
+    </div>
+
+
+    <div class="col-6 py-2 ">
+      <label for="">Storage Location <sup>*</sup></label>
+      <select class="form-select" formControlName="stoargeLocationId" (change)="handleStorageLocation($event)">
+        <option [selected]="plantFormData.value.stoargeLocationId === ''" value="" hidden>Select Storage Location
+        </option>
+        <option *ngFor="let list of storgaeLocationDetails | filterPipes:'description'" [value]="list.stor_loc_id">{{list.description}}</option>
+      </select>
+      <div
+        *ngIf="plantFormData.controls['stoargeLocationId'].touched && plantFormData.controls['stoargeLocationId'].dirty && plantFormData.controls['stoargeLocationId'].hasError('required') && !isSubmitted">
+        <p class="error-message">Storage Location is mandatory</p>
+      </div>
+      <div *ngIf="isSubmitted && plantFormData.controls['stoargeLocationId'].hasError('required')">
+        <p class="error-message">Storage Location is mandatory</p>
+      </div>
+    </div>
+    <div class="col-12 py-2 d-flex justify-content-end">
+      <button type="submit" class="btn btn-primary">
+        Save
+      </button>
+    </div>
+  </div>
+</form>
 </div>

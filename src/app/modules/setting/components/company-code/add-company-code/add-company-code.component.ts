@@ -23,6 +23,7 @@ export class AddCompanyCodeComponent {
   fileName: any = '';
   imageSrc:any = '';
   @ViewChild('inputFile') inputFile:any;
+  languageDetails:any = []
   constructor(  
     private fb: FormBuilder,
     private companySer: CompanyCodeService,
@@ -35,6 +36,7 @@ export class AddCompanyCodeComponent {
     this.getCountryDetails()
     this.getCompanyDetails()
     this.getCurrencyDetails()
+    this.getAllLanguageList()
     this.code()
   }
 
@@ -195,12 +197,11 @@ export class AddCompanyCodeComponent {
   }
 
   // single details for Language Detials
-  async getSingleLanguage(id: any) {
+  async getAllLanguageList() {
     try {
-      const result: any = await this.companyCodeSer.singleLanguageDetails(id);
+      const result: any = await this.companyCodeSer.getAllLanguageDetails();
       if (result.status === '1') {
-        this.languageName = result.data.languageName;
-        this.companyCode.controls.languageName.setValue(this.languageName)
+        this.languageDetails = result.data
       } else {
         this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
@@ -228,16 +229,17 @@ export class AddCompanyCodeComponent {
 
   selectCountryName(event: any) {
     this.citiesDetails = this.countryDetials.find((el: any) => el._id === event.target.value);
-    console.log(this.citiesDetails.value);
-    
+    console.log(this.citiesDetails);
+    if(this.citiesDetails){
     this.companyCode.controls.countryName.setValue(this.citiesDetails.countryName)
+    }
     this.companyCode.controls.languageId.setValue(this.citiesDetails.languageId)
+    this.companyCode.controls.languageName.setValue(this.citiesDetails.languageName)
     const findDefaultCurrency = this.currencyDetails.find((el:any) => el.countryId === event.target.value);
 
     this.companyCode.controls.currencyId.setValue(findDefaultCurrency._id)
     this.companyCode.controls.currencyName.setValue(findDefaultCurrency.code)
 
-    this.getSingleLanguage(this.citiesDetails.languageId)
 
 
   }

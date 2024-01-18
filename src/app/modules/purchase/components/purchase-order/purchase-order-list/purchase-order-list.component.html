@@ -2,36 +2,35 @@
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
   <div class="row mt-3 ">
     <div class="col-12">
-      <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-start ">
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start ">
+        <input type="search" name="" id="" placeholder="Po Number" class="form-control w-25">
+        <select class="form-select w-25" aria-label="Default select example">
+          <option selected>Select PO Type</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+        <select class="form-select w-25" aria-label="Default select example">
+          <option selected>Select Company Code</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
 
         <select class="form-select w-25" aria-label="Default select example">
-          <option selected>Select PO</option>
+          <option selected>Select Vendor</option>
           <option value="1">One</option>
           <option value="2">Two</option>
           <option value="3">Three</option>
         </select>
-        <select class="form-select w-25" aria-label="Default select example">
-          <option selected>Store</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-        <input type="search" name="" id="" placeholder="Search.." class="form-control w-25">
-
-        <select class="form-select w-25" aria-label="Default select example">
-          <option selected>Distributor Name</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-      </div> -->
+      </div>
 
       <div class="row mt-3">
         <div class="col-12">
           <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
             <button (click)="nextPage('/purchase/add-purchase-order')" class="btn btn-primary " type="button"
               style="color: white;background: #00acff;">Add PO</button>
-      
+
             <button class="btn btn-danger" type="button" style="color: white;">
               <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
               Delete Selected PO</button>
@@ -40,20 +39,17 @@
             </button>
             <mat-menu #menu="matMenu">
               <button mat-menu-item>
-                <!-- <mat-icon>dialpad</mat-icon> -->
                 <span>Import PO</span>
               </button>
-              <button mat-menu-item>
-                <!-- <mat-icon>voicemail</mat-icon> -->
+              <button mat-menu-item (click)="exportExcel()">
                 <span>Export PO</span>
               </button>
-              <button mat-menu-item>
-                <!-- <mat-icon>notifications_off</mat-icon> -->
+              <button mat-menu-item (click)="downloadExcel()">
                 <span>Sample PO Sheet</span>
               </button>
             </mat-menu>
-      
-      
+
+
           </div>
         </div>
       </div>
@@ -63,19 +59,21 @@
             <table class="table table-hover">
               <thead>
                 <tr>
+                  <th>SN</th>
                   <th scope="col">PO Type</th>
                   <th scope="col">PO Number </th>
-                  <th scope="col">Net Tax</th>
+                  <th scope="col">Vendor Name</th>
                   <th scope="col">PO Date</th>
                   <th scope="col">Company COde</th>
                   <th scope="col">Action</th>
-                  <th scope="col"><input type="checkbox" > Select All</th>
+                  <th scope="col"><input type="checkbox"> Select All</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <th scope="row">1</th>
                   <td>Mark</td>
+                  <td>PO12</td>
                   <td>Otto</td>
                   <td>mdo</td>
                   <td>Mark</td>
@@ -89,11 +87,12 @@
                       </div>
                     </div>
                   </td>
-                  <td><input type="checkbox" ></td>
+                  <td><input type="checkbox"></td>
                 </tr>
                 <tr>
                   <th scope="row">2</th>
                   <td>Jacob</td>
+                  <td>PO13</td>
                   <td>Thornton</td>
                   <td>fat</td>
                   <td>Mark</td>
@@ -107,11 +106,12 @@
                       </div>
                     </div>
                   </td>
-                  <td><input type="checkbox" ></td>
+                  <td><input type="checkbox"></td>
                 </tr>
                 <tr>
                   <th scope="row">3</th>
                   <td>Larry</td>
+                  <td>PO1234</td>
                   <td>the Bird</td>
                   <td>twitter</td>
                   <td>Mark</td>
@@ -125,11 +125,11 @@
                       </div>
                     </div>
                   </td>
-                  <td><input type="checkbox" ></td>
-      
+                  <td><input type="checkbox"></td>
+
                 </tr>
               </tbody>
-      
+
             </table>
           </div>
         </div>

@@ -55,13 +55,13 @@
 
       </div>
 
-      
+
 
       <div class="col-6 py-2 ">
         <label for="">Country <sup>*</sup></label>
         <select class="form-select" formControlName="countryId" (change)="selectCountryName($event)">
           <option [selected]="plantFormData.value.countryId === ''" value="" hidden>Select Country</option>
-          <option *ngFor="let list of countryDetials;" [value]="list._id"> {{list.countryName}} </option>
+          <option *ngFor="let list of countryDetials| filterPipes:'countryName';" [value]="list._id"> {{list.countryName}} </option>
         </select>
         <div
           *ngIf="plantFormData.controls['countryId'].touched && plantFormData.controls['countryId'].dirty && plantFormData.controls['countryId'].hasError('required') && !isSubmitted">
@@ -77,7 +77,7 @@
         <select class="form-select" formControlName="cityId"
           [ngStyle]="{'pointer-events': !plantFormData.value.countryId ? 'none' :  'all'}">
           <option [selected]="plantFormData.value.cityId === ''" value="" hidden>Select cities</option>
-          <option *ngFor="let list of citiesDetails?.cities?.cities" [value]="list">{{list}}</option>
+          <option *ngFor="let list of (citiesDetails?.cities?.cities).sort()" [value]="list">{{list}}</option>
         </select>
         <div
           *ngIf="plantFormData.controls['cityId'].touched && plantFormData.controls['cityId'].dirty && plantFormData.controls['cityId'].hasError('required') && !isSubmitted">
@@ -90,11 +90,10 @@
 
       <div class="col-6 py-2 ">
         <label for="">Language <sup>*</sup></label>
-        <select class="form-select" formControlName="languageId"
-          [ngStyle]="{'pointer-events': !plantFormData.value.countryId ? 'none' :  'all'}">
-          <option [selected]="plantFormData.value.languageId === ''" value="" hidden>Select Language</option>
-
-          <option [value]="citiesDetails.languageId">{{languageName}}</option>
+        <select class="form-select " aria-label="Default select example" formControlName="languageId">
+          <option [selected]="plantFormData.value.languageId===''" value="" hidden>Select Language</option>
+          <option *ngFor="let list of languageDetails | filterPipes:'languageCode';" [value]="list._id">
+            {{list.languageCode}}</option>
         </select>
         <div
           *ngIf="plantFormData.controls['languageId'].touched && plantFormData.controls['languageId'].dirty && plantFormData.controls['languageId'].hasError('required') && !isSubmitted">
@@ -134,7 +133,7 @@
         <select class="form-select" formControlName="timeZoneId" (change)="handleTimeZone($event)">
           <option [selected]="plantFormData.value.timeZoneId === ''" value="" hidden>Select Time Zone
           </option>
-          <option *ngFor="let list of timeZone" [value]="list._id">{{list.timeZoneType}}</option>
+          <option *ngFor="let list of timeZone | filterPipes:'timeZoneType'" [value]="list._id">{{list.timeZoneType}}</option>
         </select>
         <div
           *ngIf="plantFormData.controls['timeZoneId'].touched && plantFormData.controls['timeZoneId'].dirty && plantFormData.controls['timeZoneId'].hasError('required') && !isSubmitted">
@@ -188,7 +187,7 @@
         <select class="form-select" formControlName="purchaseOrganizationId" (change)="handlePurchaseOrg($event)">
           <option [selected]="plantFormData.value.purchaseOrganizationId === ''" value="" hidden>Select Purchase Org
           </option>
-          <option *ngFor="let pur of purDetails" [value]="pur._id">{{pur.purchase_org}}</option>
+          <option *ngFor="let pur of purDetails | filterPipes:'purchase_org'" [value]="pur._id">{{pur.purchase_org}}</option>
         </select>
         <div
           *ngIf="plantFormData.controls['purchaseOrganizationId'].touched && plantFormData.controls['purchaseOrganizationId'].dirty && plantFormData.controls['purchaseOrganizationId'].hasError('required') && !isSubmitted">
@@ -203,9 +202,9 @@
 
       <div class="col-6 py-2 ">
         <label for="">Sales Organization <sup>*</sup></label>
-        <select class="form-select" formControlName="salesOrganizationId" >
+        <select class="form-select" formControlName="salesOrganizationId">
           <option [selected]="plantFormData.value.salesOrganizationId === ''" value="" hidden>Select Sales Org</option>
-          <option *ngFor="let list of salesDetail" [value]="list._id">{{list.salesOrg}}</option>
+          <option *ngFor="let list of salesDetail | filterPipes:'salesOrg'" [value]="list._id">{{list.salesOrg}}</option>
         </select>
         <div
           *ngIf="plantFormData.controls['salesOrganizationId'].touched && plantFormData.controls['salesOrganizationId'].dirty && plantFormData.controls['salesOrganizationId'].hasError('required') && !isSubmitted">
@@ -220,7 +219,7 @@
         <label for=""> Tax Indicator: Plant <sup>*</sup></label>
         <select class="form-select" formControlName="taxIndicatorId" (change)="handleTax($event)">
           <option [selected]="plantFormData.value.taxIndicatorId === ''" value="" hidden>Select Tax</option>
-          <option *ngFor="let list of taxDetails" [value]="list.tax_ind_code">{{list.description}}</option>
+          <option *ngFor="let list of taxDetails | filterPipes:'description'" [value]="list.tax_ind_code">{{list.description}}</option>
         </select>
         <div
           *ngIf="plantFormData.controls['taxIndicatorId'].touched && plantFormData.controls['taxIndicatorId'].dirty && plantFormData.controls['taxIndicatorId'].hasError('required') && !isSubmitted">
@@ -237,7 +236,7 @@
         <select class="form-select" formControlName="stoargeLocationId" (change)="handleStorageLocation($event)">
           <option [selected]="plantFormData.value.stoargeLocationId === ''" value="" hidden>Select Storage Location
           </option>
-          <option *ngFor="let list of storgaeLocationDetails" [value]="list.stor_loc_id">{{list.description}}</option>
+          <option *ngFor="let list of storgaeLocationDetails | filterPipes:'description'" [value]="list.stor_loc_id">{{list.description}}</option>
         </select>
         <div
           *ngIf="plantFormData.controls['stoargeLocationId'].touched && plantFormData.controls['stoargeLocationId'].dirty && plantFormData.controls['stoargeLocationId'].hasError('required') && !isSubmitted">
@@ -247,10 +246,10 @@
           <p class="error-message">Storage Location is mandatory</p>
         </div>
       </div>
-        <div class="col-12 py-2 d-flex justify-content-end">
-          <button type="submit" class="btn btn-primary">
-            Save
-          </button>
+      <div class="col-12 py-2 d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary">
+          Save
+        </button>
       </div>
     </div>
   </form>

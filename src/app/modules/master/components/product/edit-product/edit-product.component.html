@@ -26,7 +26,7 @@
                             <option [selected]="general.value.materialGroupId === ''" value="" hidden>Select Material
                                 Group
                             </option>
-                            <option *ngFor="let list of materialGrpDetail" [value]="list._id">{{list.description}}
+                            <option *ngFor="let list of materialGrpDetail  | filterPipes:'description'" [value]="list._id">{{list.description}}
                             </option>
 
                         </select>
@@ -45,7 +45,7 @@
                             <option [selected]="general.value.materialTypeId === ''" value="" hidden>Select Material
                                 Type
                             </option>
-                            <option *ngFor="let list of materialTypeDetail" [value]="list._id">{{list.description}}
+                            <option *ngFor="let list of materialTypeDetail | filterPipes:'description'" [value]="list._id">{{list.description}}
                             </option>
 
                         </select>
@@ -70,7 +70,7 @@
                                 Sector
                             </option>
 
-                            <option *ngFor="let list of industryDetail" [value]="list._id">{{list.description}}</option>
+                            <option *ngFor="let list of industryDetail | filterPipes:'description'" [value]="list._id">{{list.description}}</option>
                         </select>
                         <div
                             *ngIf="general.controls['industrySectorId'].touched && general.controls['industrySectorId'].dirty && general.controls['industrySectorId'].hasError('required') && !isSubmitted">
@@ -112,7 +112,7 @@
                             formControlName="storageConditionId" (change)="handleStorage($event)">
                             <option [selected]="general.value.storageConditionId === ''" value="" hidden>Select Storage
                                 Condition</option>
-                            <option *ngFor="let list of storageConditionDetail" [value]="list._id">{{list.description}}
+                            <option *ngFor="let list of storageConditionDetail | filterPipes:'description'" [value]="list._id">{{list.description}}
                             </option>
                         </select>
                         <div *ngIf="general.controls['storageConditionId'].touched &&
@@ -130,7 +130,7 @@
                             formControlName="tempConditionId" (change)="handleTemp($event)">
                             <option [selected]="general.value.tempConditionId === ''" value="" hidden>Select Temparature
                                 Condition
-                            <option *ngFor="let list of tempDetails" [value]="list._id">{{list.description}}</option>
+                            <option *ngFor="let list of tempDetails | filterPipes:'description'" [value]="list._id">{{list.description}}</option>
                         </select>
                         <div
                             *ngIf="general.controls['tempConditionId'].touched && general.controls['tempConditionId'].dirty && general.controls['tempConditionId'].hasError('required') && !isSubmitted">
@@ -148,7 +148,7 @@
                             <option [selected]="general.value.transporationGroupId === ''" value="" hidden>Select
                                 Transportation
                                 Group</option>
-                            <option *ngFor="let list of transDetails" [value]="list._id">{{list.description}}</option>
+                            <option *ngFor="let list of transDetails | filterPipes:'description'" [value]="list._id">{{list.description}}</option>
 
                         </select>
                         <div
@@ -266,7 +266,7 @@
                             <option [selected]="general.value.baseUnitMeasure === ''" value="" hidden>Select Base Unit
                                 Of Measure
                             </option>
-                            <option *ngFor="let list of uomDetail" [value]="list._id">{{list.description}}</option>
+                            <option *ngFor="let list of uomDetail | filterPipes:'code'" [value]="list._id">{{list.code}}</option>
                         </select>
                         <div
                             *ngIf="general.controls['baseUnitMeasure'].touched && general.controls['baseUnitMeasure'].dirty && general.controls['baseUnitMeasure'].hasError('required') && !isSubmitted">
@@ -293,7 +293,7 @@
                         <select class="form-select " aria-label="Default select example" formControlName="weightUnit">
                             <option [selected]="general.value.weightUnit === ''" value="" hidden>Select Weight Unit
                             </option>
-                            <option *ngFor="let list of weigthUnitDetail" [value]="list._id">{{list.code}}</option>
+                            <option *ngFor="let list of weigthUnitDetail | filterPipes:'code'" [value]="list._id">{{list.code}}</option>
 
                         </select>
                         <div
@@ -363,7 +363,7 @@
                             <option [selected]="general.value.batchManagment === ''" value="" hidden>Select batch
                                 Management
                             </option>
-                            <option *ngFor="let list of batchManagementDetail" [value]="list._id">{{list.code}}</option>
+                            <option *ngFor="let list of batchManagementDetail | filterPipes:'code'" [value]="list._id">{{list.code}}</option>
                             
 
                         </select>
@@ -383,7 +383,7 @@
                             <option [selected]="general.value.taxClassificationId === ''" value="" hidden>Select Tax
                                 Classification
                             </option>
-                            <option *ngFor="let list of taxDetails" [value]="list._id">{{list.description}}</option>
+                            <option *ngFor="let list of taxDetails | filterPipes:'description'" [value]="list._id">{{list.description}}</option>
 
                         </select>
                         <div
@@ -415,7 +415,7 @@
                             <option [selected]="general.value.expirationDataRelavance === ''" value="" hidden>Select
                                 Expiration Date
                             </option>
-                            <option *ngFor="let list of expirateDataRelavanceDetail" [value]="list._id">{{list.code}}</option>
+                            <option *ngFor="let list of expirateDataRelavanceDetail | filterPipes:'code'" [value]="list._id">{{list.code}}</option>
                          
                         </select>
                         <div
@@ -498,7 +498,7 @@
                                                                 formControlName="storagePlant">
                                                                 <option [selected]="general.value.storagePlant === ''"
                                                                     value="" hidden>Select Storage Plant</option>
-                                                                <option *ngFor="let list of plantDetail"
+                                                                <option *ngFor="let list of plantDetail | filterPipes:'plantCode'"
                                                                     [value]="list._id">{{list.plantCode}}
                                                                 </option>
                                                             </select>
@@ -511,7 +511,7 @@
                                                                 <option
                                                                     [selected]="general.value.storageLocationId === ''"
                                                                     value="" hidden>Select Storage Location</option>
-                                                                <ng-container *ngFor="let list of plantDetail">
+                                                                <ng-container *ngFor="let list of plantDetail ">
                                                                     <option
                                                                         *ngIf="list._id === financial.value.storagePlant"
                                                                         [value]="list.stoargeLocationId">
@@ -527,7 +527,7 @@
                                                                 <option
                                                                     [selected]="general.value.procurementType === ''"
                                                                     value="" hidden>Select procurement Type</option>
-                                                                <option *ngFor="let list of procurementDetails"
+                                                                <option *ngFor="let list of procurementDetails | filterPipes:'code'"
                                                                     [value]="list._id">{{list.code}}</option>
 
                                                             </select>
@@ -549,7 +549,7 @@
                                                                 <option
                                                                     [selected]="general.value.availabilityCheck === ''"
                                                                     value="" hidden>Select Availibilty Check</option>
-                                                                    <option *ngFor="let list of availibilityCheckDetail" [value]="list._id">{{list.code}}</option>
+                                                                    <option *ngFor="let list of availibilityCheckDetail | filterPipes:'code'" [value]="list._id">{{list.code}}</option>
 
                                                             </select>
                                                         </td>
@@ -559,7 +559,7 @@
                                                                 formControlName="profitCenter">
                                                                 <option [selected]="general.value.profitCenter === ''"
                                                                     value="" hidden>Select profit</option>
-                                                                <option *ngFor="let list of profitCenterDetail"
+                                                                <option *ngFor="let list of profitCenterDetail | filterPipes:'code'"
                                                                     [value]="list._id">{{list.code}}</option>
 
                                                             </select>
@@ -571,7 +571,7 @@
                                                                 <option [selected]="general.value.bomRelevance === ''"
                                                                     value="" hidden>
                                                                     Select bom</option>
-                                                                    <option *ngFor="let list of bomRelavanceDetail" [value]="list._id">{{list.code}}</option>
+                                                                    <option *ngFor="let list of bomRelavanceDetail | filterPipes:'code'" [value]="list._id">{{list.code}}</option>
                                                                
                                                             </select>
                                                         </td>
@@ -618,7 +618,7 @@
                                                                 <option
                                                                     [selected]="general.value.salesOrganization === ''"
                                                                     value="" hidden>Select Sales Organization</option>
-                                                                <option *ngFor="let list of salesData"
+                                                                <option *ngFor="let list of salesData | filterPipes:'salesOrg'"
                                                                     [value]="list._id">
                                                                     {{list.salesOrg}}</option>
                                                             </select>
@@ -630,7 +630,7 @@
                                                                 <option
                                                                     [selected]="general.value.distributionChannel === ''"
                                                                     value="" hidden>Select distribution Channel</option>
-                                                                <option *ngFor="let list of distributionDetail"
+                                                                <option *ngFor="let list of distributionDetail | filterPipes:'distributionChannel'"
                                                                     [value]="list._id">{{list.distributionChannel}}
                                                                 </option>
                                                             </select>
@@ -640,8 +640,8 @@
                                                                 formControlName="deliveryUnit">
                                                                 <option [selected]="general.value.deliveryUnit === ''"
                                                                     value="" hidden>Select Delivery Unit</option>
-                                                                <option *ngFor="let list of uomDetail"
-                                                                    [value]="list._id">{{list.description}}</option>
+                                                                <option *ngFor="let list of uomDetail | filterPipes:'code'"
+                                                                    [value]="list._id">{{list.code}}</option>
 
                                                             </select>
                                                         </td>
@@ -653,7 +653,7 @@
                                                                 <option
                                                                     [selected]="general.value.deliveringPlantId === ''"
                                                                     value="" hidden>Select Delivery Plant</option>
-                                                                <option *ngFor="let list of plantDetail"
+                                                                <option *ngFor="let list of plantDetail | filterPipes:'plantCode'"
                                                                     [value]="list._id">{{list.plantCode}}
                                                                 </option>
                                                             </select>
@@ -670,7 +670,7 @@
                                                                 <option [selected]="general.value.materialGroup === ''"
                                                                     value="" hidden>Select Material Group</option>
 
-                                                                <option *ngFor="let list of materialGrpDetail"
+                                                                <option *ngFor="let list of materialGrpDetail | filterPipes:'description'" 
                                                                     [value]="list._id">{{list.description}}
                                                                 </option>
                                                             </select>
@@ -682,7 +682,7 @@
                                                                 <option
                                                                     [selected]="general.value.acctAssignmentGrp === ''"
                                                                     value="" hidden>Select Acct. Ass Grp</option>
-                                                                <option *ngFor="let list of acctAssignDetail"
+                                                                <option *ngFor="let list of acctAssignDetail | filterPipes:'description'"
                                                                     [value]="list._id">{{list.description}}</option>
 
                                                             </select>

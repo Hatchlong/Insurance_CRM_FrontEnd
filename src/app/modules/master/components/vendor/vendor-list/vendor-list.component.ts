@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { VendorService } from '../../../services/vendor/vendor.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { CompanyCodeService } from 'src/app/modules/setting/Services/company-code/company-code.service';
 
 
 @Component({
@@ -29,6 +30,10 @@ totalItem: any = 0;
   currentPage = 1;
   page?: number = 0;
   itemsPerPage = 10;
+  countryDetails:any = [];
+  citiesDetails:any = [];
+  countryName:any = '';
+  citiesName:any = '';
 sampleJson = {   
   "vendorId":"12345",
   "vendorName": "Test",
@@ -69,12 +74,15 @@ sampleJson = {
   constructor(
     private router:Router,
     private vendorSer : VendorService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private companySer:CompanyCodeService
   ){ }
 
    ngOnInit(): void{
     this.getAllVendorData(this.page, this.itemsPerPage)
     this.getVendorType()
+    this.getCountryDetails()
+
   }
 
   nextPage(url: any){
@@ -301,14 +309,16 @@ dropDownDetails:any =[]
 //filter text
   handleFilter(event: any) {
     const filterValue = event.target.value.toUpperCase();
-    if (!filterValue && !this.selectedVendorType) {
+    if (!filterValue && !this.selectedVendorType && !this.countryName) {
       this.vendorDetails = this.allVendorDetails;
       return;
     }
   
     this.vendorDetails = this.allVendorDetails.filter((obj: any) =>
       ((obj.vendorId.toUpperCase()).includes(filterValue) || (obj.vendorName.toUpperCase()).includes(filterValue)) &&
-      (!this.selectedVendorType || obj.vendorTypeName.toLowerCase() === this.selectedVendorType.toLowerCase())
+      (!this.selectedVendorType || obj.vendorTypeName.toLowerCase() === this.selectedVendorType.toLowerCase()) &&
+      (!this.countryName || obj.countryName.toLowerCase() === this.countryName.toLowerCase())
+
     );
   }
   
@@ -322,7 +332,8 @@ dropDownDetails:any =[]
     const filterValue = this.searchInput.nativeElement.value.toUpperCase();
     this.vendorDetails = this.allVendorDetails.filter((obj: any) =>
       ((obj.vendorId.toUpperCase()).includes(filterValue) || (obj.vendorName.toUpperCase()).includes(filterValue)) &&
-      (!this.selectedVendorType || obj.vendorTypeName.toLowerCase() === this.selectedVendorType.toLowerCase())
+      (!this.selectedVendorType || obj.vendorTypeName.toLowerCase() === this.selectedVendorType.toLowerCase())&&
+      (!this.countryName || obj.countryName.toLowerCase() === this.countryName.toLowerCase())
     );
   }
 
@@ -354,6 +365,42 @@ dropDownDetails:any =[]
     this.page = event.page;
     const records = (this.page-1) * this.itemsPerPage;
     this.getAllVendorData(records, this.itemsPerPage)
+  }
+
+   //get Country Details 
+
+   async getCountryDetails() {
+    try {
+      const result: any = await this.companySer.getAllCountryDetails();
+      if (result.status === '1') {
+        this.countryDetails = result.data;
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+  selectCountryName(event: any) {
+    this.citiesDetails = this.countryDetails.find((el: any) => el.countryName === event.target.value);
+    this.countryName = event.target.value;
+    this.filterData()
+  }
+
+  selectCitiesName(event:any){
+    this.citiesName = event.target.value;
+    this.filterData()
   }
   
 }

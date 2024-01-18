@@ -113,7 +113,7 @@
                 <label for="" class="">Currency <sup>*</sup></label>
                 <select class="form-select " aria-label="Default select example" formControlName="currencyId"
                     (change)="handleCurrency($event)"
-                    [ngStyle]="{'pointer-events': !companyCode.value.countryId ? 'none' :  'all'}">
+                    >
                     <option [selected]="companyCode.value.currencyId===''" value="" hidden>Select Currency</option>
                     <option *ngFor="let list of currencyDetails | filterPipes:'code'" [value]="list._id">{{list.code}}
                     </option>
@@ -129,9 +129,9 @@
             <div class="col-6 py-2">
                 <label for="">Language <sup>*</sup></label>
                 <select class="form-select " aria-label="Default select example" formControlName="languageId"
-                    [ngStyle]="{'pointer-events': !companyCode.value.countryId ? 'none' :  'all'}">
+                    >
                     <option [selected]="companyCode.value.languageId===''" value="" hidden>Select Language</option>
-                    <option [value]="citiesDetails.languageId">{{languageName}}</option>
+                    <option *ngFor="let list of languageDetails | filterPipes:'languageCode';" [value]="list._id" >{{list.languageCode}}</option>
                 </select>
                 <div
                     *ngIf="companyCode.controls['languageId'].touched && companyCode.controls['languageId'].dirty && companyCode.controls['languageId'].hasError('required') && !isSubmitted">

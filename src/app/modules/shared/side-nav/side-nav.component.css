@@ -78,6 +78,17 @@
   cursor: pointer;
   transition: all 0.3s ease;
 }
+
+.sidebar .nav-links li mat-icon, .purchase{
+  height: 50px;
+  min-width: 78px;
+  text-align: center;
+  line-height: 50px;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 .sidebar .nav-links li.showMenu i.arrow{
   transform: rotate(-180deg);
 }
@@ -108,18 +119,19 @@
 }
 .sidebar .nav-links li.showMenu .sub-menu{
   display: block;
-  background-color: #fff !important;
 }
 .sidebar .nav-links li .sub-menu a{
-  color: black;
+  color: white;
   font-size: 15px;
   padding: 5px 5px;
   white-space: nowrap;
-  opacity: 0.6;
+  opacity: 1;
   transition: all 0.3s ease;
 }
 .sidebar .nav-links li .sub-menu a:hover{
   opacity: 1;
+  background-color: white !important;
+  color: black !important;
 }
 .sidebar.close .nav-links li .sub-menu{
   position: absolute;
@@ -138,8 +150,6 @@
   opacity: 1;
   pointer-events: auto;
   transition: all 0.4s ease;
-  background: white;
-  border: 1px solid whitesmoke;
 }
 .sidebar .nav-links li .sub-menu .link_name{
   display: none;

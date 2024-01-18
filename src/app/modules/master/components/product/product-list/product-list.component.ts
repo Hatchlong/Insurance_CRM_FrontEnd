@@ -27,7 +27,7 @@ export class ProductListComponent implements OnInit {
   itemsPerPage = 10;
 
   filterDetails: any = []
-
+  
   sampleJson = {
     "materialId": "pro123",
     "materialDescription": "Test",
@@ -94,7 +94,7 @@ export class ProductListComponent implements OnInit {
   constructor(
     private router: Router,
     private productSer: ProductService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
   ) {
 
   }
@@ -162,6 +162,8 @@ export class ProductListComponent implements OnInit {
     }
   }
 
+ 
+
   //get material type
 
   async getMaterialType() {
@@ -216,7 +218,7 @@ export class ProductListComponent implements OnInit {
     this.productDetails = this.allProductDetails.filter((obj: any) =>
       ((obj.materialId.toUpperCase()).includes(filterValue) || (obj.materialDescription.toUpperCase()).includes(filterValue)) &&
       (!this.selectedMaterialType || obj.materialTypeName.toLowerCase() === this.selectedMaterialType.toLowerCase()) &&
-      (!this.selectedIndustry || obj.industrySectorName.toLowerCase() === this.selectedIndustry.toLowerCase()) 
+      (!this.selectedIndustry || obj.industrySectorName.toLowerCase() === this.selectedIndustry.toLowerCase())
     );
   }
   
@@ -426,5 +428,7 @@ export class ProductListComponent implements OnInit {
     this.getProductDetails(records, this.itemsPerPage)
   }
 
+
+  
 }
 

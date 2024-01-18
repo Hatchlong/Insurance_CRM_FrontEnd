@@ -15,7 +15,7 @@ import { SalesOrgService } from '../../../Services/sales-org/sales-org.service';
   styleUrls: ['./edit-plant-data.component.css']
 })
 export class EditPlantDataComponent {
-  plantsData: any = FormGroup
+  plantFormData: any = FormGroup
   plantDetails: any = [];
   plantDataId: any = ''
   countryDetials: any = []
@@ -28,6 +28,7 @@ export class EditPlantDataComponent {
   salesDetail: any = []
   isSubmitted: any = false
   isShowPadding:any = false;
+  languageDetails:any = []
   constructor(
     private fb: FormBuilder,
     private plantDataSer: PlantDataService,
@@ -42,6 +43,7 @@ export class EditPlantDataComponent {
 
   ngOnInit(): void {
     this.plantDataId = this.activeRouter.snapshot.paramMap.get('id');
+    this.getAllLanguageList()
     this.plantData()
     this.getCountryDetails()
     this.getPurchaseOrgDetail()
@@ -57,7 +59,7 @@ export class EditPlantDataComponent {
   }
 
   plantData() {
-    this.plantsData = this.fb.group({
+    this.plantFormData = this.fb.group({
       _id: ['', Validators.required],
       plantCode: ['', Validators.required],
       name1: ['', Validators.required],
@@ -92,11 +94,9 @@ export class EditPlantDataComponent {
     try {
       const result: any = await this.plantDataSer.singlePlantData(this.plantDataId)
       if (result.status === '1') {
-        this.plantsData.patchValue(result.data);
-        console.log(this.plantsData.value)
-        this.citiesDetails = this.countryDetials.find((el: any) => el._id === this.plantsData.value.countryId);
-        this.plantsData.controls.languageId.setValue(this.citiesDetails.languageId)
-        this.getSingleLanguage(this.citiesDetails.languageId)
+        this.plantFormData.patchValue(result.data);
+        console.log(this.plantFormData.value)
+        this.citiesDetails = this.countryDetials.find((el: any) => el._id === this.plantFormData.value.countryId);
       }
     } catch (error: any) {
       if (error.error.message) {
@@ -155,12 +155,12 @@ return
   async submitData() {
     try {
       this.isSubmitted = true
-      console.log(this.plantsData.value)
-      if (this.plantsData.invalid) {
+      console.log(this.plantFormData.value)
+      if (this.plantFormData.invalid) {
         return
       }
 
-      const result: any = await this.plantDataSer.updatePlantData(this.plantsData.value);
+      const result: any = await this.plantDataSer.updatePlantData(this.plantFormData.value);
       if (result.status === '1') {
         this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
@@ -340,12 +340,13 @@ return
   }
 
 
-  async getSingleLanguage(id: any) {
+ 
+  // single details for Language Detials
+  async getAllLanguageList() {
     try {
-      const result: any = await this.companyCodeSer.singleLanguageDetails(id);
+      const result: any = await this.companyCodeSer.getAllLanguageDetails();
       if (result.status === '1') {
-        this.languageName = result.data.languageName;
-        this.plantsData.controls.languageName.setValue(result.data.languageName)
+        this.languageDetails = result.data
       } else {
         this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
@@ -360,48 +361,48 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
-      });;
+      });
     }
   }
 
   selectCountryName(event: any) {
     this.citiesDetails = this.countryDetials.find((el: any) => el._id === event.target.value);
-    this.plantsData.controls.countryName.setValue(this.citiesDetails.countryName)
+    this.plantFormData.controls.countryName.setValue(this.citiesDetails.countryName)
 
-    this.plantsData.controls.languageId.setValue(this.citiesDetails.languageId)
-    this.getSingleLanguage(this.citiesDetails.languageId)
+    this.plantFormData.controls.languageId.setValue(this.citiesDetails.languageId);
+    this.plantFormData.controls.languageName.setValue(this.citiesDetails.languageName);
   }
 
   // Add the purchase Name
   handlePurchaseOrg(event: any) {
     const findPurchaseDetail = this.purDetails.find((el: any) => el._id === event.target.value);
-    this.plantsData.controls.purchaseOrganizationName.setValue(findPurchaseDetail.purchase_org)
+    this.plantFormData.controls.purchaseOrganizationName.setValue(findPurchaseDetail.purchase_org)
   }
 
   // Add the purchase Name
   handleTax(event: any) {
     const findPurchaseDetail = this.taxDetails.find((el: any) => el.tax_ind_code === +event.target.value);
-    this.plantsData.controls.taxIndicatorName.setValue(findPurchaseDetail.description)
+    this.plantFormData.controls.taxIndicatorName.setValue(findPurchaseDetail.description)
   }
 
   // Add the purchase Name
   handleStorageLocation(event: any) {
     const findPurchaseDetail = this.storgaeLocationDetails.find((el: any) => el.stor_loc_id === +event.target.value);
-    this.plantsData.controls.stoargeLocationName.setValue(findPurchaseDetail.description)
+    this.plantFormData.controls.stoargeLocationName.setValue(findPurchaseDetail.description)
   }
   handleTimeZone(event: any) {
     const timeDetail = this.timeZone.find((el: any) => el._id === event.target.value);
-    this.plantsData.controls.timeZoneName.setValue(timeDetail.timeZoneType)
+    this.plantFormData.controls.timeZoneName.setValue(timeDetail.timeZoneType)
   }
   handleSalesData(event: any) {
     const findsalesData = this.salesDetail.find((el: any) => el._id === event.target.value)
-    this.plantsData.controls.salesOrganizationName.setValue(findsalesData.salesOrg)
+    this.plantFormData.controls.salesOrganizationName.setValue(findsalesData.salesOrg)
   }
 
 }

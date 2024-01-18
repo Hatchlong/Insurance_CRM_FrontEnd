@@ -29,11 +29,11 @@ export class AddVendorComponent implements OnInit {
   companyCodeDetails: any = []
   currencyDetails: any = []
   isShowPadding: any = false;
-  vendorTypeDetail:any = [];
-  vendorIdisShow:any = false;
-  paymentMethodDetails: any = [] 
+  vendorTypeDetail: any = [];
+  vendorIdisShow: any = false;
+  paymentMethodDetails: any = []
   reconcilationAccountDetails: any = []
-
+  languageDetails:any = []
 
   constructor(
     private fb: FormBuilder,
@@ -50,6 +50,7 @@ export class AddVendorComponent implements OnInit {
   ngOnInit(): void {
     this.createVendorFormFields()
     this.getCountryDetails()
+    this.getAllLanguageList()
     this.getMOTDetail()
     this.getIncoTermsDetail()
     this.getCompanyCodeDetail()
@@ -66,7 +67,7 @@ export class AddVendorComponent implements OnInit {
       vendorId: [''],
       vendorTypeFlag: ['', Validators.required],
       vendorTypeId: ['', Validators.required],
-      vendorTypeName:['', Validators.required],
+      vendorTypeName: ['', Validators.required],
       addressCountry: ['', Validators.required],
       languageId: ['', Validators.required],
       languageName: ['', Validators.required],
@@ -197,12 +198,11 @@ export class AddVendorComponent implements OnInit {
   }
 
   //  single details for Language Detials
-  async getSingleLanguage(id: any) {
+  async getAllLanguageList() {
     try {
-      const result: any = await this.companySer.singleLanguageDetails(id);
+      const result: any = await this.companySer.getAllLanguageDetails();
       if (result.status === '1') {
-        this.languageName = result.data.languageName
-        this.vendorFormGroup.controls.languageName.setValue(result.data.languageName)
+        this.languageDetails = result.data
       } else {
         this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
@@ -227,16 +227,18 @@ export class AddVendorComponent implements OnInit {
     }
   }
 
+
   selectCountryName(event: any) {
     console.log(event.target.value)
     this.citiesDetails = this.countryDetails.find((el: any) => el._id === event.target.value);
     this.vendorFormGroup.controls.countryName.setValue(this.citiesDetails.countryName)
     this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
-    this.getSingleLanguage(this.citiesDetails.languageId)
+    this.vendorFormGroup.controls.languageName.setValue(this.citiesDetails.languageName)
+
 
   }
 
-  
+
   handleCurrency(event: any) {
     const findCurrencyCode = this.currencyDetails.find((el: any) => el._id === event.target.value);
     this.vendorDetials.controls.currencyName.setValue(findCurrencyCode.code)
@@ -445,25 +447,25 @@ export class AddVendorComponent implements OnInit {
   handleVendorType(event: any) {
     const findVendorType = this.vendorTypeDetail.find((el: any) => el._id === event.target.value)
     console.log(findVendorType);
-    if(findVendorType.num_range === 'M'){
+    if (findVendorType.num_range === 'M') {
       this.vendorIdisShow = true;
       this.vendorFormGroup.controls.vendorId.setValue("")
-    }else{
+    } else {
       this.vendorIdisShow = false;
       this.vendorFormGroup.controls.vendorId.reset()
     }
     this.vendorFormGroup.controls.vendorTypeFlag.setValue(findVendorType.num_range)
-    this.vendorFormGroup.controls.vendorTypeName.setValue(findVendorType.description)  
+    this.vendorFormGroup.controls.vendorTypeName.setValue(findVendorType.description)
 
   }
-  get drop(){
+  get drop() {
     return this.vendorFormGroup.get('vendorTypeName')
   }
 
 
-   //get payment_method 
+  //get payment_method 
 
-   async getPaymentMethodDetails() {
+  async getPaymentMethodDetails() {
     try {
       const result: any = await this.vendorSer.getAllPaymentMethodDetails()
       if (result.status === '1') {

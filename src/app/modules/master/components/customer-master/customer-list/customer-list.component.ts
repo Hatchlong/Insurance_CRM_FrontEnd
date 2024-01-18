@@ -1,27 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CustomerService } from '../../../services/customer/customer.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { CompanyCodeService } from 'src/app/modules/setting/Services/company-code/company-code.service';
 
 @Component({
   selector: 'app-customer-list',
   templateUrl: './customer-list.component.html',
   styleUrls: ['./customer-list.component.css']
-}) 
-export class CustomerListComponent implements OnInit{
+})
+export class CustomerListComponent implements OnInit {
+  @ViewChild('searchDataInput', { static: true }) searchInput!: ElementRef;
 
-  isShowPadding:any = false
-  customerDetails:any=[]
+  isShowPadding: any = false
+  customerDetails: any = []
   selectAll: any;
-  allCustomerDetails:any=[]
+  allCustomerDetails: any = []
   totalItem: any = 0;
   currentPage = 1;
   page?: number = 0;
   itemsPerPage = 10;
   selectedFile: any = '';
-  sampleJson ={
-    "customerId":"cus123",
+  countryDetails: any = [];
+  citiesDetails: any = [];
+  countryName: any = '';
+  citiesName: any = '';
+  sampleJson = {
+    "customerId": "cus123",
     "countryName": "zambia",
     "address": "Chennai",
     "postalCode": "600119",
@@ -32,52 +38,54 @@ export class CustomerListComponent implements OnInit{
     "taxNumber2": "1",
     "vatRegNO": "1",
     "plantData": [
-        {
-            "currency": "dollar",
-            "termsPayment": "test_payment",
-            "companyCode": "code361",
-            "reconciliationAcct": "one",
-            "taxClassification": [
-                {
-                    "tax": "1"
-                },
-                {
-                    "tax": "2"
-                }
-            ]
-        }
+      {
+        "currency": "dollar",
+        "termsPayment": "test_payment",
+        "companyCode": "code361",
+        "reconciliationAcct": "one",
+        "taxClassification": [
+          {
+            "tax": "1"
+          },
+          {
+            "tax": "2"
+          }
+        ]
+      }
     ],
-    "salesData":[
-        {
-            "billingBlock":"test_billing_block",
-            "workingTimes":"7 to 3",
-            "accountGroup":"one",
-            "deletionFlag":"Yes",
-            "deliveryBlock":"test_delivery_block",
-            "salesOrganization":"test_sales_org",
-            "distributionChannel":"test_distribution",
-            "division":"test_division",
-            "customerGroup":"test_customer_group",
-            "modeOfTransport":"test_mode_of_transport",
-            "acctAssGrpCustomer":"test_acctAssGrpCustomer",
-            "deliveryPlant":"test_deliveryPlant",
-            "partialDeliveryAllowed":"Yes"
-        }
+    "salesData": [
+      {
+        "billingBlock": "test_billing_block",
+        "workingTimes": "7 to 3",
+        "accountGroup": "one",
+        "deletionFlag": "Yes",
+        "deliveryBlock": "test_delivery_block",
+        "salesOrganization": "test_sales_org",
+        "distributionChannel": "test_distribution",
+        "division": "test_division",
+        "customerGroup": "test_customer_group",
+        "modeOfTransport": "test_mode_of_transport",
+        "acctAssGrpCustomer": "test_acctAssGrpCustomer",
+        "deliveryPlant": "test_deliveryPlant",
+        "partialDeliveryAllowed": "Yes"
+      }
     ]
-}
-
-  constructor(
-    private router:Router,
-    private customerSer:CustomerService,
-    private _snackBar: MatSnackBar
-
-  ){ }
-
-  ngOnInit(): void {
-      this.getCustomerDetail(this.page, this.itemsPerPage)
   }
 
-  nextPage(url: any){
+  constructor(
+    private router: Router,
+    private customerSer: CustomerService,
+    private _snackBar: MatSnackBar,
+    private companySer: CompanyCodeService
+
+  ) { }
+
+  ngOnInit(): void {
+    this.getCustomerDetail(this.page, this.itemsPerPage);
+    this.getCountryDetails()
+  }
+
+  nextPage(url: any) {
     this.router.navigate([`${url}`])
   }
 
@@ -104,28 +112,35 @@ export class CustomerListComponent implements OnInit{
     }
   }
 
-  handleFilter(event:any){
-    if(!event.target.value){
-      this.customerDetails = this.allCustomerDetails
+  handleFilter(event: any) {
+
+    const filterValue = event.target.value.toUpperCase();
+    if (!filterValue && !this.citiesName && !this.countryName) {
+      this.customerDetails = this.allCustomerDetails;
+      return;
     }
-    console.log(event.target.value)
-    const isStringIncluded = this.allCustomerDetails.filter((obj:any) => ((obj.customerId.toUpperCase()).includes(event.target.value.toUpperCase()) ));
-    this.customerDetails = isStringIncluded
+
+    this.customerDetails = this.allCustomerDetails.filter((obj: any) =>
+      ((obj.customerId.toUpperCase()).includes(filterValue) || (obj.customerName.toUpperCase()).includes(filterValue)) &&
+      (!this.countryName || obj.countryName.toLowerCase() === this.countryName.toLowerCase()) &&
+      (!this.citiesName || obj.city.toLowerCase() === this.citiesName.toLowerCase())
+
+    );
   }
 
- 
 
-  async getCustomerDetail(page:any, itemsPerPage:any) {
+
+  async getCustomerDetail(page: any, itemsPerPage: any) {
     try {
       const result: any = await this.customerSer.getAllCustomerDetailsPage(page, itemsPerPage)
-      console.log(result.data,'customer detail');
+      console.log(result.data, 'customer detail');
       if (result.status === '1') {
         result.data.map((el: any) => {
           el.check = false
         })
-        
+
         this.customerDetails = result.data
-        this.allCustomerDetails=result.data
+        this.allCustomerDetails = result.data
         if (result.data.length === 0) {
           this.selectAll = false
         }
@@ -258,8 +273,53 @@ export class CustomerListComponent implements OnInit{
 
   pageChanged(event: PageChangedEvent): void {
     this.page = event.page;
-    const records = (this.page-1) * this.itemsPerPage;
+    const records = (this.page - 1) * this.itemsPerPage;
     this.getCustomerDetail(records, this.itemsPerPage)
+  }
+
+
+  //get Country Details 
+
+  async getCountryDetails() {
+    try {
+      const result: any = await this.companySer.getAllCountryDetails();
+      if (result.status === '1') {
+        this.countryDetails = result.data;
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+  selectCountryName(event: any) {
+    this.citiesDetails = this.countryDetails.find((el: any) => el.countryName === event.target.value);
+    this.countryName = event.target.value;
+    this.filterData()
+  }
+
+  selectCitiesName(event: any) {
+    this.citiesName = event.target.value;
+    this.filterData()
+  }
+  filterData() {
+    const filterValue = this.searchInput.nativeElement.value.toUpperCase();
+    this.customerDetails = this.allCustomerDetails.filter((obj: any) =>
+      ((obj.customerId.toUpperCase()).includes(filterValue) || (obj.customerName.toUpperCase()).includes(filterValue)) &&
+      (!this.countryName || obj.countryName.toLowerCase() === this.countryName.toLowerCase()) &&
+      (!this.citiesName || obj.city.toLowerCase() === this.citiesName.toLowerCase())
+    );
   }
 
 }

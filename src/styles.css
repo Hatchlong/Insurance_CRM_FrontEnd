@@ -94,3 +94,8 @@ mat-icon{
 option,select {
     text-transform: capitalize !important; /* change first letter to uppercase */
   }
+
+  input::placeholder, textarea::placeholder, select, input {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+  }

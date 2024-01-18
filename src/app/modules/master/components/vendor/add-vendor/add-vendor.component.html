@@ -49,7 +49,7 @@
                             </div>
                             <div class="col-6 mt-2 py-2">
                                 <label for="">Address <sup>*</sup></label>
-                                <textarea name="" id="" cols="30" rows="{{vendorIdisShow ? 8 : 4}}" class="form-control"
+                                <textarea name="" id="" cols="30" rows="7" class="form-control"
                                     placeholder="Enter address" formControlName="addressCountry"></textarea>
                                 <div
                                     *ngIf="vendorFormGroup.controls['addressCountry'].touched && vendorFormGroup.controls['addressCountry'].dirty && vendorFormGroup.controls['addressCountry'].hasError('required') && !isSubmitted">
@@ -67,7 +67,7 @@
                                 <label for="">Country <sup>*</sup> </label>
                                 <select class="form-select" formControlName="countryId" (change)="selectCountryName($event)">
                                     <option [selected]="vendorFormGroup.value.currency === ''" value="" hidden>Select Country</option>
-                                    <option *ngFor="let list of countryDetails" [value]="list._id">{{list.countryName}}</option>
+                                    <option *ngFor="let list of countryDetails  | filterPipes:'countryName'" [value]="list._id">{{list.countryName}}</option>
 
                                 </select>
                                 <div
@@ -80,9 +80,9 @@
                             </div>
                             <div class="col-6 py-2">
                                 <label for="">Language <sup>*</sup></label>
-                                <select class="form-select" aria-label="Default select example" formControlName="languageId"  [ngStyle]="{'pointer-events': !vendorFormGroup.value.countryId ? 'none' :  'all'}">
+                                <select class="form-select" aria-label="Default select example" formControlName="languageId"  >
                                     <option [selected]="vendorFormGroup.value.languageId === ''" value="" hidden>Select language</option>
-                                    <option [value]="citiesDetails.languageId">{{languageName}}</option>
+                                    <option *ngFor="let list of languageDetails | filterPipes: 'languageCode'" [value]="list._id">{{list.languageCode}}</option>
                                 </select>
                                 <div    
                                     *ngIf="vendorFormGroup.controls['languageId'].touched && vendorFormGroup.controls['languageId'].dirty && vendorFormGroup.controls['languageId'].hasError('required') && !isSubmitted">
@@ -97,7 +97,7 @@
                                 <label for="">Mode of transport <sup>*</sup></label>
                                 <select class="form-select" formControlName="modeOfTransportId" (change)="handleMOT($event)">
                                     <option [selected]="vendorFormGroup.value.modeOfTransportId=== ''" value="" hidden>Select Mode Of Transport</option>
-                                    <option *ngFor="let mot of motDetails" [value]="mot._id">{{mot.modeOfTransport}}</option>
+                                    <option *ngFor="let mot of motDetails | filterPipes:'modeOfTransport'" [value]="mot._id">{{mot.modeOfTransport}}</option>
      
                                 </select>
                                 <div
@@ -113,7 +113,7 @@
                                 <label for="">Increment Terms<sup>*</sup></label>
                                 <select class="form-select" formControlName="incrementTreamsId" (change)="handleInco($event)">
                                     <option [selected]="vendorFormGroup.value.incrementTreamsId=== ''" value="" hidden>Select Increment Treams</option>
-                                    <option *ngFor="let inco of incoDetails" [value]="inco._id">{{inco.inc_terms_code}}</option>
+                                    <option *ngFor="let inco of incoDetails| filterPipes:'inc_terms_code'" [value]="inco._id">{{inco.inc_terms_code}}</option>
                                 </select>                               
                                 <div
                                     *ngIf="vendorFormGroup.controls['incrementTreamsId'].touched && vendorFormGroup.controls['incrementTreamsId'].dirty && vendorFormGroup.controls['incrementTreamsId'].hasError('required') && !isSubmitted">
@@ -178,9 +178,9 @@
                                                 placeholder="Enter Vat Reg. No.">
                                         </td>
                                         <td>
-                                            <select class="form-select " aria-label="Default select example" formControlName="currency" (change)="handleCurrency($event)" [ngStyle]="{'pointer-events': !vendorFormGroup.value.countryId ? 'none' :  'all'}">
+                                            <select class="form-select " aria-label="Default select example" formControlName="currency" (change)="handleCurrency($event)" >
                                                 <option [selected]="vendorFormGroup.value.currency===''" value="" hidden>Select Currency</option>
-                                                <option *ngFor="let list of currencyDetails" [value]="list._id">{{list.code}}</option>
+                                                <option *ngFor="let list of currencyDetails | filterPipes:'code' " [value]="list._id">{{list.code}}</option>
                                             </select>
                                           
                                         </td>
@@ -188,7 +188,7 @@
                                             
                                             <select class="form-select" formControlName="companyCode" >
                                                 <option [selected]="vendorFormGroup.value.companyCode=== ''" value="" hidden>Select Company Code</option>
-                                                <option *ngFor="let company of companyCodeDetails" [value]="company._id">{{company.companyCode}}</option>
+                                                <option *ngFor="let company of companyCodeDetails | filterPipes:'companyCode' " [value]="company._id">{{company.companyCode}}</option>
                  
                                             </select>
                                           
@@ -196,7 +196,7 @@
                                         <td>
                                                 <select class="form-select" formControlName="bankCountry" (change)="selectCountryName($event)">
                                                     <option [selected]="vendorFormGroup.value.currency === ''" value="" hidden>Select Country</option>
-                                                    <option *ngFor="let list of countryDetails" [value]="list._id">{{list.countryName}}</option>
+                                                    <option *ngFor="let list of countryDetails | filterPipes:'countryName'" [value]="list._id">{{list.countryName}}</option>
                 
                                                 </select>
                                         </td>
@@ -225,7 +225,7 @@
                                         <td>
                                             <select class="form-select" formControlName="reconciliationAccount"> 
                                                 <option [selected]="vendorFormGroup.value.reconciliationAccount === '' " value="" hidden>Select Reconciliation Account</option>       
-                                                <option *ngFor="let list of reconcilationAccountDetails" [value]="list._id">{{list.description}}</option>
+                                                <option *ngFor="let list of reconcilationAccountDetails | filterPipes:'description'" [value]="list._id">{{list.description}}</option>
                                             </select>
                                         </td>
                                         <td>
@@ -233,14 +233,14 @@
                                             
                                             <select class="form-select" formControlName="paymentMethod">   
                                                 <option [selected]="vendorFormGroup.value.paymentMethod === ''" value="" hidden>Select Payment Method</option>
-                                                <option *ngFor="let payment of paymentMethodDetails" [value]="payment._id">{{payment.description}}</option>
+                                                <option *ngFor="let payment of paymentMethodDetails | filterPipes:'description'" [value]="payment._id">{{payment.description}}</option>
                                                 
                                             </select>
                                         </td>
                                         <td>
                                             <select class="form-select" formControlName="paymentTerms">
                                     <option [selected]="vendorFormGroup.value.paymentTerms=== ''" value="" hidden>Select Payment Terms</option>
-                                    <option *ngFor="let pay of payDetails" [value]="pay._id">{{pay.paymentTerm}}</option>
+                                    <option *ngFor="let pay of payDetails | filterPipes:'paymentTerm'" [value]="pay._id">{{pay.paymentTerm}}</option>
                                 </select> 
                                         </td>
                                     </tr>

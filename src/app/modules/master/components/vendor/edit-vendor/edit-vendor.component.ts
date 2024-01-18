@@ -34,7 +34,7 @@ export class EditVendorComponent {
   vendorIdisShow:any = true;
   reconcilationAccountDetails: any = []
   vendorId:any= ''
-
+  languageDetails:any = []
   constructor(
     private fb: FormBuilder,
     private countrySer: CountryService,
@@ -52,7 +52,8 @@ export class EditVendorComponent {
   ngOnInit(): void {
     this.vendorId = this.activateRouter.snapshot.paramMap.get('id')
     this.createVendorFormFields()
-    this.getCountryDetails()
+    this.getCountryDetails();
+    this.getAllLanguageList()
     this.getMOTDetail()
     this.getIncoTermsDetail()
     this.getSingleVendorDetails()
@@ -278,30 +279,26 @@ return
 
 
   //  single details for Language Detials
-  async getSingleLanguage(id: any) {
+  async getAllLanguageList() {
     try {
-      const result: any = await this.companySer.singleLanguageDetails(id);
+      const result: any = await this.companySer.getAllLanguageDetails();
       if (result.status === '1') {
-        this.languageName = result.data.languageName
-        this.vendorFormGroup.controls.languageName.setValue(result.data.languageName)
+        this.languageDetails = result.data
       } else {
-
         this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-        return
       }
     } catch (error: any) {
-
       if (error.error.message) {
         this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -310,6 +307,7 @@ return
       });
     }
   }
+
 
   async getSingleVendorDetails() {
     try {
@@ -320,7 +318,6 @@ return
       if (result.status === '1') {
         this.vendorFormGroup.patchValue(result.data)
         this.citiesDetails = this.countryDetails.find((el: any) => el._id === this.vendorFormGroup.value.countryId)
-        this.getSingleLanguage(this.citiesDetails.languageId)
 
 
       }
@@ -346,7 +343,8 @@ return
     this.citiesDetails = this.countryDetails.find((el: any) => el._id === event.target.value);
     this.vendorFormGroup.controls.countryName.setValue(this.citiesDetails.countryName)
     this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
-    this.getSingleLanguage(this.citiesDetails.languageId)
+    this.vendorFormGroup.controls.languageName.setValue(this.citiesDetails.languageName)
+
   }    
 
   

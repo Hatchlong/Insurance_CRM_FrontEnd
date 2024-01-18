@@ -42,7 +42,7 @@ export class EditCustomerComponent {
   customerGroupDetail: any = []
   acctAssignDetail: any;
   reconcilationAccountDetails: any = []
-
+  accountGroupDetails:any = []
   constructor(
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
@@ -69,6 +69,7 @@ export class EditCustomerComponent {
     this.customerMasterId = this.activeRouter.snapshot.paramMap.get('id')
     this.create()
     this.getCountryDetails()
+    this.getAllAccountGroup()
     this.getCurrencyDetails()
     this.getPaymentTerm()
     this.getCompanyDetails()
@@ -735,5 +736,36 @@ export class EditCustomerComponent {
         });
       }
     }
+
+     // get Account Group detail
+     async getAllAccountGroup() {
+      try {
+        const result: any = await this.companyCodeSer.getAllAccountGroup();
+        if (result.status === '1') {
+          this.accountGroupDetails = result.data;
+        } else {
+          this._snackBar.open(result.message, '', {
+            duration: 5 * 1000, horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: 'app-notification-error',
+          });
+        }
+      } catch (error: any) {
+        if (error.error.message) {
+          this._snackBar.open(error.error.message, '', {
+            duration: 5 * 1000, horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: 'app-notification-error',
+          });
+          return
+        }
+        this._snackBar.open('Something went wrong', '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    }
+  
 
 }

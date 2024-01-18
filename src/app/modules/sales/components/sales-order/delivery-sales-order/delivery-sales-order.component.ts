@@ -39,6 +39,10 @@ export class DeliverySalesOrderComponent implements OnInit {
     private _location: Location
 
   ) {
+   
+  }
+
+  ngOnInit(): void {
     this.salesOrderSer.passSalesDetails.subscribe((result: any) => {
       this.salesOrderDetails = result;
     })
@@ -46,9 +50,6 @@ export class DeliverySalesOrderComponent implements OnInit {
       this.router.navigate(['/sales/sales-order-list']);
       return
     }
-  }
-
-  ngOnInit(): void {
     this.createDeliveryFormFields()
     this.getAllUomDetail()
     this.getStorageLocation()

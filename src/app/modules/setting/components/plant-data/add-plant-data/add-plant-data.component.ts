@@ -25,6 +25,7 @@ export class AddPlantDataComponent {
   salesDetail: any = []
   isSubmitted: any = false;
   isShowPadding:any = false;
+  languageDetails:any = []
   constructor(private fb: FormBuilder,
     private plantDataSer: PlantDataService,
     private router: Router,
@@ -42,6 +43,7 @@ export class AddPlantDataComponent {
     this.getTaxDetails()
     this.getTimeZoneDetail()
     this.getSalesDetail()
+    this.getAllLanguageList()
   }
 
   handleSideBar(event: any) {
@@ -263,12 +265,12 @@ return
     }
   }
 
-  async getSingleLanguage(id: any) {
+  // single details for Language Detials
+  async getAllLanguageList() {
     try {
-      const result: any = await this.companyCodeSer.singleLanguageDetails(id);
+      const result: any = await this.companyCodeSer.getAllLanguageDetails();
       if (result.status === '1') {
-        this.languageName = result.data.languageName;
-        this.plantFormData.controls.languageName.setValue(result.data.languageName)
+        this.languageDetails = result.data
       } else {
         this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
@@ -283,15 +285,16 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
-      });;
+      });
     }
   }
+
 
   // get time zone
   async getTimeZoneDetail() {
@@ -326,12 +329,12 @@ return
   }
 
   selectCountryName(event: any) {
-    console.log(event.target.value)
     this.citiesDetails = this.countryDetials.find((el: any) => el._id === event.target.value);
     console.log(this.citiesDetails)
     this.plantFormData.controls.countryName.setValue(this.citiesDetails.countryName)
     this.plantFormData.controls.languageId.setValue(this.citiesDetails.languageId)
-    this.getSingleLanguage(this.citiesDetails.languageId)
+    this.plantFormData.controls.languageName.setValue(this.citiesDetails.languageName)
+
   }
 
   // Add the purchase Name

@@ -32,6 +32,11 @@ export class CompanyCodeService {
     return this.http.get(`http://localhost:4000/api/master/language/get/${id}`).toPromise()
   }
 
+  // Single Language API Details
+  getAllLanguageDetails() {
+    return this.http.get(`http://localhost:4000/api/master/language/getAll`).toPromise()
+  }
+
   singleCompanyCode(id: any) {
     return this.http.get(`http://localhost:4000/api/master/companycode/get/${id}`).toPromise()
   }
@@ -75,6 +80,10 @@ export class CompanyCodeService {
 
   companyLogUpload(data:any){
     return this.http.post('http://localhost:4000/api/upload', data).toPromise()
+  }
+
+  getAllAccountGroup(){
+    return this.http.get('http://localhost:4000/api/config/accountGroup/getAll').toPromise()
   }
 
 }

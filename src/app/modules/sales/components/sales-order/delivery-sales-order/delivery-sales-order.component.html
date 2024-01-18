@@ -11,7 +11,7 @@
 
                     <div class="col-6 mt-2">
                         <label for="">Delivery Type <sup>*</sup> </label>
-                        <select class="form-select" formControlName="deliveryType">
+                        <select class="form-select" [disabled]="true" formControlName="deliveryType" [disabled]="true">
                             <option [selected]="deliveryFormGroup.value.deliveryType=== ''" value="" hidden>Select
                                 Delivery Type</option>
                             <option *ngFor="let list of deliveryDetails" [value]="list._id">{{list.code}}</option>
@@ -44,7 +44,7 @@
                     <div class="col-6 mt-2 ">
                         <label for="">Delivery Date<sup>*</sup></label>
                         <input type="date" class="form-control" formControlName="deliveryDate"
-                            placeholder="Enter delivery date">
+                            placeholder="Enter delivery date" readonly>
 
                         <div
                             *ngIf="deliveryFormGroup.controls['deliveryDate'].touched && deliveryFormGroup.controls['deliveryDate'].touched && deliveryFormGroup.controls['deliveryDate'].hasError('required') && !isSubmitted">
@@ -90,7 +90,7 @@
 
                     <div class="col-6 py-2  mb-2">
                         <label for="">Delivery Partner <sup>*</sup></label>
-                        <select class="form-select" formControlName="deliveryPartner">
+                        <select class="form-select" [disabled]="true" formControlName="deliveryPartner">
                             <option [selected]="deliveryFormGroup.value.deliveryPartner=== ''" value="" hidden>Select
                                 delivery Partner</option>
                             <option value="1">One</option>
@@ -167,7 +167,7 @@
 
                                         </td>
                                         <td>
-                                            <select class="form-select" formControlName="uomName">
+                                            <select class="form-select" [disabled]="true" formControlName="uomName">
                                                 <option [selected]="deliveryFormGroup.value.uomName=== ''" value=""
                                                     hidden>Select UOM</option>
 
@@ -178,7 +178,7 @@
 
                                         </td>
                                         <td>
-                                            <select class="form-select" formControlName="openQty">
+                                            <select class="form-select" [disabled]="true" formControlName="openQty">
 
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>
@@ -186,7 +186,7 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <select class="form-select" formControlName="storageLocationName">
+                                            <select class="form-select" [disabled]="true" formControlName="storageLocationName">
                                                 <option [selected]="deliveryFormGroup.value.storageLocationName=== ''"
                                                     value="" hidden>Select Storage Location</option>
 

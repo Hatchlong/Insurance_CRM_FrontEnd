@@ -26,7 +26,7 @@ export class EditCompanyCodeComponent {
   filePath:any = '';
   imageSrc:any = '';
   @ViewChild('inputFile') inputFile:any;
-
+  languageDetails:any = [];
   constructor(
     private fb: FormBuilder,
     private companyCodeSer: CompanyCodeService,
@@ -39,7 +39,8 @@ export class EditCompanyCodeComponent {
     this.companyCodeId = this.activeRouter.snapshot.paramMap.get('id');
     this.getCompanyDetails()
     this.getCountryDetails()
-    this.getCurrencyDetails()
+    this.getCurrencyDetails();
+    this.getAllLanguageList()
     this.code()
   }
 
@@ -77,10 +78,6 @@ export class EditCompanyCodeComponent {
           this.filePath = 'http://localhost:4000/' + result.data.filePath
         }
         this.citiesDetails = this.countryDetials.find((el: any) => el._id === this.companyCode.value.countryId);
-        // this.companyCode.controls.languageId.setValue(this.citiesDetails.languageId);
-        console.log(this.citiesDetails, 'jjjj')
-        this.getSingleLanguage(this.citiesDetails.languageId);
-        // this.getCurrencyDetails(this.companyCode.value.countryId)
       }
     } catch (error: any) {
       console.log(error)
@@ -205,15 +202,14 @@ return
     }
   }
 
-  // single details for Language Detials
-  async getSingleLanguage(id: any) {
+   // single details for Language Detials
+   async getAllLanguageList() {
     try {
-      const result: any = await this.companyCodeSer.singleLanguageDetails(id);
+      const result: any = await this.companyCodeSer.getAllLanguageDetails();
       if (result.status === '1') {
-        this.languageName = result.data.languageName;
-        this.companyCode.controls.languageName.setValue(this.languageName)
+        this.languageDetails = result.data
       } else {
-         this._snackBar.open(result.message, '', {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
@@ -226,7 +222,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -240,12 +236,12 @@ return
     this.citiesDetails = this.countryDetials.find((el: any) => el._id === event.target.value);
     this.companyCode.controls.countryName.setValue(this.citiesDetails.countryName)
 
-    this.companyCode.controls.currency.setValue(this.citiesDetails?.countryCurrency)
     this.companyCode.controls.languageId.setValue(this.citiesDetails.languageId)
+    this.companyCode.controls.languageName.setValue(this.citiesDetails.languageName)
     const findDefaultCurrency = this.currencyDetails.find((el:any) => el.countryId === event.target.value);
+    console.log(findDefaultCurrency, 'findDefaultCurrency');
     this.companyCode.controls.currencyId.setValue(findDefaultCurrency._id)
     this.companyCode.controls.currencyName.setValue(findDefaultCurrency.code)
-    this.getSingleLanguage(this.citiesDetails.languageId)
   }
 
    // Get All details for Currency code

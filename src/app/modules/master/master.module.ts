@@ -26,6 +26,7 @@ import { EditProductComponent } from './components/product/edit-product/edit-pro
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { EditCustomerComponent } from './components/customer-master/edit-customer/edit-customer.component';
 import { CustomerService } from './services/customer/customer.service';
+import { FilterPipe } from './services/filter/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { CustomerService } from './services/customer/customer.service';
     CustomerListComponent,
     EditVendorComponent,
     EditProductComponent,
-    EditCustomerComponent
+    EditCustomerComponent,
+    FilterPipe
   ],
   imports: [
     CommonModule,
