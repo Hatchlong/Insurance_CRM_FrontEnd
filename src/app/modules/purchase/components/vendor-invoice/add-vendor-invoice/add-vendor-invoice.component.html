@@ -1,200 +1,611 @@
-<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+     <app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+     <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
+         <div class="row">
+             <div class="col-12">
+                 <h3 class="py-2">
+                     <mat-icon class="back" routerLink="/purchase/vendor-invoice-list">arrow_back</mat-icon> Vendor Invoice
+                 </h3>
+                 <form [formGroup]="vendorInvoiceFormGroup" (ngSubmit)="submitData()">
+                     <div class="row">
+                         <div class="col-12 border">
+                             <div class="row">
+                                 
+                                    <div class="col-6 py-2">
+                                        <label class="">Invoice date <sup>*</sup></label>
+                                        <input type="date" class="form-control " formControlName="invoiceDate">
+                                        <div *ngIf="vendorInvoiceFormGroup.controls['invoiceDate'].touched && vendorInvoiceFormGroup.controls['invoiceDate'].dirty && vendorInvoiceFormGroup.controls['invoiceDate'].hasError('required') && !isSubmitted">
+                                           <p class="error-message">Country is mandatory</p>
+                                        </div>
+                                        <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['invoiceDate'].hasError('required')">
+                                            <p class="error-message">Country is mandatory</p>
+                                        </div>
+                
+                                    </div>
+                                    <div class="col-6 py-2">
+                                      <label class="">Posting date <sup>*</sup></label>
+                                      <input type="date" class="form-control " formControlName="postingDate">
+                                      <div *ngIf="vendorInvoiceFormGroup.controls['postingDate'].touched && vendorInvoiceFormGroup.controls['postingDate'].dirty && vendorInvoiceFormGroup.controls['postingDate'].hasError('required') && !isSubmitted">
+                                        <p class="error-message">Country is mandatory</p>
+                                     </div>
+                                     <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['postingDate'].hasError('required')">
+                                         <p class="error-message">Country is mandatory</p>
+                                     </div>
+                                      
+                                    </div>
+                                    <div class="col-6 py-2">
+                                      <label class="">Amount<sup>*</sup></label>
+                                      <input type="number" class="form-control " formControlName="amount" placeholder="Enter amount">
+                                      <div *ngIf="vendorInvoiceFormGroup.controls['amount'].touched && vendorInvoiceFormGroup.controls['amount'].dirty && vendorInvoiceFormGroup.controls['amount'].hasError('required') && !isSubmitted">
+                                        <p class="error-message">Country is mandatory</p>
+                                     </div>
+                                     <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['amount'].hasError('required')">
+                                         <p class="error-message">Country is mandatory</p>
+                                     </div> 
+                                    </div>
+                
+                                    <div class="col-6 py-2">
+                                      <label class="">Tax amount<sup>*</sup></label>
+                                      <input type="number" class="form-control " formControlName="taxAmount" placeholder="Enter tax amount">
+                                      <div *ngIf="vendorInvoiceFormGroup.controls['taxAmount'].touched && vendorInvoiceFormGroup.controls['taxAmount'].dirty && vendorInvoiceFormGroup.controls['taxAmount'].hasError('required') && !isSubmitted">
+                                        <p class="error-message">Country is mandatory</p>
+                                     </div>
+                                     <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['taxAmount'].hasError('required')">
+                                         <p class="error-message">Country is mandatory</p>
+                                     </div>
+                                    </div>
+                                    <div class="col-6 py-2">
+                                        <label class="">Currency <sup>*</sup> </label>
+                                        <select class="form-select " aria-label="Default select example" formControlName="currency">
+                                           <option>one</option>
+                                           <option>two</option>
+                                           <option>three</option>
+                                        </select>
+                                        <div *ngIf="vendorInvoiceFormGroup.controls['currency'].touched && vendorInvoiceFormGroup.controls['currency'].dirty && vendorInvoiceFormGroup.controls['currency'].hasError('required') && !isSubmitted">
+                                          <p class="error-message">Country is mandatory</p>
+                                       </div>
+                                       <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['currency'].hasError('required')">
+                                           <p class="error-message">Country is mandatory</p>
+                                       </div>
+                                    </div>
+                
+                                    <div class="col-6 py-2">
+                                        <label class="">Text <sup>*</sup> </label>
+                                        <input type="text" class="form-control " placeholder="Enter text"
+                                            formControlName="text">
+                                            <div *ngIf="vendorInvoiceFormGroup.controls['text'].touched && vendorInvoiceFormGroup.controls['text'].dirty && vendorInvoiceFormGroup.controls['text'].hasError('required') && !isSubmitted">
+                                              <p class="error-message">Country is mandatory</p>
+                                           </div>
+                                           <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['text'].hasError('required')">
+                                               <p class="error-message">Country is mandatory</p>
+                                           </div>
+                                    </div>
+                
+                                    <div class="col-6 py-2">
+                                        <label>Company code <sup>*</sup></label>
+                                        <select class="form-select " aria-label="Default select example" formControlName="companyCode">
+                                          <option>one</option>
+                                          <option>two</option>
+                                          <option>three</option>
+                                       </select>
+                                       <div *ngIf="vendorInvoiceFormGroup.controls['companyCode'].touched && vendorInvoiceFormGroup.controls['companyCode'].dirty && vendorInvoiceFormGroup.controls['companyCode'].hasError('required') && !isSubmitted">
+                                        <p class="error-message">Country is mandatory</p>
+                                     </div>
+                                     <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['companyCode'].hasError('required')">
+                                         <p class="error-message">Country is mandatory</p>
+                                     </div>
+                                    </div>
+                                    <div class="col-6 py-2">
+                                        <label class="">Reference document <sup>*</sup></label>
+                                        <input type="text" class="form-control " placeholder="Enter reference document"
+                                            formControlName="referenceDocument">
+                                            <div *ngIf="vendorInvoiceFormGroup.controls['referenceDocument'].touched && vendorInvoiceFormGroup.controls['referenceDocument'].dirty && vendorInvoiceFormGroup.controls['referenceDocument'].hasError('required') && !isSubmitted">
+                                              <p class="error-message">Country is mandatory</p>
+                                           </div>
+                                           <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['referenceDocument'].hasError('required')">
+                                               <p class="error-message">Country is mandatory</p>
+                                           </div>
+                                    </div>
+                
+                                    <div class="col-6 py-2">
+                                        <label class="">Vendor <sup>*</sup></label>
+                                        <select class="form-select " aria-label="Default select example" formControlName="vendor">
+                                          <option>one</option>
+                                          <option>two</option>
+                                          <option>three</option>
+                                       </select>
+                                       <div *ngIf="vendorInvoiceFormGroup.controls['vendor'].touched && vendorInvoiceFormGroup.controls['vendor'].dirty && vendorInvoiceFormGroup.controls['vendor'].hasError('required') && !isSubmitted">
+                                        <p class="error-message">Country is mandatory</p>
+                                     </div>
+                                     <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['vendor'].hasError('required')">
+                                         <p class="error-message">Country is mandatory</p>
+                                     </div>
+                                    </div>
+                                    <div class="col-6 py-2">
+                                        <label class="">Vendor address<sup>*</sup></label>
+                                        <input type="text" class="form-control " placeholder="Enter vendor address"
+                                            formControlName="vendorAddress">
+                                            <div *ngIf="vendorInvoiceFormGroup.controls['vendorAddress'].touched && vendorInvoiceFormGroup.controls['vendorAddress'].dirty && vendorInvoiceFormGroup.controls['vendorAddress'].hasError('required') && !isSubmitted">
+                                              <p class="error-message">Country is mandatory</p>
+                                           </div>
+                                           <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['vendorAddress'].hasError('required')">
+                                               <p class="error-message">Country is mandatory</p>
+                                           </div>
+                                    </div>
+                                    <div class="col-6 py-2">
+                                      <label class="">Vendor bank details<sup>*</sup></label>
+                                      <input type="text" class="form-control " placeholder="Enter vendor bank details"
+                                          formControlName="vendorBankDetails">
+                                          <div *ngIf="vendorInvoiceFormGroup.controls['vendorBankDetails'].touched && vendorInvoiceFormGroup.controls['vendorBankDetails'].dirty && vendorInvoiceFormGroup.controls['vendorBankDetails'].hasError('required') && !isSubmitted">
+                                            <p class="error-message">Country is mandatory</p>
+                                         </div>
+                                         <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['vendorBankDetails'].hasError('required')">
+                                             <p class="error-message">Country is mandatory</p>
+                                         </div>
+                                    </div>
+                
+                                    <div class="col-6 py-2">
+                                      <label class="">Payment terms <sup>*</sup></label>
+                                      <select class="form-select " aria-label="Default select example" formControlName="paymentTerms">
+                                        <option>one</option>
+                                        <option>two</option>
+                                        <option>three</option>
+                                     </select>
+                                     <div *ngIf="vendorInvoiceFormGroup.controls['paymentTerms'].touched && vendorInvoiceFormGroup.controls['paymentTerms'].dirty && vendorInvoiceFormGroup.controls['paymentTerms'].hasError('required') && !isSubmitted">
+                                      <p class="error-message">Country is mandatory</p>
+                                   </div>
+                                   <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['paymentTerms'].hasError('required')">
+                                       <p class="error-message">Country is mandatory</p>
+                                   </div>
+                                    </div>
+                                    <div class="col-6 py-2">
+                                      <label class="">Baseline date <sup>*</sup></label>
+                                      <input type="date" class="form-control " formControlName="baseLineDate">
+                                      <div *ngIf="vendorInvoiceFormGroup.controls['baseLineDate'].touched && vendorInvoiceFormGroup.controls['baseLineDate'].dirty && vendorInvoiceFormGroup.controls['baseLineDate'].hasError('required') && !isSubmitted">
+                                        <p class="error-message">Country is mandatory</p>
+                                     </div>
+                                     <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['baseLineDate'].hasError('required')">
+                                         <p class="error-message">Country is mandatory</p>
+                                     </div>
+                                    </div>
+                                    <div class="col-6 py-2">
+                                      <label class="">Payment due date <sup>*</sup></label>
+                                      <input type="date" class="form-control " formControlName="paymentDueDate">
+                                      <div *ngIf="vendorInvoiceFormGroup.controls['paymentDueDate'].touched && vendorInvoiceFormGroup.controls['paymentDueDate'].dirty && vendorInvoiceFormGroup.controls['paymentDueDate'].hasError('required') && !isSubmitted">
+                                        <p class="error-message">Country is mandatory</p>
+                                     </div>
+                                     <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['paymentDueDate'].hasError('required')">
+                                         <p class="error-message">Country is mandatory</p>
+                                     </div>
+                                    </div>
+                             </div>
+                         </div>
+                     </div>
+     
+                     <div class="row border mt-2">
+                         <div class="col-12 ">
+                             <div class="row">
+                                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                     <h3 class="py-2">
+                                         Financial Data
+                                     </h3>
+                                 </div>
+                                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex justify-content-end align-items-center">
+                                     <button class="btn btn-primary" type="button" (click)="addFinancial()">Add</button>
+                                 </div>
+                             </div>
+     
+                             <div class="table-responsive">
+                                 <table class="table table-hover">
+                                     <thead>
+                                         <tr>
+                                             <th *ngIf="financialListArray.controls.length > 1">Actions</th>
+                                             <th>Item #</th>
+                                             <th>Amount</th>
+                                             <th>PO Qty</th>
+                                             <th>UOM</th>
+                                             <th>GR Qty</th>
+                                             <th>UoM</th>
+                                             <th>Settled Qty</th>
+                                             <th>UoM</th>
+                                             <th>Reference PO</th>
+                                             <th>Tax code</th>
+                                         </tr>
+                                     </thead>
+                                     <tbody formArrayName="financialData">
+                                         <tr *ngFor="let financial of financialListArray.controls; let i = index;"
+                                             [formGroupName]="i">
+                                             <td *ngIf="financialListArray.controls.length > 1">
+                                                 <mat-icon style="cursor:pointer"
+                                                     (click)="deleteFinancial(i)">delete</mat-icon>
+                                             </td>
+                                             <td>
+                                              <input type="number" class="form-control " formControlName="item" placeholder="Enter item">
+                                            </td>
+                                            <td>
+                                              <input type="number" class="form-control " formControlName="amount" placeholder="Enter amount">
+                                            </td>
+                                            <td>
+                                              <input type="number" class="form-control " formControlName="poQty" placeholder="Enter po qty">
+                                            </td>
+                                            <td>
+                                                <select class="form-select w-100" aria-label="Default select example"
+                                                    formControlName="uom">
+                                                <option>select uom</option>
+                                                    <option>one</option>
+                                                    <option>two</option>
+                                                    <option>three</option>
+                                                </select>
+    
+                                            </td>
+                                            <td>
+                                              <input type="number" class="form-control " formControlName="grQty" placeholder="Enter gr qty">
+                                            </td>
+                                            <td>
+                                              <select class="form-select w-100" aria-label="Default select example"
+                                              formControlName="uom">
+                                              <option>select uom</option>
+                                              <option>one</option>
+                                              <option>two</option>
+                                              <option>three</option>
+                                          </select>
+                                            </td>
+                                            <td>
+                                              <input type="number" class="form-control " formControlName="settledQty" placeholder="Enter settled qty">
+                                            </td>
+                                            <td>
+                                              <select class="form-select w-100" aria-label="Default select example"
+                                              formControlName="uom">
+                                              <option>select uom</option>
+                                              <option>one</option>
+                                              <option>two</option>
+                                              <option>three</option>
+                                          </select>
+                                            </td>
+                                            <td>
+                                                <input type="text" min="0" class="form-control"
+                                                    placeholder="Enter reference po" formControlName="referencePo">
+                                            </td>
+                                            
+                                            <td>
+                                              <select class="form-select w-100" aria-label="Default select example"
+                                              formControlName="taxCode">
+                                              <option>select tax code</option>
+                                              <option>one</option>
+                                              <option>two</option>
+                                              <option>three</option>
+                                          </select>
+                                            </td>
+                                          </tr>
+                                     </tbody>
+                                 </table>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="row py-2">
+                         <div class="col-12 d-flex justify-content-end">
+                             <button class="btn btn-primary">Save</button>
+                         </div>
+                     </div>
+                 </form>
+             </div>
+         </div>
+     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <!-- <app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
   <h2><mat-icon class="back" routerLink="/purchase/vendor-invoice-list">arrow_back</mat-icon>Vendor Invoice</h2>
-  <form [formGroup]="vendorInvoice" (ngSubmit)="submitData()">
+
     <div class="row">
-      <div class="col-6 py-2 ">
-        <label for="">Invoice Date <sup>*</sup> </label>
-        <input type="date" formControlName="invoiceDate" class="form-control" />
+        <div class="col-12">
+            <form [formGroup]="vendorInvoiceFormGroup" (ngSubmit)="submitData()">
 
-        <div
-          *ngIf="vendorInvoice.controls['invoiceDate'].touched && vendorInvoice.controls['invoiceDate'].touched && vendorInvoice.controls['invoiceDate'].hasError('required') && !isSubmitted">
-          <p class="error-message">Invoice Date is mandatory</p>
+                <div class="row border">
+                    <div class="col-6 py-2">
+                        <label class="">Invoice date <sup>*</sup></label>
+                        <input type="date" class="form-control " formControlName="invoiceDate">
+                        <div *ngIf="vendorInvoiceFormGroup.controls['invoiceDate'].touched && vendorInvoiceFormGroup.controls['invoiceDate'].dirty && vendorInvoiceFormGroup.controls['invoiceDate'].hasError('required') && !isSubmitted">
+                           <p class="error-message">Country is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['invoiceDate'].hasError('required')">
+                            <p class="error-message">Country is mandatory</p>
+                        </div>
+
+                    </div>
+                    <div class="col-6 py-2">
+                      <label class="">Posting date <sup>*</sup></label>
+                      <input type="date" class="form-control " formControlName="postingDate">
+                      <div *ngIf="vendorInvoiceFormGroup.controls['postingDate'].touched && vendorInvoiceFormGroup.controls['postingDate'].dirty && vendorInvoiceFormGroup.controls['postingDate'].hasError('required') && !isSubmitted">
+                        <p class="error-message">Country is mandatory</p>
+                     </div>
+                     <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['postingDate'].hasError('required')">
+                         <p class="error-message">Country is mandatory</p>
+                     </div>
+                      
+                    </div>
+                    <div class="col-6 py-2">
+                      <label class="">Amount<sup>*</sup></label>
+                      <input type="number" class="form-control " formControlName="amount" placeholder="Enter amount">
+                      <div *ngIf="vendorInvoiceFormGroup.controls['amount'].touched && vendorInvoiceFormGroup.controls['amount'].dirty && vendorInvoiceFormGroup.controls['amount'].hasError('required') && !isSubmitted">
+                        <p class="error-message">Country is mandatory</p>
+                     </div>
+                     <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['amount'].hasError('required')">
+                         <p class="error-message">Country is mandatory</p>
+                     </div> 
+                    </div>
+
+                    <div class="col-6 py-2">
+                      <label class="">Tax amount<sup>*</sup></label>
+                      <input type="number" class="form-control " formControlName="taxAmount" placeholder="Enter tax amount">
+                      <div *ngIf="vendorInvoiceFormGroup.controls['taxAmount'].touched && vendorInvoiceFormGroup.controls['taxAmount'].dirty && vendorInvoiceFormGroup.controls['taxAmount'].hasError('required') && !isSubmitted">
+                        <p class="error-message">Country is mandatory</p>
+                     </div>
+                     <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['taxAmount'].hasError('required')">
+                         <p class="error-message">Country is mandatory</p>
+                     </div>
+                    </div>
+                    <div class="col-6 py-2">
+                        <label class="">Currency <sup>*</sup> </label>
+                        <select class="form-select " aria-label="Default select example" formControlName="currency">
+                           <option>one</option>
+                           <option>two</option>
+                           <option>three</option>
+                        </select>
+                        <div *ngIf="vendorInvoiceFormGroup.controls['currency'].touched && vendorInvoiceFormGroup.controls['currency'].dirty && vendorInvoiceFormGroup.controls['currency'].hasError('required') && !isSubmitted">
+                          <p class="error-message">Country is mandatory</p>
+                       </div>
+                       <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['currency'].hasError('required')">
+                           <p class="error-message">Country is mandatory</p>
+                       </div>
+                    </div>
+
+                    <div class="col-6 py-2">
+                        <label class="">Text <sup>*</sup> </label>
+                        <input type="text" class="form-control " placeholder="Enter text"
+                            formControlName="text">
+                            <div *ngIf="vendorInvoiceFormGroup.controls['text'].touched && vendorInvoiceFormGroup.controls['text'].dirty && vendorInvoiceFormGroup.controls['text'].hasError('required') && !isSubmitted">
+                              <p class="error-message">Country is mandatory</p>
+                           </div>
+                           <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['text'].hasError('required')">
+                               <p class="error-message">Country is mandatory</p>
+                           </div>
+                    </div>
+
+                    <div class="col-6 py-2">
+                        <label>Company code <sup>*</sup></label>
+                        <select class="form-select " aria-label="Default select example" formControlName="companyCode">
+                          <option>one</option>
+                          <option>two</option>
+                          <option>three</option>
+                       </select>
+                       <div *ngIf="vendorInvoiceFormGroup.controls['companyCode'].touched && vendorInvoiceFormGroup.controls['companyCode'].dirty && vendorInvoiceFormGroup.controls['companyCode'].hasError('required') && !isSubmitted">
+                        <p class="error-message">Country is mandatory</p>
+                     </div>
+                     <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['companyCode'].hasError('required')">
+                         <p class="error-message">Country is mandatory</p>
+                     </div>
+                    </div>
+                    <div class="col-6 py-2">
+                        <label class="">Reference document <sup>*</sup></label>
+                        <input type="text" class="form-control " placeholder="Enter reference document"
+                            formControlName="referenceDocument">
+                            <div *ngIf="vendorInvoiceFormGroup.controls['referenceDocument'].touched && vendorInvoiceFormGroup.controls['referenceDocument'].dirty && vendorInvoiceFormGroup.controls['referenceDocument'].hasError('required') && !isSubmitted">
+                              <p class="error-message">Country is mandatory</p>
+                           </div>
+                           <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['referenceDocument'].hasError('required')">
+                               <p class="error-message">Country is mandatory</p>
+                           </div>
+                    </div>
+
+                    <div class="col-6 py-2">
+                        <label class="">Vendor <sup>*</sup></label>
+                        <select class="form-select " aria-label="Default select example" formControlName="vendor">
+                          <option>one</option>
+                          <option>two</option>
+                          <option>three</option>
+                       </select>
+                       <div *ngIf="vendorInvoiceFormGroup.controls['vendor'].touched && vendorInvoiceFormGroup.controls['vendor'].dirty && vendorInvoiceFormGroup.controls['vendor'].hasError('required') && !isSubmitted">
+                        <p class="error-message">Country is mandatory</p>
+                     </div>
+                     <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['vendor'].hasError('required')">
+                         <p class="error-message">Country is mandatory</p>
+                     </div>
+                    </div>
+                    <div class="col-6 py-2">
+                        <label class="">Vendor address<sup>*</sup></label>
+                        <input type="text" class="form-control " placeholder="Enter vendor address"
+                            formControlName="vendorAddress">
+                            <div *ngIf="vendorInvoiceFormGroup.controls['vendorAddress'].touched && vendorInvoiceFormGroup.controls['vendorAddress'].dirty && vendorInvoiceFormGroup.controls['vendorAddress'].hasError('required') && !isSubmitted">
+                              <p class="error-message">Country is mandatory</p>
+                           </div>
+                           <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['vendorAddress'].hasError('required')">
+                               <p class="error-message">Country is mandatory</p>
+                           </div>
+                    </div>
+                    <div class="col-6 py-2">
+                      <label class="">Vendor bank details<sup>*</sup></label>
+                      <input type="text" class="form-control " placeholder="Enter vendor bank details"
+                          formControlName="vendorBankDetails">
+                          <div *ngIf="vendorInvoiceFormGroup.controls['vendorBankDetails'].touched && vendorInvoiceFormGroup.controls['vendorBankDetails'].dirty && vendorInvoiceFormGroup.controls['vendorBankDetails'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Country is mandatory</p>
+                         </div>
+                         <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['vendorBankDetails'].hasError('required')">
+                             <p class="error-message">Country is mandatory</p>
+                         </div>
+                    </div>
+
+                    <div class="col-6 py-2">
+                      <label class="">Payment terms <sup>*</sup></label>
+                      <select class="form-select " aria-label="Default select example" formControlName="paymentTerms">
+                        <option>one</option>
+                        <option>two</option>
+                        <option>three</option>
+                     </select>
+                     <div *ngIf="vendorInvoiceFormGroup.controls['paymentTerms'].touched && vendorInvoiceFormGroup.controls['paymentTerms'].dirty && vendorInvoiceFormGroup.controls['paymentTerms'].hasError('required') && !isSubmitted">
+                      <p class="error-message">Country is mandatory</p>
+                   </div>
+                   <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['paymentTerms'].hasError('required')">
+                       <p class="error-message">Country is mandatory</p>
+                   </div>
+                    </div>
+                    <div class="col-6 py-2">
+                      <label class="">Baseline date <sup>*</sup></label>
+                      <input type="date" class="form-control " formControlName="baseLineDate">
+                      <div *ngIf="vendorInvoiceFormGroup.controls['baseLineDate'].touched && vendorInvoiceFormGroup.controls['baseLineDate'].dirty && vendorInvoiceFormGroup.controls['baseLineDate'].hasError('required') && !isSubmitted">
+                        <p class="error-message">Country is mandatory</p>
+                     </div>
+                     <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['baseLineDate'].hasError('required')">
+                         <p class="error-message">Country is mandatory</p>
+                     </div>
+                    </div>
+                    <div class="col-6 py-2">
+                      <label class="">Payment due date <sup>*</sup></label>
+                      <input type="date" class="form-control " formControlName="paymentDueDate">
+                      <div *ngIf="vendorInvoiceFormGroup.controls['paymentDueDate'].touched && vendorInvoiceFormGroup.controls['paymentDueDate'].dirty && vendorInvoiceFormGroup.controls['paymentDueDate'].hasError('required') && !isSubmitted">
+                        <p class="error-message">Country is mandatory</p>
+                     </div>
+                     <div *ngIf="isSubmitted && vendorInvoiceFormGroup.controls['paymentDueDate'].hasError('required')">
+                         <p class="error-message">Country is mandatory</p>
+                     </div>
+                    </div>
+                </div>
+
+                <div class="row border mt-2">
+                    <div class="col-12 ">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                <h3 class="py-2">
+                                    Item Data
+                                </h3>
+                            </div>
+                            <div
+                                class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex justify-content-end align-items-center">
+                                <button class="btn btn-primary" type="button" (click)="addItem()">Add Item</button>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th *ngIf="detail.controls.length > 1">Actions</th>
+                                        <th>Item #</th>
+                                        <th>Amount</th>
+                                        <th>PO Qty</th>
+                                        <th>UOM</th>
+                                        <th>GR Qty</th>
+                                        <th>UoM</th>
+                                        <th>Settled Qty</th>
+                                        <th>UoM</th>
+                                        <th>Reference PO</th>
+                                        <th>Tax code</th>
+                                    </tr>
+                                </thead>
+                                <tbody formArrayName="itemList">
+                                    <tr *ngFor="let vendorInvoice of detail.controls let i = index;"
+                                        [formGroupName]="i">
+                                        <td *ngIf="vendorInvoiceFormGroup.controls.length > 1">
+                                            <mat-icon style="cursor:pointer"
+                                                (click)="deleterow(i)">delete</mat-icon>
+                                        </td>
+                                        <td>
+                                          <input type="number" class="form-control " formControlName="item" placeholder="Enter item">
+                                        </td>
+                                        <td>
+                                          <input type="number" class="form-control " formControlName="amount" placeholder="Enter amount">
+                                        </td>
+                                        <td>
+                                          <input type="number" class="form-control " formControlName="poQty" placeholder="Enter po qty">
+                                        </td>
+                                        <td>
+                                            <select class="form-select w-100" aria-label="Default select example"
+                                                formControlName="uom">
+                                            <option>select uom</option>
+                                                <option>one</option>
+                                                <option>two</option>
+                                                <option>three</option>
+                                            </select>
+
+                                        </td>
+                                        <td>
+                                          <input type="number" class="form-control " formControlName="grQty" placeholder="Enter gr qty">
+                                        </td>
+                                        <td>
+                                          <select class="form-select w-100" aria-label="Default select example"
+                                          formControlName="uom">
+                                          <option>select uom</option>
+                                          <option>one</option>
+                                          <option>two</option>
+                                          <option>three</option>
+                                      </select>
+                                        </td>
+                                        <td>
+                                          <input type="number" class="form-control " formControlName="settledQty" placeholder="Enter settled qty">
+                                        </td>
+                                        <td>
+                                          <select class="form-select w-100" aria-label="Default select example"
+                                          formControlName="uom">
+                                          <option>select uom</option>
+                                          <option>one</option>
+                                          <option>two</option>
+                                          <option>three</option>
+                                      </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" min="0" class="form-control"
+                                                placeholder="Enter reference po" formControlName="referencePo">
+                                        </td>
+                                        
+                                        <td>
+                                          <select class="form-select w-100" aria-label="Default select example"
+                                          formControlName="taxCode">
+                                          <option>select tax code</option>
+                                          <option>one</option>
+                                          <option>two</option>
+                                          <option>three</option>
+                                      </select>
+                                        </td>
+                      
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="col-12 d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div *ngIf="isSubmitted && vendorInvoice.controls['invoiceDate'].hasError('required')">
-          <p class="error-message">Invoice Date is mandatory</p>
-        </div>
-
-      </div>
-
-      <div class="col-6 py-2 mt-4">
-        <span for="">Posting Date</span>
-        <input placeholder="Enter Posting Data" type="date" formControlName="postDate" class="form-control">
-      </div>
-
-      <div class="col-6 py-2 ">
-        <label for="">Amount <sup>*</sup> </label>
-        <input type="number" formControlName="amount" placeholder="enter amount" class="form-control" />
-
-        <div
-          *ngIf="vendorInvoice.controls['amount'].touched && vendorInvoice.controls['amount'].dirty && vendorInvoice.controls['amount'].hasError('required') && !isSubmitted">
-          <p class="error-message">Amount is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && vendorInvoice.controls['amount'].hasError('required')">
-          <p class="error-message">Amount is mandatory</p>
-        </div>
-
-      </div>
-
-      <div class="col-6 py-2 ">
-        <label for="">Tax Amount <sup>*</sup> </label>
-        <input type="number" formControlName="taxAmount" placeholder="enter tax amount" class="form-control" />
-
-        <div
-          *ngIf="vendorInvoice.controls['taxAmount'].touched && vendorInvoice.controls['taxAmount'].dirty && vendorInvoice.controls['taxAmount'].hasError('required') && !isSubmitted">
-          <p class="error-message">Tax Amount is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && vendorInvoice.controls['taxAmount'].hasError('required')">
-          <p class="error-message">Tax Amount is mandatory</p>
-        </div>
-
-      </div>
-
-      <div class="col-6 py-2 ">
-        <label for="">Currency <sup>*</sup> </label>
-        <input type="text" formControlName="currnecy" placeholder="enter currnecy" class="form-control" />
-
-        <div
-          *ngIf="vendorInvoice.controls['currnecy'].touched && vendorInvoice.controls['currnecy'].dirty && vendorInvoice.controls['currnecy'].hasError('required') && !isSubmitted">
-          <p class="error-message">Currency is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && vendorInvoice.controls['currnecy'].hasError('required')">
-          <p class="error-message">Currency is mandatory</p>
-        </div>
-
-      </div>
-
-      <div class="col-6 py-2 ">
-        <label for="">Text <sup>*</sup> </label>
-        <textarea name="" id="" cols="30" rows="1" formControlName="text" class="form-control"
-          placeholder="enter text"></textarea>
-
-        <div
-          *ngIf="vendorInvoice.controls['text'].touched && vendorInvoice.controls['text'].dirty && vendorInvoice.controls['text'].hasError('required') && !isSubmitted">
-          <p class="error-message">Text is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && vendorInvoice.controls['text'].hasError('required')">
-          <p class="error-message">Text is mandatory</p>
-        </div>
-
-      </div>
-
-      <div class="col-6 py-2 ">
-        <label for="">Company Code <sup>*</sup> </label>
-        <input type="text" formControlName="companyCode" placeholder="enter company code" class="form-control" />
-
-        <div
-          *ngIf="vendorInvoice.controls['companyCode'].touched && vendorInvoice.controls['companyCode'].dirty && vendorInvoice.controls['companyCode'].hasError('required') && !isSubmitted">
-          <p class="error-message">Company Code is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && vendorInvoice.controls['companyCode'].hasError('required')">
-          <p class="error-message">Company Code is mandatory</p>
-        </div>
-
-      </div>
-
-      <div class="col-6 py-2 ">
-        <label for="">Reference Document <sup>*</sup></label>
-        <input type="text" formControlName="referenceDocument" placeholder="enter reference document"
-          class="form-control" />
-
-        <div
-          *ngIf="vendorInvoice.controls['referenceDocument'].touched && vendorInvoice.controls['referenceDocument'].dirty && vendorInvoice.controls['referenceDocument'].hasError('required') && !isSubmitted">
-          <p class="error-message">Reference Document is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && vendorInvoice.controls['referenceDocument'].hasError('required')">
-          <p class="error-message">Reference Document is mandatory</p>
-        </div>
-
-      </div>
-
-      <div class="col-6 py-2 ">
-        <label for="">Vendor <sup>*</sup></label>
-        <input type="text" formControlName="vendor" placeholder="enter vendor" class="form-control" />
-
-        <div
-          *ngIf="vendorInvoice.controls['vendor'].touched && vendorInvoice.controls['vendor'].dirty && vendorInvoice.controls['vendor'].hasError('required') && !isSubmitted">
-          <p class="error-message">Vendor is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && vendorInvoice.controls['vendor'].hasError('required')">
-          <p class="error-message">Vendor is mandatory</p>
-        </div>
-      </div>
-
-      <div class="col-6 py-2 ">
-        <label for=""> Vendor Address <sub>*</sub> </label>
-        <input type="text" formControlName="vendorAddress" placeholder="enter vendor address" class="form-control" />
-
-        <div
-          *ngIf="vendorInvoice.controls['vendorAddress'].touched && vendorInvoice.controls['vendorAddress'].dirty && vendorInvoice.controls['vendorAddress'].hasError('required') && !isSubmitted">
-          <p class="error-message">Vendor Address is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && vendorInvoice.controls['vendorAddress'].hasError('required')">
-          <p class="error-message">Vendor Address is mandatory</p>
-        </div>
-      </div>
-
-      <div class="col-6 py-2 ">
-        <label for="">Vendor Bank Details <sup>*</sup> </label>
-        <input type="text" formControlName="vendorBankDetails" placeholder="enter vendor bank details"
-          class="form-control" />
-
-        <div
-          *ngIf="vendorInvoice.controls['vendorBankDetails'].touched && vendorInvoice.controls['vendorBankDetails'].dirty && vendorInvoice.controls['vendorBankDetails'].hasError('required') && !isSubmitted">
-          <p class="error-message">Vendor Bank Details is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && vendorInvoice.controls['vendorBankDetails'].hasError('required')">
-          <p class="error-message">Vendor Bank Details is mandatory</p>
-        </div>
-      </div>
-
-      <div class="col-6 py-2 ">
-        <label for=""> Payment Terms <sup>*</sup> </label>
-        <input type="text" formControlName="paymentTerms" placeholder="enter payment terms" class="form-control" />
-
-        <div
-          *ngIf="vendorInvoice.controls['paymentTerms'].touched && vendorInvoice.controls['paymentTerms'].dirty && vendorInvoice.controls['paymentTerms'].hasError('required') && !isSubmitted">
-          <p class="error-message"> Payment Terms is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && vendorInvoice.controls['paymentTerms'].hasError('required')">
-          <p class="error-message"> Payment Terms is mandatory</p>
-        </div>
-      </div>
-
-      <div class="col-6 py-2 ">
-        <label for="">Baseline Date <sup>*</sup> </label>
-        <input type="text" formControlName="baseLineDate" placeholder="enter baseline date" class="form-control" />
-
-        <div
-          *ngIf="vendorInvoice.controls['baseLineDate'].touched && vendorInvoice.controls['baseLineDate'].dirty && vendorInvoice.controls['baseLineDate'].hasError('required') && !isSubmitted">
-          <p class="error-message">Baseline Date is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && vendorInvoice.controls['baseLineDate'].hasError('required')">
-          <p class="error-message">Baseline Date is mandatory</p>
-        </div>
-
-      </div>
-
-      <div class="col-6 py-2 ">
-        <label for=""> Payment due date <sup>*</sup> </label>
-        <input type="text" formControlName="paymentDueDate" placeholder="enter due date" class="form-control" />
-
-        <div
-          *ngIf="vendorInvoice.controls['paymentDueDate'].touched && vendorInvoice.controls['paymentDueDate'].dirty && vendorInvoice.controls['paymentDueDate'].hasError('required') && !isSubmitted">
-          <p class="error-message">Payment due date is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && vendorInvoice.controls['paymentDueDate'].hasError('required')">
-          <p class="error-message">Payment due date is mandatory</p>
-        </div>
-
-      </div>
-
     </div>
-    <div class="col-2 py-2">
-      <button type="submit" class="btn btn-primary ">
-        submit
-      </button>
-    </div>
 
-  </form>
-</div>
+     -->
+
+
+
+
+
+
+
