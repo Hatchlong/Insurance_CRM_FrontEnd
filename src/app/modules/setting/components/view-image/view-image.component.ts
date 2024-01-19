@@ -7,7 +7,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./view-image.component.css']
 })
 export class ViewImageComponent {
-  imgPath = 'http://54.151.187.67:4000/'
+  imgPath = 'http://localhost:4000/'
   constructor(
     public dialogRef: MatDialogRef<ViewImageComponent>,
     @Inject(MAT_DIALOG_DATA) public data:any,
