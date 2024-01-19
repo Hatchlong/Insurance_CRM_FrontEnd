@@ -12,36 +12,36 @@ export class CustomerService {
   ) { }
 
   createCustomer(data: any) {
-    return this.http.post('http://localhost:4000/api/master/customer/create', data).toPromise()
+    return this.http.post('http://54.151.187.67:4000/api/master/customer/create', data).toPromise()
   }
 
   getAllCustomerDetails() {
-    return this.http.get('http://localhost:4000/api/master/customer/getAll').toPromise()
+    return this.http.get('http://54.151.187.67:4000/api/master/customer/getAll').toPromise()
   }
 
   
 
   singleCustomerDetails(id: any) {
-    return this.http.get(`http://localhost:4000/api/master/customer/get/${id}`).toPromise()
+    return this.http.get(`http://54.151.187.67:4000/api/master/customer/get/${id}`).toPromise()
   }
 
   updatedCustomerDetails(data: any) {
-    return this.http.put(`http://localhost:4000/api/master/customer/update/${data._id}`, data).toPromise()
+    return this.http.put(`http://54.151.187.67:4000/api/master/customer/update/${data._id}`, data).toPromise()
   }
 
   getDeliveryBlock(){
-    return this.http.get('http://localhost:4000/api/config/deliveryBlock/getAll').toPromise()
+    return this.http.get('http://54.151.187.67:4000/api/config/deliveryBlock/getAll').toPromise()
   }
 
   getCustomerGroup(){
-    return this.http.get('http://localhost:4000/api/config/customerGroup/getAll').toPromise()
+    return this.http.get('http://54.151.187.67:4000/api/config/customerGroup/getAll').toPromise()
     
   }
 
 
   
   updateCustomerMany(data: any) {
-    return this.http.put(`http://localhost:4000/api/master/customer/update`, data).toPromise()
+    return this.http.put(`http://54.151.187.67:4000/api/master/customer/update`, data).toPromise()
   }
 
 
@@ -85,11 +85,11 @@ export class CustomerService {
   }
 
   fileUploadXlsx(data: any) {
-    return this.http.post(`http://localhost:4000/api/master/customer/upload`, data).toPromise()
+    return this.http.post(`http://54.151.187.67:4000/api/master/customer/upload`, data).toPromise()
   }
 
   getAllCustomerDetailsPage(skip?: any, itemsPerPage?: any) {
-    return this.http.get(`http://localhost:4000/api/master/customer/getAll/${skip}/${itemsPerPage}`).toPromise()
+    return this.http.get(`http://54.151.187.67:4000/api/master/customer/getAll/${skip}/${itemsPerPage}`).toPromise()
 
   }
 

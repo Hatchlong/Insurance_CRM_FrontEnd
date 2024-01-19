@@ -34,7 +34,7 @@ export class AddBillingBlockComponent {
 
   channeldata() {
     this.billing = this.fb.group({
-      billingBlock: ['', Validators.required],
+      billingBlock: ['', [Validators.required, Validators.maxLength(6), Validators.minLength(6)]],
       description: ['', Validators.required]
     })
   }

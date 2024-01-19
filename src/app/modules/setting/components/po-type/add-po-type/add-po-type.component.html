@@ -5,13 +5,19 @@
         <div class="row">
             <div class="col-6 py-2">
                 <label for="" class="">PO Type</label>
-                <input type="text" class="form-control " placeholder="Enter PO" formControlName="poType">
+                <input type="text" class="form-control " placeholder="Enter PO" formControlName="poType" appDirective>
                 <div
                     *ngIf="poType.controls['poType'].touched && poType.controls['poType'].dirty && poType.controls['poType'].hasError('required') && !isSubmitted">
                     <p class="error-message">PO Type is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && poType.controls['poType'].hasError('required')">
                     <p class="error-message">PO Type is mandatory</p>
+                </div>
+                <div *ngIf="poType.controls['poType'].hasError('minlength')">
+                    <p class="error-message">Minimum length exceeded (min Limit : 6).</p>
+                  </div>
+                <div *ngIf="poType.controls['poType'].hasError('maxlength')">
+                    <p class="error-message">Maximum length exceeded (Max Limit : 6).</p>
                 </div>
             </div>
             <div class="col-6 py-2">

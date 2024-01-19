@@ -32,7 +32,7 @@ export class AddDivionComponent implements OnInit {
 
   channeldata() {
     this.divionData = this.fb.group({
-      divion: ['', Validators.required],
+      divion: ['', [Validators.required,Validators.minLength(6), Validators.maxLength(6)]],
       divionDescription: ['', Validators.required]
     });
     console.warn(this.divionData.value)

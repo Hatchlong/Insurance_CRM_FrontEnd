@@ -32,7 +32,7 @@ export class AddModeOfTransportComponent {
 
   code() {
     this.transport = this.fb.group({
-      modeOfTransport: ['', Validators.required],
+      modeOfTransport: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
       motDescription: ['', Validators.required]
 
     })

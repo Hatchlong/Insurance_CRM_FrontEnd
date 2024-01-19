@@ -10,34 +10,34 @@ export class IncTermService {
   constructor(private http: HttpClient) { }
 
   createIncTerms(data: any) {
-    return this.http.post('http://localhost:4000/api/master/incterms/create', data).toPromise()
+    return this.http.post('http://54.151.187.67:4000/api/master/incterms/create', data).toPromise()
   }
  
   getAllIncTermsDetails() {
-    return this.http.get('http://localhost:4000/api/master/incterms/getAll').toPromise()
+    return this.http.get('http://54.151.187.67:4000/api/master/incterms/getAll').toPromise()
   }
 
   getAllIncoTermPage(skip?:any, itemsPerPage?:any) {
-    return this.http.get(`http://localhost:4000/api/master/incterms/getAll/`).toPromise()
+    return this.http.get(`http://54.151.187.67:4000/api/master/incterms/getAll/`).toPromise()
   }
 
   singleIncTermsDetails(id: any) {
-    return this.http.get(`http://localhost:4000/api/master/incterms/get/${id}`).toPromise()
+    return this.http.get(`http://54.151.187.67:4000/api/master/incterms/get/${id}`).toPromise()
   }
 
   updatedIncTermsDetails(data: any) {
-    return this.http.put(`http://localhost:4000/api/master/incterms/update/${data._id}`, data).toPromise()
+    return this.http.put(`http://54.151.187.67:4000/api/master/incterms/update/${data._id}`, data).toPromise()
 
   }
 
 
   updateIncoTermMany(data: any) {
-    return this.http.put(`http://localhost:4000/api/master/incterms/update`, data).toPromise()
+    return this.http.put(`http://54.151.187.67:4000/api/master/incterms/update`, data).toPromise()
   }
 
  
   fileUploadIncoTerm(data: any) {
-    return this.http.post(`http://localhost:4000/api/master/incterms/upload`, data).toPromise()
+    return this.http.post(`http://54.151.187.67:4000/api/master/incterms/upload`, data).toPromise()
   }
   exportToExcel(data: any[], fileName: string, sheetName: string): void {
     data.map((el: any) => {

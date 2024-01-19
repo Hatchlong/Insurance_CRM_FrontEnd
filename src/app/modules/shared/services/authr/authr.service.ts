@@ -15,6 +15,6 @@ export class AuthrService {
 
 
   logoutUser(data: any) {
-    return this.http.post('http://localhost:4000/api/auth/user/logout', data).toPromise()
+    return this.http.post('http://54.151.187.67:4000/api/auth/user/logout', data).toPromise()
   }
 }

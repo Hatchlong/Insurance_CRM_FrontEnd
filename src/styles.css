@@ -91,11 +91,11 @@ mat-icon{
     cursor: pointer;
 }
 
-option,select {
+option,select,td {
     text-transform: capitalize !important; /* change first letter to uppercase */
   }
 
-  input::placeholder, textarea::placeholder, select, input {
+  input::placeholder, textarea::placeholder, select, input, textarea {
     font-size: 13px !important;
     font-weight: 500 !important;
   }

@@ -8,13 +8,19 @@
          <div class="col-6 py-2">
                 <label for="" class="">Distibution Channel<sup>*</sup></label>
                 <input type="text" class="form-control " placeholder="Enter Distribution Channel"
-                    formControlName="distributionChannel">
+                    formControlName="distributionChannel" appDirective>
                 <div
                     *ngIf="channel.controls['distributionChannel'].touched && channel.controls['distributionChannel'].dirty && channel.controls['distributionChannel'].hasError('required') && !isSubmitted">
                     <p class="error-message">Distribution Channel is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && channel.controls['distributionChannel'].hasError('required')">
                     <p class="error-message">Distribution Channel is mandatory</p>
+                </div>
+                <div *ngIf="channel.controls['distributionChannel'].hasError('minlength')">
+                    <p class="error-message">Minimum length exceeded (min Limit : 6).</p>
+                  </div>
+                <div *ngIf="channel.controls['distributionChannel'].hasError('maxlength')">
+                    <p class="error-message">Maximum length exceeded (Max Limit : 6).</p>
                 </div>
             </div>
             <div class="col-6 py-2">

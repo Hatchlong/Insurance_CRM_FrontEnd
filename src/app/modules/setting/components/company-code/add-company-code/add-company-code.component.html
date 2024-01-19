@@ -6,14 +6,14 @@
                 <h2><mat-icon class="back" routerLink="/settings/company-code-list">arrow_back</mat-icon>Company Code
                 </h2>
             </div>
-          
 
-            <div class="col-6">
+
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                 <div class="row">
                     <div class="col-12 py-2">
                         <label for="">Company Code <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Company code"
-                            formControlName="companyCode" >
+                            formControlName="companyCode" appDirective>
                         <div
                             *ngIf="companyCode.controls['companyCode'].touched && companyCode.controls['companyCode'].dirty && companyCode.controls['companyCode'].hasError('required') && !isSubmitted">
                             <p class="error-message">Company code is mandatory</p>
@@ -21,6 +21,14 @@
                         <div *ngIf="isSubmitted && companyCode.controls['companyCode'].hasError('required')">
                             <p class="error-message">Company code is mandatory</p>
                         </div>
+                        <div *ngIf="companyCode.controls['companyCode'].hasError('minlength')">
+                            <p class="error-message">Minimum length exceeded (min Limit : 6).</p>
+                        </div>
+                        <div *ngIf="companyCode.controls['companyCode'].hasError('maxlength')">
+                            <p class="error-message">Maximum length exceeded (Max Limit : 6).</p>
+                        </div>
+
+
                     </div>
 
                     <div class="col-12 py-2">
@@ -34,23 +42,27 @@
                         <div *ngIf="isSubmitted && companyCode.controls['companyName'].hasError('required')">
                             <p class="error-message">Company Name is mandatory</p>
                         </div>
+
                     </div>
                 </div>
             </div>
 
-            <div class="col-6">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                 <div class="row">
                     <div class="col-12 py-2">
                         <section class="file-border">
                             <div class="row">
                                 <div class="col-12 d-flex justify-content-center py-1" style="position: relative;">
-                                    <img class="img-ava" [src]="imageSrc?imageSrc:'/assets/logs/profile.png'"><sup class="delete_img" (click)="deletePerview()" *ngIf="imageSrc"><mat-icon style="font-size: 20px;display: flex;align-items: center;justify-content: center;">delete</mat-icon></sup>
+                                    <img class="img-ava" [src]="imageSrc?imageSrc:'/assets/logs/profile.png'"><sup
+                                        class="delete_img" (click)="deletePerview()" *ngIf="imageSrc"><mat-icon
+                                            style="font-size: 20px;display: flex;align-items: center;justify-content: center;">delete</mat-icon></sup>
 
                                 </div>
                                 <div class="col-12 d-flex justify-content-center py-1">
-                                    <span (click)="uploadFile(inputFile)" class="upload_text">
+                                    <span (click)="uploadFile(inputFile,'log')" class="upload_text">
                                         Choose Company Logo</span>
-                                    <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
+                                    <input type="file" #inputFile class="d-none"
+                                        (change)="handleUploadFile($event)">
                                 </div>
                             </div>
                         </section>
@@ -58,7 +70,7 @@
                 </div>
             </div>
 
-            <div class="col-6 py-2">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="address1">Address 1 <sup>*</sup></label>
                 <textarea class="form-control" id="address1" formControlName="address1" placeholder="Address 1"
                     rows="3"></textarea>
@@ -71,13 +83,13 @@
                 </div>
             </div>
 
-            <div class="col-6 py-2">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="address1">Address 2</label>
                 <textarea class="form-control" id="address2" placeholder="Address 2" formControlName="address2"
                     rows="3"></textarea>
             </div>
 
-            <div class="col-6 py-2">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="" class="">Country Name <sup>*</sup></label>
                 <select class="form-select " aria-label="Default select example" formControlName="countryId"
                     (change)="selectCountryName($event)">
@@ -93,7 +105,7 @@
                     <p class="error-message">Country Name is mandatory</p>
                 </div>
             </div>
-            <div class="col-6 py-2">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="" class="">City <sup>*</sup></label>
                 <select class="form-select " aria-label="Default select example" formControlName="city"
                     [ngStyle]="{'pointer-events': !companyCode.value.countryId ? 'none' :  'all'}">
@@ -109,11 +121,10 @@
                 </div>
             </div>
 
-            <div class="col-6 py-2">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="" class="">Currency <sup>*</sup></label>
                 <select class="form-select " aria-label="Default select example" formControlName="currencyId"
-                    (change)="handleCurrency($event)"
-                    >
+                    (change)="handleCurrency($event)">
                     <option [selected]="companyCode.value.currencyId===''" value="" hidden>Select Currency</option>
                     <option *ngFor="let list of currencyDetails | filterPipes:'code'" [value]="list._id">{{list.code}}
                     </option>
@@ -125,13 +136,13 @@
                 <div *ngIf="isSubmitted && companyCode.controls['currencyId'].hasError('required')">
                     <p class="error-message">Currency is mandatory</p>
                 </div>
-            </div> 
-            <div class="col-6 py-2">
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="">Language <sup>*</sup></label>
-                <select class="form-select " aria-label="Default select example" formControlName="languageId"
-                    >
+                <select class="form-select " aria-label="Default select example" formControlName="languageId">
                     <option [selected]="companyCode.value.languageId===''" value="" hidden>Select Language</option>
-                    <option *ngFor="let list of languageDetails | filterPipes:'languageCode';" [value]="list._id" >{{list.languageCode}}</option>
+                    <option *ngFor="let list of languageDetails | filterPipes:'languageCode';" [value]="list._id">
+                        {{list.languageCode}}</option>
                 </select>
                 <div
                     *ngIf="companyCode.controls['languageId'].touched && companyCode.controls['languageId'].dirty && companyCode.controls['languageId'].hasError('required') && !isSubmitted">
@@ -141,11 +152,91 @@
                     <p class="error-message">Language is mandatory</p>
                 </div>
             </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Industry Sector <sup>*</sup></label>
+                <select class="form-select " formControlName="industryId" (change)="selectIndustryName($event)">
+                    <option [selected]="companyCode.value.industryId===''" value="" hidden>Select Industry Sector
+                    </option>
+                    <option *ngFor="let list of industryDetails | filterPipes:'description';" [value]="list._id">
+                        {{list.description}}</option>
+                </select>
+                <div
+                    *ngIf="companyCode.controls['industryId'].touched && companyCode.controls['industryId'].dirty && companyCode.controls['industryId'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Industry Sector is mandatory</p>
+                </div>
+                <div *ngIf="isSubmitted && companyCode.controls['industryId'].hasError('required')">
+                    <p class="error-message">Industry Sector is mandatory</p>
+                </div>
+            </div>
 
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2 ">
+                <label for="">Company Registration No <sup>*</sup></label>
+                <div class="d-flex d-grid gap-2">
+                    <input type="text" class="form-control w-50" formControlName="companyRegistrationNo" required
+                        placeholder="Enter Company Registration No"> <span (click)="uploadFile(inputFile, 'company_no')"
+                        class="upload_text">
+                        {{companyCode.value.companyRegistrationFilePath ? companyCode.value.companyRegistrationFilePath : 'Upload Company Registration No'}}</span>
+                    <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
+                </div>
 
-           
+                <div
+                    *ngIf="companyCode.controls['companyRegistrationNo'].touched && companyCode.controls['companyRegistrationNo'].dirty && companyCode.controls['companyRegistrationNo'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Company Registration No is mandatory</p>
+                </div>
+                <div *ngIf="isSubmitted && companyCode.controls['companyRegistrationNo'].hasError('required')">
+                    <p class="error-message">Company Registration No is mandatory</p>
+                </div>
+                <div
+                *ngIf="isSubmitted && companyCode.controls['companyRegistrationFilePath'].hasError('required')&& companyCode.value.companyRegistrationNo">
+                <p class="error-message">Company Registration No File is mandatory</p>
+            </div>
+            </div>
 
-           
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2 ">
+                <label for="">Tax Registration No <sup>*</sup></label>
+                <div class="d-flex d-grid gap-2">
+                    <input type="text" class="form-control w-50" formControlName="taxRegistrationNo" required
+                        placeholder="Enter Tax Registration No"> <span (click)="uploadFile(inputFile, 'tax_no')"
+                        class="upload_text">
+                        {{companyCode.value.taxRegistrationFilePath ? companyCode.value.taxRegistrationFilePath : 'Upload Tax Registration No'}}</span>
+                    <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
+                </div>
+
+                <div
+                    *ngIf="companyCode.controls['taxRegistrationNo'].touched && companyCode.controls['taxRegistrationNo'].dirty && companyCode.controls['taxRegistrationNo'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Tax Registration No is mandatory</p>
+                </div>
+                <div *ngIf="isSubmitted && companyCode.controls['taxRegistrationNo'].hasError('required')">
+                    <p class="error-message">Tax Registration No is mandatory</p>
+                </div>
+                <div
+                    *ngIf="isSubmitted && companyCode.controls['taxRegistrationFilePath'].hasError('required')&& companyCode.value.taxRegistrationNo">
+                    <p class="error-message">Tax Registration No File is mandatory</p>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2 ">
+                <label for="">Vat Registration No <sup>*</sup></label>
+                <div class="d-flex d-grid gap-2">
+                    <input type="text" class="form-control w-50" formControlName="vatRegistrationNo" required
+                        placeholder="Enter Vat Registration No"> <span (click)="uploadFile(inputFile, 'vat_no')"
+                        class="upload_text">
+                        {{companyCode.value.vatRegistrationFilePath ? companyCode.value.vatRegistrationFilePath : 'Upload Vat Registration No'}}</span>
+                    <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
+                </div>
+
+                <div
+                    *ngIf="companyCode.controls['vatRegistrationNo'].touched && companyCode.controls['vatRegistrationNo'].dirty && companyCode.controls['vatRegistrationNo'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Vat Registration No is mandatory</p>
+                </div>
+                <div *ngIf="isSubmitted && companyCode.controls['vatRegistrationNo'].hasError('required')">
+                    <p class="error-message">Vat Registration No is mandatory</p>
+                </div>
+                <div
+                    *ngIf="isSubmitted && companyCode.controls['vatRegistrationFilePath'].hasError('required')&& companyCode.value.vatRegistrationNo">
+                    <p class="error-message">Vat Registration No File is mandatory</p>
+                </div>
+            </div>
+
         </div>
         <div class="col-12 d-flex justify-content-end py-2">
             <button type="button" class="btn btn-primary" (click)="fileUpload()">Save</button>

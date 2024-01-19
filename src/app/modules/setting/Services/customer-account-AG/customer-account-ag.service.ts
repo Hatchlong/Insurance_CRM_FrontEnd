@@ -15,24 +15,24 @@ export class CustomerAccountAGService {
   
 
   createCustomerAccountDetails(data:any){
-    return this.http.post('http://localhost:4000/api/master/customerAccAG/create', data).toPromise()
+    return this.http.post('http://54.151.187.67:4000/api/master/customerAccAG/create', data).toPromise()
   }
  
   getAllCustomerAccountDetails(){
-    return this.http.get('http://localhost:4000/api/master/customerAccAG/getAll').toPromise()
+    return this.http.get('http://54.151.187.67:4000/api/master/customerAccAG/getAll').toPromise()
   }
  
   singleCustomerAccount(id:any){
-    return this.http.get(`http://localhost:4000/api/master/customerAccAG/get/${id}`).toPromise()
+    return this.http.get(`http://54.151.187.67:4000/api/master/customerAccAG/get/${id}`).toPromise()
   } 
  
   updateCustomerAccount(data:any){
-    return this.http.put(`http://localhost:4000/api/master/customerAccAG/update/${data._id}`, data).toPromise()
+    return this.http.put(`http://54.151.187.67:4000/api/master/customerAccAG/update/${data._id}`, data).toPromise()
   }
 
   
   updatedManyCustomerAccountACGDetails(data: any) {
-    return this.http.put(`http://localhost:4000/api/master/customerAccAG/update`, data).toPromise()
+    return this.http.put(`http://54.151.187.67:4000/api/master/customerAccAG/update`, data).toPromise()
   }
 
   exportToExcel(data: any[], fileName: string, sheetName: string): void {
@@ -48,11 +48,11 @@ export class CustomerAccountAGService {
     XLSX.writeFile(wb, `${fileName}.xlsx`);
   }
   getAllCustomerAccountACGDetailsPage(skip?: any, itemsPerPage?: any) {
-    return this.http.get(`http://localhost:4000/api/master/customerAccAG/getAll/${skip}/${itemsPerPage}`).toPromise()
+    return this.http.get(`http://54.151.187.67:4000/api/master/customerAccAG/getAll/${skip}/${itemsPerPage}`).toPromise()
 
   }
   fileUploadXlsx(data: any) {
-    return this.http.post(`http://localhost:4000/api/master/customerAccAG/upload`, data).toPromise()
+    return this.http.post(`http://54.151.187.67:4000/api/master/customerAccAG/upload`, data).toPromise()
   }
 
 

@@ -33,7 +33,7 @@ export class AddCustomerAccComponent implements OnInit {
 
   channeldata() {
     this.customerAcc = this.fb.group({
-      customerAccountAG: ['', Validators.required],
+      customerAccountAG: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
       descriptionCAAG: ['', Validators.required]
     });
 

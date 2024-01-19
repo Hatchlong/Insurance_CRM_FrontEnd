@@ -27,8 +27,8 @@ export class EditPlantDataComponent {
   storgaeLocationDetails: any = []
   salesDetail: any = []
   isSubmitted: any = false
-  isShowPadding:any = false;
-  languageDetails:any = []
+  isShowPadding: any = false;
+  languageDetails: any = []
   constructor(
     private fb: FormBuilder,
     private plantDataSer: PlantDataService,
@@ -62,20 +62,19 @@ export class EditPlantDataComponent {
     this.plantFormData = this.fb.group({
       _id: ['', Validators.required],
       plantCode: ['', Validators.required],
-      name1: ['', Validators.required],
-      name2: ['', Validators.required],
+      plantName: ['', Validators.required],
       languageId: ['', Validators.required],
       languageName: ['', Validators.required],
       address: ['', Validators.required],
       countryId: ['', Validators.required],
       countryName: ['', Validators.required],
       cityId: ['', Validators.required],
-      contactPersonName: ['', Validators.required],
-      contactNumber: ['', Validators.required],
+      contactPersonName: [''],
+      contactNumber: [''],
       timeZoneId: ['', Validators.required],
       timeZoneName: ['', Validators.required],
-      searchTerm: ['', Validators.required],
-      customerNo_plant: ['', Validators.required],
+      searchTerm: [''],
+      customerNo_plant: [''],
       vendorNumberPlant: ['', Validators.required],
       purchaseOrganizationId: ['', Validators.required],
       purchaseOrganizationName: ['', Validators.required],
@@ -83,8 +82,10 @@ export class EditPlantDataComponent {
       salesOrganizationName: ['fuffgf', Validators.required],
       taxIndicatorId: ['', Validators.required],
       taxIndicatorName: ['', Validators.required],
-      stoargeLocationId: ['', Validators.required],
-      stoargeLocationName: ['', Validators.required]
+      stoargeLocationId: [''],
+      stoargeLocationName: [''],
+      fromTimer: ['', Validators.required],
+      toTimer: ['', Validators.required]
     })
   }
 
@@ -98,6 +99,14 @@ export class EditPlantDataComponent {
         console.log(this.plantFormData.value)
         this.citiesDetails = this.countryDetials.find((el: any) => el._id === this.plantFormData.value.countryId);
       }
+      let myDate = new Date();
+      var splitValue = result.data.fromTimer.split(":")
+      myDate.setHours(+splitValue[0], +splitValue[1]);
+      this.plantFormData.controls.fromTimer.setValue(myDate);
+      let tomyDate = new Date();
+      var tosplitValue = result.data.toTimer.split(":")
+      tomyDate.setHours(+tosplitValue[0], +tosplitValue[1]);
+      this.plantFormData.controls.toTimer.setValue(tomyDate);
     } catch (error: any) {
       if (error.error.message) {
         this._snackBar.open(error.error.message, '', {
@@ -105,7 +114,7 @@ export class EditPlantDataComponent {
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -137,7 +146,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -159,7 +168,19 @@ return
       if (this.plantFormData.invalid) {
         return
       }
+      var hours = this.plantFormData.value.fromTimer.getHours();
+      var minutes = this.plantFormData.value.fromTimer.getMinutes();
 
+      // Format the date and time
+      var formTimer = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+
+      var tohours = this.plantFormData.value.toTimer.getHours();
+      var tominutes = this.plantFormData.value.toTimer.getMinutes();
+
+      // Format the date and time
+      var toTimer = `${tohours.toString().padStart(2, '0')}:${tominutes.toString().padStart(2, '0')}`;
+      this.plantFormData.value.fromTimer = formTimer;
+      this.plantFormData.value.toTimer = toTimer;
       const result: any = await this.plantDataSer.updatePlantData(this.plantFormData.value);
       if (result.status === '1') {
         this._snackBar.open(result.message, '', {
@@ -184,7 +205,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -215,7 +236,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -247,7 +268,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -272,7 +293,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -328,7 +349,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -340,7 +361,7 @@ return
   }
 
 
- 
+
   // single details for Language Detials
   async getAllLanguageList() {
     try {
@@ -403,6 +424,15 @@ return
   handleSalesData(event: any) {
     const findsalesData = this.salesDetail.find((el: any) => el._id === event.target.value)
     this.plantFormData.controls.salesOrganizationName.setValue(findsalesData.salesOrg)
+  }
+
+  handleSalesOrg(event: any) {
+    const findsalesData = this.salesDetail.find((el: any) => el._id === event.target.value)
+    this.plantFormData.controls.salesOrganizationName.setValue(findsalesData.salesOrg)
+    this.plantFormData.controls.timeZoneId.setValue(findsalesData.timeZoneId)
+    this.plantFormData.controls.timeZoneName.setValue(findsalesData.timeZoneName)
+
+
   }
 
 }

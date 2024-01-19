@@ -1,31 +1,37 @@
 <app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
     <form [formGroup]="order" (ngSubmit)="addOrder()">
-        <h2><mat-icon class="back" routerLink="/settings/order-status-list" >arrow_back</mat-icon>Order Status
+        <h2><mat-icon class="back" routerLink="/settings/order-status-list">arrow_back</mat-icon>Order Status
         </h2>
         <div class="row">
             <div class="col-6 py-2">
                 <label for="" class="">Order Status<sup>*</sup></label>
-                <input type="text" class="form-control " placeholder="Enter Order Status" formControlName="orderStatus">
+                <input type="text" class="form-control " placeholder="Enter Order Status" formControlName="orderStatus" appDirective>
                 <div
-                *ngIf="order.controls['orderStatus'].touched && order.controls['orderStatus'].dirty && order.controls['orderStatus'].hasError('required') && !isSubmitted">
-                <p class="error-message">Order Status is mandatory</p>
-            </div>
-            <div *ngIf="isSubmitted && order.controls['orderStatus'].hasError('required')">
-                <p class="error-message">Order Status is mandatory</p>
-            </div>
+                    *ngIf="order.controls['orderStatus'].touched && order.controls['orderStatus'].dirty && order.controls['orderStatus'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Order Status is mandatory</p>
+                </div>
+                <div *ngIf="isSubmitted && order.controls['orderStatus'].hasError('required')">
+                    <p class="error-message">Order Status is mandatory</p>
+                </div>
+                <div *ngIf="order.controls['orderStatus'].hasError('minlength')">
+                    <p class="error-message">Minimum length exceeded (min Limit : 6).</p>
+                </div>
+                <div *ngIf="order.controls['orderStatus'].hasError('maxlength')">
+                    <p class="error-message">Maximum length exceeded (Max Limit : 6).</p>
+                </div>
             </div>
             <div class="col-6 py-2">
                 <label for="" class="">Description<sup>*</sup></label>
-                
+
                 <input type="text" class="form-control " placeholder="Description " formControlName="description">
                 <div
-                *ngIf="order.controls['description'].touched && order.controls['description'].dirty && order.controls['description'].hasError('required') && !isSubmitted">
-                <p class="error-message">Description is mandatory</p>
-            </div>
-            <div *ngIf="isSubmitted && order.controls['description'].hasError('required')">
-                <p class="error-message">Description is mandatory</p>
-            </div>
+                    *ngIf="order.controls['description'].touched && order.controls['description'].dirty && order.controls['description'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Description is mandatory</p>
+                </div>
+                <div *ngIf="isSubmitted && order.controls['description'].hasError('required')">
+                    <p class="error-message">Description is mandatory</p>
+                </div>
             </div>
             <div class="col-12 d-flex justify-content-end py-2">
                 <button class="btn btn-primary" type="submit">Save</button>

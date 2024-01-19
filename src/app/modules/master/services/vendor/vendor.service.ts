@@ -12,49 +12,49 @@ export class VendorService {
   ) { }
 
   createVendorDetails(data: any) {
-    return this.http.post('http://localhost:4000/api/master/vendor/create', data).toPromise()
+    return this.http.post('http://54.151.187.67:4000/api/master/vendor/create', data).toPromise()
   }
 
   getAllVendorDetails() {
-    return this.http.get('http://localhost:4000/api/master/vendor/getAll').toPromise()
+    return this.http.get('http://54.151.187.67:4000/api/master/vendor/getAll').toPromise()
   }
 
   getAllVendorDetailsPage(skip?:any, itemsPerPage?:any) {
-    return this.http.get(`http://localhost:4000/api/master/vendor/getAll/`).toPromise()
+    return this.http.get(`http://54.151.187.67:4000/api/master/vendor/getAll/`).toPromise()
   }
 
   singleVendor(id: any) {
-    return this.http.get(`http://localhost:4000/api/master/vendor/get/${id}`).toPromise()
+    return this.http.get(`http://54.151.187.67:4000/api/master/vendor/get/${id}`).toPromise()
   }
 
   updateVendor(data: any) {
-    return this.http.put(`http://localhost:4000/api/master/vendor/update/${data._id}`, data).toPromise()
+    return this.http.put(`http://54.151.187.67:4000/api/master/vendor/update/${data._id}`, data).toPromise()
   }
 
   
   updateVendorMany(data: any) {
-    return this.http.put(`http://localhost:4000/api/master/vendor/update`, data).toPromise()
+    return this.http.put(`http://54.151.187.67:4000/api/master/vendor/update`, data).toPromise()
   }
 
   getVendorTypesDetails(){
-    return this.http.get(`http://localhost:4000/api/config/vendorType/getAll`).toPromise()
+    return this.http.get(`http://54.151.187.67:4000/api/config/vendorType/getAll`).toPromise()
   }
 
     // payment_method
     getAllPaymentMethodDetails(){
-      return this.http.get('http://localhost:4000/api/config/payment/getAll').toPromise()
+      return this.http.get('http://54.151.187.67:4000/api/config/payment/getAll').toPromise()
     }
 
      // reconcilationAccount
      getAllReconcilationAccountDetails(){
-      return this.http.get('http://localhost:4000/api/config/reconcilationAccount/getAll').toPromise()
+      return this.http.get('http://54.151.187.67:4000/api/config/reconcilationAccount/getAll').toPromise()
     }  
 
 
 
   
   fileUploadVendor(data: any) {
-    return this.http.post(`http://localhost:4000/api/master/vendor/upload`, data).toPromise()
+    return this.http.post(`http://54.151.187.67:4000/api/master/vendor/upload`, data).toPromise()
   }
 
   exportToExcel(data: any[], fileName: string, sheetName: string): void {
