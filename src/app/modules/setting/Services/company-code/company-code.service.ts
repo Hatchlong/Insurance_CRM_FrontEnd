@@ -86,4 +86,8 @@ export class CompanyCodeService {
     return this.http.get('http://localhost:4000/api/config/accountGroup/getAll').toPromise()
   }
 
+  getAllIndustrySectorDetails() {
+    return this.http.get('http://localhost:4000/api/config/industrySector/getAll').toPromise()
+  }
+
 }

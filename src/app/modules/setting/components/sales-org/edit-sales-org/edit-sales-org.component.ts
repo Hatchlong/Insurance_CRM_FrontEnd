@@ -22,7 +22,9 @@ export class EditSalesOrgComponent {
   salesDataId: any = ''
   singleDetail: any = []
   regionDetail: any = [];
-  isShowPadding:any = false;
+  isShowPadding: any = false;
+  companyDetails:any = [];
+  citiesDetails:any = []
   constructor(
     private fb: FormBuilder,
     private salesSer: SalesOrgService,
@@ -36,9 +38,10 @@ export class EditSalesOrgComponent {
   ngOnInit(): void {
     this.salesDataId = this.activeRouter.snapshot.paramMap.get('id')
     this.code()
-    this.getSingleDetail()
     this.getTimeZoneDetail()
     this.getCountryDetails()
+    this.getCompanyDetails()
+    this.getSingleDetail()
   }
 
   handleSideBar(event: any) {
@@ -54,11 +57,12 @@ export class EditSalesOrgComponent {
       searchTerm: ['', Validators.required],
       countryId: ['', Validators.required],
       countryName: ['', Validators.required],
-      regionId: ['', Validators.required],
-      regionName: ['', Validators.required],
+      region: ['', Validators.required],
       timeZoneId: ['', Validators.required],
       timeZoneName: ['', Validators.required],
       contactPerson: ['', Validators.required],
+      companyCodeId: ['', Validators.required],
+      companyCode: ['', Validators.required]
 
     });
 
@@ -148,8 +152,7 @@ export class EditSalesOrgComponent {
       const result: any = await this.salesSer.singleSalesOrgDetails(this.salesDataId)
       if (result.status === '1') {
         this.salesOrg.patchValue(result.data)
-        this.singleDetail = this.countryDetials.find((el: any) => el._id === this.salesOrg.value.countryId)
-        this.getRegionDetail(this.salesOrg.value.countryId)
+        this.citiesDetails = this.countryDetials.find((el: any) => el._id === this.salesOrg.value.countryId)
 
       }
     } catch (error: any) {
@@ -204,9 +207,9 @@ export class EditSalesOrgComponent {
   selectCountry(event: any) {
     this.details = this.countryDetials.find((el: any) => el._id === event.target.value);
     this.salesOrg.controls.countryName.setValue(this.details.countryName)
-    this.getRegionDetail(this.details._id)
-
+    this.citiesDetails = this.countryDetials.find((el: any) => el._id === event.target.value);
   }
+
   handleTimeZone(event: any) {
     const time = this.timeZone.find((el: any) => el._id === event.target.value)
     console.log(time);
@@ -221,31 +224,43 @@ export class EditSalesOrgComponent {
 
   }
 
-
-
-  //get region data
-
-  async getRegionDetail(id: any) {
+  // Get All details for company code
+  async getCompanyDetails() {
     try {
-      const result: any = await this.salesSer.getAllRegionDetails(id)
+      const result: any = await this.companyCodeSer.getAllCompanyCodeDetails();
       if (result.status === '1') {
-        console.log(result);
-
-        this.regionDetail = result.data
-        // this.salesOrg.controls.regionName.setValue(result.data.code)
+        this.companyDetails = result.data
+      } else {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
       }
-      else {
-        Swal.fire({
-          title: 'warning',
-          text: 'API Failed',
-          icon: 'warning',
-          showCancelButton: true
-        })
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
       }
-    } catch (error) {
-      console.error(error);
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
 
     }
+  }
+
+
+
+  handleCompany(event: any) {
+    const findsalesData = this.companyDetails.find((el: any) => el._id === event.target.value)
+    this.salesOrg.controls.companyCode.setValue(findsalesData.companyCode)
+
   }
 
 

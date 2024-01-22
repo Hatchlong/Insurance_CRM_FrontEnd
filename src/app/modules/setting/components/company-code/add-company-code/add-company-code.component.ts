@@ -20,11 +20,15 @@ export class AddCompanyCodeComponent {
   currencyDetails: any = [];
   isShowPadding: any = false;
   selectedFile: any = '';
+  selectedFileVerfiy: any = '';
   fileName: any = '';
-  imageSrc:any = '';
-  @ViewChild('inputFile') inputFile:any;
-  languageDetails:any = []
-  constructor(  
+  imageSrc: any = '';
+  @ViewChild('inputFile') inputFile: any;
+  languageDetails: any = [];
+  industryDetails: any = [];
+  filedPathName: any = '';
+  inputControl: any = ''
+  constructor(
     private fb: FormBuilder,
     private companySer: CompanyCodeService,
     private companyCodeSer: CompanyCodeService,
@@ -37,12 +41,13 @@ export class AddCompanyCodeComponent {
     this.getCompanyDetails()
     this.getCurrencyDetails()
     this.getAllLanguageList()
+    this.getAllInndustrySectorsList()
     this.code()
   }
 
   code() {
     this.companyCode = this.fb.group({
-      companyCode: ['', Validators.required],
+      companyCode: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
       companyName: ['', Validators.required],
       countryId: ['', Validators.required],
       countryName: [''],
@@ -51,9 +56,17 @@ export class AddCompanyCodeComponent {
       currencyName: ['', Validators.required],
       languageId: ['', Validators.required],
       languageName: ['', Validators.required],
-      address1:['', Validators.required],
-      address2:[''],
-      filePath:[''],
+      address1: ['', Validators.required],
+      address2: [''],
+      filePath: [''],
+      industryId: ['', Validators.required],
+      industryName: ['', Validators.required],
+      vatRegistrationNo: ['', [Validators.required]],
+      vatRegistrationFilePath: ['', [Validators.required]],
+      companyRegistrationNo: ['', [Validators.required]],
+      companyRegistrationFilePath: ['', [Validators.required]],
+      taxRegistrationNo: ['', [Validators.required]],
+      taxRegistrationFilePath: ['', [Validators.required]]
     })
   }
 
@@ -230,12 +243,12 @@ export class AddCompanyCodeComponent {
   selectCountryName(event: any) {
     this.citiesDetails = this.countryDetials.find((el: any) => el._id === event.target.value);
     console.log(this.citiesDetails);
-    if(this.citiesDetails){
-    this.companyCode.controls.countryName.setValue(this.citiesDetails.countryName)
+    if (this.citiesDetails) {
+      this.companyCode.controls.countryName.setValue(this.citiesDetails.countryName)
     }
     this.companyCode.controls.languageId.setValue(this.citiesDetails.languageId)
     this.companyCode.controls.languageName.setValue(this.citiesDetails.languageName)
-    const findDefaultCurrency = this.currencyDetails.find((el:any) => el.countryId === event.target.value);
+    const findDefaultCurrency = this.currencyDetails.find((el: any) => el.countryId === event.target.value);
 
     this.companyCode.controls.currencyId.setValue(findDefaultCurrency._id)
     this.companyCode.controls.currencyName.setValue(findDefaultCurrency.code)
@@ -250,26 +263,48 @@ export class AddCompanyCodeComponent {
     this.companyCode.controls.currencyName.setValue(findCurrencyCode.code)
   }
 
+  selectIndustryName(event:any){
+    const findIndustrySector = this.industryDetails.find((el: any) => el._id === event.target.value);
+    this.companyCode.controls.industryName.setValue(findIndustrySector.description) 
+  }
 
 
-  uploadFile(inputData: any) {
-    inputData.click()
+
+  uploadFile(inputData: any, fieldName: any) {
+    inputData.click();
+    this.filedPathName = fieldName;
+    this.inputControl = inputData
   }
 
 
   handleUploadFile(event: any) {
-  
+
     if (event.target.value) {
       const splitValue = event.target.files[0].name.split('.');
       if (splitValue[1] === 'png' || splitValue[1] === 'jpg' || splitValue[1] === 'jpeg') {
-        this.fileName = event.target.files[0].name;
-        this.selectedFile = event.target.files[0];;
+       
         const file = event.target.files[0];
 
-      const reader = new FileReader();
-      reader.onload = e => this.imageSrc = reader.result;
+        const reader = new FileReader();
+        console.log(this.filedPathName)
+        if (this.filedPathName === 'company_no') {
+          this.selectedFileVerfiy = event.target.files[0];
+          this.fileUploadVerifyNo()
+        } else if (this.filedPathName === 'vat_no') {
+          this.selectedFileVerfiy = event.target.files[0];
+          this.fileUploadVerifyNo()
+        } else if (this.filedPathName === 'tax_no') {
+          this.selectedFileVerfiy = event.target.files[0];
+          this.fileUploadVerifyNo()
+        }
+        else {
+          this.fileName = event.target.files[0].name;
+          this.selectedFile = event.target.files[0];
+          reader.onload = e => this.imageSrc = reader.result;
+        }
 
-      reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
+        this.inputControl.value = ''
       } else {
         this._snackBar.open('Only support image', '', {
           duration: 5 * 1000, horizontalPosition: 'center',
@@ -281,48 +316,127 @@ export class AddCompanyCodeComponent {
     }
   }
 
-  async fileUpload() {
-    if(!this.selectedFile){
-      this.addCode()
-      return
-    }
-    const formData = new FormData();
-    formData.append('file', this.selectedFile);
-    const result: any = await this.companyCodeSer.companyLogUpload(formData);
-    if (result.status === '1') {
-      // this._snackBar.open(result.message, '', {
-      //   duration: 5 * 1000, horizontalPosition: 'center',
-      //   verticalPosition: 'top',
-      //   panelClass: 'app-notification-success',
-      // });
-      this.companyCode.controls.filePath.setValue(result.fileName)
-      this.addCode()
-      return;
-    }
-    if (result.status === '0') {
-      this._snackBar.open(result.message, '', {
+
+  async fileUploadVerifyNo() {
+    try {
+      console.log(this.selectedFileVerfiy, 'kkkkk')
+      if (!this.selectedFileVerfiy) {
+        return
+      }
+      const formData = new FormData();
+      formData.append('file', this.selectedFileVerfiy);
+      const result: any = await this.companyCodeSer.companyLogUpload(formData);
+      if (result.status === '1') {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
+        if (this.filedPathName === 'company_no') {
+          this.companyCode.controls.companyRegistrationFilePath.setValue(result.fileName)
+        } else if (this.filedPathName === 'tax_no') {
+          this.companyCode.controls.taxRegistrationFilePath.setValue(result.fileName)
+        } else if (this.filedPathName === 'vat_no') {
+          this.companyCode.controls.vatRegistrationFilePath.setValue(result.fileName)
+        }
+        return;
+      }
+      if (result.status === '0') {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
       });
     }
-  } catch(error: any) {
-    this._snackBar.open('Something went wrong', '', {
-      duration: 5 * 1000, horizontalPosition: 'center',
-      verticalPosition: 'top',
-      panelClass: 'app-notification-error',
-    });
   }
 
 
-  deletePerview(){
+  async fileUpload() {
+    try {
+      if (!this.imageSrc) {
+        this.addCode()
+        return
+      }
+      const formData = new FormData();
+      formData.append('file', this.selectedFile);
+      const result: any = await this.companyCodeSer.companyLogUpload(formData);
+      if (result.status === '1') {
+        // this._snackBar.open(result.message, '', {
+        //   duration: 5 * 1000, horizontalPosition: 'center',
+        //   verticalPosition: 'top',
+        //   panelClass: 'app-notification-success',
+        // });
+        if (this.filedPathName === 'log') {
+          this.companyCode.controls.filePath.setValue(result.fileName)
+        } else if (this.filedPathName === 'company_no') {
+          this.companyCode.controls.companyRegistrationFilePath.setValue(result.fileName)
+        } else if (this.filedPathName === 'tax_no') {
+          this.companyCode.controls.taxRegistrationFilePath.setValue(result.fileName)
+        } else if (this.filedPathName === 'vat_no') {
+          this.companyCode.controls.vatRegistrationFilePath.setValue(result.fileName)
+        }
+        this.addCode()
+        return;
+      }
+      if (result.status === '0') {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+
+    } catch (error: any) {
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+
+  deletePerview() {
     this.inputFile.nativeElement.value = '';
     this.imageSrc = '';
     this.selectedFile = ''
   }
 
- async getAllCurrecnyDetails(){
-
+  //  Get All Industry Details
+  async getAllInndustrySectorsList() {
+    try {
+      const result: any = await this.companyCodeSer.getAllIndustrySectorDetails();
+      if (result.status === '1') {
+        this.industryDetails = result.data
+      } else {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
   }
 
 

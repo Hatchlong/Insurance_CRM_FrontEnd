@@ -15,7 +15,9 @@ export class AddPurchaseOrgComponent implements OnInit {
   purchOrg: any = FormGroup;
   companyDetails: any = []
   isSubmitted: any = false
-  isShowPadding:any = false;
+  isShowPadding: any = false;
+  countryDetials: any = []
+  citiesDetails: any = [];
   constructor(private fb: FormBuilder,
     private companySer: CompanyCodeService,
     private purchaseOrgSer: PurchaseOrgService,
@@ -25,6 +27,7 @@ export class AddPurchaseOrgComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCompanyDetails()
+    this.getCountryDetails()
     this.purchOrgData()
   }
 
@@ -34,10 +37,14 @@ export class AddPurchaseOrgComponent implements OnInit {
 
   purchOrgData() {
     this.purchOrg = this.fb.group({
-      purchase_org: ['', Validators.required],
+      purchase_org: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
       purchase_org_Description: ['', Validators.required],
       companycode: ['', Validators.required],
-      companyId: ['', Validators.required]
+      companyId: ['', Validators.required],
+      countryName: ['', Validators.required],
+      countryId: ['', Validators.required],
+      city: ['', Validators.required],
+      address: ['', Validators.required],
     });
     console.warn(this.purchOrg.value)
   }
@@ -119,5 +126,47 @@ export class AddPurchaseOrgComponent implements OnInit {
   handleCompany(event: any) {
     const findsalesData = this.companyDetails.find((el: any) => el._id === event.target.value)
     this.purchOrg.controls.companycode.setValue(findsalesData.companyCode)
+  }
+
+  
+ 
+
+  // Get All details for company code
+  async getCountryDetails() {
+    try {
+      const result: any = await this.companySer.getAllCountryDetails();
+      if (result.status === '1') {
+        this.countryDetials = result.data;
+      } else {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+
+  selectCountryName(event: any) {
+    this.citiesDetails = this.countryDetials.find((el: any) => el._id === event.target.value);
+    console.log(this.citiesDetails);
+    if (this.citiesDetails) {
+      this.purchOrg.controls.countryName.setValue(this.citiesDetails.countryName)
+    }
   }
 }

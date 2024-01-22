@@ -33,7 +33,7 @@ export class AddIncoTermComponent {
 
   data() {
     this.incoTerm = this.fb.group({
-      inc_terms_code: ['', Validators.required],
+      inc_terms_code: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
       description: ['', Validators.required],
 
     });

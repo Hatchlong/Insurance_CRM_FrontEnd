@@ -24,8 +24,11 @@ export class AddPlantDataComponent {
   storgaeLocationDetails: any = [];
   salesDetail: any = []
   isSubmitted: any = false;
-  isShowPadding:any = false;
-  languageDetails:any = []
+  isShowPadding: any = false;
+  languageDetails: any = [];
+  myTime: Date = new Date();
+  minTime: Date = new Date();
+  maxTime: Date = new Date();
   constructor(private fb: FormBuilder,
     private plantDataSer: PlantDataService,
     private router: Router,
@@ -52,30 +55,31 @@ export class AddPlantDataComponent {
 
   plantData() {
     this.plantFormData = this.fb.group({
-      plantCode: ['', Validators.required],
-      name1: ['', Validators.required],
-      name2: ['', Validators.required],
+      plantCode: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
+      plantName: ['', Validators.required],
       languageId: ['', Validators.required],
       languageName: ['', Validators.required],
       address: ['', Validators.required],
       countryId: ['', Validators.required],
       countryName: [''],
       cityId: ['', Validators.required],
-      contactPersonName: ['', Validators.required],
-      contactNumber: ['', Validators.required],
+      contactPersonName: [''],
+      contactNumber: [''],
       timeZoneId: ['', Validators.required],
       timeZoneName: ['', Validators.required],
-      searchTerm: ['', Validators.required],
-      customerNo_plant: ['', Validators.required],
+      searchTerm: [''],
+      customerNo_plant: [''],
       vendorNumberPlant: ['', Validators.required],
       purchaseOrganizationId: ['', Validators.required],
       purchaseOrganizationName: ['', Validators.required],
       salesOrganizationId: ['', Validators.required],
-      salesOrganizationName: ['sales', Validators.required],
+      salesOrganizationName: ['', Validators.required],
       taxIndicatorId: ['', Validators.required],
       taxIndicatorName: ['', Validators.required],
-      stoargeLocationId: ['', Validators.required],
-      stoargeLocationName: ['', Validators.required]
+      stoargeLocationId: [''],
+      stoargeLocationName: [''],
+      fromTimer: ['', Validators.required],
+      toTimer: ['', Validators.required]
     })
   }
 
@@ -87,6 +91,19 @@ export class AddPlantDataComponent {
       console.log(this.plantFormData.value)
       if (this.plantFormData.invalid)
         return
+      var hours = this.plantFormData.value.fromTimer.getHours();
+      var minutes = this.plantFormData.value.fromTimer.getMinutes();
+
+      // Format the date and time
+      var formTimer = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+
+      var tohours = this.plantFormData.value.toTimer.getHours();
+      var tominutes = this.plantFormData.value.toTimer.getMinutes();
+
+      // Format the date and time
+      var toTimer = `${tohours.toString().padStart(2, '0')}:${tominutes.toString().padStart(2, '0')}`;
+      this.plantFormData.value.fromTimer = formTimer;
+      this.plantFormData.value.toTimer = toTimer;
       const result: any = await this.plantDataSer.createPlantDataDetails(this.plantFormData.value);
       if (result.status === '1') {
         this._snackBar.open(result.message, '', {
@@ -111,7 +128,7 @@ export class AddPlantDataComponent {
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -142,7 +159,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -174,7 +191,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -199,7 +216,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -224,7 +241,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -317,7 +334,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -361,8 +378,13 @@ return
     const timeDetail = this.timeZone.find((el: any) => el._id === event.target.value);
     this.plantFormData.controls.timeZoneName.setValue(timeDetail.timeZoneType)
   }
-  handleSalesData(event:any){
-    const findsalesData=this.salesDetail.find((el:any)=>el._id===event.target.value)
-    this.plantFormData.controls.salesOrganizationId.setValue(findsalesData.salesOrg)
+  handleSalesOrg(event: any) {
+    const findsalesData = this.salesDetail.find((el: any) => el._id === event.target.value);
+    console.log(findsalesData, 'jjj')
+    this.plantFormData.controls.salesOrganizationName.setValue(findsalesData.salesOrg)
+    this.plantFormData.controls.timeZoneId.setValue(findsalesData.timeZoneId)
+    this.plantFormData.controls.timeZoneName.setValue(findsalesData.timeZoneName)
+
+
   }
 }

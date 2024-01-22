@@ -34,7 +34,7 @@ export class AddPoTypeComponent {
 
   code() {
     this.poType = this.fb.group({
-      poType: ['', Validators.required],
+      poType: ['', [Validators.required,Validators.minLength(6), Validators.maxLength(6)]],
       poTypeDescription: ['', Validators.required],
       itemNumberInterval: ['', Validators.required],
       internalNumberRangeAssignment: ['', Validators.required],

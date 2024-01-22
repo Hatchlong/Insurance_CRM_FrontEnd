@@ -5,13 +5,19 @@
         <div class="row">
             <div class="col-6 py-2">
                 <label for="" class="">Payment Term<sup>*</sup></label>
-                <input type="text" class="form-control " placeholder="Enter Payment Term" formControlName="paymentTerm">
+                <input type="text" class="form-control " placeholder="Enter Payment Term" formControlName="paymentTerm" appDirective>
                 <div
                     *ngIf="payTem.controls['paymentTerm'].touched && payTem.controls['paymentTerm'].dirty && payTem.controls['paymentTerm'].hasError('required') && !isSubmitted">
                     <p class="error-message">Payment Term is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && payTem.controls['paymentTerm'].hasError('required')">
                     <p class="error-message">Payment Term is mandatory</p>
+                </div>
+                <div *ngIf="payTem.controls['paymentTerm'].hasError('minlength')">
+                    <p class="error-message">Minimum length exceeded (min Limit : 6).</p>
+                  </div>
+                <div *ngIf="payTem.controls['paymentTerm'].hasError('maxlength')">
+                    <p class="error-message">Maximum length exceeded (Max Limit : 6).</p>
                 </div>
             </div>
             <div class="col-6 py-2">

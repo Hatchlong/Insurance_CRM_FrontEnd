@@ -62,10 +62,10 @@ export class DeliveryService {
 
     // Add sheets to the workbook
     const sheet1: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
-    XLSX.utils.book_append_sheet(workbook, sheet1, 'delivery');
+    XLSX.utils.book_append_sheet(workbook, sheet1, 'Delivery');
 
     const sheet2: XLSX.WorkSheet = XLSX.utils.json_to_sheet(deliveryData);
-    XLSX.utils.book_append_sheet(workbook, sheet2, 'Item Data');
+    XLSX.utils.book_append_sheet(workbook, sheet2, 'Item_Data');
 
 
     XLSX.writeFile(workbook, `${fileName}.xlsx`);

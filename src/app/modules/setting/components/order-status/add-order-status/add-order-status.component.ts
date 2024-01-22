@@ -32,7 +32,7 @@ export class AddOrderStatusComponent {
 
   code() {
     this.order = this.fb.group({
-      orderStatus: ['', Validators.required],
+      orderStatus: ['', [Validators.required,Validators.minLength(6), Validators.maxLength(6)]],
       description: ['', Validators.required]
 
     })

@@ -8,13 +8,19 @@
             <div class="col-6 py-2 py-1">
                 <label for="" class="">Customer Account <sup>*</sup></label>
                 <input type="text" class="form-control " placeholder="Enter Customer Account "
-                    formControlName="customerAccountAG">
+                    formControlName="customerAccountAG" appDirective>
                 <div
                     *ngIf="customerAcc.controls['customerAccountAG'].touched && customerAcc.controls['customerAccountAG'].dirty && customerAcc.controls['customerAccountAG'].hasError('required') && !isSubmitted">
                     <p class="error-message">Customer Account is mandatory</p>
                 </div>
                 <div *ngIf="isSubmitted && customerAcc.controls['customerAccountAG'].hasError('required')">
                     <p class="error-message">Customer Account is mandatory</p>
+                </div>
+                <div *ngIf="customerAcc.controls['customerAccountAG'].hasError('minlength')">
+                    <p class="error-message">Minimum length exceeded (min Limit : 6).</p>
+                  </div>
+                <div *ngIf="customerAcc.controls['customerAccountAG'].hasError('maxlength')">
+                    <p class="error-message">Maximum length exceeded (Max Limit : 6).</p>
                 </div>
             </div>
             <div class="col-6 py-2 py-1">

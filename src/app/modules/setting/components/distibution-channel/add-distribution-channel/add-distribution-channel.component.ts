@@ -33,7 +33,7 @@ export class AddDistributionChannelComponent implements OnInit {
 
   channeldata() {
     this.channel = this.fb.group({
-      distributionChannel: ['', Validators.required],
+      distributionChannel: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
       distributionDescription: ['', Validators.required]
     });
     console.warn(this.channel.value)

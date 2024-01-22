@@ -32,7 +32,7 @@ export class AddPaymentTermsComponent {
 
   code() {
     this.payTem = this.fb.group({
-      paymentTerm: ['', Validators.required],
+      paymentTerm: ['', [Validators.required,Validators.minLength(6), Validators.maxLength(6)]],
       description: ['', Validators.required],
       dayLimit: ['', Validators.required],
       fixedBaseLineDate: ['', Validators.required],

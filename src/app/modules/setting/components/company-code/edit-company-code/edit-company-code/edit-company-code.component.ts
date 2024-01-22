@@ -4,7 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyCodeService } from 'src/app/modules/setting/Services/company-code/company-code.service';
 import Swal from 'sweetalert2';
-
+import { ViewImageComponent } from '../../../view-image/view-image.component';
+import {MatDialog} from '@angular/material/dialog';
 @Component({
   selector: 'app-edit-company-code',
   templateUrl: './edit-company-code.component.html',
@@ -22,17 +23,22 @@ export class EditCompanyCodeComponent {
   isShowPadding:any =false;
   isImageShow:any = false;
   selectedFile:any = '';
+  selectedFileVerfiy: any = '';
   fileName:any = '';
   filePath:any = '';
   imageSrc:any = '';
   @ViewChild('inputFile') inputFile:any;
   languageDetails:any = [];
+  industryDetails: any = [];
+  filedPathName: any = '';
+  inputControl: any = ''
   constructor(
     private fb: FormBuilder,
     private companyCodeSer: CompanyCodeService,
     private router: Router,
     private activeRouter: ActivatedRoute,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -41,6 +47,7 @@ export class EditCompanyCodeComponent {
     this.getCountryDetails()
     this.getCurrencyDetails();
     this.getAllLanguageList()
+    this.getAllInndustrySectorsList()
     this.code()
   }
 
@@ -62,7 +69,15 @@ export class EditCompanyCodeComponent {
       languageName: ['', Validators.required],
       filePath:[''],
       address1:['', Validators.required],
-      address2: ['']
+      address2: [''],
+      industryId: ['', Validators.required],
+      industryName: ['', Validators.required],
+      vatRegistrationNo: ['', [Validators.required]],
+      vatRegistrationFilePath: ['', [Validators.required]],
+      companyRegistrationNo: ['', [Validators.required]],
+      companyRegistrationFilePath: ['', [Validators.required]],
+      taxRegistrationNo: ['', [Validators.required]],
+      taxRegistrationFilePath: ['', [Validators.required]]
     })
   }
 
@@ -280,30 +295,41 @@ return
     this.companyCode.controls.currencyName.setValue(findCurrencyCode.code)
   }
 
-
-  
-
-
-  uploadFile(inputData: any) {
-    inputData.click()
+  uploadFile(inputData: any, fieldName: any) {
+    inputData.click();
+    this.filedPathName = fieldName;
+    this.inputControl = inputData
   }
 
 
   handleUploadFile(event: any) {
+
     if (event.target.value) {
       const splitValue = event.target.files[0].name.split('.');
-      console.log(splitValue)
-      this
       if (splitValue[1] === 'png' || splitValue[1] === 'jpg' || splitValue[1] === 'jpeg') {
-        this.fileName = event.target.files[0].name;
-        this.selectedFile = event.target.files[0];
-        this.isImageShow = false;
+       
         const file = event.target.files[0];
 
         const reader = new FileReader();
-        reader.onload = e => this.imageSrc = reader.result;
-  
+        console.log(this.filedPathName)
+        if (this.filedPathName === 'company_no') {
+          this.selectedFileVerfiy = event.target.files[0];
+          this.fileUploadVerifyNo()
+        } else if (this.filedPathName === 'vat_no') {
+          this.selectedFileVerfiy = event.target.files[0];
+          this.fileUploadVerifyNo()
+        } else if (this.filedPathName === 'tax_no') {
+          this.selectedFileVerfiy = event.target.files[0];
+          this.fileUploadVerifyNo()
+        }
+        else {
+          this.fileName = event.target.files[0].name;
+          this.selectedFile = event.target.files[0];
+          this.isImageShow = false;
+        }
+
         reader.readAsDataURL(file);
+        this.inputControl.value = ''
       } else {
         this._snackBar.open('Only support image', '', {
           duration: 5 * 1000, horizontalPosition: 'center',
@@ -314,6 +340,49 @@ return
 
     }
   }
+
+
+  async fileUploadVerifyNo() {
+    try {
+      console.log(this.selectedFileVerfiy, 'kkkkk')
+      if (!this.selectedFileVerfiy) {
+        return
+      }
+      const formData = new FormData();
+      formData.append('file', this.selectedFileVerfiy);
+      const result: any = await this.companyCodeSer.companyLogUpload(formData);
+      if (result.status === '1') {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
+        if (this.filedPathName === 'company_no') {
+          this.companyCode.controls.companyRegistrationFilePath.setValue(result.fileName)
+        } else if (this.filedPathName === 'tax_no') {
+          this.companyCode.controls.taxRegistrationFilePath.setValue(result.fileName)
+        } else if (this.filedPathName === 'vat_no') {
+          this.companyCode.controls.vatRegistrationFilePath.setValue(result.fileName)
+        }
+        return;
+      }
+      if (result.status === '0') {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+  
+
 
   async fileUpload() {
     console.log(this.selectedFile, 'jjj')
@@ -369,4 +438,54 @@ return
     this.filePath = ''
   }
 
+
+  //  Get All Industry Details
+  async getAllInndustrySectorsList() {
+    try {
+      const result: any = await this.companyCodeSer.getAllIndustrySectorDetails();
+      if (result.status === '1') {
+        this.industryDetails = result.data
+      } else {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+  selectIndustryName(event:any){
+    const findIndustrySector = this.industryDetails.find((el: any) => el._id === event.target.value);
+    this.companyCode.controls.industryName.setValue(findIndustrySector.description) 
+  }
+
+
+  openDialog(fileName:any) {
+    const dialogRef = this.dialog.open(ViewImageComponent,{
+      data:fileName
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 }
+
+
+
+

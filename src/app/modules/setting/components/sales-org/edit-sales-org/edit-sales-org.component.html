@@ -5,9 +5,9 @@
       <mat-icon class="back" routerLink="/settings/sales-org-list">arrow_back</mat-icon>Sales Org
     </h2>
     <div class="row">
-      <div class="col-6 py-2">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
         <label for="" class="">Sales Org</label>
-        <input type="text" class="form-control " placeholder=" Enter Sales Org" formControlName="salesOrg" readonly/>
+        <input type="text" class="form-control " placeholder=" Enter Sales Org" formControlName="salesOrg" readonly />
         <div
           *ngIf="salesOrg.controls['salesOrg'].touched && salesOrg.controls['salesOrg'].dirty && salesOrg.controls['salesOrg'].hasError('required') && !isSubmitted">
           <p class="error-message">Sales Org is mandatory</p>
@@ -15,8 +15,14 @@
         <div *ngIf="isSubmitted && salesOrg.controls['salesOrg'].hasError('required')">
           <p class="error-message">Sales Org is mandatory</p>
         </div>
+        <div *ngIf="salesOrg.controls['salesOrg'].hasError('minlength')">
+          <p class="error-message">Minimum length exceeded (min Limit : 6).</p>
+        </div>
+        <div *ngIf="salesOrg.controls['salesOrg'].hasError('maxlength')">
+          <p class="error-message">Maximum length exceeded (Max Limit : 6).</p>
+        </div>
       </div>
-      <div class="col-6 py-2">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
         <label for="" class="">Sales Org Description</label>
         <input type="text" class="form-control " placeholder=" Enter Sales Org Description"
           formControlName="description" />
@@ -28,7 +34,7 @@
           <p class="error-message">Sales Org Description is mandatory</p>
         </div>
       </div>
-      <div class="col-6 py-2">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
         <label for="" class="">Address</label>
         <input type="text" class="form-control " placeholder="Enter Address " formControlName="address" />
         <div
@@ -39,24 +45,13 @@
           <p class="error-message">Address is mandatory</p>
         </div>
       </div>
-      <div class="col-6 py-2">
-        <label for="">Search Term</label>
-        <input type="text" class="form-control " placeholder="Enter Search Term  " formControlName="searchTerm" />
-        <div
-          *ngIf="salesOrg.controls['searchTerm'].touched && salesOrg.controls['searchTerm'].dirty && salesOrg.controls['searchTerm'].hasError('required') && !isSubmitted">
-          <p class="error-message">search Term is mandatory</p>
-        </div>
-        <div *ngIf="isSubmitted && salesOrg.controls['searchTerm'].hasError('required')">
-          <p class="error-message">search Term is mandatory</p>
-        </div>
-      </div>
-
-      <div class="col-6 py-2">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
         <label for="">Country</label>
         <select class="form-select" formControlName="countryId" aria-label="Default select example"
           (change)="selectCountry($event)">
           <option [selected]="salesOrg.value.countryId === ''" value="" hidden>Select Country</option>
-          <option *ngFor="let list of countryDetials| filterPipes:'countryName';" [value]="list._id"> {{list.countryName}} </option>
+          <option *ngFor="let list of countryDetials | filterPipes:'countryName';" [value]="list._id">
+            {{list.countryName}} </option>
 
         </select>
         <div
@@ -67,26 +62,28 @@
           <p class="error-message">country is mandatory</p>
         </div>
       </div>
-      <div class="col-6 py-2">
-        <label for="">Region</label>
-        <select class="form-select" formControlName="regionId" aria-label="Default select example" [ngStyle]="{'pointer-events': !salesOrg.value.countryId ? 'none':'all'}" (change)="handleRegion($event)">
-          <option [selected]="salesOrg.value.regionId=== ''" value="" hidden>Select Region</option>
-          <option *ngFor="let list of regionDetail | filterPipes:'code'" [value]="list._id">{{list.code}}</option>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+        <label for="">Region/City</label>
+        <select class="form-select" formControlName="region" aria-label="Default select example"
+          [ngStyle]="{'pointer-events': !salesOrg.value.countryId ? 'none':'all'}">
+          <option [selected]="salesOrg.value.region === ''" value="" hidden>Select Region</option>
+          <option *ngFor="let list of (citiesDetails?.cities?.cities).sort()" [value]="list">{{list}}</option>
         </select>
         <div
-          *ngIf="salesOrg.controls['regionId'].touched && salesOrg.controls['regionId'].dirty && salesOrg.controls['regionId'].hasError('required') && !isSubmitted">
+          *ngIf="salesOrg.controls['region'].touched && salesOrg.controls['region'].dirty && salesOrg.controls['region'].hasError('required') && !isSubmitted">
           <p class="error-message">region is mandatory</p>
         </div>
-        <div *ngIf="isSubmitted && salesOrg.controls['regionId'].hasError('required')">
+        <div *ngIf="isSubmitted && salesOrg.controls['region'].hasError('required')">
           <p class="error-message">region is mandatory</p>
         </div>
       </div>
-      <div class="col-6 py-2">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
         <label for="">Time Zone</label>
         <select class="form-select" formControlName="timeZoneId" aria-label="Default select example"
           (change)="handleTimeZone($event)">
           <option [selected]="salesOrg.value.timeZoneId=== ''" value="" hidden>Select Time Zone</option>
-          <option *ngFor="let list of timeZone | filterPipes:'timeZoneType'" [value]="list._id">{{list.timeZoneType}}</option>
+          <option *ngFor="let list of timeZone  | filterPipes:'timeZoneType'" [value]="list._id">{{list.timeZoneType}}
+          </option>
 
 
         </select>
@@ -98,7 +95,7 @@
           <p class="error-message">time Zone is mandatory</p>
         </div>
       </div>
-      <div class="col-6 py-2">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
         <label for="" class="">Contact Person</label>
         <input type="text" class="form-control " placeholder="Enter Contact Person" formControlName="contactPerson" />
         <div
@@ -107,6 +104,37 @@
         </div>
         <div *ngIf="isSubmitted && salesOrg.controls['contactPerson'].hasError('required')">
           <p class="error-message">contact Person is mandatory</p>
+        </div>
+      </div>
+
+
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+        <label for="">Company Code</label>
+        <select class="form-select" formControlName="companyCodeId" aria-label="Default select example"
+          (change)="handleCompany($event)">
+          <option [selected]="salesOrg.value.companyCodeId === ''" value="" hidden>Select Company</option>
+
+          <option *ngFor="let list of companyDetails;" [value]="list._id">{{list.companyCode}}
+          </option>
+        </select>
+        <div
+          *ngIf="salesOrg.controls['companyCodeId'].touched && salesOrg.controls['companyCodeId'].dirty && salesOrg.controls['companyCodeId'].hasError('required') && !isSubmitted">
+          <p class="error-message">Company Code is mandatory</p>
+        </div>
+        <div *ngIf="isSubmitted && salesOrg.controls['companyCodeId'].hasError('required')">
+          <p class="error-message">Company Code is mandatory</p>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+        <label for="">Search Term</label>
+        <input type="text" class="form-control " placeholder="Enter Search Term  " formControlName="searchTerm" />
+        <div
+          *ngIf="salesOrg.controls['searchTerm'].touched && salesOrg.controls['searchTerm'].dirty && salesOrg.controls['searchTerm'].hasError('required') && !isSubmitted">
+          <p class="error-message">search Term is mandatory</p>
+        </div>
+        <div *ngIf="isSubmitted && salesOrg.controls['searchTerm'].hasError('required')">
+          <p class="error-message">search Term is mandatory</p>
         </div>
       </div>
 

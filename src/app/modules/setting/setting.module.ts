@@ -65,7 +65,10 @@ import { SalesOrgService } from './Services/sales-org/sales-org.service';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { SharedModule } from '../shared/shared.module';
 import { FilterPipesPipe } from './Services/filter/filter-pipes.pipe';
-
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { DirectiveDirective } from './Services/directive/directive.directive';
+import { ViewImageComponent } from './components/view-image/view-image.component';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AddCompanyCodeComponent,
@@ -108,6 +111,8 @@ import { FilterPipesPipe } from './Services/filter/filter-pipes.pipe';
     EditIncoTermComponent,
     EditSalesOrgComponent,
     FilterPipesPipe,
+    DirectiveDirective,
+    ViewImageComponent
   ],
   imports: [
     CommonModule,
@@ -122,7 +127,9 @@ import { FilterPipesPipe } from './Services/filter/filter-pipes.pipe';
     HttpClientModule,
     PaginationModule.forRoot(),
     FormsModule,
-    SharedModule
+    SharedModule,
+    TimepickerModule.forRoot(),
+    MatDialogModule
   ],
   providers: [ PurchaseOrgService, CompanyCodeService, PoTypeService, PlantDataService, PaymentTermService, DivionService, DistibutionChannelService, ModeOfTransportService, OrderStatusService, BillingBlockService, IncTermService, SalesOrgService ]
 })
