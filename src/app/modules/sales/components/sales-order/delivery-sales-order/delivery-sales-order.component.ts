@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DeliveryService } from '../../../services/delivery/delivery.service';
@@ -9,6 +9,7 @@ import { CustomerService } from 'src/app/modules/master/services/customer/custom
 import { SalesOrderService } from '../../../services/sales-order/sales-order.service';
 import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-delivery-sales-order',
@@ -27,6 +28,8 @@ export class DeliverySalesOrderComponent implements OnInit {
   customerMasterDetail: any = []
   salesOrderDetails: any = '';
   deliveryDetails: any = []
+  idleState: any = 'Not Started';
+
   constructor(
     private fb: FormBuilder,
     private deliverySer: DeliveryService,
@@ -36,10 +39,27 @@ export class DeliverySalesOrderComponent implements OnInit {
     private plantDataSer: PlantDataService,
     private customerSer: CustomerService,
     private salesOrderSer: SalesOrderService,
-    private _location: Location
-
+    private _location: Location,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
   ) {
-   
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
   }
 
   ngOnInit(): void {
@@ -56,7 +76,14 @@ export class DeliverySalesOrderComponent implements OnInit {
     this.getProductMasterDetail()
     this.getCustomerMaster()
     this.getAllDetailsDetails()
+    this.setStates()
   }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
+  }
+
 
   handleSideBar(event: any) {
     this.isShowPadding = event

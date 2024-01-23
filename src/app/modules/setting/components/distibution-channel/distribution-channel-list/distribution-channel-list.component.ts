@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DistibutionChannelService } from '../../../Services/distibution-channel/distibution-channel.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 
 @Component({
@@ -20,23 +21,47 @@ export class DistributionChannelListComponent {
   page?: number = 0;
   itemsPerPage = 10;
   sampleJson = {
-    "distributionChannel":"1",
-    "distributionDescription":"distribution Description"
-    }
-    isShowPadding:any = false;
+    "distributionChannel": "1",
+    "distributionDescription": "distribution Description"
+  }
+  idleState: any = 'Not Started'
+  isShowPadding: any = false;
   constructor(
     private router: Router,
     private distributionSer: DistibutionChannelService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
   ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
 
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
   }
 
 
   ngOnInit(): void {
     this.getAlldistributionChannelDetailsPage(this.page, this.itemsPerPage)
+    this.setStates()
   }
 
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
+  }
   handleSideBar(event: any) {
     this.isShowPadding = event
   }
@@ -136,16 +161,16 @@ export class DistributionChannelListComponent {
     }
   }
 
-  handleFilter(event:any){
-    if(!event.target.value){
+  handleFilter(event: any) {
+    if (!event.target.value) {
       this.distributionDetails = this.allDistributionDetails
     }
     console.log(event.target.value)
-    const isStringIncluded = this.allDistributionDetails.filter((obj:any) => ((obj.distributionChannel.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.distributionDescription.toUpperCase()).includes(event.target.value.toUpperCase())));
+    const isStringIncluded = this.allDistributionDetails.filter((obj: any) => ((obj.distributionChannel.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.distributionDescription.toUpperCase()).includes(event.target.value.toUpperCase())));
     this.distributionDetails = isStringIncluded
   }
 
- 
+
 
   // File Upload
   importHandle(inputId: any) {
@@ -239,7 +264,7 @@ export class DistributionChannelListComponent {
 
   pageChanged(event: PageChangedEvent): void {
     this.page = event.page;
-    const records = (this.page-1) * this.itemsPerPage;
+    const records = (this.page - 1) * this.itemsPerPage;
     this.getAlldistributionChannelDetailsPage(records, this.itemsPerPage)
   }
 

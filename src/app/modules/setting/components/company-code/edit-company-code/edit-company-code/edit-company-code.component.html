@@ -1,4 +1,4 @@
-<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<app-side-nav (isShowNav)="handleSideBar($event)" [logoutAction]="idleState"></app-side-nav>
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
     <form [formGroup]="companyCode">
         <div class="row">
@@ -84,7 +84,7 @@
             </div>
 
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-                <label for="" class="">Country Name <sup>*</sup></label>
+                <label for="" class="">Country  <sup>*</sup></label>
                 <select class="form-select " aria-label="Default select example" formControlName="countryId"
                     (change)="selectCountryName($event)">
                     <option [selected]="companyCode.value.countryId === ''" value="" hidden>Select Country</option>
@@ -164,21 +164,13 @@
             </div>
 
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2 ">
-                <label for="">Company Registration No <sup>*</sup></label>
+                <label for="">Company Registration No </label>
                 <div class="d-flex d-grid gap-2">
                     <input type="text" class="form-control w-50" formControlName="companyRegistrationNo" required
                         placeholder="Enter Company Registration No"> <span (click)="uploadFile(inputFile, 'company_no')"
                         class="upload_text">
                         {{companyCode.value.companyRegistrationFilePath ? companyCode.value.companyRegistrationFilePath : 'Upload Company Registration No'}}</span><mat-icon (click)="openDialog(companyCode.value.companyRegistrationFilePath)">visibility</mat-icon>
                     <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
-                </div>
-
-                <div
-                    *ngIf="companyCode.controls['companyRegistrationNo'].touched && companyCode.controls['companyRegistrationNo'].dirty && companyCode.controls['companyRegistrationNo'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Company Registration No is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && companyCode.controls['companyRegistrationNo'].hasError('required')">
-                    <p class="error-message">Company Registration No is mandatory</p>
                 </div>
                 <div
                 *ngIf="isSubmitted && companyCode.controls['companyRegistrationFilePath'].hasError('required')&& companyCode.value.companyRegistrationNo">
@@ -187,7 +179,7 @@
             </div>
 
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2 ">
-                <label for="">Tax Registration No <sup>*</sup></label>
+                <label for="">Tax Registration No </label>
                 <div class="d-flex d-grid gap-2">
                     <input type="text" class="form-control w-50" formControlName="taxRegistrationNo" required
                         placeholder="Enter Tax Registration No"> <span (click)="uploadFile(inputFile, 'tax_no')"
@@ -195,21 +187,13 @@
                         {{companyCode.value.taxRegistrationFilePath ? companyCode.value.taxRegistrationFilePath : 'Upload Tax Registration No'}}</span><mat-icon (click)="openDialog(companyCode.value.taxRegistrationFilePath)">visibility</mat-icon>
                     <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
                 </div>
-
-                <div
-                    *ngIf="companyCode.controls['taxRegistrationNo'].touched && companyCode.controls['taxRegistrationNo'].dirty && companyCode.controls['taxRegistrationNo'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Tax Registration No is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && companyCode.controls['taxRegistrationNo'].hasError('required')">
-                    <p class="error-message">Tax Registration No is mandatory</p>
-                </div>
                 <div
                     *ngIf="isSubmitted && companyCode.controls['taxRegistrationFilePath'].hasError('required')&& companyCode.value.taxRegistrationNo">
                     <p class="error-message">Tax Registration No File is mandatory</p>
                 </div>
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2 ">
-                <label for="">Vat Registration No <sup>*</sup></label>
+                <label for="">Vat Registration No </label>
                 <div class="d-flex d-grid gap-2">
                     <input type="text" class="form-control w-50" formControlName="vatRegistrationNo" required
                         placeholder="Enter Vat Registration No"> <span (click)="uploadFile(inputFile, 'vat_no')"
@@ -219,13 +203,6 @@
                     <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
                 </div>
 
-                <div
-                    *ngIf="companyCode.controls['vatRegistrationNo'].touched && companyCode.controls['vatRegistrationNo'].dirty && companyCode.controls['vatRegistrationNo'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Vat Registration No is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && companyCode.controls['vatRegistrationNo'].hasError('required')">
-                    <p class="error-message">Vat Registration No is mandatory</p>
-                </div>
                 <div
                     *ngIf="isSubmitted && companyCode.controls['vatRegistrationFilePath'].hasError('required')&& companyCode.value.vatRegistrationNo">
                     <p class="error-message">Vat Registration No File is mandatory</p>

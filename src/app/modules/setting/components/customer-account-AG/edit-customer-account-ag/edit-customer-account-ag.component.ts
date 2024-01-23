@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomerAccountAGService } from '../../../Services/customer-account-AG/customer-account-ag.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-edit-customer-account-ag',
@@ -11,25 +12,53 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./edit-customer-account-ag.component.css']
 })
 export class EditCustomerAccountAGComponent {
- 
-  
+
+
   customerAcc: any = FormGroup;
   isSubmitted: any = false
   customerId: any = '';
-  isShowPadding:any = false;
+  isShowPadding: any = false;
+  idleState:any = 'Not Started'
+
   constructor(
     private fb: FormBuilder,
     private customerAccountSer: CustomerAccountAGService,
     private router: Router,
-    private activeRouter:ActivatedRoute,
-    private _snackBar:MatSnackBar
-  ) { }
+    private activeRouter: ActivatedRoute,
+    private _snackBar: MatSnackBar,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+  }
 
   ngOnInit(): void {
     this.customerId = this.activeRouter.snapshot.paramMap.get('id');
     console.log(this.customerId)
     this.getSingleCustomerAccountDetails()
     this.channeldata()
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
   }
 
   handleSideBar(event: any) {
@@ -44,21 +73,21 @@ export class EditCustomerAccountAGComponent {
     });
 
   }
- 
-  async getSingleCustomerAccountDetails(){
+
+  async getSingleCustomerAccountDetails() {
     try {
       const result: any = await this.customerAccountSer.singleCustomerAccount(this.customerId);
-    if (result.status === '1') {
-      this.customerAcc.patchValue(result.data);
-    }
-    } catch (error:any) {
-       if (error.error.message) {
+      if (result.status === '1') {
+        this.customerAcc.patchValue(result.data);
+      }
+    } catch (error: any) {
+      if (error.error.message) {
         this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -72,14 +101,14 @@ return
     try {
       this.isSubmitted = true
       if (this.customerAcc.invalid)
-      return 
+        return
       const result: any = await this.customerAccountSer.updateCustomerAccount(this.customerAcc.value)
       if (result.status === '1') {
-          this._snackBar.open(result.message, '', {
-            duration: 5 * 1000, horizontalPosition: 'center',
-            verticalPosition: 'top',
-            panelClass: 'app-notification-success',
-          });
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
         this.router.navigate(['/settings/customer-account-list'])
         return
       }
@@ -90,14 +119,14 @@ return
           panelClass: 'app-notification-error',
         });
       }
-    } catch (error:any) {
+    } catch (error: any) {
       if (error.error.message) {
         this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',

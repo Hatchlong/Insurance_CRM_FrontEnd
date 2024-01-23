@@ -27,6 +27,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { EditCustomerComponent } from './components/customer-master/edit-customer/edit-customer.component';
 import { CustomerService } from './services/customer/customer.service';
 import { FilterPipe } from './services/filter/filter.pipe';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { FilterPipe } from './services/filter/filter.pipe';
     MatTabsModule,
     HttpClientModule,
     PaginationModule.forRoot(),
-    FormsModule
+    FormsModule,
+    NgIdleKeepaliveModule
   ],
   providers:[CountryService, VendorService, ProductService,CustomerService]
 })

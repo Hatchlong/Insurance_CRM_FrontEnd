@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { SalesOrgService } from '../../../Services/sales-org/sales-org.service';
@@ -6,6 +6,7 @@ import { PlantDataService } from '../../../Services/plant-data/plant-data.servic
 import { CompanyCodeService } from '../../../Services/company-code/company-code.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-edit-sales-org',
@@ -24,7 +25,9 @@ export class EditSalesOrgComponent {
   regionDetail: any = [];
   isShowPadding: any = false;
   companyDetails:any = [];
-  citiesDetails:any = []
+  citiesDetails:any = [];
+  idleState: any = 'Not Started';
+
   constructor(
     private fb: FormBuilder,
     private salesSer: SalesOrgService,
@@ -32,8 +35,28 @@ export class EditSalesOrgComponent {
     private companyCodeSer: CompanyCodeService,
     private activeRouter: ActivatedRoute,
     private router: Router,
-    private _snackBar: MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+   }
 
   ngOnInit(): void {
     this.salesDataId = this.activeRouter.snapshot.paramMap.get('id')
@@ -42,6 +65,12 @@ export class EditSalesOrgComponent {
     this.getCountryDetails()
     this.getCompanyDetails()
     this.getSingleDetail()
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
   }
 
   handleSideBar(event: any) {
@@ -57,6 +86,7 @@ export class EditSalesOrgComponent {
       searchTerm: ['', Validators.required],
       countryId: ['', Validators.required],
       countryName: ['', Validators.required],
+      stateId:[''],
       region: ['', Validators.required],
       timeZoneId: ['', Validators.required],
       timeZoneName: ['', Validators.required],

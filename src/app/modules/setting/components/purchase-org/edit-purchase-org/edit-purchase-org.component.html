@@ -1,9 +1,9 @@
-<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<app-side-nav (isShowNav)="handleSideBar($event)" [logoutAction]="idleState"></app-side-nav>
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
     <h2><mat-icon class="back" routerLink="/settings/purchase-org-list">arrow_back</mat-icon>Purchase Org</h2>
 
     <form [formGroup]="purchOrg" (ngSubmit)="submitData()">
-        <div class="row border">
+        <div class="row border mx-0">
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label>Purchase Org <sup>*</sup></label>
                 <input type="text" class="form-control" formControlName="purchase_org" placeholder="Enter Purchase Org" appDirective>

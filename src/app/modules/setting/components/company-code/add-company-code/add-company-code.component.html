@@ -1,15 +1,16 @@
-<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<app-side-nav (isShowNav)="handleSideBar($event)" [logoutAction]="idleState"></app-side-nav>
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
     <form [formGroup]="companyCode">
         <div class="row">
-            <div class="col-12">
+             <div class="col-12">
                 <h2><mat-icon class="back" routerLink="/settings/company-code-list">arrow_back</mat-icon>Company Code
                 </h2>
             </div>
-
-
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                <div class="row">
+        </div>
+        <div class="row border">
+           
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 ">
+                <div class="row ">
                     <div class="col-12 py-2">
                         <label for="">Company Code <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Company code"
@@ -22,10 +23,10 @@
                             <p class="error-message">Company code is mandatory</p>
                         </div>
                         <div *ngIf="companyCode.controls['companyCode'].hasError('minlength')">
-                            <p class="error-message">Minimum length exceeded (min Limit : 6).</p>
+                            <p class="error-message">Must have 6 character</p>
                         </div>
                         <div *ngIf="companyCode.controls['companyCode'].hasError('maxlength')">
-                            <p class="error-message">Maximum length exceeded (Max Limit : 6).</p>
+                            <p class="error-message">Must have 6 character</p>
                         </div>
 
 
@@ -90,7 +91,7 @@
             </div>
 
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-                <label for="" class="">Country Name <sup>*</sup></label>
+                <label for="" class="">Country  <sup>*</sup></label>
                 <select class="form-select " aria-label="Default select example" formControlName="countryId"
                     (change)="selectCountryName($event)">
                     <option [selected]="companyCode.value.countryId === ''" value="" hidden>Select Country</option>
@@ -103,6 +104,22 @@
                 </div>
                 <div *ngIf="isSubmitted && companyCode.controls['countryId'].hasError('required')">
                     <p class="error-message">Country Name is mandatory</p>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="" class="">State/Province  <sup>*</sup></label>
+                <select class="form-select " aria-label="Default select example" formControlName="state"
+                    >
+                    <option [selected]="companyCode.value.state === ''" value="" hidden>Select State/Province</option>
+                    <option *ngFor="let list of (citiesDetails?.cities?.state).sort()" [value]="list">{{list}}</option>
+
+                </select>
+                <div
+                    *ngIf="companyCode.controls['state'].touched && companyCode.controls['state'].dirty && companyCode.controls['state'].hasError('required') && !isSubmitted">
+                    <p class="error-message">State/Province is mandatory</p>
+                </div>
+                <div *ngIf="isSubmitted && companyCode.controls['state'].hasError('required')">
+                    <p class="error-message">State/Province is mandatory</p>
                 </div>
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
@@ -170,7 +187,7 @@
             </div>
 
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2 ">
-                <label for="">Company Registration No <sup>*</sup></label>
+                <label for="">Company Registration No </label>
                 <div class="d-flex d-grid gap-2">
                     <input type="text" class="form-control w-50" formControlName="companyRegistrationNo" required
                         placeholder="Enter Company Registration No"> <span (click)="uploadFile(inputFile, 'company_no')"
@@ -179,13 +196,7 @@
                     <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
                 </div>
 
-                <div
-                    *ngIf="companyCode.controls['companyRegistrationNo'].touched && companyCode.controls['companyRegistrationNo'].dirty && companyCode.controls['companyRegistrationNo'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Company Registration No is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && companyCode.controls['companyRegistrationNo'].hasError('required')">
-                    <p class="error-message">Company Registration No is mandatory</p>
-                </div>
+              
                 <div
                 *ngIf="isSubmitted && companyCode.controls['companyRegistrationFilePath'].hasError('required')&& companyCode.value.companyRegistrationNo">
                 <p class="error-message">Company Registration No File is mandatory</p>
@@ -193,7 +204,7 @@
             </div>
 
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2 ">
-                <label for="">Tax Registration No <sup>*</sup></label>
+                <label for="">Tax Registration No </label>
                 <div class="d-flex d-grid gap-2">
                     <input type="text" class="form-control w-50" formControlName="taxRegistrationNo" required
                         placeholder="Enter Tax Registration No"> <span (click)="uploadFile(inputFile, 'tax_no')"
@@ -203,19 +214,12 @@
                 </div>
 
                 <div
-                    *ngIf="companyCode.controls['taxRegistrationNo'].touched && companyCode.controls['taxRegistrationNo'].dirty && companyCode.controls['taxRegistrationNo'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Tax Registration No is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && companyCode.controls['taxRegistrationNo'].hasError('required')">
-                    <p class="error-message">Tax Registration No is mandatory</p>
-                </div>
-                <div
                     *ngIf="isSubmitted && companyCode.controls['taxRegistrationFilePath'].hasError('required')&& companyCode.value.taxRegistrationNo">
                     <p class="error-message">Tax Registration No File is mandatory</p>
                 </div>
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2 ">
-                <label for="">Vat Registration No <sup>*</sup></label>
+                <label for="">Vat Registration No </label>
                 <div class="d-flex d-grid gap-2">
                     <input type="text" class="form-control w-50" formControlName="vatRegistrationNo" required
                         placeholder="Enter Vat Registration No"> <span (click)="uploadFile(inputFile, 'vat_no')"
@@ -224,13 +228,6 @@
                     <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
                 </div>
 
-                <div
-                    *ngIf="companyCode.controls['vatRegistrationNo'].touched && companyCode.controls['vatRegistrationNo'].dirty && companyCode.controls['vatRegistrationNo'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Vat Registration No is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && companyCode.controls['vatRegistrationNo'].hasError('required')">
-                    <p class="error-message">Vat Registration No is mandatory</p>
-                </div>
                 <div
                     *ngIf="isSubmitted && companyCode.controls['vatRegistrationFilePath'].hasError('required')&& companyCode.value.vatRegistrationNo">
                     <p class="error-message">Vat Registration No File is mandatory</p>

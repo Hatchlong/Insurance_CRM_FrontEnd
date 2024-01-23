@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CompanyCodeService } from 'src/app/modules/setting/Services/company-code/company-code.service';
@@ -15,6 +15,7 @@ import { CustomerAccountAGService } from 'src/app/modules/setting/Services/custo
 import { CustomerService } from 'src/app/modules/master/services/customer/customer.service';
 import { ProductService } from 'src/app/modules/master/services/product/product.service';
 import Swal from 'sweetalert2';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 
 @Component({
@@ -44,9 +45,8 @@ export class EditSalesOrderComponent {
   customerplant: any = []
   productPlant: any = []
   isShowDeliveryButton: any = false;
-
-
-
+  idleState: any = 'Not Started';
+  orderTypeDetails: any = [];
   constructor(
     private fb: FormBuilder,
     private activeRouter: ActivatedRoute,
@@ -65,8 +65,26 @@ export class EditSalesOrderComponent {
     private customerSer: CustomerService,
     private productSer: ProductService,
     private router: Router,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
 
-  ) { 
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
     this.getCustomerMaster()
   }
 
@@ -78,14 +96,20 @@ export class EditSalesOrderComponent {
     this.getDivisionDetail()
     this.getCompanyCodeDetail()
     this.getOrderStatus()
+    this.getOrderType()
     this.getPaymentTerm()
     this.getModeOfTransport()
     this.getBillingBlock()
     this.getCustomerAcctAG()
     this.getProductMasterDetail()
     this.getCurrencyDetails()
-
     this.singleSalesDetail()
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
   }
 
   handleSideBar(event: any) {
@@ -97,6 +121,7 @@ export class EditSalesOrderComponent {
       console.log(this.customerCurrency, "currency")
       this.salesFormGroup = this.fb.group({
         _id: [data._id, Validators.required],
+        orderTypeId: [data.orderTypeId, Validators.required],
         orderType: [data.orderType, Validators.required],
         saleOrgId: [data.saleOrgId, Validators.required],
         saleOrgName: [data.saleOrgName],
@@ -145,6 +170,7 @@ export class EditSalesOrderComponent {
     }
     this.salesFormGroup = this.fb.group({
       _id: ['', Validators.required],
+      orderTypeId: ['', Validators.required],
       orderType: ['', Validators.required],
       saleOrgId: ['', Validators.required],
       saleOrgName: [''],
@@ -190,8 +216,8 @@ export class EditSalesOrderComponent {
 
   getSalesFields(data?: any): FormGroup {
     if (data) {
-      this.productDeatail.map((el:any) => {
-        if(el.materialId === data.materialId){
+      this.productDeatail.map((el: any) => {
+        if (el.materialId === data.materialId) {
           el.disable = true
         }
       })
@@ -275,7 +301,17 @@ export class EditSalesOrderComponent {
 
   addSalesItem() {
     this.salesOrderArray.push(this.getSalesFields());
-    console.log(this.salesOrderArray.value)
+    const formArray = this.salesFormGroup.get('itemList') as FormArray;
+
+    this.salesFormGroup.value.itemList.map((el: any, i: any) => {
+      const formGroup = formArray.at(i) as FormGroup;
+
+      formGroup.patchValue({
+        companyCurrency: this.salesFormGroup.value.companyCurrency ? this.salesFormGroup.value.companyCurrency : '',
+        transactionCurrency: this.salesFormGroup.value.transactionCurrency ? this.salesFormGroup.value.transactionCurrency : '',
+
+      });
+    })
   }
 
   deleteSalesItem(index: any, orderStatus: any) {
@@ -477,6 +513,16 @@ export class EditSalesOrderComponent {
   handleCountry(event: any) {
     const findCompany = this.companyCodeDetails.find((el: any) => el._id === event.target.value)
     this.salesFormGroup.controls.companyCodeName.setValue(findCompany.companyCode)
+    this.salesFormGroup.controls.companyCurrency.setValue(findCompany.currencyName)
+    const formArray = this.salesFormGroup.get('itemList') as FormArray;
+
+    this.salesFormGroup.value.itemList.map((el: any, i: any) => {
+      const formGroup = formArray.at(i) as FormGroup;
+
+      formGroup.patchValue({
+        companyCurrency: findCompany.currencyName ? findCompany.currencyName : '',
+      });
+    })
   }
 
   //get order status 
@@ -614,7 +660,7 @@ export class EditSalesOrderComponent {
       const result: any = await this.productSer.getAllProductDetails()
       if (result.status === '1') {
         this.productDeatail = result.data;
-        this.productDeatail.map((el:any) => {
+        this.productDeatail.map((el: any) => {
           el.disable = false
         })
       }
@@ -690,11 +736,25 @@ export class EditSalesOrderComponent {
     }
   }
 
+  handleOrderType(event: any) {
+    const findSales = this.orderTypeDetails.find((el: any) => el._id === event.target.value)
+    this.salesFormGroup.controls.orderType.setValue(findSales.description)
+  }
+
   handleCustomer(event: any) {
     const selectedCustomer = this.customerMasterDetail.find((el: any) => el.customerId === event.target.value);
-    // console.log(selectedCustomer);
-    this.customerCurrency = selectedCustomer.plantData
+    const customerCurrency = selectedCustomer.plantData.find((el: any) => el.companyCode === this.salesFormGroup.value.companyCodeId)
     console.log(this.customerCurrency);
+    this.salesFormGroup.controls.transactionCurrency.setValue(customerCurrency.currencyName)
+    const formArray = this.salesFormGroup.get('itemList') as FormArray;
+
+    this.salesFormGroup.value.itemList.map((el: any, i: any) => {
+      const formGroup = formArray.at(i) as FormGroup;
+
+      formGroup.patchValue({
+        transactionCurrency: customerCurrency.currencyName ? customerCurrency.currencyName : '',
+      });
+    })
 
     this.salesFormGroup.patchValue({
       customerAddress: selectedCustomer ? selectedCustomer.address : ''
@@ -704,8 +764,8 @@ export class EditSalesOrderComponent {
   handleMaterial(event: any, index: any) {
     const selectMaterial = this.productDeatail.find((el: any) => el.materialId === event.target.value)
     console.log(selectMaterial);
-    this.productDeatail.map((el:any) => {
-      if(el.materialId === event.target.value){
+    this.productDeatail.map((el: any) => {
+      if (el.materialId === event.target.value) {
         el.disable = true
       }
     })
@@ -811,6 +871,27 @@ export class EditSalesOrderComponent {
     this.router.navigate(['/sales/add-delivery-sales'])
   }
 
-
+  //get customer acct ag
+  async getOrderType() {
+    try {
+      const result: any = await this.salesOrderSer.getOrderType()
+      if (result.status === '1') {
+        this.orderTypeDetails = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
+    }
+  }
 
 }

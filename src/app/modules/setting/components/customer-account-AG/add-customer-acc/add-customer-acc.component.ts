@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CustomerAccountAGService } from '../../../Services/customer-account-AG/customer-account-ag.service';
 import Swal from 'sweetalert2';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-add-customer-acc',
@@ -16,15 +17,43 @@ export class AddCustomerAccComponent implements OnInit {
   customerAcc: any = FormGroup;
   isSubmitted: any = false;
   isShowPadding:any = false;
+  idleState:any = 'Not Started'
+
   constructor(
     private fb: FormBuilder,
     private customerAccountSer: CustomerAccountAGService,
     private router: Router,
-    private _snackBar: MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private idle:Idle,
+    private cd:ChangeDetectorRef
+  ) { 
+    idle.setIdle(450),
+    idle.setTimeout(900),
+    idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+  }
 
   ngOnInit(): void {
     this.channeldata()
+    this.setStates()
+  }
+
+  setStates(){
+    this.idle.watch();
+    this.idleState = 'Started'
   }
 
   handleSideBar(event: any) {

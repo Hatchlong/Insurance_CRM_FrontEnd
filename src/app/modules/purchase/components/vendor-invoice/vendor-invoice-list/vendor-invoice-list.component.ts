@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { VendorInvoiceService } from '../../../services/vendor_invoice/vendor-invoice.service';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-vendor-invoice-list',
   templateUrl: './vendor-invoice-list.component.html',
   styleUrls: ['./vendor-invoice-list.component.css']
 })
-export class VendorInvoiceListComponent {
-  isShowPadding:any = false
+export class VendorInvoiceListComponent implements OnInit {
+  isShowPadding: any = false
   sampleJson = {
     "text": "Domestic",
     "companyCodeName": "SALES ORGANIZATION",
@@ -32,22 +33,54 @@ export class VendorInvoiceListComponent {
       }
     ]
   }
+  idleState: any = 'Not Started';
+
   constructor(
-    private router:Router,
-    private vendorInvoiceSer:VendorInvoiceService
-  ){}
-  nextPage(url:any){
+    private router: Router,
+    private vendorInvoiceSer: VendorInvoiceService,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+  }
+
+  ngOnInit(): void {
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
+  }
+
+  nextPage(url: any) {
     this.router.navigate([`${url}`])
   }
-  checks=false;
-  selectAll(e:any){
-    if(e.target.checked==true){
-      this.checks=true;
-    }else{
-      this.checks=false;
+  checks = false;
+  selectAll(e: any) {
+    if (e.target.checked == true) {
+      this.checks = true;
+    } else {
+      this.checks = false;
     }
   }
-  
+
   handleSideBar(event: any) {
     this.isShowPadding = event
   }

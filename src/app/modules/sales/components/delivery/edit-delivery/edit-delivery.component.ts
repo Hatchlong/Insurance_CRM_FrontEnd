@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { ProductService } from 'src/app/modules/master/services/product/product.
 import { PlantDataService } from 'src/app/modules/setting/Services/plant-data/plant-data.service';
 import { DeliveryService } from '../../../services/delivery/delivery.service';
 import { CustomerService } from 'src/app/modules/master/services/customer/customer.service';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-edit-delivery',
@@ -23,7 +24,7 @@ export class EditDeliveryComponent implements OnInit{
   productDetails: any = []
   customerMasterDetail: any = []
   deliveryTypeDetails:any = []
-
+  idleState: any = 'Not Started';
 
   constructor(
     private fb: FormBuilder,
@@ -33,10 +34,28 @@ export class EditDeliveryComponent implements OnInit{
     private productSer: ProductService,
     private plantDataSer:PlantDataService,
     private activeRouter: ActivatedRoute,
-    private customerSer: CustomerService
+    private customerSer: CustomerService,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
 
 
-  ) { }
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+   }
 
   ngOnInit(): void {
     this.deliveryId = this.activeRouter.snapshot.paramMap.get('id')
@@ -49,6 +68,12 @@ export class EditDeliveryComponent implements OnInit{
 
     this.getCustomerMaster()
     this.getDeliveryTypeDetails()
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
   }
 
   handleSideBar(event: any) {

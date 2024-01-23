@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModeOfTransportService } from '../../../Services/mode-of-transport/mode-of-transport.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-mode-of-transport-list',
@@ -23,20 +24,48 @@ export class ModeOfTransportListComponent implements OnInit {
     "modeOfTransport": "Transport",
     "motDescription": "Description 23"
   }
-  isShowPadding:any = false;
+  isShowPadding: any = false;
+  idleState: any = 'Not Started'
+
   constructor(
     private router: Router,
     private motSer: ModeOfTransportService,
-    private _snackBar: MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+  }
 
   ngOnInit(): void {
     this.getAllmodeoftransportDetailsPage(this.page, this.itemsPerPage)
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
   }
   nextPage(url: any) {
     this.router.navigate([`${url}`])
   }
-  
+
   handleSideBar(event: any) {
     this.isShowPadding = event
   }
@@ -49,7 +78,7 @@ export class ModeOfTransportListComponent implements OnInit {
       console.log(result);
       if (result.status === '1') {
         this.totalItem = result.count
-        this.allMOTDetails=result.data
+        this.allMOTDetails = result.data
         this.modeOfDetails = result.data
         if (result.data.length === 0) {
           this.selectAll = false
@@ -130,16 +159,16 @@ export class ModeOfTransportListComponent implements OnInit {
     }
   }
 
-  handleFilter(event:any){
-    if(!event.target.value){
+  handleFilter(event: any) {
+    if (!event.target.value) {
       this.modeOfDetails = this.allMOTDetails
     }
     console.log(event.target.value)
-    const isStringIncluded = this.allMOTDetails.filter((obj:any) => ((obj.modeOfTransport.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.motDescription.toUpperCase()).includes(event.target.value.toUpperCase())));
+    const isStringIncluded = this.allMOTDetails.filter((obj: any) => ((obj.modeOfTransport.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.motDescription.toUpperCase()).includes(event.target.value.toUpperCase())));
     this.modeOfDetails = isStringIncluded
   }
 
- 
+
 
   // File Upload
   importHandle(inputId: any) {
@@ -233,7 +262,7 @@ export class ModeOfTransportListComponent implements OnInit {
 
   pageChanged(event: PageChangedEvent): void {
     this.page = event.page;
-    const records = (this.page-1) * this.itemsPerPage;
+    const records = (this.page - 1) * this.itemsPerPage;
     this.getAllmodeoftransportDetailsPage(records, this.itemsPerPage)
   }
 

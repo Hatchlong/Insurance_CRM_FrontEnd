@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaymentTermService } from '../../../Services/payment-term/payment-term.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-edit-payment-term',
@@ -16,18 +17,46 @@ export class EditPaymentTermComponent {
   paymentTermId:any=''
   isSubmitted:any=false;
   isShowPadding:any =false;
+  idleState: any = 'Not Started'
+
   constructor(
     private fb: FormBuilder,
     private paymentSer: PaymentTermService,
     private router: Router,
     private activeRouter: ActivatedRoute,
-    private _snackBar: MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    }) 
+  }
 
   ngOnInit(): void {
     this.paymentTermId = this.activeRouter.snapshot.paramMap.get('id')
     this.getSinglePayment()
     this.code()
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
   }
 
   handleSideBar(event: any) {

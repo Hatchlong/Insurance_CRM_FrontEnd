@@ -1,8 +1,8 @@
-<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<app-side-nav (isShowNav)="handleSideBar($event)" [logoutAction]="idleState"></app-side-nav>
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
     <form [formGroup]="poType" (ngSubmit)="addCode()">
         <h2><mat-icon class="back" routerLink="/settings/po-type-list">arrow_back</mat-icon>PO Type</h2>
-        <div class="row border">
+        <div class="row border mx-0">
             <div class="col-6 py-2">
                 <label for="" class="">PO Type <sup>*</sup></label>
                 <input type="text" class="form-control " placeholder="Enter PO Type" formControlName="poType" appDirective>
@@ -51,13 +51,13 @@
                     </div>
                     <div class="col-7">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="radioButtonOption" id="flexRadioDefault2" formControlName="radioButtonOption" value="internal" (change)="onRadioButtonChange()" checked>
+                            <input class="form-check-input" type="radio"  id="flexRadioDefault2" formControlName="internalNumberRangeAssignment" value="internal" (change)="onRadioButtonChange($event)"  >
                             <label class="form-check-label" for="flexRadioDefault2">
                                 Internal
                             </label>
                           </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="radioButtonOption" id="flexRadioDefault1" formControlName="radioButtonOption" value="external" (change)="onRadioButtonChange()" >
+                            <input class="form-check-input" type="radio"  id="flexRadioDefault1" formControlName="internalNumberRangeAssignment" value="external" (change)="onRadioButtonChange($event)" >
                             <label class="form-check-label" for="flexRadioDefault1">
                                 External
                             </label>

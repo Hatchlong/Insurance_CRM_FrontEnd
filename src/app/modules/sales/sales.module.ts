@@ -24,6 +24,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { DeliveryService } from './services/delivery/delivery.service';
 import { EditDeliveryComponent } from './components/delivery/edit-delivery/edit-delivery.component';
 import { DeliverySalesOrderComponent } from './components/sales-order/delivery-sales-order/delivery-sales-order.component';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+import { FilterPipe } from './services/filter/filter.pipe';
 
 
 @NgModule({
@@ -36,7 +38,8 @@ import { DeliverySalesOrderComponent } from './components/sales-order/delivery-s
     AddBillingComponent,
     EditSalesOrderComponent,
     EditDeliveryComponent,
-    DeliverySalesOrderComponent
+    DeliverySalesOrderComponent,
+    FilterPipe
   ],
   imports: [
     CommonModule,
@@ -51,7 +54,7 @@ import { DeliverySalesOrderComponent } from './components/sales-order/delivery-s
     SharedModule,
     FormsModule,
     PaginationModule.forRoot(),
-
+    NgIdleKeepaliveModule
     
   ],
   providers:[SalesOrderService,DeliveryService]

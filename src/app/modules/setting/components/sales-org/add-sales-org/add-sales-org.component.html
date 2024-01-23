@@ -1,10 +1,10 @@
-<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<app-side-nav (isShowNav)="handleSideBar($event)" [logoutAction]="idleState"></app-side-nav>
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
   <form [formGroup]="salesOrg" (ngSubmit)="addCode()">
     <h2>
       <mat-icon class="back" routerLink="/settings/sales-org-list">arrow_back</mat-icon>Sales Org
     </h2>
-    <div class="row">
+    <div class="row border">
       <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
         <label for="" class="">Sales Org</label>
         <input type="text" class="form-control " placeholder=" Enter Sales Org" formControlName="salesOrg" appDirective/>
@@ -16,10 +16,10 @@
           <p class="error-message">Sales Org is mandatory</p>
         </div>
         <div *ngIf="salesOrg.controls['salesOrg'].hasError('minlength')">
-          <p class="error-message">Minimum length exceeded (min Limit : 6).</p>
+          <p class="error-message">Must have 6 character</p>
         </div>
         <div *ngIf="salesOrg.controls['salesOrg'].hasError('maxlength')">
-          <p class="error-message">Maximum length exceeded (Max Limit : 6).</p>
+          <p class="error-message">Must have 6 character</p>
         </div>
       </div>
       <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
@@ -60,6 +60,20 @@
         </div>
         <div *ngIf="isSubmitted && salesOrg.controls['countryId'].hasError('required')">
           <p class="error-message">country is mandatory</p>
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2 ">
+        <label for="">State/Province <sup>*</sup></label>
+        <select class="form-select" formControlName="stateId"
+          [ngStyle]="{'pointer-events': !salesOrg.value.countryId ? 'none' :  'all'}">
+          <option [selected]="salesOrg.value.stateId === ''" value="" hidden>Select State/Province</option>
+        </select>
+        <div
+          *ngIf="salesOrg.controls['stateId'].touched && salesOrg.controls['stateId'].dirty && salesOrg.controls['stateId'].hasError('required') && !isSubmitted">
+          <p class="error-message">State/Province is mandatory</p>
+        </div>
+        <div *ngIf="isSubmitted && salesOrg.controls['stateId'].hasError('required')">
+          <p class="error-message">State/Province is mandatory</p>
         </div>
       </div>
       <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">

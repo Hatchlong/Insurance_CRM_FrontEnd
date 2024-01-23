@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CompanyCodeService } from '../../../Services/company-code/company-code.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import * as XLSX from 'xlsx';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 @Component({
   selector: 'app-company-code-list',
   templateUrl: './company-code-list.component.html',
@@ -27,16 +27,44 @@ export class CompanyCodeListComponent {
     "currencyName": "INR",
     "languageName": "English",
   }
-  isShowPadding:any = false;
+  isShowPadding: any = false;
+  idleState:any = 'Not Started'
   constructor(
     private router: Router,
     private companyCodeSer: CompanyCodeService,
-    private _snackBar: MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private idle:Idle,
+    private cd:ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+    idle.setTimeout(900),
+    idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+   }
 
   ngOnInit(): void {
+    this.setStates();
     this.getAllCompanyCodeDetails(this.page, this.itemsPerPage)
   }
+
+  setStates(){
+    this.idle.watch();
+    this.idleState = 'Started'
+  }
+
 
   nextPage(url: any) {
     this.router.navigate([`${url}`])
@@ -181,7 +209,7 @@ export class CompanyCodeListComponent {
 
 
   downloadExcel(): void {
-   
+
     const sampleRecord = [this.sampleJson]
     this.companyCodeSer.exportToExcel(sampleRecord, 'company_Code', 'Sheet1');
   }
@@ -235,7 +263,7 @@ export class CompanyCodeListComponent {
 
   pageChanged(event: PageChangedEvent): void {
     this.page = event.page;
-    const records = (this.page-1) * this.itemsPerPage;
+    const records = (this.page - 1) * this.itemsPerPage;
     this.getAllCompanyCodeDetails(records, this.itemsPerPage)
   }
 }

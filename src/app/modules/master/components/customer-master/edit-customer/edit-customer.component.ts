@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,6 +14,7 @@ import { CustomerAccountAGService } from 'src/app/modules/setting/Services/custo
 import { BillingBlockService } from 'src/app/modules/setting/Services/billing-block/billing-block.service';
 import { ProductService } from '../../../services/product/product.service';
 import { VendorService } from '../../../services/vendor/vendor.service';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-edit-customer',
@@ -42,15 +43,15 @@ export class EditCustomerComponent {
   customerGroupDetail: any = []
   acctAssignDetail: any;
   reconcilationAccountDetails: any = []
-  accountGroupDetails:any = []
+  accountGroupDetails:any = [];
+  idleState: any = 'Not Started';
+
   constructor(
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private router: Router,
     private activeRouter: ActivatedRoute,
-
     private customerSer: CustomerService,
-
     private companyCodeSer: CompanyCodeService,
     private salesOrgSer: SalesOrgService,
     private paymentTermSer: PaymentTermService,
@@ -61,9 +62,28 @@ export class EditCustomerComponent {
     private acctAssignmentSer: CustomerAccountAGService,
     private billingblockSer: BillingBlockService,
     private productSer: ProductService,
-    private vendorSer: VendorService
+    private vendorSer: VendorService,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
 
-  ) { }
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+  }
 
   ngOnInit(): void {
     this.customerMasterId = this.activeRouter.snapshot.paramMap.get('id')
@@ -85,7 +105,14 @@ export class EditCustomerComponent {
     this.singleCustomerDetails()
     this.getAcctAssign()
     this.getReconcilationAccountDetails()
+    this.setStates()
   }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
+  }
+
   create(data?: any) {
     if (data) {
 
