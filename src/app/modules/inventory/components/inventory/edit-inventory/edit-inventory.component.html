@@ -1,0 +1,84 @@
+<app-side-nav (isShowNav)="handleSideBar($event)" [logoutAction]="idleState"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
+  <form [formGroup]="inventory" (ngSubmit)="submitData()">
+    <h2><mat-icon class="back" routerLink="/inventory/inventory-list">arrow_back</mat-icon>Inventory</h2>
+    <div class="row border mx-0">
+      <div class="col-6 py-2">
+        <label for="" class="">Company code  </label>
+        <input type="text" class="form-control " placeholder="Enter Company code" formControlName="companyCode" readonly>
+        </div>
+        <div class="col-6 py-2">
+        <label for="" class="">Plant  </label>
+        <input type="text" class="form-control " placeholder="Enter Plant" formControlName="plant" readonly>
+
+        </div>
+      <div class="col-6 py-2">
+        <label for="" class="">Storage location  </label>
+        <input type="text" class="form-control " placeholder="Enter Storage location" formControlName="storageLocation" readonly>
+        </div>
+      <div class="col-6 py-2">
+        <label for="" class="">Product id </label>
+        <input type="text" class="form-control " placeholder="Enter Product id " formControlName="productId" readonly>
+      </div>
+      <div class="col-6 py-2">
+        <label for="" class="">Product description </label>
+        <input type="text" class="form-control " placeholder="Enter Product description " formControlName="productDescription" readonly>
+      </div>
+      <div class="col-6 py-2">
+        <label for="" class="">Unit of measure </label>
+        <input type="text" class="form-control " placeholder="Enter Unit of measure " formControlName="unitOfMeasure" readonly>
+      </div>
+
+      <div class="col-6 py-2">
+        <label for="" class="">Unrestricted stock </label>
+        <input type="number" class="form-control " placeholder="Enter Unrestricted stock " formControlName="unrestrictedStock">
+      </div>
+
+      <div class="col-6 py-2">
+        <label for="" class="">Blocked stock </label>
+        <input type="number" class="form-control " placeholder="Enter Blocked stock " formControlName="blockedStock">
+      </div>
+
+      <div class="col-6 py-2">
+        <label for="" class="">Reserved stock </label>
+        <input type="number" class="form-control " placeholder="Enter Reserved stock " formControlName="reservedStock">
+      </div>
+
+      <div class="col-6 py-2">
+        <label for="" class="">On order/schedule for delivery stock </label>
+        <input type="number" class="form-control " placeholder="Enter On order/schedule for delivery stock " formControlName="onOrder">
+      </div>
+
+      <div class="col-6 py-2">
+        <label for="" class="">Returns stock </label>
+        <input type="number" class="form-control " placeholder="Enter Returns stock " formControlName="returnStock">
+      </div>
+
+      <div class="col-6 py-2">
+        <label for="" class="">Stock in Q/A </label>
+        <input type="number" class="form-control " placeholder="Enter Stock in Q/A " formControlName="stockInQA">
+      </div>
+
+      <div class="col-6 py-2">
+        <label for="" class="">Re-order trigger point </label>
+        <input type="number" class="form-control " placeholder="Enter Re-order trigger point " formControlName="reOrderTriggerPoint">
+      </div>
+
+      <div class="col-12 d-flex justify-content-end mb-2">
+        <button class="btn btn-primary" type="submit" >Update</button>
+      </div>
+
+    </div>
+  </form>
+</div> 
+
+
+
+
+
+
+
+
+
+
+
