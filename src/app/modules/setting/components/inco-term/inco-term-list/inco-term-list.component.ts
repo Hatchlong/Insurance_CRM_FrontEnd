@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IncTermService } from '../../../Services/inc-term/inc-term.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-inco-term-list',
   templateUrl: './inco-term-list.component.html',
   styleUrls: ['./inco-term-list.component.css']
 })
-export class IncoTermListComponent implements OnInit { 
+export class IncoTermListComponent implements OnInit {
 
   incTermDetail: any = []
   selectAll: any = false
@@ -24,18 +25,46 @@ export class IncoTermListComponent implements OnInit {
     "description": "Hatchlong",
   }
 
-  isShowPadding:any = false;
+  isShowPadding: any = false;
+  idleState: any = 'Not Started'
+
   constructor(
     private router: Router,
     private incTermSer: IncTermService,
-    private _snackBar: MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+  }
   nextPage(url: any) {
     this.router.navigate([`${url}`])
   }
 
   ngOnInit(): void {
     this.getAllIncoTermDetails(this.page, this.itemsPerPage)
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
   }
 
   handleSideBar(event: any) {
@@ -65,7 +94,7 @@ export class IncoTermListComponent implements OnInit {
   }
 
 
-   //get data in list
+  //get data in list
   async getAllIncoTermDetails(page: any, itemsPerPage: any) {
     try {
       const result: any = await this.incTermSer.getAllIncoTermPage(page, itemsPerPage);
@@ -91,7 +120,7 @@ export class IncoTermListComponent implements OnInit {
       });;
     }
   }
-  
+
   async deleteRecords(data: any) {
     try {
       data.isActive = "C"
@@ -123,8 +152,8 @@ export class IncoTermListComponent implements OnInit {
     }
   }
 
-   // File Upload
-   importHandle(inputId: any) {
+  // File Upload
+  importHandle(inputId: any) {
     inputId.click()
   }
 
@@ -217,7 +246,7 @@ export class IncoTermListComponent implements OnInit {
     }
   }
 
-  
+
   handleFilter(event: any) {
     if (!event.target.value) {
       this.incTermDetail = this.allIncoTermDetails
@@ -231,7 +260,7 @@ export class IncoTermListComponent implements OnInit {
 
   pageChanged(event: PageChangedEvent): void {
     this.page = event.page;
-    const records = (this.page-1) * this.itemsPerPage;
+    const records = (this.page - 1) * this.itemsPerPage;
     this.getAllIncoTermDetails(records, this.itemsPerPage)
   }
 

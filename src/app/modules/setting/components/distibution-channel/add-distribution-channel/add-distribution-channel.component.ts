@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DistibutionChannelService } from '../../../Services/distibution-channel/distibution-channel.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-add-distribution-channel',
@@ -15,17 +16,44 @@ export class AddDistributionChannelComponent implements OnInit {
 
   channel: any = FormGroup
   isSubmitted: any = false;
-  isShowPadding:any = false;
+  isShowPadding: any = false;
+  idleState:any = 'Not Started'
+
   constructor(private fb: FormBuilder,
     private distribustionSer: DistibutionChannelService,
     private router: Router,
-    private _snackBar: MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+  }
 
   ngOnInit(): void {
     this.channeldata()
+    this.setStates()
   }
 
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
+  }
   handleSideBar(event: any) {
     this.isShowPadding = event
   }
@@ -71,7 +99,7 @@ export class AddDistributionChannelComponent implements OnInit {
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',

@@ -1,9 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompanyCodeService } from '../../../Services/company-code/company-code.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-add-company-code',
@@ -27,14 +28,36 @@ export class AddCompanyCodeComponent {
   languageDetails: any = [];
   industryDetails: any = [];
   filedPathName: any = '';
-  inputControl: any = ''
+  inputControl: any = '';
+  idleState:any = 'Not Started'
   constructor(
     private fb: FormBuilder,
     private companySer: CompanyCodeService,
     private companyCodeSer: CompanyCodeService,
     private router: Router,
-    private _snackBar: MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private idle:Idle,
+    private cd:ChangeDetectorRef
+  ) { 
+    idle.setIdle(450),
+    idle.setTimeout(900),
+    idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+   
+  }
 
   ngOnInit(): void {
     this.getCountryDetails()
@@ -43,7 +66,14 @@ export class AddCompanyCodeComponent {
     this.getAllLanguageList()
     this.getAllInndustrySectorsList()
     this.code()
+    this.setStates()
   }
+
+  setStates(){
+    this.idle.watch();
+    this.idleState = 'Started'
+  }
+
 
   code() {
     this.companyCode = this.fb.group({

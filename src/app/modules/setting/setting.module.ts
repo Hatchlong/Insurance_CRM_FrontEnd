@@ -69,8 +69,12 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { DirectiveDirective } from './Services/directive/directive.directive';
 import { ViewImageComponent } from './components/view-image/view-image.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+<<<<<<< HEAD
 import { FieldsetModule } from "primeng/fieldset"; 
 
+=======
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+>>>>>>> 4032d9c7157e5e5b7798657b36c1934793a7eaa1
 @NgModule({
   declarations: [
     AddCompanyCodeComponent,
@@ -132,7 +136,11 @@ import { FieldsetModule } from "primeng/fieldset";
     SharedModule,
     TimepickerModule.forRoot(),
     MatDialogModule,
+<<<<<<< HEAD
     FieldsetModule
+=======
+    NgIdleKeepaliveModule
+>>>>>>> 4032d9c7157e5e5b7798657b36c1934793a7eaa1
   ],
   providers: [ PurchaseOrgService, CompanyCodeService, PoTypeService, PlantDataService, PaymentTermService, DivionService, DistibutionChannelService, ModeOfTransportService, OrderStatusService, BillingBlockService, IncTermService, SalesOrgService ]
 })

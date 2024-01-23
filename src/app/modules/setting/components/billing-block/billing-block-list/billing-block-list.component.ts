@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BillingBlockService } from '../../../Services/billing-block/billing-block.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as XLSX from 'xlsx';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-billing-block-list',
@@ -27,16 +28,45 @@ export class BillingBlockListComponent implements OnInit {
 
   isShowPadding:any = false
 
+  idleState:any = 'Not Started'
 
   constructor(
     private router: Router,
     private billingBlockSer: BillingBlockService,
-    private _snackBar: MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private idle:Idle,
+    private cd:ChangeDetectorRef
+  ) { 
+    idle.setIdle(450),
+    idle.setTimeout(900),
+    idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+   }
 
   ngOnInit(): void {
+    this.setStates()
     this.getAllBillingBlockDetails(this.page, this.itemsPerPage)
   }
+
+  
+  setStates(){
+    this.idle.watch();
+    this.idleState = 'Started'
+  }
+
   nextPage(url: any) {
     this.router.navigate([`${url}`])
   }

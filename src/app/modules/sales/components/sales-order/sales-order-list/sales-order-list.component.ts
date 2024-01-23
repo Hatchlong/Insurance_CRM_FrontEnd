@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SalesOrderService } from '../../../services/sales-order/sales-order.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 
 @Component({
@@ -10,11 +11,11 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
   templateUrl: './sales-order-list.component.html',
   styleUrls: ['./sales-order-list.component.css']
 })
-export class SalesOrderListComponent implements OnInit{
+export class SalesOrderListComponent implements OnInit {
 
-  selectAll:any=false
-  isShowPadding:any = false;
-  salesOrderDetail:any=[]
+  selectAll: any = false
+  isShowPadding: any = false;
+  salesOrderDetail: any = []
   selectedSalesType: string = '';
   allSalesDetails: any = []
 
@@ -23,81 +24,109 @@ export class SalesOrderListComponent implements OnInit{
   page?: number = 0;
   itemsPerPage = 10;
 
-sampleJson = {
-  "orderType":"Domestic",
-  "saleOrgName": "SALES ORGANIZATION",
-  "distributionChannelsName": "D123",
-  "divisionName": "TEST DIVISION",
-  "customerId": "CUS001",
-  "customerName": "Test",
-  "customerAddress": "1",
-  "salesOrder": "1",
-  "createdOn": "02/01/2024",
-  "createdBy": "SuperAdmin",
-  "changedOn": "02/01/2024",
-  "changedBy": "SuperAdmin",
-  "customerPo":"1",
-  "customerPoDate":"03/01/2024",
-  "requestedDeliveryDate":"30/01/2024",
-  "companyCurrency":"dollar",
-  "transactionCurrency":"dollar",
-  "exchangeRate":"1",
-  "modeOfTransport":"test_modeOfTransport",
-  "totalNetWeight":"1",
-  "totalGrossWeight":"1",
-  "totalVolume":"1",
-  "paymentTerms":"test_paymentTerms",
-  "billingBlockName":"block23", 
-  "companyCodeName":"TCS234",
-  "customerAcctAss":"abc",
-  "netPrice":1,
-  "netTax":1,
-  "netDiscount":1,
-  "netFreight":"1",
-  "otherCharges":"1",
-  "text":"test",
-  "orderStatusName":"ord12",
-  "itemList": [
+  sampleJson = {
+    "orderType": "Domestic",
+    "saleOrgName": "SALES ORGANIZATION",
+    "distributionChannelsName": "D123",
+    "divisionName": "TEST DIVISION",
+    "customerId": "CUS001",
+    "customerName": "Test",
+    "customerAddress": "1",
+    "salesOrder": "1",
+    "createdOn": "02/01/2024",
+    "createdBy": "SuperAdmin",
+    "changedOn": "02/01/2024",
+    "changedBy": "SuperAdmin",
+    "customerPo": "1",
+    "customerPoDate": "03/01/2024",
+    "requestedDeliveryDate": "30/01/2024",
+    "companyCurrency": "dollar",
+    "transactionCurrency": "dollar",
+    "exchangeRate": "1",
+    "modeOfTransport": "test_modeOfTransport",
+    "totalNetWeight": "1",
+    "totalGrossWeight": "1",
+    "totalVolume": "1",
+    "paymentTerms": "test_paymentTerms",
+    "billingBlockName": "block23",
+    "companyCodeName": "TCS234",
+    "customerAcctAss": "abc",
+    "netPrice": 1,
+    "netTax": 1,
+    "netDiscount": 1,
+    "netFreight": "1",
+    "otherCharges": "1",
+    "text": "test",
+    "orderStatusName": "ord12",
+    "itemList": [
       {
-          "materialId": "test001",
-          "materialDescription": "Tv",
-          "ordQty": "2",
-          "uom": "one",
-          "plant": "1",
-          "storageLocation":"xyz",
-          "batchSerial":"1",
-          "priceAmount":1,
-          "priceUnitPrice":1,
-          "priceUnit":"1",
-          "priceUOM":"l",
-          "tax":"1",
-          "perUnitTax":"1",
-          "discount":"1",
-          "perUnitDiscount":"1",
-          "freight":"1",
-          "perUnitFreight":"1",
-          "otherCharges":"1",
-          "companyCurrency":"dollar",
-          "transactionCurrency":"dollar",
-          "exchangeRate":"1",
-          "priceDate":"1",
-          "netWeight":"1",
-          "grossWeight":"1",
-          "volumn":"1"
+        "materialId": "test001",
+        "materialDescription": "Tv",
+        "ordQty": "2",
+        "uom": "one",
+        "plant": "1",
+        "storageLocation": "xyz",
+        "batchSerial": "1",
+        "priceAmount": 1,
+        "priceUnitPrice": 1,
+        "priceUnit": "1",
+        "priceUOM": "l",
+        "tax": "1",
+        "perUnitTax": "1",
+        "discount": "1",
+        "perUnitDiscount": "1",
+        "freight": "1",
+        "perUnitFreight": "1",
+        "otherCharges": "1",
+        "companyCurrency": "dollar",
+        "transactionCurrency": "dollar",
+        "exchangeRate": "1",
+        "priceDate": "1",
+        "netWeight": "1",
+        "grossWeight": "1",
+        "volumn": "1"
       }
-  ]
-}
+    ]
+  }
+  idleState: any = 'Not Started';
 
   constructor(
-    private router:Router,
-    private salesOrderSer:SalesOrderService,
-    private _snackBar: MatSnackBar
+    private router: Router,
+    private salesOrderSer: SalesOrderService,
+    private _snackBar: MatSnackBar,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
 
-  ){}
-  ngOnInit(): void {
-      this.getSalesOrderDetail(this.page, this.itemsPerPage)
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
   }
-  nextPage(url:any){
+
+  ngOnInit(): void {
+    this.getSalesOrderDetail(this.page, this.itemsPerPage)
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
+  }
+
+  nextPage(url: any) {
     this.router.navigate([`${url}`])
   }
 
@@ -142,15 +171,15 @@ sampleJson = {
 
 
 
- 
+
   //get all details
 
-  async getSalesOrderDetail(page: any, itemsPerPage: any){
+  async getSalesOrderDetail(page: any, itemsPerPage: any) {
     try {
-      const result:any= await this.salesOrderSer.getAllSalesOrderDetailsPage(page, itemsPerPage)
+      const result: any = await this.salesOrderSer.getAllSalesOrderDetailsPage(page, itemsPerPage)
       console.log(result)
-      if (result.status==='1') {
-        this.salesOrderDetail=result.data
+      if (result.status === '1') {
+        this.salesOrderDetail = result.data
         this.allSalesDetails = result.data
         result.data.map((el: any) => {
           el.check = false
@@ -185,7 +214,7 @@ sampleJson = {
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        this.getSalesOrderDetail(this.page, this.itemsPerPage) 
+        this.getSalesOrderDetail(this.page, this.itemsPerPage)
         return;
       }
       if (result.status === '0') {
@@ -204,7 +233,7 @@ sampleJson = {
           panelClass: 'app-notification-error',
         });
         return
-      } 
+      }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
@@ -216,11 +245,11 @@ sampleJson = {
 
   pageChanged(event: PageChangedEvent): void {
     this.page = event.page;
-    const records = (this.page-1) * this.itemsPerPage;
+    const records = (this.page - 1) * this.itemsPerPage;
     this.getSalesOrderDetail(records, this.itemsPerPage)
   }
 
-  downloadExcel(): void {   
+  downloadExcel(): void {
     const sampleRecord = [this.sampleJson]
     this.salesOrderSer.exportToExcel(sampleRecord, 'sales_orfer', 'Sheet1');
   }

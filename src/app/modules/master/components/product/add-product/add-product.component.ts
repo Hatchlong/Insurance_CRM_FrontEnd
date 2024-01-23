@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { ProductService } from '../../../services/product/product.service';
@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { PlantDataService } from 'src/app/modules/setting/Services/plant-data/plant-data.service';
 import { SalesOrgService } from 'src/app/modules/setting/Services/sales-org/sales-org.service';
 import { DistibutionChannelService } from 'src/app/modules/setting/Services/distibution-channel/distibution-channel.service';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -35,11 +36,11 @@ export class AddProductComponent implements OnInit {
   materialIdisShow: any = false
   plantDetails: any = []
   filteredPlantDetail: any;
-  batchManagementDetail:any=[]
-  expirateDataRelavanceDetail:any=[]
-  availibilityCheckDetail:any=[]
-  bomRelavanceDetail:any=[]
-
+  batchManagementDetail: any = []
+  expirateDataRelavanceDetail: any = []
+  availibilityCheckDetail: any = []
+  bomRelavanceDetail: any = []
+  idleState: any = 'Not Started';
 
   constructor(
     private fb: FormBuilder,
@@ -48,8 +49,28 @@ export class AddProductComponent implements OnInit {
     private plantDataSer: PlantDataService,
     private distibutionSer: DistibutionChannelService,
     private SalesSer: SalesOrgService,
-    private _snackBar: MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+  }
 
   ngOnInit(): void {
     this.create()
@@ -72,7 +93,12 @@ export class AddProductComponent implements OnInit {
     this.getAllExpirationDate()
     this.getAllAvailibilityCheck()
     this.getAllBomRelavanceDetail()
+    this.setStates()
+  }
 
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
   }
 
 
@@ -86,7 +112,7 @@ export class AddProductComponent implements OnInit {
       materialDescription: ['', Validators.required],
       materialGroupId: ['', Validators.required],
       materialGroupName: ['', Validators.required],
-      materialTypeId: ['', Validators.required], 
+      materialTypeId: ['', Validators.required],
       materialTypeName: ['', Validators.required],
       materialTypeFlag: ['', Validators.required],
       industrySectorId: ['', Validators.required],
@@ -261,7 +287,7 @@ export class AddProductComponent implements OnInit {
 
     }
   }
- 
+
 
   //get sales org details
 
@@ -670,7 +696,7 @@ export class AddProductComponent implements OnInit {
     }
   }
 
-  handleDeliveryPlant(event:any,index:any){
+  handleDeliveryPlant(event: any, index: any) {
     const findPlant = this.plantDetail.find((el: any) => el._id === event.target.value)
     console.log(findPlant);
 
@@ -683,33 +709,33 @@ export class AddProductComponent implements OnInit {
       deliveringPlantName: findPlant ? findPlant.plantCode : ''
 
     });
- }
+  }
 
 
 
-handleStorageLocation(event: any,productId:any, index: any) {
+  handleStorageLocation(event: any, productId: any, index: any) {
 
-  const formArray = this.general.get('plantData') as FormArray;
-  const formGroup = formArray.at(index) as FormGroup;
+    const formArray = this.general.get('plantData') as FormArray;
+    const formGroup = formArray.at(index) as FormGroup;
 
-  // Find the selected storage plant in the plantDetail array
-  this.filteredPlantDetail = this.plantDetail.filter((el: any) => el._id === productId);
-  // Update formGroup values
-  formGroup.patchValue({
+    // Find the selected storage plant in the plantDetail array
+    this.filteredPlantDetail = this.plantDetail.filter((el: any) => el._id === productId);
+    // Update formGroup values
+    formGroup.patchValue({
       storageLocationName: this.filteredPlantDetail ? this.filteredPlantDetail.stoargeLocationName : '',
-  });
-}
+    });
+  }
 
 
   //get batch management detail
 
-  async getAllBatchDetail(){
+  async getAllBatchDetail() {
     try {
-     const result:any=await this.productSer.getAllBatchManagmentDetails()
-     if (result.status==='1') {
-      this.batchManagementDetail=result.data
-     } 
-    }catch (error: any) {
+      const result: any = await this.productSer.getAllBatchManagmentDetails()
+      if (result.status === '1') {
+        this.batchManagementDetail = result.data
+      }
+    } catch (error: any) {
       if (error.error.message) {
         this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
@@ -728,11 +754,11 @@ handleStorageLocation(event: any,productId:any, index: any) {
 
 
   //get Expiration data detail
-  async getAllExpirationDate(){
+  async getAllExpirationDate() {
     try {
-      const result:any=await this.productSer.getAllExpirationRelavanceDetails()
-      if (result.status==='1') {
-        this.expirateDataRelavanceDetail=result.data
+      const result: any = await this.productSer.getAllExpirationRelavanceDetails()
+      if (result.status === '1') {
+        this.expirateDataRelavanceDetail = result.data
       }
     } catch (error: any) {
       if (error.error.message) {
@@ -752,12 +778,12 @@ handleStorageLocation(event: any,productId:any, index: any) {
   }
 
   //get availibility check detail
-  async getAllAvailibilityCheck(){
+  async getAllAvailibilityCheck() {
     try {
-     const result:any=await this.productSer.getAllAvailibityCheckDetails()
-     if (result.status==='1') {
-      this.availibilityCheckDetail=result.data
-     } 
+      const result: any = await this.productSer.getAllAvailibityCheckDetails()
+      if (result.status === '1') {
+        this.availibilityCheckDetail = result.data
+      }
     } catch (error: any) {
       if (error.error.message) {
         this._snackBar.open(error.error.message, '', {
@@ -777,11 +803,11 @@ handleStorageLocation(event: any,productId:any, index: any) {
 
   //get all bom detail
 
-  async getAllBomRelavanceDetail(){
+  async getAllBomRelavanceDetail() {
     try {
-      const result:any=await this.productSer.getAllBOMRelevanceDetails()
-      if (result.status==='1') {
-        this.bomRelavanceDetail=result.data
+      const result: any = await this.productSer.getAllBOMRelevanceDetails()
+      if (result.status === '1') {
+        this.bomRelavanceDetail = result.data
       }
     } catch (error: any) {
       if (error.error.message) {

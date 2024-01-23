@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms'
 import { CountryService } from '../../../services/country/country.service';
 import { VendorService } from '../../../services/vendor/vendor.service';
@@ -8,6 +8,7 @@ import { ModeOfTransportService } from 'src/app/modules/setting/Services/mode-of
 import { IncTermService } from 'src/app/modules/setting/Services/inc-term/inc-term.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PaymentTermService } from 'src/app/modules/setting/Services/payment-term/payment-term.service';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-add-vendor',
@@ -34,6 +35,7 @@ export class AddVendorComponent implements OnInit {
   paymentMethodDetails: any = []
   reconcilationAccountDetails: any = []
   languageDetails:any = []
+  idleState: any = 'Not Started';
 
   constructor(
     private fb: FormBuilder,
@@ -44,8 +46,28 @@ export class AddVendorComponent implements OnInit {
     private router: Router,
     private motSer: ModeOfTransportService,
     private incoSer: IncTermService,
-    private _snackBar: MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+  }
 
   ngOnInit(): void {
     this.createVendorFormFields()
@@ -59,6 +81,12 @@ export class AddVendorComponent implements OnInit {
     this.getVendorType()
     this.getPaymentMethodDetails()
     this.getReconcilationAccountDetails()
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
   }
 
   createVendorFormFields() {

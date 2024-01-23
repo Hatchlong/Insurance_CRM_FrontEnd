@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GoodReceiptService } from '../../../services/good_receipt/good-receipt.service';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-goods-receipt-list',
   templateUrl: './goods-receipt-list.component.html',
   styleUrls: ['./goods-receipt-list.component.css']
 })
-export class GoodsReceiptListComponent {
+export class GoodsReceiptListComponent implements OnInit {
   isShowPadding:any = false;
   sampleJson = {
 
@@ -26,12 +27,43 @@ export class GoodsReceiptListComponent {
         "stockType": "1",
       }
     ]
-
   }
+  idleState: any = 'Not Started';
+
   constructor(
     private router:Router,
-    private goodReciptSer:GoodReceiptService
-  ){}
+    private goodReciptSer:GoodReceiptService,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+  }
+
+  ngOnInit(): void {
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
+  }
+
   nextPage(url:any){
     this.router.navigate([`${url}`])
   }

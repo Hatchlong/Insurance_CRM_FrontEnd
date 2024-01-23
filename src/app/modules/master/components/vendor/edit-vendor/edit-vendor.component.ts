@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CountryService } from '../../../services/country/country.service';
 import { CompanyCodeService } from 'src/app/modules/setting/Services/company-code/company-code.service';
@@ -8,6 +8,7 @@ import { ModeOfTransportService } from 'src/app/modules/setting/Services/mode-of
 import { IncTermService } from 'src/app/modules/setting/Services/inc-term/inc-term.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PaymentTermService } from 'src/app/modules/setting/Services/payment-term/payment-term.service';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-edit-vendor',
@@ -21,33 +22,55 @@ export class EditVendorComponent {
   languageName: any = []
   incrementTreamsName: any = []
   modeOfTransportName: any = []
-  isSubmitted:any=false
+  isSubmitted: any = false
   citiesDetails: any = []
   motDetails: any = []
   incoDetails: any = []
   payDetails: any = []
-  companyCodeDetails:any = []
-  currencyDetails:any = []
-  isShowPadding:any = false;
-  vendorTypeDetail:any = [];
-  paymentMethodDetails:any = []
-  vendorIdisShow:any = true;
+  companyCodeDetails: any = []
+  currencyDetails: any = []
+  isShowPadding: any = false;
+  vendorTypeDetail: any = [];
+  paymentMethodDetails: any = []
+  vendorIdisShow: any = true;
   reconcilationAccountDetails: any = []
-  vendorId:any= ''
-  languageDetails:any = []
+  vendorId: any = ''
+  languageDetails: any = []
+  idleState: any = 'Not Started';
+
   constructor(
     private fb: FormBuilder,
     private countrySer: CountryService,
     private companySer: CompanyCodeService,
     private vendorSer: VendorService,
     private paySer: PaymentTermService,
-    
+
     private router: Router,
     private activateRouter: ActivatedRoute,
     private motSer: ModeOfTransportService,
     private incoSer: IncTermService,
-    private _snackBar: MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+  }
 
   ngOnInit(): void {
     this.vendorId = this.activateRouter.snapshot.paramMap.get('id')
@@ -63,54 +86,61 @@ export class EditVendorComponent {
     this.getVendorType()
     this.getPaymentMethodDetails()
     this.getReconcilationAccountDetails()
+    this.setStates()
   }
 
-  createVendorFormFields(data? : any) {
-    if(data){
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
+  }
+
+
+  createVendorFormFields(data?: any) {
+    if (data) {
       this.vendorFormGroup = this.fb.group({
         _id: [data._id, Validators.required],
         vendorName: [data.vendorName, Validators.required],
         vendorId: [data.vendorId],
         vendorTypeFlag: [data.vendorTypeFlag, Validators.required],
         vendorTypeId: [data.vendorTypeId, Validators.required],
-        vendorTypeName:[data.vendorTypeName, Validators.required],
+        vendorTypeName: [data.vendorTypeName, Validators.required],
         addressCountry: [data.addressCountry, Validators.required],
         languageId: [data.languageId, Validators.required],
         languageName: [data.languageName, Validators.required],
-        modeOfTransportId: [data.modeOfTransportId,Validators.required],
+        modeOfTransportId: [data.modeOfTransportId, Validators.required],
         modeOfTransportName: [data.modeOfTransportName, Validators.required],
         incrementTreamsId: [data.incrementTreamsId, Validators.required],
         incrementTreamsName: [data.incrementTreamsName, Validators.required],
         countryId: [data.countryId, Validators.required],
         countryName: [data.countryName, Validators.required],
-        financialData: this.fb.array(data.financialData.map((ele: any)=> this.getFinancialFields(ele)))
+        financialData: this.fb.array(data.financialData.map((ele: any) => this.getFinancialFields(ele)))
 
       })
       return;
     }
     this.vendorFormGroup = this.fb.group({
-            _id: ['', Validators.required],
-            vendorName: ['', Validators.required],
-            vendorId: [''],
-            vendorTypeFlag: ['', Validators.required],
-            vendorTypeId: ['', Validators.required],
-            vendorTypeName:['', Validators.required],
-            addressCountry: ['', Validators.required],
-            languageId: ['', Validators.required],
-            languageName: ['', Validators.required],
-            modeOfTransportId: ['',Validators.required],
-            modeOfTransportName: ['', Validators.required],
-            incrementTreamsId: ['', Validators.required],
-            incrementTreamsName: ['', Validators.required],
-            countryId: ['', Validators.required],
-            countryName: ['', Validators.required],
-            financialData: this.fb.array([this.getFinancialFields()])
+      _id: ['', Validators.required],
+      vendorName: ['', Validators.required],
+      vendorId: [''],
+      vendorTypeFlag: ['', Validators.required],
+      vendorTypeId: ['', Validators.required],
+      vendorTypeName: ['', Validators.required],
+      addressCountry: ['', Validators.required],
+      languageId: ['', Validators.required],
+      languageName: ['', Validators.required],
+      modeOfTransportId: ['', Validators.required],
+      modeOfTransportName: ['', Validators.required],
+      incrementTreamsId: ['', Validators.required],
+      incrementTreamsName: ['', Validators.required],
+      countryId: ['', Validators.required],
+      countryName: ['', Validators.required],
+      financialData: this.fb.array([this.getFinancialFields()])
 
-          })
+    })
   }
 
   getFinancialFields(data?: any) {
-    if(data){
+    if (data) {
       return this.fb.group({
         taxNumber: [data.taxNumber],
         vatRegistrationNo: [data.vatRegistrationNo],
@@ -126,8 +156,8 @@ export class EditVendorComponent {
         reconciliationAccount: [data.reconciliationAccount],
         paymentMethod: [data.paymentMethod],
         paymentTerms: [data.paymentTerms],
-  
-     
+
+
       })
     }
     return this.fb.group({
@@ -146,7 +176,7 @@ export class EditVendorComponent {
       paymentMethod: [''],
       paymentTerms: [''],
 
-   
+
     })
   }
 
@@ -190,7 +220,7 @@ export class EditVendorComponent {
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -235,7 +265,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -246,8 +276,8 @@ return
   }
 
 
-   // Get All details for Currency code
-   async getCurrencyDetails() {
+  // Get All details for Currency code
+  async getCurrencyDetails() {
     try {
       const result: any = await this.companySer.getAllCurrencyDetails();
       if (result.status === '1') {
@@ -267,7 +297,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -313,7 +343,7 @@ return
     try {
       const result: any = await this.vendorSer.singleVendor(this.vendorId)
       console.log(result)
-        this.createVendorFormFields(result.data)
+      this.createVendorFormFields(result.data)
 
       if (result.status === '1') {
         this.vendorFormGroup.patchValue(result.data)
@@ -328,7 +358,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -345,16 +375,16 @@ return
     this.vendorFormGroup.controls.languageId.setValue(this.citiesDetails.languageId)
     this.vendorFormGroup.controls.languageName.setValue(this.citiesDetails.languageName)
 
-  }    
+  }
 
-  
+
   handleCurrency(event: any) {
     const findCurrencyCode = this.currencyDetails.find((el: any) => el._id === event.target.value);
     // this.vendorDetials.controls.currencyName.setValue(findCurrencyCode.code)
   }
-  
 
-   // get MOT organization
+
+  // get MOT organization
   async getMOTDetail() {
     try {
       const result: any = await this.motSer.getAllModeOfTransportDetails()
@@ -376,7 +406,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -386,15 +416,15 @@ return
 
     }
   }
-  
-      // Add the MOT Name
+
+  // Add the MOT Name
   handleMOT(event: any) {
     const findMOTDetail = this.motDetails.find((el: any) => el._id === event.target.value);
     console.log(findMOTDetail)
     this.vendorFormGroup.controls.modeOfTransportName.setValue(findMOTDetail.modeOfTransport)
   }
- 
-    // get INCO TERMS organization
+
+  // get INCO TERMS organization
   async getIncoTermsDetail() {
     try {
       const result: any = await this.incoSer.getAllIncTermsDetails()
@@ -417,7 +447,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -427,7 +457,7 @@ return
     }
   }
 
-     // Add the inco Name
+  // Add the inco Name
   handleInco(event: any) {
     const findIncoDetail = this.incoDetails.find((el: any) => el._id === event.target.value);
     console.log(findIncoDetail)
@@ -455,7 +485,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -464,10 +494,10 @@ return
       });
     }
   }
-  
+
   // get payment TERMS organization
 
-   async getPaymentTermsDetail() {
+  async getPaymentTermsDetail() {
     try {
       const result: any = await this.paySer.getAllPaymentTerm()
       console.log(result)
@@ -488,7 +518,7 @@ return
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -525,19 +555,19 @@ return
   handleVendorType(event: any) {
     const findVendorType = this.vendorTypeDetail.find((el: any) => el._id === event.target.value)
     console.log(findVendorType);
-    if(findVendorType.num_range === 'M'){
+    if (findVendorType.num_range === 'M') {
       this.vendorIdisShow = true;
-    }else{
+    } else {
       this.vendorIdisShow = false;
     }
     this.vendorFormGroup.controls.vendorTypeFlag.setValue(findVendorType.num_range)
-    this.vendorFormGroup.controls.vendorTypeName.setValue(findVendorType.description)  
+    this.vendorFormGroup.controls.vendorTypeName.setValue(findVendorType.description)
 
   }
 
-   //get payment_method 
+  //get payment_method 
 
-   async getPaymentMethodDetails() {
+  async getPaymentMethodDetails() {
     try {
       const result: any = await this.vendorSer.getAllPaymentMethodDetails()
       if (result.status === '1') {
@@ -568,9 +598,9 @@ return
   }
 
 
-   //get ReconcilationAccount 
+  //get ReconcilationAccount 
 
-   async getReconcilationAccountDetails() {
+  async getReconcilationAccountDetails() {
     try {
       const result: any = await this.vendorSer.getAllReconcilationAccountDetails()
       if (result.status === '1') {

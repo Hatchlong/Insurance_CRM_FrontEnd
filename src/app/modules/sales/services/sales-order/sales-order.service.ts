@@ -67,5 +67,9 @@ export class SalesOrderService {
 
     XLSX.writeFile(workbook, `${fileName}.xlsx`);
   }
+
+  getOrderType(){
+    return this.http.get(`http://localhost:4000/api/config/orderType/getAll`).toPromise()
+  }
   
 }

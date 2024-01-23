@@ -16,6 +16,7 @@ import { AddGoodsReceiptComponent } from './components/goods-receipt/add-goods-r
 import { GoodsReceiptListComponent } from './components/goods-receipt/goods-receipt-list/goods-receipt-list.component';
 import { VendorInvoiceListComponent } from './components/vendor-invoice/vendor-invoice-list/vendor-invoice-list.component';
 import { SharedModule } from '../shared/shared.module';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { SharedModule } from '../shared/shared.module';
     MatMenuModule,
     MatTabsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    NgIdleKeepaliveModule
   ]
 }) 
 export class PurchaseModule { }

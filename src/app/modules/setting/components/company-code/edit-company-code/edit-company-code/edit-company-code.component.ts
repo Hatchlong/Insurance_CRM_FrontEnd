@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { CompanyCodeService } from 'src/app/modules/setting/Services/company-cod
 import Swal from 'sweetalert2';
 import { ViewImageComponent } from '../../../view-image/view-image.component';
 import {MatDialog} from '@angular/material/dialog';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 @Component({
   selector: 'app-edit-company-code',
   templateUrl: './edit-company-code.component.html',
@@ -31,15 +32,37 @@ export class EditCompanyCodeComponent {
   languageDetails:any = [];
   industryDetails: any = [];
   filedPathName: any = '';
-  inputControl: any = ''
+  inputControl: any = '';
+  idleState:any = 'Not Started'
+
   constructor(
     private fb: FormBuilder,
     private companyCodeSer: CompanyCodeService,
     private router: Router,
     private activeRouter: ActivatedRoute,
     private _snackBar: MatSnackBar,
-    public dialog: MatDialog
-  ) { }
+    public dialog: MatDialog,
+    private idle:Idle,
+    private cd:ChangeDetectorRef
+  ) { 
+    idle.setIdle(450),
+    idle.setTimeout(900),
+    idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+  }
 
   ngOnInit(): void {
     this.companyCodeId = this.activeRouter.snapshot.paramMap.get('id');
@@ -49,6 +72,12 @@ export class EditCompanyCodeComponent {
     this.getAllLanguageList()
     this.getAllInndustrySectorsList()
     this.code()
+    this.setStates()
+  }
+
+  setStates(){
+    this.idle.watch();
+    this.idleState = 'Started'
   }
 
   handleSideBar(event: any) {

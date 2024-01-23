@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PaymentTermService } from '../../../Services/payment-term/payment-term.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 
 @Component({
@@ -14,29 +15,50 @@ export class PaymentTermsListComponent implements OnInit {
 
   paymentDetails: any = []
   selectAll: any = false
-  selectedFile: any = ''; 
-  allPaymentDetails:any = []
+  selectedFile: any = '';
+  allPaymentDetails: any = []
   totalItem: any = 0;
   currentPage = 1;
   page?: number = 0;
   itemsPerPage = 10;
   sampleJson = {
-    "paymentTerm":"test",
-    "description":"test description",
-    "dayLimit":1,
-    "accountType":"Customer",
-    "defaultBaselineDate":"20/11/2023",
-    "fixedBaseLineDate":"20/11/2023",
-    "additionalBaselineDataCalculation":"20/11/2023"
+    "paymentTerm": "test",
+    "description": "test description",
+    "dayLimit": 1,
+    "accountType": "Customer",
+    "defaultBaselineDate": "20/11/2023",
+    "fixedBaseLineDate": "20/11/2023",
+    "additionalBaselineDataCalculation": "20/11/2023"
 
-}
-isShowPadding:any = false;
+  }
+  isShowPadding: any = false;
+  idleState: any = 'Not Started'
 
   constructor(
     private router: Router,
     private paymentSer: PaymentTermService,
-    private _snackBar: MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+  }
   nextPage(url: any) {
     this.router.navigate([`${url}`])
   }
@@ -46,6 +68,12 @@ isShowPadding:any = false;
 
   ngOnInit(): void {
     this.getAllpaymentTermsDetailsPage(this.page, this.itemsPerPage)
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
   }
 
   // select multiple checkbox
@@ -79,7 +107,7 @@ isShowPadding:any = false;
           el.check = false
         })
         this.totalItem = result.count
-        this.allPaymentDetails=result.data
+        this.allPaymentDetails = result.data
         this.paymentDetails = result.data;
         if (result.data.length === 0) {
           this.selectAll = false
@@ -124,7 +152,7 @@ isShowPadding:any = false;
       }
 
     } catch (error: any) {
-     
+
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
@@ -132,17 +160,17 @@ isShowPadding:any = false;
       });
     }
   }
-  
-  handleFilter(event:any){
-    if(!event.target.value){
+
+  handleFilter(event: any) {
+    if (!event.target.value) {
       this.paymentDetails = this.allPaymentDetails
     }
     console.log(event.target.value)
-    const isStringIncluded = this.allPaymentDetails.filter((obj:any) => ((obj.paymentTerm.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.description.toUpperCase()).includes(event.target.value.toUpperCase())));
+    const isStringIncluded = this.allPaymentDetails.filter((obj: any) => ((obj.paymentTerm.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.description.toUpperCase()).includes(event.target.value.toUpperCase())));
     this.paymentDetails = isStringIncluded
   }
 
- 
+
 
   // File Upload
   importHandle(inputId: any) {
@@ -236,7 +264,7 @@ isShowPadding:any = false;
 
   pageChanged(event: PageChangedEvent): void {
     this.page = event.page;
-    const records = (this.page-1) * this.itemsPerPage;
+    const records = (this.page - 1) * this.itemsPerPage;
     this.getAllpaymentTermsDetailsPage(records, this.itemsPerPage)
   }
 

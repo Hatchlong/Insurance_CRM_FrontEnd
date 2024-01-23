@@ -1,4 +1,4 @@
-<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<app-side-nav (isShowNav)="handleSideBar($event)" [logoutAction]="idleState"></app-side-nav>
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
     <form [formGroup]="goodsReceipt" (ngSubmit)="addCode()">
         <h2><mat-icon class="back" routerLink="/purchase/goods-receipt-list">arrow_back</mat-icon>Goods Receipt</h2>
