@@ -49,6 +49,7 @@ export class AddSalesOrgComponent {
       address: ['', Validators.required],
       searchTerm: ['', Validators.required],
       countryId: ['', Validators.required],
+      stateId:[''],
       countryName: ['', Validators.required],
       region: ['', Validators.required],
       timeZoneId: ['', Validators.required],

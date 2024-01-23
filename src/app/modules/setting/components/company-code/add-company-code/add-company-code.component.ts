@@ -51,6 +51,7 @@ export class AddCompanyCodeComponent {
       companyName: ['', Validators.required],
       countryId: ['', Validators.required],
       countryName: [''],
+      state: ['', Validators.required],
       city: ['', Validators.required],
       currencyId: ['', Validators.required],
       currencyName: ['', Validators.required],

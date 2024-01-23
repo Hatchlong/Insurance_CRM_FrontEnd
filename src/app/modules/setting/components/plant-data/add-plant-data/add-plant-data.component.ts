@@ -62,6 +62,7 @@ export class AddPlantDataComponent {
       address: ['', Validators.required],
       countryId: ['', Validators.required],
       countryName: [''],
+      stateId:[''],
       cityId: ['', Validators.required],
       contactPersonName: [''],
       contactNumber: [''],
