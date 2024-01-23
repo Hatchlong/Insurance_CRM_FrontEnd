@@ -12,11 +12,13 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+import { EditInventoryComponent } from './components/inventory/edit-inventory/edit-inventory.component';
 
 
 @NgModule({
   declarations: [
-    InventoryListComponent
+    InventoryListComponent,
+    EditInventoryComponent
   ],
   imports: [
     CommonModule,
