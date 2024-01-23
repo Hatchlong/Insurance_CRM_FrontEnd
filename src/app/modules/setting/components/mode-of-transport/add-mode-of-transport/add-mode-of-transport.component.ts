@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModeOfTransportService } from '../../../Services/mode-of-transport/mode-of-transport.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-add-mode-of-transport',
@@ -15,15 +16,43 @@ export class AddModeOfTransportComponent {
   transport: any = FormGroup
   isSubmitted: any = false;
   isShowPadding:any = false;
+  idleState: any = 'Not Started'
+
   constructor(
     private fb: FormBuilder,
     private motSer: ModeOfTransportService,
     private router: Router,
-    private _snackBar: MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+   }
 
   ngOnInit(): void {
     this.code()
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
   }
 
   handleSideBar(event: any) {

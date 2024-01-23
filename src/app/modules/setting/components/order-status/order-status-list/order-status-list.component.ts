@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrderStatusService } from '../../../Services/order-status/order-status.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-order-status-list',
@@ -24,12 +25,33 @@ export class OrderStatusListComponent implements OnInit {
     "orderStatus": "delivered",
     "description": "Description 23"
   }
-  isShowPadding:any =false;
+  isShowPadding: any = false;
+  idleState: any = 'Not Started'
+
   constructor(
     private router: Router,
     private orderStatusSer: OrderStatusService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
   ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
 
   }
   nextPage(url: any) {
@@ -42,6 +64,12 @@ export class OrderStatusListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllorderStatusDetailsPage(this.page, this.itemsPerPage)
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
   }
 
   //get all details of order status
@@ -128,17 +156,17 @@ export class OrderStatusListComponent implements OnInit {
       });
     }
   }
-  
-  handleFilter(event:any){
-    if(!event.target.value){
+
+  handleFilter(event: any) {
+    if (!event.target.value) {
       this.orderStatusDetail = this.allOrderDetails
     }
     console.log(event.target.value)
-    const isStringIncluded = this.allOrderDetails.filter((obj:any) => ((obj.orderStatus.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.description.toUpperCase()).includes(event.target.value.toUpperCase())));
+    const isStringIncluded = this.allOrderDetails.filter((obj: any) => ((obj.orderStatus.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.description.toUpperCase()).includes(event.target.value.toUpperCase())));
     this.orderStatusDetail = isStringIncluded
   }
 
- 
+
 
   // File Upload
   importHandle(inputId: any) {
@@ -232,7 +260,7 @@ export class OrderStatusListComponent implements OnInit {
 
   pageChanged(event: PageChangedEvent): void {
     this.page = event.page;
-    const records = (this.page-1) * this.itemsPerPage;
+    const records = (this.page - 1) * this.itemsPerPage;
     this.getAllorderStatusDetailsPage(records, this.itemsPerPage)
   }
 

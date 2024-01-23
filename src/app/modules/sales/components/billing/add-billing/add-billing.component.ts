@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-add-billing',
@@ -11,18 +12,42 @@ isSubmitted:any = false;
 isShowPadding:any = false;
   productFromGroup: any = FormGroup
   countryLists: any = ''
+  idleState: any = 'Not Started';
 
   constructor(
     private fb: FormBuilder,
-
+    private idle: Idle,
+    private cd: ChangeDetectorRef
   ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
 
   }
 
 
   ngOnInit(): void {
     this.createProductFormFields()
-    //    this.getCountryList()
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
   }
 
   handleSideBar(event: any) {

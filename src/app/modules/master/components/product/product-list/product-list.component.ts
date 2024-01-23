@@ -1,8 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from '../../../services/product/product.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-product-list',
@@ -19,7 +20,7 @@ export class ProductListComponent implements OnInit {
   materialTypeDetail: any = []
   isShowPadding: any = false
   selectedMaterialType: string = '';
-  selectedIndustry:string=''
+  selectedIndustry: string = ''
   industryDetail: any = []
   totalItem: any = 0;
   currentPage = 1;
@@ -27,7 +28,7 @@ export class ProductListComponent implements OnInit {
   itemsPerPage = 10;
 
   filterDetails: any = []
-  
+
   sampleJson = {
     "materialId": "pro123",
     "materialDescription": "Test",
@@ -91,13 +92,34 @@ export class ProductListComponent implements OnInit {
 
     }]
   }
+  idleState: any = 'Not Started';
+
   constructor(
     private router: Router,
     private productSer: ProductService,
     private _snackBar: MatSnackBar,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
   ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
 
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
   }
+
   nextPage(url: any) {
     this.router.navigate([`${url}`])
   }
@@ -107,6 +129,12 @@ export class ProductListComponent implements OnInit {
     this.getProductDetails(this.page, this.itemsPerPage)
     this.getMaterialType()
     this.getIndustryDetails()
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
   }
 
   handleSideBar(event: any) {
@@ -162,7 +190,7 @@ export class ProductListComponent implements OnInit {
     }
   }
 
- 
+
 
   //get material type
 
@@ -195,7 +223,7 @@ export class ProductListComponent implements OnInit {
       this.productDetails = this.allProductDetails;
       return;
     }
-  
+
     this.productDetails = this.allProductDetails.filter((obj: any) =>
       ((obj.materialId.toUpperCase()).includes(filterValue) || (obj.materialDescription.toUpperCase()).includes(filterValue)) &&
       (!this.selectedMaterialType || obj.materialTypeName.toLowerCase() === this.selectedMaterialType.toLowerCase()) &&
@@ -203,16 +231,16 @@ export class ProductListComponent implements OnInit {
 
     );
   }
-  
+
   handleMaterial(event: any) {
     this.selectedMaterialType = event.target.value;
     this.filterData();
   }
-  handleIndustry(event:any){
+  handleIndustry(event: any) {
     this.selectedIndustry = event.target.value;
-      this.filterData();
+    this.filterData();
   }
-  
+
   filterData() {
     const filterValue = this.searchInput.nativeElement.value.toUpperCase();
     this.productDetails = this.allProductDetails.filter((obj: any) =>
@@ -221,7 +249,7 @@ export class ProductListComponent implements OnInit {
       (!this.selectedIndustry || obj.industrySectorName.toLowerCase() === this.selectedIndustry.toLowerCase())
     );
   }
-  
+
   // handleFilter(event: any) {
   //   if (!event.target.value) {
   //     this.productDetails = this.allProductDetails
@@ -237,7 +265,7 @@ export class ProductListComponent implements OnInit {
   //     this.productDetails = this.allProductDetails
   //     return
   //   }
-    
+
   //   console.log(event.target.value);
   //   const isStringIncluded = this.allProductDetails.filter((obj: any) => ((obj.materialTypeName.toLowerCase() === (event.target.value).toLowerCase())))
   //   this.productDetails = isStringIncluded
@@ -429,6 +457,6 @@ export class ProductListComponent implements OnInit {
   }
 
 
-  
+
 }
 

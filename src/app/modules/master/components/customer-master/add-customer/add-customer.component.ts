@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BillingBlockService } from 'src/app/modules/setting/Services/billing-block/billing-block.service';
@@ -14,6 +14,7 @@ import { CustomerService } from '../../../services/customer/customer.service';
 import { Router } from '@angular/router';
 import { ProductService } from '../../../services/product/product.service';
 import { VendorService } from '../../../services/vendor/vendor.service';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-add-customer',
@@ -41,14 +42,14 @@ export class AddCustomerComponent implements OnInit {
   customerGroupDetail: any = []
   acctAssignDetail: any = []
   reconcilationAccountDetails: any =[];
-  accountGroupDetails:any = []
+  accountGroupDetails:any = [];
+  idleState: any = 'Not Started';
+
   constructor(
     private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private router: Router,
-
     private customerSer: CustomerService,
-
     private companyCodeSer: CompanyCodeService,
     private salesOrgSer: SalesOrgService,
     private paymentTermSer: PaymentTermService,
@@ -59,9 +60,28 @@ export class AddCustomerComponent implements OnInit {
     private acctAssignmentSer: CustomerAccountAGService,
     private billingblockSer: BillingBlockService,
     private productSer: ProductService,
-    private vendorSer: VendorService
+    private vendorSer: VendorService,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
 
-  ) { }
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+  }
 
   ngOnInit(): void {
     this.create()
@@ -81,6 +101,12 @@ export class AddCustomerComponent implements OnInit {
     this.getAcctAssign()
     this.getReconcilationAccountDetails()
     this.getAllAccountGroup()
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
   }
   create() {
     this.general = this.fb.group({

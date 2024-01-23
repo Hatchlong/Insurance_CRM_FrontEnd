@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthrService } from './services/authr/authr.service';
 import { HttpClientModule } from '@angular/common/http';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 
 
 
@@ -15,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     CommonModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    NgIdleKeepaliveModule
   ],
   exports:[SideNavComponent],
   providers:[AuthrService]

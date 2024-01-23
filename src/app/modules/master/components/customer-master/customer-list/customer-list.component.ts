@@ -1,9 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CustomerService } from '../../../services/customer/customer.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { CompanyCodeService } from 'src/app/modules/setting/Services/company-code/company-code.service';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-customer-list',
@@ -71,18 +72,43 @@ export class CustomerListComponent implements OnInit {
       }
     ]
   }
-
+  idleState: any = 'Not Started';
   constructor(
     private router: Router,
     private customerSer: CustomerService,
     private _snackBar: MatSnackBar,
-    private companySer: CompanyCodeService
+    private companySer: CompanyCodeService,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
 
-  ) { }
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+   }
 
   ngOnInit(): void {
     this.getCustomerDetail(this.page, this.itemsPerPage);
     this.getCountryDetails()
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
   }
 
   nextPage(url: any) {

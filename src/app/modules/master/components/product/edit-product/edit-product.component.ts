@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ProductService } from '../../../services/product/product.service';
@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SalesOrgService } from 'src/app/modules/setting/Services/sales-org/sales-org.service';
 import { PlantDataService } from 'src/app/modules/setting/Services/plant-data/plant-data.service';
 import { DistibutionChannelService } from 'src/app/modules/setting/Services/distibution-channel/distibution-channel.service';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-edit-product',
@@ -42,6 +43,7 @@ export class EditProductComponent {
   expirateDataRelavanceDetail:any=[]
   availibilityCheckDetail:any=[]
   bomRelavanceDetail:any=[]
+  idleState: any = 'Not Started';
 
   constructor(
     private fb: FormBuilder,
@@ -51,9 +53,28 @@ export class EditProductComponent {
     private SalesSer: SalesOrgService,
     private plantDataSer: PlantDataService,
     private _snackBar: MatSnackBar,
-    private distibutionSer: DistibutionChannelService
+    private distibutionSer: DistibutionChannelService,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
 
-  ) { }
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    }) 
+  }
 
   ngOnInit(): void {
     this.productId = this.activeRouter.snapshot.paramMap.get('id')
@@ -78,7 +99,12 @@ export class EditProductComponent {
     this.getAllExpirationDate()
     this.getAllAvailibilityCheck()
     this.getAllBomRelavanceDetail()
+    this.setStates()
+  }
 
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
   }
 
 

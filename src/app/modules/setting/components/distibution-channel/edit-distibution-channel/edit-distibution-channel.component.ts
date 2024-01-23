@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DistibutionChannelService } from '../../../Services/distibution-channel/distibution-channel.service';
 import Swal from 'sweetalert2';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-edit-distibution-channel',
@@ -15,20 +16,47 @@ export class EditDistibutionChannelComponent implements OnInit {
   channel: any = FormGroup
   isSubmitted: any = false
   distributionId: any = ''
-  isShowPadding:any = false;
+  isShowPadding: any = false;
+  idleState: any = 'Not Started'
 
   constructor(private fb: FormBuilder,
     private distribustionSer: DistibutionChannelService,
     private router: Router,
     private activeRouter: ActivatedRoute,
-    private _snackBar:MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+  }
 
   ngOnInit(): void {
     this.distributionId = this.activeRouter.snapshot.paramMap.get('id');
     console.log(this.distributionId)
     this.getSingleDistributionDetails()
     this.channeldata()
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
   }
 
   handleSideBar(event: any) {
@@ -50,14 +78,14 @@ export class EditDistibutionChannelComponent implements OnInit {
       if (result.status === '1') {
         this.channel.patchValue(result.data);
       }
-    } catch (error:any) {
-       if (error.error.message) {
+    } catch (error: any) {
+      if (error.error.message) {
         this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
@@ -91,14 +119,14 @@ return
           panelClass: 'app-notification-error',
         });
       }
-    } catch (error:any) {
-       if (error.error.message) {
+    } catch (error: any) {
+      if (error.error.message) {
         this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-return
+        return
       }
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',

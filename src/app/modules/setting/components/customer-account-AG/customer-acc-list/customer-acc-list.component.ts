@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CustomerAccountAGService } from '../../../Services/customer-account-AG/customer-account-ag.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-customer-acc-list',
@@ -19,17 +20,45 @@ export class CustomerAccListComponent {
   page?: number = 0;
   itemsPerPage = 10;
   sampleJson = {
-    "customerAccountAG":"Transport",
-    "descriptionCAAG":"Description 23"
-    }
-    isShowPadding:any = false;
+    "customerAccountAG": "Transport",
+    "descriptionCAAG": "Description 23"
+  }
+  isShowPadding: any = false;
+  idleState:any = 'Not Started'
+
   constructor(
     private router: Router,
     private customerAccountSer: CustomerAccountAGService,
-    private _snackBar: MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+  }
   ngOnInit(): void {
     this.getAllCustomerAccountACGDetailsPage(this.page, this.itemsPerPage)
+      this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
   }
 
   nextPage(url: any) {
@@ -127,17 +156,17 @@ export class CustomerAccListComponent {
       });
     }
   }
-  
-  handleFilter(event:any){
-    if(!event.target.value){
+
+  handleFilter(event: any) {
+    if (!event.target.value) {
       this.customerAccountDetails = this.allCustomerDetails
     }
     console.log(event.target.value)
-    const isStringIncluded = this.allCustomerDetails.filter((obj:any) => ((obj.customerAccountAG.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.descriptionCAAG.toUpperCase()).includes(event.target.value.toUpperCase())));
+    const isStringIncluded = this.allCustomerDetails.filter((obj: any) => ((obj.customerAccountAG.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.descriptionCAAG.toUpperCase()).includes(event.target.value.toUpperCase())));
     this.customerAccountDetails = isStringIncluded
   }
 
- 
+
 
   // File Upload
   importHandle(inputId: any) {
@@ -231,7 +260,7 @@ export class CustomerAccListComponent {
 
   pageChanged(event: PageChangedEvent): void {
     this.page = event.page;
-    const records = (this.page-1) * this.itemsPerPage;
+    const records = (this.page - 1) * this.itemsPerPage;
     this.getAllCustomerAccountACGDetailsPage(records, this.itemsPerPage)
   }
 

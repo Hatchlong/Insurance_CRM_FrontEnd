@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DivionService } from '../../../Services/divion/divion.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-add-divion',
@@ -16,14 +17,42 @@ export class AddDivionComponent implements OnInit {
   divionData: any = FormGroup
   isSubmitted: any = false;
   isShowPadding:any = false;
+  idleState: any = 'Not Started'
+
   constructor(private fb: FormBuilder,
     private divisionSer: DivionService,
     private router: Router,
-    private _snackBar:MatSnackBar
-  ) { }
+    private _snackBar:MatSnackBar,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    }) 
+  }
 
   ngOnInit(): void {
     this.channeldata()
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
   }
 
   handleSideBar(event: any) {

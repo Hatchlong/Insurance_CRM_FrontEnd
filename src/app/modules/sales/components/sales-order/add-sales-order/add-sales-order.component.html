@@ -1,4 +1,4 @@
-<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<app-side-nav (isShowNav)="handleSideBar($event)" [logoutAction]="idleState"></app-side-nav>
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
     <h3 class="mt-2">
         <mat-icon class="back" routerLink="/sales/sales-order-list/">arrow_back</mat-icon> Sales Order
@@ -10,18 +10,17 @@
                 <div class="row border">
                     <div class="col-6 py-2">
                         <label class="">Order Type</label>
-                        <select class="form-select " aria-label="Default select example" formControlName="orderType">
+                        <select class="form-select " aria-label="Default select example" formControlName="orderTypeId" (change)="handleOrderType($event)">
                             <option [selected]="salesFormGroup.value.order === ''" value="" hidden>Select Order Type
                             </option>
-                            <option value="Domestics">Domestics</option>
-                            <option value="Export">Export</option>
-                            <option value="Return">Return</option>
+                            <option *ngFor="let list of orderTypeDetails |filterPipes:'description'" [value]="list._id">
+                                {{list.description}}</option>
                         </select>
                         <div
-                            *ngIf="salesFormGroup.controls['orderType'].touched && salesFormGroup.controls['orderType'].touched && salesFormGroup.controls['orderType'].hasError('required') && !isSubmitted">
+                            *ngIf="salesFormGroup.controls['orderTypeId'].touched && salesFormGroup.controls['orderTypeId'].touched && salesFormGroup.controls['orderTypeId'].hasError('required') && !isSubmitted">
                             <p class="error-message">Order Type is mandatory</p>
                         </div>
-                        <div *ngIf="isSubmitted && salesFormGroup.controls['orderType'].hasError('required')">
+                        <div *ngIf="isSubmitted && salesFormGroup.controls['orderTypeId'].hasError('required')">
                             <p class="error-message">Order Type is mandatory</p>
                         </div>
 
@@ -32,7 +31,7 @@
                             (change)="handleSales($event)">
                             <option [selected]="salesFormGroup.value.saleOrgId === ''" value="" hidden>Select Sales Org
                             </option>
-                            <option *ngFor="let list of salesData" [value]="list._id">
+                            <option *ngFor="let list of salesData |filterPipes:'salesOrg'" [value]="list._id">
                                 {{list.salesOrg}}</option>
                         </select>
                         <div
@@ -50,7 +49,8 @@
                             <option [selected]="salesFormGroup.value.distributionChannelsId === ''" value="" hidden>
                                 Select
                                 Distribution Channel</option>
-                            <option *ngFor="let list of distributionDetail" [value]="list._id">
+                            <option *ngFor="let list of distributionDetail |filterPipes:'distributionChannel'"
+                                [value]="list._id">
                                 {{list.distributionChannel}}
                             </option>
                         </select>
@@ -70,7 +70,8 @@
                             (change)="handleDivision($event)">
                             <option [selected]="salesFormGroup.value.divisionId=== ''" value="" hidden>Select Division
                             </option>
-                            <option *ngFor="let list of divisionDetail" [value]="list._id">{{list.divion}}</option>
+                            <option *ngFor="let list of divisionDetail |filterPipes:'divion'" [value]="list._id">
+                                {{list.divion}}</option>
                         </select>
                         <div
                             *ngIf="salesFormGroup.controls['divisionId'].touched && salesFormGroup.controls['divisionId'].touched && salesFormGroup.controls['divisionId'].hasError('required') && !isSubmitted">
@@ -81,13 +82,41 @@
                         </div>
                     </div>
                     <div class="col-6 py-2">
+                        <label class="">Company Code</label>
+                        <select class="form-select " aria-label="Default select example" formControlName="companyCodeId"
+                            (change)="handleCountry($event)">
+                            <option [selected]="salesFormGroup.value.companyCodeId === ''" value="" hidden>Select
+                                Company Code
+                            </option>
+                            <option *ngFor="let company of companyCodeDetails |filterPipes:'companyCode'; let i=index"
+                                [value]="company._id">
+                                {{company.companyCode}}</option>
+
+                        </select>
+                    </div>
+                    <div class="col-6 py-2">
+                        <label class="">Company Currency</label>
+                        <input type="text" placeholder="Autofetched" class="form-control"
+                            formControlName="companyCurrency" readonly>
+                        <!-- <select class="form-select " aria-label="Default select example" [ngStyle]="{'pointer-events' : salesFormGroup.value.companyCodeId ? 'all' : 'none'}"
+                            formControlName="companyCurrency">
+                            <option [selected]="salesFormGroup.value.companyCurrency=== ''" value="" hidden>Select
+                                Company
+                                Currency</option>
+                            <option *ngFor="let company of companyCurrency" [value]="company.currencyId">
+                                {{company.currencyName}}</option>
+                        </select> -->
+                    </div>
+
+                    <div class="col-6 py-2">
                         <label class="">Customer Id</label>
                         <select class="form-select " aria-label="Default select example" formControlName="customerId"
                             (change)="handleCustomer($event)">
                             <option [selected]="salesFormGroup.value.customerId=== ''" value="" hidden>Select Customer
                                 Id
                             </option>
-                            <option *ngFor="let list of customerMasterDetail" [value]="list.customerId">
+                            <option *ngFor="let list of customerMasterDetail |filterPipes:'customerId'"
+                                [value]="list.customerId">
                                 {{list.customerId}}</option>
 
                         </select>
@@ -99,19 +128,6 @@
                             <p class="error-message">Customer Id is mandatory</p>
                         </div>
                     </div>
-
-                    <!-- <div class="col-6 py-2">
-                        <label class="">Customer Name</label>
-                        <input type="text" class="form-control " placeholder="Enter customer Address"
-                            formControlName="customerName">
-                        <div
-                            *ngIf="salesFormGroup.controls['customerName'].touched && salesFormGroup.controls['customerName'].touched && salesFormGroup.controls['customerName'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Customer Name is mandatory</p>
-                        </div>
-                        <div *ngIf="isSubmitted && salesFormGroup.controls['customerName'].hasError('required')">
-                            <p class="error-message">Customer Name is mandatory</p>
-                        </div>
-                    </div> -->
                     <div class="col-6 py-2">
                         <label class="">Customer Address</label>
                         <input type="text" class="form-control " placeholder="Enter customer Address"
@@ -123,6 +139,19 @@
                         <div *ngIf="isSubmitted && salesFormGroup.controls['customerAddress'].hasError('required')">
                             <p class="error-message">Customer Address is mandatory</p>
                         </div>
+                    </div>
+                    <div class="col-6 py-2">
+                        <label class="">Transaction Currency</label>
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="transactionCurrency"
+                            [ngStyle]="{'pointer-events' : salesFormGroup.value.customerId ? 'all' : 'none'}">
+                            <option [selected]="salesFormGroup.value.transactionCurrency=== ''" value="" hidden>Select
+                                Transaction Currency</option>
+                            <option *ngFor="let list of currencyDetails | filterPipes:'code'" [value]="list.code">
+                                {{list.code}}</option>
+                            <!-- <option *ngFor="let list of customerMasterDetail" [value]="list.customerId">{{list.transactionCurrency}}</option> -->
+
+                        </select>
                     </div>
 
                     <div class="col-6 py-2">
@@ -175,42 +204,9 @@
                             <p class="error-message">Req Delivery Date is mandatory</p>
                         </div>
                     </div>
-                    <div class="col-6 py-2">
-                        <label class="">Company Code</label>
-                        <select class="form-select " aria-label="Default select example" formControlName="companyCodeId"
-                            (change)="handleCountry($event)">
-                            <option [selected]="salesFormGroup.value.companyCodeId === ''" value="" hidden>Select
-                                Company Code
-                            </option>
-                            <option *ngFor="let company of companyCodeDetails; let i=index" [value]="company._id">
-                                {{company.companyCode}}</option>
 
-                        </select>
-                    </div>
 
-                    <div class="col-6 py-2">
-                        <label class="">Company Currency</label>
-                        <select class="form-select " aria-label="Default select example" [ngStyle]="{'pointer-events' : salesFormGroup.value.companyCodeId ? 'all' : 'none'}"
-                            formControlName="companyCurrency">
-                            <option [selected]="salesFormGroup.value.companyCurrency=== ''" value="" hidden>Select
-                                Company
-                                Currency</option>
-                            <option *ngFor="let company of companyCurrency" [value]="company.currencyId">
-                                {{company.currencyName}}</option>
-                        </select>
-                    </div>
-                    <div class="col-6 py-2">
-                        <label class="">Transaction Currency</label>
-                        <select class="form-select " aria-label="Default select example"
-                            formControlName="transactionCurrency" [ngStyle]="{'pointer-events' : salesFormGroup.value.customerId ? 'all' : 'none'}">
-                            <option [selected]="salesFormGroup.value.transactionCurrency=== ''" value="" hidden>Select
-                                Transaction Currency</option>
-                            <option *ngFor="let list of customerCurrency" [value]="list.currencyName">
-                                {{list.currencyName}}</option>
-                            <!-- <option *ngFor="let list of customerMasterDetail" [value]="list.customerId">{{list.transactionCurrency}}</option> -->
 
-                        </select>
-                    </div>
                     <div class="col-6 py-2">
                         <label class=""> Text</label>
                         <input type="text" class="form-control " placeholder=" Enter Text" formControlName="text">
@@ -222,7 +218,8 @@
                             <option [selected]="salesFormGroup.value.orderStatusId === ''" value="" hidden>Select Order
                                 Status
                             </option>
-                            <option *ngFor="let list of orderStatusDetail" [value]="list._id">{{list.orderStatus}}
+                            <option *ngFor="let list of orderStatusDetail |filterPipes:'orderStatus'"
+                                [value]="list._id">{{list.orderStatus}}
                             </option>
 
                         </select>
@@ -248,7 +245,7 @@
                             <option [selected]="salesFormGroup.value.modeOfTransport=== ''" value="" hidden>Select Mode
                                 of
                                 Transport</option>
-                            <option *ngFor="let list of motDetails" [value]="list._id">{{list.modeOfTransport}}</option>
+                            <option *ngFor="let list of motDetails |filterPipes:'modeOfTransport'" [value]="list._id">{{list.modeOfTransport}}</option>
 
                         </select>
                     </div>
@@ -273,7 +270,8 @@
                             <option [selected]="salesFormGroup.value.paymentTerms === ''" value="" hidden>Select Payment
                                 Term
                             </option>
-                            <option *ngFor="let list of paymentTermDetail" [value]="list._id">{{list.paymentTerm}}
+                            <option *ngFor="let list of paymentTermDetail |filterPipes:'paymentTerm'"
+                                [value]="list._id">{{list.paymentTerm}}
                             </option>
 
                         </select>
@@ -285,7 +283,8 @@
                             <option [selected]="salesFormGroup.value.billingBlockId=== ''" value="" hidden>Select
                                 Billing Block
                             </option>
-                            <option *ngFor="let list of billingBlockDetail" [value]="list._id">{{list.billingBlock}}
+                            <option *ngFor="let list of billingBlockDetail |filterPipes:'billingBlock'"
+                                [value]="list._id">{{list.billingBlock}}
                             </option>
 
                         </select>
@@ -297,7 +296,8 @@
                             <option [selected]="salesFormGroup.value.customerAcctAss === ''" value="" hidden>Select
                                 Customer
                                 Account</option>
-                            <option *ngFor="let list of customerAccountAsstGroup" [value]="list._id">
+                            <option *ngFor="let list of customerAccountAsstGroup |filterPipes:'customerAccountAG'"
+                                [value]="list._id">
                                 {{list.customerAccountAG}}</option>
 
                         </select>
@@ -438,7 +438,8 @@
                                                     hidden>
                                                     Select
                                                     Product Id</option>
-                                                <option *ngFor="let list of productDeatail" [disabled]="list.disable" [value]="list.materialId">
+                                                <option *ngFor="let list of productDeatail  |filterPipes:'materialId'"
+                                                    [disabled]="list.disable" [value]="list.materialId">
                                                     {{list.materialId}}</option>
 
                                             </select>
@@ -462,7 +463,9 @@
                                                 <option [selected]="salesFormGroup.value.uom === ''" value="" hidden>
                                                     Select
                                                     UOM</option>
-                                                <option *ngFor="let list of productDeatail" [value]="list._id">
+                                                <option
+                                                    *ngFor="let list of productDeatail |filterPipes:'baseUnitMeasure'"
+                                                    [value]="list._id">
                                                     {{list.baseUnitMeasure}}</option>
 
                                             </select>
@@ -477,7 +480,8 @@
                                                     Select
                                                     Plant </option>
                                                 <ng-container *ngFor="let list of productDeatail">
-                                                    <option *ngFor="let listSales of list.salesData"
+                                                    <option
+                                                        *ngFor="let listSales of list.salesData |filterPipes:'deliveringPlantName'"
                                                         [ngStyle]="{'display': sales.value.materialId === list.materialId ? 'block' : 'none' }"
                                                         [value]="listSales.deliveringPlantId">
                                                         {{listSales.deliveringPlantName}}
@@ -496,7 +500,8 @@
                                                     Select
                                                     storage Location </option>
                                                 <ng-container *ngFor="let list of productDeatail">
-                                                    <option *ngFor="let listPlant of list.plantData"
+                                                    <option
+                                                        *ngFor="let listPlant of list.plantData |filterPipes:'storageLocationName'"
                                                         [ngStyle]="{'display': sales.value.materialId === list.materialId ? 'block' : 'none' }"
                                                         [value]="listPlant.storageLocationId">
                                                         {{listPlant.storageLocationName}}
@@ -565,9 +570,9 @@
                                                 placeholder="Other Charges" formControlName="otherCharges">
                                         </td>
                                         <td>
-                                            <!-- <input type="text" class="form-control " placeholder="Auto Company Currency"
-                                                formControlName="companyCurrency"> -->
-                                            <select class="form-select " aria-label="Default select example"
+                                            <input type="text" class="form-control " placeholder="Auto Company Currency"
+                                                formControlName="companyCurrency" readonly>
+                                            <!-- <select class="form-select " aria-label="Default select example"
                                                 formControlName="companyCurrency"
                                                 [ngStyle]="{'pointer-events': !salesFormGroup.value.companyCodeId ? 'none' :  'all'}">
                                                 <option [selected]="salesFormGroup.value.companyCurrency=== ''" value=""
@@ -577,7 +582,7 @@
                                                 <option *ngFor="let company of companyCodeDetails"
                                                     [value]="company.currencyId">
                                                     {{company.currencyName}}</option>
-                                            </select>
+                                            </select> -->
                                         </td>
                                         <td>
                                             <!-- <input type="text" class="form-control "
@@ -589,8 +594,9 @@
                                                 <option [selected]="salesFormGroup.value.transactionCurrency=== ''"
                                                     value="" hidden>Select
                                                     Transaction Currency</option>
-                                                <option *ngFor="let list of customerCurrency"
-                                                    [value]="list.currencyName">{{list.currencyName}}</option>
+                                                <option *ngFor="let list of currencyDetails |filterPipes:'code'"
+                                                    [value]="list.code">
+                                                    {{list.code}}</option>
                                                 <!-- <option *ngFor="let list of customerMasterDetail" [value]="list.customerId">{{list.transactionCurrency}}</option> -->
 
                                             </select>
@@ -620,11 +626,13 @@
                                         <td>
                                             <select class="form-select " aria-label="Default select example"
                                                 formControlName="orderStatusId" (change)="handleOrderStatus($event, i)">
-                                                <option [selected]="sales.value.orderStatusId === ''" value=""
-                                                    hidden>Select Order
+                                                <option [selected]="sales.value.orderStatusId === ''" value="" hidden>
+                                                    Select Order
                                                     Status
                                                 </option>
-                                                <option *ngFor="let list of orderStatusDetail" [value]="list._id">
+                                                <option
+                                                    *ngFor="let list of orderStatusDetail |filterPipes:'orderStatus'"
+                                                    [value]="list._id">
                                                     {{list.orderStatus}}
                                                 </option>
 

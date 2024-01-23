@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SalesOrgService } from '../../../Services/sales-org/sales-org.service';
 import Swal from 'sweetalert2';
@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { PlantDataService } from '../../../Services/plant-data/plant-data.service';
 import { CompanyCodeService } from '../../../Services/company-code/company-code.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-add-sales-org',
@@ -21,21 +22,49 @@ export class AddSalesOrgComponent {
   regionDetail: any = []
   isShowPadding: any = false;
   companyDetails:any = [];
-  citiesDetails:any = []
+  citiesDetails:any = [];
+  idleState: any = 'Not Started'
+  
   constructor(
     private fb: FormBuilder,
     private salesSer: SalesOrgService,
     private plantSer: PlantDataService,
     private companyCodeSer: CompanyCodeService,
     private router: Router,
-    private _snackBar: MatSnackBar
-  ) { }
+    private _snackBar: MatSnackBar,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+   }
 
   ngOnInit(): void {
     this.code()
     this.getTimeZoneDetail()
     this.getCountryDetails()
     this.getCompanyDetails()
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
   }
 
   handleSideBar(event: any) {

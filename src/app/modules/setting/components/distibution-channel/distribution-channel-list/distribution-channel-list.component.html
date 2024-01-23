@@ -1,4 +1,4 @@
-<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<app-side-nav (isShowNav)="handleSideBar($event)" [logoutAction]="idleState"></app-side-nav>
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
   
   <div class="row mt-3">

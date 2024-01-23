@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PurchaseOrderService } from '../../../services/purchase_order/purchase-order.service';
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-purchase-order-list',
   templateUrl: './purchase-order-list.component.html',
   styleUrls: ['./purchase-order-list.component.css']
 })
-export class PurchaseOrderListComponent {
+export class PurchaseOrderListComponent implements OnInit {
 
   isShowPadding: any = false;
   sampleJson = {
@@ -49,10 +50,42 @@ export class PurchaseOrderListComponent {
     ]
 
   }
+
+  idleState: any = 'Not Started';
   constructor(
     private router: Router,
-    private purchaseOrderSer:PurchaseOrderService
-  ) { }
+    private purchaseOrderSer:PurchaseOrderService,
+    private idle: Idle,
+    private cd: ChangeDetectorRef
+  ) {
+    idle.setIdle(450),
+      idle.setTimeout(900),
+      idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+
+
+    idle.onIdleEnd.subscribe(() => {
+      this.idleState = 'Started';
+      cd.detectChanges();
+    })
+
+    idle.onTimeout.subscribe(() => {
+      this.idleState = 'Timeout';
+    })
+
+    idle.onIdleStart.subscribe(() => {
+      this.idleState = 'idle';
+    })
+  }
+
+  ngOnInit(): void {
+    this.setStates()
+  }
+
+  setStates() {
+    this.idle.watch();
+    this.idleState = 'Started'
+  }
+
   nextPage(url: any) {
     this.router.navigate([`${url}`])
   }
