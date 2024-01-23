@@ -30,15 +30,17 @@ export class AddPaymentTermsComponent {
     this.isShowPadding = event
   }
 
+  
   code() {
     this.payTem = this.fb.group({
       paymentTerm: ['', [Validators.required,Validators.minLength(6), Validators.maxLength(6)]],
       description: ['', Validators.required],
-      dayLimit: ['', Validators.required],
+      dayLimit: [''],
       fixedBaseLineDate: ['', Validators.required],
-      additionalBaselineDataCalculation: ['', Validators.required],
+      additionalBaselineDataCalculation: [''],
       defaultBaselineDate: ['', Validators.required],
-      accountType: ['', Validators.required]
+      accountType: ['', Validators.required],
+      noOfDays: ['', Validators.required]
 
     })
   }
@@ -46,6 +48,7 @@ export class AddPaymentTermsComponent {
   //submit all data into database
 
   async submitData() {
+    console.log(this.submitData)
     try {
       this.isSubmitted = true
       if (this.payTem.invalid)

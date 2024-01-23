@@ -37,13 +37,14 @@ export class EditPaymentTermComponent {
   code() {
     this.payTem = this.fb.group({
       _id: ['', Validators.required],
-      paymentTerm: ['', Validators.required],
+      paymentTerm: ['', [Validators.required,Validators.minLength(6), Validators.maxLength(6)]],
       description: ['', Validators.required],
-      dayLimit: ['', Validators.required],
+      dayLimit: [''],
       fixedBaseLineDate: ['', Validators.required],
-      additionalBaselineDataCalculation: ['', Validators.required],
+      additionalBaselineDataCalculation: [''],
       defaultBaselineDate: ['', Validators.required],
-      accountType: ['', Validators.required]
+      accountType: ['', Validators.required],
+      noOfDays: ['', Validators.required]
 
     })
   }

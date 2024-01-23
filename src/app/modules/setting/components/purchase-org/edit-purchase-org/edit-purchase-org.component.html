@@ -3,22 +3,27 @@
     <h2><mat-icon class="back" routerLink="/settings/purchase-org-list">arrow_back</mat-icon>Purchase Org</h2>
 
     <form [formGroup]="purchOrg" (ngSubmit)="submitData()">
-        <div class="row">
+        <div class="row border">
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-                <label>Purchase Org</label>
-                <input type="text" class="form-control" formControlName="purchase_org" placeholder="Enter Purchase Org"
-                    readonly>
+                <label>Purchase Org <sup>*</sup></label>
+                <input type="text" class="form-control" formControlName="purchase_org" placeholder="Enter Purchase Org" appDirective>
                 <div
                     *ngIf="purchOrg.controls['purchase_org'].touched && purchOrg.controls['purchase_org'].dirty && purchOrg.controls['purchase_org'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Purchase Org. is mandatory</p>
+                    <p class="error-message">Purchase Org must have 6 Characters</p>
                 </div>
                 <div *ngIf="isSubmitted && purchOrg.controls['purchase_org'].hasError('required')">
-                    <p class="error-message">Purchase Org. is mandatory</p>
+                    <p class="error-message">Purchase Org must have 6 Characters</p>
+                </div>
+                <div *ngIf="purchOrg.controls['purchase_org'].hasError('minlength')">
+                    <p class="error-message">Must have 6 Characters</p>
+                </div>
+                <div *ngIf="purchOrg.controls['purchase_org'].hasError('maxlength')">
+                    <p class="error-message">Must have 6 Characters</p>
                 </div>
             </div>
 
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2 ">
-                <label>Purchase Org Description</label>
+                <label>Purchase Org Description  <sup>*</sup></label>
                 <input type="text" class="form-control" formControlName="purchase_org_Description"
                     placeholder="Purchase Org Description">
                 <div
@@ -31,7 +36,7 @@
             </div>
 
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-                <label for="">Company Code</label>
+                <label for="">Company Code  <sup>*</sup></label>
                 <select class="form-select" formControlName="companyId" aria-label="Default select example"
                     (change)="handleCompany($event)">
                     <option [selected]="purchOrg.value.companyId === ''" value="" hidden>Select Company</option>
@@ -47,14 +52,22 @@
                     <p class="error-message">Company Code is mandatory</p>
                 </div>
             </div>
-        </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-            <label for="address1">Address</label>
+            <label for="address1">Address  <sup>*</sup></label>
             <textarea class="form-control" id="address2" placeholder="Address" formControlName="address"
-                rows="3"></textarea>
+                rows="1"></textarea>
+
+                <div
+                *ngIf="purchOrg.controls['address'].touched && purchOrg.controls['address'].dirty && purchOrg.controls['address'].hasError('required') && !isSubmitted">
+                <p class="error-message">Address is mandatory</p>
+            </div>
+            <div *ngIf="isSubmitted && purchOrg.controls['address'].hasError('required')">
+                <p class="error-message">Address is mandatory</p>
+            </div>
+
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-            <label for="" class="">Country Name <sup>*</sup></label>
+            <label for="" class="">Country  <sup>*</sup></label>
             <select class="form-select " aria-label="Default select example" formControlName="countryId"
                 (change)="selectCountryName($event)">
                 <option [selected]="purchOrg.value.countryId === ''" value="" hidden>Select Country</option>
@@ -67,6 +80,28 @@
             </div>
             <div *ngIf="isSubmitted && purchOrg.controls['countryId'].hasError('required')">
                 <p class="error-message">Country Name is mandatory</p>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+            <label for="" class="">State/Province <sup>*</sup></label>
+            <select  class="form-select " aria-label="Default select example" formControlName="state"
+            [ngStyle]="{'pointer-events': !purchOrg.value.countryId ? 'none' :  'all'}">
+                <option [selected]="purchOrg.value.state===''" value="" hidden>Select State/Province</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+            </select>
+            <!-- <select class="form-select " aria-label="Default select example" formControlName="state"
+                [ngStyle]="{'pointer-events': !purchOrg.value.countryId ? 'none' :  'all'}">
+                <option [selected]="purchOrg.value.city===''" value="" hidden>Select City</option>
+                <option *ngFor="let list of (citiesDetails?.cities?.cities).sort()" [value]="list">{{list}}</option>
+            </select> -->
+            <div
+                *ngIf="purchOrg.controls['state'].touched && purchOrg.controls['state'].dirty && purchOrg.controls['state'].hasError('required') && !isSubmitted">
+                <p class="error-message"> State is mandatory</p>
+            </div>
+            <div *ngIf="isSubmitted && purchOrg.controls['city'].hasError('required')">
+                <p class="error-message"> State is mandatory</p>
             </div>
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
@@ -84,9 +119,12 @@
                 <p class="error-message"> City is mandatory</p>
             </div>
         </div>
-        <div class="col-12 d-flex justify-content-end py-2">
-            <button type="submit" class="btn btn-primary">Save</button>
+
+        
+        <div class="col-12 d-flex justify-content-end py-2 mb-2">
+            <button type="submit" class="btn btn-primary "> Update </button>
         </div>
+    </div>
 
     </form>
 </div>

@@ -45,6 +45,7 @@ export class EditPurchaseOrgComponent {
       companyId: ['', Validators.required],
       countryName: ['', Validators.required],
       countryId: ['', Validators.required],
+      state: ['', Validators.required],
       city: ['', Validators.required],
       address: ['', Validators.required],
     });

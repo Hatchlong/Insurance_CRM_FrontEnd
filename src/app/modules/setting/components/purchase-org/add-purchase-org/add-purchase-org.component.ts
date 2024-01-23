@@ -44,6 +44,7 @@ export class AddPurchaseOrgComponent implements OnInit {
       countryName: ['', Validators.required],
       countryId: ['', Validators.required],
       city: ['', Validators.required],
+      state: ['', Validators.required],
       address: ['', Validators.required],
     });
     console.warn(this.purchOrg.value)
