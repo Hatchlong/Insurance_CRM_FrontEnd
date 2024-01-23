@@ -66,8 +66,10 @@ export class AddPoTypeComponent {
       poType: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
       poTypeDescription: ['', Validators.required],
       itemNumberInterval: ['', Validators.required],
-      internalNumberRangeAssignment: ['', Validators.required],
-      externalNumberRangeAssignment: ['', Validators.required],
+      internalNumberRangeAssignment: ['internal', Validators.required],
+      numberRange: [{ value: '', disabled: true }, Validators.required],
+      from: [{ value: '', disabled: true }, Validators.required],
+      to: [{ value: '', disabled: true }, Validators.required],
 
     });
   }
@@ -146,4 +148,24 @@ export class AddPoTypeComponent {
 
     }
   }
+  
+
+  // // Function to enable/disable input fields based on the radio button selection
+  onRadioButtonChange(event: any): void {
+    const radioButtonOption = event.target.value;
+      if (radioButtonOption === 'external') {
+      // Enable input fields when the second option is selected
+      this.poType.get('numberRange').enable();
+      this.poType.get('from').enable();
+      this.poType.get('to').enable();
+    } else {
+      // Disable input fields for other options
+      this.poType.get('numberRange').disable();
+      this.poType.get('from').disable();
+      this.poType.get('to').disable();
+    }
+  }
+
+  
+
 }
