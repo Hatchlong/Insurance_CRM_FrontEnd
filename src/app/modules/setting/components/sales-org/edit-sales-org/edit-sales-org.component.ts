@@ -86,6 +86,7 @@ export class EditSalesOrgComponent {
       searchTerm: ['', Validators.required],
       countryId: ['', Validators.required],
       countryName: ['', Validators.required],
+      stateId:[''],
       region: ['', Validators.required],
       timeZoneId: ['', Validators.required],
       timeZoneName: ['', Validators.required],

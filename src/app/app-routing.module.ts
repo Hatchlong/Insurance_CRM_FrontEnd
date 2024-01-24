@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path:'sales',
     loadChildren:()=>import('./modules/sales/sales.module').then(m=>m.SalesModule)
+  },
+  {
+    path:'inventory',
+    loadChildren:()=>import('./modules/inventory/inventory.module').then(m=>m.InventoryModule)
   }
 ];
 

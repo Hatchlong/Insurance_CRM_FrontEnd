@@ -96,6 +96,7 @@ export class EditPlantDataComponent {
       address: ['', Validators.required],
       countryId: ['', Validators.required],
       countryName: ['', Validators.required],
+      stateId:[''],
       cityId: ['', Validators.required],
       contactPersonName: [''],
       contactNumber: [''],

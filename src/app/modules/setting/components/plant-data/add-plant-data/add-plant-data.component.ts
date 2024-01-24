@@ -34,7 +34,7 @@ export class AddPlantDataComponent {
 
   constructor(private fb: FormBuilder,
     private plantDataSer: PlantDataService,
-    private router: Router,
+    private router: Router, 
     private companyCodeSer: CompanyCodeService,
     private purOrgSer: PurchaseOrgService,
     private _snackBar: MatSnackBar,
@@ -91,6 +91,7 @@ export class AddPlantDataComponent {
       address: ['', Validators.required],
       countryId: ['', Validators.required],
       countryName: [''],
+      stateId:[''],
       cityId: ['', Validators.required],
       contactPersonName: [''],
       contactNumber: [''],
