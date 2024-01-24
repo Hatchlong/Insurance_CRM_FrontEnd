@@ -155,7 +155,14 @@ export class AddCustomerComponent implements OnInit {
     this.detail.push(this.addrow())
   }
 
-  deleterow(index: any) {
+  deleterow(index: any, companyCode:any) {
+    if (companyCode) {
+      this.companyDetails.map((el: any) => {
+        if (el._id === companyCode) {
+          el.disable = false
+        }
+      })
+    }
     this.detail.removeAt(index);
   }
   // sales array
@@ -396,7 +403,10 @@ export class AddCustomerComponent implements OnInit {
     try {
       const result: any = await this.companyCodeSer.getAllCompanyCodeDetails();
       if (result.status === '1') {
-        this.companyDetails = result.data
+        this.companyDetails = result.data;
+        this.companyDetails.map((el: any) => {
+          el.disable = false
+        })
       } else {
         this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
@@ -716,6 +726,21 @@ export class AddCustomerComponent implements OnInit {
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
       });
+    }
+  }
+
+
+  handleFinicial(event:any, index:any){
+    if(event.target.value){
+      this.companyDetails.map((el: any) => el.disable = false)
+      this.general.value.plantData.map((el: any) => {
+        this.companyDetails.map((ele: any) => {
+          if (el.companyCode === ele._id) {
+            ele.disable = true
+          }
+        })
+  
+      })
     }
   }
 

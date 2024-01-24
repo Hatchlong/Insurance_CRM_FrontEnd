@@ -6,19 +6,18 @@
       <div class="row mt-3">
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-2">
 
-            <select class="form-select" aria-label="Default select example">
-              <option selected>Select Billing Type</option>
-              <option value="1">Mark</option>
-              <option value="2">Jack</option>
-              <option value="3">Larry</option>
-            </select>
+          <select class="form-select " aria-label="Default select example" (change)="handleFilter($event)">
+            <option selected value=''>Select Billing Type</option>
+            <option *ngFor="let list of billingTypeList | filterPipes: 'code'" [value]="list.code">
+              {{list.code}}</option>
+          </select>
           
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
           <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
             <button (click)="nextPage('/sales/add-billing')" class="btn btn-primary " type="button"
               style="color: white;background: #00acff;">Add Billing</button>
-              <button class="btn btn-danger">
+              <button class="btn btn-danger" (click)="handleDeleteMuliple()">
               <mat-icon  style="line-height: 34px;">delete</mat-icon>
               Delete Selected Billing</button>
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
@@ -51,62 +50,33 @@
                   <th>Billing Date</th>
                   <th>Customer Id</th>
                   <th scope="col">Action</th>
-                  <th scope="col"><input type="checkbox"> Select All</th>
+              <th scope="col"><input type="checkbox" id="selectAll" [checked]="selectAll" (change)="selectdata($event)"> Select All </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody *ngIf="billingDetails.length === 0">
                 <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>mdo</td>
-                  <td>
-                    <div class="d-flex">
-                  <div>
-                    <mat-icon >edit</mat-icon>
-                  </div>
-                  <div>
-                    <mat-icon >delete</mat-icon>
-                  </div>
-                </div>
-                  </td>
-                  <td><input type="checkbox"></td>
+                  <td colspan="8" class="text-center">No Records</td>
                 </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>fat</td>
-                  <td>
+              </tbody> 
+               <tbody>
+                <tr *ngFor="let list of billingDetails; let i=index" >
+                  <td>{{i+1}}</td>
+                 <td>{{list.billingType}}</td>
+                  <td>{{list.billingDate}}</td>
+                  <td>{{list.customerId}}</td>
+                 <td>
                     <div class="d-flex">
-                  <div>
-                    <mat-icon >edit</mat-icon>
-                  </div>
-                  <div>
-                    <mat-icon >delete</mat-icon>
-                  </div>
-                </div>
+                      <div>
+                        <mat-icon [routerLink]="'/sales/edit-billing/'+list._id">edit</mat-icon>
+                      </div>
+                      <div>
+                        <mat-icon  (click)="deleteRecords(list)">delete</mat-icon>
+                      </div>
+                    </div>
                   </td>
-                  <td><input type="checkbox"></td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>twitter</td>
-                  <td>
-                    <div class="d-flex">
-                  <div>
-                    <mat-icon >edit</mat-icon>
-                  </div>
-                  <div>
-                    <mat-icon >delete</mat-icon>
-                  </div>
-                </div>
-                  </td>
-                  <td><input type="checkbox"></td>
-      
-                </tr>
+                 
+                  <td><input type="checkbox" class="checkbox" [checked]="list.check" (change)="particularcheck($event,i)" ></td>
+                </tr>           
               </tbody>
       
             </table>

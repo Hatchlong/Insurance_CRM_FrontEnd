@@ -26,7 +26,10 @@ import { EditDeliveryComponent } from './components/delivery/edit-delivery/edit-
 import { DeliverySalesOrderComponent } from './components/sales-order/delivery-sales-order/delivery-sales-order.component';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { FilterPipe } from './services/filter/filter.pipe';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { BillingService } from './services/billing/billing.service';
+import { EditBillingComponent } from './components/billing/edit-billing/edit-billing.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,8 @@ import { FilterPipe } from './services/filter/filter.pipe';
     EditSalesOrderComponent,
     EditDeliveryComponent,
     DeliverySalesOrderComponent,
-    FilterPipe
+    FilterPipe,
+    EditBillingComponent
   ],
   imports: [
     CommonModule,
@@ -54,9 +58,10 @@ import { FilterPipe } from './services/filter/filter.pipe';
     SharedModule,
     FormsModule,
     PaginationModule.forRoot(),
-    NgIdleKeepaliveModule
-    
+    NgIdleKeepaliveModule,
+    NgbModule,
+    TypeaheadModule.forRoot()
   ],
-  providers:[SalesOrderService,DeliveryService]
+  providers:[SalesOrderService,DeliveryService, BillingService]
 })
 export class SalesModule { }

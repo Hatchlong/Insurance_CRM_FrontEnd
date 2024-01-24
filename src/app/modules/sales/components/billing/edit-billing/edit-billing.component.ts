@@ -13,14 +13,14 @@ import { DivionService } from 'src/app/modules/setting/Services/divion/divion.se
 import { SalesOrgService } from 'src/app/modules/setting/Services/sales-org/sales-org.service';
 import { ModeOfTransportService } from 'src/app/modules/setting/Services/mode-of-transport/mode-of-transport.service';
 import { ProductService } from 'src/app/modules/master/services/product/product.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-add-billing',
-  templateUrl: './add-billing.component.html',
-  styleUrls: ['./add-billing.component.css']
+  selector: 'app-edit-billing',
+  templateUrl: './edit-billing.component.html',
+  styleUrls: ['./edit-billing.component.css']
 })
-export class AddBillingComponent implements OnInit {
+export class EditBillingComponent implements OnInit {
   isSubmitted: any = false;
   isShowPadding: any = false;
   billingFormGroup: any = FormGroup
@@ -37,6 +37,7 @@ export class AddBillingComponent implements OnInit {
   motDetails: any = [];
   salesData: any = [];
   uomDetail: any = [];
+  billingId:any = ''
   constructor(
     private fb: FormBuilder,
     private idle: Idle,
@@ -52,7 +53,8 @@ export class AddBillingComponent implements OnInit {
     private SalesSer: SalesOrgService,
     private modeOfTransportSer: ModeOfTransportService,
     private productSer: ProductService,
-    private router:Router
+    private router:Router,
+    private activeRouter: ActivatedRoute
   ) {
     idle.setIdle(450),
       idle.setTimeout(900),
@@ -76,6 +78,7 @@ export class AddBillingComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.billingId = this.activeRouter.snapshot.paramMap.get('id')
     this.createBillingFormFields();
     this.setStates();
     this.getBillingType();
@@ -89,6 +92,7 @@ export class AddBillingComponent implements OnInit {
     this.getSalesDetail();
     this.getModeOfTransport();
     this.getAllUomDetail();
+    this.getSingleBillingDetails()
   }
 
   setStates() {
@@ -100,7 +104,51 @@ export class AddBillingComponent implements OnInit {
     this.isShowPadding = event
   }
 
-  createBillingFormFields() {
+  createBillingFormFields(data?:any) {
+    if(data){
+      this.billingFormGroup = this.fb.group({
+        _id:[data._id, [Validators.required]],
+        billingTypeId: [data.billingTypeId, Validators.required],
+        billingType: [data.billingType, Validators.required],
+        billingDate: [data.billingDate, Validators.required],
+        referenceDocument: [data.referenceDocument, Validators.required],
+        customerId: [data.customerId, Validators.required],
+        customerName: [data.customerName, Validators.required],
+        netValue: [data.netValue, Validators.required],
+        taxAmount: [data.taxAmount, Validators.required],
+        currencyId: [data.currencyId, Validators.required],
+        currencyName: [data.currencyName, Validators.required],
+        exchangeRate: [data.exchangeRate, Validators.required],
+        companyCodeId: [data.companyCodeId, Validators.required],
+        companyCode: [data.companyCode, Validators.required],
+        customerAsstAccountId: [data.customerAsstAccountId, Validators.required],
+        customerAsstAccountName: [data.customerAsstAccountName, Validators.required],
+        createdOn: [data.createdOn],
+        createdBy: [data.createdBy],
+        postingStatus: [data.postingStatus, Validators.required],
+        changedBy: [data.changedBy],
+        changedOn: [data.changedOn],
+        paymentTermsId: [data.paymentTermsId, Validators.required],
+        paymentTerms: [data.paymentTerms, Validators.required],
+        incoTermsId: [data.incoTermsId, Validators.required],
+        incoTerms: [data.incoTermsId, Validators.required],
+        salesOrgId: [data.salesOrgId, Validators.required],
+        salesOrgName: [data.salesOrgName, Validators.required],
+        distributionChannelId: [data.distributionChannelId, Validators.required],
+        distributionChannelName: [data.distributionChannelName, Validators.required],
+        divisionId: [data.divisionId, Validators.required],
+        divisionName: [data.divisionName, Validators.required],
+        modeOfTarnsportId: [data.modeOfTarnsportId, Validators.required],
+        modeOfTarnsportName: [data.modeOfTarnsportName, Validators.required],
+        netTax: [data.netTax, Validators.required],
+        netDiscount: [data.netDiscount, Validators.required],
+        netFreight: [data.netFreight, Validators.required],
+        otherCharges: [data.otherCharges, Validators.required],
+        itemList: this.fb.array(data.itemList.map((el: any) => this.getFinancialFields(el)))
+
+      })
+      return
+    }
     this.billingFormGroup = this.fb.group({
       billingTypeId: ['', Validators.required],
       billingType: ['', Validators.required],
@@ -143,7 +191,41 @@ export class AddBillingComponent implements OnInit {
   }
 
 
-  getFinancialFields(): FormGroup {
+  getFinancialFields(data?:any): FormGroup {
+    if(data){
+      return this.fb.group({
+        billedQTY: [data.billedQTY],
+        uom: [data.uom],
+        grossWeight: [data.grossWeight],
+        netWeight: [data.netWeight],
+        grossUOM: [data.grossUOM],
+        salesOrder: [data.salesOrder],
+        salesOrderItem: [data.salesOrderItem],
+        referenceDocument: [data.referenceDocument],
+        referenceDocumentItem: [data.referenceDocumentItem],
+        priceDate: [data.priceDate],
+        serviceRenderedDate: [data.serviceRenderedDate],
+        priceAmount: [data.priceAmount],
+        perUnitPrice: [data.perUnitPrice],
+        pricingUnit: [data.pricingUnit],
+        pricingUOM: [data.pricingUOM],
+        tax: [data.tax],
+        perUnitTax: [data.perUnitTax],
+        discount: [data.discount],
+        perUnitDiscount: [data.perUnitDiscount],
+        freight: [data.freight],
+        perUnitFreight: [data.perUnitFreight],
+        otherCharges: [data.otherCharges],
+        companyCurrency: [data.companyCurrency],
+        transactionCurrency: [data.transactionCurrency],
+        exchangeRate: [data.exchangeRate],
+        hsnCode: [data.hsnCode],
+        countryOrigin: [data.countryOrigin],
+        destinationCountry: [data.destinationCountry],
+        poNumber: [data.poNumber],
+        poDate: [data.poDate]
+      }) 
+    }
     return this.fb.group({
       billedQTY: [''],
       uom: [''],
@@ -188,9 +270,8 @@ export class AddBillingComponent implements OnInit {
 
     this.billingFormGroup.value.itemList.map((el: any, i: any) => {
       const formGroup = formArray.at(i) as FormGroup;
-
       formGroup.patchValue({
-        companyCurrency: el[0].companyCurrency,
+        companyCurrency: this.billingFormGroup.value.itemList[0].companyCurrency,
       });
     })
   }
@@ -199,7 +280,7 @@ export class AddBillingComponent implements OnInit {
     this.financialListArray.removeAt(index)
   }
 
-  async addAllBilling() {
+  async updateBillingDetails() {
     try {
       this.isSubmitted = true;
       const username: any = localStorage.getItem('userName')
@@ -215,14 +296,12 @@ export class AddBillingComponent implements OnInit {
       // Format the date and time
       const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
       const userName: any = localStorage.getItem('userName')
-      this.billingFormGroup.value.createdOn = fullDate
-      this.billingFormGroup.value.createdBy = userName
       this.billingFormGroup.value.changedOn = fullDate
       this.billingFormGroup.value.changedBy = userName;
       console.log(this.billingFormGroup.value, this.billingFormGroup.invalid)
       if (this.billingFormGroup.invalid)
         return
-      const result: any = await this.billingSer.createBillingOrder(this.billingFormGroup.value)
+      const result: any = await this.billingSer.updatedbillingDetails(this.billingFormGroup.value)
       console.log(result);
       if (result.status === '1') {
         this._snackBar.open(result.message, '', {
@@ -605,6 +684,31 @@ export class AddBillingComponent implements OnInit {
       const result: any = await this.productSer.getAllUOMDetails()
       if (result.status === '1') {
         this.uomDetail = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+
+  // Get Single Details for Billing
+  async getSingleBillingDetails(){
+    try {
+      const result: any = await this.billingSer.singlebillingDetails(this.billingId)
+      if (result.status === '1') {
+       this.createBillingFormFields(result.data)
       }
     } catch (error: any) {
       if (error.error.message) {

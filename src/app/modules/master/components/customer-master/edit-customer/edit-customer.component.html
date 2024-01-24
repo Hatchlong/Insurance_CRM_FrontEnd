@@ -173,11 +173,11 @@
                                                 </thead>
 
                                                 <tbody formArrayName="plantData">
-                                                    <tr *ngFor="let financial of detail.controls; let i = index;"
+                                                    <tr *ngFor="let financial of general.get('plantData')['controls']; let i = index;"
                                                         [formGroupName]="i">
                                                         <td *ngIf="detail.controls.length > 1">
                                                             <mat-icon style="cursor:pointer"
-                                                                (click)="deleterow(i)">delete</mat-icon>
+                                                                (click)="deleterow(i, financial.value.companyCode)">delete</mat-icon>
                                                         </td>
                                                         <td>
                                                             <select class="form-select "
@@ -207,13 +207,13 @@
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <select class="form-select "
-                                                                formControlName="companyCode">
+                                                            <select class="form-select " formControlName="companyCode" (change)="handleFinicial($event, i)">
                                                                 <option [selected]="general.value.companyCode === ''"
                                                                     value="" hidden>Select Company</option>
-                                                                <option *ngFor="let list of companyDetails;"
-                                                                    [value]="list._id">{{list.companyCode}}
-                                                              
+                                                                <option
+                                                                    *ngFor="let list of companyDetails | filterPipes:'companyCode'"
+                                                                    [value]="list._id"  [disabled]="list.disable">{{list.companyCode}}
+
                                                             </select>
 
                                                         </td>
@@ -224,61 +224,32 @@
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <select class="form-select "
-                                                                aria-label="Default select example"
-                                                                formControlName="tax1">
-                                                                <option [selected]="general.value.tax1 === ''" value=""
-                                                                    hidden>Select Tax</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                            </select>
+                                                            <input type="text" class="form-control "
+                                                                placeholder="Enter Tax Classification 1"
+                                                                formControlName="taxClassification1">
 
                                                         </td>
                                                         <td>
-                                                            <select class="form-select "
-                                                                aria-label="Default select example"
-                                                                formControlName="tax2">
-                                                                <option [selected]="general.value.tax2 === ''" value=""
-                                                                    hidden>Select Tax2</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
-                                                            </select>
+                                                            <input type="text" class="form-control "
+                                                                placeholder="Enter Tax Classification 2"
+                                                                formControlName="taxClassification2">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control "
+                                                                placeholder="Enter Tax Classification 3"
+                                                                formControlName="taxClassification3">
 
                                                         </td>
                                                         <td>
-                                                            <select class="form-select "
-                                                                aria-label="Default select example"
-                                                                formControlName="tax3">
-                                                                <option [selected]="general.value.tax3 === ''" value=""
-                                                                    hidden>Select Tax3</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
-                                                            </select>
+                                                            <input type="text" class="form-control "
+                                                                placeholder="Enter Tax Classification 4"
+                                                                formControlName="taxClassification4">
 
                                                         </td>
                                                         <td>
-                                                            <select class="form-select "
-                                                                aria-label="Default select example"
-                                                                formControlName="tax4">
-                                                                <option [selected]="general.value.tax4 === ''" value=""
-                                                                    hidden>Select Tax4</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
-                                                            </select>
-
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-select "
-                                                                aria-label="Default select example"
-                                                                formControlName="tax5">
-                                                                <option [selected]="general.value.tax5 === ''" value=""
-                                                                    hidden>Select Tax5</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
-                                                            </select>
+                                                            <input type="text" class="form-control "
+                                                                placeholder="Enter Tax Classification 5"
+                                                                formControlName="taxClassification5">
 
                                                         </td>
 

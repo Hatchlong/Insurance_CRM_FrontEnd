@@ -43,7 +43,7 @@ export class EditCustomerComponent {
   customerGroupDetail: any = []
   acctAssignDetail: any;
   reconcilationAccountDetails: any = []
-  accountGroupDetails:any = [];
+  accountGroupDetails: any = [];
   idleState: any = 'Not Started';
 
   constructor(
@@ -130,11 +130,8 @@ export class EditCustomerComponent {
         taxNumber1: [data.taxNumber1, Validators.required],
         taxNumber2: [data.taxNumber2, Validators.required],
         vatRegNO: [data.vatRegNO, Validators.required],
-
-        // plantData: this.fb.array([this.addrow()]),
         plantData: this.fb.array(data.plantData.map((ele: any) => this.addrow(ele))),
         salesData: this.fb.array(data.salesData.map((ele: any) => this.addSales(ele)))
-        // salesData: this.fb.array([this.addSales()])
       })
       return;
     }
@@ -152,7 +149,6 @@ export class EditCustomerComponent {
       taxNumber1: ['', Validators.required],
       taxNumber2: ['', Validators.required],
       vatRegNO: ['', Validators.required],
-
       plantData: this.fb.array([this.addrow()]),
       salesData: this.fb.array([this.addSales()])
     })
@@ -166,19 +162,23 @@ export class EditCustomerComponent {
 
 
   addrow(data?: any) {
-    console.log("ajs");
     if (data) {
+      this.companyDetails.map((el: any) => {
+        if (el._id === data.companyCode) {
+          el.disable = true
+        }
+      })
       return this.fb.group({
         currencyId: [data.currencyId],
         currencyName: [data.currencyName],
         termsPayment: [data.termsPayment],
         companyCode: [data.companyCode],
         reconciliationAcct: [data.reconciliationAcct],
-        tax1: [data.tax1],
-        tax2: [data.tax2],
-        tax3: [data.tax3],
-        tax4: [data.tax4],
-        tax5: [data.tax5]
+        taxClassification1: [data.taxClassification1],
+        taxClassification2: [data.taxClassification2],
+        taxClassification3: [data.taxClassification3],
+        taxClassification4: [data.taxClassification4],
+        taxClassification5: [data.taxClassification5]
       })
     }
 
@@ -188,11 +188,11 @@ export class EditCustomerComponent {
       termsPayment: [''],
       companyCode: [''],
       reconciliationAcct: [''],
-      tax1: [''],
-      tax2: [''],
-      tax3: [''],
-      tax4: [''],
-      tax5: ['']
+      taxClassification1: [''],
+      taxClassification2: [''],
+      taxClassification3: [''],
+      taxClassification4: [''],
+      taxClassification5: ['']
     })
   }
 
@@ -200,7 +200,14 @@ export class EditCustomerComponent {
     this.detail.push(this.addrow())
   }
 
-  deleterow(index: any) {
+  deleterow(index: any, companyCode: any) {
+    if (companyCode) {
+      this.companyDetails.map((el: any) => {
+        if (el._id === companyCode) {
+          el.disable = false
+        }
+      })
+    }
     this.detail.removeAt(index);
   }
   // sales array
@@ -739,60 +746,72 @@ export class EditCustomerComponent {
     });
   }
 
-    //get ReconcilationAccount 
+  //get ReconcilationAccount 
 
-    async getReconcilationAccountDetails() {
-      try {
-        const result: any = await this.vendorSer.getAllReconcilationAccountDetails()
-        if (result.status === '1') {
-          this.reconcilationAccountDetails = result.data
-        }
-      } catch (error: any) {
-        if (error.error.message) {
-          this._snackBar.open(error.error.message, '', {
-            duration: 5 * 1000, horizontalPosition: 'center',
-            verticalPosition: 'top',
-            panelClass: 'app-notification-error',
-          });
-          return
-        }
-        this._snackBar.open('Something went wrong', '', {
+  async getReconcilationAccountDetails() {
+    try {
+      const result: any = await this.vendorSer.getAllReconcilationAccountDetails()
+      if (result.status === '1') {
+        this.reconcilationAccountDetails = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+  // get Account Group detail
+  async getAllAccountGroup() {
+    try {
+      const result: any = await this.companyCodeSer.getAllAccountGroup();
+      if (result.status === '1') {
+        this.accountGroupDetails = result.data;
+      } else {
+        this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
       }
-    }
-
-     // get Account Group detail
-     async getAllAccountGroup() {
-      try {
-        const result: any = await this.companyCodeSer.getAllAccountGroup();
-        if (result.status === '1') {
-          this.accountGroupDetails = result.data;
-        } else {
-          this._snackBar.open(result.message, '', {
-            duration: 5 * 1000, horizontalPosition: 'center',
-            verticalPosition: 'top',
-            panelClass: 'app-notification-error',
-          });
-        }
-      } catch (error: any) {
-        if (error.error.message) {
-          this._snackBar.open(error.error.message, '', {
-            duration: 5 * 1000, horizontalPosition: 'center',
-            verticalPosition: 'top',
-            panelClass: 'app-notification-error',
-          });
-          return
-        }
-        this._snackBar.open('Something went wrong', '', {
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+        return
       }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
-  
+  }
+  handleFinicial(event: any, index: any) {
+    if (event.target.value) {
+      this.companyDetails.map((el: any) => el.disable = false)
+      this.general.value.plantData.map((el: any) => {
+        this.companyDetails.map((ele: any) => {
+          if (el.companyCode === ele._id) {
+            ele.disable = true
+          }
+        })
+
+      })
+    }
+  }
 
 }

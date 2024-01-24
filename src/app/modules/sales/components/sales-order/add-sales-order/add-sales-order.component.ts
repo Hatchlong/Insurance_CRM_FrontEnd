@@ -82,7 +82,6 @@ export class AddSalesOrderComponent {
   }
 
   ngOnInit(): void {
-    this.createSalesFormFields()
     this.getSalesDetail()
     this.getDistributionDetail()
     this.getDivisionDetail()
@@ -97,6 +96,7 @@ export class AddSalesOrderComponent {
     this.getCurrencyDetails()
     this.getCustomerMaster()
     this.setStates()
+    this.createSalesFormFields()
   }
 
   setStates() {
@@ -144,10 +144,9 @@ export class AddSalesOrderComponent {
       netTax: ['', Validators.required],
       netDiscount: ['', Validators.required],
       netFreight: ['', Validators.required],
-      orderStatusId: ['', Validators.required],
-      orderStatusName: [''],
+      orderStatusId: ['65a6853968f1c2318e6aa61c', Validators.required],
+      orderStatusName: ['NON DELIVERED', Validators.required],
       otherCharges: ['', Validators.required],
-      // materialId: ['',Validators.required],
       itemList: this.fb.array([this.getSalesFields()])
 
 
@@ -185,8 +184,9 @@ export class AddSalesOrderComponent {
       netWeight: [''],
       grossWeight: [''],
       volumn: [''],
-      orderStatusId: [''],
-      orderStatusName: [''],
+      orderStatusId: ['65a6853968f1c2318e6aa61c'],
+      orderStatusName: ['NON DELIVERED'],
+      openQty:['']
     })
 
   }
@@ -206,7 +206,8 @@ export class AddSalesOrderComponent {
       formGroup.patchValue({
         companyCurrency: this.salesFormGroup.value.companyCurrency ? this.salesFormGroup.value.companyCurrency : '',
         transactionCurrency: this.salesFormGroup.value.transactionCurrency ? this.salesFormGroup.value.transactionCurrency : '',
-
+        orderStatusId: '65a6853968f1c2318e6aa61c',
+        orderStatusName: 'NON DELIVERED',
       });
     })
   }
@@ -224,12 +225,24 @@ export class AddSalesOrderComponent {
 
   async submitData() {
     try {
-      this.isSubmitted = true
+      this.isSubmitted = true;
+      const username: any = localStorage.getItem('userName')
+
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1; // Months are zero-indexed, so add 1
+      const day = currentDate.getDate();
+      const hours = currentDate.getHours();
+      const minutes = currentDate.getMinutes();
+      const seconds = currentDate.getSeconds();
+
+      // Format the date and time
+      const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
       const userName: any = localStorage.getItem('userName')
-      this.salesFormGroup.value.createdOn = '18/12/2023'
+      this.salesFormGroup.value.createdOn = fullDate
       this.salesFormGroup.value.createdBy = userName
-      this.salesFormGroup.value.changedOn = '18/12/2023'
-      this.salesFormGroup.value.changedBy = userName
+      this.salesFormGroup.value.changedOn = fullDate
+      this.salesFormGroup.value.changedBy = userName;
       console.log(this.salesFormGroup.value)
       if (this.salesFormGroup.invalid)
         return
@@ -654,9 +667,7 @@ export class AddSalesOrderComponent {
   }
   handleCustomer(event: any) {
     const selectedCustomer = this.customerMasterDetail.find((el: any) => el.customerId === event.target.value);
-    console.log(selectedCustomer, 'kkkk')
     const customerCurrency = selectedCustomer.plantData.find((el: any) => el.companyCode === this.salesFormGroup.value.companyCodeId)
-    console.log(this.customerCurrency);
     this.salesFormGroup.controls.transactionCurrency.setValue(customerCurrency.currencyName)
     const formArray = this.salesFormGroup.get('itemList') as FormArray;
 
@@ -668,7 +679,9 @@ export class AddSalesOrderComponent {
       });
     })
     this.salesFormGroup.patchValue({
-      customerAddress: selectedCustomer ? selectedCustomer.address : ''
+      customerAddress: selectedCustomer ? selectedCustomer.address : '',
+      customerName: selectedCustomer ? selectedCustomer.customerName : ''
+
     });
   }
   handleMaterial(event: any, index: any) {
@@ -715,6 +728,29 @@ export class AddSalesOrderComponent {
     });
   }
 
+  handlePlant(event: any, materialId: any, index: any) {
+    const selectMaterial = this.productDeatail.find((el: any) => el.materialId === materialId)
+    console.log(selectMaterial);
 
+    const formArray = this.salesFormGroup.get('itemList') as FormArray;
+    const formGroup = formArray.at(index) as FormGroup;
+    const selectPlant = selectMaterial.salesData.find((el: any) => el.deliveringPlantId === event.target.value);
+    console.log(selectPlant, 'selectPlant')
+    formGroup.patchValue({
+      plantName: selectPlant ? selectPlant.deliveringPlantName : '',
+    });
+
+  }
+
+
+  updateValue(event:any, index:any){
+    if(event.target.value){
+      const formArray = this.salesFormGroup.get('itemList') as FormArray;
+      const formGroup = formArray.at(index) as FormGroup;
+      formGroup.patchValue({
+        openQty: +event.target.value
+      })
+    }
+  }
 
 }

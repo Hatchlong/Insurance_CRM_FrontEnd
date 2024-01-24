@@ -253,7 +253,8 @@ export class EditSalesOrderComponent {
         volumn: [data.volumn],
         orderStatusId: [data.orderStatusId],
         orderStatusName: [data.orderStatusName],
-        deliveryCheck: ['']
+        deliveryCheck: [data.deliveryCheck],
+        openQty:[data.openQty]
       })
 
     }
@@ -290,6 +291,7 @@ export class EditSalesOrderComponent {
       orderStatusId: [''],
       orderStatusName: [''],
       deliveryCheck: [''],
+      openQty:['']
     })
 
   }
@@ -309,13 +311,14 @@ export class EditSalesOrderComponent {
       formGroup.patchValue({
         companyCurrency: this.salesFormGroup.value.companyCurrency ? this.salesFormGroup.value.companyCurrency : '',
         transactionCurrency: this.salesFormGroup.value.transactionCurrency ? this.salesFormGroup.value.transactionCurrency : '',
-
+        orderStatusId: '65a6853968f1c2318e6aa61c',
+        orderStatusName: 'NON DELIVERED',
       });
     })
   }
 
   deleteSalesItem(index: any, orderStatus: any) {
-    if (orderStatus !== 'NON DELIVERED') {
+    if (orderStatus === 'FULLY DELIVERED') {
       return
     }
     this.salesOrderArray.removeAt(index)
@@ -337,11 +340,21 @@ export class EditSalesOrderComponent {
 
   async submitData() {
     try {
-      this.isSubmitted = true
+      this.isSubmitted = true;
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1; // Months are zero-indexed, so add 1
+      const day = currentDate.getDate();
+      const hours = currentDate.getHours();
+      const minutes = currentDate.getMinutes();
+      const seconds = currentDate.getSeconds();
+
+      // Format the date and time
+      const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
       const userName: any = localStorage.getItem('userName')
-      this.salesFormGroup.value.createdOn = '18/12/2023'
+      this.salesFormGroup.value.createdOn = fullDate
       this.salesFormGroup.value.createdBy = userName
-      this.salesFormGroup.value.changedOn = '18/12/2023'
+      this.salesFormGroup.value.changedOn = fullDate
       this.salesFormGroup.value.changedBy = userName
       console.log(this.salesFormGroup.value)
       if (this.salesFormGroup.invalid)
@@ -828,7 +841,7 @@ export class EditSalesOrderComponent {
   }
 
   handleDeliveryDetails(event: any, index: any, orderStatus: any) {
-    if (orderStatus !== 'NON DELIVERED') {
+    if (orderStatus === 'FULLY DELIVERED') {
       return
     }
     const formArray = this.salesFormGroup.get('itemList') as FormArray;
@@ -891,6 +904,17 @@ export class EditSalesOrderComponent {
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
       });;
+    }
+  }
+
+
+  updateValue(event:any, index:any){
+    if(event.target.value){
+      const formArray = this.salesFormGroup.get('itemList') as FormArray;
+      const formGroup = formArray.at(index) as FormGroup;
+      formGroup.patchValue({
+        openQty: +event.target.value
+      })
     }
   }
 

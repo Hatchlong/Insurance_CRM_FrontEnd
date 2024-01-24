@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as XLSX from 'xlsx';
 
@@ -6,10 +7,34 @@ import * as XLSX from 'xlsx';
 })
 export class BillingService {
 
-  constructor() { }
+  constructor(
+    private http:HttpClient
+  ) { }
 
+  createBillingOrder(data:any){
+    return this.http.post('http://localhost:4000/api/sales/billing/create', data).toPromise();
+  }
 
+  // get Billing Type Details
+  getBillingTypeDetails(){
+    return this.http.get('http://localhost:4000/api/config/billingType/getALL').toPromise()
+  }
 
+  getBillingDetailsPage(skip?:any, itemsPerPage?:any){
+    return this.http.get(`http://localhost:4000/api/sales/billing/getAll/${skip}/${itemsPerPage}`).toPromise()
+  }
+
+  singlebillingDetails(id: any) {
+    return this.http.get(`http://localhost:4000/api/sales/billing/get/${id}`).toPromise()
+  }
+
+  updatedbillingDetails(data: any) {
+    return this.http.put(`http://localhost:4000/api/sales/billing/update/${data._id}`, data).toPromise()
+  }
+
+  updatebillingMany(data: any) {
+    return this.http.put(`http://localhost:4000/api/sales/billing/update`, data).toPromise()
+  }
   
   exportToExcel(data: any[], fileName: string, sheetName: string): void {
     const deliveryData: any = [];

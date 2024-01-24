@@ -9,6 +9,7 @@ import { AddBillingComponent } from './components/billing/add-billing/add-billin
 import { EditSalesOrderComponent } from './components/sales-order/edit-sales-order/edit-sales-order.component';
 import { EditDeliveryComponent } from './components/delivery/edit-delivery/edit-delivery.component';
 import { DeliverySalesOrderComponent } from './components/sales-order/delivery-sales-order/delivery-sales-order.component';
+import { EditBillingComponent } from './components/billing/edit-billing/edit-billing.component';
 
 const routes: Routes = [
   {
@@ -45,6 +46,10 @@ const routes: Routes = [
   {
     path:'add-billing',
     component:AddBillingComponent
+  },
+  {
+    path:'edit-billing/:id',
+    component:EditBillingComponent
   }
 ];
 

@@ -451,7 +451,7 @@
                                         </td>
                                         <td>
                                             <input type="number" min="0" class="form-control " placeholder="Oredr Qty"
-                                                formControlName="ordQty">
+                                                formControlName="ordQty" (focusout)="updateValue($event, i)">
 
 
                                         </td>
@@ -474,7 +474,7 @@
                                         <td>
 
                                             <select class="form-select w-100" aria-label="Default select example"
-                                                formControlName="plantId">
+                                                formControlName="plantId"  (change)="handlePlant($event, sales.value.materialId, i)">
                                                 <option [selected]="salesFormGroup.value.plantId === ''" value=""
                                                     hidden>
                                                     Select

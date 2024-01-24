@@ -2,6 +2,8 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BillingService } from '../../../services/billing/billing.service';
 import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
 @Component({
   selector: 'app-billing-list',
@@ -69,12 +71,20 @@ export class BillingListComponent implements OnInit {
 
   }
   idleState: any = 'Not Started';
-
+  billingDetails:any = [];
+  allBillingDetails:any = [];
+  selectAll: any = false
+  totalItem: any = 0;
+  currentPage = 1;
+  page?: number = 0;
+  itemsPerPage = 10;
+  billingTypeList:any = []
   constructor(
     private router: Router,
     private billingSer: BillingService,
     private idle: Idle,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private _snackBar:MatSnackBar,
   ) {
     idle.setIdle(450),
       idle.setTimeout(900),
@@ -98,6 +108,8 @@ export class BillingListComponent implements OnInit {
 
   ngOnInit(): void {
     this.setStates()
+    this.getBillingDetials(this.page, this.itemsPerPage)
+    this.getBillingType()
   }
 
   setStates() {
@@ -125,5 +137,177 @@ export class BillingListComponent implements OnInit {
     const sampleRecord = [this.sampleJson]
     this.billingSer.exportToExcel(sampleRecord, 'Billing_Details', 'Sheet1');
     console.log(this.exportExcel)
+  }
+
+   //get all details
+
+   async getBillingDetials(page: any, itemsPerPage: any) {
+    try {
+      const result: any = await this.billingSer.getBillingDetailsPage(page, itemsPerPage)
+      console.log(result)
+      if (result.status === '1') {
+        this.billingDetails = result.data
+        this.allBillingDetails = result.data
+        result.data.map((el: any) => {
+          el.check = false
+        })
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+
+    }
+  }
+
+  async deleteRecords(data: any) {
+    try {
+      data.isActive = "C"
+      const result: any = await this.billingSer.updatedbillingDetails(data);
+      console.log(result)
+      if (result.status === '1') {
+        this._snackBar.open("Deleted Successfully", '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
+        this.getBillingDetials(this.page, this.itemsPerPage)
+        return;
+      }
+      if (result.status === '0') {
+        this._snackBar.open("Deleted Unsuccessfully", '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+
+  pageChanged(event: PageChangedEvent): void {
+    this.page = event.page;
+    const records = (this.page - 1) * this.itemsPerPage;
+    this.getBillingDetials(records, this.itemsPerPage)
+  }
+
+  async handleDeleteMuliple() {
+    try {
+      const filterData = this.billingDetails.filter((el: any) => el.check === true)
+      filterData.map((el: any) => {
+        el.isActive = "C"
+      })
+      const result: any = await this.billingSer.updatebillingMany(filterData);
+      if (result.status === '1') {
+        this._snackBar.open("Deleted Successfully", '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
+        this.getBillingDetials(this.page, this.itemsPerPage)
+        return;
+      }
+      if (result.status === '0') {
+        this._snackBar.open("Deleted Unsuccessfully", '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+
+    } catch (error: any) {
+      console.error(error)
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+  particularcheck(event: any, index: any) {
+    this.billingDetails[index].check = event.target.checked
+    const findSelect = this.billingDetails.find((el: any) => el.check === false)
+
+    if (findSelect) {
+      this.selectAll = false
+    }
+    else {
+      this.selectAll = true
+    }
+  }
+
+  //select All
+  selectdata(event: any) {
+    console.log(event.target.checked)
+    this.selectAll = event.target.checked;
+    console.log(typeof this.selectAll)
+    this.billingDetails.map((el: any) => {
+      el.check = event.target.checked
+    })
+  }
+
+
+  async getBillingType() {
+    try {
+      const result: any = await this.billingSer.getBillingTypeDetails();
+      if (result.status === '1') {
+        this.billingTypeList = result.data
+      } else {
+        this._snackBar.open(result.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, 'Error', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+      this._snackBar.open('Something went wrong', 'Error', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
+    }
+  }
+
+
+  handleFilter(event: any) {
+    if (!event.target.value) {
+      this.billingDetails = this.allBillingDetails
+    }
+    console.log(event.target.value)
+    const isStringIncluded = this.allBillingDetails.filter((obj: any) => ((obj.billingType.toUpperCase()).includes(event.target.value.toUpperCase())));
+    this.billingDetails = isStringIncluded
   }
 }

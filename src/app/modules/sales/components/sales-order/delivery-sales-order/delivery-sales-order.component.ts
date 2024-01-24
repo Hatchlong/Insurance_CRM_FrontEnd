@@ -90,11 +90,13 @@ export class DeliverySalesOrderComponent implements OnInit {
   }
 
   createDeliveryFormFields() {
+    console.log(this.salesOrderDetails, 'kkk')
     this.deliveryFormGroup = this.fb.group({
       deliveryType: ['', Validators.required],
+      deliveryTypeId:['', Validators.required],
       plantId: [this.salesOrderDetails.itemList[0].plantId, Validators.required],
       plantName: [this.salesOrderDetails.itemList[0].plantName],
-      deliveryDate: ['', Validators.required],
+      deliveryDate: [this.salesOrderDetails.requestedDeliveryDate, Validators.required],
       customerId: [this.salesOrderDetails.customerId, Validators.required],
       customerName: [this.salesOrderDetails.customerName],
       deliveryAddress: [this.salesOrderDetails.customerAddress, Validators.required],
@@ -112,14 +114,11 @@ export class DeliverySalesOrderComponent implements OnInit {
         plantName: [data.plantName],
         deliveryItem: [""],
         deliveryDate: [""],
-
         productId: [data.materialId],
         productName: [data.materialDescription],
-
-        deliveryQty: [data.ordQty],
+        deliveryQty: [data.openQty],
         uomId: [""],
         uomName: [""],
-        openQty: [""],
         storageLocationId: [''],
         storageLocationName: [""],
         referenceSalesOrder: [this.salesOrderDetails._id],
@@ -130,13 +129,12 @@ export class DeliverySalesOrderComponent implements OnInit {
       plantName: [''],
       deliveryItem: [''],
       deliveryDate: [''],
-
       productId: [''],
       materialId: [''],
-
       deliveryQty: [''],
+      uomId: [""],
       uomName: [''],
-      openQty: [''],
+      storageLocationId: [''],
       storageLocationName: [''],
       referenceSalesOrder: [''],
       referenceSalesOrderItem: ['']
@@ -157,11 +155,21 @@ export class DeliverySalesOrderComponent implements OnInit {
 
   async submitData() {
     try {
-      this.isSubmitted = true
+      this.isSubmitted = true;
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1; // Months are zero-indexed, so add 1
+      const day = currentDate.getDate();
+      const hours = currentDate.getHours();
+      const minutes = currentDate.getMinutes();
+      const seconds = currentDate.getSeconds();
+
+      // Format the date and time
+      const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
       const userName: any = localStorage.getItem('userName')
-      this.deliveryFormGroup.value.createdOn = '18/12/2023'
+      this.deliveryFormGroup.value.createdOn = fullDate
       this.deliveryFormGroup.value.createdBy = userName
-      this.deliveryFormGroup.value.changedOn = '18/12/2023'
+      this.deliveryFormGroup.value.changedOn = fullDate
       this.deliveryFormGroup.value.changedBy = userName
       console.log(this.deliveryFormGroup.value)
       if (this.deliveryFormGroup.invalid)
@@ -341,5 +349,19 @@ export class DeliverySalesOrderComponent implements OnInit {
         });
       }
     }
+  }
+
+  handleDeliveryType(event:any){
+    const findDeliveryDetails = this.deliveryDetails.find((el:any) => el._id === event.target.value);
+    this.deliveryFormGroup.controls.deliveryType.setValue(findDeliveryDetails.code)
+  }
+
+  handleUOM(event:any, index:any){
+    const findUOMName = this.uomDetail.find((el:any) => el._id === event.target.value);
+    const formArray = this.deliveryFormGroup.get('itemList') as FormArray;
+    const formGroup = formArray.at(index) as FormGroup;
+    formGroup.patchValue({
+      uomName: findUOMName ? findUOMName.code : ''
+    });
   }
 }

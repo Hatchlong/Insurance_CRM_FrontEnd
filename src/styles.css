@@ -21,9 +21,23 @@ body {
     background-color: #00acff !important;
     border: 0;
 }
-h1,h2,h3,h4,h5,h6,span,p,input,label,button,td,th,b{
-    font-family: Poppins, "Poppins" !important; 
-  }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+p,
+input,
+label,
+button,
+td,
+th,
+b {
+    font-family: Poppins, "Poppins" !important;
+}
 
 h2 {
     font-size: 18px !important;
@@ -54,12 +68,12 @@ sup {
     font-family: 'Poppins' !important;
 }
 
-.app-notification-success .mdc-button__label{
+.app-notification-success .mdc-button__label {
     color: green !important;
     font-family: 'Poppins' !important;
 }
 
-.app-notification-error .mdc-button__label{
+.app-notification-error .mdc-button__label {
     color: red !important;
     font-family: 'Poppins' !important;
 }
@@ -69,16 +83,16 @@ sup {
     --mat-mdc-snack-bar-button-color: white;
 }
 
-thead tr th{
+thead tr th {
     background-color: #bdc4ca29 !important;
     font-weight: 500;
 }
 
-td{
+td {
     font-weight: 400;
 }
 
-label{
+label {
     font-weight: 600;
     font-size: 16px;
 }
@@ -87,15 +101,23 @@ input[readonly] {
     background-color: #f6f6f6;
 }
 
-mat-icon{
+mat-icon {
     cursor: pointer;
 }
 
-option,select,td {
-    text-transform: capitalize !important; /* change first letter to uppercase */
-  }
+option,
+select,
+td {
+    text-transform: capitalize !important;
+    /* change first letter to uppercase */
+}
 
-  input::placeholder, textarea::placeholder, select, input, textarea {
+typeahead-container,
+input::placeholder,
+textarea::placeholder,
+select,
+input,
+textarea {
     font-size: 13px !important;
     font-weight: 500 !important;
-  }
+}

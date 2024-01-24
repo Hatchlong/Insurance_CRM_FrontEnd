@@ -266,7 +266,7 @@
                             <option [selected]="general.value.baseUnitMeasure === ''" value="" hidden>Select Base Unit
                                 Of Measure
                             </option>
-                            <option *ngFor="let list of uomDetail | filterPipes:'code'" [value]="list._id">{{list.code}}</option>
+                            <option *ngFor="let list of uomDetail | filterPipes:'code'" [value]="list.code">{{list.code}}</option>
                         </select>
                         <div
                             *ngIf="general.controls['baseUnitMeasure'].touched && general.controls['baseUnitMeasure'].dirty && general.controls['baseUnitMeasure'].hasError('required') && !isSubmitted">

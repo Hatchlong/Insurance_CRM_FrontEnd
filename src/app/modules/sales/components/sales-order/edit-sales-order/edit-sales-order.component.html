@@ -388,7 +388,7 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th *ngIf="salesOrderArray.controls.length > 1">Actions</th>
+                                        <th>Actions</th>
                                         <th>Product Id</th>
                                         <th>Product Description</th>
                                         <th>Order Qty</th>
@@ -424,13 +424,13 @@
                                             <div class="d-flex gap-2 d-grid">
                                                 <div>
                                                     <mat-icon
-                                                        [ngStyle]="{'cursor':sales.value.orderStatusName === 'NON DELIVERED' || '' ? 'pointer' : 'no-drop'} "
+                                                        [ngStyle]="{'cursor':sales.value.orderStatusName === 'FULLY DELIVERED' || '' ? 'no-drop' : 'pointer'} "
                                                         (click)="deleteSalesItem(i, sales.value.orderStatusName)">delete</mat-icon>
                                                 </div>
                                                 <div class="mt-1">
                                                     <input type="checkbox"
-                                                        [ngStyle]="{'cursor':sales.value.orderStatusName === 'NON DELIVERED' ? 'pointer' : 'no-drop'} "
-                                                        [disabled]="sales.value.orderStatusName === 'NON DELIVERED' ? false : true"
+                                                        [ngStyle]="{'cursor':sales.value.orderStatusName === 'FULLY DELIVERED' ? 'no-drop' : 'pointer'} "
+                                                        [disabled]="sales.value.orderStatusName === 'FULLY DELIVERED' ? true : false"
                                                         [checked]="sales.value.deliveryCheck"
                                                         (change)="handleDeliveryDetails($event, i, sales.value.orderStatusName)">
                                                 </div>
@@ -456,7 +456,7 @@
                                         </td>
                                         <td>
                                             <input type="number" min="0" class="form-control " placeholder="Oredr Qty"
-                                                formControlName="ordQty">
+                                                formControlName="ordQty" (focusout)="updateValue($event, i)">
 
 
                                         </td>

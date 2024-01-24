@@ -8,77 +8,62 @@
             <form [formGroup]="deliveryFormGroup" (ngSubmit)="submitData()">
 
                 <div class="row border">
-
+                    
                     <div class="col-6 mt-2">
                         <label for="">Delivery Type <sup>*</sup> </label>
-                        <select class="form-select" formControlName="deliveryType">
-                            <option [selected]="deliveryFormGroup.value.deliveryType=== ''" value="" hidden>Select Delivery Type</option>
-                            <option *ngFor="let list of deliveryTypeDetails" [value]="list.code">{{list.description}}</option>
-                           
+                        <select class="form-select"  formControlName="deliveryTypeId" [disabled]="true"
+                            (change)="handleDeliveryType($event)">
+                            <option [selected]="deliveryFormGroup.value.deliveryTypeId=== ''" value="" hidden>Select
+                                Delivery Type</option>
+                            <option *ngFor="let list of deliveryDetails" [value]="list._id">{{list.code}}</option>
                         </select>
 
-                        <div *ngIf="deliveryFormGroup.controls['deliveryType'].touched && deliveryFormGroup.controls['deliveryType'].touched && deliveryFormGroup.controls['deliveryType'].hasError('required') && !isSubmitted">
+                        <div
+                            *ngIf="deliveryFormGroup.controls['deliveryTypeId'].touched && deliveryFormGroup.controls['deliveryTypeId'].touched && deliveryFormGroup.controls['deliveryTypeId'].hasError('required') && !isSubmitted">
                             <p class="error-message">Delivery Type is mandatory</p>
                         </div>
-                        <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliveryType'].hasError('required')">
+                        <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliveryTypeId'].hasError('required')">
                             <p class="error-message">Delivery Type is mandatory</p>
                         </div>
 
                     </div>
                     <div class="col-6 mt-2">
                         <label for="">Plant<sup>*</sup> </label>
-                        <select class="form-select" formControlName="plantName">
-                            <option [selected]="deliveryFormGroup.value.plant=== ''" value="" hidden>Select plant</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
+                        <input type="text" class="form-control" formControlName="plantName" readonly>
 
-                        <div *ngIf="deliveryFormGroup.controls['plantName'].touched && deliveryFormGroup.controls['plantName'].touched && deliveryFormGroup.controls['plantName'].hasError('required') && !isSubmitted">
+                        <div
+                            *ngIf="deliveryFormGroup.controls['plantId'].touched && deliveryFormGroup.controls['plantId'].touched && deliveryFormGroup.controls['plantId'].hasError('required') && !isSubmitted">
                             <p class="error-message">Plant is mandatory</p>
                         </div>
-                        <div *ngIf="isSubmitted && deliveryFormGroup.controls['plantName'].hasError('required')">
+                        <div *ngIf="isSubmitted && deliveryFormGroup.controls['plantId'].hasError('required')">
                             <p class="error-message">Plant is mandatory</p>
                         </div>
 
                     </div>
-                    <div class="col-6 mt-2">
-                        <label for="delivery">Delivery #<sup>*</sup></label>
-                        <input type="text" class="form-control" formControlName="deliveryId"
-                            placeholder="Enter delivery">
 
-                            <div *ngIf="deliveryFormGroup.controls['deliveryId'].touched && deliveryFormGroup.controls['deliveryId'].touched && deliveryFormGroup.controls['deliveryId'].hasError('required') && !isSubmitted">
-                                <p class="error-message">Delivery is mandatory</p>
-                            </div>
-                            <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliveryId'].hasError('required')">
-                                <p class="error-message">Delivery is mandatory</p>
-                            </div>
-
-                    </div>
 
                     <div class="col-6 mt-2 ">
                         <label for="">Delivery Date<sup>*</sup></label>
                         <input type="date" class="form-control" formControlName="deliveryDate"
-                            placeholder="Enter delivery date">
+                            placeholder="Enter delivery date" readonly>
 
-                            <div *ngIf="deliveryFormGroup.controls['deliveryDate'].touched && deliveryFormGroup.controls['deliveryDate'].touched && deliveryFormGroup.controls['deliveryDate'].hasError('required') && !isSubmitted">
-                                <p class="error-message">Delivery Date is mandatory</p>
-                            </div>
-                            <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliveryDate'].hasError('required')">
-                                <p class="error-message">Delivery Date is mandatory</p>
-                            </div>
+                        <div
+                            *ngIf="deliveryFormGroup.controls['deliveryDate'].touched && deliveryFormGroup.controls['deliveryDate'].touched && deliveryFormGroup.controls['deliveryDate'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Delivery Date is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliveryDate'].hasError('required')">
+                            <p class="error-message">Delivery Date is mandatory</p>
+                        </div>
 
                     </div>
                     <div class="col-6 mt-2">
                         <label for="">Customer Id <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="customerId">
-                            <option [selected]="deliveryFormGroup.value.customerId=== ''" value="" hidden>Select Customer
-                                Id
-                            </option>
-                            <option *ngFor="let list of customerMasterDetail" [value]="list.customerId">{{list.customerId}}</option>
-                            
-                        </select>
-                        <div *ngIf="deliveryFormGroup.controls['customerId'].touched && deliveryFormGroup.controls['customerId'].touched && deliveryFormGroup.controls['customerId'].hasError('required') && !isSubmitted">
+                        <input type="text" class="form-control" formControlName="customerName"
+                            placeholder="Enter Customer Id" readonly>
+
+
+                        <div
+                            *ngIf="deliveryFormGroup.controls['customerId'].touched && deliveryFormGroup.controls['customerId'].touched && deliveryFormGroup.controls['customerId'].hasError('required') && !isSubmitted">
                             <p class="error-message">Customer Id Value is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && deliveryFormGroup.controls['customerId'].hasError('required')">
@@ -89,9 +74,11 @@
 
                     <div class="col-6 mt-2 mb-2">
                         <label for="TaxAmount">Delivery Address <sup>*</sup></label>
-                        <input type="text" class="form-control" formControlName="deliveryAddress" placeholder="Enter Delivery Address">
+                        <input type="text" class="form-control" formControlName="deliveryAddress"
+                            placeholder="Enter Delivery Address" readonly>
 
-                        <div *ngIf="deliveryFormGroup.controls['deliveryAddress'].touched && deliveryFormGroup.controls['deliveryAddress'].touched && deliveryFormGroup.controls['deliveryAddress'].hasError('required') && !isSubmitted">
+                        <div
+                            *ngIf="deliveryFormGroup.controls['deliveryAddress'].touched && deliveryFormGroup.controls['deliveryAddress'].touched && deliveryFormGroup.controls['deliveryAddress'].hasError('required') && !isSubmitted">
                             <p class="error-message">Delivery Address is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliveryAddress'].hasError('required')">
@@ -99,20 +86,22 @@
                         </div>
 
                     </div>
-                    
-                   
-                   
-                                       
+
+
+
+
                     <div class="col-6 py-2  mb-2">
                         <label for="">Delivery Partner <sup>*</sup></label>
-                        <select class="form-select" formControlName="deliveryPartner">
-                            <option [selected]="deliveryFormGroup.value.deliveryPartner=== ''" value="" hidden>Select delivery Partner</option>
+                        <select class="form-select" [disabled]="true" formControlName="deliveryPartner">
+                            <option [selected]="deliveryFormGroup.value.deliveryPartner=== ''" value="" hidden>Select
+                                delivery Partner</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
                             <option value="3">Three</option>
                         </select>
 
-                        <div *ngIf="deliveryFormGroup.controls['deliveryPartner'].touched && deliveryFormGroup.controls['deliveryPartner'].touched && deliveryFormGroup.controls['deliveryPartner'].hasError('required') && !isSubmitted">
+                        <div
+                            *ngIf="deliveryFormGroup.controls['deliveryPartner'].touched && deliveryFormGroup.controls['deliveryPartner'].touched && deliveryFormGroup.controls['deliveryPartner'].hasError('required') && !isSubmitted">
                             <p class="error-message">Delivery Partner is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliveryPartner'].hasError('required')">
@@ -120,7 +109,7 @@
                         </div>
 
                     </div>
-                
+
 
                 </div>
 
@@ -134,11 +123,7 @@
                                     Item Data
                                 </h3>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex justify-content-end align-items-center">
 
-                                <button class="btn btn-primary" type="button" (click)="adddelivery()">Add</button>
-
-                            </div>
                         </div>
 
 
@@ -147,14 +132,12 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th *ngIf="deliveryListArray.controls.length > 1">Actions</th>
                                         <th>Plant</th>
                                         <th>Delivery Item</th>
                                         <th>Delivery Date</th>
                                         <th>Product Id</th>
                                         <th>Delivery QTY</th>
                                         <th>UoM</th>
-                                        <th>Open Qty</th>
                                         <th>Storage Location</th>
                                         <th>Reference sales order #</th>
                                         <th>Reference sales order item #</th>
@@ -162,76 +145,63 @@
                                 </thead>
 
                                 <tbody formArrayName="itemList">
-                                    <tr *ngFor="let delivery of deliveryListArray.controls; let i = index;"
+                                    <tr *ngFor="let delivery of deliveryFormGroup.get('itemList')['controls']; let i = index;"
                                         [formGroupName]="i">
-                                        <td *ngIf="deliveryListArray.controls.length > 1">
-                                            <mat-icon style="cursor:pointer"
-                                                (click)="deletedelivery(i)">delete</mat-icon>
+
+                                        <td>
+                                            <input type="text" class="form-control" formControlName="plantName"
+                                                readonly>
                                         </td>
                                         <td>
-                                            <select class="form-select" formControlName="plantName">
-                                                <option [selected]="deliveryFormGroup.value.plant=== ''" value="" hidden>Select plant</option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
-                                            </select>
-                                        </td>
-                                         <td>
-                                            <input type="number" class="form-control " placeholder="Enter delivery item" formControlName="deliveryItem">
+                                            <input type="number" class="form-control " placeholder="Enter delivery item"
+                                                formControlName="deliveryItem"
+                                                (input)="handleQty($event, delivery.value.deliveryQty, i)">
                                         </td>
                                         <td>
                                             <input type="date" class="form-control" formControlName="deliveryDate"
-                                            placeholder="Enter delivery date">
+                                                placeholder="Enter delivery date">
                                         </td>
                                         <td>
-                                            <select class="form-select " aria-label="Default select example"
-                                            formControlName="materialId" >
-                                            <option [selected]="deliveryFormGroup.value.materialId === ''" value=""
-                                                hidden>
-                                                Select
-                                                Product Id</option>
-                                                <option *ngFor="let list of productDetails" [value]="list.materialId">{{list.materialId}}</option>
-
-                                        </select>
+                                            <input type="text" class="form-control" formControlName="productName"
+                                                readonly>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control " placeholder="Enter delivery qty"
-                                            formControlName="deliveryQty">
-                                          
-                                        </td>
-                                        <td>                                       
-                                            <select class="form-select" formControlName="uomName">
-                                                <option [selected]="deliveryFormGroup.value.uomName=== ''" value="" hidden>Select UOM</option>
+                                                formControlName="deliveryQty" readonly>
 
-                                                <option *ngFor="let list of uomDetail" [value]="list._id">{{list.code}}</option>
-                                               
-                                            </select>
-                                          
                                         </td>
                                         <td>
-                                            <select class="form-select" formControlName="openQty">
-                
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
-                                            </select>
-                                        </td>
-                                        <td>    
-                                            <select class="form-select" formControlName="storageLocationName">
-                                                <option [selected]="deliveryFormGroup.value.storageLocationName=== ''" value="" hidden>Select Storage Location</option>
+                                            <select class="form-select" formControlName="uomId"
+                                                (click)="handleUOM($event, i)">
+                                                <option [selected]="deliveryFormGroup.value.uomId=== ''" value=""
+                                                    hidden>Select UOM</option>
 
-                                                <option *ngFor="let list of storageLocationDetail" [value]="list._id">{{list.description}}</option>
-                                               
+                                                <option *ngFor="let list of uomDetail" [value]="list._id">{{list.code}}
+                                                </option>
+
+                                            </select>
+
+                                        </td>
+                                        <td>
+                                            <select class="form-select" [disabled]="true"
+                                                formControlName="storageLocationName">
+                                                <option [selected]="deliveryFormGroup.value.storageLocationName=== ''"
+                                                    value="" hidden>Select Storage Location</option>
+
+                                                <option *ngFor="let list of storageLocationDetail" [value]="list._id">
+                                                    {{list.description}}</option>
+
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="text" formControlName="referenceSalesOrder" class="form-control"
-                                                placeholder="Enter Reference Sales Order">
+                                            <input type="text" formControlName="referenceSalesOrder"
+                                                class="form-control" placeholder="Enter Reference Sales Order" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" formControlName="referenceSalesOrderItem" class="form-control"
-                                                placeholder="Enter Reference Sales Order Item">
-                                     
+                                            <input type="text" formControlName="referenceSalesOrderItem"
+                                                class="form-control" placeholder="Enter Reference Sales Order Item"
+                                                readonly>
+
                                         </td>
                                     </tr>
                                 </tbody>
@@ -241,7 +211,7 @@
                 </div>
                 <div class="row py-2">
                     <div class="col-12 d-flex justify-content-end">
-                        <button class="btn btn-primary">Update</button>
+                        <button class="btn btn-primary">Save</button>
                     </div>
                 </div>
 
