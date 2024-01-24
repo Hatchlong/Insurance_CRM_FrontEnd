@@ -69,7 +69,6 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { DirectiveDirective } from './Services/directive/directive.directive';
 import { ViewImageComponent } from './components/view-image/view-image.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
-import { FieldsetModule } from "primeng/fieldset"; 
 
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 @NgModule({
@@ -133,7 +132,6 @@ import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
     SharedModule,
     TimepickerModule.forRoot(),
     MatDialogModule,
-    FieldsetModule,
     NgIdleKeepaliveModule
   ],
   providers: [ PurchaseOrgService, CompanyCodeService, PoTypeService, PlantDataService, PaymentTermService, DivionService, DistibutionChannelService, ModeOfTransportService, OrderStatusService, BillingBlockService, IncTermService, SalesOrgService ]
