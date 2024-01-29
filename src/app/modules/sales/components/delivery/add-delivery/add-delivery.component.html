@@ -96,19 +96,17 @@
 
                     <div class="col-6 py-2  mb-2">
                         <label for="">Delivery Partner <sup>*</sup></label>
-                        <select class="form-select" [disabled]="true" formControlName="deliveryPartner">
-                            <option [selected]="deliveryFormGroup.value.deliveryPartner=== ''" value="" hidden>Select
+                        <select class="form-select" [disabled]="true" formControlName="deliveryPartnerId" (change)="handleDeliveryPartner($event)">
+                            <option [selected]="deliveryFormGroup.value.deliveryPartnerId=== ''" value="" hidden>Select
                                 delivery Partner</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                                <option *ngFor="let list of deliveryPartnerDetails" [value]="list.vendorId">{{list.vendorName}}</option>
                         </select>
 
                         <div
-                            *ngIf="deliveryFormGroup.controls['deliveryPartner'].touched && deliveryFormGroup.controls['deliveryPartner'].touched && deliveryFormGroup.controls['deliveryPartner'].hasError('required') && !isSubmitted">
+                            *ngIf="deliveryFormGroup.controls['deliveryPartnerId'].touched && deliveryFormGroup.controls['deliveryPartnerId'].touched && deliveryFormGroup.controls['deliveryPartnerId'].hasError('required') && !isSubmitted">
                             <p class="error-message">Delivery Partner is mandatory</p>
                         </div>
-                        <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliveryPartner'].hasError('required')">
+                        <div *ngIf="isSubmitted && deliveryFormGroup.controls['deliveryPartnerId'].hasError('required')">
                             <p class="error-message">Delivery Partner is mandatory</p>
                         </div>
 

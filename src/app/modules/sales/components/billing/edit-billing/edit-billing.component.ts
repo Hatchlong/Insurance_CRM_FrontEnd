@@ -37,7 +37,8 @@ export class EditBillingComponent implements OnInit {
   motDetails: any = [];
   salesData: any = [];
   uomDetail: any = [];
-  billingId:any = ''
+  billingId: any = '';
+  postingDetails: any = []
   constructor(
     private fb: FormBuilder,
     private idle: Idle,
@@ -53,7 +54,7 @@ export class EditBillingComponent implements OnInit {
     private SalesSer: SalesOrgService,
     private modeOfTransportSer: ModeOfTransportService,
     private productSer: ProductService,
-    private router:Router,
+    private router: Router,
     private activeRouter: ActivatedRoute
   ) {
     idle.setIdle(450),
@@ -92,7 +93,8 @@ export class EditBillingComponent implements OnInit {
     this.getSalesDetail();
     this.getModeOfTransport();
     this.getAllUomDetail();
-    this.getSingleBillingDetails()
+    this.getSingleBillingDetails();
+    this.getAllPostingStatusDetail()
   }
 
   setStates() {
@@ -104,10 +106,11 @@ export class EditBillingComponent implements OnInit {
     this.isShowPadding = event
   }
 
-  createBillingFormFields(data?:any) {
-    if(data){
+  createBillingFormFields(data?: any) {
+    if (data) {
       this.billingFormGroup = this.fb.group({
-        _id:[data._id, [Validators.required]],
+        _id: [data._id, [Validators.required]],
+        billingNumber: [data.billingNumber, [Validators.required]],
         billingTypeId: [data.billingTypeId, Validators.required],
         billingType: [data.billingType, Validators.required],
         billingDate: [data.billingDate, Validators.required],
@@ -125,7 +128,8 @@ export class EditBillingComponent implements OnInit {
         customerAsstAccountName: [data.customerAsstAccountName, Validators.required],
         createdOn: [data.createdOn],
         createdBy: [data.createdBy],
-        postingStatus: [data.postingStatus, Validators.required],
+        postingStatusId: [data.postingStatusId, Validators.required],
+        postingStatusName: [data.postingStatusName, Validators.required],
         changedBy: [data.changedBy],
         changedOn: [data.changedOn],
         paymentTermsId: [data.paymentTermsId, Validators.required],
@@ -150,6 +154,7 @@ export class EditBillingComponent implements OnInit {
       return
     }
     this.billingFormGroup = this.fb.group({
+      billingNumber: ['', [Validators.required]],
       billingTypeId: ['', Validators.required],
       billingType: ['', Validators.required],
       billingDate: ['', Validators.required],
@@ -167,7 +172,8 @@ export class EditBillingComponent implements OnInit {
       customerAsstAccountName: ['', Validators.required],
       createdOn: [''],
       createdBy: [''],
-      postingStatus: ['', Validators.required],
+      postingStatusId: ['', Validators.required],
+      postingStatusName: ['', Validators.required],
       changedBy: [''],
       changedOn: [''],
       paymentTermsId: ['', Validators.required],
@@ -191,8 +197,8 @@ export class EditBillingComponent implements OnInit {
   }
 
 
-  getFinancialFields(data?:any): FormGroup {
-    if(data){
+  getFinancialFields(data?: any): FormGroup {
+    if (data) {
       return this.fb.group({
         billedQTY: [data.billedQTY],
         uom: [data.uom],
@@ -224,7 +230,7 @@ export class EditBillingComponent implements OnInit {
         destinationCountry: [data.destinationCountry],
         poNumber: [data.poNumber],
         poDate: [data.poDate]
-      }) 
+      })
     }
     return this.fb.group({
       billedQTY: [''],
@@ -371,7 +377,7 @@ export class EditBillingComponent implements OnInit {
   handleBillingType(event: any) {
     if (event.target.value) {
       const findBillingType = this.billingTypeList.find((el: any) => el._id === event.target.value);
-      this.billingFormGroup.controls.billingType.setValue(findBillingType.code)
+      this.billingFormGroup.controls.billingType.setValue(findBillingType.description)
     }
   }
 
@@ -704,11 +710,37 @@ export class EditBillingComponent implements OnInit {
 
 
   // Get Single Details for Billing
-  async getSingleBillingDetails(){
+  async getSingleBillingDetails() {
     try {
-      const result: any = await this.billingSer.singlebillingDetails(this.billingId)
+      const result: any = await this.billingSer.singlebillingDetails(this.billingId);
+      console.log(result.data)
       if (result.status === '1') {
-       this.createBillingFormFields(result.data)
+        this.createBillingFormFields(result.data)
+      }
+    } catch (error: any) {
+      console.log(error)
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+  //get Posting Status detail
+  async getAllPostingStatusDetail() {
+    try {
+      const result: any = await this.billingSer.getAllPostingStatusDetails()
+      if (result.status === '1') {
+        this.postingDetails = result.data
       }
     } catch (error: any) {
       if (error.error.message) {
@@ -724,6 +756,13 @@ export class EditBillingComponent implements OnInit {
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
       });
+    }
+  }
+
+  handlePostingStatus(event: any) {
+    if (event.target.value) {
+      const findSales = this.postingDetails.find((el: any) => el._id === event.target.value)
+      this.billingFormGroup.controls.postingStatusName.setValue(findSales.description)
     }
   }
 }

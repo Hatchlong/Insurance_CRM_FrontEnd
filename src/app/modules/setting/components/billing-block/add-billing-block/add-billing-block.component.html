@@ -6,7 +6,7 @@
     <div class="row">
       <div class="col-6 py-2 ">
         <label for="" class="">Billing Block <sup>*</sup></label>
-        <input type="text" class="form-control " placeholder="Enter Billing Block " formControlName="billingBlock" appDirective>
+        <input type="text" class="form-control " placeholder="Enter Billing Block " (input)="checkInputLength($event); perviousValue = billing.value.billingBlock" formControlName="billingBlock" appDirective>
         <div
           *ngIf="billing.controls['billingBlock'].touched && billing.controls['billingBlock'].dirty && billing.controls['billingBlock'].hasError('required') && !isSubmitted">
           <p class="error-message">Billing Block is mandatory</p>

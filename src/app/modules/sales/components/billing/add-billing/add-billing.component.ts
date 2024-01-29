@@ -14,6 +14,7 @@ import { SalesOrgService } from 'src/app/modules/setting/Services/sales-org/sale
 import { ModeOfTransportService } from 'src/app/modules/setting/Services/mode-of-transport/mode-of-transport.service';
 import { ProductService } from 'src/app/modules/master/services/product/product.service';
 import { Router } from '@angular/router';
+import { DeliveryService } from '../../../services/delivery/delivery.service';
 
 @Component({
   selector: 'app-add-billing',
@@ -37,6 +38,10 @@ export class AddBillingComponent implements OnInit {
   motDetails: any = [];
   salesData: any = [];
   uomDetail: any = [];
+  billingDetails: any = [];
+  salesOrderDetails: any = [];
+  deliveryDetails: any = [];
+  postingDetails:any = []
   constructor(
     private fb: FormBuilder,
     private idle: Idle,
@@ -52,7 +57,9 @@ export class AddBillingComponent implements OnInit {
     private SalesSer: SalesOrgService,
     private modeOfTransportSer: ModeOfTransportService,
     private productSer: ProductService,
-    private router:Router
+    private router: Router,
+    private salesOrderSer: SalesOrderService,
+    private deliverySer: DeliveryService,
   ) {
     idle.setIdle(450),
       idle.setTimeout(900),
@@ -89,6 +96,10 @@ export class AddBillingComponent implements OnInit {
     this.getSalesDetail();
     this.getModeOfTransport();
     this.getAllUomDetail();
+    this.getAllSalesOrderDetail();
+    this.getAllDeliveryDetailsDetail();
+    this.getAllInvoiceDetail()
+    this.getAllPostingStatusDetail()
   }
 
   setStates() {
@@ -100,14 +111,66 @@ export class AddBillingComponent implements OnInit {
     this.isShowPadding = event
   }
 
-  createBillingFormFields() {
+  createBillingFormFields(data?: any, records?: any) {
+    if (data) {
+      this.billingFormGroup = this.fb.group({
+        billingNumber: [''],
+        billingTypeId: ['', Validators.required],
+        billingType: ['', Validators.required],
+        billingDate: ['', Validators.required],
+        referenceDocument: [this.billingFormGroup.value.referenceDocument, Validators.required],
+        referenceDocumentType: [this.billingFormGroup.value.referenceDocumentType, Validators.required],
+        customerId: [data.customerId, Validators.required],
+        customerName: [data.customerName, Validators.required],
+        netValue: ['', Validators.required],
+        taxAmount: ['', Validators.required],
+        currencyId: ['', Validators.required],
+        currencyName: ['', Validators.required],
+        exchangeRate: [data.exchangeRate, Validators.required],
+        companyCodeId: [data.companyCodeId, Validators.required],
+        companyCode: [data.companyCodeName, Validators.required],
+        customerAsstAccountId: [data.customerAcctAssId, Validators.required],
+        customerAsstAccountName: [data.customerAcctAssName, Validators.required],
+        createdOn: [''],
+        createdBy: [''],
+        postingStatusId: ['', Validators.required],
+        postingStatusName: ['', Validators.required],
+        changedBy: [''],
+        changedOn: [''],
+        paymentTermsId: [data.paymentTermsId, Validators.required],
+        paymentTerms: [data.paymentTermsName, Validators.required],
+        incoTermsId: ['', Validators.required],
+        incoTerms: ['', Validators.required],
+        salesOrgId: [data.saleOrgId, Validators.required],
+        salesOrgName: [data.saleOrgName, Validators.required],
+        distributionChannelId: [data.distributionChannelsId, Validators.required],
+        distributionChannelName: [data.distributionChannelsName, Validators.required],
+        divisionId: [data.divisionId, Validators.required],
+        divisionName: [data.divisionName, Validators.required],
+        modeOfTarnsportId: [data.modeOfTransportId, Validators.required],
+        modeOfTarnsportName: [data.modeOfTransportName, Validators.required],
+        netTax: [data.netTax, Validators.required],
+        netDiscount: [data.netDiscount, Validators.required],
+        netFreight: [data.netFreight, Validators.required],
+        otherCharges: [data.otherCharges, Validators.required],
+        itemList: this.fb.array(data.itemList.map((el: any) => this.getFinancialFields(el, data)))
+      })
+      // if(records === 'Sales'){
+      //   this.billingFormGroup.controls.referenceDocument.setValue(data.salesOrderId)
+      // }else if(records === 'Delivery'){
+      //   this.billingFormGroup.controls.referenceDocument.setValue(data.salesOrderId)
+      // }
+      return
+    }
     this.billingFormGroup = this.fb.group({
+      billingNumber: [''],
       billingTypeId: ['', Validators.required],
       billingType: ['', Validators.required],
       billingDate: ['', Validators.required],
       referenceDocument: ['', Validators.required],
+      referenceDocumentType: ['Invoice', Validators.required],
       customerId: ['', Validators.required],
-      customerName: ['222', Validators.required],
+      customerName: ['', Validators.required],
       netValue: ['', Validators.required],
       taxAmount: ['', Validators.required],
       currencyId: ['', Validators.required],
@@ -119,7 +182,8 @@ export class AddBillingComponent implements OnInit {
       customerAsstAccountName: ['', Validators.required],
       createdOn: [''],
       createdBy: [''],
-      postingStatus: ['', Validators.required],
+      postingStatusId: ['', Validators.required],
+      postingStatusName: ['', Validators.required],
       changedBy: [''],
       changedOn: [''],
       paymentTermsId: ['', Validators.required],
@@ -143,7 +207,41 @@ export class AddBillingComponent implements OnInit {
   }
 
 
-  getFinancialFields(): FormGroup {
+  getFinancialFields(data?: any, details?: any): FormGroup {
+    if (data) {
+      return this.fb.group({
+        billedQTY: [data.ordQty],
+        uom: [data.uom],
+        grossWeight: [data.grossWeight],
+        netWeight: [data.netWeight],
+        grossUOM: [''],
+        salesOrder: [details.salesOrderId],
+        salesOrderItem: [details.salesOrder],
+        referenceDocument: [''],
+        referenceDocumentItem: [''],
+        priceDate: [data.priceDate],
+        serviceRenderedDate: [],
+        priceAmount: [data.priceAmount],
+        perUnitPrice: [data.priceUnit],
+        pricingUnit: [''],
+        pricingUOM: [data.priceUOM],
+        tax: [data.tax],
+        perUnitTax: [data.perUnitTax],
+        discount: [data.discount],
+        perUnitDiscount: [data.perUnitDiscount],
+        freight: [data.freight],
+        perUnitFreight: [data.perUnitFreight],
+        otherCharges: [data.otherCharges],
+        companyCurrency: [data.companyCurrency],
+        transactionCurrency: [data.transactionCurrency],
+        exchangeRate: [data.exchangeRate],
+        hsnCode: [''],
+        countryOrigin: [''],
+        destinationCountry: [''],
+        poNumber: [],
+        poDate: []
+      })
+    }
     return this.fb.group({
       billedQTY: [''],
       uom: [''],
@@ -292,7 +390,7 @@ export class AddBillingComponent implements OnInit {
   handleBillingType(event: any) {
     if (event.target.value) {
       const findBillingType = this.billingTypeList.find((el: any) => el._id === event.target.value);
-      this.billingFormGroup.controls.billingType.setValue(findBillingType.code)
+      this.billingFormGroup.controls.billingType.setValue(findBillingType.description)
     }
   }
 
@@ -622,4 +720,127 @@ export class AddBillingComponent implements OnInit {
       });
     }
   }
+
+
+  //get uom detail
+  async getAllSalesOrderDetail() {
+    try {
+      const result: any = await this.salesOrderSer.getAllSalesOrderDetails()
+      if (result.status === '1') {
+        this.salesOrderDetails = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+
+  //get uom detail
+  async getAllDeliveryDetailsDetail() {
+    try {
+      const result: any = await this.deliverySer.getAllDeliveryDetails()
+      if (result.status === '1') {
+        this.deliveryDetails = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+  //get uom detail
+  async getAllInvoiceDetail() {
+    try {
+      const result: any = await this.billingSer.getAllBillingDetails()
+      if (result.status === '1') {
+        this.billingDetails = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+
+  //get Posting Status detail
+  async getAllPostingStatusDetail() {
+    try {
+      const result: any = await this.billingSer.getAllPostingStatusDetails()
+      if (result.status === '1') {
+        this.postingDetails = result.data
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+  handlePostingStatus(event: any) {
+    if (event.target.value) {
+      const findSales = this.postingDetails.find((el: any) => el._id === event.target.value)
+      this.billingFormGroup.controls.postingStatusName.setValue(findSales.description)
+    }
+  }
+
+  typeaheadOnSalesSelect(event: any) {
+    const salesList = this.salesOrderDetails.find((el: any) => el.salesOrderId === event.value);
+    this.createBillingFormFields(salesList, 'Sales')
+  }
+  typeaheadOnDeliverySelect(event: any) {
+    const findDelivery = this.deliveryDetails.find((el: any) => el.deliveryId === event.value);
+    const findSales = this.salesOrderDetails.find((el: any) => el.salesOrderId === findDelivery.salesOrderId);
+    this.createBillingFormFields(findSales, 'Delivery')
+  }
+  typeaheadOnInvoivceSelect(event: any) {
+    const findDelivery = this.billingDetails.find((el: any) => el.billingNumber === event.value);
+    const salesList = this.salesOrderDetails.find((el: any) => el.salesOrderId === findDelivery.referenceDocument);
+    console.log(salesList, 'salesList')
+    this.createBillingFormFields(salesList)
+  }
+
 }

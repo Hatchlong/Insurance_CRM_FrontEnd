@@ -29,7 +29,8 @@ export class AddCompanyCodeComponent {
   industryDetails: any = [];
   filedPathName: any = '';
   inputControl: any = '';
-  idleState:any = 'Not Started'
+  idleState:any = 'Not Started';
+  perviousValue:any = ''
   constructor(
     private fb: FormBuilder,
     private companySer: CompanyCodeService,
@@ -467,6 +468,17 @@ export class AddCompanyCodeComponent {
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
       });
+    }
+  }
+
+
+  checkInputLength(event:any){
+    if(event.target.value){
+      
+      if(this.companyCode.value.companyCode.length > 6){
+        this.companyCode.controls.companyCode.setValue(this.perviousValue)
+        return
+      }
     }
   }
 

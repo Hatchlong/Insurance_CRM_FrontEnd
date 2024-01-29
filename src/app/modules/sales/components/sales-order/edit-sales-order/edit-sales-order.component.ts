@@ -133,24 +133,27 @@ export class EditSalesOrderComponent {
         customerName: [data.customerName],
         customerAddress: [data.customerAddress, Validators.required],
         salesOrder: [data.salesOrder, Validators.required],
+        salesOrderId: [data.salesOrderId, Validators.required],
         customerPo: [data.customerPo, Validators.required],
         customerPoDate: [data.customerPoDate, Validators.required],
         requestedDeliveryDate: [data.requestedDeliveryDate, Validators.required],
         companyCurrency: [data.companyCurrency, Validators.required],
         transactionCurrency: [data.transactionCurrency, Validators.required],
         text: [data.text, Validators.required],
-
         exchangeRate: [data.exchangeRate, Validators.required],
-        modeOfTransport: [data.modeOfTransport, Validators.required],
+        modeOfTransportId: [data.modeOfTransportId, Validators.required],
+        modeOfTransportName: [data.modeOfTransportName, Validators.required],
         totalNetWeight: [data.totalNetWeight, Validators.required],
         totalGrossWeight: [data.totalGrossWeight, Validators.required],
         totalVolume: [data.totalVolume, Validators.required],
-        paymentTerms: [data.paymentTerms, Validators.required],
+        paymentTermsId: [data.paymentTermsId, Validators.required],
+        paymentTermsName: [data.paymentTermsName, Validators.required],
         billingBlockId: [data.billingBlockId, Validators.required],
         billingBlockName: [data.billingBlockName],
         companyCodeId: [data.companyCodeId, Validators.required],
         companyCodeName: [data.companyCodeName],
-        customerAcctAss: [data.customerAcctAss, Validators.required],
+        customerAcctAssId: [data.customerAcctAssId, Validators.required],
+        customerAcctAssName: [data.customerAcctAssName, Validators.required],
         netPrice: [data.netPrice, Validators.required],
         netTax: [data.netTax, Validators.required],
         netDiscount: [data.netDiscount, Validators.required],
@@ -190,16 +193,19 @@ export class EditSalesOrderComponent {
       text: ['', Validators.required],
 
       exchangeRate: ['', Validators.required],
-      modeOfTransport: ['', Validators.required],
+      modeOfTransportId: ['', Validators.required],
+      modeOfTransportName: ['', Validators.required],
       totalNetWeight: ['', Validators.required],
       totalGrossWeight: ['', Validators.required],
       totalVolume: ['', Validators.required],
-      paymentTerms: ['', Validators.required],
+      paymentTermsId: ['', Validators.required],
+      paymentTermsName: ['', Validators.required],
       billingBlockId: ['', Validators.required],
       billingBlockName: [''],
       companyCodeId: ['', Validators.required],
       companyCodeName: [''],
-      customerAcctAss: ['', Validators.required],
+      customerAcctAssId: ['', Validators.required],
+      customerAcctAssName: ['', Validators.required],
       netPrice: ['', Validators.required],
       netTax: ['', Validators.required],
       netDiscount: ['', Validators.required],
@@ -909,12 +915,37 @@ export class EditSalesOrderComponent {
 
 
   updateValue(event:any, index:any){
+    if(+event.target.value === +this.salesFormGroup.value.itemList[index].ordQty){
+      return;
+    }
     if(event.target.value){
       const formArray = this.salesFormGroup.get('itemList') as FormArray;
       const formGroup = formArray.at(index) as FormGroup;
       formGroup.patchValue({
-        openQty: +event.target.value
+        openQty: (+event.target.value) + (+formGroup.value.openQty)
       })
+    }
+  }
+
+  handlemodeoftransport(event:any){
+    if(event.target.value){
+    const findModeTran = this.motDetails.find((el: any) => el._id === event.target.value)
+    this.salesFormGroup.controls.modeOfTransportName.setValue(findModeTran.modeOfTransport)
+    }
+  }
+
+
+  handlePaymentTerms(event:any){
+    if(event.target.value){
+    const findModeTran = this.paymentTermDetail.find((el: any) => el._id === event.target.value)
+    this.salesFormGroup.controls.paymentTermsName.setValue(findModeTran.paymentTerm)
+    }
+  }
+
+  handleCustomerAcctAs(event:any){
+    if(event.target.value){
+    const findModeTran = this.customerAccountAsstGroup.find((el: any) => el._id === event.target.value)
+    this.salesFormGroup.controls.customerAcctAssName.setValue(findModeTran.customerAccountAG)
     }
   }
 

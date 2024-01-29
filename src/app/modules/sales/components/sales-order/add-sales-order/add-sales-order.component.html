@@ -10,7 +10,8 @@
                 <div class="row border">
                     <div class="col-6 py-2">
                         <label class="">Order Type</label>
-                        <select class="form-select " aria-label="Default select example" formControlName="orderTypeId" (change)="handleOrderType($event)">
+                        <select class="form-select " aria-label="Default select example" formControlName="orderTypeId"
+                            (change)="handleOrderType($event)">
                             <option [selected]="salesFormGroup.value.order === ''" value="" hidden>Select Order Type
                             </option>
                             <option *ngFor="let list of orderTypeDetails |filterPipes:'description'" [value]="list._id">
@@ -213,7 +214,9 @@
                     </div>
                     <div class="col-6 py-2">
                         <label class="">Order Status</label>
-                        <select class="form-select " aria-label="Default select example" formControlName="orderStatusId"
+                        <input type="text" class="form-control " placeholder="Enter Order Status"
+                            formControlName="orderStatusName" readonly>
+                        <!-- <select class="form-select " aria-label="Default select example" [disabled]="true" formControlName="orderStatusId"
                             (change)="handleOrder($event)">
                             <option [selected]="salesFormGroup.value.orderStatusId === ''" value="" hidden>Select Order
                                 Status
@@ -222,7 +225,7 @@
                                 [value]="list._id">{{list.orderStatus}}
                             </option>
 
-                        </select>
+                        </select> -->
                         <div
                             *ngIf="salesFormGroup.controls['orderStatusId'].touched && salesFormGroup.controls['orderStatusId'].touched && salesFormGroup.controls['orderStatusId'].hasError('required') && !isSubmitted">
                             <p class="error-message">Order Status is mandatory</p>
@@ -237,37 +240,76 @@
                         <label class="">Exchange Rate</label>
                         <input type="text" class="form-control " placeholder="Enter Exchange Rate"
                             formControlName="exchangeRate">
+                        <div
+                            *ngIf="salesFormGroup.controls['exchangeRate'].touched && salesFormGroup.controls['exchangeRate'].touched && salesFormGroup.controls['exchangeRate'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Exchange Rate is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && salesFormGroup.controls['exchangeRate'].hasError('required')">
+                            <p class="error-message">Exchange Rate is mandatory</p>
+                        </div>
                     </div>
                     <div class="col-6 py-2">
                         <label class="">Mode of Transport</label>
                         <select class="form-select " aria-label="Default select example"
-                            formControlName="modeOfTransport">
-                            <option [selected]="salesFormGroup.value.modeOfTransport=== ''" value="" hidden>Select Mode
+                            formControlName="modeOfTransportId" (change)="handlemodeoftransport($event)">
+                            <option [selected]="salesFormGroup.value.modeOfTransportId=== ''" value="" hidden>Select
+                                Mode
                                 of
                                 Transport</option>
-                            <option *ngFor="let list of motDetails |filterPipes:'modeOfTransport'" [value]="list._id">{{list.modeOfTransport}}</option>
+                            <option *ngFor="let list of motDetails |filterPipes:'modeOfTransport'" [value]="list._id">
+                                {{list.modeOfTransport}}</option>
 
                         </select>
+                        <div
+                            *ngIf="salesFormGroup.controls['modeOfTransportId'].touched && salesFormGroup.controls['modeOfTransportId'].touched && salesFormGroup.controls['modeOfTransportId'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Mode of Transport is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && salesFormGroup.controls['modeOfTransportId'].hasError('required')">
+                            <p class="error-message">Mode of Transport is mandatory</p>
+                        </div>
                     </div>
                     <div class="col-6 py-2">
                         <label class="">Total Net Weight</label>
                         <input type="text" class="form-control " placeholder="Calculated Total Net Weight"
                             formControlName="totalNetWeight">
+                        <div
+                            *ngIf="salesFormGroup.controls['totalNetWeight'].touched && salesFormGroup.controls['totalNetWeight'].touched && salesFormGroup.controls['totalNetWeight'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Total Net Weight is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && salesFormGroup.controls['totalNetWeight'].hasError('required')">
+                            <p class="error-message">Total Net Weight is mandatory</p>
+                        </div>
                     </div>
                     <div class="col-6 py-2">
                         <label class="">Total Gross Wt</label>
                         <input type="text" class="form-control " placeholder="Calculated Total Gross Wt"
                             formControlName="totalGrossWeight">
+                        <div
+                            *ngIf="salesFormGroup.controls['totalGrossWeight'].touched && salesFormGroup.controls['totalGrossWeight'].touched && salesFormGroup.controls['totalGrossWeight'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Total Gross Weight is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && salesFormGroup.controls['totalGrossWeight'].hasError('required')">
+                            <p class="error-message">Total Gross Weight is mandatory</p>
+                        </div>
                     </div>
                     <div class="col-6 py-2">
                         <label class="">Total Volume</label>
                         <input type="text" class="form-control " placeholder="Calculated Total Volume"
                             formControlName="totalVolume">
+                        <div
+                            *ngIf="salesFormGroup.controls['totalVolume'].touched && salesFormGroup.controls['totalVolume'].touched && salesFormGroup.controls['totalVolume'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Total Volumn is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && salesFormGroup.controls['totalVolume'].hasError('required')">
+                            <p class="error-message">Total Volumn is mandatory</p>
+                        </div>
                     </div>
                     <div class="col-6 py-2">
                         <label class="">Payment Term</label>
-                        <select class="form-select " aria-label="Default select example" formControlName="paymentTerms">
-                            <option [selected]="salesFormGroup.value.paymentTerms === ''" value="" hidden>Select Payment
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="paymentTermsId" (change)="handlePaymentTerms($event)">
+                            <option [selected]="salesFormGroup.value.paymentTermsId === ''" value="" hidden>Select
+                                Payment
                                 Term
                             </option>
                             <option *ngFor="let list of paymentTermDetail |filterPipes:'paymentTerm'"
@@ -275,6 +317,13 @@
                             </option>
 
                         </select>
+                        <div
+                            *ngIf="salesFormGroup.controls['paymentTermsId'].touched && salesFormGroup.controls['paymentTermsId'].touched && salesFormGroup.controls['paymentTermsId'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Payment Terms is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && salesFormGroup.controls['paymentTermsId'].hasError('required')">
+                            <p class="error-message">Payment Terms is mandatory</p>
+                        </div>
                     </div>
                     <div class="col-6 py-2">
                         <label class="">Billing Block</label>
@@ -288,12 +337,19 @@
                             </option>
 
                         </select>
+                        <div
+                            *ngIf="salesFormGroup.controls['billingBlockId'].touched && salesFormGroup.controls['billingBlockId'].touched && salesFormGroup.controls['billingBlockId'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Billing Block is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && salesFormGroup.controls['billingBlockId'].hasError('required')">
+                            <p class="error-message">Billing Block is mandatory</p>
+                        </div>
                     </div>
                     <div class="col-6 py-2">
                         <label class="">Customer Account</label>
                         <select class="form-select " aria-label="Default select example"
-                            formControlName="customerAcctAss">
-                            <option [selected]="salesFormGroup.value.customerAcctAss === ''" value="" hidden>Select
+                            formControlName="customerAcctAssId" (change)="handleCustomerAcctAs($event)">
+                            <option [selected]="salesFormGroup.value.customerAcctAssId === ''" value="" hidden>Select
                                 Customer
                                 Account</option>
                             <option *ngFor="let list of customerAccountAsstGroup |filterPipes:'customerAccountAG'"
@@ -302,10 +358,10 @@
 
                         </select>
                         <div
-                            *ngIf="salesFormGroup.controls['customerAcctAss'].touched && salesFormGroup.controls['customerAcctAss'].touched && salesFormGroup.controls['customerAcctAss'].hasError('required') && !isSubmitted">
+                            *ngIf="salesFormGroup.controls['customerAcctAssId'].touched && salesFormGroup.controls['customerAcctAssId'].touched && salesFormGroup.controls['customerAcctAssId'].hasError('required') && !isSubmitted">
                             <p class="error-message">Customer Account is mandatory</p>
                         </div>
-                        <div *ngIf="isSubmitted && salesFormGroup.controls['customerAcctAss'].hasError('required')">
+                        <div *ngIf="isSubmitted && salesFormGroup.controls['customerAcctAssId'].hasError('required')">
                             <p class="error-message">Customer Account is mandatory</p>
                         </div>
                     </div>
@@ -399,6 +455,7 @@
                                         <th>Product Id</th>
                                         <th>Product Description</th>
                                         <th>Order Qty</th>
+                                        <th>Open QTY</th>
                                         <th>UOM</th>
                                         <th>Plant</th>
                                         <th>Storage Location</th>
@@ -456,6 +513,12 @@
 
                                         </td>
                                         <td>
+                                            <input type="number" min="0" class="form-control " placeholder="Open Qty"
+                                                formControlName="openQty" readonly>
+
+
+                                        </td>
+                                        <td>
                                             <!-- <input type="text" class="form-control " placeholder="Enter UOM"
                                                 formControlName="uom"> -->
                                             <select class="form-select w-100" aria-label="Default select example"
@@ -474,7 +537,8 @@
                                         <td>
 
                                             <select class="form-select w-100" aria-label="Default select example"
-                                                formControlName="plantId"  (change)="handlePlant($event, sales.value.materialId, i)">
+                                                formControlName="plantId"
+                                                (change)="handlePlant($event, sales.value.materialId, i)">
                                                 <option [selected]="salesFormGroup.value.plantId === ''" value=""
                                                     hidden>
                                                     Select
@@ -624,8 +688,10 @@
                                         </td>
 
                                         <td>
-                                            <select class="form-select " aria-label="Default select example"
-                                                formControlName="orderStatusId" (change)="handleOrderStatus($event, i)">
+                                            <input type="text" class="form-control " placeholder="Enter Order Status"
+                                                formControlName="orderStatusName" readonly>
+                                            <!-- <select class="form-select " aria-label="Default select example"
+                                                formControlName="orderStatusId" [disabled]="true" (change)="handleOrderStatus($event, i)">
                                                 <option [selected]="sales.value.orderStatusId === ''" value="" hidden>
                                                     Select Order
                                                     Status
@@ -636,7 +702,7 @@
                                                     {{list.orderStatus}}
                                                 </option>
 
-                                            </select>
+                                            </select> -->
                                         </td>
                                     </tr>
                                 </tbody>

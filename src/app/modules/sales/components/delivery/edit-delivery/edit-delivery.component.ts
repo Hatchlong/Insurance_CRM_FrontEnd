@@ -9,6 +9,7 @@ import { CustomerService } from 'src/app/modules/master/services/customer/custom
 import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 import { SalesOrderService } from '../../../services/sales-order/sales-order.service';
 import Swal from 'sweetalert2';
+import { VendorService } from 'src/app/modules/master/services/vendor/vendor.service';
 
 @Component({
   selector: 'app-edit-delivery',
@@ -30,7 +31,9 @@ export class EditDeliveryComponent implements OnInit {
   deliveryDetails: any = []
   salesOrderDetails: any[] = [];
   selectedSalesDetail = '';
-  deliveryId: any = ''
+  deliveryId: any = '';
+  deliveryPartnerDetails: any = []
+
   constructor(
     private fb: FormBuilder,
     private deliverySer: DeliveryService,
@@ -43,6 +46,7 @@ export class EditDeliveryComponent implements OnInit {
     private activeRouter: ActivatedRoute,
     private idle: Idle,
     private cd: ChangeDetectorRef,
+    private vendorSer:VendorService
   ) {
     idle.setIdle(450),
       idle.setTimeout(900),
@@ -75,6 +79,7 @@ export class EditDeliveryComponent implements OnInit {
     this.getCustomerMaster()
     this.getAllDetailsDetails()
     this.setStates()
+    this.getAllDeliveryPaterner()
     this.singleDeliveryDetails()
 
   }
@@ -90,9 +95,9 @@ export class EditDeliveryComponent implements OnInit {
   createDeliveryFormFields(data?: any) {
     if (data) {
       this.deliveryFormGroup = this.fb.group({
-        _id:[data._id, Validators.required],
+        _id: [data._id, Validators.required],
         deliveryType: [data.deliveryType, Validators.required],
-        deliveryId:[data.deliveryId, [Validators.required]],
+        deliveryId: [data.deliveryId, [Validators.required]],
         deliveryTypeId: [data.deliveryTypeId, Validators.required],
         plantId: [data.plantId, Validators.required],
         plantName: [data.plantName],
@@ -100,7 +105,9 @@ export class EditDeliveryComponent implements OnInit {
         customerId: [data.customerId, Validators.required],
         customerName: [data.customerName],
         deliveryAddress: [data.deliveryAddress, Validators.required],
-        deliveryPartner: [data.deliveryPartner, Validators.required],
+        deliveryPartnerId: [data.deliveryPartnerId, Validators.required],
+        deliveryPartnerName: [data.deliveryPartnerName, Validators.required],
+
 
         itemList: this.fb.array(data.itemList.map((el: any) => this.getdeliveryFields(el, data)))
       })
@@ -409,7 +416,36 @@ export class EditDeliveryComponent implements OnInit {
 
     }
   }
+  // Get All delivery Details
+  async getAllDeliveryPaterner() {
+    try {
+      const result: any = await this.vendorSer.getAllVendorDetails()
+      if (result.status === '1') {
+        this.deliveryPartnerDetails = result.data.filter((el: any) => el.vendorTypeName === 'delivery paterner')
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
 
+  handleDeliveryPartner(event: any) {
+    if (event.target.value) {
+      const findDeliveryPartner = this.deliveryPartnerDetails.find((el: any) => el.vendorId === event.target.value);
+      this.deliveryFormGroup.controls.deliveryPartnerName.setValue(findDeliveryPartner.vendorName)
+    }
+  }
 
 
 }

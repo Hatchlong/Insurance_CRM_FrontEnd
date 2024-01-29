@@ -10,6 +10,7 @@ import { SalesOrderService } from '../../../services/sales-order/sales-order.ser
 import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
 import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
+import { VendorService } from 'src/app/modules/master/services/vendor/vendor.service';
 
 @Component({
   selector: 'app-delivery-sales-order',
@@ -29,7 +30,7 @@ export class DeliverySalesOrderComponent implements OnInit {
   salesOrderDetails: any = '';
   deliveryDetails: any = []
   idleState: any = 'Not Started';
-
+  deliveryPartnerDetails:any = []
   constructor(
     private fb: FormBuilder,
     private deliverySer: DeliveryService,
@@ -41,7 +42,8 @@ export class DeliverySalesOrderComponent implements OnInit {
     private salesOrderSer: SalesOrderService,
     private _location: Location,
     private idle: Idle,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private vendorSer:VendorService
   ) {
     idle.setIdle(450),
       idle.setTimeout(900),
@@ -76,6 +78,7 @@ export class DeliverySalesOrderComponent implements OnInit {
     this.getProductMasterDetail()
     this.getCustomerMaster()
     this.getAllDetailsDetails()
+    this.getAllDeliveryPaterner()
     this.setStates()
   }
 
@@ -92,6 +95,8 @@ export class DeliverySalesOrderComponent implements OnInit {
   createDeliveryFormFields() {
     console.log(this.salesOrderDetails, 'kkk')
     this.deliveryFormGroup = this.fb.group({
+      salesOrderId:[this.salesOrderDetails.salesOrderId,Validators.required],
+      salesOrderName:[this.salesOrderDetails.salesOrder,Validators.required],
       deliveryType: ['', Validators.required],
       deliveryTypeId:['', Validators.required],
       plantId: [this.salesOrderDetails.itemList[0].plantId, Validators.required],
@@ -100,7 +105,9 @@ export class DeliverySalesOrderComponent implements OnInit {
       customerId: [this.salesOrderDetails.customerId, Validators.required],
       customerName: [this.salesOrderDetails.customerName],
       deliveryAddress: [this.salesOrderDetails.customerAddress, Validators.required],
-      deliveryPartner: ['', Validators.required],
+      deliveryPartnerId: ['', Validators.required],
+      deliveryPartnerName: ['', Validators.required],
+
 
       itemList: this.fb.array(this.salesOrderDetails.itemList.map((el: any) => this.getdeliveryFields(el)))
     })
@@ -121,7 +128,7 @@ export class DeliverySalesOrderComponent implements OnInit {
         uomName: [""],
         storageLocationId: [''],
         storageLocationName: [""],
-        referenceSalesOrder: [this.salesOrderDetails._id],
+        referenceSalesOrder: [this.salesOrderDetails.salesOrderId],
         referenceSalesOrderItem: [this.salesOrderDetails.salesOrder]
       })
     }
@@ -208,6 +215,39 @@ export class DeliverySalesOrderComponent implements OnInit {
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
       });
+    }
+  }
+
+
+
+   // Get All delivery Details
+   async getAllDeliveryPaterner() {
+    try {
+      const result: any = await this.vendorSer.getAllVendorDetails()
+      if (result.status === '1') {
+        this.deliveryPartnerDetails = result.data.filter((el:any) => el.vendorTypeName === 'delivery paterner')
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+  handleDeliveryPartner(event:any){
+    if(event.target.value){
+      const findDeliveryPartner = this.deliveryPartnerDetails.find((el:any) => el.vendorId === event.target.value);
+      this.deliveryFormGroup.controls.deliveryPartnerName.setValue(findDeliveryPartner.vendorName)
     }
   }
 

@@ -24,6 +24,14 @@ export class BillingService {
     return this.http.get(`http://localhost:4000/api/sales/billing/getAll/${skip}/${itemsPerPage}`).toPromise()
   }
 
+  getAllBillingDetails(){
+    return this.http.get(`http://localhost:4000/api/sales/billing/getAll`).toPromise()
+  }
+
+  getAllPostingStatusDetails(){
+    return this.http.get(`http://localhost:4000/api/config/postingStatus/getAll`).toPromise()
+  }
+
   singlebillingDetails(id: any) {
     return this.http.get(`http://localhost:4000/api/sales/billing/get/${id}`).toPromise()
   }

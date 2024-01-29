@@ -45,9 +45,10 @@
           <thead>
             <tr>
               <th>SN</th>
+              <th>Delivery Id</th>
+              <th>Sales Order Id</th>
               <th scope="col">Delivery Type</th>
               <th scope="col">Plant </th>
-              
               <th scope="col">Delivery Address</th>
               <th scope="col">Delivery Partner</th>
               <th scope="col">Action</th>
@@ -62,11 +63,12 @@
           <tbody>
             <tr *ngFor="let list of deliveryDetail;let i=index">
               <td scope="row">{{i+1}}</td>
-              
+              <td>{{list.deliveryId}}</td>
+              <td>{{list.salesOrderId}}</td>
               <td>{{list.deliveryType}}</td>
               <td>{{list.plantName}}</td>
               <td>{{list.deliveryAddress}}</td>
-              <td>{{list.deliveryPartner}}</td>
+              <td>{{list.deliveryPartnerName}}</td>
               <td>
                 <div class="d-flex">
                   <div>

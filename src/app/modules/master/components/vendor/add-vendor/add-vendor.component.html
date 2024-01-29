@@ -25,19 +25,19 @@
                                         </div>
                                     </div>
                                     <div class="col-12 py-2">
-                                        <label for="">Vendor Type <sup>*</sup></label>
+                                        <label for="">Account Group <sup>*</sup></label>
                                         <select class="form-select" formControlName="vendorTypeId" (change)="handleVendorType($event)">
                                             <option [selected]="vendorFormGroup.value.vendorTypeId === ''" value="" hidden>Select
-                                                Vendor Type</option>
+                                                Account Group</option>
                                            <option *ngFor="let list of vendorTypeDetail;" [value]="list._id">{{list.description}}</option>
                                         </select>
                                         <div
                                             *ngIf="vendorFormGroup.controls['vendorTypeId'].touched && vendorFormGroup.controls['vendorTypeId'].dirty && vendorFormGroup.controls['vendorTypeId'].hasError('required') && !isSubmitted">
-                                            <p class="error-message">Vendor Type is mandatory</p>
+                                            <p class="error-message">Account Group is mandatory</p>
                                         </div>
                                         <div
                                             *ngIf="isSubmitted && vendorFormGroup.controls['vendorTypeId'].hasError('required')">
-                                            <p class="error-message">Vendor Type is mandatory</p>
+                                            <p class="error-message">Account Group is mandatory</p>
                                         </div>
                                     </div>
                                     <div class="col-12 py-2" [ngStyle]="{'pointer-events' : !vendorIdisShow ? 'none' : 'all' }" >

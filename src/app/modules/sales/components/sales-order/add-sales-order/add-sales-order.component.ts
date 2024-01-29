@@ -128,18 +128,20 @@ export class AddSalesOrderComponent {
       companyCurrency: ['', Validators.required],
       transactionCurrency: ['', Validators.required],
       text: ['', Validators.required],
-
       exchangeRate: ['', Validators.required],
-      modeOfTransport: ['', Validators.required],
+      modeOfTransportId: ['', Validators.required],
+      modeOfTransportName: ['', Validators.required],
       totalNetWeight: ['', Validators.required],
       totalGrossWeight: ['', Validators.required],
       totalVolume: ['', Validators.required],
-      paymentTerms: ['', Validators.required],
+      paymentTermsId: ['', Validators.required],
+      paymentTermsName: ['', Validators.required],
       billingBlockId: ['', Validators.required],
       billingBlockName: [''],
       companyCodeId: ['', Validators.required],
       companyCodeName: [''],
-      customerAcctAss: ['', Validators.required],
+      customerAcctAssId: ['', Validators.required],
+      customerAcctAssName: ['', Validators.required],
       netPrice: ['', Validators.required],
       netTax: ['', Validators.required],
       netDiscount: ['', Validators.required],
@@ -750,6 +752,29 @@ export class AddSalesOrderComponent {
       formGroup.patchValue({
         openQty: +event.target.value
       })
+    }
+  }
+
+
+  handlemodeoftransport(event:any){
+    if(event.target.value){
+    const findModeTran = this.motDetails.find((el: any) => el._id === event.target.value)
+    this.salesFormGroup.controls.modeOfTransportName.setValue(findModeTran.modeOfTransport)
+    }
+  }
+
+
+  handlePaymentTerms(event:any){
+    if(event.target.value){
+    const findModeTran = this.paymentTermDetail.find((el: any) => el._id === event.target.value)
+    this.salesFormGroup.controls.paymentTermsName.setValue(findModeTran.paymentTerm)
+    }
+  }
+
+  handleCustomerAcctAs(event:any){
+    if(event.target.value){
+    const findModeTran = this.customerAccountAsstGroup.find((el: any) => el._id === event.target.value)
+    this.salesFormGroup.controls.customerAcctAssName.setValue(findModeTran.customerAccountAG)
     }
   }
 

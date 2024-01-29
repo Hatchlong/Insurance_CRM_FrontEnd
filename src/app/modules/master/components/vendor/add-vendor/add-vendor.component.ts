@@ -269,7 +269,7 @@ export class AddVendorComponent implements OnInit {
 
   handleCurrency(event: any) {
     const findCurrencyCode = this.currencyDetails.find((el: any) => el._id === event.target.value);
-    this.vendorDetials.controls.currencyName.setValue(findCurrencyCode.code)
+    // this.vendorDetials.controls.currencyName.setValue(findCurrencyCode.code)
   }
 
   // get MOT organization

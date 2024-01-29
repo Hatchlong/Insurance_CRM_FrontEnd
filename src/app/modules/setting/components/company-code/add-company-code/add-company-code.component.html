@@ -14,7 +14,7 @@
                     <div class="col-12 py-2">
                         <label for="">Company Code <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Company code"
-                            formControlName="companyCode" appDirective>
+                            formControlName="companyCode" appDirective (input)="checkInputLength($event); perviousValue = companyCode.value.companyCode">
                         <div
                             *ngIf="companyCode.controls['companyCode'].touched && companyCode.controls['companyCode'].dirty && companyCode.controls['companyCode'].hasError('required') && !isSubmitted">
                             <p class="error-message">Company code is mandatory</p>

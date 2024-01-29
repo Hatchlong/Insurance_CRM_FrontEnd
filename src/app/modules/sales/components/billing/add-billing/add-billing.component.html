@@ -10,12 +10,22 @@
                 <div class="row border">
 
                     <div class="col-6 py-2">
+                        <label for="">Billing Number <sup>*</sup> </label>
+                        <input type="text" class="form-control" placeholder="Billing Number"
+                            formControlName="billingNumber" readonly>
+
+                    </div>
+
+                    <div class="col-6 py-2">
                         <label for="">Billing Type <sup>*</sup> </label>
-                        <select class="form-select" formControlName="billingTypeId" (change)="handleBillingType($event)">
-                            <option [selected]="billingFormGroup.value.billingTypeId=== ''" value="" hidden>Select Billing
+                        <select class="form-select" formControlName="billingTypeId"
+                            (change)="handleBillingType($event)">
+                            <option [selected]="billingFormGroup.value.billingTypeId=== ''" value="" hidden>Select
+                                Billing
                                 Type</option>
-                            <option *ngFor="let list of billingTypeList | filterPipes : 'code'" [value]="list._id">
-                                {{list.code}}</option>
+                            <option *ngFor="let list of billingTypeList | filterPipes : 'description'"
+                                [value]="list._id">
+                                {{list.description}}</option>
                         </select>
 
                         <div
@@ -38,10 +48,51 @@
                             <p class="error-message">Billing Date is mandatory</p>
                         </div>
                     </div>
+
+                    <div class="col-6 py-2 ">
+                        <label for="ReferenceType">Reference Type</label>
+                        <div class="d-flex mt-2 d-grid gap-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" formControlName="referenceDocumentType"
+                                    id="flexRadioDefault1" value="Sales">
+                                <label class="form-check-label"
+                                    style="font-weight: 500; font-size: 13px; position: relative; bottom: 3px;"
+                                    for="flexRadioDefault1" >
+                                    Sales Order 
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" formControlName="referenceDocumentType"
+                                    id="flexRadioDefault2" value="Delivery">
+                                <label class="form-check-label"
+                                    style="font-weight: 500; font-size: 13px; position: relative; bottom: 3px;"
+                                    for="flexRadioDefault2">
+                                    Delivery Order
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" formControlName="referenceDocumentType"
+                                    id="flexRadioDefault3" value="Invoice">
+                                <label class="form-check-label"
+                                    style="font-weight: 500; font-size: 13px; position: relative; bottom: 3px;"
+                                    for="flexRadioDefault3">
+                                    Invoice
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="col-6 py-2 ">
                         <label for="ReferenceDoc">Reference Doc</label>
-                        <input type="text" class="form-control" formControlName="referenceDocument"
-                            placeholder="Enter Reference Document">
+                        <input *ngIf="billingFormGroup.value.referenceDocumentType === 'Sales'" formControlName="referenceDocument" placeholder="Enter Reference Document" (typeaheadOnSelect)="typeaheadOnSalesSelect($event)" [typeahead]="salesOrderDetails" typeaheadOptionField="salesOrderId"
+                        class="form-control">
+                        <input *ngIf="billingFormGroup.value.referenceDocumentType === 'Delivery'" formControlName="referenceDocument" placeholder="Enter Reference Document" (typeaheadOnSelect)="typeaheadOnDeliverySelect($event)" [typeahead]="deliveryDetails" typeaheadOptionField="deliveryId"
+                        class="form-control">
+                        <input *ngIf="billingFormGroup.value.referenceDocumentType === 'Invoice'" formControlName="referenceDocument" placeholder="Enter Reference Document" (typeaheadOnSelect)="typeaheadOnInvoivceSelect($event)" [typeahead]="billingDetails" typeaheadOptionField="billingNumber"
+                        class="form-control">
+                        <!-- <input type="text" class="form-control" formControlName="referenceDocument"
+                            placeholder="Enter Reference Document"> -->
                         <div
                             *ngIf="billingFormGroup.controls['referenceDocument'].touched && billingFormGroup.controls['referenceDocument'].touched && billingFormGroup.controls['referenceDocument'].hasError('required') && !isSubmitted">
                             <p class="error-message">Reference Document is mandatory</p>
@@ -150,7 +201,7 @@
 
                     </div>
                     <div class="col-6 py-2  mb-2">
-                        <label for="">Customer Account AG <sup>*</sup></label>
+                        <label for="">Customer Account Assign Group <sup>*</sup></label>
                         <select class="form-select" formControlName="customerAsstAccountId"
                             (change)="handleCustomerAcctAssign($event)">
                             <option [selected]="billingFormGroup.value.customerAsstAccountId=== ''" value="" hidden>
@@ -173,19 +224,19 @@
                     </div>
                     <div class="col-6 py-2  mb-2">
                         <label for="">Posting Status <sup>*</sup></label>
-                        <select class="form-select" formControlName="postingStatus">
-                            <option [selected]="billingFormGroup.value.postingStatus=== ''" value="" hidden>Enter
+                        <select class="form-select" formControlName="postingStatusId" (change)="handlePostingStatus($event)">
+                            <option [selected]="billingFormGroup.value.postingStatusId=== ''" value="" hidden>Enter
                                 Posting Status</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                                <option *ngFor="let list of postingDetails |filterPipes:'description'"
+                                [value]="list._id">
+                                {{list.description}}</option>
                         </select>
 
                         <div
-                            *ngIf="billingFormGroup.controls['postingStatus'].touched && billingFormGroup.controls['postingStatus'].touched && billingFormGroup.controls['postingStatus'].hasError('required') && !isSubmitted">
+                            *ngIf="billingFormGroup.controls['postingStatusId'].touched && billingFormGroup.controls['postingStatusId'].touched && billingFormGroup.controls['postingStatusId'].hasError('required') && !isSubmitted">
                             <p class="error-message">Posting Status is mandatory</p>
                         </div>
-                        <div *ngIf="isSubmitted && billingFormGroup.controls['postingStatus'].hasError('required')">
+                        <div *ngIf="isSubmitted && billingFormGroup.controls['postingStatusId'].hasError('required')">
                             <p class="error-message">Posting Status is mandatory</p>
                         </div>
 
@@ -379,7 +430,7 @@
                                     Item Data
                                 </h3>
                             </div>
-                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex justify-content-end">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex justify-content-end align-items-center">
                                 <button class="btn btn-primary" (click)="addFinancial()">Add</button>
 
                             </div>

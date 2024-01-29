@@ -17,7 +17,8 @@ export class AddBillingBlockComponent {
   billing: any = FormGroup
   isSubmitted: any = false
   isShowPadding:any = false;
-  idleState:any = 'Not Started'
+  idleState:any = 'Not Started';
+  perviousValue:any = ''
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -109,5 +110,16 @@ return
     }
 
 
+  }
+
+
+  checkInputLength(event:any){
+    if(event.target.value){
+      
+      if(this.billing.value.billingBlock.length > 6){
+        this.billing.controls.billingBlock.setValue(this.perviousValue)
+        return
+      }
+    }
   }
 }

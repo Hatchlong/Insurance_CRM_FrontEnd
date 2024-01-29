@@ -11,6 +11,7 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { SalesOrderService } from '../../../services/sales-order/sales-order.service';
+import { VendorService } from 'src/app/modules/master/services/vendor/vendor.service';
 
 @Component({
   selector: 'app-add-delivery',
@@ -32,6 +33,7 @@ export class AddDeliveryComponent implements OnInit {
   deliveryDetails: any = []
   salesOrderDetails: any[] = [];
   selectedSalesDetail = ''
+  deliveryPartnerDetails:any = []
   constructor(
     private fb: FormBuilder,
     private deliverySer: DeliveryService,
@@ -43,6 +45,7 @@ export class AddDeliveryComponent implements OnInit {
     private salesOrderSer: SalesOrderService,
     private idle: Idle,
     private cd: ChangeDetectorRef,
+    private vendorSer:VendorService
   ) {
     idle.setIdle(450),
       idle.setTimeout(900),
@@ -73,6 +76,7 @@ export class AddDeliveryComponent implements OnInit {
     this.getProductMasterDetail()
     this.getCustomerMaster()
     this.getAllDetailsDetails()
+    this.getAllDeliveryPaterner()
     this.setStates()
   }
 
@@ -88,7 +92,8 @@ export class AddDeliveryComponent implements OnInit {
     if (data) {
       console.log(data, 'kkkk')
       this.deliveryFormGroup = this.fb.group({
-        salesOrderId:[this.selectedSalesDetail, Validators.required],
+        salesOrderId:[data.salesOrderId,Validators.required],
+        salesOrderName:[data.salesOrder,Validators.required],
         deliveryType: ['', Validators.required],
         deliveryTypeId: ['', Validators.required],
         plantId: [data.itemList[0].plantId, Validators.required],
@@ -97,7 +102,9 @@ export class AddDeliveryComponent implements OnInit {
         customerId: [data.customerId, Validators.required],
         customerName: [data.customerName],
         deliveryAddress: [data.customerAddress, Validators.required],
-        deliveryPartner: ['', Validators.required],
+        deliveryPartnerId: ['', Validators.required],
+        deliveryPartnerName: ['', Validators.required],
+
 
         itemList: this.fb.array(data.itemList.map((el: any) => this.getdeliveryFields(el, data)))
       })
@@ -105,6 +112,7 @@ export class AddDeliveryComponent implements OnInit {
     }
     this.deliveryFormGroup = this.fb.group({
       salesOrderId: ['', Validators.required],
+      salesOrderName:['', Validators.required],
       deliveryType: ['', Validators.required],
       deliveryTypeId: ['', Validators.required],
       plantId: ['', Validators.required],
@@ -113,7 +121,8 @@ export class AddDeliveryComponent implements OnInit {
       customerId: ['', Validators.required],
       customerName: ['', Validators.required],
       deliveryAddress: ['', Validators.required],
-      deliveryPartner: ['', Validators.required],
+      deliveryPartnerId: ['', Validators.required],
+      deliveryPartnerName: ['', Validators.required],
 
       itemList: this.fb.array([this.getdeliveryFields()])
     })
@@ -135,7 +144,7 @@ export class AddDeliveryComponent implements OnInit {
         uomName: [""],
         storageLocationId: [''],
         storageLocationName: [""],
-        referenceSalesOrder: [salesData._id],
+        referenceSalesOrder: [salesData.salesOrderId],
         referenceSalesOrderItem: [salesData.salesOrder]
       })
     }
@@ -410,6 +419,37 @@ export class AddDeliveryComponent implements OnInit {
     this.selectedSalesDetail = event.value;
     const salesList = this.salesOrderDetails.find((el: any) => el.salesOrder === event.value);
     this.createDeliveryFormFields(salesList)
+  }
+
+  // Get All delivery Details
+  async getAllDeliveryPaterner() {
+    try {
+      const result: any = await this.vendorSer.getAllVendorDetails()
+      if (result.status === '1') {
+        this.deliveryPartnerDetails = result.data.filter((el:any) => el.vendorTypeName === 'delivery paterner')
+      }
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+  handleDeliveryPartner(event:any){
+    if(event.target.value){
+      const findDeliveryPartner = this.deliveryPartnerDetails.find((el:any) => el.vendorId === event.target.value);
+      this.deliveryFormGroup.controls.deliveryPartnerName.setValue(findDeliveryPartner.vendorName)
+    }
   }
 
 }

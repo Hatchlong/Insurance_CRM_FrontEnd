@@ -179,8 +179,8 @@ export class SalesOrderListComponent implements OnInit {
       const result: any = await this.salesOrderSer.getAllSalesOrderDetailsPage(page, itemsPerPage)
       console.log(result)
       if (result.status === '1') {
-        this.salesOrderDetail = result.data
-        this.allSalesDetails = result.data
+        this.salesOrderDetail = result.data.filter((el:any) => el.orderStatusName !== 'FULLY DELIVERED')
+        this.allSalesDetails = result.data.filter((el:any) => el.orderStatusName !== 'FULLY DELIVERED')
         result.data.map((el: any) => {
           el.check = false
         })
