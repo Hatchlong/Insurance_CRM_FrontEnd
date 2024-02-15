@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  
   {
     path: '',
     redirectTo:'authr',
@@ -12,24 +13,14 @@ const routes: Routes = [
     loadChildren: () => import('./modules/authr/authr.module').then(m => m.AuthrModule)
   },
   {
-    path: 'master',
-    loadChildren: () => import('./modules/master/master.module').then(m => m.MasterModule)
-  },
-  {
-    path: 'settings',
-    loadChildren: () => import('./modules/setting/setting.module').then(m => m.SettingModule)
-  },
-  {
-    path: 'purchase',
-    loadChildren: () => import('./modules/purchase/purchase.module').then(m => m.PurchaseModule)
-  },
-  {
-    path:'sales',
-    loadChildren:()=>import('./modules/sales/sales.module').then(m=>m.SalesModule)
-  },
-  {
-    path:'inventory',
-    loadChildren:()=>import('./modules/inventory/inventory.module').then(m=>m.InventoryModule)
+    path:'master',
+    loadChildren:()=>import('./modules/master/master.module').then(m=>m.MasterModule)
+  },{
+    path:'setting',
+    loadChildren:()=>import('./modules/setting/setting.module').then(m=>m.SettingModule)
+  },{
+    path:'applyPolicy',
+    loadChildren:()=>import('./modules/apply-policy/apply-policy.module').then(m=>m.ApplyPolicyModule)
   }
 ];
 

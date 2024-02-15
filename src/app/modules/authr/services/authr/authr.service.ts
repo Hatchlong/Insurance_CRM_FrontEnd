@@ -19,5 +19,4 @@ export class AuthrService {
 
   loginUser(data:any){
     return this.http.post('http://localhost:4000/api/auth/user/login', data).toPromise()
-  }
-}
+  }}

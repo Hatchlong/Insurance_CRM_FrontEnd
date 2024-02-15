@@ -1,0 +1,38 @@
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
+  <h2><mat-icon class="back" routerLink="/setting/vehicle-category-list">arrow_back</mat-icon>Vehicle Category</h2>
+
+  <form [formGroup]="vehicleCategoryData" (ngSubmit)="submitData()">
+    <div class="row border mx-0">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+        <label for="">Vehicle Category <sup>*</sup></label>
+        <input type="text" formControlName="vehicleCategory" class="form-control" placeholder="Enter Vehicle Category" appCodeDirective>
+        <div
+          *ngIf="vehicleCategoryData.controls['vehicleCategory'].touched && vehicleCategoryData.controls['vehicleCategory'].dirty && vehicleCategoryData.controls['vehicleCategory'].hasError('required') && !isSubmitted">
+          <p class="error-message">Vehicle Category is mandatory</p>
+        </div>
+        <div *ngIf="isSubmitted && vehicleCategoryData.controls['vehicleCategory'].hasError('required')">
+          <p class="error-message">Vehicle Category is mandatory</p>
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+        <label for="">Description<sup>*</sup></label>
+        <input type="text" formControlName="description" class="form-control" placeholder="Enter Description" />
+        <div
+          *ngIf="vehicleCategoryData.controls['description'].touched && vehicleCategoryData.controls['description'].dirty && vehicleCategoryData.controls['description'].hasError('required') && !isSubmitted">
+          <p class="error-message">Description is mandatory</p>
+        </div>
+        <div *ngIf="isSubmitted && vehicleCategoryData.controls['description'].hasError('required')">
+          <p class="error-message">Description is mandatory</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 d-flex justify-content-end py-2">
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+
+  </form>
+
+
+
+</div>

@@ -1,94 +1,94 @@
-<app-side-nav (isShowNav)="handleSideBar($event)" [logoutAction]="idleState"></app-side-nav>
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
-  <div class="row mt-3">
-    <div class="col-12 ">
-      <div class="row">
-        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Enter Company Code / Company Name"
-              (input)="handleFilter($event)">
-          </div>
-        </div>
-        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+    <div class="row mt-3 ">
+        <div class="col-12">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <input type="search" #searchDataInput name="" id="search-data"
+                    placeholder="Company Code/Company Name/Mobile/Mail Id" class="form-control w-50"
+                    (input)="handleFilter($event)">
+            </div>
 
-            <button (click)="nextPage('/settings/add-company-code')" class="btn btn-primary " type="button">Add
-              Company</button>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
 
-            <button class="btn btn-danger" type="button" (click)="handleDeleteMuliple()">
-              <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
-              Delete Selected Company</button>
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="importHandle(inputFile)">
-                <span>Import Company</span>
-                <input class="d-none" #inputFile type="file" (change)="handleFileData($event)">
-              </button>
-              <button mat-menu-item (click)="exportExcel()">
-                <span>Export Company</span>
-              </button>
-              <button mat-menu-item (click)="downloadExcel()">
-                <span>Sample Company Sheet</span>
-              </button>
-            </mat-menu>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-12">
+                        <button class="btn btn-primary  " (click)="nextPage('/setting/add-company-code')" type="button"
+                            style="color: white;background: #00acff;">Add Company Code</button>
 
-    </div>
-    <div class="col-12">
-      <div class="table-responsive">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>SN</th>
-              <th>Company Code</th>
-              <th>Company Name</th>
-              <th>Country</th>
-              <th>City</th>
-              <th>Currency</th>
-              <th>Action</th>
-              <th><input type="checkbox" [checked]="selectAll" (change)="selectdata($event)">Select All</th>
-            </tr>
-          </thead>
-          <tbody *ngIf="companyCodeDetails.length === 0">
-            <tr>
-              <td colspan="8" class="text-center">No Records</td>
-            </tr>
-          </tbody>
-          <tbody *ngIf="companyCodeDetails.length !== 0">
-            <tr *ngFor="let list of companyCodeDetails; let i=index">
-              <td>{{i+1}}</td>
-              <td>{{list.companyCode}}</td>
-              <td>{{list.companyName}}</td>
-              <td>{{list.countryName}}</td>
-              <td>{{list.city}}</td>
-              <td>{{list.currencyName}}</td>
-              <td>
-                <div class="d-flex">
-                  <div>
-                    <mat-icon [routerLink]="'/settings/edit-company-code/'+list._id">edit</mat-icon>
-                  </div>
-                  <div>
-                    <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
-                  </div>
+                        <button class="btn btn-danger" type="button" style="color: white;">
+                            <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
+                            Delete Selected Company Code</button>
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item>
+                                <span>Import Company Code</span>
+                            </button>
+                            <button mat-menu-item>
+                                <span>Export Company Code</span>
+                            </button>
+                            <button mat-menu-item>
+                                <span>Sample Company Code Sheet</span>
+                            </button>
+                        </mat-menu>
+
+
+                    </div>
                 </div>
-              </td>
-              <td><input type="checkbox" [checked]="list.check" (change)="particularcheck($event,i)"></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="col-xs-12 col-12 d-flex justify-content-center" *ngIf="companyCodeDetails.length > 10">
-      <pagination [totalItems]="totalItem" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
-    </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>SN</th>
+                                    <th scope="col">Company code</th>
+                                    <th scope="col">Company Name </th>
 
-  </div>
+                                    <th scope="col">MailId</th>
+                                    <th scope="col">Mobile</th>
+                                    <th scope="col">Action</th>
+                                    <th scope="col"><input type="checkbox" [checked]="selectAll"
+                                            (change)="selectdata($event)"> Select All</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="companyCodeDetail.length === 0">
+                                <tr>
+                                    <td colspan="7" class="text-center">No Records</td>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                                <tr *ngFor="let list of companyCodeDetail; let i=index">
+                                    <td>{{i+1}}</td>
+                                    <td>{{list.companyCode}}</td>
+                                    <td>{{list.companyName}}</td>
+                                    <td>{{list.mobile}}</td>
+                                    <td>{{list.mailId}}</td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <div>
+                                                <mat-icon
+                                                    [routerLink]="'/setting/edit-company-code/'+list._id">edit</mat-icon>
+                                            </div>
+                                            <div>
+                                                <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td><input type="checkbox" class="checkbox" [checked]="list.check"
+                                            (change)="particularcheck($event,i)"></td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
 </div>

@@ -2,63 +2,62 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MasterRoutingModule } from './master-routing.module';
-import { SharedModule } from '../shared/shared.module';
+import { AgentListComponent } from './components/agent/agent-list/agent-list.component';
+import { AddAgentComponent } from './components/agent/add-agent/add-agent.component';
+import { MatIconModule } from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
-
-import { AddProductComponent } from './components/product/add-product/add-product.component';
-import { ProductListComponent } from './components/product/product-list/product-list.component';
-import { AddVendorComponent } from './components/vendor/add-vendor/add-vendor.component';
-import { VendorListComponent } from './components/vendor/vendor-list/vendor-list.component';
+import { SharedModule } from '../shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DirectiveDirective } from './services/directive.directive';
+import { AddPolicyPlanComponent } from './components/policy-plan/add-policy-plan/add-policy-plan.component';
+import { PolicyPlanListComponent } from './components/policy-plan/policy-plan-list/policy-plan-list.component';
+import { AddCustomerComponent } from './components/customer/add-customer/add-customer.component';
+import { CustomerListComponent } from './components/customer/customer-list/customer-list.component';
+import { AgentService } from './services/agent/agent.service';
 import { HttpClientModule } from '@angular/common/http';
-import { CountryService } from './services/country/country.service';
-import { AddCustomerComponent } from './components/customer-master/add-customer/add-customer.component';
-import { CustomerListComponent } from './components/customer-master/customer-list/customer-list.component';
-import { EditVendorComponent } from './components/vendor/edit-vendor/edit-vendor.component';
-import { VendorService } from './services/vendor/vendor.service';
-import { ProductService } from './services/product/product.service';
-import { EditProductComponent } from './components/product/edit-product/edit-product.component';
-import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { EditCustomerComponent } from './components/customer-master/edit-customer/edit-customer.component';
-import { CustomerService } from './services/customer/customer.service';
-import { FilterPipe } from './services/filter/filter.pipe';
-import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+import { PolicyPlanService } from './services/policy-plan/policy-plan.service';
+import { EditAgentComponent } from './components/agent/edit-agent/edit-agent.component';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { EditPolicyPlanComponent } from './components/policy-plan/edit-policy-plan/edit-policy-plan.component';
+import { ViewImageComponent } from './components/view-image/view-image/view-image.component';
+
+
 
 @NgModule({
   declarations: [
-    AddProductComponent,
-    ProductListComponent,
-    AddVendorComponent,
-    VendorListComponent,
+    AgentListComponent,
+    AddAgentComponent,
+    DirectiveDirective,
+    AddPolicyPlanComponent,
+    PolicyPlanListComponent,
     AddCustomerComponent,
     CustomerListComponent,
-    EditVendorComponent,
-    EditProductComponent,
-    EditCustomerComponent,
-    FilterPipe
+    EditAgentComponent,
+    EditPolicyPlanComponent,
+    ViewImageComponent
   ],
   imports: [
     CommonModule,
     MasterRoutingModule,
-    SharedModule,
-    MatTabsModule,
-    ReactiveFormsModule,
+    MatIconModule,
     MatSlideToggleModule,
     MatButtonModule,
     MatIconModule,
     MatDividerModule,
     MatMenuModule,
     MatTabsModule,
-    HttpClientModule,
-    PaginationModule.forRoot(),
+    SharedModule,
     FormsModule,
-    NgIdleKeepaliveModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatDialogModule
+
+
   ],
-  providers:[CountryService, VendorService, ProductService,CustomerService]
+  providers:[AgentService,PolicyPlanService]
 })
 export class MasterModule { }

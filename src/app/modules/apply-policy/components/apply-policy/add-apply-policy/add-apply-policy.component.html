@@ -1,0 +1,161 @@
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
+    <div class="row">
+        <div class="col-12">
+            <h2><mat-icon class="back" routerLink="/applyPolicy/apply-policy-list">arrow_back</mat-icon>Apply Policy
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 ">
+            <form [formGroup]="policyFormData" (ngSubmit)="submitData()">
+                <div class="row border">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="example">Customer Name <sup>*</sup></label>
+                        <select class="form-select " aria-label="Default select example" formControlName="customerName">
+                            <option [selected]="policyFormData.value.customerName === ''" value="" hidden>
+                                Select
+                                Customer Name </option>
+                            <option value="Commercial">Commercial</option>
+                            <option value="General">General</option>
+                            <div
+                                *ngIf="policyFormData.controls['customerName'].touched && policyFormData.controls['customerName'].dirty && policyFormData.controls['customerName'].hasError('required') && !isSubmitted">
+                                <p class="error-message">Customer Name is mandatory</p>
+                            </div>
+                            <div *ngIf="isSubmitted && policyFormData.controls['customerName'].hasError('required')">
+                                <p class="error-message">Customer Name is mandatory</p>
+                            </div>
+                        </select>
+
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="example">Policy Type <sup>*</sup></label>
+                        <select class="form-select " aria-label="Default select example" formControlName="policyType">
+                            <option [selected]="policyFormData.value.policyType === ''" value="" hidden>
+                                Select
+                                Policy Type </option>
+                            <option value="Commercial">Commercial</option>
+                            <option value="General">General</option>
+                            <div
+                                *ngIf="policyFormData.controls['policyType'].touched && policyFormData.controls['policyType'].dirty && policyFormData.controls['policyType'].hasError('required') && !isSubmitted">
+                                <p class="error-message">Policy Type is mandatory</p>
+                            </div>
+                            <div *ngIf="isSubmitted && policyFormData.controls['policyType'].hasError('required')">
+                                <p class="error-message">Policy Type is mandatory</p>
+                            </div>
+                        </select>
+
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">Policy Company <sup>*</sup></label>
+
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="policyCompany">
+                            <option [selected]="policyFormData.value.policyCompany === ''" value="" hidden>
+                                Select
+                                Policy Company </option>
+                            <option value="Commercial">Commercial</option>
+                            <option value="General">General</option>
+                            <div
+                                *ngIf="policyFormData.controls['policyCompany'].touched && policyFormData.controls['policyCompany'].dirty && policyFormData.controls['policyCompany'].hasError('required') && !isSubmitted">
+                                <p class="error-message">Policy Company is mandatory</p>
+                            </div>
+                            <div *ngIf="isSubmitted && policyFormData.controls['policyCompany'].hasError('required')">
+                                <p class="error-message">Policy Company is mandatory</p>
+                            </div>
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="example">Policy Code <sup>*</sup></label>
+                        <select class="form-select " aria-label="Default select example" formControlName="policyCode">
+                            <option [selected]="policyFormData.value.policyCode === ''" value="" hidden>
+                                Select
+                                Policy Code </option>
+                            <option value="Commercial">Commercial</option>
+                            <option value="General">General</option>
+                            <div
+                                *ngIf="policyFormData.controls['policyCode'].touched && policyFormData.controls['policyCode'].dirty && policyFormData.controls['policyCode'].hasError('required') && !isSubmitted">
+                                <p class="error-message">Policy Code is mandatory</p>
+                            </div>
+                            <div *ngIf="isSubmitted && policyFormData.controls['policyCode'].hasError('required')">
+                                <p class="error-message">Policy Code is mandatory</p>
+                            </div>
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">Description<sup>*</sup></label>
+                        <input type="text" class="form-control " placeholder="Enter description"
+                            formControlName="description">
+                        <div
+                            *ngIf="policyFormData.controls['description'].touched && policyFormData.controls['description'].dirty && policyFormData.controls['description'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Description is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && policyFormData.controls['description'].hasError('required')">
+                            <p class="error-message">Description is mandatory</p>
+                        </div>
+
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="">Issue Date<sup>*</sup> </label>
+                        <input type="date" class="form-control " 
+                            formControlName="issueDate">
+                        <div
+                            *ngIf="policyFormData.controls['issueDate'].touched && policyFormData.controls['issueDate'].dirty && policyFormData.controls['issueDate'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Issue Date is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && policyFormData.controls['issueDate'].hasError('required')">
+                            <p class="error-message">Issue Date is mandatory</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="">Start Date<sup>*</sup> </label>
+                        <input type="date" class="form-control " 
+                            formControlName="startDate">
+                        <div
+                            *ngIf="policyFormData.controls['startDate'].touched && policyFormData.controls['startDate'].dirty && policyFormData.controls['startDate'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Start Date is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && policyFormData.controls['startDate'].hasError('required')">
+                            <p class="error-message">Start Date is mandatory</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="">Expiry Date<sup>*</sup> </label>
+                        <input type="date" class="form-control " 
+                            formControlName="expiryDate">
+                        <div
+                            *ngIf="policyFormData.controls['expiryDate'].touched && policyFormData.controls['expiryDate'].dirty && policyFormData.controls['expiryDate'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Expiry Date is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && policyFormData.controls['expiryDate'].hasError('required')">
+                            <p class="error-message">Expiry Date is mandatory</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="">Policy No<sup>*</sup> </label>
+                        <input type="text" class="form-control " placeholder="Enter Policy No"
+                            formControlName="polcyNo">
+                        <div
+                            *ngIf="policyFormData.controls['polcyNo'].touched && policyFormData.controls['polcyNo'].dirty && policyFormData.controls['polcyNo'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Policy No is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && policyFormData.controls['polcyNo'].hasError('required')">
+                            <p class="error-message">Policy No is mandatory</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-12 d-flex justify-content-end py-2">
+                    <button type="submit" class="btn btn-primary" style="background-color: #00acff;">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

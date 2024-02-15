@@ -1,0 +1,383 @@
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid border py-2" [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
+    <form [formGroup]="customer" (ngSubmit)="addCode()">
+        <h2><mat-icon class="back mb-1" routerLink="/master/customer-list">arrow_back</mat-icon>Customer</h2>
+     <div class="row border py-2">
+        <div class="row">
+            <div class="col-6">
+                <div class="col-12 py-2 ">
+                    <label for="NumberRange">Customer Type</label>
+                    <div class="d-flex mt-2 d-grid gap-2">
+                        <div class="form-check mx-3">
+                            <input class="form-check-input" type="radio" formControlName="customerType"
+                                id="flexRadioDefault1" value="Corporate" >
+                            <label class="form-check-label"
+                                style="font-weight: 500; font-size: 13px; position: relative; bottom: 3px;"
+                                for="flexRadioDefault1" >
+                                Corporate
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" formControlName="customerType"
+                                id="flexRadioDefault2" value="Individual" >
+                            <label class="form-check-label"
+                                style="font-weight: 500; font-size: 13px; position: relative; bottom: 3px;"
+                                for="flexRadioDefault2">
+                                Individual
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 py-2" >
+                    <label for="">Customer ID</label>
+                    <input type="text" class="form-control " placeholder="Enter customer id" formControlName="customerId" readonly>
+                </div>
+
+            </div>
+            <div class="col-6">
+                <div class="col-12 ">
+                        <div class="col-12 py-2">
+                            <section class="file-border">
+                                <div class="row">
+                                    <div class="col-12 d-flex justify-content-center py-1" style="position: relative;">
+                                        <img class="img-ava" [src]="imageSrc?imageSrc:'/assets/logs/profile.png'">
+                                        <!-- <sup
+                                            class="delete_img" (click)="deletePerview()" *ngIf="imageSrc"><mat-icon
+                                                style="font-size: 20px;display: flex;align-items: center;justify-content: center;">delete</mat-icon></sup> -->
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-center py-1">
+                                        <span (click)="uploadFile(inputFile,'log')" class="upload_text">
+                                            Choose Photo</span>
+                                        <input type="file" #inputFile class="d-none"
+                                            (change)="handleUploadFile($event)">
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="row ">        
+                    
+            <div class="col-6 py-2">
+                <label for="">Customer Name</label>
+                <input type="text" class="form-control " placeholder="Enter customer name" formControlName="customerName">
+            </div>
+
+            <div class="col-6 py-2">
+                <label for="">DOB</label>
+                <input type="date" class="form-control " placeholder="Enter dob" formControlName="dob">
+            </div>  
+
+            <div class="col-6 py-2">
+                <label for="">Address</label>
+                <input type="text" class="form-control " placeholder="Enter address" formControlName="address">
+            </div>
+            <div class="col-6 py-2">
+                <label for="">Country</label>
+                <select class="form-select " aria-label="Default select example" formControlName="country">
+                    <option [selected]="customer.value.country === ''" value="" hidden>Select
+                        country</option>
+                    <option value="1">India</option>
+                   
+                </select>
+            </div>
+            <div class="col-6 py-2">
+                <label for="">State</label>
+                <select class="form-select " aria-label="Default select example" formControlName="state">
+                    <option [selected]="customer.value.state === ''" value="" hidden>Select
+                        state</option>
+                    <option value="1">Andhra Pradesh</option>
+                    <option value="2">Arunachal Pradesh</option>
+                    <option value="3">Assam</option>
+                    <option value="1">Bihar</option>
+                    <option value="2">Chhattisgarh</option>
+                    <option value="3">Goa</option>
+                    <option value="1">Gujarat</option>
+                    <option value="2">Haryana</option>
+                    <option value="3">Himachal Pradesh</option>
+                    <option value="1">Jharkhand</option>
+                    <option value="2">Karnataka</option>
+                    <option value="3">Kerala</option>
+                    <option value="1">Madhya Pradesh</option>
+                    <option value="2">Maharashtra</option>
+                    <option value="3">Manipur</option>
+                    <option value="1">Meghalaya</option>
+                    <option value="2">Mizoram</option>
+                    <option value="3">Nagaland</option>
+                    <option value="1">Odisha</option>
+                    <option value="2">Punjab</option>
+                    <option value="3">Rajasthan</option>
+                    <option value="1">Sikkim</option>
+                    <option value="2">Tamil Nadu</option>
+                    <option value="3">Telangana</option>
+                    <option value="1">Tripura</option>
+                    <option value="2">Uttar Pradesh</option>
+                    <option value="3">Uttarakhand</option>
+                    <option value="1">West Bengal</option>
+                   
+                   
+                </select>
+            </div>
+            <div class="col-6 py-2">
+                <label for="">City</label>
+                <select class="form-select " aria-label="Default select example" formControlName="city">
+                    <option [selected]="customer.value.city === ''" value="" hidden>Select
+                        city</option>
+                    <option value="1">Agra</option>
+                    <option value="2">Aligarh</option>
+                    <option value="3">Ambedkar Nagar</option>
+                    <option value="3">Amethi</option>
+                    <option value="3">Amroha</option>
+                    <option value="3">Auraiya</option>
+                    <option value="3">Ayodhya</option>
+                    <option value="3">Azamgarh</option>
+                    <option value="3">Baghpat</option>
+                    <option value="3">Bahraich</option>
+                    <option value="3">Ballia</option>
+                    <option value="3">Balrampur</option>
+                    <option value="3">Banda</option>
+                    <option value="3">Barabanki</option>
+                    <option value="3">Bareilly</option>
+                    <option value="3">Basti</option>
+                    <option value="3">Bijnor</option>
+                    <option value="3">Budaun</option>
+                    <option value="3">Bulandshahr</option>
+                    <option value="3">Chandauli</option>
+                    <option value="3">Chitrakoot</option>
+                    <option value="3">Deoria</option>
+                    <option value="3">Etah</option>
+                    <option value="3">Etawah</option>
+                    <option value="3">Firozabad</option>
+                    <option value="3">Gautam Buddha Nagar (Noida)</option>
+                    <option value="3">Ghaziabad</option>
+                    <option value="3">Ghazipur</option>
+                    <option value="3">Gonda</option>
+                    <option value="3">Gorakhpur</option>
+                    <option value="3">Hamirpur</option>
+                    <option value="3">Hapur</option>
+                    <option value="3">Hardoi</option>
+                    <option value="3">Hathras</option>
+                    <option value="3">Jalaun</option>
+                    <option value="3">Jaunpur</option>
+                    <option value="3">Jhansi</option>
+                    <option value="3">Kannauj</option>
+                    <option value="3">Kanpur Dehat</option>
+                    <option value="3">Kanpur Nagar</option>
+                    <option value="3">Kasganj</option>
+                    <option value="3">Kaushambi</option>
+                    <option value="3">Kushinagar</option>
+                    <option value="3">Lakhimpur Kheri</option>
+                    <option value="3">Lalitpur</option>
+                    <option value="3">Lucknow</option>
+                    <option value="3">Maharajganj</option>
+                    <option value="3">Mahoba</option>
+                    <option value="3">Mainpuri</option>
+                    <option value="3">Mathura</option>
+                   
+                </select>
+            </div>
+
+            <div class="col-6 py-2">
+                <label for="">Pin code</label>
+                <input type="text" class="form-control " placeholder="Enter pin code" formControlName="pinCode">
+            </div> 
+
+            <div class="col-6 py-2">
+                <label for="">Mobile</label>
+                <input type="text" class="form-control" placeholder="Enter mobile number" formControlName="mobile"  min="0" maxlength="10" (keypress)="onlyNumberKey($event)">
+                
+            </div>
+            
+            <div class="col-6 py-2">
+                <label for="">Mail Id</label>
+                <input type="text" class="form-control " placeholder="Enter mail id" formControlName="mailId">
+            </div>
+          
+        </div>
+       
+        <div class="row border mt-2">
+            <div class="col-12">
+
+                <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start"> 
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-tab label="Vehicle Details">
+                                <div class="col-12 d-flex justify-content-end ">
+                                    <button type="button" class="btn btn-primary mb-2" (click)="addVehicles()"
+                                        style="color: white;background-color: #00acff;">Add </button>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th *ngIf="vehicleDetail.controls.length > 1">Actions</th>
+                                                <th>Registration_no</th>
+                                                <th>Vehicle_registration date</th>
+                                                <th>Make</th>
+                                                <th>Variant</th>
+                                                <th>Model</th>
+                                                <th>Mfg Year</th>
+                                                <th>Engine No</th>
+                                                <th>Chassis No</th>
+                                                <th>Vehicle Usage</th>
+                                                <th>RTO State Code</th>
+                                                
+                                                <th>Seating capacity</th>
+                                                <th>Fuel Type</th>
+                                                <th>Body Type</th>
+                                                <th>Trailer Reg No</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody formArrayName="vechicleDetails">
+                                            <tr *ngFor="let financial of customer.get('vechicleDetails')['controls']; let i = index;"
+                                                [formGroupName]="i">
+                                                <td *ngIf="vehicleDetail.controls.length > 1">
+                                                    <mat-icon style="cursor:pointer"
+                                                        (click)="deleterow(i)">delete</mat-icon>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control " placeholder="Enter Registration_no" formControlName="registrationNo" style="width: 10rem;">
+                                                </td>
+                                                <td>
+                                                    <input type="date" class="form-control " formControlName="vechicleRegistrationDate" style="width: 10rem;">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control " placeholder="Enter Make" formControlName="make" style="width: 10rem;">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control " placeholder="Enter Variant" formControlName="variant" style="width: 10rem;">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control " placeholder="Enter Model" formControlName="model" style="width: 10rem;">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control " placeholder="Enter Mfg year" formControlName="mfgYear" style="width: 10rem;">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control " placeholder="Enter Engine no" formControlName="engineNo" style="width: 10rem;">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control " placeholder="Enter Chassis no" formControlName="chassisNo" style="width: 10rem;">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control " placeholder="Enter Vehicle usage" formControlName="vehicleUsage" style="width: 10rem;">
+                                                </td>
+                                                <td>
+                                                    <select class="form-select " aria-label="Default select example" formControlName="rtoStateCode" style="width: 10rem;">
+                                                        <option [selected]="customer.value.category === ''"  value="" hidden>Select RTO State Code</option>
+                                                    
+                                                 </select>
+                                                   
+                                                </td>
+                                                
+                                                <td>
+                                                    <input type="text" class="form-control " placeholder="Enter seating capacity" formControlName="seatingCapacity" style="width: 10rem;"  min="0" maxlength="2" (keypress)="onlyNumberKey($event)">
+                                                </td>
+                                                <td>
+                                                    <select class="form-select " aria-label="Default select example" formControlName="fuelType" style="width: 10rem;">
+                                                        <option [selected]="customer.value.fuelType === ''"  value="" hidden>Select fuel type</option>
+                                                        <option value="">CNG</option>
+                                                        <option value="">Desiel</option>
+                                                        <option value="">Petrol</option>
+                                                    
+                                                 </select>
+                                                   </td>
+                                                <td>
+                                                    <select class="form-select " aria-label="Default select example" formControlName="bodyType" style="width: 10rem;">
+                                                        <option [selected]="customer.value.bodyType === ''"  value="" hidden>Select body type</option>
+                                                        <option value="">Hatch back</option>
+                                                        <option value="">4X4</option>
+                                                        <option value="">Sadan</option>
+                                                    
+                                                 </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control " placeholder="Enter Trailer Reg No" formControlName="trailerRegNo" style="width: 10rem;">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </mat-tab>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-tab label="Nominee Details">
+                                <div class="col-12 d-flex justify-content-end py-2">
+                                    <button type="button" class="btn btn-primary" (click)="addNominees()"
+                                        style="color: white;background-color: #00acff;">Add </button>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th *ngIf="nomineeDetail.controls.length > 1">Actions</th>
+                                                <th>Nominee Name</th>
+                                                <th>Relationship</th>
+                                                <th>DOB</th>
+                                                <th>% of share</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody formArrayName="nomineeDetails">
+                                            <tr *ngFor="let financial of customer.get('nomineeDetails')['controls']; let i = index;"
+                                                [formGroupName]="i">
+                                                <td *ngIf="nomineeDetail.controls.length > 1">
+                                                    <mat-icon style="cursor:pointer"
+                                                        (click)="deleteNomineerow(i)">delete</mat-icon>
+                                                </td>
+                                                
+                                                <td>
+                                                    <input type="text" class="form-control " placeholder="Enter nominee name"  formControlName="nomineeName" >
+                                                </td>
+                                                <td>
+                                                    <select class="form-select w-100 border-none "
+                                                        aria-label="Default select example"
+                                                        formControlName="relationship" style="width: 10rem;">
+                                                        <option [selected]="customer.value.relationship === ''"
+                                                            value="" hidden>Select Relationship</option>
+                                                            <option value="">Brother</option>
+                                                            <option value="">Daughter</option>
+                                                            <option value="">Father</option>
+                                                            <option value="">Mother</option>
+                                                            <option value="">Sistem</option>
+                                                            <option value="">Son</option>
+                                                            <option value="">Spouse</option>
+                                                        
+                                                    </select>
+
+                                                </td>
+                                                <td>
+                                                    <input type="date" class="form-control " placeholder="Enter date"  formControlName="dob">
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control " placeholder="Enter % of share"  formControlName="ofShare" min="0" >
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </mat-tab>
+
+                        </div>
+                    </div>
+                   
+                </mat-tab-group>
+                <div class="col-12 d-flex justify-content-end py-2">
+                    <button type="submit" class="btn btn-primary" >Save</button>
+                </div>
+
+            </div>
+              
+        </div>
+    </div>
+    </form>
+</div>

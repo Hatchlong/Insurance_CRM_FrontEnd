@@ -1,0 +1,114 @@
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
+    <div class="row mt-3 ">
+        <div class="col-12">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <input type="search" #searchDataInput name="" id="search-data"
+                    placeholder="Enter Agent Id/Agent Name/ Mobile Number / Mail Id" class="form-control w-50"
+                    (input)="handleFilter($event)">
+                <select class="form-select w-25" aria-label="Default select example" (change)="handleCity($event)">
+                    <option selected value="">Select City</option>
+                    <option *ngFor="let list of agentDetail " [value]="list.city">
+                        {{list.city}}
+                    </option>
+                </select>
+                <select class="form-select w-25" aria-label="Default select example" (change)="handleCategory($event)">
+                    <option selected value="">Select Category</option>
+                    <option *ngFor="let list of agentDetail ; let i=index" [value]="list.category">
+                        {{list.category}}</option>
+                </select>
+                <!-- 
+                <select class="form-select w-25" aria-label="Default select example"
+                    (change)="handleFilterVendor($event)">
+                    <option selected value="">Select Vendor</option>
+                    <option *ngFor="let list of vendorDetails |filterPipes:'vendorName'; let i=index"
+                        [value]="list.vendorName">
+                        {{list.vendorName}}</option>
+                </select> -->
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+                        <button class="btn btn-primary " (click)="nextPage('/master/add-agent')" type="button"
+                            style="color: white;background: #00acff;">Add Agent</button>
+
+                        <button class="btn btn-danger" type="button" style="color: white;" (click)="handleDeleteMuliple()">
+                            <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
+                            Delete Selected Agent</button>
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item>
+                                <span>Import Agent</span>
+                            </button>
+                            <button mat-menu-item (click)="exportExcel()">
+                                <span>Export Agent</span>
+                            </button>
+                            <button mat-menu-item (click)="downloadExcel()">
+                                <span>Sample Agent Sheet</span>
+                            </button>
+                        </mat-menu>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>SN</th>
+                                    <th scope="col">Agent Id</th>
+                                    <th scope="col">Agent Name</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">City</th>
+                                    <th scope="col">Mobile</th>
+                                    <th scope="col">Mail Id</th>
+                                    <th scope="col">Action</th>
+                                    <th scope="col"><input type="checkbox" [checked]="selectAll"
+                                            (change)="selectdata($event)"> Select All</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="agentDetail.length === 0">
+                                <tr>
+                                    <td colspan="11" class="text-center">No Records</td>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                                <tr *ngFor="let list of agentDetail; let i=index">
+                                    <td>{{i+1}}</td>
+                                    <td>{{list.agentId}}</td>
+                                    <td>{{list.agentName}}</td>
+                                    <td>{{list.category}}</td>
+                                    <td>{{list.city}}</td>
+                                    <td>{{list.mobile}}</td>
+                                    <td>{{list.mailId}}</td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <div>
+                                                <mat-icon [routerLink]="'/master/edit-agent/'+list._id">edit</mat-icon>
+                                            </div>
+                                            <div>
+                                                <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td><input type="checkbox" class="checkbox" [checked]="list.check"
+                                            (change)="particularcheck($event,i)"></td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

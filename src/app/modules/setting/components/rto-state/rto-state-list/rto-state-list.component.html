@@ -1,0 +1,120 @@
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
+    <div class="row mt-3 ">
+        <div class="col-12">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <input type="text" #searchDataInput name="" id="search-data" placeholder="RTO State Code / Description"
+                    class="form-control w-50"  (input)="handleFilter($event)">
+
+                <!-- <input type="search" #searchDataInput name="" id="search-data" placeholder="Po Number"
+                    class="form-control " (input)="handleFilter($event)">
+                <select class="form-select w-25" aria-label="Default select example"
+                    (change)="handleFilterPoType($event)">
+                    <option selected value="">Select PO Type</option>
+                    <option *ngFor="let list of poTypeDetails | filterPipes:'description'" [value]="list.description">
+                        {{list.description}}
+                    </option>
+                </select>
+                <select class="form-select w-25" aria-label="Default select example"
+                    (change)="handleFilterCompanyCode($event)">
+                    <option selected value="">Select Company Code</option>
+                    <option *ngFor="let company of companyCodeDetails |filterPipes:'companyCode'; let i=index"
+                        [value]="company.companyCode">
+                        {{company.companyCode}}</option>
+                </select>
+
+                <select class="form-select w-25" aria-label="Default select example"
+                    (change)="handleFilterVendor($event)">
+                    <option selected value="">Select Vendor</option>
+                    <option *ngFor="let list of vendorDetails |filterPipes:'vendorName'; let i=index"
+                        [value]="list.vendorName">
+                        {{list.vendorName}}</option>
+                </select> 
+                
+                 <input type="text" class="form-control" #searchDataInput placeholder="Customer Id / Customer Name"
+              (input)="handleFilter($event)">
+            -->
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-12">
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+                        <!-- <input type="text" class="form-control" placeholder="RTO State Code / Description" (input)="handleFilter($event)"> -->
+
+                        <button class="btn btn-primary " (click)="nextPage('/setting/add-rto-state')" type="button"
+                            style="color: white;background: #00acff;">Add RTO State Code</button>
+
+                        <button class="btn btn-danger" type="button" style="color: white;">
+                            <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
+                            Delete Selected RTO State Code</button>
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item>
+                                <span>Import RTO State Code</span>
+                            </button>
+                            <button mat-menu-item>
+                                <span>Export RTO State Code</span>
+                            </button>
+                            <button mat-menu-item>
+                                <span>Sample RTO State Code Sheet</span>
+                            </button>
+                        </mat-menu>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>SN</th>
+                                    <th>RTO State Code</th>
+                                    <th>Description</th>
+                                    <th scope="col">Action</th>
+                                    <th scope="col"><input type="checkbox" [checked]="selectAll"
+                                            (change)="selectdata($event)"> Select All</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="rtoStateDetail.length === 0">
+                                <tr>
+                                    <td colspan="5" class="text-center">No Records</td>
+                                </tr>
+                            </tbody>
+
+                            <tbody>
+                                <tr *ngFor="let list of rtoStateDetail; let i=index">
+                                    <td>{{i+1}}</td>
+                                    <td>{{list.rtoStateCode}}</td>
+                                    <td>{{list.description}}</td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <div>
+                                                <mat-icon
+                                                    [routerLink]="'/setting/edit-rto-state/'+list._id">edit</mat-icon>
+                                            </div>
+                                            <div>
+                                                <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td><input type="checkbox" class="checkbox" [checked]="list.check"
+                                            (change)="particularcheck($event,i)"></td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

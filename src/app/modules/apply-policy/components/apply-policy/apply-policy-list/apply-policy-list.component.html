@@ -1,0 +1,120 @@
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
+    <div class="row mt-3 ">
+        <div class="col-12">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            <input type="search" #searchDataInput name="" id="search-data" placeholder="Enter Customer Name"
+                    class="form-control " (input)="handleFilter($event)">
+                    <!-- <select class="form-select w-25" aria-label="Default select example"
+                    (change)="handleFilterPoType($event)">
+                    <option selected value="">Select PO Type</option>
+                    <option *ngFor="let list of poTypeDetails | filterPipes:'description'" [value]="list.description">
+                        {{list.description}}
+                    </option>
+                </select>
+                <select class="form-select w-25" aria-label="Default select example"
+                    (change)="handleFilterCompanyCode($event)">
+                    <option selected value="">Select Company Code</option>
+                    <option *ngFor="let company of companyCodeDetails |filterPipes:'companyCode'; let i=index"
+                        [value]="company.companyCode">
+                        {{company.companyCode}}</option>
+                </select>
+
+                <select class="form-select w-25" aria-label="Default select example"
+                    (change)="handleFilterVendor($event)">
+                    <option selected value="">Select Vendor</option>
+                    <option *ngFor="let list of vendorDetails |filterPipes:'vendorName'; let i=index"
+                        [value]="list.vendorName">
+                        {{list.vendorName}}</option>
+                </select> -->
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+                        <button class="btn btn-primary " (click)="nextPage('/applyPolicy/add-apply-policy')" type="button"
+                            style="color: white;background: #00acff;">Add Apply Policy</button>
+
+                        <button class="btn btn-danger" type="button" style="color: white;">
+                            <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
+                            Delete Selected Apply Policy</button>
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item>
+                                <span>Import Apply Policy</span>
+                            </button>
+                            <button mat-menu-item>
+                                <span>Export Apply Policy</span>
+                            </button>
+                            <button mat-menu-item>
+                                <span>Sample Apply Policy Sheet</span>
+                            </button>
+                        </mat-menu>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>SN</th>
+                                    <th scope="col">Customer Name</th>
+                                    <th scope="col">Policy Company</th>
+                                    <th scope="col">Policy Type </th>
+                                    <th scope="col">Policy Code</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Issue date</th>
+                                    <th scope="col">Start date</th>
+                                    <th scope="col">Expiry date</th>
+                                    <th scope="col">Policy No</th>
+
+                                    <th scope="col">Action</th>
+                                    <th scope="col"><input type="checkbox" [checked]="selectAll"
+                                            (change)="selectdata($event)"> Select All</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr *ngFor="let list of applyPolicyDetail; let i=index">
+                                    <td>{{i+1}}</td>
+                                    <td>{{list.customerName}}</td>
+                                    <td>{{list.policyType}}</td>
+                                    <td>{{list.policyCompany}}</td>
+                                    <td>{{list.policyCode}}</td>
+                                    <td>{{list.description}}</td>
+                                    <td>{{list.issueDate}}</td>
+                                    <td>{{list.startDate}}</td>
+                                    <td>{{list.expiryDate}}</td>
+                                    <td>{{list.polcyNo}}</td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <div>
+                                                <mat-icon
+                                                    [routerLink]="'/applyPolicy/edit-apply-policy/'+list._id">edit</mat-icon>
+                                            </div>
+                                            <div>
+                                                <mat-icon >delete</mat-icon>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td><input type="checkbox" class="checkbox" [checked]="list.check"
+                                            (change)="particularcheck($event,i)"></td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

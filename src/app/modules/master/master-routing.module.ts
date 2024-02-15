@@ -1,47 +1,54 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProductListComponent } from './components/product/product-list/product-list.component';
-import { VendorListComponent } from './components/vendor/vendor-list/vendor-list.component';
-import { AddProductComponent } from './components/product/add-product/add-product.component';
-import { AddVendorComponent } from './components/vendor/add-vendor/add-vendor.component';
-import { CustomerListComponent } from './components/customer-master/customer-list/customer-list.component';
-import { AddCustomerComponent } from './components/customer-master/add-customer/add-customer.component';
-import { EditVendorComponent } from './components/vendor/edit-vendor/edit-vendor.component';
-import { EditProductComponent } from './components/product/edit-product/edit-product.component';
-import { EditCustomerComponent } from './components/customer-master/edit-customer/edit-customer.component';
+import { AddAgentComponent } from './components/agent/add-agent/add-agent.component';
+import { AgentListComponent } from './components/agent/agent-list/agent-list.component';
+import { AddCustomerComponent } from './components/customer/add-customer/add-customer.component';
+import { CustomerListComponent } from './components/customer/customer-list/customer-list.component';
+import { AddPolicyPlanComponent } from './components/policy-plan/add-policy-plan/add-policy-plan.component';
+import { PolicyPlanListComponent } from './components/policy-plan/policy-plan-list/policy-plan-list.component';
+import { EditAgentComponent } from './components/agent/edit-agent/edit-agent.component';
+import { EditPolicyPlanComponent } from './components/policy-plan/edit-policy-plan/edit-policy-plan.component';
 
-const routes: Routes = [{
-  path:'product',
-  component:ProductListComponent
-},{
-  path:'add-product',
-  component:AddProductComponent
-},{
-  path:'vendor',
-  component:VendorListComponent
-},{
-  path:'add-vendor',
-  component:AddVendorComponent
-},
-{
-  path: 'edit-vendor/:id',
-  component:EditVendorComponent
-},
-{
-  path:'customer-list',
-  component:CustomerListComponent
-},{
-  path:'add-customer',
-  component:AddCustomerComponent
-},
-{
-  path:'edit-customer/:id',
-  component:EditCustomerComponent
-},
-{
-  path:'edit-product/:id',
-  component:EditProductComponent
-}];
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo:'add-agent',
+    pathMatch: 'full'
+  },
+  {
+    path:'add-agent',
+    component:AddAgentComponent
+  },
+  {
+    path:'agent-list',
+    component:AgentListComponent
+  },
+  
+  {
+    path:'edit-agent/:id',
+    component:EditAgentComponent
+  },
+  {
+    path:'add-customer',
+    component:AddCustomerComponent
+  },
+  {
+    path:'customer-list',
+    component:CustomerListComponent
+  },
+  {
+    path:'add-policy-plan',
+    component:AddPolicyPlanComponent
+  },
+  {
+    path:'policy-plan-list',
+    component:PolicyPlanListComponent
+  },
+  {
+    path:'edit-policy-plan/:id',
+    component:EditPolicyPlanComponent
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -1,242 +1,204 @@
-<app-side-nav (isShowNav)="handleSideBar($event)" [logoutAction]="idleState"></app-side-nav>
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
-    <form [formGroup]="companyCode">
-        <div class="row">
-             <div class="col-12">
-                <h2><mat-icon class="back" routerLink="/settings/company-code-list">arrow_back</mat-icon>Company Code
-                </h2>
-            </div>
+    <div class="row">
+        <div class="col-12">
+            <h2><mat-icon class="back" routerLink="/setting/company-code-list">arrow_back</mat-icon>Company code
+            </h2>
         </div>
-        <div class="row border">
-           
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 ">
-                <div class="row ">
-                    <div class="col-12 py-2">
-                        <label for="">Company Code <sup>*</sup></label>
-                        <input type="text" class="form-control " placeholder="Enter Company code"
-                            formControlName="companyCode" appDirective (input)="checkInputLength($event); perviousValue = companyCode.value.companyCode">
+    </div>
+    <div class="row">
+        <div class="col-12 ">
+            <form [formGroup]="companyCodeFormData" (ngSubmit)="submitData()">
+                <div class="row border">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">Company Code <sup>*</sup></label>
+                        <input type="text" class="form-control " placeholder="Enter Company Code" formControlName="companyCode">
                         <div
-                            *ngIf="companyCode.controls['companyCode'].touched && companyCode.controls['companyCode'].dirty && companyCode.controls['companyCode'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Company code is mandatory</p>
+                            *ngIf="companyCodeFormData.controls['companyCode'].touched && companyCodeFormData.controls['companyCode'].dirty && companyCodeFormData.controls['companyCode'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Company Code is mandatory</p>
                         </div>
-                        <div *ngIf="isSubmitted && companyCode.controls['companyCode'].hasError('required')">
-                            <p class="error-message">Company code is mandatory</p>
+                        <div *ngIf="isSubmitted && companyCodeFormData.controls['companyCode'].hasError('required')">
+                            <p class="error-message">Company Code is mandatory</p>
                         </div>
-                        <div *ngIf="companyCode.controls['companyCode'].hasError('minlength')">
-                            <p class="error-message">Must have 6 character</p>
-                        </div>
-                        <div *ngIf="companyCode.controls['companyCode'].hasError('maxlength')">
-                            <p class="error-message">Must have 6 character</p>
-                        </div>
-
-
                     </div>
-
-                    <div class="col-12 py-2">
+                    
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                         <label for="" class="">Company Name <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter Company Name"
                             formControlName="companyName">
                         <div
-                            *ngIf="companyCode.controls['companyName'].touched && companyCode.controls['companyName'].dirty && companyCode.controls['companyName'].hasError('required') && !isSubmitted">
+                            *ngIf="companyCodeFormData.controls['companyName'].touched && companyCodeFormData.controls['companyName'].dirty && companyCodeFormData.controls['companyName'].hasError('required') && !isSubmitted">
                             <p class="error-message">Company Name is mandatory</p>
                         </div>
-                        <div *ngIf="isSubmitted && companyCode.controls['companyName'].hasError('required')">
+                        <div *ngIf="isSubmitted && companyCodeFormData.controls['companyName'].hasError('required')">
                             <p class="error-message">Company Name is mandatory</p>
                         </div>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">Address</label>
+                        <input type="text" class="form-control " placeholder="Enter Address" formControlName="address">
+
 
                     </div>
-                </div>
-            </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
 
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                <div class="row">
-                    <div class="col-12 py-2">
-                        <section class="file-border">
-                            <div class="row">
-                                <div class="col-12 d-flex justify-content-center py-1" style="position: relative;">
-                                    <img class="img-ava" [src]="imageSrc?imageSrc:'/assets/logs/profile.png'"><sup
-                                        class="delete_img" (click)="deletePerview()" *ngIf="imageSrc"><mat-icon
-                                            style="font-size: 20px;display: flex;align-items: center;justify-content: center;">delete</mat-icon></sup>
-
-                                </div>
-                                <div class="col-12 d-flex justify-content-center py-1">
-                                    <span (click)="uploadFile(inputFile,'log')" class="upload_text">
-                                        Choose Company Logo</span>
-                                    <input type="file" #inputFile class="d-none"
-                                        (change)="handleUploadFile($event)">
-                                </div>
-                            </div>
-                        </section>
+                        <label for="" class="">Country </label>
+                        <select class="form-select " aria-label="Default select example" formControlName="country">
+                            <option [selected]="companyCodeFormData.value.country === ''" value="" hidden>
+                                Select
+                                Country</option>
+                                <option value="India">India</option>
+                        </select>
                     </div>
-                </div>
-            </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="">State </label>
+                        <select class="form-select " aria-label="Default select example" formControlName="state">
+                            <option [selected]="companyCodeFormData.value.state === ''" value="" hidden> Select State</option>
+                            <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+<!-- 
+                            <option value="1">Andhra Pradesh</option>
+                            <option value="2">Arunachal Pradesh</option>
+                            <option value="3">Assam</option>
+                            <option value="1">Bihar</option>
+                            <option value="2">Chhattisgarh</option>
+                            <option value="3">Goa</option>
+                            <option value="1">Gujarat</option>
+                            <option value="2">Haryana</option>
+                            <option value="3">Himachal Pradesh</option>
+                            <option value="1">Jharkhand</option>
+                            <option value="2">Karnataka</option>
+                            <option value="3">Kerala</option>
+                            <option value="1">Madhya Pradesh</option>
+                            <option value="2">Maharashtra</option>
+                            <option value="3">Manipur</option>
+                            <option value="1">Meghalaya</option>
+                            <option value="2">Mizoram</option>
+                            <option value="3">Nagaland</option>
+                            <option value="1">Odisha</option>
+                            <option value="2">Punjab</option>
+                            <option value="3">Rajasthan</option>
+                            <option value="1">Sikkim</option>
+                            <option value="2">Tamil Nadu</option>
+                            <option value="3">Telangana</option>
+                            <option value="1">Tripura</option>
+                            <option value="2">Uttar Pradesh</option>
+                            <option value="3">Uttarakhand</option>
+                            <option value="1">West Bengal</option> -->
 
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-                <label for="address1">Address 1 <sup>*</sup></label>
-                <textarea class="form-control" id="address1" formControlName="address1" placeholder="Address 1"
-                    rows="3"></textarea>
-                <div
-                    *ngIf="companyCode.controls['address1'].touched && companyCode.controls['address1'].dirty && companyCode.controls['address1'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Address 1 is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && companyCode.controls['address1'].hasError('required')">
-                    <p class="error-message">Address 1 is mandatory</p>
-                </div>
-            </div>
+                        </select>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
 
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-                <label for="address1">Address 2</label>
-                <textarea class="form-control" id="address2" placeholder="Address 2" formControlName="address2"
-                    rows="3"></textarea>
-            </div>
+                        <label for="">City </label>
+                        <select class="form-select " aria-label="Default select example" formControlName="city">
+                            <option [selected]="companyCodeFormData.value.city === ''" value="" hidden> Select City</option>
+                            <option *ngFor="let city of cities[companyCodeFormData.get('state').value]" [value]="city">{{ city }}</option>
+    
+                            <!-- <option value="1">Agra</option>
+                                <option value="2">Aligarh</option>
+                                <option value="3">Ambedkar Nagar</option>
+                                <option value="3">Amethi</option>
+                                <option value="3">Amroha</option>
+                                <option value="3">Auraiya</option>
+                                <option value="3">Ayodhya</option>
+                                <option value="3">Azamgarh</option>
+                                <option value="3">Baghpat</option>
+                                <option value="3">Bahraich</option>
+                                <option value="3">Ballia</option>
+                                <option value="3">Balrampur</option>
+                                <option value="3">Banda</option>
+                                <option value="3">Barabanki</option>
+                                <option value="3">Bareilly</option>
+                                <option value="3">Basti</option>
+                                <option value="3">Bijnor</option>
+                                <option value="3">Budaun</option>
+                                <option value="3">Bulandshahr</option>
+                                <option value="3">Chandauli</option>
+                                <option value="3">Chitrakoot</option>
+                                <option value="3">Deoria</option>
+                                <option value="3">Etah</option>
+                                <option value="3">Etawah</option>
+                                <option value="3">Firozabad</option>
+                                <option value="3">Gautam Buddha Nagar (Noida)</option>
+                                <option value="3">Ghaziabad</option>
+                                <option value="3">Ghazipur</option>
+                                <option value="3">Gonda</option>
+                                <option value="3">Gorakhpur</option>
+                                <option value="3">Hamirpur</option>
+                                <option value="3">Hapur</option>
+                                <option value="3">Hardoi</option>
+                                <option value="3">Hathras</option>
+                                <option value="3">Jalaun</option>
+                                <option value="3">Jaunpur</option>
+                                <option value="3">Jhansi</option>
+                                <option value="3">Kannauj</option>
+                                <option value="3">Kanpur Dehat</option>
+                                <option value="3">Kanpur Nagar</option>
+                                <option value="3">Kasganj</option>
+                                <option value="3">Kaushambi</option>
+                                <option value="3">Kushinagar</option>
+                                <option value="3">Lakhimpur Kheri</option>
+                                <option value="3">Lalitpur</option>
+                                <option value="3">Lucknow</option>
+                                <option value="3">Maharajganj</option>
+                                <option value="3">Mahoba</option>
+                                <option value="3">Mainpuri</option>
+                                <option value="3">Mathura</option> -->
+                        </select>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
 
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-                <label for="" class="">Country  <sup>*</sup></label>
-                <select class="form-select " aria-label="Default select example" formControlName="countryId"
-                    (change)="selectCountryName($event)">
-                    <option [selected]="companyCode.value.countryId === ''" value="" hidden>Select Country</option>
-                    <option *ngFor="let list of countryDetials | filterPipes:'countryName'" [value]="list._id">
-                        {{list.countryName}}</option>
-                </select>
-                <div
-                    *ngIf="companyCode.controls['countryId'].touched && companyCode.controls['countryId'].dirty && companyCode.controls['countryId'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Country Name is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && companyCode.controls['countryId'].hasError('required')">
-                    <p class="error-message">Country Name is mandatory</p>
-                </div>
-            </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-                <label for="" class="">State/Province  <sup>*</sup></label>
-                <select class="form-select " aria-label="Default select example" formControlName="state"
-                    >
-                    <option [selected]="companyCode.value.state === ''" value="" hidden>Select State/Province</option>
-                    <option *ngFor="let list of (citiesDetails?.cities?.state).sort()" [value]="list">{{list}}</option>
+                        <label for="">Pin Code </label>
+                        <input type="text" class="form-control " placeholder="Enter Pin Code" formControlName="pinCode">
 
-                </select>
-                <div
-                    *ngIf="companyCode.controls['state'].touched && companyCode.controls['state'].dirty && companyCode.controls['state'].hasError('required') && !isSubmitted">
-                    <p class="error-message">State/Province is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && companyCode.controls['state'].hasError('required')">
-                    <p class="error-message">State/Province is mandatory</p>
-                </div>
-            </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-                <label for="" class="">City <sup>*</sup></label>
-                <select class="form-select " aria-label="Default select example" formControlName="city"
-                    [ngStyle]="{'pointer-events': !companyCode.value.countryId ? 'none' :  'all'}">
-                    <option [selected]="companyCode.value.city===''" value="" hidden>Select City</option>
-                    <option *ngFor="let list of (citiesDetails?.cities?.cities).sort()" [value]="list">{{list}}</option>
-                </select>
-                <div
-                    *ngIf="companyCode.controls['city'].touched && companyCode.controls['city'].dirty && companyCode.controls['city'].hasError('required') && !isSubmitted">
-                    <p class="error-message"> City is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && companyCode.controls['city'].hasError('required')">
-                    <p class="error-message"> City is mandatory</p>
-                </div>
-            </div>
 
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-                <label for="" class="">Currency <sup>*</sup></label>
-                <select class="form-select " aria-label="Default select example" formControlName="currencyId"
-                    (change)="handleCurrency($event)">
-                    <option [selected]="companyCode.value.currencyId===''" value="" hidden>Select Currency</option>
-                    <option *ngFor="let list of currencyDetails | filterPipes:'code'" [value]="list._id">{{list.code}}
-                    </option>
-                </select>
-                <div
-                    *ngIf="companyCode.controls['currencyId'].touched && companyCode.controls['currencyId'].dirty && companyCode.controls['currencyId'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Currency is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && companyCode.controls['currencyId'].hasError('required')">
-                    <p class="error-message">Currency is mandatory</p>
-                </div>
-            </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-                <label for="">Language <sup>*</sup></label>
-                <select class="form-select " aria-label="Default select example" formControlName="languageId">
-                    <option [selected]="companyCode.value.languageId===''" value="" hidden>Select Language</option>
-                    <option *ngFor="let list of languageDetails | filterPipes:'languageCode';" [value]="list._id">
-                        {{list.languageCode}}</option>
-                </select>
-                <div
-                    *ngIf="companyCode.controls['languageId'].touched && companyCode.controls['languageId'].dirty && companyCode.controls['languageId'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Language is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && companyCode.controls['languageId'].hasError('required')">
-                    <p class="error-message">Language is mandatory</p>
-                </div>
-            </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-                <label for="">Industry Sector <sup>*</sup></label>
-                <select class="form-select " formControlName="industryId" (change)="selectIndustryName($event)">
-                    <option [selected]="companyCode.value.industryId===''" value="" hidden>Select Industry Sector
-                    </option>
-                    <option *ngFor="let list of industryDetails | filterPipes:'description';" [value]="list._id">
-                        {{list.description}}</option>
-                </select>
-                <div
-                    *ngIf="companyCode.controls['industryId'].touched && companyCode.controls['industryId'].dirty && companyCode.controls['industryId'].hasError('required') && !isSubmitted">
-                    <p class="error-message">Industry Sector is mandatory</p>
-                </div>
-                <div *ngIf="isSubmitted && companyCode.controls['industryId'].hasError('required')">
-                    <p class="error-message">Industry Sector is mandatory</p>
-                </div>
-            </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="">Mobile <sup>*</sup></label>
+                        <input maxlength="10" min="0" class="form-control " placeholder="Enter Mobile Number"
+                        formControlName="mobile" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+                   
+                        <div
+                            *ngIf="companyCodeFormData.controls['mobile'].touched && companyCodeFormData.controls['mobile'].dirty && companyCodeFormData.controls['mobile'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Mobile Number is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && companyCodeFormData.controls['mobile'].hasError('required')">
+                            <p class="error-message">Mobile Number is mandatory</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="">Mail Id <sup>*</sup></label>
+                        <input type="email" class="form-control " placeholder="Enter Mail Id" formControlName="mailId">
+                        <div
+                            *ngIf="companyCodeFormData.controls['mailId'].touched && companyCodeFormData.controls['mailId'].dirty && companyCodeFormData.controls['mailId'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Mail Id is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && companyCodeFormData.controls['mailId'].hasError('required')">
+                            <p class="error-message">Mail Id is mandatory</p>
+                        </div>
+                        <div *ngIf="companyCodeFormData.get('mailId').hasError('pattern')">
+                            <p class="error-message">Please enter a valid email address.</p>
+                          </div>
+                    </div>
 
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2 ">
-                <label for="">Company Registration No </label>
-                <div class="d-flex d-grid gap-2">
-                    <input type="text" class="form-control w-50" formControlName="companyRegistrationNo" required
-                        placeholder="Enter Company Registration No"> <span (click)="uploadFile(inputFile, 'company_no')"
-                        class="upload_text">
-                        {{companyCode.value.companyRegistrationFilePath ? companyCode.value.companyRegistrationFilePath : 'Upload Company Registration No'}}</span>
-                    <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
-                </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="">Company Registration No</label>
+                        <input type="text" placeholder="Enter company reg. no." class="form-control" formControlName="companyRegistrationNo">
+                    </div>
 
-              
-                <div
-                *ngIf="isSubmitted && companyCode.controls['companyRegistrationFilePath'].hasError('required')&& companyCode.value.companyRegistrationNo">
-                <p class="error-message">Company Registration No File is mandatory</p>
-            </div>
-            </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="">PAN Number</label>
+                        <input type="text" placeholder="Enter pan no" class="form-control" formControlName="panNumber" appPandirective>
+                    </div>
 
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2 ">
-                <label for="">Tax Registration No </label>
-                <div class="d-flex d-grid gap-2">
-                    <input type="text" class="form-control w-50" formControlName="taxRegistrationNo" required
-                        placeholder="Enter Tax Registration No"> <span (click)="uploadFile(inputFile, 'tax_no')"
-                        class="upload_text">
-                        {{companyCode.value.taxRegistrationFilePath ? companyCode.value.taxRegistrationFilePath : 'Upload Tax Registration No'}}</span>
-                    <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
                 </div>
+                
 
-                <div
-                    *ngIf="isSubmitted && companyCode.controls['taxRegistrationFilePath'].hasError('required')&& companyCode.value.taxRegistrationNo">
-                    <p class="error-message">Tax Registration No File is mandatory</p>
+                <div class="col-12 d-flex justify-content-end py-2">
+                    <button type="submit" class="btn btn-primary" style="background-color: #00acff;">Save</button>
                 </div>
-            </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2 ">
-                <label for="">Vat Registration No </label>
-                <div class="d-flex d-grid gap-2">
-                    <input type="text" class="form-control w-50" formControlName="vatRegistrationNo" required
-                        placeholder="Enter Vat Registration No"> <span (click)="uploadFile(inputFile, 'vat_no')"
-                        class="upload_text">
-                        {{companyCode.value.vatRegistrationFilePath ? companyCode.value.vatRegistrationFilePath : 'Upload Vat Registration No'}}</span>
-                    <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
-                </div>
-
-                <div
-                    *ngIf="isSubmitted && companyCode.controls['vatRegistrationFilePath'].hasError('required')&& companyCode.value.vatRegistrationNo">
-                    <p class="error-message">Vat Registration No File is mandatory</p>
-                </div>
-            </div>
-
+            </form>
         </div>
-        <div class="col-12 d-flex justify-content-end py-2">
-            <button type="button" class="btn btn-primary" (click)="fileUpload()">Save</button>
-        </div>
-    </form>
+    </div>
 </div>

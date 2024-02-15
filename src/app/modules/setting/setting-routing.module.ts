@@ -1,207 +1,52 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CompanyCodeListComponent } from './components/company-code/company-code-list/company-code-list.component';
 import { AddCompanyCodeComponent } from './components/company-code/add-company-code/add-company-code.component';
-import { AddPaymentTermsComponent } from './components/payment-terms/add-payment-terms/add-payment-terms.component';
-import { PaymentTermsListComponent } from './components/payment-terms/payment-terms-list/payment-terms-list.component';
-import { PoTypeListComponent } from './components/po-type/po-type-list/po-type-list.component';
-import { AddPoTypeComponent } from './components/po-type/add-po-type/add-po-type.component';
-import { AddPurchaseOrgComponent } from './components/purchase-org/add-purchase-org/add-purchase-org.component';
-import { PurchaseOrgListComponent } from './components/purchase-org/purchase-org-list/purchase-org-list.component';
-import { AddPlantDataComponent } from './components/plant-data/add-plant-data/add-plant-data.component';
-import { PlantDataListComponent } from './components/plant-data/plant-data-list/plant-data-list.component';
-import { EditPurchaseOrgComponent } from './components/purchase-org/edit-purchase-org/edit-purchase-org.component';
-// import { ErrorPoTypeComponent } from './components/po-type/error-po-type/error-po-type.component';
-import { UpdatePoTypeComponent } from './components/po-type/update-po-type/update-po-type.component';
-import { EditPaymentTermComponent } from './components/payment-terms/edit-payment-term/edit-payment-term.component';
-import { DistributionChannelListComponent } from './components/distibution-channel/distribution-channel-list/distribution-channel-list.component';
-import { AddDistributionChannelComponent } from './components/distibution-channel/add-distribution-channel/add-distribution-channel.component';
-import { DivionListComponent } from './components/divion/divion-list/divion-list.component';
-import { AddDivionComponent } from './components/divion/add-divion/add-divion.component';
-import { ModeOfTransportListComponent } from './components/mode-of-transport/mode-of-transport-list/mode-of-transport-list.component';
-import { AddModeOfTransportComponent } from './components/mode-of-transport/add-mode-of-transport/add-mode-of-transport.component';
-import { OrderStatusListComponent } from './components/order-status/order-status-list/order-status-list.component';
-import { AddOrderStatusComponent } from './components/order-status/add-order-status/add-order-status.component';
-import { CustomerAccListComponent } from './components/customer-account-AG/customer-acc-list/customer-acc-list.component';
-import { AddCustomerAccComponent } from './components/customer-account-AG/add-customer-acc/add-customer-acc.component';
-import { BillingBlockListComponent } from './components/billing-block/billing-block-list/billing-block-list.component';
-import { AddBillingBlockComponent } from './components/billing-block/add-billing-block/add-billing-block.component';
-import { EditCompanyCodeComponent } from './components/company-code/edit-company-code/edit-company-code/edit-company-code.component';
-import { EditPlantDataComponent } from './components/plant-data/edit-plant-data/edit-plant-data.component';
-import { AddIncoTermComponent } from './components/inco-term/add-inco-term/add-inco-term.component';
-import { IncoTermListComponent } from './components/inco-term/inco-term-list/inco-term-list.component';
-import { AddSalesOrgComponent } from './components/sales-org/add-sales-org/add-sales-org.component';
-import { SalesOrgListComponent } from './components/sales-org/sales-org-list/sales-org-list.component';
-import { EditDivionComponent } from './components/divion/edit-divion/edit-divion.component';
-import { EditDistibutionChannelComponent } from './components/distibution-channel/edit-distibution-channel/edit-distibution-channel.component';
-import { EditCustomerAccountAGComponent } from './components/customer-account-AG/edit-customer-account-ag/edit-customer-account-ag.component';
-import { EditModeOfTransportComponent } from './components/mode-of-transport/edit-mode-of-transport/edit-mode-of-transport.component';
-import { EditOrderStatusComponent } from './components/order-status/edit-order-status/edit-order-status.component';
-import { EditBillingBlockComponent } from './components/billing-block/edit-billing-block/edit-billing-block.component';
-import { EditIncoTermComponent } from './components/inco-term/edit-inco-term/edit-inco-term.component';
-import { EditSalesOrgComponent } from './components/sales-org/edit-sales-org/edit-sales-org.component';
+import { CompanyCodeListComponent } from './components/company-code/company-code-list/company-code-list.component';
+import { AddVehicleRegisteryComponent } from './components/vehicle-registory/add-vehicle-registery/add-vehicle-registery.component';
+import { VehicleRegisteryListComponent } from './components/vehicle-registory/vehicle-registery-list/vehicle-registery-list.component';
+import { EditCompanyCodeComponent } from './components/company-code/edit-company-code/edit-company-code.component';
+import { EditVehicleRegisteryComponent } from './components/vehicle-registory/edit-vehicle-registery/edit-vehicle-registery.component';
+import { AddRtoStateComponent } from './components/rto-state/add-rto-state/add-rto-state.component';
+import { RtoStateListComponent } from './components/rto-state/rto-state-list/rto-state-list.component';
+import { EditRtoStateComponent } from './components/rto-state/edit-rto-state/edit-rto-state.component';
 
 const routes: Routes = [
   {
-    path:'company-code-list',
-    component:CompanyCodeListComponent
+    path: 'add-company-code',
+    component: AddCompanyCodeComponent
   },
   {
-    path:'add-company-code',
-    component:AddCompanyCodeComponent
+    path: 'company-code-list',
+    component: CompanyCodeListComponent
   },
   {
-    path:'edit-company-code/:id',
-    component:EditCompanyCodeComponent
+    path: 'edit-company-code/:id',
+    component: EditCompanyCodeComponent
   },
   {
-    path:'payment-terms-list',
-    component:PaymentTermsListComponent
+    path: 'add-vehicle-category',
+    component: AddVehicleRegisteryComponent
   },
   {
-    path:'add-payment-terms',
-    component:AddPaymentTermsComponent
+    path: 'vehicle-category-list',
+    component: VehicleRegisteryListComponent
   },
   {
-    path:'edit-payment-term/:id',
-    component:EditPaymentTermComponent
+    path: 'edit-vehicle-category/:id',
+    component: EditVehicleRegisteryComponent
   },
   {
-    path:'add-po-type',
-    component:AddPoTypeComponent
+    path:'add-rto-state',
+    component:AddRtoStateComponent
   },
   {
-    path:'po-type-list',
-    component:PoTypeListComponent
+    path:'rto-state-list',
+    component:RtoStateListComponent
   },
   {
-    path:'update-po-type/:id',
-    component:UpdatePoTypeComponent
-  },
-  {
-    path:'add-purchase-org',
-    component:AddPurchaseOrgComponent
-  },
-  {
-    path:'purchase-org-list',
-    component:PurchaseOrgListComponent
-  },
-  {
-    path:'edit-purchase-org/:id',
-    component:EditPurchaseOrgComponent
-  },
-  {
-    path:'add-plant-data',
-    component:AddPlantDataComponent
-  },{
-    path:'plant-data-list',
-    component:PlantDataListComponent
-  },{
-    path:'distribution-channel-list',
-    component:DistributionChannelListComponent
-  },
-  {
-    path:'add-distribution-channel',
-    component:AddDistributionChannelComponent
-  },
-  {
-    path:'edit-distribution-channel/:id',
-    component:EditDistibutionChannelComponent
-  },
-  {
-    path:'divion-list',
-    component:DivionListComponent
-  },
-  {
-    path:'add-divion-list',
-    component:AddDivionComponent
-  },
-  {
-    path:'edit-divion/:id',
-    component:EditDivionComponent
-  },
-  {
-    path:'modeOf-transport-list',
-    component:ModeOfTransportListComponent
-  },
-  {
-    path:'add-modeOf-transport',
-    component:AddModeOfTransportComponent
-  },
-  {
-    path:'edit-mode-of-transport/:id',
-    component:EditModeOfTransportComponent
-  },
-  {
-    path:'order-status-list',
-    component:OrderStatusListComponent
-  },
-  {
-    path:'add-order-status',
-    component:AddOrderStatusComponent
-  },
-  {
-    path:'edit-order-status/:id',
-    component:EditOrderStatusComponent
-  },
-  {
-    path:'customer-account-list',
-    component:CustomerAccListComponent
-  },
-  {
-    path:'add-customer-account',
-    component:AddCustomerAccComponent
-  },
-  {
-    path:'edit-customer-account/:id',
-    component:EditCustomerAccountAGComponent
+    path:'edit-rto-state/:id',
+    component:EditRtoStateComponent
   }
-  ,
-  {
-    path:'billing-block-list',
-    component:BillingBlockListComponent
-  },
-  {
-    path:'add-billing-block',
-    component:AddBillingBlockComponent
-  },
-  {
-    path:'edit-billing-block/:id',
-    component:EditBillingBlockComponent
-  },
-  {
-    path:'edit-plant-data/:id',
-    component:EditPlantDataComponent
-  },
-  {
-    path:'edit-company-code/:id',
-    component:EditCompanyCodeComponent
-  },
-  {
-    path:'add-inco-term',
-    component:AddIncoTermComponent
-  },
-  {
-    path:'inco-term-list',
-    component:IncoTermListComponent
-  },
-  {
-    path:'edit-inc-term/:id',
-    component:EditIncoTermComponent
-  },
-  {
-    path:'add-sales-org',
-    component:AddSalesOrgComponent
-  },
-  {
-    path:'sales-org-list',
-    component:SalesOrgListComponent
-  },
-  {
-    path:'edit-sales-org/:id',
-    component:EditSalesOrgComponent
-  }
- 
 ];
 
 @NgModule({

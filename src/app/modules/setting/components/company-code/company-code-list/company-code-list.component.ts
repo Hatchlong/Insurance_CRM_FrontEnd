@@ -1,91 +1,73 @@
-import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { CompanyCodeService } from '../../../Services/company-code/company-code.service';
+import { CompanyCodeService } from '../../../services/company-code/company-code.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
+
 @Component({
   selector: 'app-company-code-list',
   templateUrl: './company-code-list.component.html',
   styleUrls: ['./company-code-list.component.css']
 })
-export class CompanyCodeListComponent {
+export class CompanyCodeListComponent implements OnInit{
 
-  companyCodeDetails: any = []
+  @ViewChild('searchDataInput', { static: true }) searchInput!: ElementRef;
+
+
+  isShowPadding: any = false
   selectAll: any = false
-  selectedFile: any = '';
-  allCompanyDetails: any = []
-  totalItem: any = 0;
-  currentPage = 1;
-  page?: number = 0;
-  itemsPerPage = 10;
-  sampleJson = {
-    "companyCode": "HAT123",
-    "companyName": "Hatchlong",
-    "countryName": "Zambia",
-    "city": "2",
-    "currencyName": "INR",
-    "languageName": "English",
-  }
-  isShowPadding: any = false;
-  idleState:any = 'Not Started'
-  constructor(
-    private router: Router,
-    private companyCodeSer: CompanyCodeService,
-    private _snackBar: MatSnackBar,
-    private idle:Idle,
-    private cd:ChangeDetectorRef
-  ) {
-    idle.setIdle(450),
-    idle.setTimeout(900),
-    idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
+  companyCodeDetail:any=[]
+  allCompanyCodeDetail:any=[]
 
 
-    idle.onIdleEnd.subscribe(() => {
-      this.idleState = 'Started';
-      cd.detectChanges();
-    })
+  constructor(private router: Router,
+    private companyCodeSer:CompanyCodeService,
+    private _snackBar:MatSnackBar) { }
 
-    idle.onTimeout.subscribe(() => {
-      this.idleState = 'Timeout';
-    })
-
-    idle.onIdleStart.subscribe(() => {
-      this.idleState = 'idle';
-    })
-   }
-
-  ngOnInit(): void {
-    this.setStates();
-    this.getAllCompanyCodeDetails(this.page, this.itemsPerPage)
-  }
-
-  setStates(){
-    this.idle.watch();
-    this.idleState = 'Started'
-  }
-
-
-  nextPage(url: any) {
-    this.router.navigate([`${url}`])
-  }
   handleSideBar(event: any) {
     this.isShowPadding = event
   }
+  nextPage(url: any) {
+    this.router.navigate([`${url}`])
+  }
+  ngOnInit(): void {
+      this.getAllCompanyCodeDetail()
+  }
 
+  async getAllCompanyCodeDetail(){
+    try {
+      const result:any=await this.companyCodeSer.getAllCompanyCodeDetail()
+      if (result.status==='1') {
+        result.data.map((el: any) => {
+          el.check = false
+        })
+        this.companyCodeDetail = result.data
+        this.allCompanyCodeDetail = result.data
+        if (result.data.length === 0) {
+          this.selectAll = false
+        }
+      }
+    } catch (error) {
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
+    }
+  }
+  
   selectdata(event: any) {
     console.log(event.target.checked)
     this.selectAll = event.target.checked;
     console.log(typeof this.selectAll)
-    this.companyCodeDetails.map((el: any) => {
+    this.companyCodeDetail.map((el: any) => {
       el.check = event.target.checked
     })
 
 
   }
   particularcheck(event: any, index: any) {
-    this.companyCodeDetails[index].check = event.target.checked
-    const findSelect = this.companyCodeDetails.find((el: any) => el.check === false)
+    this.companyCodeDetail[index].check = event.target.checked
+    const findSelect = this.companyCodeDetail.find((el: any) => el.check === false)
 
     if (findSelect) {
       this.selectAll = false
@@ -95,48 +77,37 @@ export class CompanyCodeListComponent {
     }
   }
 
-
-
-
-
-  //get data into list
-  async getAllCompanyCodeDetails(page: any, itemsPerPage: any) {
-    try {
-      const result: any = await this.companyCodeSer.getAllCompanyCodeDetailsPage(page, itemsPerPage);
-      console.log(result)
-      if (result.status === '1') {
-        result.data.map((el: any) => {
-          el.check = false
-        })
-        this.totalItem = result.count
-        this.allCompanyDetails = result.data
-        this.companyCodeDetails = result.data;
-        if (result.data.length === 0) {
-          this.selectAll = false
-        }
-      }
-    } catch (error: any) {
-
-      this._snackBar.open('Something went wrong', '', {
-        duration: 5 * 1000, horizontalPosition: 'center',
-        verticalPosition: 'top',
-        panelClass: 'app-notification-error',
-      });;
+  
+  handleFilter(event: any) {
+    const filterValue = event.target.value.toUpperCase();
+    if (!filterValue) {
+      this.companyCodeDetail = this.allCompanyCodeDetail;
+      return;
     }
+
+    this.companyCodeDetail = this.allCompanyCodeDetail.filter((obj: any) =>
+    ((obj.companyCode.toUpperCase()).includes(filterValue) || (obj.companyName.toUpperCase()).includes(filterValue) || (obj.mobile.toUpperCase()).includes(filterValue) || (obj.mailId.toUpperCase()).includes(filterValue)))
+  }
+  filterData() {
+    const filterValue = this.searchInput.nativeElement.value.toUpperCase();
+    this.companyCodeDetail = this.allCompanyCodeDetail.filter((obj: any) =>
+      ((obj.companyCode.toUpperCase()).includes(filterValue) || (obj.companyName.toUpperCase()).includes(filterValue) || (obj.mobile.toUpperCase()).includes(filterValue) || (obj.mailId.toUpperCase()).includes(filterValue))   ) 
+
   }
 
-
+  
+  //delete single or particular record by the delete icon in every row of data
   async deleteRecords(data: any) {
     try {
       data.isActive = "C"
-      const result: any = await this.companyCodeSer.updateCompanyCode(data);
+      const result: any = await this.companyCodeSer.updateCompanyCodeDetail(data);
       if (result.status === '1') {
         this._snackBar.open("Deleted Successfully", '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        this.getAllCompanyCodeDetails(this.page, this.itemsPerPage)
+        this.getAllCompanyCodeDetail()
         return;
       }
       if (result.status === '0') {
@@ -148,99 +119,14 @@ export class CompanyCodeListComponent {
       }
 
     } catch (error: any) {
-
-      this._snackBar.open('Something went wrong', '', {
-        duration: 5 * 1000, horizontalPosition: 'center',
-        verticalPosition: 'top',
-        panelClass: 'app-notification-error',
-      });
-    }
-  }
-
-
-  // File Upload
-  importHandle(inputId: any) {
-    inputId.click()
-  }
-
-
-  // File Input
-  handleFileData(event: any) {
-    console.log(event.target.files[0]);
-    this.selectedFile = event.target.files[0];
-    this.uploadFile()
-  }
-
-  async uploadFile() {
-    try {
-      const formData = new FormData();
-      formData.append('file', this.selectedFile);
-      const result: any = await this.companyCodeSer.fileUploadCompanyCode(formData);
-      if (result.status === '1') {
-        this._snackBar.open(result.message, '', {
-          duration: 5 * 1000, horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: 'app-notification-success',
-        });
-        this.getAllCompanyCodeDetails(this.page, this.itemsPerPage)
-        return;
-      }
-      if (result.status === '0') {
-        this._snackBar.open(result.message, '', {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
+        return
       }
-    } catch (error: any) {
-
-      this._snackBar.open('Something went wrong', '', {
-        duration: 5 * 1000, horizontalPosition: 'center',
-        verticalPosition: 'top',
-        panelClass: 'app-notification-error',
-      });
-    }
-
-  }
-
-  exportExcel(): void {
-    this.companyCodeSer.exportToExcel(this.companyCodeDetails, 'company Code', 'Sheet1');
-  }
-
-
-  downloadExcel(): void {
-
-    const sampleRecord = [this.sampleJson]
-    this.companyCodeSer.exportToExcel(sampleRecord, 'company_Code', 'Sheet1');
-  }
-
-
-  async handleDeleteMuliple() {
-    try {
-      const filterData = this.companyCodeDetails.filter((el: any) => el.check === true)
-      filterData.map((el: any) => {
-        el.isActive = "C"
-      })
-      const result: any = await this.companyCodeSer.updateCompanyCodeMany(filterData);
-      if (result.status === '1') {
-        this._snackBar.open("Deleted Successfully", '', {
-          duration: 5 * 1000, horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: 'app-notification-success',
-        });
-        this.getAllCompanyCodeDetails(this.page, this.itemsPerPage)
-        return;
-      }
-      if (result.status === '0') {
-        this._snackBar.open("Deleted Unsuccessfully", '', {
-          duration: 5 * 1000, horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: 'app-notification-error',
-        });
-      }
-
-    } catch (error: any) {
-      console.error(error)
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
@@ -249,21 +135,4 @@ export class CompanyCodeListComponent {
     }
   }
 
-
-  handleFilter(event: any) {
-    if (!event.target.value) {
-      this.companyCodeDetails = this.allCompanyDetails
-    }
-    console.log(event.target.value)
-    const isStringIncluded = this.allCompanyDetails.filter((obj: any) => ((obj.companyCode.toUpperCase()).includes(event.target.value.toUpperCase()) || (obj.companyName.toUpperCase()).includes(event.target.value.toUpperCase())));
-    this.companyCodeDetails = isStringIncluded
-  }
-
-
-
-  pageChanged(event: PageChangedEvent): void {
-    this.page = event.page;
-    const records = (this.page - 1) * this.itemsPerPage;
-    this.getAllCompanyCodeDetails(records, this.itemsPerPage)
-  }
 }
