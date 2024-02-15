@@ -1,0 +1,98 @@
+<div class="sidebar close">
+    <div class="logo-details">
+        <i class='bx bxl-c-plus-plus'></i>
+        <span class="logo_name">Insurance CRM</span>
+    </div>
+    <ul class="nav-links">
+        <li>
+            <a>
+                <i class='bx bx-grid-alt'></i>
+                <span class="link_name">Dashboard</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name">Dashboard</a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="iocn-link">
+                <a>
+                    <i class='bx bx-collection'></i>
+                    <span class="link_name">Master</span>
+                </a>
+                <i class='bx bxs-chevron-down arrow'></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a class="link_name">Master</a></li>
+                <li><a (click)="nextPage('/master/agent-list',{main:'Master',name:'Agent'})">Agent</a></li>
+                <li><a (click)="nextPage('/master/policy-plan-list',{main:'Master',name:'Policy Plan'})">Policy</a></li>
+                <li><a (click)="nextPage('/master/customer-list',{main:'Master',name:'Customer'})">Customer</a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="iocn-link">
+                <a>
+
+                    <mat-icon fontSet="material-symbols-outlined">policy</mat-icon>
+                    <span class="link_name">Policy</span>
+                </a>
+                <i class='bx bxs-chevron-down arrow'></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a class="link_name">Policy</a></li>
+                <li><a (click)="nextPage('/applyPolicy/apply-policy-list',{main:'Apply Policy',name:'Apply Policy'})">Apply Policy</a></li>
+               
+            </ul>
+
+        </li>
+        
+        <li>
+            <div class="iocn-link">
+                <a>
+                    <i class='bx bx-cog'></i>
+                    <span class="link_name">Setting</span>
+                </a>
+                <i class='bx bxs-chevron-down arrow'></i>
+            </div>
+            <ul class="sub-menu setting-li">
+                <li><a class="link_name">Setting</a></li>
+                <li><a (click)="nextPage('/setting/company-code-list',{main:'Setting',name:'Company Code'})">Company Code</a></li>
+                <li><a (click)="nextPage('/setting/rto-state-list',{main:'Setting',name:'RTO State'})">RTO State Code</a></li>
+                <li><a (click)="nextPage('/setting/vehicle-category-list',{main:'Setting',name:'Vehicle Category'})">Vehicle Category</a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="iocn-link">
+                <a>
+                    <mat-icon fontSet="material-symbols-outlined">report</mat-icon>
+                    <span class="link_name">Reports</span>
+                </a>
+                <i class='bx bxs-chevron-down arrow'></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a class="link_name">Reports</a></li>
+                <li><a>Reports </a></li>
+
+            </ul>
+        </li>
+
+        <li>
+            <div class="profile-details">
+                <div class="profile-content">
+                    <img src="assets/logs/profile.png" alt="profileImg">
+                </div>
+                <div class="name-job">
+                    <div class="profile_name">Developers</div>
+                    <div class="job">Web Desginer</div>
+                </div>
+                <i class='bx bx-log-out'></i>
+            </div>
+        </li>
+    </ul>
+</div>
+<section class="home-section">
+    <div class="home-content">
+        <i class='bx bx-menu' (click)="closeNav()"></i>
+        <span class="text"><b>{{subFolderName | uppercase}}</b> / <span class="screenName">{{SelectedName | uppercase}}</span></span>
+    </div>
+
+</section>

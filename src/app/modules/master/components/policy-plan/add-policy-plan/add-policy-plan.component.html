@@ -1,0 +1,154 @@
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
+    <div class="row">
+        <div class="col-12">
+            <h2><mat-icon class="back" routerLink="/master/policy-plan-list">arrow_back</mat-icon>Policy Plan
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 ">
+            <form [formGroup]="policyFormData" (ngSubmit)="submitData()">
+                <div class="row border">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">Policy Code <sup>*</sup></label>
+                        <input type="text" class="form-control " placeholder="Enter Policy Code" formControlName="policyCode">
+                        <div
+                            *ngIf="policyFormData.controls['policyCode'].touched && policyFormData.controls['policyCode'].dirty && policyFormData.controls['policyCode'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Policy Code is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && policyFormData.controls['policyCode'].hasError('required')">
+                            <p class="error-message">Policy Code is mandatory</p>
+                        </div>
+                    </div>
+                  
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">Policy Name <sup>*</sup></label>
+                        <input type="text" class="form-control " placeholder="Enter Policy Name"
+                            formControlName="policyName">
+                        <div
+                            *ngIf="policyFormData.controls['policyName'].touched && policyFormData.controls['policyName'].dirty && policyFormData.controls['policyName'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Policy Name is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && policyFormData.controls['policyName'].hasError('required')">
+                            <p class="error-message">Policy Name is mandatory</p>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="example">Policy Type <sup>*</sup></label>
+                        <select class="form-select " aria-label="Default select example" formControlName="policyType">
+                            <option [selected]="policyFormData.value.policyType === ''" value="" hidden>
+                                Select
+                                Policy Type </option>
+                            <option value="Commercial">Commercial</option>
+                            <option value="General">General</option>
+                            <div
+                                *ngIf="policyFormData.controls['policyType'].touched && policyFormData.controls['policyType'].dirty && policyFormData.controls['policyType'].hasError('required') && !isSubmitted">
+                                <p class="error-message">Policy Type  is mandatory</p>
+                            </div>
+                            <div *ngIf="isSubmitted && policyFormData.controls['policyType'].hasError('required')">
+                                <p class="error-message">Policy Type  is mandatory</p>
+                            </div>
+                        </select>
+
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">Varient<sup>*</sup></label>
+                        <input type="text" class="form-control " placeholder="Enter Varient" formControlName="varient">
+                        <div
+                        *ngIf="policyFormData.controls['varient'].touched && policyFormData.controls['varient'].dirty && policyFormData.controls['varient'].hasError('required') && !isSubmitted">
+                        <p class="error-message">Varient is mandatory</p>
+                    </div>
+                    <div *ngIf="isSubmitted && policyFormData.controls['varient'].hasError('required')">
+                        <p class="error-message">Varient is mandatory</p>
+                    </div>
+
+                    </div>
+                    
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+
+                        <label for="">Tenor<sup>*</sup> </label>
+                        <input type="text" class="form-control " placeholder="Enter Tenor" formControlName="tenor">
+                        <div
+                        *ngIf="policyFormData.controls['tenor'].touched && policyFormData.controls['tenor'].dirty && policyFormData.controls['tenor'].hasError('required') && !isSubmitted">
+                        <p class="error-message">Tenor  is mandatory</p>
+                    </div>
+                    <div *ngIf="isSubmitted && policyFormData.controls['tenor'].hasError('required')">
+                        <p class="error-message">Tenor  is mandatory</p>
+                    </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="example">Company Name <sup>*</sup></label>
+                        <select class="form-select " aria-label="Default select example" formControlName="companyName">
+                            <option [selected]="policyFormData.value.companyName === ''" value="" hidden>
+                                Select
+                                Company Name </option>
+                            <option value="LIC Insurance">LIC Insurance</option>
+                            <option value="HDFC Insurance">HDFC Insurance</option>
+                            <option value="TATA AIG">TATA AIG</option>
+                            <option value="Royal Sundaram">Royal Sundaram</option>
+                            <option value="ICICI Lombard">LIC Insurance</option>
+                            <option value="United Indian Insurance Company Ltd">United Indian Insurance Company Ltd</option>
+                            <option value="Universal Sompo General Insurance">Universal Sompo General Insurance</option>
+                            <option value="Chola MS General Insurance">Chola MS General Insurance</option>
+                            
+                            <div
+                                *ngIf="policyFormData.controls['companyName'].touched && policyFormData.controls['companyName'].dirty && policyFormData.controls['companyName'].hasError('required') && !isSubmitted">
+                                <p class="error-message">Company Name  is mandatory</p>
+                            </div>
+                            <div *ngIf="isSubmitted && policyFormData.controls['companyName'].hasError('required')">
+                                <p class="error-message">Company Name  is mandatory</p>
+                            </div>
+                        </select>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">SLAB</label>
+                        <input type="text" class="form-control " placeholder="Enter SLAB" formControlName="slab">
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">Additional Health Business %</label>
+                        <input type="text" class="form-control " placeholder="Enter Additional Health Business %" formControlName="additionalHealth">
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">Total Grid Amount</label>
+                        <input type="text" class="form-control " placeholder="Enter Total Grid Amount" formControlName="totalGridAmount">
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">Grid On OD PR-Discount Criteria</label>
+                        <input type="text" class="form-control " placeholder="Enter Grid On OD PR-Discount Criteria" formControlName="gridOnOD">
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">USGI_Net_Premium</label>
+                        <input type="text" class="form-control " placeholder="Enter USGI_Net_Premium" formControlName="usgiNet">
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">Num_Net_OD_Premium</label>
+                        <input type="text" class="form-control " placeholder="Enter Num_Net_OD_Premium" formControlName="numNet">
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">Num_Net_TP_Premium</label>
+                        <input type="text" class="form-control " placeholder="Enter Num_Net_TP_Premium" formControlName="numNetTp">
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">Terrorism_Pool_Premium</label>
+                        <input type="text" class="form-control " placeholder="Enter Terrorism_Pool_Premium" formControlName="terrorism">
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">Commision_Per</label>
+                        <input type="text" class="form-control " placeholder="Enter Commision_Per" formControlName="commisionPer">
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">Commision_Amount</label>
+                        <input type="text" class="form-control " placeholder="Enter Commision_Amount" formControlName="commisionAmount">
+                    </div>
+                </div>
+               
+
+                <div class="col-12 d-flex justify-content-end py-2">
+                    <button type="submit" class="btn btn-primary" style="background-color: #00acff;">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
