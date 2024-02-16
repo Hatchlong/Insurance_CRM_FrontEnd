@@ -6,7 +6,7 @@
     <div class="row border mx-0">
       <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
         <label for="">RTO State Code <sup>*</sup></label>
-        <input type="text" formControlName="rtoStateCode" class="form-control" placeholder="Enter RTO State Code" >
+        <input type="text" formControlName="rtoStateCode" class="form-control" placeholder="Enter RTO State Code" readonly >
         <div
           *ngIf="rtoStateData.controls['rtoStateCode'].touched && rtoStateData.controls['rtoStateCode'].dirty && rtoStateData.controls['rtoStateCode'].hasError('required') && !isSubmitted">
           <p class="error-message">RTO State Code is mandatory</p>
@@ -26,6 +26,42 @@
           <p class="error-message">Description is mandatory</p>
         </div>
       </div>
+
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+        <label for="" class="">Address</label>
+        <input type="text" class="form-control " placeholder="Enter Address" formControlName="address">
+
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+
+        <label for="" class="">Country </label>
+        <select class="form-select " aria-label="Default select example" formControlName="country">
+            <option [selected]="rtoStateData.value.country === ''" value="" hidden>
+                Select
+                Country</option>
+                <option value="India">India</option>
+        </select>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+        <label for="">State </label>
+        <select class="form-select " aria-label="Default select example" formControlName="state">
+            <option [selected]="rtoStateData.value.state === ''" value="" hidden> Select State</option>
+            <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+
+
+        </select>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+
+        <label for="">City </label>
+        <select class="form-select " aria-label="Default select example" formControlName="city">
+            <option [selected]="rtoStateData.value.city === ''" value="" hidden> Select City</option>
+            <option *ngFor="let city of cities[rtoStateData.get('state').value]" [value]="city">{{ city }}</option>
+
+           
+        </select>
+    </div>
+
     </div>
     <div class="col-12 d-flex justify-content-end py-2">
       <button type="submit" class="btn btn-primary">Save</button>

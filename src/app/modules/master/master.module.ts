@@ -24,6 +24,10 @@ import { EditAgentComponent } from './components/agent/edit-agent/edit-agent.com
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { EditPolicyPlanComponent } from './components/policy-plan/edit-policy-plan/edit-policy-plan.component';
 import { ViewImageComponent } from './components/view-image/view-image/view-image.component';
+import { FinancialPeriodListComponent } from './components/financial-period/financial-period-list/financial-period-list.component';
+import { AddFinancialPeriodComponent } from './components/financial-period/add-financial-period/add-financial-period.component';
+import { EditFinancialPeriodComponent } from './components/financial-period/edit-financial-period/edit-financial-period.component';
+import { FinancialPeriodService } from './services/financial-period/financial-period.service';
 
 
 
@@ -38,7 +42,10 @@ import { ViewImageComponent } from './components/view-image/view-image/view-imag
     CustomerListComponent,
     EditAgentComponent,
     EditPolicyPlanComponent,
-    ViewImageComponent
+    ViewImageComponent,
+    FinancialPeriodListComponent,
+    AddFinancialPeriodComponent,
+    EditFinancialPeriodComponent
   ],
   imports: [
     CommonModule,
@@ -58,6 +65,6 @@ import { ViewImageComponent } from './components/view-image/view-image/view-imag
 
 
   ],
-  providers:[AgentService,PolicyPlanService]
+  providers:[AgentService,PolicyPlanService, FinancialPeriodService]
 })
 export class MasterModule { }

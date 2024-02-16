@@ -8,6 +8,9 @@ import { AddPolicyPlanComponent } from './components/policy-plan/add-policy-plan
 import { PolicyPlanListComponent } from './components/policy-plan/policy-plan-list/policy-plan-list.component';
 import { EditAgentComponent } from './components/agent/edit-agent/edit-agent.component';
 import { EditPolicyPlanComponent } from './components/policy-plan/edit-policy-plan/edit-policy-plan.component';
+import { AddFinancialPeriodComponent } from './components/financial-period/add-financial-period/add-financial-period.component';
+import { FinancialPeriodListComponent } from './components/financial-period/financial-period-list/financial-period-list.component';
+import { EditFinancialPeriodComponent } from './components/financial-period/edit-financial-period/edit-financial-period.component';
 
 const routes: Routes = [
   {
@@ -47,6 +50,18 @@ const routes: Routes = [
   {
     path:'edit-policy-plan/:id',
     component:EditPolicyPlanComponent
+  },
+  {
+    path:'add-financial-period',
+    component:AddFinancialPeriodComponent
+  },
+  {
+    path:'financial-period-list',
+    component:FinancialPeriodListComponent
+  },
+  {
+    path:'edit-financial-period/:id',
+    component:EditFinancialPeriodComponent
   }
 ];
 

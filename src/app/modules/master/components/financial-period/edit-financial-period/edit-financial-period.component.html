@@ -1,0 +1,142 @@
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
+  <h2><mat-icon class="back" routerLink="/master/financial-period-list">arrow_back</mat-icon>Financial Period</h2>
+
+  <form [formGroup]="financialPeriodData" (ngSubmit)="submitData()">
+    <div class="row border mx-0">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+        <label for="">Financial Period <sup>*</sup></label>
+        <input type="text" formControlName="periodCode" class="form-control" placeholder="Enter Period Code" readonly>
+        <div
+          *ngIf="financialPeriodData.controls['periodCode'].touched && financialPeriodData.controls['periodCode'].dirty && financialPeriodData.controls['periodCode'].hasError('required') && !isSubmitted">
+          <p class="error-message">Financial Period is mandatory</p>
+        </div>
+        <div *ngIf="isSubmitted && financialPeriodData.controls['periodCode'].hasError('required')">
+          <p class="error-message">Financial Period is mandatory</p>
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+        <label for="">From Month<sup>*</sup></label>
+        <!-- <select class="form-select " aria-label="Default select example" formControlName="fromMonth">
+          <option [selected]="financialPeriodData.value.fromMonth === ''" value="" hidden>Select From Month</option>
+          <option>Jan</option>
+          <option>Feb</option>
+          <option>Mar</option>
+          <option>Apr</option>
+          <option>May</option>
+          <option>Jun</option>
+          <option>Jul</option>
+          <option>Aug</option>
+          <option>Sep</option>
+          <option>Oct</option>
+          <option>Nov</option>
+          <option>Des</option> 
+      </select> -->
+      <select class="form-select" aria-label="Default select example" formControlName="fromMonth">
+        <option [selected]="financialPeriodData.get('fromMonth').value === ''" value="" hidden>Select From Month</option>
+        <!-- <option *ngFor="let month of monthStringToNumeric | keyvalue" [value]="month.value">{{ month.key }}</option> -->
+        <option *ngFor="let month of monthOrder" [value]="monthStringToNumeric[month]">{{ month }}</option>
+
+      </select> 
+      <div
+          *ngIf="financialPeriodData.controls['fromMonth'].touched && financialPeriodData.controls['fromMonth'].dirty && financialPeriodData.controls['fromMonth'].hasError('required') && !isSubmitted">
+          <p class="error-message">From Month is mandatory</p>
+        </div>
+        <div *ngIf="isSubmitted && financialPeriodData.controls['fromMonth'].hasError('required')">
+          <p class="error-message">From Month is mandatory</p>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+        <!-- <label for="">From Year<sup>*</sup></label>
+        <input type="text" class="form-control" placeholder="Enter From Year" formControlName="fromYear"  min="0" maxlength="4" (keypress)="onlyNumberKey($event)">
+        <div
+          *ngIf="financialPeriodData.controls['fromYear'].touched && financialPeriodData.controls['fromYear'].dirty && financialPeriodData.controls['fromYear'].hasError('required') && !isSubmitted">
+          <p class="error-message">From Year is mandatory</p>
+        </div>
+        <div *ngIf="isSubmitted && financialPeriodData.controls['fromYear'].hasError('required')">
+          <p class="error-message">From Year is mandatory</p>
+        </div> -->
+        <label for="fromYear">From Year <sup>*</sup></label>
+    <input type="text" id="fromYear" class="form-control" formControlName="fromYear"  placeholder="Enter From Year" min="0" maxlength="4" (keypress)="onlyNumberKey($event)">
+    <div *ngIf="financialPeriodData.get('fromYear').invalid && financialPeriodData.get('fromYear').touched">
+      <span *ngIf="financialPeriodData.get('fromYear').errors.required" class="error-message">From Year is required</span>
+    </div>
+    <div
+          *ngIf="financialPeriodData.controls['fromYear'].touched && financialPeriodData.controls['fromYear'].dirty && financialPeriodData.controls['fromYear'].hasError('required') && !isSubmitted">
+          <p class="error-message">From year is mandatory</p>
+        </div>
+        <div *ngIf="isSubmitted && financialPeriodData.controls['fromYear'].hasError('required')">
+          <p class="error-message">From year is mandatory</p>
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+        <label for="toMonth">To Month<sup>*</sup></label>
+        <!-- <select class="form-select " aria-label="Default select example" formControlName="toMonth">
+          <option [selected]="financialPeriodData.value.toMonth === ''" value="" hidden>Select To Month</option>
+          <option>Jan</option>
+          <option>Feb</option>
+          <option>Mar</option>
+          <option>Apr</option>
+          <option>May</option>
+          <option>Jun</option>
+          <option>Jul</option>
+          <option>Aug</option>
+          <option>Sep</option>
+          <option>Oct</option>
+          <option>Nov</option>
+          <option>Des</option>        
+      </select> -->
+      <select class="form-select" aria-label="Default select example" formControlName="toMonth">
+        <option [selected]="financialPeriodData.get('toMonth').value === ''" value="" hidden>Select From Month</option>
+        <!-- <option *ngFor="let month of monthStringToNumeric | keyvalue" [value]="month.value">{{ month.key }}</option> -->
+        <option *ngFor="let month of monthOrder" [value]="monthStringToNumeric[month]">{{ month }}</option>
+
+      </select>   
+      <div
+          *ngIf="financialPeriodData.controls['toMonth'].touched && financialPeriodData.controls['toMonth'].dirty && financialPeriodData.controls['toMonth'].hasError('required') && !isSubmitted">
+          <p class="error-message">To Month is mandatory</p>
+        </div>
+        <div *ngIf="isSubmitted && financialPeriodData.controls['toMonth'].hasError('required')">
+          <p class="error-message">To Month is mandatory</p>
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+        <!-- <label for="">To Year<sup>*</sup></label>
+        <input type="text" class="form-control" placeholder="Enter To Year" formControlName="toYear"  min="0" maxlength="4" (keypress)="onlyNumberKey($event)">
+        <div
+          *ngIf="financialPeriodData.controls['toYear'].touched && financialPeriodData.controls['toYear'].dirty && financialPeriodData.controls['toYear'].hasError('required') && !isSubmitted">
+          <p class="error-message">To Year is mandatory</p>
+        </div>
+        <div *ngIf="isSubmitted && financialPeriodData.controls['toYear'].hasError('required')">
+          <p class="error-message">To Year is mandatory</p>
+        </div> -->
+        <label for="toYear">To Year <sup>*</sup></label>
+        <input type="text" id="toYear" class="form-control" formControlName="toYear"  placeholder="Enter To Year" min="0" maxlength="4" (keypress)="onlyNumberKey($event)">
+        <div
+          *ngIf="financialPeriodData.controls['toYear'].touched && financialPeriodData.controls['toYear'].dirty && financialPeriodData.controls['toYear'].hasError('required') && !isSubmitted">
+          <p class="error-message">To Year is mandatory</p>
+        </div>
+        <div *ngIf="isSubmitted && financialPeriodData.controls['toYear'].hasError('required')">
+          <p class="error-message">To Year is mandatory</p>
+        </div>
+       
+        <div *ngIf="financialPeriodData.get('toYear').invalid && financialPeriodData.get('toYear').touched">
+          <span *ngIf="financialPeriodData.get('toYear').errors.required" class="error-message">To year is required</span>
+          <span *ngIf="financialPeriodData.get('toYear').errors.invalidRange" class="error-message">To year must be greater than From year</span>
+        </div>
+        <!-- <div
+          *ngIf="financialPeriodData.controls['toYear'].touched && financialPeriodData.controls['toYear'].dirty && financialPeriodData.controls['toYear'].hasError('required') && !isSubmitted">
+          <p class="error-message">To year is mandatory</p>
+        </div>
+        <div *ngIf="isSubmitted && financialPeriodData.controls['toYear'].hasError('required')">
+          <p class="error-message">To year is mandatory</p>
+        </div> -->
+
+      </div>  
+    </div>
+    <div class="col-12 d-flex justify-content-end py-2">
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>
+</div>  

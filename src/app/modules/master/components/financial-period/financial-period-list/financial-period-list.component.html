@@ -3,9 +3,10 @@
     <div class="row mt-3 ">
         <div class="col-12">
             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                <input type="text" #searchDataInput name="" id="search-data" placeholder="RTO State Code / Description"
-                    class="form-control w-50"  (input)="handleFilter($event)">
-
+                <input type="search" #searchDataInput name="" id="search-data" placeholder="Financial Period"
+                class="form-control w-50"  (input)="handleFilter($event)">
+                
+                 
                 <!-- <input type="search" #searchDataInput name="" id="search-data" placeholder="Po Number"
                     class="form-control " (input)="handleFilter($event)">
                 <select class="form-select w-25" aria-label="Default select example"
@@ -29,37 +30,31 @@
                     <option *ngFor="let list of vendorDetails |filterPipes:'vendorName'; let i=index"
                         [value]="list.vendorName">
                         {{list.vendorName}}</option>
-                </select> 
-                
-                 <input type="text" class="form-control" #searchDataInput placeholder="Customer Id / Customer Name"
-              (input)="handleFilter($event)">
-            -->
+                </select> -->
             </div>
 
             <div class="row mt-3">
                 <div class="col-12">
-
+                    
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
-                        <!-- <input type="text" class="form-control" placeholder="RTO State Code / Description" (input)="handleFilter($event)"> -->
-
-                        <button class="btn btn-primary " (click)="nextPage('/setting/add-rto-state')" type="button"
-                            style="color: white;background: #00acff;">Add RTO State Code</button>
+                         <button  class="btn btn-primary " (click)="nextPage('/master/add-financial-period')"
+                            type="button" style="color: white;background: #00acff;">Add Financial Period</button>
 
                         <button class="btn btn-danger" type="button" style="color: white;">
                             <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
-                            Delete Selected RTO State Code</button>
+                            Delete Selected Financial Period</button>
                         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                             <mat-icon>more_vert</mat-icon>
                         </button>
                         <mat-menu #menu="matMenu">
                             <button mat-menu-item>
-                                <span>Import RTO State Code</span>
+                                <span>Import Financial Period</span>
                             </button>
-                            <button mat-menu-item>
-                                <span>Export RTO State Code</span>
+                            <button mat-menu-item >
+                                <span>Export Financial Period</span>
                             </button>
-                            <button mat-menu-item>
-                                <span>Sample RTO State Code Sheet</span>
+                            <button mat-menu-item >
+                                <span>Sample Financial Period Sheet</span>
                             </button>
                         </mat-menu>
 
@@ -74,40 +69,45 @@
                             <thead>
                                 <tr>
                                     <th>SN</th>
-                                    <th>RTO State Code</th>
-                                    <th>Description</th>
-                                    <th>Address</th>
+                                    <th>Financial Period</th>
+                                    <th>From Month</th>
+                                    <th>From Year</th>
+                                    <th>To Month</th>
+                                    <th>To Year</th>
                                     <th scope="col">Action</th>
                                     <th scope="col"><input type="checkbox" [checked]="selectAll"
-                                            (change)="selectdata($event)"> Select All</th>
+                                        (change)="selectdata($event)"> Select All</th>
                                 </tr>
                             </thead>
-                            <tbody *ngIf="rtoStateDetail.length === 0">
+                            <tbody *ngIf="financialDetail.length === 0">
                                 <tr>
-                                    <td colspan="5" class="text-center">No Records</td>
+                                    <td colspan="8" class="text-center">No Records</td>
                                 </tr>
                             </tbody>
 
                             <tbody>
-                                <tr *ngFor="let list of rtoStateDetail; let i=index">
+                                <tr *ngFor="let list of financialDetail; let i=index">
                                     <td>{{i+1}}</td>
-                                    <td>{{list.rtoStateCode}}</td>
-                                    <td>{{list.description}}</td>
-                                    <td>{{list.address}}</td>
+                                    <td>{{list.periodCode}}</td>
+                                    <td>{{list.fromMonth}}</td>
+                                    <td>{{list.fromYear}}</td>
+                                    <td>{{list.toMonth}}</td>
+                                    <td>{{list.toYear}}</td>
                                     <td>
                                         <div class="d-flex">
                                             <div>
                                                 <mat-icon
-                                                    [routerLink]="'/setting/edit-rto-state/'+list._id">edit</mat-icon>
+                                                    [routerLink]="'/master/edit-financial-period/'+list._id">edit</mat-icon>
                                             </div>
                                             <div>
                                                 <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
+
                                             </div>
                                         </div>
                                     </td>
 
                                     <td><input type="checkbox" class="checkbox" [checked]="list.check"
-                                            (change)="particularcheck($event,i)"></td>
+                                        (change)="particularcheck($event,i)"></td>
                                 </tr>
                             </tbody>
 
