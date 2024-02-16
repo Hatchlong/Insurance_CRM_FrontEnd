@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ApplyPolicyService } from '../../../services/apply-policy/apply-policy.service';
+import { PolicyPlanService } from 'src/app/modules/master/services/policy-plan/policy-plan.service';
 
 @Component({
   selector: 'app-add-apply-policy',
@@ -16,12 +17,14 @@ export class AddApplyPolicyComponent {
   policyFormData: any = FormGroup
   imageSrc: any = '';
   isSubmitted: any = false;
+  policyPlanDetail: any=[];
 
 
   constructor(private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private router: Router,
-    private applyPolicySer:ApplyPolicyService
+    private applyPolicySer:ApplyPolicyService,
+    private policyPlanSer:PolicyPlanService
   ) { }
 
   handleSideBar(event: any) {
@@ -30,6 +33,7 @@ export class AddApplyPolicyComponent {
 
   ngOnInit(): void {
     this.createAgentData()
+    this.getAllPolicyPlanDetail()
   }
   createAgentData() {
     this.policyFormData = this.fb.group({
@@ -43,8 +47,23 @@ export class AddApplyPolicyComponent {
       expiryDate: ['',Validators.required],
       polcyNo: ['',Validators.required]
     })
+    this.policyFormData.get('startDate').valueChanges.subscribe((startDate:any) => {
+      if (startDate) {
+        const expiryDate = new Date(startDate);
+        expiryDate.setDate(expiryDate.getDate() + 180);
+
+        // Update the expiry date form control value
+        this.policyFormData.get('expiryDate').setValue(expiryDate.toISOString().split('T')[0]);
+      }
+    });
+    
   }
 
+  
+
+  
+  
+  
   async submitData() {
     try {
       this.isSubmitted = true;
@@ -95,5 +114,28 @@ export class AddApplyPolicyComponent {
       });
     }
   }
+
+  
+  //get all detail of agent from the database
+  async getAllPolicyPlanDetail() {
+    try {
+      const result: any = await this.policyPlanSer.getAllPolicyPlan()
+      console.log(result,'policy plan');
+      
+      if (result.status === '1') {
+      
+        this.policyPlanDetail = result.data
+      
+      }
+    } catch (error) {
+
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
+    }
+  }
+
 
 }

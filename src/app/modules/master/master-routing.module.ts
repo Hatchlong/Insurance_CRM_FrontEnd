@@ -11,6 +11,9 @@ import { EditPolicyPlanComponent } from './components/policy-plan/edit-policy-pl
 import { AddFinancialPeriodComponent } from './components/financial-period/add-financial-period/add-financial-period.component';
 import { FinancialPeriodListComponent } from './components/financial-period/financial-period-list/financial-period-list.component';
 import { EditFinancialPeriodComponent } from './components/financial-period/edit-financial-period/edit-financial-period.component';
+import { AddVendorComponent } from './components/vendor/add-vendor/add-vendor.component';
+import { VendorListComponent } from './components/vendor/vendor-list/vendor-list.component';
+import { EditVendorComponent } from './components/vendor/edit-vendor/edit-vendor.component';
 
 const routes: Routes = [
   {
@@ -62,6 +65,17 @@ const routes: Routes = [
   {
     path:'edit-financial-period/:id',
     component:EditFinancialPeriodComponent
+  },{
+    path:'add-vendor',
+    component:AddVendorComponent
+  },
+  {
+    path:'vendor-list',
+    component:VendorListComponent
+  },
+  {
+    path:'edit-vendor/:id',
+    component:EditVendorComponent
   }
 ];
 

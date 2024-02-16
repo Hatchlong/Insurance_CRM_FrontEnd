@@ -28,6 +28,10 @@ import { FinancialPeriodListComponent } from './components/financial-period/fina
 import { AddFinancialPeriodComponent } from './components/financial-period/add-financial-period/add-financial-period.component';
 import { EditFinancialPeriodComponent } from './components/financial-period/edit-financial-period/edit-financial-period.component';
 import { FinancialPeriodService } from './services/financial-period/financial-period.service';
+import { AddVendorComponent } from './components/vendor/add-vendor/add-vendor.component';
+import { EditVendorComponent } from './components/vendor/edit-vendor/edit-vendor.component';
+import { VendorListComponent } from './components/vendor/vendor-list/vendor-list.component';
+import { CustomerService } from './services/customer/customer.service';
 
 
 
@@ -45,7 +49,10 @@ import { FinancialPeriodService } from './services/financial-period/financial-pe
     ViewImageComponent,
     FinancialPeriodListComponent,
     AddFinancialPeriodComponent,
-    EditFinancialPeriodComponent
+    EditFinancialPeriodComponent,
+    AddVendorComponent,
+    EditVendorComponent,
+    VendorListComponent,
   ],
   imports: [
     CommonModule,
@@ -65,6 +72,6 @@ import { FinancialPeriodService } from './services/financial-period/financial-pe
 
 
   ],
-  providers:[AgentService,PolicyPlanService, FinancialPeriodService]
+  providers:[AgentService,PolicyPlanService, FinancialPeriodService, CustomerService]
 })
 export class MasterModule { }

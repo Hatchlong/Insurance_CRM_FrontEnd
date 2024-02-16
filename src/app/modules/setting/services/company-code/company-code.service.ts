@@ -23,4 +23,14 @@ export class CompanyCodeService {
   updateCompanyCodeDetail(data: any) {
     return this.http.put(`http://localhost:4000/api/setting/companyCode/update/${data._id}`, data).toPromise()
   }
+
+  
+  getAllcompanyCodeDetailsPage(skip?:any, itemsPerPage?:any) {
+    return this.http.get(`http://localhost:4000/api/setting/companyCode/getAll/${skip}/${itemsPerPage}`).toPromise()
+  }
+  
+  updatedManyCompanyCodeDetails(data: any) {
+    return this.http.put(`http://localhost:4000/api/setting/companyCode/update`, data).toPromise()
+  }
+
 }

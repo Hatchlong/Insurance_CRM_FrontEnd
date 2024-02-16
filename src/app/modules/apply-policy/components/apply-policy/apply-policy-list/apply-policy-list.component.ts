@@ -17,6 +17,9 @@ export class ApplyPolicyListComponent {
   isShowPadding: any = false
   allapplyPolicyDetail: any = []
   selectAll: any = false
+  page?: number = 0;
+  itemsPerPage = 10;
+
 
   constructor(private router: Router,
     private _snackBar: MatSnackBar,
@@ -30,7 +33,7 @@ export class ApplyPolicyListComponent {
     this.router.navigate([`${url}`])
   }
   ngOnInit(): void {
-    this.getAllapplyPolicyDetail()
+    this.getAllapplyPolicyDetail(this.page,this.itemsPerPage)
 
   }
 
@@ -54,9 +57,9 @@ export class ApplyPolicyListComponent {
   }
 
   //get all detail of agent from the database
-  async getAllapplyPolicyDetail() {
+  async getAllapplyPolicyDetail(page:any,itemsPerPage:any) {
     try {
-      const result: any = await this.applyPolicySer.getAllApplyPolicyData()
+      const result: any = await this.applyPolicySer.getAllApplyPolicyPage(page,itemsPerPage)
       if (result.status === '1') {
         result.data.map((el: any) => {
           el.check = false
@@ -89,7 +92,7 @@ export class ApplyPolicyListComponent {
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        this.getAllapplyPolicyDetail()
+        this.getAllapplyPolicyDetail(this.page,this.itemsPerPage)
         return;
       }
       if (result.status === '0') {
@@ -134,6 +137,42 @@ export class ApplyPolicyListComponent {
     const filterValue = this.searchInput.nativeElement.value.toUpperCase();
     this.applyPolicyDetail = this.allapplyPolicyDetail.filter((obj: any) =>
       ((obj.customerName.toUpperCase()).includes(filterValue) )   ) 
+
+  }
+
+  async handleDeleteMuliple() {
+    try {
+      const filterData = this.applyPolicyDetail.filter((el: any) => el.check === true)
+      filterData.map((el: any) => {
+        el.isActive = "C"
+      })
+      const result: any = await this.applyPolicySer.updatedManyApplyPolicy(filterData);
+      if (result.status === '1') {
+        this._snackBar.open("Deleted Successfully", '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
+        this.getAllapplyPolicyDetail(this.page, this.itemsPerPage)
+        return;
+      }
+      if (result.status === '0') {
+        this._snackBar.open("Deleted Unsuccessfully", '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+
+    } catch (error: any) {
+      console.error(error)
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+
 
   }
 

@@ -16,6 +16,8 @@ export class RtoStateListComponent implements OnInit {
   rtoStateDetail: any = []
   selectAll: any = false
   allRtoDetails: any = []
+  page?: number = 0;
+  itemsPerPage = 10;
 
   sampleJson = {
     "rtoStateCode": "bike",
@@ -44,7 +46,7 @@ export class RtoStateListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllRtoStateDetail()
+    this.getAllRtoStateDetail(this.page,this.itemsPerPage)
   }
 
   selectdata(event: any) {
@@ -82,9 +84,9 @@ export class RtoStateListComponent implements OnInit {
 
 
   //get all detail of rto state code from the database
-  async getAllRtoStateDetail() {
+  async getAllRtoStateDetail(page:any,itemsPerPage:any) {
     try {
-      const result: any = await this.rtoStateSer.getAllRtoStateDetail()
+      const result: any = await this.rtoStateSer.getAllRtoStatesPage(page,itemsPerPage)
       if (result.status === '1') {
         result.data.map((el: any) => {
           el.check = false
@@ -136,7 +138,7 @@ export class RtoStateListComponent implements OnInit {
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        this.getAllRtoStateDetail()
+        this.getAllRtoStateDetail(this.page,this.itemsPerPage)
         return;
       }
       if (result.status === '0') {
@@ -163,4 +165,42 @@ export class RtoStateListComponent implements OnInit {
       });
     }
   }
+
+  async handleDeleteMuliple() {
+    try {
+      const filterData = this.rtoStateDetail.filter((el: any) => el.check === true)
+      filterData.map((el: any) => {
+        el.isActive = "C"
+      })
+      const result: any = await this.rtoStateSer.updateRtoStateMany(filterData);
+      if (result.status === '1') {
+        this._snackBar.open("Deleted Successfully", '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
+        this.getAllRtoStateDetail(this.page, this.itemsPerPage)
+        return;
+      }
+      if (result.status === '0') {
+        this._snackBar.open("Deleted Unsuccessfully", '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+
+    } catch (error: any) {
+      console.error(error)
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+
+
+  }
+
+
 }

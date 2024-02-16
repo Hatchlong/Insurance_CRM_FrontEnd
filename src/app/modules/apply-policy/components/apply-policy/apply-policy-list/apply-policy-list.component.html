@@ -35,7 +35,7 @@
                         <button class="btn btn-primary " (click)="nextPage('/applyPolicy/add-apply-policy')" type="button"
                             style="color: white;background: #00acff;">Add Apply Policy</button>
 
-                        <button class="btn btn-danger" type="button" style="color: white;">
+                        <button class="btn btn-danger" type="button" style="color: white;" (click)="handleDeleteMuliple()">
                             <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
                             Delete Selected Apply Policy</button>
                         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">

@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { CustomerService } from '../../../services/customer/customer.service';
 
 @Component({
   selector: 'app-add-customer',
@@ -11,8 +13,8 @@ export class AddCustomerComponent {
 
 
   customer: any = FormGroup
-  isSubmitted:any = false;
-  isShowPadding:any = false;
+  isSubmitted: any = false;
+  isShowPadding: any = false;
   idleState: any = 'Not Started';
   fileName: any = '';
   imageSrc: any = '';
@@ -27,7 +29,9 @@ export class AddCustomerComponent {
     private fb: FormBuilder,
     private cd: ChangeDetectorRef,
     private _snackBar: MatSnackBar,
-  ) {  }
+    private router:Router,
+    private custSer:CustomerService
+  ) { }
 
   ngOnInit(): void {
     this.code()
@@ -58,7 +62,7 @@ export class AddCustomerComponent {
       mobile: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       mailId: ['', [Validators.required, Validators.email]],
       dob: ['', Validators.required],
-      
+
       vechicleDetails: this.fb.array([this.addVehicle()]),
       nomineeDetails: this.fb.array([this.addNominee()])
     })
@@ -74,8 +78,42 @@ export class AddCustomerComponent {
     }
   }
 
-  addCode(){
-    console.log(this.customer)
+  async addCode() {
+    try {
+      this.isSubmitted = true
+      console.log(this.customer)
+      if (this.customer.invalid)
+        return
+
+        const result:any= this.custSer.createcustomer(this.customer.value)
+
+        if (result.status === '1') {
+          this._snackBar.open(result.message, '', {
+            duration: 5 * 1000, horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: 'app-notification-success',
+          });
+          this.router.navigate(['/master/customer-list']);
+          return;
+        }
+  
+    } catch (error:any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+
+    }
+
   }
 
   addVehicle() {
@@ -90,11 +128,11 @@ export class AddCustomerComponent {
       chassisNo: [''],
       vehicleUsage: [''],
       rtoStateCode: [''],
-      seatingCapacity:['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      fuelType:[''],
+      seatingCapacity: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      fuelType: [''],
       bodyType: [''],
       trailerRegNo: [''],
-         
+
     })
   }
 
@@ -114,7 +152,7 @@ export class AddCustomerComponent {
       relationship: [''],
       dob: [''],
       ofShare: [''],
-      
+
     })
   }
 
@@ -134,7 +172,7 @@ export class AddCustomerComponent {
     this.inputControl = inputData
   }
 
-  
+
   deletePerview() {
     this.inputFile.nativeElement.value = '';
     this.imageSrc = '';

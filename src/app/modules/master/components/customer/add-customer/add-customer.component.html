@@ -31,7 +31,7 @@
 
                 <div class="col-12 py-2" >
                     <label for="">Customer ID</label>
-                    <input type="text" class="form-control " placeholder="Enter customer id" formControlName="customerId" readonly>
+                    <input type="text" class="form-control " placeholder="Enter customer id" formControlName="customerId" >
                 </div>
 
             </div>
@@ -194,6 +194,7 @@
                                                 <td>
                                                     <select class="form-select " aria-label="Default select example" formControlName="rtoStateCode" style="width: 10rem;">
                                                         <option [selected]="customer.value.category === ''"  value="" hidden>Select RTO State Code</option>
+                                                        <option value="1">Rto</option>
                                                     
                                                  </select>
                                                    
@@ -205,18 +206,18 @@
                                                 <td>
                                                     <select class="form-select " aria-label="Default select example" formControlName="fuelType" style="width: 10rem;">
                                                         <option [selected]="customer.value.fuelType === ''"  value="" hidden>Select fuel type</option>
-                                                        <option value="">CNG</option>
-                                                        <option value="">Desiel</option>
-                                                        <option value="">Petrol</option>
+                                                        <option value="1">CNG</option>
+                                                        <option value="2">Desiel</option>
+                                                        <option value="3">Petrol</option>
                                                     
                                                  </select>
                                                    </td>
                                                 <td>
                                                     <select class="form-select " aria-label="Default select example" formControlName="bodyType" style="width: 10rem;">
                                                         <option [selected]="customer.value.bodyType === ''"  value="" hidden>Select body type</option>
-                                                        <option value="">Hatch back</option>
-                                                        <option value="">4X4</option>
-                                                        <option value="">Sadan</option>
+                                                        <option value="1">Hatch back</option>
+                                                        <option value="2">4X4</option>
+                                                        <option value="3">Sadan</option>
                                                     
                                                  </select>
                                                 </td>
