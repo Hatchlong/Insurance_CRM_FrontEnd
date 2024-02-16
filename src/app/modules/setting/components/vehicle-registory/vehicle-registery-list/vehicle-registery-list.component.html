@@ -39,7 +39,7 @@
                          <button  class="btn btn-primary " (click)="nextPage('/setting/add-vehicle-category')"
                             type="button" style="color: white;background: #00acff;">Add Vehicle Category</button>
 
-                        <button class="btn btn-danger" type="button" style="color: white;">
+                        <button class="btn btn-danger" type="button" style="color: white;" (click)="handleDeleteMuliple()">
                             <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
                             Delete Selected Vehicle Category</button>
                         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
@@ -71,7 +71,8 @@
                                     <th>Vehicle Category</th>
                                     <th>Description</th>
                                     <th scope="col">Action</th>
-                                    <th scope="col"><input type="checkbox"> Select All</th>
+                                    <th scope="col"><input type="checkbox" [checked]="selectAll"
+                                        (change)="selectdata($event)"> Select All</th>
                                 </tr>
                             </thead>
                             <tbody *ngIf="vehicleCategoryDetail.length === 0">
@@ -92,12 +93,13 @@
                                                     [routerLink]="'/setting/edit-vehicle-category/'+list._id">edit</mat-icon>
                                             </div>
                                             <div>
-                                                <mat-icon>delete</mat-icon>
+                                                <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
                                             </div>
                                         </div>
                                     </td>
 
-                                    <td><input type="checkbox" class="checkbox" [checked]="list.check"></td>
+                                    <td><input type="checkbox" class="checkbox"  [checked]="list.check"
+                                        (change)="particularcheck($event,i)"></td>
                                 </tr>
                             </tbody>
 

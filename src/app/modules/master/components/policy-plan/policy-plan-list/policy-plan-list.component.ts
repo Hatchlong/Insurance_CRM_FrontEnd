@@ -16,6 +16,9 @@ export class PolicyPlanListComponent implements OnInit {
   isShowPadding: any = false
   allPolicyPlanDetail: any = []
   selectAll: any = false
+  page?: number = 0;
+  itemsPerPage = 10;
+
 
   constructor(private router: Router,
     private _snackBar: MatSnackBar,
@@ -29,7 +32,7 @@ export class PolicyPlanListComponent implements OnInit {
     this.router.navigate([`${url}`])
   }
   ngOnInit(): void {
-    this.getAllPolicyPlanDetail()
+    this.getAllPolicyPlanDetail(this.page, this.itemsPerPage)
 
   }
 
@@ -53,9 +56,9 @@ export class PolicyPlanListComponent implements OnInit {
   }
 
   //get all detail of agent from the database
-  async getAllPolicyPlanDetail() {
+  async getAllPolicyPlanDetail(page: any, itemsPerPage: any) {
     try {
-      const result: any = await this.policyPlanSer.getAllPolicyPlan()
+      const result: any = await this.policyPlanSer.getAllpolicyPlanDetailsPage(page, itemsPerPage)
       if (result.status === '1') {
         result.data.map((el: any) => {
           el.check = false
@@ -88,7 +91,7 @@ export class PolicyPlanListComponent implements OnInit {
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        this.getAllPolicyPlanDetail()
+        this.getAllPolicyPlanDetail(this.page, this.itemsPerPage)
         return;
       }
       if (result.status === '0') {
@@ -124,7 +127,7 @@ export class PolicyPlanListComponent implements OnInit {
     }
 
     this.policyPlanDetail = this.allPolicyPlanDetail.filter((obj: any) =>
-    ((obj.policyCode.toUpperCase()).includes(filterValue) || (obj.policyName.toUpperCase()).includes(filterValue)))
+      ((obj.policyCode.toUpperCase()).includes(filterValue) || (obj.policyName.toUpperCase()).includes(filterValue)))
   }
 
 
@@ -132,10 +135,45 @@ export class PolicyPlanListComponent implements OnInit {
   filterData() {
     const filterValue = this.searchInput.nativeElement.value.toUpperCase();
     this.policyPlanDetail = this.allPolicyPlanDetail.filter((obj: any) =>
-      ((obj.policyCode.toUpperCase()).includes(filterValue) || (obj.policyName.toUpperCase()).includes(filterValue))   ) 
+      ((obj.policyCode.toUpperCase()).includes(filterValue) || (obj.policyName.toUpperCase()).includes(filterValue)))
 
   }
 
+  async handleDeleteMuliple() {
+    try {
+      const filterData = this.policyPlanDetail.filter((el: any) => el.check === true)
+      filterData.map((el: any) => {
+        el.isActive = "C"
+      })
+      const result: any = await this.policyPlanSer.updatedManypolicyPlanDetails(filterData);
+      if (result.status === '1') {
+        this._snackBar.open("Deleted Successfully", '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
+        this.getAllPolicyPlanDetail(this.page, this.itemsPerPage)
+        return;
+      }
+      if (result.status === '0') {
+        this._snackBar.open("Deleted Unsuccessfully", '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+
+    } catch (error: any) {
+      console.error(error)
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+
+
+  }
 
 
 

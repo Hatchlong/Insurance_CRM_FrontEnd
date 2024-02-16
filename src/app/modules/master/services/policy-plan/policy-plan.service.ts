@@ -23,4 +23,13 @@ export class PolicyPlanService {
   updatePolicyPlanDetail(data: any) {
     return this.http.put(`http://localhost:4000/api/master/policyPlan/update/${data._id}`, data).toPromise()
   }
+  
+  getAllpolicyPlanDetailsPage(skip?:any, itemsPerPage?:any) {
+    return this.http.get(`http://localhost:4000/api/master/policyPlan/getAll/${skip}/${itemsPerPage}`).toPromise()
+  }
+  
+  updatedManypolicyPlanDetails(data: any) {
+    return this.http.put(`http://localhost:4000/api/master/policyPlan/update`, data).toPromise()
+  }
+
 }

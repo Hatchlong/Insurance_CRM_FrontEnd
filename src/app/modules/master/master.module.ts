@@ -24,6 +24,10 @@ import { EditAgentComponent } from './components/agent/edit-agent/edit-agent.com
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { EditPolicyPlanComponent } from './components/policy-plan/edit-policy-plan/edit-policy-plan.component';
 import { ViewImageComponent } from './components/view-image/view-image/view-image.component';
+import { AddVendorComponent } from './components/vendor/add-vendor/add-vendor.component';
+import { EditVendorComponent } from './components/vendor/edit-vendor/edit-vendor.component';
+import { VendorListComponent } from './components/vendor/vendor-list/vendor-list.component';
+import { CustomerService } from './services/customer/customer.service';
 
 
 
@@ -38,7 +42,10 @@ import { ViewImageComponent } from './components/view-image/view-image/view-imag
     CustomerListComponent,
     EditAgentComponent,
     EditPolicyPlanComponent,
-    ViewImageComponent
+    ViewImageComponent,
+    AddVendorComponent,
+    EditVendorComponent,
+    VendorListComponent,
   ],
   imports: [
     CommonModule,
@@ -58,6 +65,6 @@ import { ViewImageComponent } from './components/view-image/view-image/view-imag
 
 
   ],
-  providers:[AgentService,PolicyPlanService]
+  providers:[AgentService,PolicyPlanService,CustomerService],
 })
 export class MasterModule { }

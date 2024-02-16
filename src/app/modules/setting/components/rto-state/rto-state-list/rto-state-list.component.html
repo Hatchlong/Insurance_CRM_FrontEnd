@@ -45,7 +45,7 @@
                         <button class="btn btn-primary " (click)="nextPage('/setting/add-rto-state')" type="button"
                             style="color: white;background: #00acff;">Add RTO State Code</button>
 
-                        <button class="btn btn-danger" type="button" style="color: white;">
+                        <button class="btn btn-danger" type="button" style="color: white;" (click)="handleDeleteMuliple()">
                             <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
                             Delete Selected RTO State Code</button>
                         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">

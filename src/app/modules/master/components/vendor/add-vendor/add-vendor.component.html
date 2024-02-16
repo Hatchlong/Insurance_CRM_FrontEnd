@@ -1,0 +1,190 @@
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
+    <div class="row">
+        <div class="col-12">
+            <h3 class="py-2">
+                <mat-icon class="back" routerLink="/master/vendor-list">arrow_back</mat-icon> Vendor Maintenance
+            </h3>
+            <form [formGroup]="vendorFormGroup" (ngSubmit)="submitdata()">
+                <div class="row border">
+                    <div class="col-6 py-2">
+                        <label for="">Vendor Id <sup>*</sup></label>
+                        <input type="text" class="form-control " formControlName="vendorId"
+                            placeholder="Enter Vendor Id">
+                            <div
+                            *ngIf="vendorFormGroup.controls['vendorId'].touched && vendorFormGroup.controls['vendorId'].dirty && vendorFormGroup.controls['vendorId'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Vendor Id is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && vendorFormGroup.controls['vendorId'].hasError('required')">
+                            <p class="error-message">Vendor Id is mandatory</p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 py-2">
+                        <label for="VendorName">Vendor Name <sup>*</sup></label>
+                        <input type="text" class="form-control" formControlName="vendorName"
+                            placeholder="Enter Vendor Name">
+                        <div
+                            *ngIf="vendorFormGroup.controls['vendorName'].touched && vendorFormGroup.controls['vendorName'].dirty && vendorFormGroup.controls['vendorName'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Vendor Name is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && vendorFormGroup.controls['vendorName'].hasError('required')">
+                            <p class="error-message">Vendor Name is mandatory</p>
+                        </div>
+                    </div>
+
+                    <div class="col-6  py-2">
+                        <label for="">Address </label>
+                        <textarea name="" id="" cols="30" rows="1" class="form-control" placeholder="Enter address"
+                            formControlName="address"></textarea>
+
+                    </div>
+
+                    <div class="col-6 py-2">
+                        <label for="">Country  </label>
+                        <select class="form-select" formControlName="country">
+                            <option [selected]="vendorFormGroup.value.country === ''" value="" hidden>Select
+                                Country</option>
+                                <option value="India">India</option>
+                            <!-- <option *ngFor="let list of countryDetails  | filterPipes:'countryName'"
+                                        [value]="list._id">{{list.countryName}}</option> -->
+
+                        </select>
+
+                    </div>
+                    <div class="col-6 py-2">
+                        <label for="">State  </label>
+                        <select class="form-select" formControlName="state">
+                            <option [selected]="vendorFormGroup.value.state === ''" value="" hidden>Select State
+                            </option>
+                            <option value="one"> one </option>
+                            <option value="two"> two </option>
+                        </select>
+
+                    </div>
+                    <div class="col-6 py-2">
+                        <label for="">City  </label>
+                        <select class="form-select" formControlName="city">
+                            <option [selected]="vendorFormGroup.value.city === ''" value="" hidden>Select City</option>
+                            <option value="one"> one </option>
+                            <option value="two"> two </option>
+                        </select>
+
+                    </div>
+                    <div class="col-6 py-2 py-1">
+
+                        <label for="" class="">Postal Code </label>
+                        <input type="text" class="form-control " placeholder="Enter Postal Code"
+                            formControlName="postalCode">
+                    </div>
+
+
+
+                </div>
+
+                <div class="row border mt-2">
+                    <div class="col-12 ">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                <h3 class="py-2">
+                                    Financial Data
+                                </h3>
+                               
+                            </div>
+                            <div class="col-12 d-flex justify-content-end py-2">
+                                <button type="button" class="btn btn-primary" (click)="addVendor()"
+                                style="color: white;background-color: #00acff;">Add Vendor</button>
+                            </div>
+
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th *ngIf="financialListArray.controls.length > 1">Actions</th>
+                                        <th>Tax Number </th>
+                                        <th>VAT Registration No.</th>
+                                        <th>Currency</th>
+                                        <th>Company Code</th>
+                                        <th>Bank Account</th>
+                                        <th>Account Holder</th>
+                                        <th>Payment method</th>
+                                    </tr>
+                                </thead>
+                                <tbody formArrayName="financialData">
+                                    <tr *ngFor="let financial of financialListArray.controls; let i = index;"
+                                    [formGroupName]="i">
+                                    <td *ngIf="financialListArray.controls.length > 1">
+                                        <mat-icon style="cursor:pointer"
+                                            (click)="deleterow(i)">delete</mat-icon>
+                                    </td>
+
+                                        <td>
+                                            <input type="text" formControlName="taxNumber" class="form-control"
+                                                placeholder="Enter Tax Number ">
+                                        </td>
+                                      
+                                        <td>
+                                            <input type="text" formControlName="vatRegistrationNo" class="form-control"
+                                                placeholder="Enter Vat Reg. No.">
+                                        </td>
+                                        <td>
+                                            <select class="form-select " aria-label="Default select example"
+                                                formControlName="currency">
+                                                <option [selected]="vendorFormGroup.value.currency===''" value=""
+                                                    hidden>Select Currency</option>
+                                                <!-- <option *ngFor="let list of currencyDetails | filterPipes:'code' "
+                                                    [value]="list._id">{{list.code}}</option> -->
+                                            </select>
+
+                                        </td>
+                                        <td>
+
+                                            <select class="form-select" formControlName="companyCode">
+                                                <option [selected]="vendorFormGroup.value.companyCode=== ''" value=""
+                                                    hidden>Select Company Code</option>
+                                                <!-- <option
+                                                    *ngFor="let company of companyCodeDetails | filterPipes:'companyCode' "
+                                                    [value]="company._id">{{company.companyCode}}</option> -->
+
+                                            </select>
+
+                                        </td>
+                                        
+                                        <td>
+                                            <input type="text" formControlName="bankAccount" class="form-control"
+                                                placeholder="Enter Bank Account">
+                                        </td>
+                                        <td>
+                                            <input type="text" formControlName="accountHolder" class="form-control"
+                                                placeholder="Enter Account Holder">
+                                        </td>
+                                        <td>
+                                            <select class="form-select" formControlName="paymentMethod">
+                                                <option [selected]="vendorFormGroup.value.paymentMethod === ''" value=""
+                                                    hidden>Select Payment Method</option>
+                                                <!-- <option
+                                                    *ngFor="let payment of paymentMethodDetails | filterPipes:'description'"
+                                                    [value]="payment._id">{{payment.description}}</option> -->
+
+                                            </select>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row py-2">
+                    <div class="col-12 d-flex justify-content-end">
+                        <button class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

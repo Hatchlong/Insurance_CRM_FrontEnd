@@ -60,7 +60,7 @@
             <div class="row mt-4">
                 <div class="col-12">
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <!-- <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>SN</th>
@@ -78,7 +78,7 @@
                             </thead>
                             
                             <tbody>
-                                <!-- <tr *ngFor="let list of purchaseOrderDetails; let i=index">
+                                <tr *ngFor="let list of purchaseOrderDetails; let i=index">
                                     <td>{{i+1}}</td>
                                     <td>{{list.poType}}</td>
                                     <td>{{list.poNumber}}</td>
@@ -98,7 +98,56 @@
                                     </td>
 
                                     <td><input type="checkbox" class="checkbox" [checked]="list.check"></td>
-                                </tr> -->
+                                </tr>
+                            </tbody>
+
+                        </table> -->
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>SN</th>
+                                    <th scope="col">Customer Type</th>
+                                    <th scope="col">Customer Id </th>
+                                    <th scope="col">Customer Name </th>
+                                    <th scope="col">Country</th>
+                                    <th scope="col">State</th>
+                                    <th scope="col">City</th>
+                                    <th scope="col">Mobile</th>
+                                    <th scope="col">Pin Code</th>
+                                    <th scope="col">Action</th>
+                                    <th scope="col"><input type="checkbox" [checked]="selectAll" (change)="selectdata($event)"> Select All</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="customerDetail.length === 0">
+                                <tr>
+                                  <td colspan="11" class="text-center">No Records</td>
+                                </tr>
+                              </tbody>
+                            <tbody>
+                                <tr *ngFor="let list of customerDetail; let i=index">
+                                    <td>{{i+1}}</td>
+                                    <td>{{list.customerType}}</td>
+                                    <td>{{list.customerId}}</td>
+                                    <td>{{list.customerName}}</td>
+                                    <td>{{list.country}}</td>
+                                    <td>{{list.state}}</td>
+                                    <td>{{list.city}}</td>
+                                    <td>{{list.mobile}}</td>
+                                    <td>{{list.pinCode}}</td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <div>
+                                                <mat-icon [routerLink]="'/master/edit-customer/'+list._id" >edit</mat-icon>
+                                                
+                                            </div>
+                                            <div>
+                                                <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td><input type="checkbox" class="checkbox" [checked]="list.check" (change)="particularcheck($event,i)"></td>
+                                </tr>
                             </tbody>
 
                         </table>
