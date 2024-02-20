@@ -135,6 +135,8 @@
                                                 formControlName="currency">
                                                 <option [selected]="vendorFormGroup.value.currency===''" value=""
                                                     hidden>Select Currency</option>
+                                                    <option value="INR">INR</option>
+
                                                 <!-- <option *ngFor="let list of currencyDetails | filterPipes:'code' "
                                                     [value]="list._id">{{list.code}}</option> -->
                                             </select>
@@ -145,6 +147,8 @@
                                             <select class="form-select" formControlName="companyCode">
                                                 <option [selected]="vendorFormGroup.value.companyCode=== ''" value=""
                                                     hidden>Select Company Code</option>
+                                                    <option value="Co8787">Co8787</option>
+
                                                 <!-- <option
                                                     *ngFor="let company of companyCodeDetails | filterPipes:'companyCode' "
                                                     [value]="company._id">{{company.companyCode}}</option> -->
@@ -165,6 +169,10 @@
                                             <select class="form-select" formControlName="paymentMethod">
                                                 <option [selected]="vendorFormGroup.value.paymentMethod === ''" value=""
                                                     hidden>Select Payment Method</option>
+                                                    <option value="Cash">Cash</option>
+                                                    <option value="Card">Card</option>
+                                                    <option value="Cheque">Cheque</option>
+                                                    <option value="Bank Transfer">Bank Transfer</option>
                                                 <!-- <option
                                                     *ngFor="let payment of paymentMethodDetails | filterPipes:'description'"
                                                     [value]="payment._id">{{payment.description}}</option> -->

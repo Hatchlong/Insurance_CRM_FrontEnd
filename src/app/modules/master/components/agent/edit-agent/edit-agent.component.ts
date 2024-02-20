@@ -17,16 +17,16 @@ export class EditAgentComponent {
   agentFormData: any = FormGroup
   isSubmitted: any = false;
   agentId: any = ''
-  isImageShow:any = false;
-  selectedFile:any = '';
+  isImageShow: any = false;
+  selectedFile: any = '';
   selectedFileVerfiy: any = '';
-  fileName:any = '';
-  filePath:any = '';
-  imageSrc:any = '';
-  @ViewChild('inputFile') inputFile:any;
+  fileName: any = '';
+  filePath: any = '';
+  imageSrc: any = '';
+  @ViewChild('inputFile') inputFile: any;
   filedPathName: any = '';
   inputControl: any = '';
- 
+
 
   constructor(private fb: FormBuilder,
     private _snackBar: MatSnackBar,
@@ -62,12 +62,12 @@ export class EditAgentComponent {
       mailId: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}')]],
       aadharNumber: ['', Validators.required],
       panNumber: ['', Validators.required],
-      panFilePath:[''],
-      aadharFilePath:[''],
-      createdOn:[''],
-      createdBy:[''],
-      changedOn:[''],
-      changedBy:['']
+      panFilePath: [''],
+      aadharFilePath: [''],
+      createdOn: [''],
+      createdBy: [''],
+      changedOn: [''],
+      changedBy: ['']
 
 
     })
@@ -85,8 +85,14 @@ export class EditAgentComponent {
   async getSingleDetail() {
     try {
       const result: any = await this.agentSer.singleAgentDetail(this.agentId)
+      console.log(result.data,'ioii');
+      
       if (result.status === '1') {
         this.agentFormData.patchValue(result.data)
+        if(result.data.filePath){
+          this.isImageShow = true;
+          this.filePath = 'http://localhost:4000/' + result.data.filePath
+        }
       }
     } catch (error) {
       console.error(error);
@@ -141,14 +147,14 @@ export class EditAgentComponent {
     this.selectedFile = ''
   }
 
-  
+
   uploadFile(inputData: any, fieldName: any) {
     inputData.click();
     this.filedPathName = fieldName;
     this.inputControl = inputData
   }
 
-  
+
   handleUploadFile(event: any) {
 
     if (event.target.value) {
@@ -159,7 +165,11 @@ export class EditAgentComponent {
 
         const reader = new FileReader();
         console.log(this.filedPathName)
-        if (this.filedPathName === 'aadhar_no') {
+        if (this.filedPathName === 'company_no') {
+          this.selectedFileVerfiy = event.target.files[0];
+          this.fileUploadVerifyNo()
+        }
+        else if (this.filedPathName === 'aadhar_no') {
           this.selectedFileVerfiy = event.target.files[0];
           this.fileUploadVerifyNo()
         } else if (this.filedPathName === 'pan_no') {
@@ -185,7 +195,7 @@ export class EditAgentComponent {
     }
   }
 
-  
+
   async fileUploadVerifyNo() {
     try {
       console.log(this.selectedFileVerfiy, 'kkkkk')
@@ -227,8 +237,9 @@ export class EditAgentComponent {
 
   async fileUpload() {
     try {
+
       if (!this.imageSrc) {
-        this.createAgentData()
+        this.submitData()
         return
       }
       const formData = new FormData();
@@ -240,9 +251,14 @@ export class EditAgentComponent {
         //   verticalPosition: 'top',
         //   panelClass: 'app-notification-success',
         // });
-        this.agentFormData.controls.filePath.setValue(result.fileName)
-
-        this.createAgentData()
+        if (this.filedPathName === 'log') {
+          this.agentFormData.controls.filePath.setValue(result.fileName)
+        } else if (this.filedPathName === 'pan_no') {
+          this.agentFormData.controls.panFilePath.setValue(result.fileName)
+        } else if (this.filedPathName === 'aadhar_no') {
+          this.agentFormData.controls.aadharFilePath.setValue(result.fileName)
+        }
+        this.submitData()
         return;
       }
       if (result.status === '0') {
@@ -262,21 +278,22 @@ export class EditAgentComponent {
     }
   }
 
-  
-  closeImage(){
+
+
+  closeImage() {
     this.selectedFile = '';
     this.fileName = '';
     this.isImageShow = true
   }
 
-  deleteImage(){
+  deleteImage() {
     this.isImageShow = false;
     this.filePath = ''
   }
 
-  openDialog(fileName:any) {
-    const dialogRef = this.dialog.open(ViewImageComponent,{
-      data:fileName
+  openDialog(fileName: any) {
+    const dialogRef = this.dialog.open(ViewImageComponent, {
+      data: fileName
     });
 
     dialogRef.afterClosed().subscribe(result => {

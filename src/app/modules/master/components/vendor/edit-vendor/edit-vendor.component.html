@@ -10,7 +10,7 @@
                     <div class="col-6 py-2">
                         <label for="">Vendor Id <sup>*</sup></label>
                         <input type="text" class="form-control " formControlName="vendorId"
-                            placeholder="Enter Vendor Id">
+                            placeholder="Enter Vendor Id" readonly>
                             <div
                             *ngIf="vendorFormGroup.controls['vendorId'].touched && vendorFormGroup.controls['vendorId'].dirty && vendorFormGroup.controls['vendorId'].hasError('required') && !isSubmitted">
                             <p class="error-message">Vendor Id is mandatory</p>
@@ -123,18 +123,19 @@
 
                                         <td>
                                             <input type="text" formControlName="taxNumber" class="form-control"
-                                                placeholder="Enter Tax Number ">
+                                                placeholder="Enter Tax Number " readonly>
                                         </td>
                                       
                                         <td>
                                             <input type="text" formControlName="vatRegistrationNo" class="form-control"
-                                                placeholder="Enter Vat Reg. No.">
+                                                placeholder="Enter Vat Reg. No." readonly>
                                         </td>
                                         <td>
                                             <select class="form-select " aria-label="Default select example"
-                                                formControlName="currency">
+                                                formControlName="currency" readonly>
                                                 <option [selected]="vendorFormGroup.value.currency===''" value=""
                                                     hidden>Select Currency</option>
+                                                    <option value="INR">INR</option>
                                                 <!-- <option *ngFor="let list of currencyDetails | filterPipes:'code' "
                                                     [value]="list._id">{{list.code}}</option> -->
                                             </select>
@@ -142,9 +143,11 @@
                                         </td>
                                         <td>
 
-                                            <select class="form-select" formControlName="companyCode">
+                                            <select class="form-select" formControlName="companyCode" readonly>
                                                 <option [selected]="vendorFormGroup.value.companyCode=== ''" value=""
                                                     hidden>Select Company Code</option>
+                                                    <option value="Co8787">Co8787</option>
+
                                                 <!-- <option
                                                     *ngFor="let company of companyCodeDetails | filterPipes:'companyCode' "
                                                     [value]="company._id">{{company.companyCode}}</option> -->
@@ -155,16 +158,20 @@
                                         
                                         <td>
                                             <input type="text" formControlName="bankAccount" class="form-control"
-                                                placeholder="Enter Bank Account">
+                                                placeholder="Enter Bank Account" readonly>
                                         </td>
                                         <td>
                                             <input type="text" formControlName="accountHolder" class="form-control"
-                                                placeholder="Enter Account Holder">
+                                                placeholder="Enter Account Holder" readonly>
                                         </td>
                                         <td>
-                                            <select class="form-select" formControlName="paymentMethod">
+                                            <select class="form-select"  formControlName="paymentMethod">
                                                 <option [selected]="vendorFormGroup.value.paymentMethod === ''" value=""
                                                     hidden>Select Payment Method</option>
+                                                    <option value="Cash">Cash</option>
+                                                    <option value="Card">Card</option>
+                                                    <option value="Cheque">Cheque</option>
+                                                    <option value="Bank Transfer">Bank Transfer</option>
                                                 <!-- <option
                                                     *ngFor="let payment of paymentMethodDetails | filterPipes:'description'"
                                                     [value]="payment._id">{{payment.description}}</option> -->

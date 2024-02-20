@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { VendorService } from '../../../services/vendor/vendor.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -9,11 +9,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./vendor-list.component.css']
 })
 export class VendorListComponent implements OnInit{
+  @ViewChild('searchDataInput', { static: true }) searchInput!: ElementRef;
+
 
   isShowPadding: any = false
   vendorDetail:any=[]
   allVendorDetail:any=[]
-  selectAll: any = false
+  selectAll: any = false 
+  page?: number = 0;
+  itemsPerPage = 10;
+
   
   constructor(private router:Router,
     private _snackBar: MatSnackBar,
@@ -26,13 +31,13 @@ export class VendorListComponent implements OnInit{
       this.router.navigate([`${url}`])
     }
     ngOnInit(): void {
-        this.getAllVendorDetail()
+        this.getAllVendorDetail(this.page,this.itemsPerPage)
     }
 
      //get all detail of agent from the database
-  async getAllVendorDetail() {
+  async getAllVendorDetail(page:any,itemsPerPage:any) {
     try {
-      const result: any = await this.vendorSer.getAllVendorDetail()
+      const result: any = await this.vendorSer.getAllVendorDetailsPage(page,itemsPerPage)
       if (result.status === '1') {
         result.data.map((el: any) => {
           el.check = false
@@ -83,7 +88,7 @@ export class VendorListComponent implements OnInit{
             verticalPosition: 'top',
             panelClass: 'app-notification-success',
           });
-          this.getAllVendorDetail()
+          this.getAllVendorDetail(this.page,this.itemsPerPage)
           return;
         }
         if (result.status === '0') {
@@ -111,5 +116,58 @@ export class VendorListComponent implements OnInit{
       }
     }
   
+    
+  handleFilter(event: any) {
+    const filterValue = event.target.value.toUpperCase();
+    if (!filterValue) {
+      this.vendorDetail = this.allVendorDetail;
+      return;
+    }
+
+    this.vendorDetail = this.allVendorDetail.filter((obj: any) =>
+      ((obj.vendorId.toUpperCase()).includes(filterValue) || (obj.vendorName.toUpperCase()).includes(filterValue) ))
+  }
+  filterData() {
+    const filterValue = this.searchInput.nativeElement.value.toUpperCase();
+    this.vendorDetail = this.allVendorDetail.filter((obj: any) =>
+      ((obj.vendorId.toUpperCase()).includes(filterValue) || (obj.vendorName.toUpperCase()).includes(filterValue) ))
+
+  }
+
+  
+  async handleDeleteMuliple() {
+    try {
+      const filterData = this.vendorDetail.filter((el: any) => el.check === true)
+      filterData.map((el: any) => {
+        el.isActive = "C"
+      })
+      const result: any = await this.vendorSer.updateVendorDetailsMany(filterData);
+      if (result.status === '1') {
+        this._snackBar.open("Deleted Successfully", '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
+        this.getAllVendorDetail(this.page, this.itemsPerPage)
+        return;
+      }
+      if (result.status === '0') {
+        this._snackBar.open("Deleted Unsuccessfully", '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+
+    } catch (error: any) {
+      console.error(error)
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
 
 }

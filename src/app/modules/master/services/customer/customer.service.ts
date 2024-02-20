@@ -6,22 +6,34 @@ import { Injectable } from '@angular/core';
 })
 export class CustomerService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  createcustomer(data:any){
-   return this.http.post('http://localhost:4000/api/master/customer/create',data).toPromise()
- }
- getAllcustomerDetail(){
-   return this.http.get('http://localhost:4000/api/master/customer/getAll').toPromise()
+  createcustomer(data: any) {
+    return this.http.post('http://localhost:4000/api/master/customerMaster/create', data).toPromise()
+  }
+  getAllcustomerDetail() {
+    return this.http.get('http://localhost:4000/api/master/customerMaster/getAll').toPromise()
 
- }
- singlecustomerDetail(id:any){
-   return this.http.get(`http://localhost:4000/api/master/customer/get/${id}`).toPromise()
+  }
+  singlecustomerDetail(id: any) {
+    return this.http.get(`http://localhost:4000/api/master/customerMaster/get/${id}`).toPromise()
 
- }
+  }
 
- 
- updatecustomerDetail(data: any) {
-   return this.http.put(`http://localhost:4000/api/master/customer/update/${data._id}`, data).toPromise()
- }
+
+  updatecustomerDetail(data: any) {
+    return this.http.put(`http://localhost:4000/api/master/customerMaster/update/${data._id}`, data).toPromise()
+  }
+
+  getAllCustomerDetailsPage(skip?: any, itemsPerPage?: any) {
+    return this.http.get(`http://localhost:4000/api/master/customerMaster/getAll/${skip}/${itemsPerPage}`).toPromise()
+  }
+
+  updateCustomerDetailsMany(data: any) {
+    return this.http.put(`http://localhost:4000/api/master/customerMaster/update`, data).toPromise()
+  }
+  agentLogoUpload(data:any){
+    return this.http.post('http://localhost:4000/api/upload', data).toPromise()
+  }
+
 }

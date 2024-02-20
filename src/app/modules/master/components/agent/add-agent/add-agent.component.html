@@ -8,7 +8,7 @@
     </div>
     <div class="row">
         <div class="col-12 ">
-            <form [formGroup]="agentFormData" (ngSubmit)="submitData()">
+            <form [formGroup]="agentFormData">
                 <div class="row border">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                         <div class="row">
@@ -68,16 +68,19 @@
                             <div class="col-12 py-2">
                                 <section class="file-border">
                                     <div class="row">
-                                        <div class="col-12 d-flex justify-content-center py-1" style="position: relative;">
-                                            <img class="img-ava" [src]="imageSrc?imageSrc:'/assets/logs/profile.png'"><sup
+                                        <div class="col-12 d-flex justify-content-center py-1"
+                                            style="position: relative;">
+                                            <img class="img-ava"
+                                                [src]="imageSrc?imageSrc:'/assets/logs/profile.png'"><sup
                                                 class="delete_img" (click)="deletePerview()" *ngIf="imageSrc"><mat-icon
                                                     style="font-size: 20px;display: flex;align-items: center;justify-content: center;">delete</mat-icon></sup>
-        
+
                                         </div>
                                         <div class="col-12 d-flex justify-content-center py-1">
                                             <span (click)="uploadFile(inputFile,'log')" class="upload_text">
                                                 Choose Agent Photo</span>
-                                            <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
+                                            <input type="file" #inputFile class="d-none"
+                                                (change)="handleUploadFile($event)">
                                         </div>
                                     </div>
                                 </section>
@@ -225,13 +228,20 @@
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                         <label for="">Mobile <sup>*</sup></label>
                         <input maxlength="10" min="0" class="form-control " placeholder="Enter Mobile Number"
-                            formControlName="mobile" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+                            formControlName="mobile"
+                            onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
                         <div
-                            *ngIf="agentFormData.controls['agentId'].touched && agentFormData.controls['agentId'].dirty && agentFormData.controls['agentId'].hasError('required') && !isSubmitted">
+                            *ngIf="agentFormData.controls['mobile'].touched && agentFormData.controls['mobile'].dirty && agentFormData.controls['mobile'].hasError('required') && !isSubmitted">
                             <p class="error-message">Mobile Number is mandatory</p>
                         </div>
-                        <div *ngIf="isSubmitted && agentFormData.controls['agentId'].hasError('required')">
+                        <div *ngIf="isSubmitted && agentFormData.controls['mobile'].hasError('required')">
                             <p class="error-message">Mobile Number is mandatory</p>
+                        </div>
+                        <div *ngIf="agentFormData.controls['mobile'].hasError('minlength')">
+                            <p class="error-message">Mobile Number is not Valid</p>
+                        </div>
+                        <div *ngIf="agentFormData.controls['mobile'].hasError('maxlength')">
+                            <p class="error-message">Mobile Number is not Valid</p>
                         </div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
@@ -285,7 +295,7 @@
                 </div>
 
                 <div class="col-12 d-flex justify-content-end py-2">
-                    <button type="submit" class="btn btn-primary" (click)="fileUpload()">Save</button>
+                    <button type="button" class="btn btn-primary" (click)="fileUpload()">Save</button>
                 </div>
             </form>
         </div>

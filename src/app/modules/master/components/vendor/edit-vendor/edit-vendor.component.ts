@@ -110,11 +110,15 @@ export class EditVendorComponent {
   async getSingleDetail() {
     try {
       const result: any = await this.vendorSer.singleVendorDetail(this.vendordetailId)
+      
+      
       if (result.status === '1') {
-        this.vendorFormGroup.patchValue(result.data)
-        // this.createVendorFormFields(result.data)
+        // this.vendorFormGroup.patchValue(result.data)
+        this.createVendorFormFields(result.data)
       }
     } catch (error: any) {
+      console.log(error);
+      
       if (error.error.message) {
         this._snackBar.open(error.error.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
@@ -134,6 +138,7 @@ export class EditVendorComponent {
   async submitdata() {
     try {
       this.isSubmitted = true
+      
       if (this.vendorFormGroup.invalid)
         return
 

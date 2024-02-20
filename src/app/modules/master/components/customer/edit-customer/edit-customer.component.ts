@@ -1,16 +1,15 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerService } from '../../../services/customer/customer.service';
 
 @Component({
-  selector: 'app-add-customer',
-  templateUrl: './add-customer.component.html',
-  styleUrls: ['./add-customer.component.css']
+  selector: 'app-edit-customer',
+  templateUrl: './edit-customer.component.html',
+  styleUrls: ['./edit-customer.component.css']
 })
-export class AddCustomerComponent implements OnInit {
-
+export class EditCustomerComponent implements OnInit {
 
   customer: any = FormGroup
   isSubmitted: any = false;
@@ -22,7 +21,11 @@ export class AddCustomerComponent implements OnInit {
   selectedFileVerfiy: any = '';
   inputControl: any = '';
   perviousValue: any = '';
+  vendordetailId: any = ''
   @ViewChild('inputFile') inputFile: any;
+  filePath: any = '';
+  isImageShow: any = false;
+
 
 
 
@@ -31,10 +34,13 @@ export class AddCustomerComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private _snackBar: MatSnackBar,
     private router: Router,
-    private custSer: CustomerService
+    private custSer: CustomerService,
+    private activateRouter: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.vendordetailId = this.activateRouter.snapshot.paramMap.get('id')
+    this.getSingleDetail()
     this.code()
   }
 
@@ -43,8 +49,34 @@ export class AddCustomerComponent implements OnInit {
     this.isShowPadding = event
   }
 
-  code() {
+  code(data?: any) {
+
+    if (data) {
+      this.customer = this.fb.group({
+        _id: [data._id, Validators.required],
+        customerType: [data.customerType, Validators.required],
+        customerId: [data.customerId, Validators.required],
+        customerName: [data.customerName, Validators.required],
+        address: [data.address, Validators.required],
+        country: [data.country, Validators.required],
+        state: [data.state, Validators.required],
+        city: [data.city, Validators.required],
+        pinCode: [data.pinCode, Validators.required],
+        mobile: [data.mobile, [Validators.required, Validators.pattern('^[0-9]*$')]],
+        mailId: [data.mailId, [Validators.required, Validators.email]],
+        dob: [data.dob, Validators.required],
+      filePath: [data.filePath],
+
+        // financialData: this.fb.array(data.financialData.map((ele: any) => this.getFinancialFields(ele)))
+
+        vechicleDetails: this.fb.array(data.vechicleDetails.map((ele: any) => this.addVehicle(ele))),
+        nomineeDetails: this.fb.array(data.nomineeDetails.map((ele:any)=>this.addNominee(ele)))
+      })
+      return;
+    }
+
     this.customer = this.fb.group({
+      _id: ['', Validators.required],
       customerType: ['Corporate', Validators.required],
       customerId: ['', Validators.required],
       customerName: ['', Validators.required],
@@ -63,53 +95,28 @@ export class AddCustomerComponent implements OnInit {
     })
   }
 
-  onlyNumberKey(event: any) {
-    const charCode = event.which ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      event.preventDefault();
+  
+  addVehicle(data?:any) {
+    if (data) {
+      return this.fb.group({
+        registrationNo: [data.registrationNo],
+        vechicleRegistrationDate: [data.vechicleRegistrationDate],
+        make: [data.make],
+        variant: [data.variant],
+        model: [data.model],
+        mfgYear: [data.mfgYear],
+        engineNo: [data.engineNo],
+        chassisNo: [data.chassisNo],
+        vehicleUsage: [data.vehicleUsage],
+        rtoStateCode: [data.rtoStateCode],
+        seatingCapacity: [data.seatingCapacity, [Validators.required, Validators.pattern('^[0-9]*$')]],
+        fuelType: [data.fuelType],
+        bodyType: [data.bodyType],
+        trailerRegNo: [data.trailerRegNo],
+  
+      })
+      
     }
-  }
-
-  async addCode() {
-    try {
-      this.isSubmitted = true
-      console.log(this.customer.value, 'iioi', this.customer)
-      if (this.customer.invalid)
-        return
-      console.log(this.customer.value);
-
-      const result: any = await this.custSer.createcustomer(this.customer.value)
-
-      if (result.status === '1') {
-        this._snackBar.open(result.message, '', {
-          duration: 5 * 1000, horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: 'app-notification-success',
-        });
-        this.router.navigate(['/master/customer-list']);
-        return;
-      }
-
-    } catch (error: any) {
-      if (error.error.message) {
-        this._snackBar.open(error.error.message, '', {
-          duration: 5 * 1000, horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: 'app-notification-error',
-        });
-        return
-      }
-      this._snackBar.open('Something went wrong', '', {
-        duration: 5 * 1000, horizontalPosition: 'center',
-        verticalPosition: 'top',
-        panelClass: 'app-notification-error',
-      });
-
-    }
-
-  }
-
-  addVehicle() {
     return this.fb.group({
       registrationNo: [''],
       vechicleRegistrationDate: [''],
@@ -139,7 +146,16 @@ export class AddCustomerComponent implements OnInit {
     this.vehicleDetail.removeAt(index);
   }
 
-  addNominee() {
+  addNominee(data?:any) {
+    if (data) {
+      return this.fb.group({
+        nomineeName: [data.nomineeName],
+        relationship: [data.relationship],
+        dob: [data.dob],
+        ofShare: [data.ofShare],
+  
+      })
+    }
     return this.fb.group({
       nomineeName: [''],
       relationship: [''],
@@ -159,6 +175,66 @@ export class AddCustomerComponent implements OnInit {
     this.nomineeDetail.removeAt(index);
   }
 
+
+  onlyNumberKey(event: any) {
+    const charCode = event.which ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+    }
+  }
+
+  async getSingleDetail() {
+    try {
+      const result: any = await this.custSer.singlecustomerDetail(this.vendordetailId)
+      if (result.status === '1') {
+        this.code(result.data)
+        if(result.data.filePath){
+          this.isImageShow = true;
+          this.filePath = 'http://localhost:4000/' + result.data.filePath
+        }
+      }
+    } catch (error) {
+      console.log(error);
+
+    }
+  }
+
+  async addCode() {
+    try {
+      this.isSubmitted = true
+      console.log(this.customer)
+      if (this.customer.invalid)
+        return
+
+      const result: any =await this.custSer.updatecustomerDetail(this.customer.value)
+      if (result.status === '1') {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-success',
+        });
+        this.router.navigate(['/master/customer-list']);
+        return;
+      }
+
+    } catch (error: any) {
+      if (error.error.message) {
+        this._snackBar.open(error.error.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+        return
+      }
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+
+    }
+
+  }
   deletePerview() {
     this.inputFile.nativeElement.value = '';
     this.imageSrc = '';
@@ -171,6 +247,7 @@ export class AddCustomerComponent implements OnInit {
     this.filedPathName = fieldName;
     this.inputControl = inputData
   }
+
 
   handleUploadFile(event: any) {
 
@@ -196,7 +273,7 @@ export class AddCustomerComponent implements OnInit {
         else {
           this.fileName = event.target.files[0].name;
           this.selectedFile = event.target.files[0];
-          reader.onload = e => this.imageSrc = reader.result;
+          this.isImageShow = false;
         }
 
         reader.readAsDataURL(file);
@@ -228,10 +305,7 @@ export class AddCustomerComponent implements OnInit {
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        if (this.filedPathName === 'log') {
-          this.customer.controls.filePath.setValue(result.fileName)
-        }
-        else if (this.filedPathName === 'pan_no') {
+        if (this.filedPathName === 'pan_no') {
           this.customer.controls.panFilePath.setValue(result.fileName)
         } else if (this.filedPathName === 'aadhar_no') {
           this.customer.controls.aadharFilePath.setValue(result.fileName)
@@ -299,5 +373,16 @@ export class AddCustomerComponent implements OnInit {
   }
 
 
-}
 
+  closeImage() {
+    this.selectedFile = '';
+    this.fileName = '';
+    this.isImageShow = true
+  }
+
+  deleteImage() {
+    this.isImageShow = false;
+    this.filePath = ''
+  }
+
+}

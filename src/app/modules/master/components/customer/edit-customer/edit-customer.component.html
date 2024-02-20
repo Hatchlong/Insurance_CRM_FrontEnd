@@ -1,12 +1,12 @@
 <app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
 <div class="container-fluid border py-2" [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
-    <form [formGroup]="customer" >
+    <form [formGroup]="customer">
         <h2><mat-icon class="back mb-1" routerLink="/master/customer-list">arrow_back</mat-icon>Customer</h2>
         <div class="row border py-2">
             <div class="row">
                 <div class="col-6">
                     <div class="col-12 py-2 ">
-                        <label for="NumberRange">Customer Type <sup>*</sup></label>
+                        <label for="NumberRange">Customer Type</label>
                         <div class="d-flex mt-2 d-grid gap-2">
                             <div class="form-check mx-3">
                                 <input class="form-check-input" type="radio" formControlName="customerType"
@@ -30,38 +30,44 @@
                     </div>
 
                     <div class="col-12 py-2">
-                        <label for="">Customer ID<sup>*</sup></label>
+                        <label for="">Customer ID</label>
                         <input type="text" class="form-control " placeholder="Enter customer id"
-                            formControlName="customerId">
+                            formControlName="customerId" readonly>
                     </div>
 
                 </div>
                 <div class="col-6">
                     <div class="col-12 ">
                         <div class="col-12 py-2">
-                                <section class="file-border">
-                                    <div class="row">
-                                        <div class="col-12 d-flex justify-content-center py-1" style="position: relative;">
-                                            <img class="img-ava" [src]="imageSrc?imageSrc:'/assets/logs/profile.png'"><sup
-                                                class="delete_img" (click)="deletePerview()" *ngIf="imageSrc"><mat-icon
-                                                    style="font-size: 20px;display: flex;align-items: center;justify-content: center;">delete</mat-icon></sup>
-        
-                                        </div>
-                                        <div class="col-12 d-flex justify-content-center py-1">
-                                            <span (click)="uploadFile(inputFile,'log')" class="upload_text">
-                                                Choose Agent Photo</span>
-                                            <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
-                                        </div>
+                            <section class="file-border">
+                                <div class="row">
+                                    <div class="col-12 d-flex justify-content-center py-1" style="position: relative;">
+                                        <img *ngIf="!isImageShow" class="img-ava"
+                                            [src]="imageSrc?imageSrc:'/assets/logs/profile.png'"><sup class="delete_img"
+                                            (click)="deletePerview()"
+                                            *ngIf="imageSrc && !filePath"><mat-icon>delete</mat-icon></sup>
+                                        <img *ngIf="isImageShow" class="img-ava" [src]="filePath"><sup
+                                            class="delete_img" (click)="deleteImage()"
+                                            *ngIf="!imageSrc && filePath"><mat-icon
+                                                style="font-size: 20px;display: flex;align-items: center;justify-content: center;">delete</mat-icon></sup>
+
                                     </div>
-                                </section>
-                            </div>
+                                    <div class="col-12 d-flex justify-content-center py-1">
+                                        <span class="upload_text" (click)="uploadFile(inputFile,'log')">
+                                            Choose Photo</span>
+                                        <input type="file" #inputFile class="d-none"
+                                            (change)="handleUploadFile($event)">
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row ">
 
                 <div class="col-6 py-2">
-                    <label for="">Customer Name<sup>*</sup></label>
+                    <label for="">Customer Name</label>
                     <input type="text" class="form-control " placeholder="Enter customer name"
                         formControlName="customerName">
                 </div>
@@ -186,14 +192,14 @@
                 </div>
 
                 <div class="col-6 py-2">
-                    <label for="">Mobile<sup>*</sup></label>
+                    <label for="">Mobile</label>
                     <input type="text" class="form-control" placeholder="Enter mobile number" formControlName="mobile"
                         min="0" maxlength="10" (keypress)="onlyNumberKey($event)">
 
                 </div>
 
                 <div class="col-6 py-2">
-                    <label for="">Mail Id<sup>*</sup></label>
+                    <label for="">Mail Id</label>
                     <input type="text" class="form-control " placeholder="Enter mail id" formControlName="mailId">
                 </div>
 

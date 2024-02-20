@@ -11,6 +11,7 @@ import { EditPolicyPlanComponent } from './components/policy-plan/edit-policy-pl
 import { AddVendorComponent } from './components/vendor/add-vendor/add-vendor.component';
 import { VendorListComponent } from './components/vendor/vendor-list/vendor-list.component';
 import { EditVendorComponent } from './components/vendor/edit-vendor/edit-vendor.component';
+import { EditCustomerComponent } from './components/customer/edit-customer/edit-customer.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,10 @@ const routes: Routes = [
   {
     path:'add-customer',
     component:AddCustomerComponent
+  },
+  {
+    path:'edit-customer/:id',
+    component:EditCustomerComponent
   },
   {
     path:'customer-list',

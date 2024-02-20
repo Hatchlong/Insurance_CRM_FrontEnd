@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AgentListComponent implements OnInit {
   @ViewChild('searchDataInput', { static: true }) searchInput!: ElementRef;
-
+ 
 
   isShowPadding: any = false
   agentDetail: any = []

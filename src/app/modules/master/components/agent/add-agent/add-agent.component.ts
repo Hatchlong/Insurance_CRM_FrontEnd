@@ -46,7 +46,7 @@ export class AddAgentComponent implements OnInit {
       state: [''],
       city: [''],
       pinCode: [''],
-      mobile: ['', Validators.required],
+      mobile: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       mailId: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}')]],
       aadharNumber: ['', Validators.required],
       panNumber: ['', Validators.required],
@@ -56,9 +56,6 @@ export class AddAgentComponent implements OnInit {
       createdBy: [''],
       changedOn: [''],
       changedBy: ['']
-
-
-
 
     })
   }
@@ -155,7 +152,7 @@ export class AddAgentComponent implements OnInit {
 
         const reader = new FileReader();
         console.log(this.filedPathName)
-        if (this.filedPathName === 'log') {
+        if (this.filedPathName === 'company_no') {
           this.selectedFileVerfiy = event.target.files[0];
           this.fileUploadVerifyNo()
         }
@@ -230,8 +227,9 @@ export class AddAgentComponent implements OnInit {
 
   async fileUpload() {
     try {
+      
       if (!this.imageSrc) {
-        this.createAgentData()
+        this.submitData()
         return
       }
       const formData = new FormData();
@@ -250,7 +248,7 @@ export class AddAgentComponent implements OnInit {
         } else if (this.filedPathName === 'aadhar_no') {
           this.agentFormData.controls.aadharFilePath.setValue(result.fileName)
         }
-        this.createAgentData()
+        this.submitData()
         return;
       }
       if (result.status === '0') {
