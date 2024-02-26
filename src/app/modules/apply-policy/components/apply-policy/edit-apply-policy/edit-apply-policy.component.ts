@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApplyPolicyService } from '../../../services/apply-policy/apply-policy.service';
+import { PolicyPlanService } from 'src/app/modules/master/services/policy-plan/policy-plan.service';
+import { CustomerService } from 'src/app/modules/master/services/customer/customer.service';
 
 @Component({
   selector: 'app-edit-apply-policy',
@@ -17,13 +19,17 @@ export class EditApplyPolicyComponent {
   imageSrc: any = '';
   isSubmitted: any = false;
   applyPolicyId:any=''
+  policyPlanDetail: any = [];
+  customerDetail: any = []
 
 
   constructor(private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private router: Router,
     private applyPolicySer:ApplyPolicyService,
-    private activateRouter:ActivatedRoute
+    private activateRouter:ActivatedRoute,
+    private policyPlanSer: PolicyPlanService,
+    private customerSer: CustomerService
   ) { }
 
   handleSideBar(event: any) {
@@ -34,6 +40,8 @@ export class EditApplyPolicyComponent {
     this.applyPolicyId=this.activateRouter.snapshot.paramMap.get('id')
     this.createAgentData()
     this.getSingleApplyPolicyDetail()
+    this.getAllCustomerDertail()
+    this.getAllPolicyPlanDetail()
   }
   createAgentData() {
     this.policyFormData = this.fb.group({
@@ -113,6 +121,39 @@ export class EditApplyPolicyComponent {
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
       });
+    }
+  }
+
+  //get all detail of agent from the database
+  async getAllPolicyPlanDetail() {
+    try {
+      const result: any = await this.policyPlanSer.getAllPolicyPlan()
+      if (result.status === '1') {
+        this.policyPlanDetail = result.data
+      }
+    } catch (error) {
+
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
+    }
+  }
+
+  async getAllCustomerDertail() {
+    try {
+      const result: any = await this.customerSer.getAllcustomerDetail()
+      if (result.status === '1') {
+        this.customerDetail = result.data
+      }
+    } catch (error) {
+
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
     }
   }
 

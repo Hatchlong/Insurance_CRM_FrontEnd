@@ -39,7 +39,6 @@
                         <label for="" class="">Address</label>
                         <input type="text" class="form-control " placeholder="Enter Address" formControlName="address">
 
-
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
 
@@ -56,35 +55,7 @@
                         <select class="form-select " aria-label="Default select example" formControlName="state">
                             <option [selected]="companyCodeFormData.value.state === ''" value="" hidden> Select State</option>
                             <option *ngFor="let state of states" [value]="state">{{ state }}</option>
-<!-- 
-                            <option value="1">Andhra Pradesh</option>
-                            <option value="2">Arunachal Pradesh</option>
-                            <option value="3">Assam</option>
-                            <option value="1">Bihar</option>
-                            <option value="2">Chhattisgarh</option>
-                            <option value="3">Goa</option>
-                            <option value="1">Gujarat</option>
-                            <option value="2">Haryana</option>
-                            <option value="3">Himachal Pradesh</option>
-                            <option value="1">Jharkhand</option>
-                            <option value="2">Karnataka</option>
-                            <option value="3">Kerala</option>
-                            <option value="1">Madhya Pradesh</option>
-                            <option value="2">Maharashtra</option>
-                            <option value="3">Manipur</option>
-                            <option value="1">Meghalaya</option>
-                            <option value="2">Mizoram</option>
-                            <option value="3">Nagaland</option>
-                            <option value="1">Odisha</option>
-                            <option value="2">Punjab</option>
-                            <option value="3">Rajasthan</option>
-                            <option value="1">Sikkim</option>
-                            <option value="2">Tamil Nadu</option>
-                            <option value="3">Telangana</option>
-                            <option value="1">Tripura</option>
-                            <option value="2">Uttar Pradesh</option>
-                            <option value="3">Uttarakhand</option>
-                            <option value="1">West Bengal</option> -->
+
 
                         </select>
                     </div>
@@ -95,56 +66,7 @@
                             <option [selected]="companyCodeFormData.value.city === ''" value="" hidden> Select City</option>
                             <option *ngFor="let city of cities[companyCodeFormData.get('state').value]" [value]="city">{{ city }}</option>
     
-                            <!-- <option value="1">Agra</option>
-                                <option value="2">Aligarh</option>
-                                <option value="3">Ambedkar Nagar</option>
-                                <option value="3">Amethi</option>
-                                <option value="3">Amroha</option>
-                                <option value="3">Auraiya</option>
-                                <option value="3">Ayodhya</option>
-                                <option value="3">Azamgarh</option>
-                                <option value="3">Baghpat</option>
-                                <option value="3">Bahraich</option>
-                                <option value="3">Ballia</option>
-                                <option value="3">Balrampur</option>
-                                <option value="3">Banda</option>
-                                <option value="3">Barabanki</option>
-                                <option value="3">Bareilly</option>
-                                <option value="3">Basti</option>
-                                <option value="3">Bijnor</option>
-                                <option value="3">Budaun</option>
-                                <option value="3">Bulandshahr</option>
-                                <option value="3">Chandauli</option>
-                                <option value="3">Chitrakoot</option>
-                                <option value="3">Deoria</option>
-                                <option value="3">Etah</option>
-                                <option value="3">Etawah</option>
-                                <option value="3">Firozabad</option>
-                                <option value="3">Gautam Buddha Nagar (Noida)</option>
-                                <option value="3">Ghaziabad</option>
-                                <option value="3">Ghazipur</option>
-                                <option value="3">Gonda</option>
-                                <option value="3">Gorakhpur</option>
-                                <option value="3">Hamirpur</option>
-                                <option value="3">Hapur</option>
-                                <option value="3">Hardoi</option>
-                                <option value="3">Hathras</option>
-                                <option value="3">Jalaun</option>
-                                <option value="3">Jaunpur</option>
-                                <option value="3">Jhansi</option>
-                                <option value="3">Kannauj</option>
-                                <option value="3">Kanpur Dehat</option>
-                                <option value="3">Kanpur Nagar</option>
-                                <option value="3">Kasganj</option>
-                                <option value="3">Kaushambi</option>
-                                <option value="3">Kushinagar</option>
-                                <option value="3">Lakhimpur Kheri</option>
-                                <option value="3">Lalitpur</option>
-                                <option value="3">Lucknow</option>
-                                <option value="3">Maharajganj</option>
-                                <option value="3">Mahoba</option>
-                                <option value="3">Mainpuri</option>
-                                <option value="3">Mathura</option> -->
+                           
                         </select>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">

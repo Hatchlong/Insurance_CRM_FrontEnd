@@ -43,6 +43,32 @@
                         <div *ngIf="isSubmitted && registerFormGroup.controls['password'].hasError('required')">
                             <p class="error-message">Password is mandatory</p>
                         </div>
+
+                        <div class="text-red-400 text-sm"
+                        *ngIf="this.registerFormGroup.get('password')?.dirty && registerFormGroup.controls['password'].hasError('pattern')">
+                        <p class="block mb-0 py-1"
+                            [ngStyle]="{'color': this.registerFormGroup.get('password')?.value?.match('^(?=.*[A-Z])') ? 'green':'red'}">
+                            At least one uppercase
+                            letter.</p>
+                        <p class="block mb-0 py-1"
+                            [ngStyle]="{'color': this.registerFormGroup.get('password')?.value?.match('(?=.*[a-z])') ? 'green':'red'}">
+                            At least one lowercase
+                            letter.</p>
+                        <p class="block mb-0 py-1"
+                            [ngStyle]="{'color': this.registerFormGroup.get('password')?.value?.match('(.*[0-9].*)') ? 'green':'red'}">
+                            At least one
+                            digit.</p>
+                        <p class="block mb-0 py-1"
+                            [ngStyle]="{'color': this.registerFormGroup.get('password')?.value?.match('(?=.*[!@#$%^&*])') ? 'green':'red'}">
+                            At least one
+                            special
+                            character.</p>
+                        <p class="block mb-0 py-1"
+                            [ngStyle]="{'color': this.registerFormGroup.get('password')?.value?.match('.{8,}') ? 'green':'red'}">
+                            At least 8 characters
+                            long.</p>
+
+                    </div>
                     </div>
                     <div class="form-group form-check py-2">
                         <input type="checkbox" class="form-check-input" id="exampleCheck1">

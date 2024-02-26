@@ -16,8 +16,11 @@
                             <option [selected]="policyFormData.value.customerName === ''" value="" hidden>
                                 Select
                                 Customer Name </option>
-                            <option value="Commercial">Commercial</option>
-                            <option value="General">General</option>
+                            <!-- <option value="Commercial">Commercial</option> -->
+                            <!-- <option value="General">General</option> -->
+                            <option *ngFor="let list of customerDetail" [value]="list.customerId">{{list.customerName}}</option>
+
+
                             <div
                                 *ngIf="policyFormData.controls['customerName'].touched && policyFormData.controls['customerName'].dirty && policyFormData.controls['customerName'].hasError('required') && !isSubmitted">
                                 <p class="error-message">Customer Name is mandatory</p>
@@ -30,12 +33,13 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                         <label for="example">Policy Type <sup>*</sup></label>
-                        <select class="form-select " aria-label="Default select example" formControlName="policyType">
+                        <select class="form-select " aria-label="Default select example" formControlName="policyType" (change)="handleCompany($event)">
                             <option [selected]="policyFormData.value.policyType === ''" value="" hidden>
                                 Select
                                 Policy Type </option>
-                            <option value="Commercial">Commercial</option>
-                            <option value="General">General</option>
+                            <!-- <option value="Commercial">Commercial</option> -->
+                            <!-- <option value="General">General</option> -->
+                            <option *ngFor="let list of policyPlanDetail" [value]="list.policyType">{{list.policyType}}</option>
                             <div
                                 *ngIf="policyFormData.controls['policyType'].touched && policyFormData.controls['policyType'].dirty && policyFormData.controls['policyType'].hasError('required') && !isSubmitted">
                                 <p class="error-message">Policy Type is mandatory</p>
@@ -50,12 +54,14 @@
                         <label for="" class="">Policy Company <sup>*</sup></label>
 
                         <select class="form-select " aria-label="Default select example"
-                            formControlName="policyCompany">
+                            formControlName="policyCompany" [ngStyle]="{'pointer-events' : policyFormData.value.policyType ? 'all' : 'none'}">
                             <option [selected]="policyFormData.value.policyCompany === ''" value="" hidden>
                                 Select
                                 Policy Company </option>
-                            <option value="Commercial">Commercial</option>
-                            <option value="General">General</option>
+                            <!-- <option value="Commercial">Commercial</option> -->
+                            <!-- <option value="General">General</option> -->
+                            <option *ngFor="let list of policyPlanDetail" [value]="list.companyName">{{list.companyName}}</option>
+
                             <div
                                 *ngIf="policyFormData.controls['policyCompany'].touched && policyFormData.controls['policyCompany'].dirty && policyFormData.controls['policyCompany'].hasError('required') && !isSubmitted">
                                 <p class="error-message">Policy Company is mandatory</p>
@@ -72,8 +78,10 @@
                             <option [selected]="policyFormData.value.policyCode === ''" value="" hidden>
                                 Select
                                 Policy Code </option>
-                            <option value="Commercial">Commercial</option>
-                            <option value="General">General</option>
+                            <!-- <option value="Commercial">Commercial</option> -->
+                            <!-- <option value="General">General</option> -->
+                            <option *ngFor="let list of policyPlanDetail" [value]="list.policyCode">{{list.policyCode}}</option>
+
                             <div
                                 *ngIf="policyFormData.controls['policyCode'].touched && policyFormData.controls['policyCode'].dirty && policyFormData.controls['policyCode'].hasError('required') && !isSubmitted">
                                 <p class="error-message">Policy Code is mandatory</p>

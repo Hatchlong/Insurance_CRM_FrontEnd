@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-6">
                     <div class="col-12 py-2 ">
-                        <label for="NumberRange">Customer Type</label>
+                        <label for="NumberRange">Customer Type <sup>*</sup></label>
                         <div class="d-flex mt-2 d-grid gap-2">
                             <div class="form-check mx-3">
                                 <input class="form-check-input" type="radio" formControlName="customerType"
@@ -26,13 +26,27 @@
                                     Individual
                                 </label>
                             </div>
+                            <div
+                                *ngIf="customer.controls['customerType'].touched && customer.controls['customerType'].dirty && customer.controls['customerType'].hasError('required') && !isSubmitted">
+                                <p class="error-message">Customer Type is mandatory</p>
+                            </div>
+                            <div *ngIf="isSubmitted && customer.controls['customerType'].hasError('required')">
+                                <p class="error-message">Customer Type is mandatory</p>
+                            </div>
                         </div>
                     </div>
 
                     <div class="col-12 py-2">
-                        <label for="">Customer ID</label>
+                        <label for="">Customer ID <sup>*</sup></label>
                         <input type="text" class="form-control " placeholder="Enter customer id"
                             formControlName="customerId" readonly>
+                            <div
+                            *ngIf="customer.controls['customerId'].touched && customer.controls['customerId'].dirty && customer.controls['customerId'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Customer Id is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && customer.controls['customerId'].hasError('required')">
+                            <p class="error-message">Customer Id is mandatory</p>
+                        </div>
                     </div>
 
                 </div>
@@ -54,7 +68,7 @@
                                     </div>
                                     <div class="col-12 d-flex justify-content-center py-1">
                                         <span class="upload_text" (click)="uploadFile(inputFile,'log')">
-                                            Choose Photo</span>
+                                            Choose Custome Photo</span>
                                         <input type="file" #inputFile class="d-none"
                                             (change)="handleUploadFile($event)">
                                     </div>
@@ -91,98 +105,18 @@
                     </select>
                 </div>
                 <div class="col-6 py-2">
-                    <label for="">State</label>
+                    <label for="">State </label>
                     <select class="form-select " aria-label="Default select example" formControlName="state">
-                        <option [selected]="customer.value.state === ''" value="" hidden>Select
-                            state</option>
-                        <option value="1">Andhra Pradesh</option>
-                        <option value="2">Arunachal Pradesh</option>
-                        <option value="3">Assam</option>
-                        <option value="1">Bihar</option>
-                        <option value="2">Chhattisgarh</option>
-                        <option value="3">Goa</option>
-                        <option value="1">Gujarat</option>
-                        <option value="2">Haryana</option>
-                        <option value="3">Himachal Pradesh</option>
-                        <option value="1">Jharkhand</option>
-                        <option value="2">Karnataka</option>
-                        <option value="3">Kerala</option>
-                        <option value="1">Madhya Pradesh</option>
-                        <option value="2">Maharashtra</option>
-                        <option value="3">Manipur</option>
-                        <option value="1">Meghalaya</option>
-                        <option value="2">Mizoram</option>
-                        <option value="3">Nagaland</option>
-                        <option value="1">Odisha</option>
-                        <option value="2">Punjab</option>
-                        <option value="3">Rajasthan</option>
-                        <option value="1">Sikkim</option>
-                        <option value="2">Tamil Nadu</option>
-                        <option value="3">Telangana</option>
-                        <option value="1">Tripura</option>
-                        <option value="2">Uttar Pradesh</option>
-                        <option value="3">Uttarakhand</option>
-                        <option value="1">West Bengal</option>
-
-
+                        <option [selected]="customer.value.state === ''" value="" hidden> Select State</option>
+                        <option *ngFor="let state of states" [value]="state">{{ state }}</option>
                     </select>
                 </div>
                 <div class="col-6 py-2">
-                    <label for="">City</label>
+                    <label for="">City </label>
                     <select class="form-select " aria-label="Default select example" formControlName="city">
-                        <option [selected]="customer.value.city === ''" value="" hidden>Select
-                            city</option>
-                        <option value="1">Agra</option>
-                        <option value="2">Aligarh</option>
-                        <option value="3">Ambedkar Nagar</option>
-                        <option value="3">Amethi</option>
-                        <option value="3">Amroha</option>
-                        <option value="3">Auraiya</option>
-                        <option value="3">Ayodhya</option>
-                        <option value="3">Azamgarh</option>
-                        <option value="3">Baghpat</option>
-                        <option value="3">Bahraich</option>
-                        <option value="3">Ballia</option>
-                        <option value="3">Balrampur</option>
-                        <option value="3">Banda</option>
-                        <option value="3">Barabanki</option>
-                        <option value="3">Bareilly</option>
-                        <option value="3">Basti</option>
-                        <option value="3">Bijnor</option>
-                        <option value="3">Budaun</option>
-                        <option value="3">Bulandshahr</option>
-                        <option value="3">Chandauli</option>
-                        <option value="3">Chitrakoot</option>
-                        <option value="3">Deoria</option>
-                        <option value="3">Etah</option>
-                        <option value="3">Etawah</option>
-                        <option value="3">Firozabad</option>
-                        <option value="3">Gautam Buddha Nagar (Noida)</option>
-                        <option value="3">Ghaziabad</option>
-                        <option value="3">Ghazipur</option>
-                        <option value="3">Gonda</option>
-                        <option value="3">Gorakhpur</option>
-                        <option value="3">Hamirpur</option>
-                        <option value="3">Hapur</option>
-                        <option value="3">Hardoi</option>
-                        <option value="3">Hathras</option>
-                        <option value="3">Jalaun</option>
-                        <option value="3">Jaunpur</option>
-                        <option value="3">Jhansi</option>
-                        <option value="3">Kannauj</option>
-                        <option value="3">Kanpur Dehat</option>
-                        <option value="3">Kanpur Nagar</option>
-                        <option value="3">Kasganj</option>
-                        <option value="3">Kaushambi</option>
-                        <option value="3">Kushinagar</option>
-                        <option value="3">Lakhimpur Kheri</option>
-                        <option value="3">Lalitpur</option>
-                        <option value="3">Lucknow</option>
-                        <option value="3">Maharajganj</option>
-                        <option value="3">Mahoba</option>
-                        <option value="3">Mainpuri</option>
-                        <option value="3">Mathura</option>
-
+                        <option [selected]="customer.value.city === ''" value="" hidden> Select City</option>
+                        <option *ngFor="let city of cities[customer.get('state').value]" [value]="city">{{ city }}
+                        </option>
                     </select>
                 </div>
 
@@ -192,16 +126,40 @@
                 </div>
 
                 <div class="col-6 py-2">
-                    <label for="">Mobile</label>
-                    <input type="text" class="form-control" placeholder="Enter mobile number" formControlName="mobile"
-                        min="0" maxlength="10" (keypress)="onlyNumberKey($event)">
-
+                    <label for="">Mobile<sup>*</sup></label>
+                    <input maxlength="10" min="0" class="form-control " placeholder="Enter Mobile Number"
+                        formControlName="mobile"
+                        onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+                    <div
+                        *ngIf="customer.controls['mobile'].touched && customer.controls['mobile'].dirty && customer.controls['mobile'].hasError('required') && !isSubmitted">
+                        <p class="error-message">Mobile Number is mandatory</p>
+                    </div>
+                    <div *ngIf="isSubmitted && customer.controls['mobile'].hasError('required')">
+                        <p class="error-message">Mobile Number is mandatory</p>
+                    </div>
+                    <div *ngIf="customer.controls['mobile'].hasError('minlength')">
+                        <p class="error-message">Mobile Number is not Valid</p>
+                    </div>
+                    <div *ngIf="customer.controls['mobile'].hasError('maxlength')">
+                        <p class="error-message">Mobile Number is not Valid</p>
+                    </div>
                 </div>
 
                 <div class="col-6 py-2">
-                    <label for="">Mail Id</label>
+                    <label for="">Mail Id<sup>*</sup></label>
                     <input type="text" class="form-control " placeholder="Enter mail id" formControlName="mailId">
+                    <div
+                        *ngIf="customer.controls['mailId'].touched && customer.controls['mailId'].dirty && customer.controls['mailId'].hasError('required') && !isSubmitted">
+                        <p class="error-message">Mail Id is mandatory</p>
+                    </div>
+                    <div *ngIf="isSubmitted && customer.controls['mailId'].hasError('required')">
+                        <p class="error-message">Mail Id is mandatory</p>
+                    </div>
+                    <div *ngIf="customer.get('mailId').hasError('pattern')">
+                        <p class="error-message">Please enter a valid email address.</p>
+                    </div>
                 </div>
+
 
             </div>
 

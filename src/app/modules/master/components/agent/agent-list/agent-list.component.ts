@@ -14,7 +14,7 @@ export class AgentListComponent implements OnInit {
 
   isShowPadding: any = false
   agentDetail: any = []
-  allAgentDetail: any = []
+  allAgentDetail: any = [] 
   selectAll: any = false
   selectedCategory: String = ''
   selectedCity: String = ''

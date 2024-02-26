@@ -43,6 +43,15 @@ export class EditCustomerComponent implements OnInit {
     this.getSingleDetail()
     this.code()
   }
+  
+  states = ['Delhi', 'Madhya Pradesh', 'Mumbai', 'Uttar Pradesh'];
+  cities: { [key: string]: string[] } = {
+    'Delhi': ['Chandni Chowk','Connaught Place', 'Defence Colony', 'Dwarka', 'Greater Kailash', 'Hauz Khas', 'Janakpuri', 'Karol Bagh', 'Lajpat Nagar', 'Mayur Vihar', 'Narela', 'Nehru Place', 'Paharganj', 'Pitampura', 'Rajouri Garden', 'Rohini', 'Saket', 'Shahdara', 'South Extension', 'Vasant Kunj'],
+    'Madhya Pradesh': ['Balaghat', 'Barwani', 'Betul', 'Bhind', 'Bhopal', 'Burhanpur', 'Chhindwara', 'Damoh', 'Datia', 'Dewas', 'Dhar', 'Guna', 'Gwalior', 'Harda', 'Hoshangabad', 'Indore', 'Jabalpur', 'Khandwa', 'Khargone', 'Mandsaur', 'Morena', 'Narsinghpur', 'Neemuch', 'Panna', 'Raisen', 'Ratlam', 'Rewa', 'Sagar', 'Satna', 'Sehore', 'Seoni', 'Shahdol', 'Shajapur', 'Sheopur', 'Shivpuri', 'Sidhi', 'Singrauli', 'Tikamgarh', 'Ujjain', 'Vidisha'],
+    'Mumbai' : [  "Andheri",  "Bandra",  "Borivali",  "Chembur",  "Colaba",  "Dadar",  "Dharavi",  "Goregaon",  "Juhu",  "Kandivali",  "Kurla",  "Malad",  "Matunga",  "Mulund",  "Powai",  "Santacruz",  "Vashi",  "Versova",  "Vikhroli",  "Worli"],
+    'Uttar Pradesh': [  "Agra",  "Aligarh",  "Allahabad",  "Amroha",  "Ayodhya",  "Azamgarh",  "Bareilly",  "Basti",  "Bijnor",  "Budaun",  "Bulandshahr",  "Etawah",  "Faizabad",  "Farrukhabad",  "Fatehpur",  "Firozabad",  "Ghaziabad",  "Gonda",  "Gorakhpur",  "Hamirpur",  "Hardoi",  "Jalaun",  "Jaunpur",  "Jhansi",  "Kanpur",  "Kushinagar",  "Lakhimpur",  "Lucknow",  "Mathura",  "Meerut",  "Mirzapur",  "Moradabad",  "Muzaffarnagar",  "Noida",  "Pilibhit",  "Pratapgarh",  "Rae Bareli",  "Rampur",  "Saharanpur",  "Shahjahanpur",  "Sitapur",  "Sultanpur",  "Unnao",  "Varanasi"]
+  };
+
 
 
   handleSideBar(event: any) {
@@ -85,14 +94,16 @@ export class EditCustomerComponent implements OnInit {
       state: ['', Validators.required],
       city: ['', Validators.required],
       pinCode: ['', Validators.required],
-      mobile: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      mailId: ['', [Validators.required, Validators.email]],
-      dob: ['', Validators.required],
+      mobile: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      mailId: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}')]],      dob: ['', Validators.required],
       filePath: [''],
 
       vechicleDetails: this.fb.array([this.addVehicle()]),
       nomineeDetails: this.fb.array([this.addNominee()])
     })
+    this.customer.get('state').valueChanges.subscribe((selectedState:any) => {
+      this.customer.get('city').setValue(''); // Reset city when state changes
+    });
   }
 
   

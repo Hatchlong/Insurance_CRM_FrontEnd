@@ -55,6 +55,8 @@
                         <label for="">State </label>
                         <select class="form-select " aria-label="Default select example" formControlName="state">
                             <option [selected]="companyCodeFormData.value.state === ''" value="" hidden> Select State</option>
+                            <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+<!-- 
                             <option value="1">Andhra Pradesh</option>
                             <option value="2">Arunachal Pradesh</option>
                             <option value="3">Assam</option>
@@ -82,7 +84,7 @@
                             <option value="1">Tripura</option>
                             <option value="2">Uttar Pradesh</option>
                             <option value="3">Uttarakhand</option>
-                            <option value="1">West Bengal</option>
+                            <option value="1">West Bengal</option> -->
 
                         </select>
                     </div>
@@ -91,7 +93,9 @@
                         <label for="">City </label>
                         <select class="form-select " aria-label="Default select example" formControlName="city">
                             <option [selected]="companyCodeFormData.value.city === ''" value="" hidden> Select City</option>
-                                <option value="1">Agra</option>
+                            <option *ngFor="let city of cities[companyCodeFormData.get('state').value]" [value]="city">{{ city }}</option>
+    
+                            <!-- <option value="1">Agra</option>
                                 <option value="2">Aligarh</option>
                                 <option value="3">Ambedkar Nagar</option>
                                 <option value="3">Amethi</option>
@@ -140,7 +144,7 @@
                                 <option value="3">Maharajganj</option>
                                 <option value="3">Mahoba</option>
                                 <option value="3">Mainpuri</option>
-                                <option value="3">Mathura</option>
+                                <option value="3">Mathura</option> -->
                         </select>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">

@@ -3,21 +3,27 @@
     <div class="row mt-3 ">
         <div class="col-12">
             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                <input type="search" #searchDataInput name="" id="search-data"
-                    placeholder="Enter Agent Id/Agent Name/ Mobile Number / Mail Id" class="form-control w-50"
-                    (input)="handleFilter($event)">
-                <select class="form-select w-25" aria-label="Default select example" (change)="handleCity($event)">
-                    <option selected value="">Select City</option>
-                    <option *ngFor="let list of agentDetail " [value]="list.city">
-                        {{list.city}}
+                <input type="search" #searchDataInput name="" id="search-data" placeholder="Financial Period"
+                class="form-control w-50"  (input)="handleFilter($event)">
+                
+                 
+                <!-- <input type="search" #searchDataInput name="" id="search-data" placeholder="Po Number"
+                    class="form-control " (input)="handleFilter($event)">
+                <select class="form-select w-25" aria-label="Default select example"
+                    (change)="handleFilterPoType($event)">
+                    <option selected value="">Select PO Type</option>
+                    <option *ngFor="let list of poTypeDetails | filterPipes:'description'" [value]="list.description">
+                        {{list.description}}
                     </option>
                 </select>
-                <select class="form-select w-25" aria-label="Default select example" (change)="handleCategory($event)">
-                    <option selected value="">Select Category</option>
-                    <option *ngFor="let list of agentDetail ; let i=index" [value]="list.category">
-                        {{list.category}}</option>
+                <select class="form-select w-25" aria-label="Default select example"
+                    (change)="handleFilterCompanyCode($event)">
+                    <option selected value="">Select Company Code</option>
+                    <option *ngFor="let company of companyCodeDetails |filterPipes:'companyCode'; let i=index"
+                        [value]="company.companyCode">
+                        {{company.companyCode}}</option>
                 </select>
-                <!-- 
+
                 <select class="form-select w-25" aria-label="Default select example"
                     (change)="handleFilterVendor($event)">
                     <option selected value="">Select Vendor</option>
@@ -29,25 +35,26 @@
 
             <div class="row mt-3">
                 <div class="col-12">
+                    
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
-                        <button class="btn btn-primary " (click)="nextPage('/master/add-agent')" type="button"
-                            style="color: white;background: #00acff;">Add POSP</button>
+                         <button  class="btn btn-primary " (click)="nextPage('/master/add-financial-period')"
+                            type="button" style="color: white;background: #00acff;">Add Financial Period</button>
 
                         <button class="btn btn-danger" type="button" style="color: white;" (click)="handleDeleteMuliple()">
                             <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
-                            Delete Selected POSP</button>
+                            Delete Selected Financial Period</button>
                         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                             <mat-icon>more_vert</mat-icon>
                         </button>
                         <mat-menu #menu="matMenu">
                             <button mat-menu-item>
-                                <span>Import POSP</span>
+                                <span>Import Financial Period</span>
                             </button>
-                            <button mat-menu-item (click)="exportExcel()">
-                                <span>Export POSP</span>
+                            <button mat-menu-item >
+                                <span>Export Financial Period</span>
                             </button>
-                            <button mat-menu-item (click)="downloadExcel()">
-                                <span>Sample POSP Sheet</span>
+                            <button mat-menu-item >
+                                <span>Sample Financial Period Sheet</span>
                             </button>
                         </mat-menu>
 
@@ -62,44 +69,45 @@
                             <thead>
                                 <tr>
                                     <th>SN</th>
-                                    <th scope="col">POSP Id</th>
-                                    <th scope="col">POSP Name</th>
-                                    <th scope="col">Category</th>
-                                    <th scope="col">City</th>
-                                    <th scope="col">Mobile</th>
-                                    <th scope="col">Mail Id</th>
+                                    <th>Financial Period</th>
+                                    <th>From Month</th>
+                                    <th>From Year</th>
+                                    <th>To Month</th>
+                                    <th>To Year</th>
                                     <th scope="col">Action</th>
                                     <th scope="col"><input type="checkbox" [checked]="selectAll"
-                                            (change)="selectdata($event)"> Select All</th>
+                                        (change)="selectdata($event)"> Select All</th>
                                 </tr>
                             </thead>
-                            <tbody *ngIf="agentDetail.length === 0">
+                            <tbody *ngIf="financialDetail.length === 0">
                                 <tr>
-                                    <td colspan="11" class="text-center">No Records</td>
+                                    <td colspan="8" class="text-center">No Records</td>
                                 </tr>
                             </tbody>
+
                             <tbody>
-                                <tr *ngFor="let list of agentDetail; let i=index">
+                                <tr *ngFor="let list of financialDetail; let i=index">
                                     <td>{{i+1}}</td>
-                                    <td>{{list.agentId}}</td>
-                                    <td>{{list.agentName}}</td>
-                                    <td>{{list.category}}</td>
-                                    <td>{{list.city}}</td>
-                                    <td>{{list.mobile}}</td>
-                                    <td>{{list.mailId}}</td>
+                                    <td>{{list.periodCode}}</td>
+                                    <td>{{list.fromMonth}}</td>
+                                    <td>{{list.fromYear}}</td>
+                                    <td>{{list.toMonth}}</td>
+                                    <td>{{list.toYear}}</td>
                                     <td>
                                         <div class="d-flex">
                                             <div>
-                                                <mat-icon [routerLink]="'/master/edit-agent/'+list._id">edit</mat-icon>
+                                                <mat-icon
+                                                    [routerLink]="'/master/edit-financial-period/'+list._id">edit</mat-icon>
                                             </div>
                                             <div>
                                                 <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
+
                                             </div>
                                         </div>
                                     </td>
 
                                     <td><input type="checkbox" class="checkbox" [checked]="list.check"
-                                            (change)="particularcheck($event,i)"></td>
+                                        (change)="particularcheck($event,i)"></td>
                                 </tr>
                             </tbody>
 

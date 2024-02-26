@@ -18,6 +18,8 @@
                                 Customer Name </option>
                             <option value="Commercial">Commercial</option>
                             <option value="General">General</option>
+                            <option *ngFor="let list of customerDetail" [value]="list.customerId">{{list.customerName}}</option>
+
                             <div
                                 *ngIf="policyFormData.controls['customerName'].touched && policyFormData.controls['customerName'].dirty && policyFormData.controls['customerName'].hasError('required') && !isSubmitted">
                                 <p class="error-message">Customer Name is mandatory</p>
@@ -36,6 +38,8 @@
                                 Policy Type </option>
                             <option value="Commercial">Commercial</option>
                             <option value="General">General</option>
+                            <option *ngFor="let list of policyPlanDetail" [value]="list.policyType">{{list.policyType}}</option>
+
                             <div
                                 *ngIf="policyFormData.controls['policyType'].touched && policyFormData.controls['policyType'].dirty && policyFormData.controls['policyType'].hasError('required') && !isSubmitted">
                                 <p class="error-message">Policy Type is mandatory</p>
@@ -56,6 +60,8 @@
                                 Policy Company </option>
                             <option value="Commercial">Commercial</option>
                             <option value="General">General</option>
+                            <option *ngFor="let list of policyPlanDetail" [value]="list.companyName">{{list.companyName}}</option>
+
                             <div
                                 *ngIf="policyFormData.controls['policyCompany'].touched && policyFormData.controls['policyCompany'].dirty && policyFormData.controls['policyCompany'].hasError('required') && !isSubmitted">
                                 <p class="error-message">Policy Company is mandatory</p>

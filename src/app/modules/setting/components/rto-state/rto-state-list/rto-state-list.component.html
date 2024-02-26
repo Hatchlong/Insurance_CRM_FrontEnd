@@ -76,6 +76,7 @@
                                     <th>SN</th>
                                     <th>RTO State Code</th>
                                     <th>Description</th>
+                                    <th>Address</th>
                                     <th scope="col">Action</th>
                                     <th scope="col"><input type="checkbox" [checked]="selectAll"
                                             (change)="selectdata($event)"> Select All</th>
@@ -92,6 +93,7 @@
                                     <td>{{i+1}}</td>
                                     <td>{{list.rtoStateCode}}</td>
                                     <td>{{list.description}}</td>
+                                    <td>{{list.address}}</td>
                                     <td>
                                         <div class="d-flex">
                                             <div>
