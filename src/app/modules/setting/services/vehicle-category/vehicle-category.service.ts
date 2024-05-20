@@ -33,4 +33,9 @@ export class VehicleCategoryService {
     return this.http.put(`http://localhost:4000/api/setting/vehicle/update`, data).toPromise()
   }
 
+  getAllvehicleCategoryDetailsPageFilter(filter?:any,skip?: any, itemsPerPage?: any) {
+    return this.http.post(`http://localhost:4000/api/setting/vehicle/getAll/${skip}/${itemsPerPage}`, {filter:filter}).toPromise()
+
+  }
+
 }

@@ -6,7 +6,8 @@
     <div class="row border mx-0">
       <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
         <label for="">Vehicle Category <sup>*</sup></label>
-        <input type="text" formControlName="vehicleCategory" class="form-control" placeholder="Enter Vehicle Category" appCodeDirective>
+        <input type="text" formControlName="vehicleCategory" class="form-control" placeholder="Enter Vehicle Category"
+          appCodeDirective readonly>
         <div
           *ngIf="vehicleCategoryData.controls['vehicleCategory'].touched && vehicleCategoryData.controls['vehicleCategory'].dirty && vehicleCategoryData.controls['vehicleCategory'].hasError('required') && !isSubmitted">
           <p class="error-message">Vehicle Category is mandatory</p>

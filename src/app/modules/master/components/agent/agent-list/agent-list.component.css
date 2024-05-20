@@ -1,9 +1,13 @@
-
-.back{
+.back {
     background-color: red;
     border-radius: 50%;
     color: white;
-    cursor: pointer;position: relative;
+    cursor: pointer;
+    position: relative;
     right: 6px;
-top:5px;
+    top: 5px;
+}
+
+.filterText {
+    margin-top: 25px;
 }

@@ -2,113 +2,127 @@
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
     <div class="row mt-3 ">
         <div class="col-12">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-            <input type="search" #searchDataInput name="" id="search-data" placeholder="Policy Code/Policy Name"
-                    class="form-control w-50" (input)="handleFilter($event)">
-                    <!-- <select class="form-select w-25" aria-label="Default select example"
-                    (change)="handleFilterPoType($event)">
-                    <option selected value="">Select PO Type</option>
-                    <option *ngFor="let list of poTypeDetails | filterPipes:'description'" [value]="list.description">
-                        {{list.description}}
-                    </option>
-                </select>
-                <select class="form-select w-25" aria-label="Default select example"
-                    (change)="handleFilterCompanyCode($event)">
-                    <option selected value="">Select Company Code</option>
-                    <option *ngFor="let company of companyCodeDetails |filterPipes:'companyCode'; let i=index"
-                        [value]="company.companyCode">
-                        {{company.companyCode}}</option>
-                </select>
+            <fieldset class="border p-2">
+                <legend class="float-none w-auto"><b>Search Filter</b></legend>
 
-                <select class="form-select w-25" aria-label="Default select example"
-                    (change)="handleFilterVendor($event)">
-                    <option selected value="">Select Vendor</option>
-                    <option *ngFor="let list of vendorDetails |filterPipes:'vendorName'; let i=index"
-                        [value]="list.vendorName">
-                        {{list.vendorName}}</option>
-                </select> -->
-            </div>
+                <div class="row">
 
-            <div class="row mt-3">
-                <div class="col-12">
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
-                        <button class="btn btn-primary " (click)="nextPage('/master/add-policy-plan')" type="button"
-                            style="color: white;background: #00acff;">Add Policy</button>
-
-                        <button class="btn btn-danger" type="button" style="color: white;" (click)="handleDeleteMuliple()">
-                            <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
-                            Delete Selected Policy</button>
-                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu #menu="matMenu">
-                            <button mat-menu-item>
-                                <span>Import Policy</span>
-                            </button>
-                            <button mat-menu-item>
-                                <span>Export Policy</span>
-                            </button>
-                            <button mat-menu-item>
-                                <span>Sample Policy Sheet</span>
-                            </button>
-                        </mat-menu>
-
-
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 py-1 filterText">
+                        <input type="text" #searchDataInput id="search-data" placeholder="Policy Code / Policy Name"
+                            class="form-control " (input)="handleFilter($event)">
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 py-1">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select class="form-select" (change)="handleFilterList($event)">
+                                <option [selected]="selectedFilter === ''" value="">All</option>
+                                <option [selected]="selectedFilter === 'O'" value="O">Active</option>
+                                <option [selected]="selectedFilter === 'C'" value="C">Inactive</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row mt-4">
-                <div class="col-12">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>SN</th>
-                                    <th scope="col">Policy Code</th>
-                                    <th scope="col">Policy Name </th>
-                                    <th scope="col">Policy Type </th>
-                                    <th scope="col">Varient</th>
-                                    <th scope="col">Tentor</th>
-                                    <th scope="col">Company Name</th>
-
-                                    <th scope="col">Action</th>
-                                    <th scope="col"><input type="checkbox" [checked]="selectAll"
-                                            (change)="selectdata($event)"> Select All</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr *ngFor="let list of policyPlanDetail; let i=index">
-                                    <td>{{i+1}}</td>
-                                    <td>{{list.policyCode}}</td>
-                                    <td>{{list.policyName}}</td>
-                                    <td>{{list.policyType}}</td>
-                                    <td>{{list.varient}}</td>
-                                    <td>{{list.tenor}}</td>
-                                    <td>{{list.companyName}}</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <div>
-                                                <mat-icon
-                                                    [routerLink]="'/master/edit-policy-plan/'+list._id">edit</mat-icon>
-                                            </div>
-                                            <div>
-                                                <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
-                                            </div>
-                                        </div>
-                                    </td>
-
-                                    <td><input type="checkbox" class="checkbox" [checked]="list.check"
-                                            (change)="particularcheck($event,i)"></td>
-                                </tr>
-                            </tbody>
-
-                        </table>
+                <div class="row">
+                    <div
+                        class="col-12 col-sm-12 col-md-12 col-lg-12 d-grid gap-2 col-xl-12 py-2 d-flex justify-content-end">
+                        <div class="py-1">
+                            <button class="btn btn-primary " (click)="handleFilterDetails()"
+                                type="button">Search</button>
+                        </div>
+                        <div class="py-1">
+                            <button class="btn btn-primary " (click)="searchDataInput.value = ''; filterText = ''"
+                                type="button">Reset</button>
+                        </div>
                     </div>
+                </div>
+            </fieldset>
+
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+                    <button class="btn btn-primary " (click)="nextPage('/master/add-policy-plan')" type="button"
+                        style="color: white;background: #00acff;">Add Policy</button>
+
+                    <!-- <button class="btn btn-danger" type="button" style="color: white;" (click)="handleDeleteMuliple()">
+                        <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
+                        Delete Selected Policy</button> -->
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                            <span>Import Policy</span>
+                        </button>
+                        <button mat-menu-item>
+                            <span>Export Policy</span>
+                        </button>
+                        <button mat-menu-item>
+                            <span>Sample Policy Sheet</span>
+                        </button>
+                    </mat-menu>
+
+
                 </div>
             </div>
         </div>
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>SN</th>
+                                <th scope="col">Policy Code</th>
+                                <th scope="col">Policy Name </th>
+                                <th scope="col">Policy Type </th>
+                                <th scope="col">Varient</th>
+                                <th scope="col">Tentor</th>
+                                <th scope="col">Company Name</th>
 
+                                <th scope="col">Action</th>
+                                <th>IsActive/Active</th>
+                                <!-- <th scope="col"><input type="checkbox" [checked]="selectAll"
+                                        (change)="selectdata($event)"> Select All</th> -->
+                            </tr>
+                        </thead>
 
+                        <tbody>
+                            <tr *ngFor="let list of policyPlanDetail; let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{list.policyCode}}</td>
+                                <td>{{list.policyName}}</td>
+                                <td>{{list.policyType}}</td>
+                                <td>{{list.varient}}</td>
+                                <td>{{list.tenor}}</td>
+                                <td>{{list.companyName}}</td>
+                                <td>
+                                    <div class="d-flex">
+                                        <div>
+                                            <mat-icon
+                                                [routerLink]="'/master/edit-policy-plan/'+list._id">edit</mat-icon>
+                                        </div>
+                                        <!-- <div>
+                                            <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
+                                        </div> -->
+                                    </div>
+                                </td>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox" [checked]="list.isActive === 'O'"
+                                            (change)="deleteRecords(list)">
+                                        <span class="slider"></span>
+                                    </label>
+                                </td>
+
+                                <!-- <td><input type="checkbox" class="checkbox" [checked]="list.check"
+                                        (change)="particularcheck($event,i)"></td> -->
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

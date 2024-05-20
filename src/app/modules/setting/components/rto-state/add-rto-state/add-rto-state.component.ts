@@ -3,56 +3,56 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RtoStateService } from '../../../services/rto-state/rto-state.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CompanyCodeService } from '../../../services/company-code/company-code.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-rto-state',
   templateUrl: './add-rto-state.component.html',
   styleUrls: ['./add-rto-state.component.css']
 })
-export class AddRtoStateComponent implements OnInit{
+export class AddRtoStateComponent implements OnInit {
 
   rtoStateData: any = FormGroup;
   isSubmitted: any = false;
   isShowPadding: any = false;
+  countryDetials: any = [];
+  stateDetails: any = [];
+  citiesDetails: any = [];
+  isLookValue: any = false;
 
-  
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private rtoSer: RtoStateService,
     private _snackBar: MatSnackBar,
+    private companyCodeSer: CompanyCodeService
 
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.data()
+    this.getCountryDetails()
   }
 
   handleSideBar(event: any) {
     this.isShowPadding = event
   }
 
-  states = ['Delhi', 'Madhya Pradesh', 'Mumbai', 'Uttar Pradesh'];
-  cities: { [key: string]: string[] } = {
-    'Delhi': ['Chandni Chowk','Connaught Place', 'Defence Colony', 'Dwarka', 'Greater Kailash', 'Hauz Khas', 'Janakpuri', 'Karol Bagh', 'Lajpat Nagar', 'Mayur Vihar', 'Narela', 'Nehru Place', 'Paharganj', 'Pitampura', 'Rajouri Garden', 'Rohini', 'Saket', 'Shahdara', 'South Extension', 'Vasant Kunj'],
-    'Madhya Pradesh': ['Balaghat', 'Barwani', 'Betul', 'Bhind', 'Bhopal', 'Burhanpur', 'Chhindwara', 'Damoh', 'Datia', 'Dewas', 'Dhar', 'Guna', 'Gwalior', 'Harda', 'Hoshangabad', 'Indore', 'Jabalpur', 'Khandwa', 'Khargone', 'Mandsaur', 'Morena', 'Narsinghpur', 'Neemuch', 'Panna', 'Raisen', 'Ratlam', 'Rewa', 'Sagar', 'Satna', 'Sehore', 'Seoni', 'Shahdol', 'Shajapur', 'Sheopur', 'Shivpuri', 'Sidhi', 'Singrauli', 'Tikamgarh', 'Ujjain', 'Vidisha'],
-    'Mumbai' : [  "Andheri",  "Bandra",  "Borivali",  "Chembur",  "Colaba",  "Dadar",  "Dharavi",  "Goregaon",  "Juhu",  "Kandivali",  "Kurla",  "Malad",  "Matunga",  "Mulund",  "Powai",  "Santacruz",  "Vashi",  "Versova",  "Vikhroli",  "Worli"],
-    'Uttar Pradesh': [  "Agra",  "Aligarh",  "Allahabad",  "Amroha",  "Ayodhya",  "Azamgarh",  "Bareilly",  "Basti",  "Bijnor",  "Budaun",  "Bulandshahr",  "Etawah",  "Faizabad",  "Farrukhabad",  "Fatehpur",  "Firozabad",  "Ghaziabad",  "Gonda",  "Gorakhpur",  "Hamirpur",  "Hardoi",  "Jalaun",  "Jaunpur",  "Jhansi",  "Kanpur",  "Kushinagar",  "Lakhimpur",  "Lucknow",  "Mathura",  "Meerut",  "Mirzapur",  "Moradabad",  "Muzaffarnagar",  "Noida",  "Pilibhit",  "Pratapgarh",  "Rae Bareli",  "Rampur",  "Saharanpur",  "Shahjahanpur",  "Sitapur",  "Sultanpur",  "Unnao",  "Varanasi"]
-  };
 
   data() {
     this.rtoStateData = this.fb.group({
-      rtoStateCode: ['', Validators.required],
+      rtoStateCode: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
       description: ['', Validators.required],
       address: [''],
-      country: [''],
-      state: [''],
-      city: [''],
+      countryId: ['', Validators.required],
+      countryName: [''],
+      city: ['', Validators.required],
+      stateId: ['', [Validators.required]],
+      stateName: ['', [Validators.required]],
     });
-    this.rtoStateData.get('state').valueChanges.subscribe((selectedState:any) => {
-      this.rtoStateData.get('city').setValue(''); // Reset city when state changes
-    });
+
 
   }
 
@@ -61,6 +61,26 @@ export class AddRtoStateComponent implements OnInit{
       this.isSubmitted = true
       if (this.rtoStateData.invalid)
         return
+
+      const username: any = localStorage.getItem('userName')
+
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1; // Months are zero-indexed, so add 1
+      const day = currentDate.getDate();
+      const hours = currentDate.getHours();
+      const minutes = currentDate.getMinutes();
+      const seconds = currentDate.getSeconds();
+
+      // Format the date and time
+      const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+      this.rtoStateData.value.createdOn = fullDate
+      this.rtoStateData.value.createdBy = username
+      this.rtoStateData.value.changedOn = fullDate
+      this.rtoStateData.value.changedBy = username
+
+
       const result: any = await this.rtoSer.createRtoState(this.rtoStateData.value)
       if (result.status === '1') {
         this._snackBar.open(result.message, '', {
@@ -97,4 +117,121 @@ export class AddRtoStateComponent implements OnInit{
 
     }
   }
+
+  // Get All details for company code
+  async getCountryDetails() {
+    try {
+      const result: any = await this.companyCodeSer.getAllCountryDetails();
+      console.log(result, 'country');
+
+      if (result.status === '1') {
+        this.countryDetials = result.data;
+
+      } else {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+
+  selectCountryName(event: any) {
+    this.stateDetails = this.countryDetials.find((el: any) => el._id === event.target.value);
+    console.log(this.stateDetails);
+    if (this.stateDetails) {
+      this.rtoStateData.controls.countryName.setValue(this.stateDetails.countryName)
+    }
+  }
+
+  handleState(event: any) {
+    var findCity = this.stateDetails.states.find((el: any) => el._id === event.target.value);
+    console.log(findCity, 'ststta');
+
+    this.rtoStateData.controls.stateName.setValue(findCity.states)
+    this.citiesDetails = findCity.cities[0]
+  }
+
+  typeaheadOnSelect(event: any) {
+    if (event.value) {
+      this.isLookValue = true
+    }
+  }
+
+  handleEvent(event: any) {
+    if (event.target.value) {
+      setTimeout(() => {
+        if (!this.isLookValue) {
+          const findCities = this.citiesDetails.cities.find((el: any) => el === event.target.value.toLowerCase());
+          if (!findCities) {
+            this.createState(event.target.value)
+          }
+
+        }
+      }, 500);
+    }
+  }
+
+  async createState(city: any) {
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Do you want add new city in state",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+        cancelButtonText: "No"
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          this.citiesDetails.cities.push(city);
+          const reqBody = {
+            stateId: this.rtoStateData.value.stateId,
+            cities: this.citiesDetails.cities
+          }
+          console.log(reqBody, 'kkk');
+          const result: any = await this.companyCodeSer.updateCity(reqBody);
+          if (result.status === '1') {
+            this._snackBar.open(result.message, '', {
+              duration: 5 * 1000, horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: 'app-notification-success',
+            });
+
+            return;
+          }
+          if (result.status === '0') {
+
+            this._snackBar.open(result.message, '', {
+              duration: 5 * 1000, horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: 'app-notification-error',
+            });
+          }
+        } else {
+          this.rtoStateData.get('city').setErrors({ customError: true })
+        }
+      });
+
+    } catch (error) {
+      console.error(error);
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+
 }

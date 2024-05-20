@@ -14,26 +14,26 @@
                         <div class="row">
                             <div class="col-12 py-2">
                                 <label for="" class="">POSP Id <sup>*</sup></label>
-                                <input type="text" class="form-control " placeholder="Enter Agent Id"
+                                <input type="text" class="form-control " placeholder="Enter POSP Id"
                                     formControlName="agentId">
                                 <div
                                     *ngIf="agentFormData.controls['agentId'].touched && agentFormData.controls['agentId'].dirty && agentFormData.controls['agentId'].hasError('required') && !isSubmitted">
-                                    <p class="error-message">Agent Id is mandatory</p>
+                                    <p class="error-message">POSP Id is mandatory</p>
                                 </div>
                                 <div *ngIf="isSubmitted && agentFormData.controls['agentId'].hasError('required')">
-                                    <p class="error-message">Agent Id is mandatory</p>
+                                    <p class="error-message">POSP Id is mandatory</p>
                                 </div>
                             </div>
                             <div class="col-12 py-2">
                                 <label for="" class="">POSP Name <sup>*</sup></label>
-                                <input type="text" class="form-control " placeholder="Enter Agent Name"
+                                <input type="text" class="form-control " placeholder="Enter POSP Name"
                                     formControlName="agentName">
                                 <div
                                     *ngIf="agentFormData.controls['agentName'].touched && agentFormData.controls['agentName'].dirty && agentFormData.controls['agentName'].hasError('required') && !isSubmitted">
-                                    <p class="error-message">Agent Name is mandatory</p>
+                                    <p class="error-message">POSP Name is mandatory</p>
                                 </div>
                                 <div *ngIf="isSubmitted && agentFormData.controls['agentName'].hasError('required')">
-                                    <p class="error-message">Agent Name is mandatory</p>
+                                    <p class="error-message">POSP Name is mandatory</p>
                                 </div>
                             </div>
                         </div>
@@ -140,13 +140,15 @@
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
 
                         <label for="">City </label>
-                        <select class="form-select " aria-label="Default select example" formControlName="city">
+                        <input type="text" class="form-control " placeholder="Enter City" formControlName="city">
+
+                        <!-- <select class="form-select " aria-label="Default select example" formControlName="city">
                             <option [selected]="agentFormData.value.city === ''" value="" hidden> Select City</option>
                             <option *ngFor="let city of cities[agentFormData.get('state').value]" [value]="city">{{ city
                                 }}</option>
 
 
-                        </select>
+                        </select> -->
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
 
@@ -222,106 +224,111 @@
 
                 </div>
                 <div class="row border mt-2">
-                    <h2 class="">KYC</h2>
+                    <!-- <h2 class="">KYC</h2> -->
 
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2 ">
-                        <div class="d-flex d-grid gap-2">
-                            <input type="text" class="form-control w-50" placeholder="Enter Aadhar Card Number"
-                                formControlName="aadharNumber">
-                            <!-- <span class="upload_text">{{agentFormData.value.companyRegistrationFilePath ?
-                                agentFormData.value.photo : 'Upload Aadhar'}}
-                                <input type="file" #inputFile class="d-none">
-                            </span> -->
-                            <span (click)="uploadFile(inputFile, 'aadhar_no')" class="upload_text">
-                                {{agentFormData.value.aadharFilePath ? agentFormData.value.aadharFilePath
-                                : 'Upload Aadhar'}}</span>
-                            <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2 ">
-                        <div class="d-flex d-grid gap-2">
-                            <input type="text" class="form-control w-50" placeholder="Enter PAN No"
-                                formControlName="panNumber" appDirective>
-                            <!-- <span class="upload_text">{{agentFormData.value.companyRegistrationFilePath ?
-                                agentFormData.value.photo : 'Upload PAN'}}
-                                <input type="file" #inputFile class="d-none">
-                            </span> -->
-                            <span (click)="uploadFile(inputFile, 'pan_no')" class="upload_text">
-                                {{agentFormData.value.panFilePath ? agentFormData.value.panFilePath
-                                : 'Upload PAN'}}</span>
-                            <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
-                        </div>
-                    </div>
+                    <mat-tab-group animationDuration="0ms">
+                        <mat-tab label="Documents">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Aadhar Number</th>
+                                        <th>Upload Aadhar</th>
+                                        <th>PAN No</th>
+                                        <th>Upload PAN</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control w-50"
+                                                placeholder="Enter Aadhar Card Number" formControlName="aadharNumber">
+                                        </td>
+                                        <td>
+                                            <span (click)="uploadFile(inputFile, 'aadhar_no')" class="upload_text">
+                                                {{agentFormData.value.aadharFilePath ?
+                                                agentFormData.value.aadharFilePath
+                                                : 'Upload Aadhar'}}</span>
+                                            <input type="file" #inputFile class="d-none"
+                                                (change)="handleUploadFile($event)">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control w-50" placeholder="Enter PAN No"
+                                                formControlName="panNumber" appDirective>
+                                        </td>
+                                        <td>
+                                            <span (click)="uploadFile(inputFile, 'pan_no')" class="upload_text">
+                                                {{agentFormData.value.panFilePath ? agentFormData.value.panFilePath
+                                                : 'Upload PAN'}}</span>
+                                            <input type="file" #inputFile class="d-none"
+                                                (change)="handleUploadFile($event)">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
+
+                        </mat-tab>
+                        <mat-tab label="Bank Detail">
+                            <table class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Account Number</th>
+                                        <th>Bank Name</th>
+                                        <th>Bank Branch</th>
+                                        <th>IFSC Code</th>
+                                        <th>Account Type</th>
+                                        <th style="width: 200px!important;">Upload Signature</th>
+                                        <th style="width: 200px!important;">Upload Cheque</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input type="number" min="0" class="form-control "
+                                                placeholder="Enter Account Number" formControlName="address">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control " placeholder="Enter Bank Name"
+                                                formControlName="address">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control " placeholder="Enter Bank Branch"
+                                                formControlName="address">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control " placeholder="Enter IFSC Code"
+                                                formControlName="address">
+                                        </td>
+                                        <td>
+                                            <select class="form-select " aria-label="Default select example">
+                                                <option [selected]="agentFormData.value.country === ''" value="" hidden>
+                                                    Select
+                                                    Account Type</option>
+                                                <option value="Saving">Saving</option>
+                                                <option value="Current">Current</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <span (click)="uploadFile(inputFile, 'aadhar_no')" class="upload_text">
+                                                {{agentFormData.value.aadharFilePath ?
+                                                agentFormData.value.aadharFilePath
+                                                : 'Upload Signature'}}</span>
+                                            <input type="file" #inputFile class="d-none"
+                                                (change)="handleUploadFile($event)">
+                                        </td>
+                                        <td>
+                                            <span (click)="uploadFile(inputFile, 'pan_no')" class="upload_text">
+                                                {{agentFormData.value.panFilePath ? agentFormData.value.panFilePath
+                                                : 'Upload Cheque'}}</span>
+                                            <input type="file" #inputFile class="d-none"
+                                                (change)="handleUploadFile($event)">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </mat-tab>
+                    </mat-tab-group>
                 </div>
-                <div class="row border mt-2">
-                    <h2 class="py-2">Bank Detail</h2>
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-                        <label for="" class="">Account Number</label>
-                        <input type="number" min="0" class="form-control " placeholder="Enter Account Number"
-                            formControlName="address">
-                    </div>
-
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-                        <label for="" class="">Bank Name</label>
-                        <input type="text" class="form-control " placeholder="Enter Bank Name"
-                            formControlName="address">
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-                        <label for="" class="">Bank Branch</label>
-                        <input type="text" class="form-control " placeholder="Enter Bank Branch"
-                            formControlName="address">
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-                        <label for="" class="">IFSC Code</label>
-                        <input type="text" class="form-control " placeholder="Enter IFSC Code"
-                            formControlName="address">
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-
-                        <label for="" class="">Account Type </label>
-                        <select class="form-select " aria-label="Default select example">
-                            <option [selected]="agentFormData.value.country === ''" value="" hidden>
-                                Select
-                                Account Type</option>
-                            <option value="Saving">Saving</option>
-                            <option value="Current">Current</option>
-                        </select>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2 ">
-                            <div class="d-flex d-grid gap-2">
-                                <!-- <input type="text" class="form-control w-50" placeholder="Enter Aadhar Card Number"
-                                formControlName="aadharNumber"> -->
-                                <!-- <span class="upload_text">{{agentFormData.value.companyRegistrationFilePath ?
-                                agentFormData.value.photo : 'Upload Aadhar'}}
-                                <input type="file" #inputFile class="d-none">
-                            </span> -->
-                                <span (click)="uploadFile(inputFile, 'aadhar_no')" class="upload_text">
-                                    {{agentFormData.value.aadharFilePath ? agentFormData.value.aadharFilePath
-                                    : 'Upload Signature'}}</span>
-                                <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2 ">
-                            <div class="d-flex d-grid gap-2">
-                                <!-- <input type="text" class="form-control w-50" placeholder="Enter PAN No"
-                                formControlName="panNumber" appDirective> -->
-                                <!-- <span class="upload_text">{{agentFormData.value.companyRegistrationFilePath ?
-                                agentFormData.value.photo : 'Upload PAN'}}
-                                <input type="file" #inputFile class="d-none">
-                            </span> -->
-                                <span (click)="uploadFile(inputFile, 'pan_no')" class="upload_text">
-                                    {{agentFormData.value.panFilePath ? agentFormData.value.panFilePath
-                                    : 'Upload Cheque'}}</span>
-                                <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
                 <div class="col-12 d-flex justify-content-end py-2">
                     <button type="button" class="btn btn-primary" (click)="fileUpload()">Save</button>
                 </div>

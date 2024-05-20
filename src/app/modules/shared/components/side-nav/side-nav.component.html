@@ -26,9 +26,9 @@
                 <li><a (click)="nextPage('/master/agent-list',{main:'Master',name:'POSP'})">POSP</a></li>
                 <li><a (click)="nextPage('/master/policy-plan-list',{main:'Master',name:'Policy Plan'})">Policy</a></li>
                 <li><a (click)="nextPage('/master/customer-list',{main:'Master',name:'Customer'})">Customer</a></li>
-                <li><a (click)="nextPage('/master/financial-period-list',{main:'Master',name:'Financial Period'})">Financial Period</a></li>
-                <li><a (click)="nextPage('/master/vendor-list',{main:'Master',name:'Vendor'})">Vendor</a></li>
-                
+                <li><a (click)="nextPage('/master/financial-period-list',{main:'Master',name:'Financial Period'})">Financial
+                        Period</a></li>
+
             </ul>
         </li>
         <li>
@@ -42,12 +42,13 @@
             </div>
             <ul class="sub-menu">
                 <li><a class="link_name">Buy Policy</a></li>
-                <li><a (click)="nextPage('/applyPolicy/apply-policy-list',{main:'Buy Policy',name:'Buy Policy'})">Buy Policy</a></li>
-               
+                <li><a (click)="nextPage('/applyPolicy/apply-policy-list',{main:'Buy Policy',name:'Buy Policy'})">Buy
+                        Policy</a></li>
+
             </ul>
 
         </li>
-        
+
         <li>
             <div class="iocn-link">
                 <a>
@@ -58,9 +59,30 @@
             </div>
             <ul class="sub-menu setting-li">
                 <li><a class="link_name">Setting</a></li>
-                <li><a (click)="nextPage('/setting/company-code-list',{main:'Setting',name:'Company Code'})">Company Code</a></li>
-                <li><a (click)="nextPage('/setting/rto-state-list',{main:'Setting',name:'RTO State'})">RTO State Code</a></li>
-                <li><a (click)="nextPage('/setting/vehicle-category-list',{main:'Setting',name:'Vehicle Category'})">Vehicle Category</a></li>
+                <li><a (click)="nextPage('/setting/company-code-list',{main:'Setting',name:'Company Code'})">Company
+                        Code</a></li>
+                <li><a (click)="nextPage('/setting/rto-state-list',{main:'Setting',name:'RTO State'})">RTO State
+                        Code</a></li>
+                <li><a (click)="nextPage('/setting/vehicle-category-list',{main:'Setting',name:'Vehicle Category'})">Vehicle
+                        Category</a></li>
+                <li><a (click)="nextPage('/setting/insurance-type-list',{main:'Setting',name:'Insurance Type'})">Insurance
+                        Type</a></li>
+                <li><a (click)="nextPage('/master/vendor-list',{main:'Setting',name:'Insurer'})">Insurer</a></li>
+
+            </ul>
+        </li>
+        <li>
+            <div class="icon-link">
+                <a>
+                    <mat-icon fontSet="material-symbols-outlined">report</mat-icon>
+                    <span class="link_name">POSP</span>
+                </a>
+                <i class='bx bxs-chevron-down arrow'></i>
+            </div>
+            <ul class="sub-menu">
+                <li><a class="link_name">POSP</a></li>
+                <li><a (click)="nextPage('/posp/agent-report-list',{main:'POSP',name:'Agent Report'})">Agent Report</a>
+                </li>
             </ul>
         </li>
         <li>
@@ -95,7 +117,8 @@
 <section class="home-section">
     <div class="home-content">
         <i class='bx bx-menu' (click)="closeNav()"></i>
-        <span class="text"><b>{{subFolderName | uppercase}}</b> / <span class="screenName">{{SelectedName | uppercase}}</span></span>
+        <span class="text"><b>{{subFolderName | uppercase}}</b> / <span class="screenName">{{SelectedName |
+                uppercase}}</span></span>
     </div>
 
 </section>

@@ -26,6 +26,11 @@ import { RtoStateService } from './services/rto-state/rto-state.service';
 import { HttpClientModule } from '@angular/common/http';
 import { PandirectiveDirective } from './services/directive/pandirective.directive';
 import { CodeDirectiveDirective } from './services/directive/codedirective/code-directive.directive';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { AddInsuranceTypeComponent } from './components/insurance-type/add-insurance-type/add-insurance-type.component';
+import { EditInsuranceTypeComponent } from './components/insurance-type/edit-insurance-type/edit-insurance-type.component';
+import { InsuranceTypeListComponent } from './components/insurance-type/insurance-type-list/insurance-type-list.component';
+import { InsuranceTypeService } from './services/insurance-type/insurance-type.service';
 
 
 @NgModule({
@@ -41,6 +46,9 @@ import { CodeDirectiveDirective } from './services/directive/codedirective/code-
     EditVehicleRegisteryComponent,
     PandirectiveDirective,
     CodeDirectiveDirective,
+    AddInsuranceTypeComponent,
+    EditInsuranceTypeComponent,
+    InsuranceTypeListComponent,
   ],
   imports: [
     CommonModule,
@@ -57,7 +65,9 @@ import { CodeDirectiveDirective } from './services/directive/codedirective/code-
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    TypeaheadModule.forRoot()
+
   ],
-  providers:[CompanyCodeService,VehicleCategoryService,RtoStateService]
+  providers: [CompanyCodeService, VehicleCategoryService, RtoStateService, InsuranceTypeService]
 })
 export class SettingModule { }

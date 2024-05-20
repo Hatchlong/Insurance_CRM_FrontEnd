@@ -7,21 +7,21 @@ import * as XLSX from 'xlsx';
 })
 export class AgentService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-   createAgent(data:any){
-    return this.http.post('http://localhost:4000/api/master/agent/create',data).toPromise()
+  createAgent(data: any) {
+    return this.http.post('http://localhost:4000/api/master/agent/create', data).toPromise()
   }
-  getAllAgentDetail(){
+  getAllAgentDetail() {
     return this.http.get('http://localhost:4000/api/master/agent/getAll').toPromise()
 
   }
-  singleAgentDetail(id:any){
+  singleAgentDetail(id: any) {
     return this.http.get(`http://localhost:4000/api/master/agent/get/${id}`).toPromise()
 
   }
 
-  
+
   updateAgentDetail(data: any) {
     return this.http.put(`http://localhost:4000/api/master/agent/update/${data._id}`, data).toPromise()
   }
@@ -41,18 +41,23 @@ export class AgentService {
   }
 
 
-  
-  agentLogoUpload(data:any){
+
+  agentLogoUpload(data: any) {
     return this.http.post('http://localhost:4000/api/upload', data).toPromise()
   }
 
-  getAllagentDetailsPage(skip?:any, itemsPerPage?:any) {
+  getAllagentDetailsPage(skip?: any, itemsPerPage?: any) {
     return this.http.get(`http://localhost:4000/api/master/agent/getAll/${skip}/${itemsPerPage}`).toPromise()
   }
-  
+
   updateagentMany(data: any) {
     return this.http.put(`http://localhost:4000/api/master/agent/update`, data).toPromise()
   }
 
+
+  getAllAgentDetailsPageFilter(filter?: any, skip?: any, itemsPerPage?: any) {
+    return this.http.post(`http://localhost:4000/api/master/agent/getAll/${skip}/${itemsPerPage}`, { filter: filter }).toPromise()
+
+  }
 
 }

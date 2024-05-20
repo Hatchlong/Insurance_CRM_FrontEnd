@@ -32,8 +32,13 @@ export class CustomerService {
   updateCustomerDetailsMany(data: any) {
     return this.http.put(`http://localhost:4000/api/master/customerMaster/update`, data).toPromise()
   }
-  agentLogoUpload(data:any){
+  agentLogoUpload(data: any) {
     return this.http.post('http://localhost:4000/api/upload', data).toPromise()
+  }
+
+  getAllCustomerDetailsPageFilter(filter?: any, skip?: any, itemsPerPage?: any) {
+    return this.http.post(`http://localhost:4000/api/master/customerMaster/getAll/${skip}/${itemsPerPage}`, { filter: filter }).toPromise()
+
   }
 
 }

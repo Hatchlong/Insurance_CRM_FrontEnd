@@ -33,6 +33,7 @@ import { EditVendorComponent } from './components/vendor/edit-vendor/edit-vendor
 import { VendorListComponent } from './components/vendor/vendor-list/vendor-list.component';
 import { CustomerService } from './services/customer/customer.service';
 import { EditCustomerComponent } from './components/customer/edit-customer/edit-customer.component';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 
 
@@ -70,7 +71,9 @@ import { EditCustomerComponent } from './components/customer/edit-customer/edit-
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatDialogModule
+    MatDialogModule,
+    TypeaheadModule.forRoot()
+
 
 
   ],

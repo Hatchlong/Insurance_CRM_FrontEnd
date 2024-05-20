@@ -33,4 +33,9 @@ export class RtoStateService {
     return this.http.put(`http://localhost:4000/api/setting/rtoState/update`, data).toPromise()
   }
 
+  getAllRtoStateDetailsPageFilter(filter?:any,skip?: any, itemsPerPage?: any) {
+    return this.http.post(`http://localhost:4000/api/setting/rtoState/getAll/${skip}/${itemsPerPage}`, {filter:filter}).toPromise()
+
+  }
+
 }

@@ -6,7 +6,8 @@
     <div class="row border mx-0">
       <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
         <label for="">RTO State Code <sup>*</sup></label>
-        <input type="text" formControlName="rtoStateCode" class="form-control" placeholder="Enter RTO State Code" readonly >
+        <input type="text" formControlName="rtoStateCode" class="form-control" placeholder="Enter RTO State Code"
+          readonly>
         <div
           *ngIf="rtoStateData.controls['rtoStateCode'].touched && rtoStateData.controls['rtoStateCode'].dirty && rtoStateData.controls['rtoStateCode'].hasError('required') && !isSubmitted">
           <p class="error-message">RTO State Code is mandatory</p>
@@ -31,37 +32,60 @@
         <label for="" class="">Address</label>
         <input type="text" class="form-control " placeholder="Enter Address" formControlName="address">
 
-    </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-
-        <label for="" class="">Country </label>
-        <select class="form-select " aria-label="Default select example" formControlName="country">
-            <option [selected]="rtoStateData.value.country === ''" value="" hidden>
-                Select
-                Country</option>
-                <option value="India">India</option>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+        <label for="" class="">Country <sup>*</sup></label>
+        <select class="form-select " aria-label="Default select example" formControlName="countryId"
+          (change)="selectCountryName($event)">
+          <option [selected]="rtoStateData.value.countryId === ''" value="" hidden>Select
+            Country</option>
+          <option *ngFor="let list of countryDetials " [value]="list._id">
+            {{list.countryName}}</option>
         </select>
-    </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-        <label for="">State </label>
-        <select class="form-select " aria-label="Default select example" formControlName="state">
-            <option [selected]="rtoStateData.value.state === ''" value="" hidden> Select State</option>
-            <option *ngFor="let state of states" [value]="state">{{ state }}</option>
-
+        <div
+          *ngIf="rtoStateData.controls['countryId'].touched && rtoStateData.controls['countryId'].dirty && rtoStateData.controls['countryId'].hasError('required') && !isSubmitted">
+          <p class="error-message">Country Name is mandatory</p>
+        </div>
+        <div *ngIf="isSubmitted && rtoStateData.controls['countryId'].hasError('required')">
+          <p class="error-message">Country Name is mandatory</p>
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+        <label for="" class="">State/Province <sup>*</sup></label>
+        <select class="form-select " aria-label="Default select example" formControlName="stateId"
+          (change)="handleState($event)"
+          [ngStyle]="{'pointer-events': !rtoStateData.value.countryId ? 'none' :  'all','background-color': !rtoStateData.value.countryId ? '#f6f6f6' :  'white'} ">
+          <option [selected]="rtoStateData.value.state === ''" value="" hidden>Select
+            State/Province</option>
+          <option *ngFor="let list of stateDetails?.states " [value]="list._id">
+            {{list.states}}</option>
 
         </select>
-    </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+        <div
+          *ngIf="rtoStateData.controls['stateId'].touched && rtoStateData.controls['stateId'].dirty && rtoStateData.controls['stateId'].hasError('required') && !isSubmitted">
+          <p class="error-message">State/Province is mandatory</p>
+        </div>
+        <div *ngIf="isSubmitted && rtoStateData.controls['stateId'].hasError('required')">
+          <p class="error-message">State/Province is mandatory</p>
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+        <label for="" class="">City <sup>*</sup></label>
+        <input formControlName="city" [readOnly]="!rtoStateData.value.stateId " placeholder="Enter City"
+          (input)="isLookValue = false" (focusout)="handleEvent($event);"
+          (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeahead]="citiesDetails?.cities" class="form-control">
 
-        <label for="">City </label>
-        <select class="form-select " aria-label="Default select example" formControlName="city">
-            <option [selected]="rtoStateData.value.city === ''" value="" hidden> Select City</option>
-            <option *ngFor="let city of cities[rtoStateData.get('state').value]" [value]="city">{{ city }}</option>
-
-           
-        </select>
-    </div>
-
+        <div
+          *ngIf="rtoStateData.controls['city'].touched && rtoStateData.controls['city'].dirty && rtoStateData.controls['city'].hasError('required') && !isSubmitted">
+          <p class="error-message"> City is mandatory</p>
+        </div>
+        <div *ngIf="isSubmitted && rtoStateData.controls['city'].hasError('required')">
+          <p class="error-message"> City is mandatory</p>
+        </div>
+        <div *ngIf="rtoStateData.controls['city'].hasError('customError')">
+          <p class="error-message"> City is Not in a List</p>
+        </div>
+      </div>
     </div>
     <div class="col-12 d-flex justify-content-end py-2">
       <button type="submit" class="btn btn-primary">Save</button>

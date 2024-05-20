@@ -1,21 +1,20 @@
-
-
-.back{
+.back {
     background-color: red;
     border-radius: 50%;
     color: white;
-    cursor: pointer;position: relative;
+    cursor: pointer;
+    position: relative;
     right: 6px;
-top:5px;
+    top: 5px;
 }
 
-.upload_icon{
+.upload_icon {
     /* position: relative;
     top: 5px; */
     cursor: pointer;
 }
 
-.img-ava{
+.img-ava {
     width: 80px;
     height: 80px;
     border-radius: 50%;
@@ -23,7 +22,7 @@ top:5px;
     border: var(--bs-border-width) solid var(--bs-border-color)
 }
 
-.upload_text{
+.upload_text {
     cursor: pointer;
     background: #00acff;
     padding: 5px;
@@ -31,7 +30,7 @@ top:5px;
     border-radius: 7px;
 }
 
-.file-border{
+.file-border {
     width: 100%;
     font-size: 1rem;
     font-weight: 400;
@@ -41,12 +40,12 @@ top:5px;
     background-color: var(--bs-body-bg);
     background-clip: padding-box;
     border-radius: var(--bs-border-radius);
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     height: 140px;
 }
 
 
-.delete_img{
+.delete_img {
     position: absolute;
     background: red;
     margin-left: 42px;

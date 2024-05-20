@@ -33,4 +33,10 @@ export class ApplyPolicyService {
     return this.http.put(`http://localhost:4000/api/applyPolicy/applyPolicy/update`, data).toPromise()
   }
 
+  
+  getAllApplyPolicyDetailsPageFilter(filter?:any,skip?: any, itemsPerPage?: any) {
+    return this.http.post(`http://localhost:4000/api/applyPolicy/applyPolicy/getAll/${skip}/${itemsPerPage}`, {filter:filter}).toPromise()
+
+  }
+
 }

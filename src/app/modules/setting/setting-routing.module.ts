@@ -9,6 +9,9 @@ import { EditVehicleRegisteryComponent } from './components/vehicle-registory/ed
 import { AddRtoStateComponent } from './components/rto-state/add-rto-state/add-rto-state.component';
 import { RtoStateListComponent } from './components/rto-state/rto-state-list/rto-state-list.component';
 import { EditRtoStateComponent } from './components/rto-state/edit-rto-state/edit-rto-state.component';
+import { AddInsuranceTypeComponent } from './components/insurance-type/add-insurance-type/add-insurance-type.component';
+import { InsuranceTypeListComponent } from './components/insurance-type/insurance-type-list/insurance-type-list.component';
+import { EditInsuranceTypeComponent } from './components/insurance-type/edit-insurance-type/edit-insurance-type.component';
 
 const routes: Routes = [
   {
@@ -36,16 +39,28 @@ const routes: Routes = [
     component: EditVehicleRegisteryComponent
   },
   {
-    path:'add-rto-state',
-    component:AddRtoStateComponent
+    path: 'add-rto-state',
+    component: AddRtoStateComponent
   },
   {
-    path:'rto-state-list',
-    component:RtoStateListComponent
+    path: 'rto-state-list',
+    component: RtoStateListComponent
   },
   {
-    path:'edit-rto-state/:id',
-    component:EditRtoStateComponent
+    path: 'edit-rto-state/:id',
+    component: EditRtoStateComponent
+  },
+  {
+    path: 'add-insurance-type',
+    component: AddInsuranceTypeComponent
+  },
+  {
+    path: 'insurance-type-list',
+    component: InsuranceTypeListComponent
+  },
+  {
+    path: 'edit-insurance-type/:id',
+    component: EditInsuranceTypeComponent
   }
 ];
 

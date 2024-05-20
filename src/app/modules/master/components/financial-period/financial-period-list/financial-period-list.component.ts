@@ -2,13 +2,14 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FinancialPeriodService } from '../../../services/financial-period/financial-period.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-financial-period-list',
   templateUrl: './financial-period-list.component.html',
   styleUrls: ['./financial-period-list.component.css']
 })
-export class FinancialPeriodListComponent implements OnInit{
+export class FinancialPeriodListComponent implements OnInit {
 
   @ViewChild('searchDataInput', { static: true }) searchInput!: ElementRef;
 
@@ -16,16 +17,21 @@ export class FinancialPeriodListComponent implements OnInit{
   isShowPadding: any = false
   selectAll: any = false
   financialPeriodDetail: any = ''
-  financialDetail:any = ''
+  financialDetail: any = ''
   allFinancialDetails: any = ''
   page?: number = 0;
   itemsPerPage = 10;
- 
+  selectedFilter: any = 'O'
+  records: any = 0
+  filterText: any = {
+    active: 'O',
+    text: ""
+  };
 
   constructor(private router: Router,
-    private _snackBar:MatSnackBar,
+    private _snackBar: MatSnackBar,
     private financialSer: FinancialPeriodService
-    ) { }
+  ) { }
 
   handleSideBar(event: any) {
     this.isShowPadding = event
@@ -35,145 +41,180 @@ export class FinancialPeriodListComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.getAllFinancialDetail(this.page,this.itemsPerPage)
+    this.getAllFinancialDetail(this.filterText, this.page, this.itemsPerPage)
   }
 
- //get all detail of rto state code from the database
- async getAllFinancialDetail(page:any,itemsPerPage:any) {
-  try {
-    const result: any = await this.financialSer.getAllfinancialPeriodDetailsPage(page,itemsPerPage)
-    if (result.status === '1') {
-      result.data.map((el: any) => {
-        el.check = false
-      })
-      this.financialDetail = result.data
-      this.allFinancialDetails = result.data
-      if (result.data.length === 0) {
-        this.selectAll = false
+  //get all detail of rto state code from the database
+  async getAllFinancialDetail(filter: any, page: any, itemsPerPage: any) {
+    try {
+      const result: any = await this.financialSer.getAllfinancialDetailsPageFilter(filter, page, itemsPerPage)
+      if (result.status === '1') {
+        result.data.map((el: any) => {
+          el.check = false
+        })
+        this.financialDetail = result.data
+        this.allFinancialDetails = result.data
+        if (result.data.length === 0) {
+          this.selectAll = false
+        }
       }
-    }
-  } catch (error) {
+    } catch (error) {
 
-    this._snackBar.open('Something went wrong', '', {
-      duration: 5 * 1000, horizontalPosition: 'center',
-      verticalPosition: 'top',
-      panelClass: 'app-notification-error',
-    });;
-  }
-}
-
- //delete 
- async deleteRecords(data: any) {
-  try {
-    data.isActive = "C"
-    const result: any = await this.financialSer.updateFinancialDetail(data);
-    if (result.status === '1') {
-      this._snackBar.open("Deleted Successfully", '', {
+      this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
-        panelClass: 'app-notification-success',
+        panelClass: 'app-notification-error',
+      });;
+    }
+  }
+
+  handleFilterList(event: any) {
+    this.filterText.active = event.target.value
+  }
+
+  handleFilterDetails() {
+    this.getAllFinancialDetail(this.filterText, this.records, this.itemsPerPage)
+  }
+
+  //delete single or particular record by the delete icon in every row of data
+  async deleteRecords(data: any) {
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Do you really want to" + " " + (data.isActive === 'O' ? 'Inactive' : 'Active') + " this record?",
+        icon: "error",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes",
+        cancelButtonText: 'No'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          data.isActive = data.isActive === 'O' ? 'C' : 'O'
+          data.disable = true
+          const result: any = await this.financialSer.updateFinancialDetail(data);
+          if (result.status === '1') {
+            this._snackBar.open("Updated Successfully", '', {
+              duration: 5 * 1000, horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: 'app-notification-success',
+            });
+            this.getAllFinancialDetail(this.filterText, this.records, this.itemsPerPage)
+            return;
+          }
+          if (result.status === '0') {
+            this.getAllFinancialDetail(this.filterText, this.records, this.itemsPerPage)
+            this._snackBar.open(result.message, '', {
+              duration: 5 * 1000, horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: 'app-notification-error',
+            });
+          }
+        } else {
+          this.getAllFinancialDetail(this.filterText, this.records, this.itemsPerPage)
+        }
       });
-      this.getAllFinancialDetail(this.page,this.itemsPerPage)
+
+
+    } catch (error: any) {
+
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+  async handleDeleteMuliple() {
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        // text: "Do you really want to"+""+ Active +"these records?",
+        icon: "error",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, Disable it!"
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const filterData = this.financialDetail.filter((el: any) => el.check === true)
+          filterData.map((el: any) => {
+            el.isActive = "C"
+          })
+          const result: any = await this.financialSer.updatedManyFinancialPeriodDetails(filterData);
+          if (result.status === '1') {
+            this._snackBar.open("Deleted Successfully", '', {
+              duration: 5 * 1000, horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: 'app-notification-success',
+            });
+            this.getAllFinancialDetail(this.filterText, this.records, this.itemsPerPage)
+            return;
+          }
+          if (result.status === '0') {
+            this._snackBar.open(result.message, '', {
+              duration: 5 * 1000, horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: 'app-notification-error',
+            });
+          }
+        }
+      });
+
+
+    } catch (error: any) {
+      console.error(error)
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+
+
+  }
+
+  handleFilter(event: any) {
+    const filterValue = event.target.value.toUpperCase();
+    if (!filterValue) {
+      this.financialDetail = this.allFinancialDetails;
       return;
     }
-    if (result.status === '0') {
-      this._snackBar.open("Deleted Unsuccessfully", '', {
-        duration: 5 * 1000, horizontalPosition: 'center',
-        verticalPosition: 'top',
-        panelClass: 'app-notification-error',
-      });
-    }
 
-  } catch (error: any) {
-    if (error.error.message) {
-      this._snackBar.open(error.error.message, '', {
-        duration: 5 * 1000, horizontalPosition: 'center',
-        verticalPosition: 'top',
-        panelClass: 'app-notification-error',
-      });
-      return
-    }
-    this._snackBar.open('Something went wrong', '', {
-      duration: 5 * 1000, horizontalPosition: 'center',
-      verticalPosition: 'top',
-      panelClass: 'app-notification-error',
-    });
+    this.financialDetail = this.allFinancialDetails.filter((obj: any) =>
+      ((obj.periodCode.toUpperCase()).includes(filterValue)))
   }
-}
+  filterData() {
+    const filterValue = this.searchInput.nativeElement.value.toUpperCase();
+    this.financialDetail = this.allFinancialDetails.filter((obj: any) =>
+      ((obj.periodCode.toUpperCase()).includes(filterValue)))
 
-handleFilter(event: any) {
-  const filterValue = event.target.value.toUpperCase();
-  if (!filterValue) {
-    this.financialDetail = this.allFinancialDetails;
-    return;
   }
 
-  this.financialDetail = this.allFinancialDetails.filter((obj: any) =>
-    ((obj.periodCode.toUpperCase()).includes(filterValue)))
-}
-filterData() {
-  const filterValue = this.searchInput.nativeElement.value.toUpperCase();
-  this.financialDetail = this.allFinancialDetails.filter((obj: any) =>
-    ((obj.periodCode.toUpperCase()).includes(filterValue)))
 
-}
-
-
-selectdata(event: any) {
-  console.log(event.target.checked)
-  this.selectAll = event.target.checked;
-  console.log(typeof this.selectAll)
-  this.financialDetail.map((el: any) => {
-    el.check = event.target.checked
-  })
-
-
-}
-
-particularcheck(event: any, index: any) {
-  this.financialDetail[index].check = event.target.checked
-  const findSelect = this.financialDetail.find((el: any) => el.check === false)
-
-  if (findSelect) {
-    this.selectAll = false
-  }
-  else {
-    this.selectAll = true
-  }
-}
-
-async handleDeleteMuliple() {
-  try {
-    const filterData = this.financialDetail.filter((el: any) => el.check === true)
-    filterData.map((el: any) => {
-      el.isActive = "C"
+  selectdata(event: any) {
+    console.log(event.target.checked)
+    this.selectAll = event.target.checked;
+    console.log(typeof this.selectAll)
+    this.financialDetail.map((el: any) => {
+      el.check = event.target.checked
     })
-    const result: any = await this.financialSer.updatedManyFinancialPeriodDetails(filterData);
-    if (result.status === '1') {
-      this._snackBar.open("Deleted Successfully", '', {
-        duration: 5 * 1000, horizontalPosition: 'center',
-        verticalPosition: 'top',
-        panelClass: 'app-notification-success',
-      });
-      this.getAllFinancialDetail(this.page, this.itemsPerPage)
-      return;
-    }
-    if (result.status === '0') {
-      this._snackBar.open("Deleted Unsuccessfully", '', {
-        duration: 5 * 1000, horizontalPosition: 'center',
-        verticalPosition: 'top',
-        panelClass: 'app-notification-error',
-      });
-    }
 
-  } catch (error: any) {
-    console.error(error)
-    this._snackBar.open('Something went wrong', '', {
-      duration: 5 * 1000, horizontalPosition: 'center',
-      verticalPosition: 'top',
-      panelClass: 'app-notification-error',
-    });
+
   }
-}
+
+  particularcheck(event: any, index: any) {
+    this.financialDetail[index].check = event.target.checked
+    const findSelect = this.financialDetail.find((el: any) => el.check === false)
+
+    if (findSelect) {
+      this.selectAll = false
+    }
+    else {
+      this.selectAll = true
+    }
+  }
+
 
 }

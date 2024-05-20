@@ -3,82 +3,124 @@
     <div class="row">
         <div class="col-12">
             <h3 class="py-2">
-                <mat-icon class="back" routerLink="/master/vendor-list">arrow_back</mat-icon> Vendor Maintenance
+                <mat-icon class="back" routerLink="/master/vendor-list">arrow_back</mat-icon> Insurer Maintenance
             </h3>
             <form [formGroup]="vendorFormGroup" (ngSubmit)="submitdata()">
                 <div class="row border">
-                    <div class="col-6 py-2">
-                        <label for="">Vendor Id <sup>*</sup></label>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="">Insurer Id <sup>*</sup></label>
                         <input type="text" class="form-control " formControlName="vendorId"
-                            placeholder="Enter Vendor Id" readonly>
-                            <div
+                            placeholder="Enter Insurer Id" readonly>
+                        <div
                             *ngIf="vendorFormGroup.controls['vendorId'].touched && vendorFormGroup.controls['vendorId'].dirty && vendorFormGroup.controls['vendorId'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Vendor Id is mandatory</p>
+                            <p class="error-message">Insurer Id is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && vendorFormGroup.controls['vendorId'].hasError('required')">
-                            <p class="error-message">Vendor Id is mandatory</p>
+                            <p class="error-message">Insurer Id is mandatory</p>
                         </div>
                     </div>
 
 
-                    <div class="col-6 py-2">
-                        <label for="VendorName">Vendor Name <sup>*</sup></label>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="VendorName">Insurer Name <sup>*</sup></label>
                         <input type="text" class="form-control" formControlName="vendorName"
-                            placeholder="Enter Vendor Name">
+                            placeholder="Enter Insurer Name">
                         <div
                             *ngIf="vendorFormGroup.controls['vendorName'].touched && vendorFormGroup.controls['vendorName'].dirty && vendorFormGroup.controls['vendorName'].hasError('required') && !isSubmitted">
-                            <p class="error-message">Vendor Name is mandatory</p>
+                            <p class="error-message">Insurer Name is mandatory</p>
                         </div>
                         <div *ngIf="isSubmitted && vendorFormGroup.controls['vendorName'].hasError('required')">
-                            <p class="error-message">Vendor Name is mandatory</p>
+                            <p class="error-message">Insurer Name is mandatory</p>
                         </div>
                     </div>
 
-                    <div class="col-6  py-2">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                         <label for="">Address </label>
                         <textarea name="" id="" cols="30" rows="1" class="form-control" placeholder="Enter address"
                             formControlName="address"></textarea>
 
                     </div>
-
-                    <div class="col-6 py-2">
-                        <label for="">Country  </label>
-                        <select class="form-select" formControlName="country">
-                            <option [selected]="vendorFormGroup.value.country === ''" value="" hidden>Select
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">Country <sup>*</sup></label>
+                        <select class="form-select " aria-label="Default select example" formControlName="countryId"
+                            (change)="selectCountryName($event)">
+                            <option [selected]="vendorFormGroup.value.countryId === ''" value="" hidden>Select
                                 Country</option>
-                                <option value="India">India</option>
-                            <!-- <option *ngFor="let list of countryDetails  | filterPipes:'countryName'"
-                                        [value]="list._id">{{list.countryName}}</option> -->
+                            <option *ngFor="let list of countryDetials " [value]="list._id">
+                                {{list.countryName}}</option>
+                        </select>
+                        <div
+                            *ngIf="vendorFormGroup.controls['countryId'].touched && vendorFormGroup.controls['countryId'].dirty && vendorFormGroup.controls['countryId'].hasError('required') && !isSubmitted">
+                            <p class="error-message">Country Name is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && vendorFormGroup.controls['countryId'].hasError('required')">
+                            <p class="error-message">Country Name is mandatory</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">State/Province <sup>*</sup></label>
+                        <select class="form-select " aria-label="Default select example" formControlName="stateId"
+                            (change)="handleState($event)"
+                            [ngStyle]="{'pointer-events': !vendorFormGroup.value.countryId ? 'none' :  'all','background-color': !vendorFormGroup.value.countryId ? '#f6f6f6' :  'white'} ">
+                            <option [selected]="vendorFormGroup.value.state === ''" value="" hidden>Select
+                                State/Province</option>
+                            <option *ngFor="let list of stateDetails?.states " [value]="list._id">
+                                {{list.states}}</option>
 
                         </select>
-
+                        <div
+                            *ngIf="vendorFormGroup.controls['stateId'].touched && vendorFormGroup.controls['stateId'].dirty && vendorFormGroup.controls['stateId'].hasError('required') && !isSubmitted">
+                            <p class="error-message">State/Province is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && vendorFormGroup.controls['stateId'].hasError('required')">
+                            <p class="error-message">State/Province is mandatory</p>
+                        </div>
                     </div>
-                    <div class="col-6 py-2">
-                        <label for="">State  </label>
-                        <select class="form-select" formControlName="state">
-                            <option [selected]="vendorFormGroup.value.state === ''" value="" hidden>Select State
-                            </option>
-                            <option value="one"> one </option>
-                            <option value="two"> two </option>
-                        </select>
-
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">City <sup>*</sup></label>
+                        <input formControlName="city" [readOnly]="!vendorFormGroup.value.stateId "
+                            placeholder="Enter City" (input)="isLookValue = false" (focusout)="handleEvent($event);"
+                            (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeahead]="citiesDetails?.cities"
+                            class="form-control">
+                        <!-- <select class="form-select " aria-label="Default select example" formControlName="city"
+                            [ngStyle]="{'pointer-events': !vendorFormGroup.value.countryId ? 'none' :  'all'}">
+                            <option [selected]="vendorFormGroup.value.city===''" value="" hidden>Select City</option>
+                            <option *ngFor="let list of (citiesDetails?.cities)?.sort()" [value]="list">{{list}}</option>
+                        </select> -->
+                        <div
+                            *ngIf="vendorFormGroup.controls['city'].touched && vendorFormGroup.controls['city'].dirty && vendorFormGroup.controls['city'].hasError('required') && !isSubmitted">
+                            <p class="error-message"> City is mandatory</p>
+                        </div>
+                        <div *ngIf="isSubmitted && vendorFormGroup.controls['city'].hasError('required')">
+                            <p class="error-message"> City is mandatory</p>
+                        </div>
+                        <div *ngIf="vendorFormGroup.controls['city'].hasError('customError')">
+                            <p class="error-message"> City is Not in a List</p>
+                        </div>
                     </div>
-                    <div class="col-6 py-2">
-                        <label for="">City  </label>
-                        <select class="form-select" formControlName="city">
-                            <option [selected]="vendorFormGroup.value.city === ''" value="" hidden>Select City</option>
-                            <option value="one"> one </option>
-                            <option value="two"> two </option>
-                        </select>
 
-                    </div>
-                    <div class="col-6 py-2 py-1">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
 
                         <label for="" class="">Postal Code </label>
                         <input type="text" class="form-control " placeholder="Enter Postal Code"
                             formControlName="postalCode">
                     </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="">Mobile </label>
+                        <input maxlength="10" min="0" class="form-control " placeholder="Enter Mobile Number"
+                            formControlName="mobile"
+                            onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
 
+
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="">Mail Id</label>
+                        <input type="email" class="form-control " placeholder="Enter Mail Id" formControlName="mailId">
+
+                        <div *ngIf="vendorFormGroup.get('mailId').hasError('pattern')">
+                            <p class="error-message">Please enter a valid email address.</p>
+                        </div>
+                    </div>
 
 
                 </div>
@@ -90,11 +132,11 @@
                                 <h3 class="py-2">
                                     Financial Data
                                 </h3>
-                               
+
                             </div>
                             <div class="col-12 d-flex justify-content-end py-2">
                                 <button type="button" class="btn btn-primary" (click)="addVendor()"
-                                style="color: white;background-color: #00acff;">Add Vendor</button>
+                                    style="color: white;background-color: #00acff;">Add Financial Data</button>
                             </div>
 
                         </div>
@@ -104,77 +146,78 @@
                                 <thead>
                                     <tr>
                                         <th *ngIf="financialListArray.controls.length > 1">Actions</th>
+                                        <th>S.N.</th>
                                         <th>Tax Number </th>
                                         <th>VAT Registration No.</th>
                                         <th>Currency</th>
-                                        <th>Company Code</th>
+                                        <th>Bank Name</th>
+                                        <th>Branch Name</th>
+                                        <th>Branch Address</th>
                                         <th>Bank Account</th>
-                                        <th>Account Holder</th>
+                                        <th>IFSC Code</th>
+                                        <th>Account Name</th>
                                         <th>Payment method</th>
                                     </tr>
                                 </thead>
                                 <tbody formArrayName="financialData">
                                     <tr *ngFor="let financial of financialListArray.controls; let i = index;"
-                                    [formGroupName]="i">
-                                    <td *ngIf="financialListArray.controls.length > 1">
-                                        <mat-icon style="cursor:pointer"
-                                            (click)="deleterow(i)">delete</mat-icon>
-                                    </td>
-
+                                        [formGroupName]="i">
+                                        <td *ngIf="financialListArray.controls.length > 1">
+                                            <mat-icon style="cursor:pointer" (click)="deleterow(i)">delete</mat-icon>
+                                        </td>
+                                        <td>
+                                            <input type="number" [value]="i+1" class="form-control" readonly>
+                                        </td>
                                         <td>
                                             <input type="text" formControlName="taxNumber" class="form-control"
-                                                placeholder="Enter Tax Number " readonly>
+                                                placeholder="Enter Tax Number ">
                                         </td>
-                                      
+
                                         <td>
                                             <input type="text" formControlName="vatRegistrationNo" class="form-control"
-                                                placeholder="Enter Vat Reg. No." readonly>
+                                                placeholder="Enter Vat Reg. No.">
                                         </td>
                                         <td>
                                             <select class="form-select " aria-label="Default select example"
-                                                formControlName="currency" readonly>
+                                                formControlName="currency">
                                                 <option [selected]="vendorFormGroup.value.currency===''" value=""
                                                     hidden>Select Currency</option>
-                                                    <option value="INR">INR</option>
-                                                <!-- <option *ngFor="let list of currencyDetails | filterPipes:'code' "
-                                                    [value]="list._id">{{list.code}}</option> -->
+                                                <option *ngFor="let list of currencyDetails" [value]="list.code">
+                                                    {{list.code}}</option>
                                             </select>
 
                                         </td>
                                         <td>
-
-                                            <select class="form-select" formControlName="companyCode" readonly>
-                                                <option [selected]="vendorFormGroup.value.companyCode=== ''" value=""
-                                                    hidden>Select Company Code</option>
-                                                    <option value="Co8787">Co8787</option>
-
-                                                <!-- <option
-                                                    *ngFor="let company of companyCodeDetails | filterPipes:'companyCode' "
-                                                    [value]="company._id">{{company.companyCode}}</option> -->
-
-                                            </select>
-
+                                            <input type="text" formControlName="bankName" class="form-control"
+                                                placeholder="Enter Bank Name">
                                         </td>
-                                        
+                                        <td>
+                                            <input type="text" formControlName="branchName" class="form-control"
+                                                placeholder="Enter Branch Name">
+                                        </td>
+                                        <td>
+                                            <input type="text" formControlName="branchAddress" class="form-control"
+                                                placeholder="Enter Branch Address">
+                                        </td>
                                         <td>
                                             <input type="text" formControlName="bankAccount" class="form-control"
-                                                placeholder="Enter Bank Account" readonly>
+                                                placeholder="Enter Bank Account">
                                         </td>
+                                        <td>
+                                            <input type="text" formControlName="ifscCode" class="form-control"
+                                                placeholder="Enter IFSC Code">
+                                        </td>
+
                                         <td>
                                             <input type="text" formControlName="accountHolder" class="form-control"
-                                                placeholder="Enter Account Holder" readonly>
+                                                placeholder="Enter Account Name">
                                         </td>
                                         <td>
-                                            <select class="form-select"  formControlName="paymentMethod">
+                                            <select class="form-select" formControlName="paymentMethod">
                                                 <option [selected]="vendorFormGroup.value.paymentMethod === ''" value=""
                                                     hidden>Select Payment Method</option>
-                                                    <option value="Cash">Cash</option>
-                                                    <option value="Card">Card</option>
-                                                    <option value="Cheque">Cheque</option>
-                                                    <option value="Bank Transfer">Bank Transfer</option>
-                                                <!-- <option
-                                                    *ngFor="let payment of paymentMethodDetails | filterPipes:'description'"
-                                                    [value]="payment._id">{{payment.description}}</option> -->
+                                                <option *ngFor="let payment of paymentMethodDetails "
+                                                    [value]="payment.description">{{payment.description}}</option>
 
                                             </select>
                                         </td>
@@ -185,7 +228,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row py-2">
                     <div class="col-12 d-flex justify-content-end">
                         <button class="btn btn-primary">Save</button>

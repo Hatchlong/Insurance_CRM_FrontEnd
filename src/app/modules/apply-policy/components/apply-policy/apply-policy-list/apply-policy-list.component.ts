@@ -1,8 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { PolicyPlanService } from 'src/app/modules/master/services/policy-plan/policy-plan.service';
 import { ApplyPolicyService } from '../../../services/apply-policy/apply-policy.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-apply-policy-list',
@@ -19,11 +19,17 @@ export class ApplyPolicyListComponent {
   selectAll: any = false
   page?: number = 0;
   itemsPerPage = 10;
+  records: any = 0
+  selectedFilter: any = 'O'
 
+  filterText: any = {
+    active: 'O',
+    text: ""
+  };
 
   constructor(private router: Router,
     private _snackBar: MatSnackBar,
-    private applyPolicySer:ApplyPolicyService
+    private applyPolicySer: ApplyPolicyService
 
   ) { }
   handleSideBar(event: any) {
@@ -33,7 +39,7 @@ export class ApplyPolicyListComponent {
     this.router.navigate([`${url}`])
   }
   ngOnInit(): void {
-    this.getAllapplyPolicyDetail(this.page,this.itemsPerPage)
+    this.getAllapplyPolicyDetail(this.filterText, this.page, this.itemsPerPage)
 
   }
 
@@ -54,12 +60,22 @@ export class ApplyPolicyListComponent {
     else {
       this.selectAll = true
     }
+
   }
 
+  handleFilterList(event: any) {
+    this.filterText.active = event.target.value
+  }
+
+  handleFilterDetails() {
+    this.getAllapplyPolicyDetail(this.filterText, this.records, this.itemsPerPage)
+  }
+
+
   //get all detail of agent from the database
-  async getAllapplyPolicyDetail(page:any,itemsPerPage:any) {
+  async getAllapplyPolicyDetail(filter: any, page: any, itemsPerPage: any) {
     try {
-      const result: any = await this.applyPolicySer.getAllApplyPolicyPage(page,itemsPerPage)
+      const result: any = await this.applyPolicySer.getAllApplyPolicyDetailsPageFilter(filter, page, itemsPerPage)
       if (result.status === '1') {
         result.data.map((el: any) => {
           el.check = false
@@ -84,34 +100,45 @@ export class ApplyPolicyListComponent {
   //delete single or particular record by the delete icon in every row of data
   async deleteRecords(data: any) {
     try {
-      data.isActive = "C"
-      const result: any = await this.applyPolicySer.updateApplyPolicyDetail(data);
-      if (result.status === '1') {
-        this._snackBar.open("Deleted Successfully", '', {
-          duration: 5 * 1000, horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: 'app-notification-success',
-        });
-        this.getAllapplyPolicyDetail(this.page,this.itemsPerPage)
-        return;
-      }
-      if (result.status === '0') {
-        this._snackBar.open("Deleted Unsuccessfully", '', {
-          duration: 5 * 1000, horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: 'app-notification-error',
-        });
-      }
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Do you really want to" + " " + (data.isActive === 'O' ? 'Inactive' : 'Active') + " this record?",
+        icon: "error",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes",
+        cancelButtonText: 'No'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          data.isActive = data.isActive === 'O' ? 'C' : 'O'
+          data.disable = true
+          const result: any = await this.applyPolicySer.updateApplyPolicyDetail(data);
+          if (result.status === '1') {
+            this._snackBar.open("Updated Successfully", '', {
+              duration: 5 * 1000, horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: 'app-notification-success',
+            });
+            this.getAllapplyPolicyDetail(this.filterText, this.records, this.itemsPerPage)
+            return;
+          }
+          if (result.status === '0') {
+            this.getAllapplyPolicyDetail(this.filterText, this.records, this.itemsPerPage)
+            this._snackBar.open(result.message, '', {
+              duration: 5 * 1000, horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: 'app-notification-error',
+            });
+          }
+        } else {
+          this.getAllapplyPolicyDetail(this.filterText, this.records, this.itemsPerPage)
+        }
+      });
+
 
     } catch (error: any) {
-      if (error.error.message) {
-        this._snackBar.open(error.error.message, '', {
-          duration: 5 * 1000, horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: 'app-notification-error',
-        });
-        return
-      }
+
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
@@ -120,49 +147,42 @@ export class ApplyPolicyListComponent {
     }
   }
 
-  handleFilter(event: any) {
-    const filterValue = event.target.value.toUpperCase();
-    if (!filterValue) {
-      this.applyPolicyDetail = this.allapplyPolicyDetail;
-      return;
-    }
-
-    this.applyPolicyDetail = this.allapplyPolicyDetail.filter((obj: any) =>
-    ((obj.customerName.toUpperCase()).includes(filterValue) ))
-  }
-
-
-
-  filterData() {
-    const filterValue = this.searchInput.nativeElement.value.toUpperCase();
-    this.applyPolicyDetail = this.allapplyPolicyDetail.filter((obj: any) =>
-      ((obj.customerName.toUpperCase()).includes(filterValue) )   ) 
-
-  }
-
   async handleDeleteMuliple() {
     try {
-      const filterData = this.applyPolicyDetail.filter((el: any) => el.check === true)
-      filterData.map((el: any) => {
-        el.isActive = "C"
-      })
-      const result: any = await this.applyPolicySer.updatedManyApplyPolicy(filterData);
-      if (result.status === '1') {
-        this._snackBar.open("Deleted Successfully", '', {
-          duration: 5 * 1000, horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: 'app-notification-success',
-        });
-        this.getAllapplyPolicyDetail(this.page, this.itemsPerPage)
-        return;
-      }
-      if (result.status === '0') {
-        this._snackBar.open("Deleted Unsuccessfully", '', {
-          duration: 5 * 1000, horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: 'app-notification-error',
-        });
-      }
+      Swal.fire({
+        title: "Are you sure?",
+        // text: "Do you really want to"+""+ Active +"these records?",
+        icon: "error",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, Disable it!"
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const filterData = this.applyPolicyDetail.filter((el: any) => el.check === true)
+          filterData.map((el: any) => {
+            el.isActive = "C"
+          })
+          const result: any = await this.applyPolicySer.updatedManyApplyPolicy(filterData);
+          if (result.status === '1') {
+            this._snackBar.open("Deleted Successfully", '', {
+              duration: 5 * 1000, horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: 'app-notification-success',
+            });
+            this.getAllapplyPolicyDetail(this.filterText, this.records, this.itemsPerPage)
+            return;
+          }
+          if (result.status === '0') {
+            this._snackBar.open(result.message, '', {
+              duration: 5 * 1000, horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: 'app-notification-error',
+            });
+          }
+        }
+      });
+
 
     } catch (error: any) {
       console.error(error)
@@ -173,6 +193,26 @@ export class ApplyPolicyListComponent {
       });
     }
 
+
+  }
+
+  handleFilter(event: any) {
+    const filterValue = event.target.value.toUpperCase();
+    if (!filterValue) {
+      this.applyPolicyDetail = this.allapplyPolicyDetail;
+      return;
+    }
+
+    this.applyPolicyDetail = this.allapplyPolicyDetail.filter((obj: any) =>
+      ((obj.customerName.toUpperCase()).includes(filterValue)))
+  }
+
+
+
+  filterData() {
+    const filterValue = this.searchInput.nativeElement.value.toUpperCase();
+    this.applyPolicyDetail = this.allapplyPolicyDetail.filter((obj: any) =>
+      ((obj.customerName.toUpperCase()).includes(filterValue)))
 
   }
 

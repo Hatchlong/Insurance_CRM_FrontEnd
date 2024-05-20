@@ -31,4 +31,19 @@ export class VendorService {
     return this.http.put(`http://localhost:4000/api/master/vendor/update`, data).toPromise()
   }
 
+  // payment_method
+  getAllPaymentMethodDetails() {
+    return this.http.get('http://localhost:4000/api/config/payment/getAll').toPromise()
+  }
+
+  getAllCurrencyDetails() {
+    return this.http.get('http://localhost:4000/api/config/currency/getAll').toPromise()
+  }
+
+  
+  getAllVendorDetailsPageFilter(filter?:any,skip?: any, itemsPerPage?: any) {
+    return this.http.post(`http://localhost:4000/api/master/vendor/getAll/${skip}/${itemsPerPage}`, {filter:filter}).toPromise()
+
+  }
+
 }

@@ -2,140 +2,138 @@
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
     <div class="row mt-3 ">
         <div class="col-12">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-start"> 
-                <input type="search" #searchDataInput name="" id="search-data"
-                        placeholder="customer Id/customer Name" class="form-control w-50"
-                        (input)="handleFilter($event)">
-               
-            </div>
+            <fieldset class="border p-2">
+                <legend class="float-none w-auto"><b>Search Filter</b></legend>
 
-            <div class="row mt-3">
-                <div class="col-12">
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
-                        <button  class="btn btn-primary " (click)="nextPage('/master/add-customer')"
-                            type="button" style="color: white;background: #00acff;">Add Customer</button>
+                <div class="row">
 
-                        <button class="btn btn-danger" type="button" style="color: white;" (click)="handleDeleteMuliple()">
-                            <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
-                            Delete Selected Customer</button>
-                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu #menu="matMenu">
-                            <button mat-menu-item>
-                                <span>Import Customer</span>
-                            </button>
-                            <button mat-menu-item >
-                                <span>Export Customer</span>
-                            </button>
-                            <button mat-menu-item >
-                                <span>Sample Customer Sheet</span>
-                            </button>
-                        </mat-menu>
-
-
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 py-1 filterText">
+                        <input type="text" #searchDataInput id="search-data" placeholder="Customer Id / Customer Name"
+                            class="form-control " (input)="handleFilter($event)">
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 py-1">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select class="form-select" (change)="handleFilterList($event)">
+                                <option [selected]="selectedFilter === ''" value="">All</option>
+                                <option [selected]="selectedFilter === 'O'" value="O">Active</option>
+                                <option [selected]="selectedFilter === 'C'" value="C">Inactive</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row mt-4">
-                <div class="col-12">
-                    <div class="table-responsive">
-                        <!-- <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>SN</th>
-                                    <th scope="col">Customer Type</th>
-                                    <th scope="col">Customer Id </th>
-                                    <th scope="col">Customer Name </th>
-                                    <th scope="col">Country</th>
-                                    <th scope="col">State</th>
-                                    <th scope="col">City</th>
-                                    <th scope="col">Mobile</th>
-                                    <th scope="col">Pin Code</th>
-                                    <th scope="col">Action</th>
-                                    <th scope="col"><input type="checkbox"> Select All</th>
-                                </tr>
-                            </thead>
-                            
-                            <tbody>
-                                <tr *ngFor="let list of purchaseOrderDetails; let i=index">
-                                    <td>{{i+1}}</td>
-                                    <td>{{list.poType}}</td>
-                                    <td>{{list.poNumber}}</td>
-                                    <td>{{list.vendorName}}</td>
-                                    <td>{{list.poDate}}</td>
-                                    <td>{{list.companyCodeName}}</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <div>
-                                                <mat-icon
-                                                    [routerLink]="'/purchase/edit-purchase-order/'+list.poNumber">edit</mat-icon>
-                                            </div>
-                                            <div>
-                                                <mat-icon>delete</mat-icon>
-                                            </div>
-                                        </div>
-                                    </td>
-
-                                    <td><input type="checkbox" class="checkbox" [checked]="list.check"></td>
-                                </tr>
-                            </tbody>
-
-                        </table> -->
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>SN</th>
-                                    <th scope="col">Customer Type</th>
-                                    <th scope="col">Customer Id </th>
-                                    <th scope="col">Customer Name </th>
-                                    <th scope="col">Country</th>
-                                    <th scope="col">State</th>
-                                    <th scope="col">City</th>
-                                    <th scope="col">Mobile</th>
-                                    <th scope="col">Pin Code</th>
-                                    <th scope="col">Action</th>
-                                    <th scope="col"><input type="checkbox" [checked]="selectAll" (change)="selectdata($event)"> Select All</th>
-                                </tr>
-                            </thead>
-                            <tbody *ngIf="customerDetail.length === 0">
-                                <tr>
-                                  <td colspan="11" class="text-center">No Records</td>
-                                </tr>
-                              </tbody>
-                            <tbody>
-                                <tr *ngFor="let list of customerDetail; let i=index">
-                                    <td>{{i+1}}</td>
-                                    <td>{{list.customerType}}</td>
-                                    <td>{{list.customerId}}</td>
-                                    <td>{{list.customerName}}</td>
-                                    <td>{{list.country}}</td>
-                                    <td>{{list.state}}</td>
-                                    <td>{{list.city}}</td>
-                                    <td>{{list.mobile}}</td>
-                                    <td>{{list.pinCode}}</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <div>
-                                                <mat-icon [routerLink]="'/master/edit-customer/'+list._id" >edit</mat-icon>
-                                                
-                                            </div>
-                                            <div>
-                                                <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
-                                            </div>
-                                        </div>
-                                    </td>
-
-                                    <td><input type="checkbox" class="checkbox" [checked]="list.check" (change)="particularcheck($event,i)"></td>
-                                </tr>
-                            </tbody>
-
-                        </table>
+                <div class="row">
+                    <div
+                        class="col-12 col-sm-12 col-md-12 col-lg-12 d-grid gap-2 col-xl-12 py-2 d-flex justify-content-end">
+                        <div class="py-1">
+                            <button class="btn btn-primary " (click)="handleFilterDetails()"
+                                type="button">Search</button>
+                        </div>
+                        <div class="py-1">
+                            <button class="btn btn-primary " (click)="searchDataInput.value = ''; filterText = ''"
+                                type="button">Reset</button>
+                        </div>
                     </div>
+                </div>
+            </fieldset>
+
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
+                    <button class="btn btn-primary " (click)="nextPage('/master/add-customer')" type="button"
+                        style="color: white;background: #00acff;">Add Customer</button>
+
+                    <!-- <button class="btn btn-danger" type="button" style="color: white;"
+                            (click)="handleDeleteMuliple()">
+                            <mat-icon style="width: 15px; height: 15px;">delete</mat-icon>
+                            Delete Selected Customer</button> -->
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                            <span>Import Customer</span>
+                        </button>
+                        <button mat-menu-item>
+                            <span>Export Customer</span>
+                        </button>
+                        <button mat-menu-item>
+                            <span>Sample Customer Sheet</span>
+                        </button>
+                    </mat-menu>
+
+
                 </div>
             </div>
         </div>
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>SN</th>
+                                <th scope="col">Customer Type</th>
+                                <th scope="col">Customer Id </th>
+                                <th scope="col">Customer Name </th>
+                                <th scope="col">Country</th>
+                                <th scope="col">State</th>
+                                <th scope="col">City</th>
+                                <th scope="col">Mobile</th>
+                                <th scope="col">Pin Code</th>
+                                <th scope="col">Action</th>
+                                <th>IsActive/Active</th>
+                                <!-- <th scope="col"><input type="checkbox" [checked]="selectAll"
+                                            (change)="selectdata($event)"> Select All</th> -->
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="customerDetail.length === 0">
+                            <tr>
+                                <td colspan="11" class="text-center">No Records</td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr *ngFor="let list of customerDetail; let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{list.customerType}}</td>
+                                <td>{{list.customerId}}</td>
+                                <td>{{list.customerName}}</td>
+                                <td>{{list.country}}</td>
+                                <td>{{list.state}}</td>
+                                <td>{{list.city}}</td>
+                                <td>{{list.mobile}}</td>
+                                <td>{{list.pinCode}}</td>
+                                <td>
+                                    <div class="d-flex">
+                                        <div>
+                                            <mat-icon [routerLink]="'/master/edit-customer/'+list._id">edit</mat-icon>
 
+                                        </div>
+                                        <!-- <div>
+                                                <mat-icon (click)="deleteRecords(list)">delete</mat-icon>
+                                            </div> -->
+                                    </div>
+                                </td>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox" [checked]="list.isActive === 'O'"
+                                            (change)="deleteRecords(list)">
+                                        <span class="slider"></span>
+                                    </label>
+                                </td>
 
+                                <!-- <td><input type="checkbox" class="checkbox" [checked]="list.check"
+                                            (change)="particularcheck($event,i)"></td> -->
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
+
+
 </div>

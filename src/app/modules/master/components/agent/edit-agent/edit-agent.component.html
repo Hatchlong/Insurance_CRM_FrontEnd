@@ -2,7 +2,7 @@
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
     <div class="row">
         <div class="col-12">
-            <h2><mat-icon class="back" routerLink="/master/agent-list">arrow_back</mat-icon>Agent
+            <h2><mat-icon class="back" routerLink="/master/agent-list">arrow_back</mat-icon>POSP
             </h2>
         </div>
     </div>
@@ -13,51 +13,74 @@
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                         <div class="row">
                             <div class="col-12 py-2">
-                                <label for="" class="">Agent Id <sup>*</sup></label>
-                                <input type="text" class="form-control " placeholder="Enter Agent Id"
+                                <label for="" class="">POSP Id <sup>*</sup></label>
+                                <input type="text" class="form-control " placeholder="Enter POSP Id"
                                     formControlName="agentId" readonly>
                                 <div
                                     *ngIf="agentFormData.controls['agentId'].touched && agentFormData.controls['agentId'].dirty && agentFormData.controls['agentId'].hasError('required') && !isSubmitted">
-                                    <p class="error-message">Agent Id is mandatory</p>
+                                    <p class="error-message">POSP Id is mandatory</p>
                                 </div>
                                 <div *ngIf="isSubmitted && agentFormData.controls['agentId'].hasError('required')">
-                                    <p class="error-message">Agent Id is mandatory</p>
+                                    <p class="error-message">POSP Id is mandatory</p>
                                 </div>
                             </div>
                             <div class="col-12 py-2">
-                                <label for="" class="">Agent Name <sup>*</sup></label>
-                                <input type="text" class="form-control " placeholder="Enter Agent Name"
+                                <label for="" class="">POSP Name <sup>*</sup></label>
+                                <input type="text" class="form-control " placeholder="Enter POSP Name"
                                     formControlName="agentName">
                                 <div
                                     *ngIf="agentFormData.controls['agentName'].touched && agentFormData.controls['agentName'].dirty && agentFormData.controls['agentName'].hasError('required') && !isSubmitted">
-                                    <p class="error-message">Agent Name is mandatory</p>
+                                    <p class="error-message">POSP Name is mandatory</p>
                                 </div>
                                 <div *ngIf="isSubmitted && agentFormData.controls['agentName'].hasError('required')">
-                                    <p class="error-message">Agent Name is mandatory</p>
+                                    <p class="error-message">POSP Name is mandatory</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <!-- <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        <div class="row">
+                            <div class="col-12 py-2">
+                                <section class="file-border">
+                                    <div class="row">
+                                        <div class="col-12 d-flex justify-content-center py-1"
+                                            style="position: relative;">
+                                            <img class="img-ava"
+                                                [src]="imageSrc?imageSrc:'/assets/logs/profile.png'"><sup
+                                                class="delete_img" (click)="deletePerview()" *ngIf="imageSrc"><mat-icon
+                                                    style="font-size: 20px;display: flex;align-items: center;justify-content: center;">delete</mat-icon></sup>
+
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-center py-1">
+                                            <span class="upload_text" (click)="uploadFile(inputFile,'log')">
+                                                Choose Agent Photo</span>
+                                            <input type="file" #inputFile class="d-none"
+                                                (change)="handleUploadFile($event)">
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div> -->
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
                         <div class="row">
                             <div class="col-12 py-2">
                                 <section class="file-border">
                                     <div class="row">
-                                        <div class="col-12 d-flex justify-content-center py-1" style="position: relative;">
-                                            <img *ngIf="!isImageShow" class="img-ava"
-                                                [src]="imageSrc?imageSrc:'/assets/logs/profile.png'"><sup class="delete_img"
-                                                (click)="deletePerview()"
-                                                *ngIf="imageSrc && !filePath"><mat-icon>delete</mat-icon></sup>
-                                            <img *ngIf="isImageShow" class="img-ava" [src]="filePath"><sup class="delete_img"
-                                                (click)="deleteImage()" *ngIf="!imageSrc && filePath"><mat-icon
+                                        <div class="col-12 d-flex justify-content-center py-1"
+                                            style="position: relative;">
+                                            <img class="img-ava"
+                                                [src]="imageSrc?imageSrc:'/assets/logs/profile.png'"><sup
+                                                class="delete_img" (click)="deletePerview()" *ngIf="imageSrc"><mat-icon
                                                     style="font-size: 20px;display: flex;align-items: center;justify-content: center;">delete</mat-icon></sup>
-        
+
                                         </div>
                                         <div class="col-12 d-flex justify-content-center py-1">
-                                            <span class="upload_text" (click)="uploadFile(inputFile,'log')">
-                                                Choose Agent Photo</span>
-                                            <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
+                                            <span (click)="uploadFile(inputFile,'log')" class="upload_text">
+                                                Choose POSP Photo</span>
+                                            <input type="file" #inputFile class="d-none"
+                                                (change)="handleUploadFile($event)">
                                         </div>
                                     </div>
                                 </section>
@@ -65,7 +88,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                    <!-- <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                         <label for="example">Category <sup>*</sup></label>
                         <select class="form-select " aria-label="Default select example" formControlName="category">
                             <option [selected]="agentFormData.value.category === ''" value="" hidden>
@@ -81,6 +104,12 @@
                             </div>
                         </select>
 
+                    </div> -->
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">DOB</label>
+                        <input type="date" class="form-control ">
+
+
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                         <label for="" class="">Address</label>
@@ -88,6 +117,7 @@
 
 
                     </div>
+
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
 
                         <label for="" class="">Country </label>
@@ -95,7 +125,7 @@
                             <option [selected]="agentFormData.value.country === ''" value="" hidden>
                                 Select
                                 Country</option>
-                                <option value="India">India</option>
+                            <option value="India">India</option>
                         </select>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
@@ -103,19 +133,22 @@
                         <select class="form-select " aria-label="Default select example" formControlName="state">
                             <option [selected]="agentFormData.value.state === ''" value="" hidden> Select State</option>
                             <option *ngFor="let state of states" [value]="state">{{ state }}</option>
-                
-                
+
+
                         </select>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-                
+
                         <label for="">City </label>
-                        <select class="form-select " aria-label="Default select example" formControlName="city">
+                        <input type="text" class="form-control " placeholder="Enter City" formControlName="city">
+
+                        <!-- <select class="form-select " aria-label="Default select example" formControlName="city">
                             <option [selected]="agentFormData.value.city === ''" value="" hidden> Select City</option>
-                            <option *ngFor="let city of cities[agentFormData.get('state').value]" [value]="city">{{ city }}</option>
-                
-                           
-                        </select>
+                            <option *ngFor="let city of cities[agentFormData.get('state').value]" [value]="city">{{ city
+                                }}</option>
+
+
+                        </select> -->
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
 
@@ -127,14 +160,27 @@
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                         <label for="">Mobile <sup>*</sup></label>
                         <input maxlength="10" min="0" class="form-control " placeholder="Enter Mobile Number"
-                            formControlName="mobile" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
-                       <div
-                            *ngIf="agentFormData.controls['agentId'].touched && agentFormData.controls['agentId'].dirty && agentFormData.controls['agentId'].hasError('required') && !isSubmitted">
+                            formControlName="mobile"
+                            onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
+                        <div
+                            *ngIf="agentFormData.controls['mobile'].touched && agentFormData.controls['mobile'].dirty && agentFormData.controls['mobile'].hasError('required') && !isSubmitted">
                             <p class="error-message">Mobile Number is mandatory</p>
                         </div>
-                        <div *ngIf="isSubmitted && agentFormData.controls['agentId'].hasError('required')">
+                        <div *ngIf="isSubmitted && agentFormData.controls['mobile'].hasError('required')">
                             <p class="error-message">Mobile Number is mandatory</p>
                         </div>
+                        <div *ngIf="agentFormData.controls['mobile'].hasError('minlength')">
+                            <p class="error-message">Mobile Number is not Valid</p>
+                        </div>
+                        <div *ngIf="agentFormData.controls['mobile'].hasError('maxlength')">
+                            <p class="error-message">Mobile Number is not Valid</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                        <label for="" class="">Alternate Mobile No</label>
+                        <input type="text" class="form-control " placeholder="Enter Alternate Mobile No">
+
+
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                         <label for="">Mail Id <sup>*</sup></label>
@@ -151,38 +197,138 @@
                         </div>
                     </div>
 
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+
+                        <label for="" class="">Gender </label>
+                        <select class="form-select " aria-label="Default select example">
+                            <option [selected]="agentFormData.value.country === ''" value="" hidden>
+                                Select
+                                Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+
+                        <label for="" class="">Highest Qualification </label>
+                        <select class="form-select " aria-label="Default select example">
+                            <option [selected]="agentFormData.value.country === ''" value="" hidden>
+                                Select
+                                Highest Qualification</option>
+                            <option value="Senior Secondary">Senior Secondary</option>
+                            <option value="Bachelor">Bachelor</option>
+                        </select>
+                    </div>
+
+
                 </div>
                 <div class="row border mt-2">
-                    <h2>KYC</h2>
+                    <!-- <h2 class="">KYC</h2> -->
 
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2 ">
-                        <div class="d-flex d-grid gap-2">
-                            <input type="text" class="form-control w-50" placeholder="Enter Aadhar Card Number"
-                                formControlName="aadharNumber"><span (click)="uploadFile(inputFile,'aadhar_no')"
-                                class="upload_text">{{agentFormData.value.companyRegistrationFilePath ?
-                                agentFormData.value.photo : 'Upload Aadhar'}}
-                                <input type="file" #inputFile class="d-none">
-                            </span>
-                            <mat-icon (click)="openDialog(agentFormData.value.aadharFilePath)">visibility</mat-icon>
+                    <mat-tab-group animationDuration="0ms">
+                        <mat-tab label="Documents">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Aadhar Number</th>
+                                        <th>Upload Aadhar</th>
+                                        <th>PAN No</th>
+                                        <th>Upload PAN</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control w-50"
+                                                placeholder="Enter Aadhar Card Number" formControlName="aadharNumber">
+                                        </td>
+                                        <td>
+                                            <span (click)="uploadFile(inputFile, 'aadhar_no')" class="upload_text">
+                                                {{agentFormData.value.aadharFilePath ?
+                                                agentFormData.value.aadharFilePath
+                                                : 'Upload Aadhar'}}</span>
+                                            <input type="file" #inputFile class="d-none"
+                                                (change)="handleUploadFile($event)">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control w-50" placeholder="Enter PAN No"
+                                                formControlName="panNumber" appDirective>
+                                        </td>
+                                        <td>
+                                            <span (click)="uploadFile(inputFile, 'pan_no')" class="upload_text">
+                                                {{agentFormData.value.panFilePath ? agentFormData.value.panFilePath
+                                                : 'Upload PAN'}}</span>
+                                            <input type="file" #inputFile class="d-none"
+                                                (change)="handleUploadFile($event)">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2 ">
-                        <div class="d-flex d-grid gap-2">
-                            <input type="text" class="form-control w-50" placeholder="Enter PAN No"
-                                formControlName="panNumber" appDirective>
-                            <span (click)="uploadFile(inputFile,'pan_no')"
-                                class="upload_text">{{agentFormData.value.companyRegistrationFilePath ?
-                                agentFormData.value.photo : 'Upload PAN'}}
-                            </span>
-                            <mat-icon (click)="openDialog(agentFormData.value.panFilePath)">visibility</mat-icon>
-                            <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
 
-                        </div>
-                    </div>
-
+                        </mat-tab>
+                        <mat-tab label="Bank Detail">
+                            <table class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Account Number</th>
+                                        <th>Bank Name</th>
+                                        <th>Bank Branch</th>
+                                        <th>IFSC Code</th>
+                                        <th>Account Type</th>
+                                        <th style="width: 200px!important;">Upload Signature</th>
+                                        <th style="width: 200px!important;">Upload Cheque</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input type="number" min="0" class="form-control "
+                                                placeholder="Enter Account Number" formControlName="address">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control " placeholder="Enter Bank Name"
+                                                formControlName="address">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control " placeholder="Enter Bank Branch"
+                                                formControlName="address">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control " placeholder="Enter IFSC Code"
+                                                formControlName="address">
+                                        </td>
+                                        <td>
+                                            <select class="form-select " aria-label="Default select example">
+                                                <option [selected]="agentFormData.value.country === ''" value="" hidden>
+                                                    Select
+                                                    Account Type</option>
+                                                <option value="Saving">Saving</option>
+                                                <option value="Current">Current</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <span (click)="uploadFile(inputFile, 'aadhar_no')" class="upload_text">
+                                                {{agentFormData.value.aadharFilePath ?
+                                                agentFormData.value.aadharFilePath
+                                                : 'Upload Signature'}}</span>
+                                            <input type="file" #inputFile class="d-none"
+                                                (change)="handleUploadFile($event)">
+                                        </td>
+                                        <td>
+                                            <span (click)="uploadFile(inputFile, 'pan_no')" class="upload_text">
+                                                {{agentFormData.value.panFilePath ? agentFormData.value.panFilePath
+                                                : 'Upload Cheque'}}</span>
+                                            <input type="file" #inputFile class="d-none"
+                                                (change)="handleUploadFile($event)">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </mat-tab>
+                    </mat-tab-group>
                 </div>
-
                 <div class="col-12 d-flex justify-content-end py-2">
                     <button type="button" class="btn btn-primary" (click)="fileUpload()">Save</button>
                 </div>

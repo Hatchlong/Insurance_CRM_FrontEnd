@@ -41,7 +41,7 @@ export class EditVehicleRegisteryComponent {
 
   data() {
     this.vehicleCategoryData = this.fb.group({
-      _id:['',Validators.required],
+      _id: ['', Validators.required],
       vehicleCategory: ['', Validators.required],
       description: ['', Validators.required],
 
@@ -67,6 +67,25 @@ export class EditVehicleRegisteryComponent {
       console.log(this.vehicleCategoryData.value, this.vehicleCategoryData.invalid)
       if (this.vehicleCategoryData.invalid)
         return
+
+      const username: any = localStorage.getItem('userName')
+
+      const currentDate = new Date();
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1; // Months are zero-indexed, so add 1
+      const day = currentDate.getDate();
+      const hours = currentDate.getHours();
+      const minutes = currentDate.getMinutes();
+      const seconds = currentDate.getSeconds();
+
+      // Format the date and time
+      const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+      this.vehicleCategoryData.value.createdOn = fullDate
+      this.vehicleCategoryData.value.createdBy = username
+      this.vehicleCategoryData.value.changedOn = fullDate
+      this.vehicleCategoryData.value.changedBy = username
+
 
       const result: any = await this.vehicleCategorySer.updateVehicleCategoryDetail(this.vehicleCategoryData.value)
       if (result.status === '1') {

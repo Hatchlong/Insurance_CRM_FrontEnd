@@ -1,0 +1,53 @@
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
+    <h2><mat-icon class="back" routerLink="/setting/insurance-type-list">arrow_back</mat-icon>Insurance Type</h2>
+
+    <form [formGroup]="insuranceTypeFormGroup" (ngSubmit)="submitData()">
+        <div class="row border mx-0">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Insurance Id <sup>*</sup></label>
+                <input type="text" formControlName="insuranceId" class="form-control" placeholder="Enter Insurance Id"
+                    maxlength="6">
+                <div
+                    *ngIf="insuranceTypeFormGroup.controls['insuranceId'].touched && insuranceTypeFormGroup.controls['insuranceId'].dirty && insuranceTypeFormGroup.controls['insuranceId'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Insurance Id is mandatory</p>
+                </div>
+                <div *ngIf="isSubmitted && insuranceTypeFormGroup.controls['insuranceId'].hasError('required')">
+                    <p class="error-message">Insurance Id is mandatory</p>
+                </div>
+                <div *ngIf="insuranceTypeFormGroup.controls['insuranceId'].hasError('minlength')">
+                    <p class="error-message">Must have 6 character</p>
+                </div>
+                <div *ngIf="insuranceTypeFormGroup.controls['insuranceId'].hasError('maxlength')">
+                    <p class="error-message">Must have 6 character</p>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Insurance Name <sup>*</sup></label>
+                <input type="text" formControlName="insuranceName" class="form-control"
+                    placeholder="Enter Insurance Name">
+                <div
+                    *ngIf="insuranceTypeFormGroup.controls['insuranceName'].touched && insuranceTypeFormGroup.controls['insuranceName'].dirty && insuranceTypeFormGroup.controls['insuranceName'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Insurance Name is mandatory</p>
+                </div>
+                <div *ngIf="isSubmitted && insuranceTypeFormGroup.controls['insuranceName'].hasError('required')">
+                    <p class="error-message">Insurance Name is mandatory</p>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Description</label>
+                <input style="height: 60px !important;" type="text" formControlName="description" class="form-control"
+                    placeholder="Enter Description" />
+
+            </div>
+        </div>
+        <div class="col-12 d-flex justify-content-end py-2">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+
+    </form>
+
+
+
+</div>

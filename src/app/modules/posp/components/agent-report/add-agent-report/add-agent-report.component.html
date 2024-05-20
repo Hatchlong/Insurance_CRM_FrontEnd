@@ -1,0 +1,167 @@
+<app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
+<div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
+    <h2><mat-icon class="back" routerLink="/posp/agent-report-list">arrow_back</mat-icon>Agent Report</h2>
+
+    <form [formGroup]="candidateFormGroup">
+        <div class="row border mx-0 ">
+            <h4>Basic Detail</h4>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for=""> Policy Number<sup>*</sup></label>
+                <input type="text" formControlName="fullName" class="form-control" placeholder="Enter Policy Number">
+                <div
+                    *ngIf="candidateFormGroup.controls['fullName'].touched && candidateFormGroup.controls['fullName'].dirty && candidateFormGroup.controls['fullName'].hasError('required') && !isSubmitted">
+                    <p class="error-message"> Policy Numberis mandatory</p>
+                </div>
+                <div *ngIf="isSubmitted && candidateFormGroup.controls['fullName'].hasError('required')">
+                    <p class="error-message"> Policy Numberis mandatory</p>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Insured Name <sup>*</sup></label>
+                <input type="text" formControlName="email" class="form-control" placeholder="Enter Insured Name" />
+                <div
+                    *ngIf="candidateFormGroup.controls['email'].touched && candidateFormGroup.controls['email'].dirty && candidateFormGroup.controls['email'].hasError('required') && !isSubmitted">
+                    <p class="error-message">Insured Name is mandatory</p>
+                </div>
+                <div *ngIf="isSubmitted && candidateFormGroup.controls['email'].hasError('required')">
+                    <p class="error-message">Insured Name is mandatory</p>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Policy Issue Date </label>
+                <input type="date" formControlName="email" class="form-control" placeholder="Enter Email" />
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Start Date </label>
+                <input type="date" formControlName="email" class="form-control" placeholder="Enter Email" />
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Expiry Date </label>
+                <input type="date" formControlName="email" class="form-control" placeholder="Enter Email" />
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Make </label>
+                <select class="form-select" formControlName="jobName">
+                    <option [selected]="candidateFormGroup.value.jobName === ''" value="" hidden>Select Make</option>
+                    <option *ngFor="let list of jobDetail" [value]="list.jobName">{{list.jobName}}</option>
+                </select>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Model </label>
+                <select class="form-select" formControlName="jobName">
+                    <option [selected]="candidateFormGroup.value.jobName === ''" value="" hidden>Select Model</option>
+                    <option *ngFor="let list of jobDetail" [value]="list.jobName">{{list.jobName}}</option>
+                </select>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Year Of Manufacturing </label>
+                <select class="form-select" formControlName="jobName">
+                    <option [selected]="candidateFormGroup.value.jobName === ''" value="" hidden>Select Year Of
+                        Manufacturing</option>
+                    <option *ngFor="let list of jobDetail" [value]="list.jobName">{{list.jobName}}</option>
+                </select>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Policy Type </label>
+                <select class="form-select" formControlName="jobName">
+                    <option [selected]="candidateFormGroup.value.jobName === ''" value="" hidden>Select Policy Type
+                    </option>
+                    <option *ngFor="let list of jobDetail" [value]="list.jobName">{{list.jobName}}</option>
+                </select>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Category </label>
+                <select class="form-select" formControlName="jobName">
+                    <option [selected]="candidateFormGroup.value.jobName === ''" value="" hidden>Select Category
+                    </option>
+                    <option *ngFor="let list of jobDetail" [value]="list.jobName">{{list.jobName}}</option>
+                </select>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Vehicle Registration Number </label>
+                <input type="text" formControlName="email" class="form-control"
+                    placeholder="Enter Vehicle Registration Number" />
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Tonnage(In KG/CC) </label>
+                <input type="number" min="0" formControlName="email" class="form-control"
+                    placeholder="Enter Tonnage(In KG/CC)" />
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <div class="row border mx-0 mt-3">
+            <h4>Insurer</h4>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Insurer Company </label>
+                <select class="form-select" formControlName="jobName">
+                    <option [selected]="candidateFormGroup.value.jobName === ''" value="" hidden>Select Insurer Company
+                    </option>
+                    <option *ngFor="let list of jobDetail" [value]="list.jobName">{{list.jobName}}</option>
+                </select>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Net Premium </label>
+                <input type="number" min="0" formControlName="email" class="form-control"
+                    placeholder="Enter Net Premium" />
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">OD Premium </label>
+                <input type="number" min="0" formControlName="email" class="form-control"
+                    placeholder="Enter OD Premium" />
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Policy Premium </label>
+                <input type="number" min="0" formControlName="email" class="form-control"
+                    placeholder="Enter Policy Premium" />
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">RTO State Code </label>
+                <select class="form-select" formControlName="jobName">
+                    <option [selected]="candidateFormGroup.value.jobName === ''" value="" hidden>Select RTO State Code
+                    </option>
+                    <option *ngFor="let list of jobDetail" [value]="list.jobName">{{list.jobName}}</option>
+                </select>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">RTO Vehicle Code </label>
+                <select class="form-select" formControlName="jobName">
+                    <option [selected]="candidateFormGroup.value.jobName === ''" value="" hidden>Select RTO Vehicle Code
+                    </option>
+                    <option *ngFor="let list of jobDetail" [value]="list.jobName">{{list.jobName}}</option>
+                </select>
+            </div>
+
+
+        </div>
+        <div class="row border mx-0 mt-3">
+            <h4>Agent</h4>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Commission Percentage </label>
+                <input type="number" min="0" formControlName="email" class="form-control"
+                    placeholder="Enter Commission Percentage" />
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Commission Amount </label>
+                <input type="number" min="0" formControlName="email" class="form-control"
+                    placeholder="Enter Commission Amount" />
+            </div>
+
+
+        </div>
+        <div class="col-12 d-flex justify-content-end py-2">
+            <button type="button" class="btn btn-primary">Save</button>
+        </div>
+
+    </form>
+
+
+
+</div>

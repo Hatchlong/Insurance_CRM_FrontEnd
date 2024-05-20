@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { VehicleCategoryService } from '../../../services/vehicle-category/vehicle-category.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-vehicle-registery-list',
@@ -20,7 +21,13 @@ export class VehicleRegisteryListComponent {
   allvehicleCategoryDetail: any = []
   page?: number = 0;
   itemsPerPage = 10;
+  records: any = 0
+  selectedFilter: any = 'O'
 
+  filterText: any = {
+    active: 'O',
+    text: ""
+  };
 
   constructor(private router: Router,
     private vehicleCategorySer: VehicleCategoryService,
@@ -33,12 +40,12 @@ export class VehicleRegisteryListComponent {
     this.router.navigate([`${url}`])
   }
   ngOnInit(): void {
-    this.getAllVehicleCategoryDetail(this.page,this.itemsPerPage)
+    this.getAllVehicleCategoryDetail(this.filterText, this.page, this.itemsPerPage)
   }
 
-  async getAllVehicleCategoryDetail(page: any, itemsPerPage: any) {
+  async getAllVehicleCategoryDetail(filter: any, page: any, itemsPerPage: any) {
     try {
-      const result: any = await this.vehicleCategorySer.getAllvehicleDetailsPage(page,itemsPerPage)
+      const result: any = await this.vehicleCategorySer.getAllvehicleCategoryDetailsPageFilter(filter, page, itemsPerPage)
       if (result.status === '1') {
         result.data.map((el: any) => {
           el.check = false
@@ -98,38 +105,57 @@ export class VehicleRegisteryListComponent {
 
   }
 
+  handleFilterList(event: any) {
+    this.filterText.active = event.target.value
+  }
+
+  handleFilterDetails() {
+    this.getAllVehicleCategoryDetail(this.filterText, this.records, this.itemsPerPage)
+  }
+
 
   //delete single or particular record by the delete icon in every row of data
   async deleteRecords(data: any) {
     try {
-      data.isActive = "C"
-      const result: any = await this.vehicleCategorySer.updateVehicleCategoryDetail(data);
-      if (result.status === '1') {
-        this._snackBar.open("Deleted Successfully", '', {
-          duration: 5 * 1000, horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: 'app-notification-success',
-        });
-        this.getAllVehicleCategoryDetail(this.page,this.itemsPerPage)
-        return;
-      }
-      if (result.status === '0') {
-        this._snackBar.open("Deleted Unsuccessfully", '', {
-          duration: 5 * 1000, horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: 'app-notification-error',
-        });
-      }
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Do you really want to" + " " + (data.isActive === 'O' ? 'Inactive' : 'Active') + " this record?",
+        icon: "error",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes",
+        cancelButtonText: 'No'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          data.isActive = data.isActive === 'O' ? 'C' : 'O'
+          data.disable = true
+          const result: any = await this.vehicleCategorySer.updateVehicleCategoryDetail(data);
+          if (result.status === '1') {
+            this._snackBar.open("Updated Successfully", '', {
+              duration: 5 * 1000, horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: 'app-notification-success',
+            });
+            this.getAllVehicleCategoryDetail(this.filterText, this.records, this.itemsPerPage)
+            return;
+          }
+          if (result.status === '0') {
+            this.getAllVehicleCategoryDetail(this.filterText, this.records, this.itemsPerPage)
+            this._snackBar.open(result.message, '', {
+              duration: 5 * 1000, horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: 'app-notification-error',
+            });
+          }
+        } else {
+          this.getAllVehicleCategoryDetail(this.filterText, this.records, this.itemsPerPage)
+        }
+      });
+
 
     } catch (error: any) {
-      if (error.error.message) {
-        this._snackBar.open(error.error.message, '', {
-          duration: 5 * 1000, horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: 'app-notification-error',
-        });
-        return
-      }
+
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
@@ -140,27 +166,40 @@ export class VehicleRegisteryListComponent {
 
   async handleDeleteMuliple() {
     try {
-      const filterData = this.vehicleCategoryDetail.filter((el: any) => el.check === true)
-      filterData.map((el: any) => {
-        el.isActive = "C"
-      })
-      const result: any = await this.vehicleCategorySer.updatevehicleDetailMany(filterData);
-      if (result.status === '1') {
-        this._snackBar.open("Deleted Successfully", '', {
-          duration: 5 * 1000, horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: 'app-notification-success',
-        });
-        this.getAllVehicleCategoryDetail(this.page, this.itemsPerPage)
-        return;
-      }
-      if (result.status === '0') {
-        this._snackBar.open("Deleted Unsuccessfully", '', {
-          duration: 5 * 1000, horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: 'app-notification-error',
-        });
-      }
+      Swal.fire({
+        title: "Are you sure?",
+        // text: "Do you really want to"+""+ Active +"these records?",
+        icon: "error",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, Disable it!"
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const filterData = this.vehicleCategoryDetail.filter((el: any) => el.check === true)
+          filterData.map((el: any) => {
+            el.isActive = "C"
+          })
+          const result: any = await this.vehicleCategorySer.updatevehicleDetailMany(filterData);
+          if (result.status === '1') {
+            this._snackBar.open("Deleted Successfully", '', {
+              duration: 5 * 1000, horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: 'app-notification-success',
+            });
+            this.getAllVehicleCategoryDetail(this.filterText, this.records, this.itemsPerPage)
+            return;
+          }
+          if (result.status === '0') {
+            this._snackBar.open(result.message, '', {
+              duration: 5 * 1000, horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: 'app-notification-error',
+            });
+          }
+        }
+      });
+
 
     } catch (error: any) {
       console.error(error)
@@ -173,4 +212,5 @@ export class VehicleRegisteryListComponent {
 
 
   }
+
 }
