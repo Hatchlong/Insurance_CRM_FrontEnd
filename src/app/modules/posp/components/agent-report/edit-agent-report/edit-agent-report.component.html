@@ -8,7 +8,7 @@
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for=""> Policy Number<sup>*</sup></label>
                 <input type="text" formControlName="policyNumber" class="form-control"
-                    placeholder="Enter Policy Number">
+                    placeholder="Enter Policy Number" readonly>
                 <div
                     *ngIf="candidateFormGroup.controls['policyNumber'].touched && candidateFormGroup.controls['policyNumber'].dirty && candidateFormGroup.controls['policyNumber'].hasError('required') && !isSubmitted">
                     <p class="error-message"> Policy Numberis mandatory</p>

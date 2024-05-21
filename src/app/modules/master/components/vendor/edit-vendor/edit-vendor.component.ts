@@ -52,8 +52,8 @@ export class EditVendorComponent {
     if (data) {
       this.vendorFormGroup = this.fb.group({
         _id: [data._id, Validators.required],
-        vendorId: [data.vendorId],
-        vendorName: [data.vendorName, Validators.required],
+        insurerId: [data.insurerId],
+        insurerName: [data.insurerName, Validators.required],
         address: [data.address, Validators.required],
         countryId: [data.countryId, Validators.required],
         countryName: [data.countryName, Validators.required],
@@ -70,8 +70,8 @@ export class EditVendorComponent {
     }
     this.vendorFormGroup = this.fb.group({
       _id: ['', Validators.required],
-      vendorId: ['', Validators.required],
-      vendorName: ['', Validators.required],
+      insurerId: ['', Validators.required],
+      insurerName: ['', Validators.required],
       address: ['', Validators.required],
       countryId: ['', Validators.required],
       countryName: ['', Validators.required],

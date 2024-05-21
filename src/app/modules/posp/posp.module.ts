@@ -14,12 +14,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { AgentReportListComponent } from './components/agent-report/agent-report-list/agent-report-list.component';
 import { AddAgentReportComponent } from './components/agent-report/add-agent-report/add-agent-report.component';
+import { PospService } from './services/posp/posp.service';
+import { EditAgentReportComponent } from './components/agent-report/edit-agent-report/edit-agent-report.component';
 
 
 @NgModule({
   declarations: [
     AgentReportListComponent,
-    AddAgentReportComponent
+    AddAgentReportComponent,
+    EditAgentReportComponent,
   ],
   imports: [
     CommonModule,
@@ -36,6 +39,7 @@ import { AddAgentReportComponent } from './components/agent-report/add-agent-rep
     ReactiveFormsModule,
     HttpClientModule,
     TypeaheadModule.forRoot()
-  ]
+  ],
+  providers: [PospService]
 })
 export class PospModule { }

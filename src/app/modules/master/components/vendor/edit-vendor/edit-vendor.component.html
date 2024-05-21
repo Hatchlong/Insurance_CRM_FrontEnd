@@ -9,27 +9,27 @@
                 <div class="row border">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                         <label for="">Insurer Id <sup>*</sup></label>
-                        <input type="text" class="form-control " formControlName="vendorId"
+                        <input type="text" class="form-control " formControlName="insurerId"
                             placeholder="Enter Insurer Id" readonly>
                         <div
-                            *ngIf="vendorFormGroup.controls['vendorId'].touched && vendorFormGroup.controls['vendorId'].dirty && vendorFormGroup.controls['vendorId'].hasError('required') && !isSubmitted">
+                            *ngIf="vendorFormGroup.controls['insurerId'].touched && vendorFormGroup.controls['insurerId'].dirty && vendorFormGroup.controls['insurerId'].hasError('required') && !isSubmitted">
                             <p class="error-message">Insurer Id is mandatory</p>
                         </div>
-                        <div *ngIf="isSubmitted && vendorFormGroup.controls['vendorId'].hasError('required')">
+                        <div *ngIf="isSubmitted && vendorFormGroup.controls['insurerId'].hasError('required')">
                             <p class="error-message">Insurer Id is mandatory</p>
                         </div>
                     </div>
 
 
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-                        <label for="VendorName">Insurer Name <sup>*</sup></label>
-                        <input type="text" class="form-control" formControlName="vendorName"
+                        <label for="insurerName">Insurer Name <sup>*</sup></label>
+                        <input type="text" class="form-control" formControlName="insurerName"
                             placeholder="Enter Insurer Name">
                         <div
-                            *ngIf="vendorFormGroup.controls['vendorName'].touched && vendorFormGroup.controls['vendorName'].dirty && vendorFormGroup.controls['vendorName'].hasError('required') && !isSubmitted">
+                            *ngIf="vendorFormGroup.controls['insurerName'].touched && vendorFormGroup.controls['insurerName'].dirty && vendorFormGroup.controls['insurerName'].hasError('required') && !isSubmitted">
                             <p class="error-message">Insurer Name is mandatory</p>
                         </div>
-                        <div *ngIf="isSubmitted && vendorFormGroup.controls['vendorName'].hasError('required')">
+                        <div *ngIf="isSubmitted && vendorFormGroup.controls['insurerName'].hasError('required')">
                             <p class="error-message">Insurer Name is mandatory</p>
                         </div>
                     </div>
