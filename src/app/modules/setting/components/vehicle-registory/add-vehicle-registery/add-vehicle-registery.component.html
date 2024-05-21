@@ -7,7 +7,7 @@
       <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
         <label for="">Vehicle Category <sup>*</sup></label>
         <input type="text" formControlName="vehicleCategory" class="form-control" placeholder="Enter Vehicle Category"
-          maxlength="6">
+          maxlength="10">
         <div
           *ngIf="vehicleCategoryData.controls['vehicleCategory'].touched && vehicleCategoryData.controls['vehicleCategory'].dirty && vehicleCategoryData.controls['vehicleCategory'].hasError('required') && !isSubmitted">
           <p class="error-message">Vehicle Category is mandatory</p>
@@ -15,12 +15,7 @@
         <div *ngIf="isSubmitted && vehicleCategoryData.controls['vehicleCategory'].hasError('required')">
           <p class="error-message">Vehicle Category is mandatory</p>
         </div>
-        <div *ngIf="vehicleCategoryData.controls['vehicleCategory'].hasError('minlength')">
-          <p class="error-message">Must have 6 character</p>
-        </div>
-        <div *ngIf="vehicleCategoryData.controls['vehicleCategory'].hasError('maxlength')">
-          <p class="error-message">Must have 6 character</p>
-        </div>
+       
       </div>
       <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
         <label for="">Description<sup>*</sup></label>

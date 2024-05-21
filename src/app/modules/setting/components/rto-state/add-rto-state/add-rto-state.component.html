@@ -7,7 +7,7 @@
       <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
         <label for="">RTO State Code <sup>*</sup></label>
         <input type="text" formControlName="rtoStateCode" class="form-control" placeholder="Enter RTO State Code"
-          maxlength="6">
+          maxlength="10">
         <div
           *ngIf="rtoStateData.controls['rtoStateCode'].touched && rtoStateData.controls['rtoStateCode'].dirty && rtoStateData.controls['rtoStateCode'].hasError('required') && !isSubmitted">
           <p class="error-message">RTO State Code is mandatory</p>
@@ -15,12 +15,7 @@
         <div *ngIf="isSubmitted && rtoStateData.controls['rtoStateCode'].hasError('required')">
           <p class="error-message">RTO State Code is mandatory</p>
         </div>
-        <div *ngIf="rtoStateData.controls['rtoStateCode'].hasError('minlength')">
-          <p class="error-message">Must have 6 character</p>
-        </div>
-        <div *ngIf="rtoStateData.controls['rtoStateCode'].hasError('maxlength')">
-          <p class="error-message">Must have 6 character</p>
-        </div>
+      
       </div>
       <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
         <label for="">Description<sup>*</sup></label>

@@ -98,8 +98,6 @@ export class EditRtoStateComponent implements OnInit {
       // Format the date and time
       const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-      this.rtoStateData.value.createdOn = fullDate
-      this.rtoStateData.value.createdBy = username
       this.rtoStateData.value.changedOn = fullDate
       this.rtoStateData.value.changedBy = username
 

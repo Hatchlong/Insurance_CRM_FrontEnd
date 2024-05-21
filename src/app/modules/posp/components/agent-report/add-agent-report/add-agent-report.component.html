@@ -112,7 +112,8 @@
                     <option [selected]="candidateFormGroup.value.insurer_company === ''" value="" hidden>Select Insurer
                         Company
                     </option>
-                    <option *ngFor="let list of jobDetail" [value]="list.jobName">{{list.jobName}}</option>
+                    <option *ngFor="let list of insurerDetail" [value]="list._id">
+                        {{list.insurerId}}-{{list.insurerName}}</option>
                 </select>
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">

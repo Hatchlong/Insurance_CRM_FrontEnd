@@ -65,8 +65,6 @@ export class EditModelComponent {
       // Format the date and time
       const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-      this.modelDetailFormGroup.value.createdOn = fullDate
-      this.modelDetailFormGroup.value.createdBy = username
       this.modelDetailFormGroup.value.changedOn = fullDate
       this.modelDetailFormGroup.value.changedBy = username
 

@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { PospService } from '../../../services/posp/posp.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-agent-report-list',
@@ -82,7 +83,7 @@ export class AgentReportListComponent {
   //get all detail of agent from the database
   async getAllAgentDetail(filter: any, page: any, itemsPerPage: any) {
     try {
-      const result: any = await this.agentReportSer.getAllAgentReportsPage(page, itemsPerPage)
+      const result: any = await this.agentReportSer.getAllAgentReportDetailsPageFilter(filter, page, itemsPerPage)
       if (result.status === '1') {
         result.data.map((el: any) => {
           el.check = false
@@ -156,39 +157,39 @@ export class AgentReportListComponent {
 
   async handleDeleteMuliple() {
     try {
-      // Swal.fire({
-      //   title: "Are you sure?",
-      //   // text: "Do you really want to"+""+ Active +"these records?",
-      //   icon: "error",
-      //   showCancelButton: true,
-      //   confirmButtonColor: "#d33",
-      //   cancelButtonColor: "#3085d6",
-      //   confirmButtonText: "Yes, Disable it!"
-      // }).then(async (result) => {
-      //   if (result.isConfirmed) {
-      //     const filterData = this.agentDetail.filter((el: any) => el.check === true)
-      //     filterData.map((el: any) => {
-      //       el.isActive = "C"
-      //     })
-      //     const result: any = await this.agentSer.updateagentMany(filterData);
-      //     if (result.status === '1') {
-      //       this._snackBar.open("Deleted Successfully", '', {
-      //         duration: 5 * 1000, horizontalPosition: 'center',
-      //         verticalPosition: 'top',
-      //         panelClass: 'app-notification-success',
-      //       });
-      //       this.getAllAgentDetail(this.filterText, this.records, this.itemsPerPage)
-      //       return;
-      //     }
-      //     if (result.status === '0') {
-      //       this._snackBar.open(result.message, '', {
-      //         duration: 5 * 1000, horizontalPosition: 'center',
-      //         verticalPosition: 'top',
-      //         panelClass: 'app-notification-error',
-      //       });
-      //     }
-      //   }
-      // });
+      Swal.fire({
+        title: "Are you sure?",
+        // text: "Do you really want to"+""+ Active +"these records?",
+        icon: "error",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, Disable it!"
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const filterData = this.agentDetail.filter((el: any) => el.check === true)
+          filterData.map((el: any) => {
+            el.isActive = "C"
+          })
+          const result: any = await this.agentReportSer.updateAgentReportDetail(filterData);
+          if (result.status === '1') {
+            this._snackBar.open("Deleted Successfully", '', {
+              duration: 5 * 1000, horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: 'app-notification-success',
+            });
+            this.getAllAgentDetail(this.filterText, this.records, this.itemsPerPage)
+            return;
+          }
+          if (result.status === '0') {
+            this._snackBar.open(result.message, '', {
+              duration: 5 * 1000, horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: 'app-notification-error',
+            });
+          }
+        }
+      });
 
 
     } catch (error: any) {
