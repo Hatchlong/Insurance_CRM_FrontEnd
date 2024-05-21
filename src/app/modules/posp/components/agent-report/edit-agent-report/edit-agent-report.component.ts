@@ -10,6 +10,7 @@ import { RtoStateService } from 'src/app/modules/setting/services/rto-state/rto-
 import { VehicleCategoryService } from 'src/app/modules/setting/services/vehicle-category/vehicle-category.service';
 import { YearOfManufactureService } from 'src/app/modules/setting/services/year-of-manufacture/year-of-manufacture.service';
 import { PospService } from '../../../services/posp/posp.service';
+import { VendorService } from 'src/app/modules/master/services/vendor/vendor.service';
 
 @Component({
   selector: 'app-edit-agent-report',
@@ -38,6 +39,7 @@ export class EditAgentReportComponent {
   rtoStateDetail: any = []
   vehicleCategoryDetail: any = []
   agentReportId: any = ''
+  insurerDetail: any = []
 
   constructor(
     private fb: FormBuilder,
@@ -51,7 +53,9 @@ export class EditAgentReportComponent {
     private rtoStateSer: RtoStateService,
     private vehicleCategorySer: VehicleCategoryService,
     private agentReportSer: PospService,
-    private activateRouter: ActivatedRoute
+    private activateRouter: ActivatedRoute,
+    private vendorSer:VendorService
+
   ) { }
 
   ngOnInit(): void {
@@ -65,6 +69,8 @@ export class EditAgentReportComponent {
     this.getAllYearManufactureDetails()
     this.getAllRTOStateDetails()
     this.getAllVehicleCategoryDetails()
+    this.getAllVendorDetails()
+
   }
 
   handleSideBar(event: any) {
@@ -272,6 +278,21 @@ export class EditAgentReportComponent {
       }
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  async getAllVendorDetails() {
+    try {
+      const result: any = await this.vendorSer.getAllVendorDetail()
+      if (result.status === '1') {
+        this.insurerDetail = result.data
+      }
+    } catch (error) {
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
     }
   }
 

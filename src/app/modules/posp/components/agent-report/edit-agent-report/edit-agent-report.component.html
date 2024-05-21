@@ -7,8 +7,8 @@
             <h4>Basic Detail</h4>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for=""> Policy Number<sup>*</sup></label>
-                <input type="text" formControlName="policyNumber" class="form-control"
-                    placeholder="Enter Policy Number" readonly>
+                <input type="text" formControlName="policyNumber" class="form-control" placeholder="Enter Policy Number"
+                    readonly>
                 <div
                     *ngIf="candidateFormGroup.controls['policyNumber'].touched && candidateFormGroup.controls['policyNumber'].dirty && candidateFormGroup.controls['policyNumber'].hasError('required') && !isSubmitted">
                     <p class="error-message"> Policy Numberis mandatory</p>
@@ -94,7 +94,8 @@
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="">Tonnage(In KG/CC) </label>
                 <input type="number" min="0" formControlName="tonnage" class="form-control"
-                    placeholder="Enter Tonnage(In KG/CC)" />
+                    placeholder="Enter Tonnage(In KG/CC)"
+                    onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" />
             </div>
 
 
@@ -112,23 +113,27 @@
                     <option [selected]="candidateFormGroup.value.insurer_company === ''" value="" hidden>Select Insurer
                         Company
                     </option>
-                    <option *ngFor="let list of jobDetail" [value]="list.jobName">{{list.jobName}}</option>
+                    <option *ngFor="let list of insurerDetail" [value]="list._id">
+                        {{list.insurerId}}-{{list.insurerName}}</option>
                 </select>
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="">Net Premium </label>
                 <input type="number" min="0" formControlName="net_premium" class="form-control"
-                    placeholder="Enter Net Premium" />
+                    placeholder="Enter Net Premium"
+                    onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" />
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="">OD Premium </label>
                 <input type="number" min="0" formControlName="OD_premium" class="form-control"
-                    placeholder="Enter OD Premium" />
+                    placeholder="Enter OD Premium"
+                    onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" />
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="">Policy Premium </label>
                 <input type="number" min="0" formControlName="policy_premium" class="form-control"
-                    placeholder="Enter Policy Premium" />
+                    placeholder="Enter Policy Premium"
+                    onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" />
             </div>
 
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
@@ -159,12 +164,14 @@
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="">Commission Percentage </label>
                 <input type="number" min="0" formControlName="commission_percentage" class="form-control"
-                    placeholder="Enter Commission Percentage" />
+                    placeholder="Enter Commission Percentage"
+                    onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" />
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="">Commission Amount </label>
                 <input type="number" min="0" formControlName="commission_amount" class="form-control"
-                    placeholder="Enter Commission Amount" />
+                    placeholder="Enter Commission Amount"
+                    onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" />
             </div>
 
 

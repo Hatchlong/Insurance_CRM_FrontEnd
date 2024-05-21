@@ -5,7 +5,7 @@
         <div class="row border mx-0">
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="">Year Of Manufactue <sup>*</sup></label>
-                <input type="text" formControlName="year" class="form-control" placeholder="Enter Year Of Manufactue"
+                <input type="number" min="0" formControlName="year" class="form-control" placeholder="Enter Year Of Manufactue"
                     maxlength="4" readonly>
                 <div
                     *ngIf="yearOfManufactureFormGroup.controls['year'].touched && yearOfManufactureFormGroup.controls['year'].dirty && yearOfManufactureFormGroup.controls['year'].hasError('required') && !isSubmitted">

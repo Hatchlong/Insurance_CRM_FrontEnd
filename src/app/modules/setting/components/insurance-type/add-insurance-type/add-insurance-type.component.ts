@@ -35,7 +35,7 @@ export class AddInsuranceTypeComponent {
 
   createdata() {
     this.insuranceTypeFormGroup = this.fb.group({
-      insuranceId: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
+      insuranceId: ['', [Validators.required]],
       insuranceName: ['', Validators.required],
       description: [''],
 

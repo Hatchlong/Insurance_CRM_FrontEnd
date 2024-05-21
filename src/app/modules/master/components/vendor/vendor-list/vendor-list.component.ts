@@ -201,12 +201,12 @@ export class VendorListComponent implements OnInit {
     }
 
     this.vendorDetail = this.allVendorDetail.filter((obj: any) =>
-      ((obj.vendorId.toUpperCase()).includes(filterValue) || (obj.vendorName.toUpperCase()).includes(filterValue)))
+      ((obj.insurerId.toUpperCase()).includes(filterValue) || (obj.insurerName.toUpperCase()).includes(filterValue)))
   }
   filterData() {
     const filterValue = this.searchInput.nativeElement.value.toUpperCase();
     this.vendorDetail = this.allVendorDetail.filter((obj: any) =>
-      ((obj.vendorId.toUpperCase()).includes(filterValue) || (obj.vendorName.toUpperCase()).includes(filterValue)))
+      ((obj.insurerId.toUpperCase()).includes(filterValue) || (obj.insurerName.toUpperCase()).includes(filterValue)))
 
   }
 
