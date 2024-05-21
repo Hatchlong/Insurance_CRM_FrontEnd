@@ -31,6 +31,26 @@ import { AddInsuranceTypeComponent } from './components/insurance-type/add-insur
 import { EditInsuranceTypeComponent } from './components/insurance-type/edit-insurance-type/edit-insurance-type.component';
 import { InsuranceTypeListComponent } from './components/insurance-type/insurance-type-list/insurance-type-list.component';
 import { InsuranceTypeService } from './services/insurance-type/insurance-type.service';
+import { MakeListComponent } from './components/make/make-list/make-list.component';
+import { AddMakeComponent } from './components/make/add-make/add-make.component';
+import { EditMakeComponent } from './components/make/edit-make/edit-make.component';
+import { ModelListComponent } from './components/model/model-list/model-list.component';
+import { AddModelComponent } from './components/model/add-model/add-model.component';
+import { EditModelComponent } from './components/model/edit-model/edit-model.component';
+import { CategoryListComponent } from './components/category/category-list/category-list.component';
+import { AddCategoryComponent } from './components/category/add-category/add-category.component';
+import { EditCategoryComponent } from './components/category/edit-category/edit-category.component';
+import { YearOfManufactureListComponent } from './components/year-of-manufacture/year-of-manufacture-list/year-of-manufacture-list.component';
+import { AddYearOfManufactureComponent } from './components/year-of-manufacture/add-year-of-manufacture/add-year-of-manufacture.component';
+import { EditYearOfManufactureComponent } from './components/year-of-manufacture/edit-year-of-manufacture/edit-year-of-manufacture.component';
+import { PolicyTypeListComponent } from './components/policy-type/policy-type-list/policy-type-list.component';
+import { AddPolicyTypeComponent } from './components/policy-type/add-policy-type/add-policy-type.component';
+import { EditPolicyTypeComponent } from './components/policy-type/edit-policy-type/edit-policy-type.component';
+import { CategoryService } from './services/category/category.service';
+import { MakeService } from './services/make/make.service';
+import { ModelService } from './services/model/model.service';
+import { PolictTypeService } from './services/policy-type/polict-type.service';
+import { YearOfManufactureService } from './services/year-of-manufacture/year-of-manufacture.service';
 
 
 @NgModule({
@@ -49,6 +69,22 @@ import { InsuranceTypeService } from './services/insurance-type/insurance-type.s
     AddInsuranceTypeComponent,
     EditInsuranceTypeComponent,
     InsuranceTypeListComponent,
+    MakeListComponent,
+    AddMakeComponent,
+    EditMakeComponent,
+    ModelListComponent,
+    AddModelComponent,
+    EditModelComponent,
+    CategoryListComponent,
+    AddCategoryComponent,
+    EditCategoryComponent,
+    YearOfManufactureListComponent,
+    AddYearOfManufactureComponent,
+    EditYearOfManufactureComponent,
+    PolicyTypeListComponent,
+    AddPolicyTypeComponent,
+    EditPolicyTypeComponent,
+
   ],
   imports: [
     CommonModule,
@@ -68,6 +104,6 @@ import { InsuranceTypeService } from './services/insurance-type/insurance-type.s
     TypeaheadModule.forRoot()
 
   ],
-  providers: [CompanyCodeService, VehicleCategoryService, RtoStateService, InsuranceTypeService]
+  providers: [CompanyCodeService, VehicleCategoryService, RtoStateService, InsuranceTypeService, CategoryService, MakeService, ModelService, PolictTypeService, YearOfManufactureService]
 })
 export class SettingModule { }

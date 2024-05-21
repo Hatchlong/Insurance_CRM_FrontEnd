@@ -9,12 +9,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login/login.component';
 import { RegisterComponent } from './components/register/register/register.component';
 import { AuthrService } from './services/authr/authr.service';
+import { NewLoginComponent } from './components/new-login/new-login/new-login.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    NewLoginComponent
   ],
   imports: [
     CommonModule,

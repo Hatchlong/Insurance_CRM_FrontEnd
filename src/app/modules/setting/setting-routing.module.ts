@@ -12,6 +12,21 @@ import { EditRtoStateComponent } from './components/rto-state/edit-rto-state/edi
 import { AddInsuranceTypeComponent } from './components/insurance-type/add-insurance-type/add-insurance-type.component';
 import { InsuranceTypeListComponent } from './components/insurance-type/insurance-type-list/insurance-type-list.component';
 import { EditInsuranceTypeComponent } from './components/insurance-type/edit-insurance-type/edit-insurance-type.component';
+import { MakeListComponent } from './components/make/make-list/make-list.component';
+import { AddMakeComponent } from './components/make/add-make/add-make.component';
+import { EditMakeComponent } from './components/make/edit-make/edit-make.component';
+import { ModelListComponent } from './components/model/model-list/model-list.component';
+import { AddModelComponent } from './components/model/add-model/add-model.component';
+import { EditModelComponent } from './components/model/edit-model/edit-model.component';
+import { CategoryListComponent } from './components/category/category-list/category-list.component';
+import { AddCategoryComponent } from './components/category/add-category/add-category.component';
+import { EditCategoryComponent } from './components/category/edit-category/edit-category.component';
+import { PolicyTypeListComponent } from './components/policy-type/policy-type-list/policy-type-list.component';
+import { AddPolicyTypeComponent } from './components/policy-type/add-policy-type/add-policy-type.component';
+import { EditPolicyTypeComponent } from './components/policy-type/edit-policy-type/edit-policy-type.component';
+import { YearOfManufactureListComponent } from './components/year-of-manufacture/year-of-manufacture-list/year-of-manufacture-list.component';
+import { AddYearOfManufactureComponent } from './components/year-of-manufacture/add-year-of-manufacture/add-year-of-manufacture.component';
+import { EditYearOfManufactureComponent } from './components/year-of-manufacture/edit-year-of-manufacture/edit-year-of-manufacture.component';
 
 const routes: Routes = [
   {
@@ -61,6 +76,66 @@ const routes: Routes = [
   {
     path: 'edit-insurance-type/:id',
     component: EditInsuranceTypeComponent
+  },
+  {
+    path: 'make-list',
+    component: MakeListComponent
+  },
+  {
+    path: 'add-make',
+    component: AddMakeComponent
+  },
+  {
+    path: 'edit-make/:id',
+    component: EditMakeComponent
+  },
+  {
+    path: 'model-list',
+    component: ModelListComponent
+  },
+  {
+    path: 'add-model',
+    component: AddModelComponent
+  },
+  {
+    path: 'edit-model/:id',
+    component: EditModelComponent
+  },
+  {
+    path: 'category-list',
+    component: CategoryListComponent
+  },
+  {
+    path: 'add-category',
+    component: AddCategoryComponent
+  },
+  {
+    path: 'edit-category/:id',
+    component: EditCategoryComponent
+  },
+  {
+    path: 'policy-type-list',
+    component: PolicyTypeListComponent
+  },
+  {
+    path: 'add-policy-type',
+    component: AddPolicyTypeComponent
+  },
+  {
+    path: 'edit-policy-type/:id',
+    component: EditPolicyTypeComponent
+  },
+  {
+    path: 'year-of-manufacture-list',
+    component: YearOfManufactureListComponent
+  },
+  {
+    path: 'add-year-of-manufacture',
+    component: AddYearOfManufactureComponent
+  },
+  {
+    path: 'edit-year-of-manufacture/:id',
+    component: EditYearOfManufactureComponent
   }
 ];
 
