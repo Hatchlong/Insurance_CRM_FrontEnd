@@ -34,7 +34,7 @@ export class AddVehicleRegisteryComponent implements OnInit {
 
   createdata() {
     this.vehicleCategoryData = this.fb.group({
-      vehicleCategory: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
+      vehicleCategory: ['', [Validators.required]],
       description: ['', Validators.required],
 
     });

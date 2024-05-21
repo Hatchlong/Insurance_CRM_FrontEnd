@@ -148,14 +148,19 @@ body {
     color: #DA5355 !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 425px) {
     .left-panel {
         display: none;
     }
 
     .right-panel {
         width: 100%;
+
         /* Make the right panel take full width */
+    }
+    .right-panel img{
+        max-width: 100%;
+        max-height: 100%;
     }
 }
 

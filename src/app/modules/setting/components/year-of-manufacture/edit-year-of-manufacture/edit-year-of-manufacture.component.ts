@@ -65,8 +65,6 @@ export class EditYearOfManufactureComponent {
       // Format the date and time
       const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-      this.yearOfManufactureFormGroup.value.createdOn = fullDate
-      this.yearOfManufactureFormGroup.value.createdBy = username
       this.yearOfManufactureFormGroup.value.changedOn = fullDate
       this.yearOfManufactureFormGroup.value.changedBy = username
 

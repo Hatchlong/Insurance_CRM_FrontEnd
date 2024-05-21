@@ -66,8 +66,7 @@ export class EditInsuranceTypeComponent {
       // Format the date and time
       const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-      // this.insuranceTypeFormGroup.value.createdOn = fullDate
-      // this.insuranceTypeFormGroup.value.createdBy = username
+     
       this.insuranceTypeFormGroup.value.changedOn = fullDate
       this.insuranceTypeFormGroup.value.changedBy = username
 

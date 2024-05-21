@@ -45,8 +45,8 @@ export class EditCategoryComponent {
 
   }
 
-   //get singleDetail
-   async getSingleCategoryDetail() {
+  //get singleDetail
+  async getSingleCategoryDetail() {
     try {
       const result: any = await this.categorySer.singlecategoryDetail(this.categoryDetailId)
       if (result.status === '1') {
@@ -78,8 +78,6 @@ export class EditCategoryComponent {
       // Format the date and time
       const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-      this.categoryDetailFormGroup.value.createdOn = fullDate
-      this.categoryDetailFormGroup.value.createdBy = username
       this.categoryDetailFormGroup.value.changedOn = fullDate
       this.categoryDetailFormGroup.value.changedBy = username
 

@@ -43,7 +43,7 @@ export class AddRtoStateComponent implements OnInit {
 
   data() {
     this.rtoStateData = this.fb.group({
-      rtoStateCode: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
+      rtoStateCode: ['', [Validators.required]],
       description: ['', Validators.required],
       address: [''],
       countryId: ['', Validators.required],

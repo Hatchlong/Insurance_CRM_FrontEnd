@@ -65,8 +65,6 @@ export class EditPolicyTypeComponent {
       // Format the date and time
       const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-      this.policyTypeFormGroup.value.createdOn = fullDate
-      this.policyTypeFormGroup.value.createdBy = username
       this.policyTypeFormGroup.value.changedOn = fullDate
       this.policyTypeFormGroup.value.changedBy = username
 

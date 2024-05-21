@@ -119,8 +119,7 @@ export class EditCompanyCodeComponent {
       // Format the date and time
       const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-      this.companyCodeFormData.value.createdOn = fullDate
-      this.companyCodeFormData.value.createdBy = username
+      
       this.companyCodeFormData.value.changedOn = fullDate
       this.companyCodeFormData.value.changedBy = username
 
