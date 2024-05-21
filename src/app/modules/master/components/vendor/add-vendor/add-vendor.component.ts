@@ -47,8 +47,8 @@ export class AddVendorComponent implements OnInit {
   }
   createVendorFormFields() {
     this.vendorFormGroup = this.fb.group({
-      vendorId: ['', Validators.required],
-      vendorName: ['', Validators.required],
+      insurerId: ['', Validators.required],
+      insurerName: ['', Validators.required],
       address: ['', Validators.required],
       countryId: ['', Validators.required],
       countryName: ['', Validators.required],

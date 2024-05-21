@@ -16,7 +16,7 @@
                             <div class="col-12 py-2">
                                 <label for="" class="">Company Code <sup>*</sup></label>
                                 <input type="text" class="form-control " placeholder="Enter Company Code"
-                                    formControlName="companyCode" maxlength="6" readonly>
+                                    formControlName="companyCode" maxlength="10" readonly>
                                 <div
                                     *ngIf="companyCodeFormData.controls['companyCode'].touched && companyCodeFormData.controls['companyCode'].dirty && companyCodeFormData.controls['companyCode'].hasError('required') && !isSubmitted">
                                     <p class="error-message">Company Code is mandatory</p>

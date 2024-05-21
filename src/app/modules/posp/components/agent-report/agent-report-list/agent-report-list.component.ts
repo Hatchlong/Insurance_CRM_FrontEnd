@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { PospService } from '../../../services/posp/posp.service';
 
 @Component({
   selector: 'app-agent-report-list',
@@ -44,7 +45,7 @@ export class AgentReportListComponent {
 
   constructor(private router: Router,
     private _snackBar: MatSnackBar,
-
+    private agentReportSer: PospService
   ) { }
   handleSideBar(event: any) {
     this.isShowPadding = event
@@ -54,28 +55,7 @@ export class AgentReportListComponent {
   }
 
   ngOnInit(): void {
-    // this.getAllAgentDetail(this.filterText, this.page, this.itemsPerPage)
-  }
-  selectdata(event: any) {
-    console.log(event.target.checked)
-    this.selectAll = event.target.checked;
-    console.log(typeof this.selectAll)
-    this.agentDetail.map((el: any) => {
-      el.check = event.target.checked
-    })
-
-
-  }
-  particularcheck(event: any, index: any) {
-    this.agentDetail[index].check = event.target.checked
-    const findSelect = this.agentDetail.find((el: any) => el.check === false)
-
-    if (findSelect) {
-      this.selectAll = false
-    }
-    else {
-      this.selectAll = true
-    }
+    this.getAllAgentDetail(this.filterText, this.page, this.itemsPerPage)
   }
 
 
@@ -102,17 +82,17 @@ export class AgentReportListComponent {
   //get all detail of agent from the database
   async getAllAgentDetail(filter: any, page: any, itemsPerPage: any) {
     try {
-      // const result: any = await this.agentSer.getAllAgentDetailsPageFilter(filter, page, itemsPerPage)
-      // if (result.status === '1') {
-      //   result.data.map((el: any) => {
-      //     el.check = false
-      //   })
-      //   this.agentDetail = result.data
-      //   this.allAgentDetail = result.data
-      //   if (result.data.length === 0) {
-      //     this.selectAll = false
-      //   }
-      // }
+      const result: any = await this.agentReportSer.getAllAgentReportsPage(page, itemsPerPage)
+      if (result.status === '1') {
+        result.data.map((el: any) => {
+          el.check = false
+        })
+        this.agentDetail = result.data
+        this.allAgentDetail = result.data
+        if (result.data.length === 0) {
+          this.selectAll = false
+        }
+      }
     } catch (error) {
 
       this._snackBar.open('Something went wrong', '', {
@@ -230,35 +210,21 @@ export class AgentReportListComponent {
 
   handleFilter(event: any) {
     const filterValue = event.target.value.toUpperCase();
-    if (!filterValue && !this.selectedCategory && !this.selectedCity) {
+    if (!filterValue) {
       this.agentDetail = this.allAgentDetail;
       return;
     }
 
     this.agentDetail = this.allAgentDetail.filter((obj: any) =>
-      ((obj.agentId.toUpperCase()).includes(filterValue) || (obj.agentName.toUpperCase()).includes(filterValue) || (obj.mobile).includes(filterValue) || (obj.mailId.toUpperCase()).includes(filterValue)) &&
-      (!this.selectedCategory || obj.category.toLowerCase() === this.selectedCategory.toLowerCase()) &&
-      (!this.selectedCity || obj.city.toLowerCase() === this.selectedCity.toLowerCase())
-
+      ((obj.policyNumber.toUpperCase()).includes(filterValue) || (obj.insuredName.toUpperCase()).includes(filterValue))
     );
   }
 
-  handleCategory(event: any) {
-    this.selectedCategory = event.target.value;
-    this.filterData();
-  }
-  handleCity(event: any) {
-    this.selectedCity = event.target.value;
-    this.filterData();
-  }
 
   filterData() {
     const filterValue = this.searchInput.nativeElement.value.toUpperCase();
     this.agentDetail = this.allAgentDetail.filter((obj: any) =>
-      ((obj.agentId.toUpperCase()).includes(filterValue) || (obj.agentName.toUpperCase()).includes(filterValue) || (obj.mobile).includes(filterValue) || (obj.mailId.toUpperCase()).includes(filterValue)) &&
-      (!this.selectedCategory || obj.category.toLowerCase() === this.selectedCategory.toLowerCase()) &&
-      (!this.selectedCity || obj.city.toLowerCase() === this.selectedCity.toLowerCase())
-    );
+      ((obj.policyNumber.toUpperCase()).includes(filterValue) || (obj.insuredName.toUpperCase()).includes(filterValue)));
   }
 
 

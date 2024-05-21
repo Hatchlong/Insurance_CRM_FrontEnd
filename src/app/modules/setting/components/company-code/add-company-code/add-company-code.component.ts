@@ -46,7 +46,7 @@ export class AddCompanyCodeComponent implements OnInit {
 
   createCompanyCodeData() {
     this.companyCodeFormData = this.fb.group({
-      companyCode: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
+      companyCode: ['', [Validators.required]],
       companyName: ['', Validators.required],
       address: [''],
       countryId: ['', Validators.required],
@@ -56,7 +56,7 @@ export class AddCompanyCodeComponent implements OnInit {
       stateName: ['', [Validators.required]],
       pinCode: [''],
       mobile: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      mailId: ['', [ Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}')]],
+      mailId: ['', [Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}')]],
       companyRegistrationNo: [''],
       panNumber: [''],
       companyRegistrationFilePath: [''],

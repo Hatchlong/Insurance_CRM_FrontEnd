@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from 'src/app/modules/setting/services/category/category.service';
 import { MakeService } from 'src/app/modules/setting/services/make/make.service';
 import { ModelService } from 'src/app/modules/setting/services/model/model.service';
@@ -12,11 +12,12 @@ import { YearOfManufactureService } from 'src/app/modules/setting/services/year-
 import { PospService } from '../../../services/posp/posp.service';
 
 @Component({
-  selector: 'app-add-agent-report',
-  templateUrl: './add-agent-report.component.html',
-  styleUrls: ['./add-agent-report.component.css']
+  selector: 'app-edit-agent-report',
+  templateUrl: './edit-agent-report.component.html',
+  styleUrls: ['./edit-agent-report.component.css']
 })
-export class AddAgentReportComponent {
+export class EditAgentReportComponent {
+
 
   candidateFormGroup: any = FormGroup
   isSubmitted: any = false;
@@ -36,6 +37,7 @@ export class AddAgentReportComponent {
   yearOfManufactureDetail: any = []
   rtoStateDetail: any = []
   vehicleCategoryDetail: any = []
+  agentReportId: any = ''
 
   constructor(
     private fb: FormBuilder,
@@ -46,13 +48,16 @@ export class AddAgentReportComponent {
     private categorySer: CategoryService,
     private policyTypeSer: PolictTypeService,
     private yearManuSer: YearOfManufactureService,
-    private rtoStateSer:RtoStateService,
-    private vehicleCategorySer:VehicleCategoryService,
-    private agentReportSer:PospService
+    private rtoStateSer: RtoStateService,
+    private vehicleCategorySer: VehicleCategoryService,
+    private agentReportSer: PospService,
+    private activateRouter: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.agentReportId = this.activateRouter.snapshot.paramMap.get('id')
     this.data()
+    this.getSingleAgentReportDetail()
     this.getAllMakeDetails()
     this.getAllModelDetails()
     this.getAllCategoryDetails()
@@ -69,6 +74,7 @@ export class AddAgentReportComponent {
 
   data() {
     this.candidateFormGroup = this.fb.group({
+      _id: ['', Validators.required],
       policyNumber: ['', Validators.required],
       insuredName: ['', [Validators.required]],
       policyIssueDate: [''],
@@ -93,17 +99,6 @@ export class AddAgentReportComponent {
     });
   }
 
-  uploadFile(inputData: any, fieldName: any) {
-    inputData.click();
-    this.filedPathName = fieldName;
-    this.inputControl = inputData
-  }
-  deletePerview() {
-    this.inputFile.nativeElement.value = '';
-    this.imageSrc = '';
-    this.selectedFile = ''
-  }
-
   async submitData() {
     try {
       this.isSubmitted = true
@@ -124,19 +119,18 @@ export class AddAgentReportComponent {
       // Format the date and time
       const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
-      this.candidateFormGroup.value.createdOn = fullDate
-      this.candidateFormGroup.value.createdBy = username
+
       this.candidateFormGroup.value.changedOn = fullDate
       this.candidateFormGroup.value.changedBy = username
 
-      const result: any = await this.agentReportSer.createAgentReport(this.candidateFormGroup.value)
+      const result: any = await this.agentReportSer.updateAgentReportDetail(this.candidateFormGroup.value)
       if (result.status === '1') {
         this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        this.router.navigate(['/recruitment/candidate-list/'])
+        this.router.navigate(['/posp/agent-report-list/'])
         return
       }
       if (result.status === '0') {
@@ -267,6 +261,17 @@ export class AddAgentReportComponent {
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
       });
+    }
+  }
+  //get singleDetail
+  async getSingleAgentReportDetail() {
+    try {
+      const result: any = await this.agentReportSer.singleAgentReportDetail(this.agentReportId)
+      if (result.status === '1') {
+        this.candidateFormGroup.patchValue(result.data)
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 

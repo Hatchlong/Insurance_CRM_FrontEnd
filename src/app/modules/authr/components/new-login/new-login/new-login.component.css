@@ -1,4 +1,3 @@
-/* Reset some basic styles */
 * {
     margin: 0;
     padding: 0;
@@ -17,7 +16,7 @@ body {
 }
 
 .background-wrapper {
-    background: linear-gradient(to top, #759ce0, #FFB6C1, aqua);
+    background: linear-gradient(10deg,#3a3b73 ,#c15474 ,#716187, #759ce0, aqua,#35cce5,#4ad2e0);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,12 +27,12 @@ body {
 
 .container {
     display: flex;
-    width: 70%;
-    height: 80%;
+    width: 55%;
+    height: 70%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
     overflow: hidden;
-    /* margin-top: 100px; */
+    margin-top: 100px;
 }
 
 .left-panel,
@@ -46,7 +45,7 @@ body {
 }
 
 .welcome-text {
-    color: #05C0FF;
+    color: #05C0FF !important;
     margin-top: 20px;
     margin-right: 230px;
 }
@@ -90,6 +89,7 @@ body {
 }
 
 .textbox input {
+    /* height: 100%; */
     width: 100%;
     border: none;
     outline: none;
@@ -151,7 +151,6 @@ body {
 @media (max-width: 768px) {
     .left-panel {
         display: none;
-        /* Hide the left panel */
     }
 
     .right-panel {
@@ -166,4 +165,66 @@ body {
 }
 .text-footer{
     margin-left: 60px;
+}
+@media (max-width: 1200px) {
+    .container {
+        width: 70%;
+    }
+}
+
+@media (max-width: 992px) {
+    .container {
+        width: 85%;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .left-panel {
+        display: none;
+    }
+
+    .right-panel {
+        width: 100%;
+    }
+
+    .welcome-text {
+        margin: 0;
+    }
+
+    .erp-version {
+        margin: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        width: 95%;
+    }
+
+    .login-box {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .textbox input {
+        padding: 8px;
+    }
+
+    .btn {
+        padding: 8px;
+    }
+
+    .bottom-text {
+        flex-direction: column;
+    }
+
+    .text-footer {
+        margin: 0;
+        text-align: center;
+    }
 }

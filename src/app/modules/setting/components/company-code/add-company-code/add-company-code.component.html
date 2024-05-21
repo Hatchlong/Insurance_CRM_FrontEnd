@@ -16,7 +16,7 @@
                             <div class="col-12 py-2">
                                 <label for="" class="">Company Code <sup>*</sup></label>
                                 <input type="text" class="form-control " placeholder="Enter Company Code"
-                                    formControlName="companyCode" maxlength="6">
+                                    formControlName="companyCode" maxlength="10">
                                 <div
                                     *ngIf="companyCodeFormData.controls['companyCode'].touched && companyCodeFormData.controls['companyCode'].dirty && companyCodeFormData.controls['companyCode'].hasError('required') && !isSubmitted">
                                     <p class="error-message">Company Code is mandatory</p>
@@ -25,12 +25,7 @@
                                     *ngIf="isSubmitted && companyCodeFormData.controls['companyCode'].hasError('required')">
                                     <p class="error-message">Company Code is mandatory</p>
                                 </div>
-                                <div *ngIf="companyCodeFormData.controls['companyCode'].hasError('minlength')">
-                                    <p class="error-message">Must have 6 character</p>
-                                </div>
-                                <div *ngIf="companyCodeFormData.controls['companyCode'].hasError('maxlength')">
-                                    <p class="error-message">Must have 6 character</p>
-                                </div>
+
                             </div>
                             <div class="col-12 py-2">
                                 <label for="" class="">Company Name <sup>*</sup></label>
