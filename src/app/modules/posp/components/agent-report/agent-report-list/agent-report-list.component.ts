@@ -65,7 +65,7 @@ export class AgentReportListComponent {
   }
 
   handleFilterDetails() {
-    // this.getAllAgentDetail(this.filterText, this.records, this.itemsPerPage)
+    this.getAllAgentDetail(this.filterText, this.records, this.itemsPerPage)
   }
 
 
@@ -108,72 +108,22 @@ export class AgentReportListComponent {
   //delete single or particular record by the delete icon in every row of data
   async deleteRecords(data: any) {
     try {
-      // Swal.fire({
-      //   title: "Are you sure?",
-      //   text: "Do you really want to" + " " + (data.isActive === 'O' ? 'Inactive' : 'Active') + " this record?",
-      //   icon: "error",
-      //   showCancelButton: true,
-      //   confirmButtonColor: "#d33",
-      //   cancelButtonColor: "#3085d6",
-      //   confirmButtonText: "Yes",
-      //   cancelButtonText: 'No'
-      // }).then(async (result) => {
-      //   if (result.isConfirmed) {
-      //     data.isActive = data.isActive === 'O' ? 'C' : 'O'
-      //     data.disable = true
-      //     const result: any = await this.agentSer.updateAgentDetail(data);
-      //     if (result.status === '1') {
-      //       this._snackBar.open("Updated Successfully", '', {
-      //         duration: 5 * 1000, horizontalPosition: 'center',
-      //         verticalPosition: 'top',
-      //         panelClass: 'app-notification-success',
-      //       });
-      //       this.getAllAgentDetail(this.filterText, this.records, this.itemsPerPage)
-      //       return;
-      //     }
-      //     if (result.status === '0') {
-      //       this.getAllAgentDetail(this.filterText, this.records, this.itemsPerPage)
-      //       this._snackBar.open(result.message, '', {
-      //         duration: 5 * 1000, horizontalPosition: 'center',
-      //         verticalPosition: 'top',
-      //         panelClass: 'app-notification-error',
-      //       });
-      //     }
-      //   } else {
-      //     this.getAllAgentDetail(this.filterText, this.records, this.itemsPerPage)
-      //   }
-      // });
-
-
-    } catch (error: any) {
-
-      this._snackBar.open('Something went wrong', '', {
-        duration: 5 * 1000, horizontalPosition: 'center',
-        verticalPosition: 'top',
-        panelClass: 'app-notification-error',
-      });
-    }
-  }
-
-  async handleDeleteMuliple() {
-    try {
       Swal.fire({
         title: "Are you sure?",
-        // text: "Do you really want to"+""+ Active +"these records?",
+        text: "Do you really want to" + " " + (data.isActive === 'O' ? 'Inactive' : 'Active') + " this record?",
         icon: "error",
         showCancelButton: true,
         confirmButtonColor: "#d33",
         cancelButtonColor: "#3085d6",
-        confirmButtonText: "Yes, Disable it!"
+        confirmButtonText: "Yes",
+        cancelButtonText: 'No'
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const filterData = this.agentDetail.filter((el: any) => el.check === true)
-          filterData.map((el: any) => {
-            el.isActive = "C"
-          })
-          const result: any = await this.agentReportSer.updateAgentReportDetail(filterData);
+          data.isActive = data.isActive === 'O' ? 'C' : 'O'
+          data.disable = true
+          const result: any = await this.agentReportSer.updateAgentReportDetail(data);
           if (result.status === '1') {
-            this._snackBar.open("Deleted Successfully", '', {
+            this._snackBar.open("Updated Successfully", '', {
               duration: 5 * 1000, horizontalPosition: 'center',
               verticalPosition: 'top',
               panelClass: 'app-notification-success',
@@ -182,29 +132,28 @@ export class AgentReportListComponent {
             return;
           }
           if (result.status === '0') {
+            this.getAllAgentDetail(this.filterText, this.records, this.itemsPerPage)
             this._snackBar.open(result.message, '', {
               duration: 5 * 1000, horizontalPosition: 'center',
               verticalPosition: 'top',
               panelClass: 'app-notification-error',
             });
           }
+        } else {
+          this.getAllAgentDetail(this.filterText, this.records, this.itemsPerPage)
         }
       });
 
 
     } catch (error: any) {
-      console.error(error)
+
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: 'app-notification-error',
       });
     }
-
-
   }
-
-
 
 
 

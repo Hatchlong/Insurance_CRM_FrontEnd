@@ -10,7 +10,7 @@
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                         <label for="">Insurer Id <sup>*</sup></label>
                         <input type="text" class="form-control " formControlName="insurerId"
-                            placeholder="Enter Insurer Id">
+                            placeholder="Enter Insurer Id" maxlength="10">
                         <div
                             *ngIf="vendorFormGroup.controls['insurerId'].touched && vendorFormGroup.controls['insurerId'].dirty && vendorFormGroup.controls['insurerId'].hasError('required') && !isSubmitted">
                             <p class="error-message">Insurer Id is mandatory</p>

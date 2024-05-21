@@ -7,7 +7,7 @@
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="">Insurance Id <sup>*</sup></label>
                 <input type="text" formControlName="insuranceId" class="form-control" placeholder="Enter Insurance Id"
-                    maxlength="6">
+                    maxlength="10">
                 <div
                     *ngIf="insuranceTypeFormGroup.controls['insuranceId'].touched && insuranceTypeFormGroup.controls['insuranceId'].dirty && insuranceTypeFormGroup.controls['insuranceId'].hasError('required') && !isSubmitted">
                     <p class="error-message">Insurance Id is mandatory</p>
@@ -15,12 +15,7 @@
                 <div *ngIf="isSubmitted && insuranceTypeFormGroup.controls['insuranceId'].hasError('required')">
                     <p class="error-message">Insurance Id is mandatory</p>
                 </div>
-                <div *ngIf="insuranceTypeFormGroup.controls['insuranceId'].hasError('minlength')">
-                    <p class="error-message">Must have 6 character</p>
-                </div>
-                <div *ngIf="insuranceTypeFormGroup.controls['insuranceId'].hasError('maxlength')">
-                    <p class="error-message">Must have 6 character</p>
-                </div>
+              
             </div>
 
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
