@@ -78,6 +78,7 @@ export class AddAgentReportComponent {
 
   data() {
     this.candidateFormGroup = this.fb.group({
+      agent_id:[''],
       policyNumber: ['', Validators.required],
       insuredName: ['', [Validators.required]],
       policyIssueDate: [''],
@@ -153,6 +154,9 @@ export class AddAgentReportComponent {
       if (this.candidateFormGroup.invalid)
         return
       const username: any = localStorage.getItem('userId')
+      const agentUsername: any = localStorage.getItem('userName')
+      this.candidateFormGroup.controls.agent_id.setValue(agentUsername)
+
 
       const currentDate = new Date();
       const year = currentDate.getFullYear();
