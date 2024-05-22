@@ -71,8 +71,11 @@
                 <li><a (click)="nextPage('/setting/make-list',{main:'Setting',name:'Make'})">Make</a></li>
                 <li><a (click)="nextPage('/setting/model-list',{main:'Setting',name:'Model'})">Model</a></li>
                 <li><a (click)="nextPage('/setting/category-list',{main:'Setting',name:'Category'})">Category</a></li>
-                <li><a (click)="nextPage('/setting/policy-type-list',{main:'Setting',name:'Policy Type'})">Policy Type</a></li>
-                <li><a (click)="nextPage('/setting/year-of-manufacture-list',{main:'Setting',name:'Year Of Manufacture'})">Year Of Manufacture</a></li>
+                <li><a (click)="nextPage('/setting/policy-type-list',{main:'Setting',name:'Policy Type'})">Policy
+                        Type</a></li>
+                <li><a
+                        (click)="nextPage('/setting/year-of-manufacture-list',{main:'Setting',name:'Year Of Manufacture'})">Year
+                        Of Manufacture</a></li>
 
             </ul>
         </li>
@@ -105,25 +108,47 @@
             </ul>
         </li>
 
-        <li>
-            <div class="profile-details">
-                <div class="profile-content">
-                    <img src="assets/logs/profile.png" alt="profileImg">
-                </div>
-                <div class="name-job">
-                    <div class="profile_name">Developers</div>
-                    <div class="job">Web Desginer</div>
-                </div>
-                <i class='bx bx-log-out'></i>
-            </div>
-        </li>
+       
     </ul>
 </div>
+
 <section class="home-section">
     <div class="home-content">
         <i class='bx bx-menu' (click)="closeNav()"></i>
         <span class="text"><b>{{subFolderName | uppercase}}</b> / <span class="screenName">{{SelectedName |
                 uppercase}}</span></span>
+        <div class="logout">
+            <span style="position: relative; right: 20px;">{{userName}}</span>
+            <img src="assets/logs/profile.png" [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()"
+                style="width: 40px;position: relative; right: 10px;" alt="profileImg">
+            <mat-menu #menu="matMenu">
+                <ng-container *ngIf="isShowMenu">
+                    <button mat-menu-item
+                        (click)="$event.stopPropagation();isShowMenu = false; isShowProfile = !isShowProfile">My
+                        Profile</button>
+                    <button mat-menu-item
+                        (click)="$event.stopPropagation();isShowMenu = false; isShowForgot = !isShowForgot">Reset
+                        Password</button>
+                    <button mat-menu-item
+                        (click)="$event.stopPropagation();isShowMenu = false; isShowClear=!isShowClear">Clear
+                        User</button>
+                    <button mat-menu-item (click)="logout()">Logout</button>
+                </ng-container>
+                <ng-container *ngIf="isShowForgot">
+                    <app-reset-password
+                        (closeMatMenu)="isShowMenu = true;isShowForgot=!isShowForgot"></app-reset-password>
+                </ng-container>
+                <ng-container *ngIf="isShowClear">
+                    <app-clear-user (closeMatMenu)="isShowMenu = true;isShowClear=!isShowClear"></app-clear-user>
+                </ng-container>
+                <ng-container *ngIf="isShowProfile">
+                    <app-my-profile (closeMatMenu)="isShowMenu = true;isShowProfile=!isShowProfile"></app-my-profile>
+                </ng-container>
+            </mat-menu>
+
+
+            <!-- <span style="position: relative; top: 6px;" (click)="logout()"><mat-icon>logout</mat-icon></span> -->
+        </div>
     </div>
 
 </section>

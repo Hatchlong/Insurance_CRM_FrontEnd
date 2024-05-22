@@ -57,4 +57,12 @@ export class PospService {
     return this.http.post(`http://localhost:4000/api/master/agent_report/getAll/${skip}/${itemsPerPage}`, { filter: filter }, { headers }).toPromise()
 
   }
+
+  deleteAgentReportDetail(data: any) {
+    const token: any = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.put(`http://localhost:4000/api/master/agent_report/delete/${data._id}`, data, { headers }).toPromise()
+  }
 }

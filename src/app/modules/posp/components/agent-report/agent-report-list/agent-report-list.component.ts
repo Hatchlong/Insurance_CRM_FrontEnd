@@ -121,7 +121,7 @@ export class AgentReportListComponent {
         if (result.isConfirmed) {
           data.isActive = data.isActive === 'O' ? 'C' : 'O'
           data.disable = true
-          const result: any = await this.agentReportSer.updateAgentReportDetail(data);
+          const result: any = await this.agentReportSer.deleteAgentReportDetail(data);
           if (result.status === '1') {
             this._snackBar.open("Updated Successfully", '', {
               duration: 5 * 1000, horizontalPosition: 'center',

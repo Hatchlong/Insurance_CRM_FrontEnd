@@ -56,9 +56,9 @@ export class EditAgentReportComponent {
     private vehicleCategorySer: VehicleCategoryService,
     private agentReportSer: PospService,
     private activateRouter: ActivatedRoute,
-    private vendorSer:VendorService
+    private vendorSer: VendorService
 
-  ) { 
+  ) {
     this.today = new Date().toISOString().split('T')[0];
 
   }
@@ -86,10 +86,10 @@ export class EditAgentReportComponent {
   data() {
     this.candidateFormGroup = this.fb.group({
       _id: ['', Validators.required],
-      agent_id:[''],
+      agent_id: [''],
       policyNumber: ['', Validators.required],
       insuredName: ['', [Validators.required]],
-      policyIssueDate: [''],
+      policyIssueDate: ['', this.dateValid.bind(this)],
       startDate: [''],
       expiryDate: [''],
       make: [''],
@@ -97,16 +97,16 @@ export class EditAgentReportComponent {
       yearOfManufacturing: [''],
       policyType: [''],
       category: [''],
-      vehicleRagistrationNo: ['',this.validateVehicleRegistration],
-      tonnage: ['',this.customValidator()],
-      insurer_company: ['',this.customValidator()],
-      net_premium: ['',this.customValidator()],
-      OD_premium: ['',this.customValidator()],
-      policy_premium: ['',this.customValidator()],
+      vehicleRagistrationNo: ['', this.validateVehicleRegistration],
+      tonnage: ['', this.customValidator()],
+      insurer_company: ['', this.customValidator()],
+      net_premium: ['', this.customValidator()],
+      OD_premium: ['', this.customValidator()],
+      policy_premium: ['', this.customValidator()],
       RTOstatusCode: [''],
       RTOvehicleCode: [''],
-      commission_percentage: ['',this.customValidator()],
-      commission_amount: ['',this.customValidator()],
+      commission_percentage: ['', this.customValidator()],
+      commission_amount: ['', this.customValidator()],
 
     });
   }
@@ -134,9 +134,9 @@ export class EditAgentReportComponent {
     return null;
   }
 
-  
+
   customValidator() {
-    return (control:any) => {
+    return (control: any) => {
       const value = control.value != null ? String(control.value) : null;
       // Check if value is null or undefined
       if (value == null) {
@@ -149,10 +149,17 @@ export class EditAgentReportComponent {
       return null;
     };
   }
-  
+
   validateInput() {
     this.candidateFormGroup.get('tonnage').markAsTouched();
     this.candidateFormGroup.get('tonnage').updateValueAndValidity();
+  }
+
+  dateValid(control: any) {
+    const selectedDate = new Date(control.value);
+    const today = new Date();
+
+    return selectedDate > today ? { dateGreaterThanToday: true } : null;
   }
 
   async submitData() {

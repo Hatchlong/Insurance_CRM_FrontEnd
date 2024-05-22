@@ -78,10 +78,10 @@ export class AddAgentReportComponent {
 
   data() {
     this.candidateFormGroup = this.fb.group({
-      agent_id:[''],
+      agent_id: [''],
       policyNumber: ['', Validators.required],
       insuredName: ['', [Validators.required]],
-      policyIssueDate: [''],
+      policyIssueDate: ['', this.dateValid.bind(this)],
       startDate: [''],
       expiryDate: [''],
       make: [''],
@@ -90,15 +90,15 @@ export class AddAgentReportComponent {
       policyType: [''],
       category: [''],
       vehicleRagistrationNo: ['', this.validateVehicleRegistration],
-      tonnage: ['',this.customValidator()],
+      tonnage: ['', this.customValidator()],
       insurer_company: [''],
-      net_premium: ['',this.customValidator()],
-      OD_premium: ['',this.customValidator()],
-      policy_premium: ['',this.customValidator()],
+      net_premium: ['', this.customValidator()],
+      OD_premium: ['', this.customValidator()],
+      policy_premium: ['', this.customValidator()],
       RTOstatusCode: [''],
       RTOvehicleCode: [''],
-      commission_percentage: ['',this.customValidator()],
-      commission_amount: ['',this.customValidator()],
+      commission_percentage: ['', this.customValidator()],
+      commission_amount: ['', this.customValidator()],
 
     });
   }
@@ -115,7 +115,7 @@ export class AddAgentReportComponent {
   }
 
   customValidator() {
-    return (control:any) => {
+    return (control: any) => {
       const value = control.value != null ? String(control.value) : null;
       // Check if value is null or undefined
       if (value == null) {
@@ -128,7 +128,7 @@ export class AddAgentReportComponent {
       return null;
     };
   }
-  
+
   validateInput() {
     this.candidateFormGroup.get('tonnage').markAsTouched();
     this.candidateFormGroup.get('tonnage').updateValueAndValidity();
@@ -145,6 +145,15 @@ export class AddAgentReportComponent {
     }
     return null;
   }
+
+  dateValid(control: any) {
+    const selectedDate = new Date(control.value);
+    const today = new Date();
+
+    return selectedDate > today ? { dateGreaterThanToday: true } : null;
+  }
+
+
 
   async submitData() {
     try {

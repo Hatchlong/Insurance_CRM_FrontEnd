@@ -1,12 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { AuthrService } from 'src/app/modules/authr/services/authr/authr.service';
 
 @Component({
   selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.css']
 })
-export class SideNavComponent implements OnInit{
+export class SideNavComponent implements OnInit {
   SelectedName: any = 'Master';
   subFolderName: any = 'Agent';
   @Output() isShowNav = new EventEmitter<any>();
@@ -16,8 +18,22 @@ export class SideNavComponent implements OnInit{
   inactivityTimeout: any = 15000;
   inactivityTimer: any;
   @Input() logoutAction: any = ''
+  isShowMenu: any = true;
+  isShowForgot: any = false;
+  isShowClear: any = false;
+  isShowProfile: any = false;
+  screenLevelDetails: any = []
+  sampleOpen: any = [];
+  isMenu: any = false;
+  roleDetails: any = [];
+  roleId: any = '';
+  loginDetail: any = [];
+
   constructor(
     private router: Router,
+    private _snackBar: MatSnackBar,
+    private authrSer: AuthrService,
+
   ) {
     if (localStorage.getItem('selectedName')) {
       this.SelectedName = localStorage.getItem('selectedName')
@@ -80,6 +96,30 @@ export class SideNavComponent implements OnInit{
 
   }
 
-  
+  async logout() {
+    try {
+      const userName = localStorage.getItem('userName')
+      const result: any = await this.authrSer.logoutUser({ userName: userName })
+      if (result.status === '1') {
+        localStorage.clear();
+        this.router.navigate(['/'])
+
+      } else {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+      this._snackBar.open(error.error.message, '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+
 
 }

@@ -10,13 +10,17 @@ import { LoginComponent } from './components/login/login/login.component';
 import { RegisterComponent } from './components/register/register/register.component';
 import { AuthrService } from './services/authr/authr.service';
 import { NewLoginComponent } from './components/new-login/new-login/new-login.component';
+import { ChangePasswordComponent } from './components/change-password/change-password/change-password.component';
+import { ForgetPasswordComponent } from './components/forget-password/forget-password/forget-password.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
-    NewLoginComponent
+    NewLoginComponent,
+    ChangePasswordComponent,
+    ForgetPasswordComponent
   ],
   imports: [
     CommonModule,
