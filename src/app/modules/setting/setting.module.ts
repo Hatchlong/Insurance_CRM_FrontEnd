@@ -51,6 +51,8 @@ import { MakeService } from './services/make/make.service';
 import { ModelService } from './services/model/model.service';
 import { PolictTypeService } from './services/policy-type/polict-type.service';
 import { YearOfManufactureService } from './services/year-of-manufacture/year-of-manufacture.service';
+import { ViewPdfComponent } from './components/view-pdf/view-pdf/view-pdf.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -84,6 +86,7 @@ import { YearOfManufactureService } from './services/year-of-manufacture/year-of
     PolicyTypeListComponent,
     AddPolicyTypeComponent,
     EditPolicyTypeComponent,
+    ViewPdfComponent,
 
   ],
   imports: [
@@ -101,7 +104,8 @@ import { YearOfManufactureService } from './services/year-of-manufacture/year-of
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    TypeaheadModule.forRoot()
+    TypeaheadModule.forRoot(),
+    MatDialogModule
 
   ],
   providers: [CompanyCodeService, VehicleCategoryService, RtoStateService, InsuranceTypeService, CategoryService, MakeService, ModelService, PolictTypeService, YearOfManufactureService]

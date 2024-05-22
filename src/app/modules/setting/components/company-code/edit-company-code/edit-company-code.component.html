@@ -47,20 +47,23 @@
                             <div class="col-12 py-2">
                                 <section class="file-border">
                                     <div class="row">
-                                        <div class="col-12 d-flex justify-content-center py-1" style="position: relative;">
+                                        <div class="col-12 d-flex justify-content-center py-1"
+                                            style="position: relative;">
                                             <img *ngIf="!isImageShow" class="img-ava"
-                                                [src]="imageSrc?imageSrc:'/assets/logs/profile.png'"><sup class="delete_img"
-                                                (click)="deletePerview()"
+                                                [src]="imageSrc?imageSrc:'/assets/logs/profile.png'"><sup
+                                                class="delete_img" (click)="deletePerview()"
                                                 *ngIf="imageSrc && !filePath"><mat-icon>delete</mat-icon></sup>
-                                            <img *ngIf="isImageShow" class="img-ava" [src]="filePath"><sup class="delete_img"
-                                                (click)="deleteImage()" *ngIf="!imageSrc && filePath"><mat-icon
+                                            <img *ngIf="isImageShow" class="img-ava" [src]="filePath"><sup
+                                                class="delete_img" (click)="deleteImage()"
+                                                *ngIf="!imageSrc && filePath"><mat-icon
                                                     style="font-size: 20px;display: flex;align-items: center;justify-content: center;">delete</mat-icon></sup>
-        
+
                                         </div>
                                         <div class="col-12 d-flex justify-content-center py-1">
                                             <span (click)="uploadFile(inputFile, 'log')" class="upload_text">
                                                 Choose Company Logo</span>
-                                            <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
+                                            <input type="file" #inputFile class="d-none"
+                                                (change)="handleUploadFile($event)">
                                         </div>
                                     </div>
                                 </section>
@@ -190,7 +193,7 @@
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                         <label for="">Mail Id</label>
                         <input type="email" class="form-control " placeholder="Enter Mail Id" formControlName="mailId">
-                      
+
                         <div *ngIf="companyCodeFormData.get('mailId').hasError('pattern')">
                             <p class="error-message">Please enter a valid email address.</p>
                         </div>
@@ -206,7 +209,8 @@
                                     (click)="uploadFile(inputFile, 'company_no')" class="upload_text">
                                     {{companyCodeFormData.value.companyRegistrationFilePath ?
                                     companyCodeFormData.value.companyRegistrationFilePath
-                                    : 'Upload Company Registration No'}}</span>
+                                    : 'Upload Company Registration No'}}</span><mat-icon
+                                    (click)="openDialog(companyCodeFormData.value.companyRegistrationFilePath)">visibility</mat-icon>
                                 <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
                             </div>
 
@@ -219,7 +223,8 @@
                                     placeholder="Enter PAN Number"> <span (click)="uploadFile(inputFile, 'tax_no')"
                                     class="upload_text">
                                     {{companyCodeFormData.value.panFilePath ? companyCodeFormData.value.panFilePath :
-                                    'Upload PAN Number'}}</span>
+                                    'Upload PAN Number'}}</span><mat-icon
+                                    (click)="openDialog(companyCodeFormData.value.panFilePath)">visibility</mat-icon>
                                 <input type="file" #inputFile class="d-none" (change)="handleUploadFile($event)">
                             </div>
 

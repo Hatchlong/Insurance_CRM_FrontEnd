@@ -4,6 +4,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { CompanyCodeService } from '../../../services/company-code/company-code.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { ViewImageComponent } from 'src/app/modules/master/components/view-image/view-image/view-image.component';
+import { ViewPdfComponent } from '../../view-pdf/view-pdf/view-pdf.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-edit-company-code',
@@ -37,7 +40,7 @@ export class EditCompanyCodeComponent {
     private companyCodeSer: CompanyCodeService,
     private router: Router,
     private activateRouter: ActivatedRoute,
-
+    public dialog: MatDialog,
   ) { }
 
   handleSideBar(event: any) {
@@ -298,7 +301,7 @@ export class EditCompanyCodeComponent {
 
     if (event.target.value) {
       const splitValue = event.target.files[0].name.split('.');
-      if (splitValue[1] === 'png' || splitValue[1] === 'jpg' || splitValue[1] === 'jpeg') {
+      if (splitValue[1] === 'png' || splitValue[1] === 'jpg' || splitValue[1] === 'jpeg' || splitValue[1] === 'pdf') {
 
         const file = event.target.files[0];
 
@@ -418,6 +421,25 @@ export class EditCompanyCodeComponent {
         panelClass: 'app-notification-error',
       });
     }
+  }
+
+  
+  openDialog(fileName: any) {
+    const splitValue = this.companyCodeFormData.value.companyRegistrationFilePath.split('.');
+    console.log(splitValue[1], 'split');
+
+    let dialogRef: any;
+    if (splitValue[1] === 'pdf') {
+      dialogRef = this.dialog.open(ViewPdfComponent, {
+        data: fileName
+      });
+    }
+    else {
+      dialogRef = this.dialog.open(ViewImageComponent, {
+        data: fileName
+      });
+    }
+   
   }
 
 
