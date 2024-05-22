@@ -68,7 +68,7 @@ export class EditVehicleRegisteryComponent {
       if (this.vehicleCategoryData.invalid)
         return
 
-      const username: any = localStorage.getItem('userName')
+      const username: any = localStorage.getItem('userId')
 
       const currentDate = new Date();
       const year = currentDate.getFullYear();

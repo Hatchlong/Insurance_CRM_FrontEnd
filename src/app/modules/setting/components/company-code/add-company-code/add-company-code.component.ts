@@ -75,7 +75,7 @@ export class AddCompanyCodeComponent implements OnInit {
       if (this.companyCodeFormData.invalid)
         return
 
-      const username: any = localStorage.getItem('userName')
+      const username: any = localStorage.getItem('userId')
 
       const currentDate = new Date();
       const year = currentDate.getFullYear();

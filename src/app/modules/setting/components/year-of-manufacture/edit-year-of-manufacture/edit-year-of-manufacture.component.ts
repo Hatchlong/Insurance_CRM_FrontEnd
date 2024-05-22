@@ -52,7 +52,7 @@ export class EditYearOfManufactureComponent {
       if (this.yearOfManufactureFormGroup.invalid)
         return
 
-      const username: any = localStorage.getItem('userName')
+      const username: any = localStorage.getItem('userId')
 
       const currentDate = new Date();
       const year = currentDate.getFullYear();

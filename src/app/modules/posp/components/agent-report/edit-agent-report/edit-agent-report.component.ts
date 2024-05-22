@@ -161,7 +161,7 @@ export class EditAgentReportComponent {
 
       if (this.candidateFormGroup.invalid)
         return
-      const username: any = localStorage.getItem('userName')
+      const username: any = localStorage.getItem('userId')
 
       const currentDate = new Date();
       const year = currentDate.getFullYear();
