@@ -5,9 +5,10 @@
     <form [formGroup]="yearOfManufactureFormGroup" (ngSubmit)="submitData()">
         <div class="row border mx-0">
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-                <label for="">Year Of Manufactue<sup>*</sup></label>
-                <input type="number" min="0" formControlName="year" class="form-control" placeholder="Enter Year Of Manufactue"
-                    maxlength="4">
+                <label for="">Year Of Manufacture<sup>*</sup></label>
+                <input type="text" min="0" formControlName="year" class="form-control"
+                    placeholder="Enter Year Of Manufactuer" maxlength="4"
+                    onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57">
                 <div
                     *ngIf="yearOfManufactureFormGroup.controls['year'].touched && yearOfManufactureFormGroup.controls['year'].dirty && yearOfManufactureFormGroup.controls['year'].hasError('required') && !isSubmitted">
                     <p class="error-message">Year is mandatory</p>

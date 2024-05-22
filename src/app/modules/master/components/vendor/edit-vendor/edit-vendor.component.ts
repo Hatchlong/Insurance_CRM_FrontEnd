@@ -63,7 +63,7 @@ export class EditVendorComponent {
         postalCode: [data.city, Validators.required],
         mobile: [data.mobile],
         mailId: [data.mailId],
-        financialData: this.fb.array(data.financialData.map((ele: any) => this.getFinancialFields(ele)))
+        financialData: data.financialData ? this.fb.array(data.financialData.map((ele: any) => this.getFinancialFields(ele))) : this.fb.array([])
 
       })
       return;
