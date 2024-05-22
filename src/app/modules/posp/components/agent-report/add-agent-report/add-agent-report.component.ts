@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { CategoryService } from 'src/app/modules/setting/services/category/category.service';
@@ -38,6 +38,8 @@ export class AddAgentReportComponent {
   rtoStateDetail: any = []
   vehicleCategoryDetail: any = []
   insurerDetail: any = []
+  today: string = '';
+  dateError: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -51,8 +53,11 @@ export class AddAgentReportComponent {
     private rtoStateSer: RtoStateService,
     private vehicleCategorySer: VehicleCategoryService,
     private agentReportSer: PospService,
-    private vendorSer:VendorService
-  ) { }
+    private vendorSer: VendorService
+  ) {
+    this.today = new Date().toISOString().split('T')[0];
+
+  }
 
   ngOnInit(): void {
     this.data()
@@ -83,29 +88,61 @@ export class AddAgentReportComponent {
       yearOfManufacturing: [''],
       policyType: [''],
       category: [''],
-      vehicleRagistrationNo: [''],
-      tonnage: [''],
+      vehicleRagistrationNo: ['', this.validateVehicleRegistration],
+      tonnage: ['',this.customValidator()],
       insurer_company: [''],
-      net_premium: [''],
-      OD_premium: [''],
-      policy_premium: [''],
+      net_premium: ['',this.customValidator()],
+      OD_premium: ['',this.customValidator()],
+      policy_premium: ['',this.customValidator()],
       RTOstatusCode: [''],
       RTOvehicleCode: [''],
-      commission_percentage: [''],
-      commission_amount: [''],
+      commission_percentage: ['',this.customValidator()],
+      commission_amount: ['',this.customValidator()],
 
     });
   }
+  validateDates(): void {
+    const startDate = this.candidateFormGroup.get('startDate')?.value;
+    const expiryDate = this.candidateFormGroup.get('expiryDate')?.value;
 
-  uploadFile(inputData: any, fieldName: any) {
-    inputData.click();
-    this.filedPathName = fieldName;
-    this.inputControl = inputData
+    if (startDate && expiryDate) {
+      // Check if the expiry date is before the start date
+      this.dateError = new Date(startDate) > new Date(expiryDate);
+    } else {
+      this.dateError = false;
+    }
   }
-  deletePerview() {
-    this.inputFile.nativeElement.value = '';
-    this.imageSrc = '';
-    this.selectedFile = ''
+
+  customValidator() {
+    return (control:any) => {
+      const value = control.value != null ? String(control.value) : null;
+      // Check if value is null or undefined
+      if (value == null) {
+        return null; // Return null if value is null or undefined
+      }
+      // Check if input value is not '0' when it's at the first position
+      if (value.length === 1 && value[0] === '0') {
+        return { invalidFirstDigit: true };
+      }
+      return null;
+    };
+  }
+  
+  validateInput() {
+    this.candidateFormGroup.get('tonnage').markAsTouched();
+    this.candidateFormGroup.get('tonnage').updateValueAndValidity();
+  }
+
+  validateVehicleRegistration(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (value && value.length >= 2) {
+      const firstTwoChars = value.substring(0, 2);
+      const lettersRegex = /^[A-Za-z]{2}$/;
+      if (!lettersRegex.test(firstTwoChars)) {
+        return { invalidFirstTwoChars: true };
+      }
+    }
+    return null;
   }
 
   async submitData() {
@@ -115,7 +152,7 @@ export class AddAgentReportComponent {
 
       if (this.candidateFormGroup.invalid)
         return
-      const username: any = localStorage.getItem('userName')
+      const username: any = localStorage.getItem('userId')
 
       const currentDate = new Date();
       const year = currentDate.getFullYear();

@@ -7,8 +7,8 @@
             <h4>Basic Detail</h4>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for=""> Policy Number<sup>*</sup></label>
-                <input type="text" formControlName="policyNumber" class="form-control"
-                    placeholder="Enter Policy Number" maxlength="10">
+                <input type="text" formControlName="policyNumber" class="form-control" placeholder="Enter Policy Number"
+                    maxlength="10">
                 <div
                     *ngIf="candidateFormGroup.controls['policyNumber'].touched && candidateFormGroup.controls['policyNumber'].dirty && candidateFormGroup.controls['policyNumber'].hasError('required') && !isSubmitted">
                     <p class="error-message"> Policy Numberis mandatory</p>
@@ -32,15 +32,19 @@
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="">Policy Issue Date </label>
-                <input type="date" formControlName="policyIssueDate" class="form-control" />
+                <input type="date" formControlName="policyIssueDate" class="form-control"
+                    max="{{ today | date:'yyyy-MM-dd' }}" />
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="">Start Date </label>
-                <input type="date" formControlName="startDate" class="form-control" />
+                <input type="date" formControlName="startDate" class="form-control" (focusout)="validateDates()" />
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="">Expiry Date </label>
-                <input type="date" formControlName="expiryDate" class="form-control" />
+                <input type="date" formControlName="expiryDate" class="form-control" (focusout)="validateDates()" />
+                <div *ngIf="dateError">
+                    <p class="error-message"> Expiry Date must be equal to or after Start Date.</p>
+                </div>
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="">Make </label>
@@ -65,7 +69,7 @@
                         Of
                         Manufacturing</option>
                     <option *ngFor="let list of yearOfManufactureDetail" [value]="list._id">
-                        {{list.year}}-{{list.description}}</option>
+                        {{list.year}}</option>
                 </select>
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
@@ -90,21 +94,21 @@
                 <label for="">Vehicle Registration Number </label>
                 <input type="text" formControlName="vehicleRagistrationNo" class="form-control"
                     placeholder="Enter Vehicle Registration Number" />
+                <div *ngIf="candidateFormGroup.get('vehicleRagistrationNo').errors?.invalidFirstTwoChars">
+                    <p class="error-message"> The first two characters must be letters.</p>
+                </div>
+
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="">Tonnage(In KG/CC) </label>
-                <input type="number" min="0" formControlName="tonnage" class="form-control"
-                    placeholder="Enter Tonnage(In KG/CC)" 
-                    onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"/>
+                <input type="number" formControlName="tonnage" class="form-control"
+                    placeholder="Enter Tonnage(In KG/CC)" min="1" (focusout)="validateInput()"
+                    onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" />
+                <div *ngIf="candidateFormGroup.get('tonnage').hasError('invalidFirstDigit')" class="text-danger">
+                    First digit cannot be '0'.
+                </div>
             </div>
-
-
         </div>
-
-
-
-
-
         <div class="row border mx-0 mt-3">
             <h4>Insurer</h4>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
@@ -119,21 +123,34 @@
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="">Net Premium </label>
-                <input type="number" min="0" formControlName="net_premium" class="form-control"
-                    placeholder="Enter Net Premium" 
-                    onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"/>
+                <input type="number" min="1" formControlName="net_premium" class="form-control"
+                    placeholder="Enter Net Premium" min="1" (focusout)="validateInput()"
+                    onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" />
+                <div *ngIf="candidateFormGroup.get('net_premium').hasError('invalidFirstDigit')" class="text-danger">
+                    First digit cannot be '0'.
+                </div>
+
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="">OD Premium </label>
-                <input type="number" min="0" formControlName="OD_premium" class="form-control"
-                    placeholder="Enter OD Premium"
+                <input type="number" formControlName="OD_premium" class="form-control" placeholder="Enter OD Premium"
+                    min="1" (focusout)="validateInput()"
                     onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" />
-            </div>
+                    <div *ngIf="candidateFormGroup.get('OD_premium').hasError('invalidFirstDigit')" class="text-danger">
+                        First digit cannot be '0'.
+                    </div>
+    
+                </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="">Policy Premium </label>
-                <input type="number" min="0" formControlName="policy_premium" class="form-control"
-                    placeholder="Enter Policy Premium" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"/>
-            </div>
+                <input type="number" formControlName="policy_premium" class="form-control"
+                    placeholder="Enter Policy Premium" min="1" (focusout)="validateInput()"
+                    onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" />
+                    <div *ngIf="candidateFormGroup.get('policy_premium').hasError('invalidFirstDigit')" class="text-danger">
+                        First digit cannot be '0'.
+                    </div>
+    
+                </div>
 
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="">RTO State Code </label>
@@ -162,16 +179,24 @@
             <h4>Agent</h4>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="">Commission Percentage </label>
-                <input type="number" min="0" formControlName="commission_percentage" class="form-control"
-                    placeholder="Enter Commission Percentage"
+                <input type="number" formControlName="commission_percentage" class="form-control"
+                    placeholder="Enter Commission Percentage" min="1" (focusout)="validateInput()"
                     onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" />
-            </div>
+             <div *ngIf="candidateFormGroup.get('commission_percentage').hasError('invalidFirstDigit')" class="text-danger">
+                    First digit cannot be '0'.
+                </div>
+
+                </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                 <label for="">Commission Amount </label>
-                <input type="number" min="0" formControlName="commission_amount" class="form-control"
-                    placeholder="Enter Commission Amount"
+                <input type="number" formControlName="commission_amount" class="form-control"
+                    placeholder="Enter Commission Amount" min="1" (focusout)="validateInput()"
                     onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" />
-            </div>
+             <div *ngIf="candidateFormGroup.get('commission_amount').hasError('invalidFirstDigit')" class="text-danger">
+                    First digit cannot be '0'.
+                </div>
+
+                </div>
 
 
         </div>
