@@ -264,7 +264,7 @@ export class AddCompanyCodeComponent implements OnInit {
 
     if (event.target.value) {
       const splitValue = event.target.files[0].name.split('.');
-      if (splitValue[1] === 'png' || splitValue[1] === 'jpg' || splitValue[1] === 'jpeg') {
+      if (splitValue[1] === 'png' || splitValue[1] === 'jpg' || splitValue[1] === 'jpeg'|| splitValue[1] === 'pdf') {
 
         const file = event.target.files[0];
 
