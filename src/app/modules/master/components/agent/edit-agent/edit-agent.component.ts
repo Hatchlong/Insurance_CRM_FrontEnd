@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ViewImageComponent } from '../../view-image/view-image/view-image.component';
 import Swal from 'sweetalert2';
 import { CompanyCodeService } from 'src/app/modules/setting/services/company-code/company-code.service';
+import { ViewPdfComponent } from 'src/app/modules/setting/components/view-pdf/view-pdf/view-pdf.component';
 
 @Component({
   selector: 'app-edit-agent',
@@ -18,7 +19,7 @@ export class EditAgentComponent {
   isShowPadding: any = false
   agentFormData: any = FormGroup
   isSubmitted: any = false;
-  agentId: any = ''
+  agentDataId: any = ''
   isImageShow: any = false;
   selectedFile: any = '';
   selectedFileVerfiy: any = '';
@@ -49,7 +50,7 @@ export class EditAgentComponent {
   }
 
   ngOnInit(): void {
-    this.agentId = this.activeRouter.snapshot.paramMap.get('id')
+    this.agentDataId = this.activeRouter.snapshot.paramMap.get('id')
     this.createAgentData()
     this.getCountryDetails()
   }
@@ -71,8 +72,8 @@ export class EditAgentComponent {
       pinCode: [''],
       mobile: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       mailId: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}')]],
-      aadharNumber: ['', Validators.required],
-      panNumber: ['', Validators.required],
+      aadharNumber: [''],
+      panNumber: [''],
       panFilePath: [''],
       aadharFilePath: [''],
       createdOn: [''],
@@ -103,7 +104,7 @@ export class EditAgentComponent {
 
   async getSingleDetail() {
     try {
-      const result: any = await this.agentSer.singleAgentDetail(this.agentId)
+      const result: any = await this.agentSer.singleAgentDetail(this.agentDataId)
       // console.log(result.data, 'ioii');
 
       if (result.status === '1') {
@@ -126,7 +127,7 @@ export class EditAgentComponent {
   async submitData() {
     try {
       this.isSubmitted = true;
-      console.log(this.agentFormData.value)
+      console.log(this.agentFormData)
       if (this.agentFormData.invalid)
         return
       const result: any = await this.agentSer.updateAgentDetail(this.agentFormData.value);
@@ -451,14 +452,27 @@ export class EditAgentComponent {
     this.filePath = ''
   }
 
+ 
   openDialog(fileName: any) {
-    const dialogRef = this.dialog.open(ViewImageComponent, {
-      data: fileName
-    });
+    const splitValue = this.agentFormData.value.aadharFilePath.split('.');
+    const splitValue1 = this.agentFormData.value.panFilePath.split('.');
+    const splitValue2 = this.agentFormData.value.signatureFilePath.split('.');
+    const splitValue3 = this.agentFormData.value.chequeFilePath.split('.');
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    console.log(splitValue[1], 'split');
+
+    let dialogRef: any;
+    if (splitValue[1] === 'pdf'|| splitValue1[1] || splitValue2[1] || splitValue3[1]) {
+      dialogRef = this.dialog.open(ViewPdfComponent, {
+        data: fileName
+      });
+    }
+    else {
+      dialogRef = this.dialog.open(ViewImageComponent, {
+        data: fileName
+      });
+    }
+   
   }
 
 }

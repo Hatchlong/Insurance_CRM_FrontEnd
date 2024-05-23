@@ -87,7 +87,7 @@ export class AgentListComponent implements OnInit {
   }
 
   handleFilterDetails() {
-    this.getAllAgentDetail(this.filterText, this.records, this.itemsPerPage)
+    this.getAllAgentDetailFilter(this.filterText, this.records, this.itemsPerPage)
   }
 
 
@@ -104,6 +104,30 @@ export class AgentListComponent implements OnInit {
 
   //get all detail of agent from the database
   async getAllAgentDetail(filter: any, page: any, itemsPerPage: any) {
+    try {
+      const result: any = await this.agentSer.getAllagentDetailsPage(page, itemsPerPage)
+      if (result.status === '1') {
+        result.data.map((el: any) => {
+          el.check = false
+        })
+        this.agentDetail = result.data
+        this.allAgentDetail = result.data
+        if (result.data.length === 0) {
+          this.selectAll = false
+        }
+      }
+    } catch (error) {
+
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
+    }
+  }
+
+
+  async getAllAgentDetailFilter(filter: any, page: any, itemsPerPage: any) {
     try {
       const result: any = await this.agentSer.getAllAgentDetailsPageFilter(filter, page, itemsPerPage)
       if (result.status === '1') {
@@ -125,6 +149,7 @@ export class AgentListComponent implements OnInit {
       });;
     }
   }
+
 
 
   //delete single or particular record by the delete icon in every row of data

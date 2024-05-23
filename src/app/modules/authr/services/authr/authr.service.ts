@@ -61,4 +61,7 @@ export class AuthrService {
     return this.http.get('http://localhost:4000/api/setting/rolesAccess/getAll').toPromise();
   }
 
+  getAllUserDetails(){
+    return this.http.get('http://localhost:4000/api/auth/user/getAll').toPromise();
+  }
 }

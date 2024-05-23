@@ -185,7 +185,8 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
                         <label for="" class="">Highest Qualification </label>
-                        <select class="form-select " aria-label="Default select example" formControlName="highestQualification">
+                        <select class="form-select " aria-label="Default select example"
+                            formControlName="highestQualification">
                             <option [selected]="agentFormData.value.highestQualification === ''" value="" hidden>
                                 Select
                                 Highest Qualification</option>
@@ -229,7 +230,8 @@
                                                 agentFormData.value.aadharFilePath
                                                 : 'Upload Aadhar'}}</span>
                                             <input type="file" #inputFile class="d-none"
-                                                (change)="handleUploadFile($event)">
+                                                (change)="handleUploadFile($event)"><mat-icon
+                                                (click)="openDialog(agentFormData.value.aadharFilePath)">visibility</mat-icon>
                                         </td>
                                         <td>
                                             <input type="text" class="form-control w-50" placeholder="Enter PAN No"
@@ -240,7 +242,8 @@
                                                 {{agentFormData.value.panFilePath ? agentFormData.value.panFilePath
                                                 : 'Upload PAN'}}</span>
                                             <input type="file" #inputFile class="d-none"
-                                                (change)="handleUploadFile($event)">
+                                                (change)="handleUploadFile($event)"><mat-icon
+                                                (click)="openDialog(agentFormData.value.panFilePath)">visibility</mat-icon>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -280,8 +283,10 @@
                                                 formControlName="ifscCode">
                                         </td>
                                         <td>
-                                            <select class="form-select " aria-label="Default select example" formControlName="accountType">
-                                                <option [selected]="agentFormData.value.accountType === ''" value="" hidden>
+                                            <select class="form-select " aria-label="Default select example"
+                                                formControlName="accountType">
+                                                <option [selected]="agentFormData.value.accountType === ''" value=""
+                                                    hidden>
                                                     Select
                                                     Account Type</option>
                                                 <option value="Saving">Saving</option>
@@ -295,13 +300,18 @@
                                                 : 'Upload Signature'}}</span>
                                             <input type="file" #inputFile class="d-none"
                                                 (change)="handleUploadFile($event)">
+                                                <mat-icon
+                                                (click)="openDialog(agentFormData.value.signatureFilePath)">visibility</mat-icon>
                                         </td>
                                         <td>
                                             <span (click)="uploadFile(inputFile, 'cheque')" class="upload_text">
-                                                {{agentFormData.value.chequeFilePath ? agentFormData.value.chequeFilePath
+                                                {{agentFormData.value.chequeFilePath ?
+                                                agentFormData.value.chequeFilePath
                                                 : 'Upload Cheque'}}</span>
                                             <input type="file" #inputFile class="d-none"
                                                 (change)="handleUploadFile($event)">
+                                                <mat-icon
+                                                (click)="openDialog(agentFormData.value.chequeFilePath)">visibility</mat-icon>
                                         </td>
                                     </tr>
                                 </tbody>

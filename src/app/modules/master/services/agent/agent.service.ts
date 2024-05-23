@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as XLSX from 'xlsx';
 
@@ -10,20 +10,36 @@ export class AgentService {
   constructor(private http: HttpClient) { }
 
   createAgent(data: any) {
-    return this.http.post('http://localhost:4000/api/master/agent/create', data).toPromise()
+    const token: any = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post('http://localhost:4000/api/master/agent/create', data, { headers }).toPromise()
   }
   getAllAgentDetail() {
-    return this.http.get('http://localhost:4000/api/master/agent/getAll').toPromise()
+    const token: any = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get('http://localhost:4000/api/master/agent/getAll', { headers }).toPromise()
 
   }
   singleAgentDetail(id: any) {
-    return this.http.get(`http://localhost:4000/api/master/agent/get/${id}`).toPromise()
+    const token: any = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`http://localhost:4000/api/master/agent/get/${id}`, { headers }).toPromise()
 
   }
 
 
   updateAgentDetail(data: any) {
-    return this.http.put(`http://localhost:4000/api/master/agent/update/${data._id}`, data).toPromise()
+    const token: any = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.put(`http://localhost:4000/api/master/agent/update/${data._id}`, data, { headers }).toPromise()
   }
 
 
@@ -47,7 +63,11 @@ export class AgentService {
   }
 
   getAllagentDetailsPage(skip?: any, itemsPerPage?: any) {
-    return this.http.get(`http://localhost:4000/api/master/agent/getAll/${skip}/${itemsPerPage}`).toPromise()
+    const token: any = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`http://localhost:4000/api/master/agent/getAll/${skip}/${itemsPerPage}`, { headers }).toPromise()
   }
 
   updateagentMany(data: any) {
@@ -56,7 +76,11 @@ export class AgentService {
 
 
   getAllAgentDetailsPageFilter(filter?: any, skip?: any, itemsPerPage?: any) {
-    return this.http.post(`http://localhost:4000/api/master/agent/getAll/${skip}/${itemsPerPage}`, { filter: filter }).toPromise()
+    const token: any = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post(`http://localhost:4000/api/master/agent/getAll/${skip}/${itemsPerPage}`, { filter: filter }, { headers }).toPromise()
 
   }
 
