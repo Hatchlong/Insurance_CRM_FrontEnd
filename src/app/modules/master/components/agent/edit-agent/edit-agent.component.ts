@@ -5,6 +5,8 @@ import { AgentService } from '../../../services/agent/agent.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ViewImageComponent } from '../../view-image/view-image/view-image.component';
+import Swal from 'sweetalert2';
+import { CompanyCodeService } from 'src/app/modules/setting/services/company-code/company-code.service';
 
 @Component({
   selector: 'app-edit-agent',
@@ -26,6 +28,11 @@ export class EditAgentComponent {
   @ViewChild('inputFile') inputFile: any;
   filedPathName: any = '';
   inputControl: any = '';
+  countryDetials: any = [];
+  stateDetails: any = [];
+  citiesDetails: any = [];
+  isLookValue: any = false;
+
 
 
   constructor(private fb: FormBuilder,
@@ -34,7 +41,7 @@ export class EditAgentComponent {
     private activeRouter: ActivatedRoute,
     private router: Router,
     public dialog: MatDialog,
-
+    private companyCodeSer: CompanyCodeService
   ) { }
 
   handleSideBar(event: any) {
@@ -44,31 +51,26 @@ export class EditAgentComponent {
   ngOnInit(): void {
     this.agentId = this.activeRouter.snapshot.paramMap.get('id')
     this.createAgentData()
-    this.getSingleDetail()
+    this.getCountryDetails()
   }
 
-  states = ['Delhi', 'Madhya Pradesh', 'Mumbai', 'Uttar Pradesh'];
-  cities: { [key: string]: string[] } = {
-    'Delhi': ['Chandni Chowk','Connaught Place', 'Defence Colony', 'Dwarka', 'Greater Kailash', 'Hauz Khas', 'Janakpuri', 'Karol Bagh', 'Lajpat Nagar', 'Mayur Vihar', 'Narela', 'Nehru Place', 'Paharganj', 'Pitampura', 'Rajouri Garden', 'Rohini', 'Saket', 'Shahdara', 'South Extension', 'Vasant Kunj'],
-    'Madhya Pradesh': ['Balaghat', 'Barwani', 'Betul', 'Bhind', 'Bhopal', 'Burhanpur', 'Chhindwara', 'Damoh', 'Datia', 'Dewas', 'Dhar', 'Guna', 'Gwalior', 'Harda', 'Hoshangabad', 'Indore', 'Jabalpur', 'Khandwa', 'Khargone', 'Mandsaur', 'Morena', 'Narsinghpur', 'Neemuch', 'Panna', 'Raisen', 'Ratlam', 'Rewa', 'Sagar', 'Satna', 'Sehore', 'Seoni', 'Shahdol', 'Shajapur', 'Sheopur', 'Shivpuri', 'Sidhi', 'Singrauli', 'Tikamgarh', 'Ujjain', 'Vidisha'],
-    'Mumbai' : [  "Andheri",  "Bandra",  "Borivali",  "Chembur",  "Colaba",  "Dadar",  "Dharavi",  "Goregaon",  "Juhu",  "Kandivali",  "Kurla",  "Malad",  "Matunga",  "Mulund",  "Powai",  "Santacruz",  "Vashi",  "Versova",  "Vikhroli",  "Worli"],
-    'Uttar Pradesh': [  "Agra",  "Aligarh",  "Allahabad",  "Amroha",  "Ayodhya",  "Azamgarh",  "Bareilly",  "Basti",  "Bijnor",  "Budaun",  "Bulandshahr",  "Etawah",  "Faizabad",  "Farrukhabad",  "Fatehpur",  "Firozabad",  "Ghaziabad",  "Gonda",  "Gorakhpur",  "Hamirpur",  "Hardoi",  "Jalaun",  "Jaunpur",  "Jhansi",  "Kanpur",  "Kushinagar",  "Lakhimpur",  "Lucknow",  "Mathura",  "Meerut",  "Mirzapur",  "Moradabad",  "Muzaffarnagar",  "Noida",  "Pilibhit",  "Pratapgarh",  "Rae Bareli",  "Rampur",  "Saharanpur",  "Shahjahanpur",  "Sitapur",  "Sultanpur",  "Unnao",  "Varanasi"]
-  };
 
   createAgentData() {
     this.agentFormData = this.fb.group({
       _id: ['', Validators.required],
       agentId: ['', Validators.required],
       agentName: ['', Validators.required],
-      category: ['', Validators.required],
       filePath: [''],
       address: [''],
-      country: [''],
-      state: [''],
-      city: [''],
+      dob: [''],
+      countryId: ['', Validators.required],
+      countryName: [''],
+      city: ['', Validators.required],
+      stateId: ['', [Validators.required]],
+      stateName: ['', [Validators.required]],
       pinCode: [''],
-      mobile: ['', Validators.required],
-      mailId: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}')]],
+      mobile: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      mailId: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}')]],
       aadharNumber: ['', Validators.required],
       panNumber: ['', Validators.required],
       panFilePath: [''],
@@ -76,13 +78,18 @@ export class EditAgentComponent {
       createdOn: [''],
       createdBy: [''],
       changedOn: [''],
-      changedBy: ['']
-
-
+      changedBy: [''],
+      highestQualification: [''],
+      gender: [''],
+      role: [''],
+      accountNumber: [''],
+      bankName: [''],
+      bankBranch: [''],
+      ifscCode: [''],
+      accountType: [''],
+      signatureFilePath: [''],
+      chequeFilePath: ['']
     })
-    this.agentFormData.get('state').valueChanges.subscribe((selectedState:any) => {
-      this.agentFormData.get('city').setValue(''); // Reset city when state changes
-    });
   }
 
   onlyNumberKey(event: any) {
@@ -97,14 +104,18 @@ export class EditAgentComponent {
   async getSingleDetail() {
     try {
       const result: any = await this.agentSer.singleAgentDetail(this.agentId)
-      console.log(result.data,'ioii');
-      
+      // console.log(result.data, 'ioii');
+
       if (result.status === '1') {
         this.agentFormData.patchValue(result.data)
-        if(result.data.filePath){
+        if (result.data.filePath) {
           this.isImageShow = true;
           this.filePath = 'http://localhost:4000/' + result.data.filePath
         }
+        this.stateDetails = this.countryDetials.find((el: any) => el._id === this.agentFormData.value.countryId);
+
+        const findCity = this.stateDetails.states.find((el: any) => el._id === this.agentFormData.value.stateId);
+        this.citiesDetails = findCity.cities[0]
       }
     } catch (error) {
       console.error(error);
@@ -171,7 +182,7 @@ export class EditAgentComponent {
 
     if (event.target.value) {
       const splitValue = event.target.files[0].name.split('.');
-      if (splitValue[1] === 'png' || splitValue[1] === 'jpg' || splitValue[1] === 'jpeg') {
+      if (splitValue[1] === 'png' || splitValue[1] === 'jpg' || splitValue[1] === 'jpeg' || splitValue[1] === 'pdf') {
 
         const file = event.target.files[0];
 
@@ -188,10 +199,18 @@ export class EditAgentComponent {
           this.selectedFileVerfiy = event.target.files[0];
           this.fileUploadVerifyNo()
         }
+        else if (this.filedPathName === 'signature') {
+          this.selectedFileVerfiy = event.target.files[0];
+          this.fileUploadVerifyNo()
+        }
+        else if (this.filedPathName === 'cheque') {
+          this.selectedFileVerfiy = event.target.files[0];
+          this.fileUploadVerifyNo()
+        }
         else {
           this.fileName = event.target.files[0].name;
           this.selectedFile = event.target.files[0];
-          this.isImageShow = false;
+          reader.onload = e => this.imageSrc = reader.result;
         }
 
         reader.readAsDataURL(file);
@@ -223,10 +242,17 @@ export class EditAgentComponent {
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        if (this.filedPathName === 'pan_no') {
+        if (this.filedPathName === 'log') {
+          this.agentFormData.controls.filePath.setValue(result.fileName)
+        }
+        else if (this.filedPathName === 'pan_no') {
           this.agentFormData.controls.panFilePath.setValue(result.fileName)
         } else if (this.filedPathName === 'aadhar_no') {
           this.agentFormData.controls.aadharFilePath.setValue(result.fileName)
+        } else if (this.filedPathName === 'signature') {
+          this.agentFormData.controls.signatureFilePath.setValue(result.fileName)
+        } else if (this.filedPathName === 'cheque') {
+          this.agentFormData.controls.chequeFilePath.setValue(result.fileName)
         }
         return;
       }
@@ -270,6 +296,12 @@ export class EditAgentComponent {
         } else if (this.filedPathName === 'aadhar_no') {
           this.agentFormData.controls.aadharFilePath.setValue(result.fileName)
         }
+        else if (this.filedPathName === 'signature') {
+          this.agentFormData.controls.signatureFilePath.setValue(result.fileName)
+        }
+        else if (this.filedPathName === 'cheque') {
+          this.agentFormData.controls.chequeFilePath.setValue(result.fileName)
+        }
         this.submitData()
         return;
       }
@@ -282,6 +314,122 @@ export class EditAgentComponent {
       }
 
     } catch (error: any) {
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+  // Get All details for company code
+  async getCountryDetails() {
+    try {
+      const result: any = await this.companyCodeSer.getAllCountryDetails();
+      console.log(result, 'country');
+
+      if (result.status === '1') {
+        this.countryDetials = result.data;
+        this.getSingleDetail()
+
+      } else {
+        this._snackBar.open(result.message, '', {
+          duration: 5 * 1000, horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: 'app-notification-error',
+        });
+      }
+    } catch (error: any) {
+
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
+  }
+
+
+  selectCountryName(event: any) {
+    this.stateDetails = this.countryDetials.find((el: any) => el._id === event.target.value);
+    console.log(this.stateDetails);
+    if (this.stateDetails) {
+      this.agentFormData.controls.countryName.setValue(this.stateDetails.countryName)
+    }
+  }
+
+  handleState(event: any) {
+    var findCity = this.stateDetails.states.find((el: any) => el._id === event.target.value);
+    console.log(findCity, 'ststta');
+
+    this.agentFormData.controls.stateName.setValue(findCity.states)
+    this.citiesDetails = findCity.cities[0]
+  }
+
+  typeaheadOnSelect(event: any) {
+    if (event.value) {
+      this.isLookValue = true
+    }
+  }
+
+  handleEvent(event: any) {
+    if (event.target.value) {
+      setTimeout(() => {
+        if (!this.isLookValue) {
+          const findCities = this.citiesDetails.cities.find((el: any) => el === event.target.value.toLowerCase());
+          if (!findCities) {
+            this.createState(event.target.value)
+          }
+
+        }
+      }, 500);
+    }
+  }
+
+  async createState(city: any) {
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Do you want add new city in state",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+        cancelButtonText: "No"
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          this.citiesDetails.cities.push(city);
+          const reqBody = {
+            stateId: this.agentFormData.value.stateId,
+            cities: this.citiesDetails.cities
+          }
+          console.log(reqBody, 'kkk');
+          const result: any = await this.companyCodeSer.updateCity(reqBody);
+          if (result.status === '1') {
+            this._snackBar.open(result.message, '', {
+              duration: 5 * 1000, horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: 'app-notification-success',
+            });
+
+            return;
+          }
+          if (result.status === '0') {
+
+            this._snackBar.open(result.message, '', {
+              duration: 5 * 1000, horizontalPosition: 'center',
+              verticalPosition: 'top',
+              panelClass: 'app-notification-error',
+            });
+          }
+        } else {
+          this.agentFormData.get('city').setErrors({ customError: true })
+        }
+      });
+
+    } catch (error) {
+      console.error(error);
       this._snackBar.open('Something went wrong', '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',

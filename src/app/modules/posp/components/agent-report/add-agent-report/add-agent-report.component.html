@@ -40,11 +40,11 @@
                 </div>
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-                <label for="">Start Date </label>
+                <label for="">Policy Start Date </label>
                 <input type="date" formControlName="startDate" class="form-control" (focusout)="validateDates()" />
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
-                <label for="">Expiry Date </label>
+                <label for="">Policy Expiry Date </label>
                 <input type="date" formControlName="expiryDate" class="form-control" (focusout)="validateDates()" />
                 <div *ngIf="dateError">
                     <p class="error-message"> Expiry Date must be equal to or after Start Date.</p>
