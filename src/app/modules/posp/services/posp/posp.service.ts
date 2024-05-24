@@ -49,12 +49,23 @@ export class PospService {
   }
 
 
+
   getAllAgentReportDetailsPageFilter(filter?: any, skip?: any, itemsPerPage?: any) {
     const token: any = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`http://localhost:4000/api/master/agent_report/getAll/${skip}/${itemsPerPage}`,  { headers }).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/agent_report/getAll/${skip}/${itemsPerPage}`, { headers }).toPromise()
+
+  }
+
+
+  getAllAgentReportDetailsPageFilterPost(filter?: any, skip?: any, itemsPerPage?: any) {
+    const token: any = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post(`http://localhost:4000/api/master/agent_report/getAll/${skip}/${itemsPerPage}`, { filter: filter }, { headers }).toPromise()
 
   }
 

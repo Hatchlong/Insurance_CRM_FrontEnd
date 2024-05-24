@@ -34,7 +34,7 @@ export class AgentService {
   }
 
 
-  updateAgentDetail(data: any,id: any) {
+  updateAgentDetail(data: any, id: any) {
     const token: any = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -83,5 +83,15 @@ export class AgentService {
     return this.http.post(`http://localhost:4000/api/master/agent/getAll/${skip}/${itemsPerPage}`, { filter: filter }, { headers }).toPromise()
 
   }
+
+
+  deleteAgentDetail(data: any) {
+    const token: any = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.put(`http://localhost:4000/api/master/agent/delete/${data._id}`, data, { headers }).toPromise()
+  }
+
 
 }

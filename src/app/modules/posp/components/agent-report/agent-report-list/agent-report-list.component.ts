@@ -65,7 +65,7 @@ export class AgentReportListComponent {
   }
 
   handleFilterDetails() {
-    this.getAllAgentDetail(this.filterText, this.records, this.itemsPerPage)
+    this.getAllAgentDetailPagePost(this.filterText, this.records, this.itemsPerPage)
   }
 
 
@@ -84,6 +84,29 @@ export class AgentReportListComponent {
   async getAllAgentDetail(filter: any, page: any, itemsPerPage: any) {
     try {
       const result: any = await this.agentReportSer.getAllAgentReportDetailsPageFilter(filter, page, itemsPerPage)
+      if (result.status === '1') {
+        result.data.map((el: any) => {
+          el.check = false
+        })
+        this.agentDetail = result.data
+        this.allAgentDetail = result.data
+        if (result.data.length === 0) {
+          this.selectAll = false
+        }
+      }
+    } catch (error) {
+
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });;
+    }
+  }
+
+  async getAllAgentDetailPagePost(filter: any, page: any, itemsPerPage: any) {
+    try {
+      const result: any = await this.agentReportSer.getAllAgentReportDetailsPageFilterPost(filter, page, itemsPerPage)
       if (result.status === '1') {
         result.data.map((el: any) => {
           el.check = false
