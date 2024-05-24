@@ -11,10 +11,12 @@ import { AuthrService } from '../../../services/authr/authr.service';
 })
 export class LoginComponent {
 
-
   loginFormGroup: any = FormGroup
   isSubmitted: any = false
   @Output() isShowSide = new EventEmitter<any>();
+  statusLoging: any = 0;
+  text: any = false
+
 
   constructor(private fb: FormBuilder,
     private userSer: AuthrService,
@@ -22,7 +24,6 @@ export class LoginComponent {
     private _snackBar: MatSnackBar
   ) {
     this.createLogInFormFields()
-    this.getAllUserDetail()
   }
 
   createLogInFormFields() {
@@ -39,23 +40,30 @@ export class LoginComponent {
         return
       }
       const result: any = await this.userSer.loginUser(this.loginFormGroup.value)
-      console.log(result, 'login');
-
       this.isSubmitted = false
       if (result.status === '1') {
         this.isShowSide.emit('true')
         const token = result.token.split('.');
         const userDetails: any = JSON.parse(atob(token[1]));
+        this.statusLoging = userDetails.statusLogin;
+        console.log(userDetails, 'l')
         localStorage.setItem('userName', userDetails.userName)
+        // localStorage.setItem('roleId', userDetails.roleId)
         localStorage.setItem('userId', userDetails.userId)
+        // localStorage.setItem('employeeName', userDetails.firstName + " " + userDetails.lastName)
         localStorage.setItem('token', result.token)
+        localStorage.setItem('filePath', userDetails.filePath)
         localStorage.setItem('loginActive', 'true')
+
+        this.loginFormGroup.reset()
+        if (this.statusLoging === 1) {
+          return
+        }
         this._snackBar.open('Successfully Login', '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        this.loginFormGroup.reset()
         this.router.navigate(['/master/agent-list'])
       } else {
         this._snackBar.open(result.message, '', {
@@ -66,24 +74,6 @@ export class LoginComponent {
       }
     } catch (error: any) {
       this.isSubmitted = false
-      this._snackBar.open(error.error.message, '', {
-        duration: 5 * 1000, horizontalPosition: 'center',
-        verticalPosition: 'top',
-        panelClass: 'app-notification-error',
-      });
-    }
-  }
-
-  async getAllUserDetail() {
-    try {
-      const result: any = await this.userSer.getAllUserDetails()
-      console.log(result, 'userdetail');
-      // const token = result.token.split('.');
-      // const userDetail: any = JSON.parse(atob(token[1]));
-      if (result.status === '1') {
-        localStorage.setItem('role', result.role)
-      }
-    } catch (error: any) {
       this._snackBar.open(error.error.message, '', {
         duration: 5 * 1000, horizontalPosition: 'center',
         verticalPosition: 'top',
