@@ -34,12 +34,12 @@ export class AgentService {
   }
 
 
-  updateAgentDetail(data: any) {
+  updateAgentDetail(data: any,id: any) {
     const token: any = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.put(`http://localhost:4000/api/master/agent/update/${data._id}`, data, { headers }).toPromise()
+    return this.http.put(`http://localhost:4000/api/master/agent/update/${id}`, data, { headers }).toPromise()
   }
 
 

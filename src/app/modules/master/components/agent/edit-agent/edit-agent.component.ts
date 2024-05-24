@@ -58,7 +58,7 @@ export class EditAgentComponent {
 
   createAgentData() {
     this.agentFormData = this.fb.group({
-      _id: ['', Validators.required],
+      // _id: ['', Validators.required],
       agentId: ['', Validators.required],
       agentName: ['', Validators.required],
       filePath: [''],
@@ -130,7 +130,9 @@ export class EditAgentComponent {
       console.log(this.agentFormData)
       if (this.agentFormData.invalid)
         return
-      const result: any = await this.agentSer.updateAgentDetail(this.agentFormData.value);
+      const result: any = await this.agentSer.updateAgentDetail(this.agentFormData.value,this.agentDataId);
+      console.log(this.agentDataId,'agent');
+      
       if (result.status === '1') {
         this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',

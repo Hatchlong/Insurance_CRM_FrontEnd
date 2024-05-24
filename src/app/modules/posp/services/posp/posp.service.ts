@@ -54,7 +54,7 @@ export class PospService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.post(`http://localhost:4000/api/master/agent_report/getAll/${skip}/${itemsPerPage}`, { filter: filter }, { headers }).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/agent_report/getAll/${skip}/${itemsPerPage}`,  { headers }).toPromise()
 
   }
 

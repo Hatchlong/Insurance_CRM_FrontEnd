@@ -179,9 +179,9 @@ export class AddAgentReportComponent {
       const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
       this.candidateFormGroup.value.createdOn = fullDate
-      this.candidateFormGroup.value.createdBy = username
+      // this.candidateFormGroup.value.createdBy = username
       this.candidateFormGroup.value.changedOn = fullDate
-      this.candidateFormGroup.value.changedBy = username
+      // this.candidateFormGroup.value.changedBy = username
 
       const result: any = await this.agentReportSer.createAgentReport(this.candidateFormGroup.value)
       if (result.status === '1') {
