@@ -1,26 +1,8 @@
 <app-side-nav (isShowNav)="handleSideBar($event)"></app-side-nav>
 <div class="container-fluid " [ngStyle]="{'padding-left' : isShowPadding ? '280px' : '100px'}">
     <div class="row mt-3 ">
-        <!-- <div class="col-12">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                <input type="search" #searchDataInput name="" id="search-data"
-                    placeholder="Enter Agent Id/Agent Name/ Mobile Number / Mail Id" class="form-control w-50"
-                    (input)="handleFilter($event)">
-                <select class="form-select w-25" aria-label="Default select example" (change)="handleCity($event)">
-                    <option selected value="">Select City</option>
-                    <option *ngFor="let list of agentDetail " [value]="list.city">
-                        {{list.city}}
-                    </option>
-                </select>
-                <select class="form-select w-25" aria-label="Default select example" (change)="handleCategory($event)">
-                    <option selected value="">Select Category</option>
-                    <option *ngFor="let list of agentDetail ; let i=index" [value]="list.category">
-                        {{list.category}}</option>
-                </select>
-
-            </div>
-        </div> -->
-        <div class="col-12">
+       
+        <div class="col-12" *ngIf="rolesView?.modify === 'Y'">
             <fieldset class="border p-2">
                 <legend class="float-none w-auto"><b>Search Filter</b></legend>
 
@@ -61,8 +43,8 @@
 
         <div class="row mt-3">
             <div class="col-12">
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end ">
-                    <button class="btn btn-primary " (click)="nextPage('/master/add-agent')" type="button"
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end " *ngIf="rolesView?.add === 'Y'">
+                    <button class="btn btn-primary " (click)="nextPage('/master/add-agent')" type="button" 
                         style="color: white;background: #00acff;">Add POSP</button>
 
                     <!-- <button class="btn btn-danger" type="button" style="color: white;" (click)="handleDeleteMuliple()">
@@ -100,9 +82,9 @@
                                 <th scope="col">City</th>
                                 <th scope="col">Mobile</th>
                                 <th scope="col">Mail Id</th> 
-                                <th scope="col">Action</th> 
+                                <th scope="col" *ngIf="rolesView?.modify==='Y'">Action</th> 
 
-                                <th scope="col">InActive/Active</th>
+                                <th scope="col" *ngIf="rolesView?.modify === 'Y'">InActive/Active</th>
                                 <!-- <th scope="col"><input type="checkbox" [checked]="selectAll"
                                         (change)="selectdata($event)"> Select All</th> -->
                             </tr>
@@ -121,9 +103,9 @@
                                 <td>{{list.city}}</td>
                                 <td>{{list.mobile}}</td>
                                 <td>{{list.mailId}}</td>
-                                <td>
+                                <td *ngIf="rolesView?.modify === 'Y'">
                                     <div class="d-flex">
-                                        <div>
+                                        <div >
                                             <mat-icon [routerLink]="'/master/edit-agent/'+list._id">edit</mat-icon>
                                         </div>
                                         <!-- <div>
@@ -131,7 +113,7 @@
                                         </div> -->
                                     </div>
                                 </td>
-                                <td>
+                                <td *ngIf="rolesView?.modify === 'Y'"> 
                                     <label class="switch">
                                         <input type="checkbox" [checked]="list.isActive === 'O'"
                                             (change)="deleteRecords(list)">

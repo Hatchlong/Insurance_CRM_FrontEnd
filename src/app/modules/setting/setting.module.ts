@@ -53,6 +53,10 @@ import { PolictTypeService } from './services/policy-type/polict-type.service';
 import { YearOfManufactureService } from './services/year-of-manufacture/year-of-manufacture.service';
 import { ViewPdfComponent } from './components/view-pdf/view-pdf/view-pdf.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { RoleListComponent } from './components/role/role-list/role-list.component';
+import { AddRoleComponent } from './components/role/add-role/add-role.component';
+import { EdtRoleComponent } from './components/role/edt-role/edt-role.component';
+import { RoleService } from './services/role/role.service';
 
 
 @NgModule({
@@ -87,6 +91,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     AddPolicyTypeComponent,
     EditPolicyTypeComponent,
     ViewPdfComponent,
+    RoleListComponent,
+    AddRoleComponent,
+    EdtRoleComponent,
 
   ],
   imports: [
@@ -108,6 +115,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDialogModule
 
   ],
-  providers: [CompanyCodeService, VehicleCategoryService, RtoStateService, InsuranceTypeService, CategoryService, MakeService, ModelService, PolictTypeService, YearOfManufactureService]
+  providers: [RoleService,CompanyCodeService, VehicleCategoryService, RtoStateService, InsuranceTypeService, CategoryService, MakeService, ModelService, PolictTypeService, YearOfManufactureService]
 })
 export class SettingModule { }

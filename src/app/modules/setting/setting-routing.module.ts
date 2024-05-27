@@ -27,6 +27,9 @@ import { EditPolicyTypeComponent } from './components/policy-type/edit-policy-ty
 import { YearOfManufactureListComponent } from './components/year-of-manufacture/year-of-manufacture-list/year-of-manufacture-list.component';
 import { AddYearOfManufactureComponent } from './components/year-of-manufacture/add-year-of-manufacture/add-year-of-manufacture.component';
 import { EditYearOfManufactureComponent } from './components/year-of-manufacture/edit-year-of-manufacture/edit-year-of-manufacture.component';
+import { RoleListComponent } from './components/role/role-list/role-list.component';
+import { AddRoleComponent } from './components/role/add-role/add-role.component';
+import { EdtRoleComponent } from './components/role/edt-role/edt-role.component';
 
 const routes: Routes = [
   {
@@ -136,6 +139,18 @@ const routes: Routes = [
   {
     path: 'edit-year-of-manufacture/:id',
     component: EditYearOfManufactureComponent
+  },
+  {
+    path: 'role-list',
+    component: RoleListComponent
+  },
+  {
+    path: 'add-roles',
+    component: AddRoleComponent
+  },
+  {
+    path: 'edit-roles/:id',
+    component: EdtRoleComponent
   }
 ];
 

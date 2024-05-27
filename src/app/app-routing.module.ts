@@ -25,6 +25,10 @@ const routes: Routes = [
   {
     path: 'posp',
     loadChildren: () => import('./modules/posp/posp.module').then(m => m.PospModule)
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule)
   }
 ];
 

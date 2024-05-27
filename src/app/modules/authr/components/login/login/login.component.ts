@@ -40,6 +40,8 @@ export class LoginComponent {
         return
       }
       const result: any = await this.userSer.loginUser(this.loginFormGroup.value)
+      console.log(result,'login');
+      
       this.isSubmitted = false
       if (result.status === '1') {
         this.isShowSide.emit('true')
@@ -48,11 +50,11 @@ export class LoginComponent {
         this.statusLoging = userDetails.statusLogin;
         console.log(userDetails, 'l')
         localStorage.setItem('userName', userDetails.userName)
-        // localStorage.setItem('roleId', userDetails.roleId)
+        localStorage.setItem('roleId', result.data.roleId)
         localStorage.setItem('userId', userDetails.userId)
         // localStorage.setItem('employeeName', userDetails.firstName + " " + userDetails.lastName)
         localStorage.setItem('token', result.token)
-        localStorage.setItem('filePath', userDetails.filePath)
+        // localStorage.setItem('filePath', userDetails.filePath)
         localStorage.setItem('loginActive', 'true')
 
         this.loginFormGroup.reset()
@@ -64,7 +66,7 @@ export class LoginComponent {
           verticalPosition: 'top',
           panelClass: 'app-notification-success',
         });
-        this.router.navigate(['/master/agent-list'])
+        this.router.navigate(['/dashboard/dashboard-list'])
       } else {
         this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',

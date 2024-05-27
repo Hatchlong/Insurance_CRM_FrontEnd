@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AgentService } from '../../../services/agent/agent.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2';
+import { RoleService } from 'src/app/modules/setting/services/role/role.service';
 
 @Component({
   selector: 'app-agent-list',
@@ -27,6 +28,9 @@ export class AgentListComponent implements OnInit {
     active: 'O',
     text: ""
   };
+  roleDetail: any = [];
+  rolesDetails: any = [];
+  rolesView: any = [];
 
 
   sampleJson = {
@@ -47,8 +51,19 @@ export class AgentListComponent implements OnInit {
   constructor(private router: Router,
     private agentSer: AgentService,
     private _snackBar: MatSnackBar,
+    private roleSer: RoleService
+  ) {
+    var rolesLists: any = localStorage.getItem('roles');
+    console.log(rolesLists,'roleslist');
 
-  ) { }
+    rolesLists = JSON.parse(rolesLists);
+    var roleId: any = localStorage.getItem('roleId')
+    console.log(roleId,'role');
+    this.rolesDetails = rolesLists.find((el: any) => el.roleId === roleId);
+    this.rolesView = this.rolesDetails.rolesAccess.find((el: any) => el.screenId === 'POSP');
+
+    
+  }
   handleSideBar(event: any) {
     this.isShowPadding = event
   }
@@ -58,6 +73,7 @@ export class AgentListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllAgentDetail(this.filterText, this.page, this.itemsPerPage)
+    this.getAllRoleDetail()
   }
   selectdata(event: any) {
     console.log(event.target.checked)
@@ -287,6 +303,24 @@ export class AgentListComponent implements OnInit {
       (!this.selectedCategory || obj.category.toLowerCase() === this.selectedCategory.toLowerCase()) &&
       (!this.selectedCity || obj.city.toLowerCase() === this.selectedCity.toLowerCase())
     );
+  }
+
+  async getAllRoleDetail() {
+    try {
+      const result: any = await this.roleSer.getAllrolesDetails()
+      console.log(result,'roleeeeeeeeeeeeeee');
+      
+      if (result.status === 1) {
+        this.roleDetail = result.data
+      }
+    } catch (error: any) {
+      console.error(error)
+      this._snackBar.open('Something went wrong', '', {
+        duration: 5 * 1000, horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: 'app-notification-error',
+      });
+    }
   }
 
 

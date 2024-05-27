@@ -1,4 +1,4 @@
-<div class="sidebar close">
+<!-- <div class="sidebar close">
     <div class="logo-details">
         <i class='bx bxl-c-plus-plus'></i>
         <span class="logo_name">Insurance CRM</span>
@@ -158,7 +158,86 @@
             </mat-menu>
 
 
-            <!-- <span style="position: relative; top: 6px;" (click)="logout()"><mat-icon>logout</mat-icon></span> -->
+        </div>
+    </div>
+
+</section> -->
+
+<div class="sidebar close">
+    <div class="logo-details">
+        <i class='bx bxl-c-plus-plus'></i>
+        <span class="logo_name">Insurance CRM</span>
+    </div>
+    <ul class="nav-links">
+
+        <li *ngFor="let list of screenLevelDetails; let i = index"
+            [ngClass]="{'showMenu': isFullScreen && sampleOpen === list.menu}">
+            <!-- *ngIf="list.visible" -->
+            <div class="iocn-link" *ngIf="list.visible">
+                <a>
+                    <i *ngIf="list.menu === 'setting'" [class]='list.icon'></i>
+                    <mat-icon fontSet="material-symbols-outlined"
+                        *ngIf="list.menu ===  'Dashboard' ||list.menu ===  'Master' ||  list.menu ===  'Buy Policy' || list.menu === 'Setting' || list.menu === 'POSP' ">{{list.icon}}</mat-icon>
+
+                    <span class="link_name" style="text-transform: capitalize;">{{list.menu}}</span>
+                </a>
+                <i class='bx bxs-chevron-down arrow' (click)="sampleOpen = sampleOpen !== list.menu ? list.menu : ''"
+                    *ngIf="list.subMenu.length !==0"></i>
+            </div>
+            <ul class="sub-menu"
+                [ngClass]="{'setting-li':list.menu === 'setting', 'container':(list.menu  === 'setting' && !isMenu)}">
+                <li>
+                    <a [ngClass]="{'col-12':(list.menu  === 'setting' && !isMenu)}" class="link_name"
+                        style="text-transform: capitalize;">{{list.menu}}</a>
+                </li>
+                <div>
+                    <li *ngFor="let subListMenu of list.subMenu; let i = index">
+                        <!-- *ngIf="subListMenu.visible" -->
+                        <a class="sub-menu-item" *ngIf="subListMenu.visible"
+                            (click)="nextPage(('/'+subListMenu.routerLink),{main:list.menu, name:subListMenu.subMenuName})">{{subListMenu.subMenuName}}</a>
+                    </li>
+                </div>
+
+            </ul>
+        </li>
+    </ul>
+
+</div>
+<section class="home-section">
+    <div class="home-content">
+        <i class='bx bx-menu' (click)="closeNav()"></i>
+        <span class="text"><b>{{subFolderName | uppercase}}</b> / <span class="screenName">{{SelectedName |
+                uppercase}}</span></span>
+        <div class="logout">
+            <span style="position: relative; right: 20px;">{{userName}}</span>
+            <img src="assets/logs/profile.png" [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()"
+                style="width: 40px;position: relative; right: 10px;" alt="profileImg">
+            <mat-menu #menu="matMenu">
+                <ng-container *ngIf="isShowMenu">
+                    <button mat-menu-item
+                        (click)="$event.stopPropagation();isShowMenu = false; isShowProfile = !isShowProfile">My
+                        Profile</button>
+                    <button mat-menu-item
+                        (click)="$event.stopPropagation();isShowMenu = false; isShowForgot = !isShowForgot">Reset
+                        Password</button>
+                    <button mat-menu-item
+                        (click)="$event.stopPropagation();isShowMenu = false; isShowClear=!isShowClear">Clear
+                        User</button>
+                    <button mat-menu-item (click)="logout()">Logout</button>
+                </ng-container>
+                <ng-container *ngIf="isShowForgot">
+                    <app-reset-password
+                        (closeMatMenu)="isShowMenu = true;isShowForgot=!isShowForgot"></app-reset-password>
+                </ng-container>
+                <ng-container *ngIf="isShowClear">
+                    <app-clear-user (closeMatMenu)="isShowMenu = true;isShowClear=!isShowClear"></app-clear-user>
+                </ng-container>
+                <ng-container *ngIf="isShowProfile">
+                    <app-my-profile (closeMatMenu)="isShowMenu = true;isShowProfile=!isShowProfile"></app-my-profile>
+                </ng-container>
+            </mat-menu>
+
+
         </div>
     </div>
 
