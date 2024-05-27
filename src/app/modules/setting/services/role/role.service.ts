@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -13,21 +13,41 @@ export class RoleService {
 
 
   createroles(data: any) {
-    return this.http.post('http://localhost:4000/api/master/roles/create', data).toPromise()
+    const token: any = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post('http://localhost:4000/api/master/roles/create', data,{headers}).toPromise()
   }
 
   getAllrolesDetails() {
-    return this.http.get('http://localhost:4000/api/master/roles/getAll').toPromise()
+    const token: any = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get('http://localhost:4000/api/master/roles/getAll',{headers}).toPromise()
   }
 
   singlerolesDetails(id: any) {
-    return this.http.get(`http://localhost:4000/api/master/roles/get/${id}`).toPromise()
+    const token: any = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`http://localhost:4000/api/master/roles/get/${id}`,{headers}).toPromise()
   }
   updateroles(data: any) {
-    return this.http.put(`http://localhost:4000/api/master/roles/update/${data._id}`, data).toPromise()
+    const token: any = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.put(`http://localhost:4000/api/master/roles/update/${data._id}`, data,{headers}).toPromise()
   }
   getAllrolesDetailsPage(skip?: any, itemsPerPage?: any) {
-    return this.http.get(`http://localhost:4000/api/master/roles/getAll/${skip}/${itemsPerPage}`).toPromise()
+    const token: any = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`http://localhost:4000/api/master/roles/getAll/${skip}/${itemsPerPage}`,{headers}).toPromise()
   }
 
   updaterolesDetailMany(data: any) {
@@ -35,7 +55,11 @@ export class RoleService {
   }
 
   getAllRolesDetailsPageFilter(filter?: any, skip?: any, itemsPerPage?: any) {
-    return this.http.post(`http://localhost:4000/api/master/roles/getAll/${skip}/${itemsPerPage}`, { filter: filter }).toPromise()
+    const token: any = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post(`http://localhost:4000/api/master/roles/getAll/${skip}/${itemsPerPage}`, { filter: filter ,headers}).toPromise()
 
   }
 

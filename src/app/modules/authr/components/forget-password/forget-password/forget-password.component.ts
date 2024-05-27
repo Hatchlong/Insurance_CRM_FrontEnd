@@ -54,9 +54,9 @@ export class ForgetPasswordComponent {
       const seconds = currentDate.getSeconds();
 
       // Format the date and time
-      const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} `;
-      this.loginFormGroup.value.todayDate = fullDate
-      this.isLoader = true
+      // const fullDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} `;
+      // this.loginFormGroup.value.todayDate = fullDate
+      // this.isLoader = true
       const result: any = await this.userSer.forgotPasswordUser(this.loginFormGroup.value)
       this.isSubmitted = false
       if (result.status === '1') {

@@ -55,7 +55,7 @@ export class ChangePasswordComponent {
         });
         this.loginFormGroup.reset()
         this.isShowSide.emit(true)
-        // this.router.navigate(['/setting/location-list'])
+        this.router.navigate(['/authr/login'])
         this.isLoader = false
       } else {
         this._snackBar.open(result.message, '', {

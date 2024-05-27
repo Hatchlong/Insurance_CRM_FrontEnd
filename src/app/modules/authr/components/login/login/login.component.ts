@@ -48,6 +48,7 @@ export class LoginComponent {
         const token = result.token.split('.');
         const userDetails: any = JSON.parse(atob(token[1]));
         this.statusLoging = userDetails.statusLogin;
+        console.log(this.statusLoging,'status')
         console.log(userDetails, 'l')
         localStorage.setItem('userName', userDetails.userName)
         localStorage.setItem('roleId', result.data.roleId)
