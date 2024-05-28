@@ -176,8 +176,8 @@
             <div class="iocn-link" *ngIf="list.visible">
                 <a>
                     <i *ngIf="list.menu === 'setting'" [class]='list.icon'></i>
-                    <mat-icon fontSet="material-symbols-outlined"
-                        *ngIf="list.menu ===  'Dashboard' ||list.menu ===  'Master' ||  list.menu ===  'Buy Policy' || list.menu === 'Setting' || list.menu === 'POSP' ">{{list.icon}}</mat-icon>
+                    <mat-icon fontSet="material-symbols-outlined" class="sideHeading"
+                        *ngIf="list.menu ===  'Dashboard' ||list.menu ===  'Master' ||   list.menu === 'Setting' || list.menu === 'POSP' ">{{list.icon}}</mat-icon>
 
                     <span class="link_name" style="text-transform: capitalize;">{{list.menu}}</span>
                 </a>

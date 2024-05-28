@@ -9,35 +9,35 @@ export class CustomerService {
   constructor(private http: HttpClient) { }
 
   createcustomer(data: any) {
-    return this.http.post('http://localhost:4000/api/master/customerMaster/create', data).toPromise()
+    return this.http.post('http://54.151.187.67:4003/api/master/customerMaster/create', data).toPromise()
   }
   getAllcustomerDetail() {
-    return this.http.get('http://localhost:4000/api/master/customerMaster/getAll').toPromise()
+    return this.http.get('http://54.151.187.67:4003/api/master/customerMaster/getAll').toPromise()
 
   }
   singlecustomerDetail(id: any) {
-    return this.http.get(`http://localhost:4000/api/master/customerMaster/get/${id}`).toPromise()
+    return this.http.get(`http://54.151.187.67:4003/api/master/customerMaster/get/${id}`).toPromise()
 
   }
 
 
   updatecustomerDetail(data: any) {
-    return this.http.put(`http://localhost:4000/api/master/customerMaster/update/${data._id}`, data).toPromise()
+    return this.http.put(`http://54.151.187.67:4003/api/master/customerMaster/update/${data._id}`, data).toPromise()
   }
 
   getAllCustomerDetailsPage(skip?: any, itemsPerPage?: any) {
-    return this.http.get(`http://localhost:4000/api/master/customerMaster/getAll/${skip}/${itemsPerPage}`).toPromise()
+    return this.http.get(`http://54.151.187.67:4003/api/master/customerMaster/getAll/${skip}/${itemsPerPage}`).toPromise()
   }
 
   updateCustomerDetailsMany(data: any) {
-    return this.http.put(`http://localhost:4000/api/master/customerMaster/update`, data).toPromise()
+    return this.http.put(`http://54.151.187.67:4003/api/master/customerMaster/update`, data).toPromise()
   }
   agentLogoUpload(data: any) {
-    return this.http.post('http://localhost:4000/api/upload', data).toPromise()
+    return this.http.post('http://54.151.187.67:4003/api/upload', data).toPromise()
   }
 
   getAllCustomerDetailsPageFilter(filter?: any, skip?: any, itemsPerPage?: any) {
-    return this.http.post(`http://localhost:4000/api/master/customerMaster/getAll/${skip}/${itemsPerPage}`, { filter: filter }).toPromise()
+    return this.http.post(`http://54.151.187.67:4003/api/master/customerMaster/getAll/${skip}/${itemsPerPage}`, { filter: filter }).toPromise()
 
   }
 

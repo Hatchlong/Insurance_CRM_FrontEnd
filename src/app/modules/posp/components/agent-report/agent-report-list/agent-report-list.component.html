@@ -12,7 +12,7 @@
                         <input type="text" #searchDataInput id="search-data" placeholder="Policy Number/ Insured Name"
                             class="form-control " (input)="handleFilter($event)">
                     </div>
-                    <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 py-1">
+                    <!-- <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 py-1">
                         <div class="form-group">
                             <label>Status</label>
                             <select class="form-select" (change)="handleFilterList($event)">
@@ -21,9 +21,9 @@
                                 <option [selected]="selectedFilter === 'C'" value="C">Inactive</option>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                     <div
                         class="col-12 col-sm-12 col-md-12 col-lg-12 d-grid gap-2 col-xl-12 py-2 d-flex justify-content-end">
                         <div class="py-1">
@@ -35,7 +35,7 @@
                                 type="button">Reset</button>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </fieldset>
 
         </div>
@@ -99,7 +99,7 @@
 
                                 <th scope="col">Action</th>
 
-                                <th scope="col">InActive/Active</th>
+                                <!-- <th scope="col">InActive/Active</th> -->
                                 <!-- <th scope="col"><input type="checkbox" [checked]="selectAll"
                                         (change)="selectdata($event)"> Select All</th> -->
                             </tr>
@@ -144,13 +144,13 @@
                                         </div> -->
                                     </div>
                                 </td>
-                                <td>
+                                <!-- <td>
                                     <label class="switch">
                                         <input type="checkbox" [checked]="list.isActive === 'O'"
                                             (change)="deleteRecords(list)">
                                         <span class="slider"></span>
                                     </label>
-                                </td>
+                                </td> -->
 
                                 <!-- <td><input type="checkbox" class="checkbox" [checked]="list.check"
                                         (change)="particularcheck($event,i)"></td> -->

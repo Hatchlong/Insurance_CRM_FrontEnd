@@ -13,55 +13,55 @@ export class AuthrService {
 
 
   createUser(data: any) {
-    return this.http.post('http://localhost:4000/api/auth/user/create', data).toPromise()
+    return this.http.post('http://54.151.187.67:4003/api/auth/user/create', data).toPromise()
   }
 
 
   loginUser(data: any) {
-    return this.http.post('http://localhost:4000/api/auth/user/login', data).toPromise()
+    return this.http.post('http://54.151.187.67:4003/api/auth/user/login', data).toPromise()
   }
   forgotPasswordUser(data: any) {
-    return this.http.post('http://localhost:4000/api/auth/user/forgotPassword', data).toPromise()
+    return this.http.post('http://54.151.187.67:4003/api/auth/user/forgotPassword', data).toPromise()
   }
 
   verifyCodeUser(data: any) {
-    return this.http.post('http://localhost:4000/api/auth/user/code', data).toPromise()
+    return this.http.post('http://54.151.187.67:4003/api/auth/user/code', data).toPromise()
   }
 
   newPassword(data: any) {
-    return this.http.post('http://localhost:4000/api/auth/user/newPassword', data).toPromise()
+    return this.http.post('http://54.151.187.67:4003/api/auth/user/newPassword', data).toPromise()
   }
 
   newPasswordWithCode(data: any) {
-    return this.http.post('http://localhost:4000/api/auth/user/newPass', data).toPromise()
+    return this.http.post('http://54.151.187.67:4003/api/auth/user/newPass', data).toPromise()
   }
 
 
   loginDetailsUpdated(data: any) {
-    return this.http.post('http://localhost:4000/api/auth/login/update', data).toPromise()
+    return this.http.post('http://54.151.187.67:4003/api/auth/login/update', data).toPromise()
   }
 
   getSingleUserdetails(id: any) {
-    return this.http.get(`http://localhost:4000/api/auth/user/get/${id}`).toPromise()
+    return this.http.get(`http://54.151.187.67:4003/api/auth/user/get/${id}`).toPromise()
   }
 
   updateSingleUserdetails(data: any) {
-    return this.http.put(`http://localhost:4000/api/auth/user/update/${data._id}`, data).toPromise()
+    return this.http.put(`http://54.151.187.67:4003/api/auth/user/update/${data._id}`, data).toPromise()
   }
   logoutUser(data: any) {
-    return this.http.post('http://localhost:4000/api/auth/user/logout', data).toPromise()
+    return this.http.post('http://54.151.187.67:4003/api/auth/user/logout', data).toPromise()
   }
 
 
   getScreenDetails(){
-    return this.http.get('http://localhost:4000/api/master/screenMenu/getAll').toPromise()
+    return this.http.get('http://54.151.187.67:4003/api/master/screenMenu/getAll').toPromise()
   }
 
   getUserRolesDetails(){
-    return this.http.get('http://localhost:4000/api/setting/rolesAccess/getAll').toPromise();
+    return this.http.get('http://54.151.187.67:4003/api/setting/rolesAccess/getAll').toPromise();
   }
 
   getAllUserDetails(){
-    return this.http.get('http://localhost:4000/api/auth/user/getAll').toPromise();
+    return this.http.get('http://54.151.187.67:4003/api/auth/user/getAll').toPromise();
   }
 }

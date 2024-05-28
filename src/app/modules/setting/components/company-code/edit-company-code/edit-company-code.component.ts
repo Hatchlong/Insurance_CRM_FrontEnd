@@ -85,7 +85,7 @@ export class EditCompanyCodeComponent {
         this.companyCodeFormData.patchValue(result.data)
         if (result.data.filePath) {
           this.isImageShow = true;
-          this.filePath = 'http://localhost:4000/' + result.data.filePath
+          this.filePath = 'http://54.151.187.67:4003/' + result.data.filePath
         }
         this.stateDetails = this.countryDetials.find((el: any) => el._id === this.companyCodeFormData.value.countryId);
         console.log(this.stateDetails, 'pppp');

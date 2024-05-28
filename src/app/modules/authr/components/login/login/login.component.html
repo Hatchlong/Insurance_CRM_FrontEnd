@@ -7,9 +7,7 @@
                     <!-- <div class=" col-12 py-1 text-center contain">
                         <img src="assets/logo.jpeg" class="logo" alt="im">
                     </div> -->
-
                     <div class="form-group col-12 py-2 ">
-
                         <label for="login_email">User Name <sup>*</sup></label>
                         <input type="text" class="form-control" id="login_email" formControlName="userName"
                             placeholder="Enter User Name" />
@@ -21,16 +19,15 @@
                             <p class="error-message">Username is mandatory</p>
                         </div>
                     </div>
-
-                    <div class="form-group col-12 py-2 "  style="position: relative;">
-
+                    <div class="form-group col-12 py-2 " style="position: relative;">
                         <label for="login_password">Password <sup>*</sup></label>
                         <input [type]="text ? 'text':'password'" class="form-control" id="login_password"
                             formControlName="password" placeholder="Password" />
                         <div class="eye-icon" style="position: absolute;">
-                            <mat-icon fontSet="material-symbols-outlined" *ngIf="!text" style="display: flex;position: relative; top: 5px; cursor: pointer;"
-                            (click)="text=!text">visibility</mat-icon>
-                           
+                            <mat-icon fontSet="material-symbols-outlined" *ngIf="!text"
+                                style="display: flex;position: relative; top: 5px; cursor: pointer;"
+                                (click)="text=!text">visibility</mat-icon>
+
                             <mat-icon fontSet="material-symbols-outlined" *ngIf="text"
                                 style="display: flex;position: relative; top: 5px; cursor: pointer; font-size: 20px"
                                 (click)="text=!text">visibility_off</mat-icon>

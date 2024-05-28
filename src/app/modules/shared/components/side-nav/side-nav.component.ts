@@ -36,7 +36,7 @@ export class SideNavComponent implements OnInit, AfterViewInit {
   filePath: any = ''
   isImageShow: any = false;
   imageSrc: any = '';
-  baseUrl: any = 'http://localhost:4000/'
+  baseUrl: any = 'http://54.151.187.67:4003/'
   constructor(
     private router: Router,
     private _snackBar: MatSnackBar,
@@ -140,6 +140,8 @@ export class SideNavComponent implements OnInit, AfterViewInit {
   nextPage(url: any, data: any) {
     this.SelectedName = data.name;
     this.subFolderName = data.main
+    console.log(this.subFolderName);
+    
     this.router.navigate([`${url}`])
     localStorage.setItem('selectedName', data.name)
     localStorage.setItem('subFolderName', data.main)

@@ -41,7 +41,6 @@ export class LoginComponent {
       }
       const result: any = await this.userSer.loginUser(this.loginFormGroup.value)
       console.log(result,'login');
-      
       this.isSubmitted = false
       if (result.status === '1') {
         this.isShowSide.emit('true')
@@ -53,9 +52,7 @@ export class LoginComponent {
         localStorage.setItem('userName', userDetails.userName)
         localStorage.setItem('roleId', result.data.roleId)
         localStorage.setItem('userId', userDetails.userId)
-        // localStorage.setItem('employeeName', userDetails.firstName + " " + userDetails.lastName)
         localStorage.setItem('token', result.token)
-        // localStorage.setItem('filePath', userDetails.filePath)
         localStorage.setItem('loginActive', 'true')
 
         this.loginFormGroup.reset()

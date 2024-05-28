@@ -56,18 +56,17 @@ export class ChangePasswordComponent {
         this.loginFormGroup.reset()
         this.isShowSide.emit(true)
         this.router.navigate(['/authr/login'])
-        this.isLoader = false
+
       } else {
         this._snackBar.open(result.message, '', {
           duration: 5 * 1000, horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: 'app-notification-error',
         });
-        this.isLoader = false
+
 
       }
     } catch (error: any) {
-      this.isLoader = false
       this.isSubmitted = false
       this._snackBar.open(error.error.message, '', {
         duration: 5 * 1000, horizontalPosition: 'center',

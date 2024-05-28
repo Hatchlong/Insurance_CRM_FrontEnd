@@ -8,7 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class ViewPdfComponent {
 
-  imgPath: any = 'http://localhost:4000/'
+  imgPath: any = 'http://54.151.187.67:4003/'
 
   constructor(
     public dialogRef: MatDialogRef<ViewPdfComponent>,
