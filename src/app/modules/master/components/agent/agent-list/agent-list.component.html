@@ -82,7 +82,7 @@
                                 <th scope="col">City</th>
                                 <th scope="col">Mobile</th>
                                 <th scope="col">Mail Id</th> 
-                                <th scope="col" *ngIf="rolesView?.modify==='Y'">Action</th> 
+                                <th scope="col" >Action</th> 
 
                                 <th scope="col" *ngIf="rolesView?.modify === 'Y'">InActive/Active</th>
                                 <!-- <th scope="col"><input type="checkbox" [checked]="selectAll"
@@ -103,10 +103,13 @@
                                 <td>{{list.city}}</td>
                                 <td>{{list.mobile}}</td>
                                 <td>{{list.mailId}}</td>
-                                <td *ngIf="rolesView?.modify === 'Y'">
+                                <td >
                                     <div class="d-flex">
-                                        <div >
+                                        <div *ngIf="rolesView?.modify === 'Y'">
                                             <mat-icon [routerLink]="'/master/edit-agent/'+list._id">edit</mat-icon>
+                                        </div>
+                                        <div>
+                                            <mat-icon (click)="openDialog(list._id)">visibility</mat-icon>
                                         </div>
                                         <!-- <div>
                                             <mat-icon (click)="deleteRecords(list)">delete</mat-icon>

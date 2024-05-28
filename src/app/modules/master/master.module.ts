@@ -34,6 +34,7 @@ import { VendorListComponent } from './components/vendor/vendor-list/vendor-list
 import { CustomerService } from './services/customer/customer.service';
 import { EditCustomerComponent } from './components/customer/edit-customer/edit-customer.component';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { ViewAgentComponent } from './components/agent/view-agent/view-agent.component';
 
 
 
@@ -56,6 +57,7 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
     EditVendorComponent,
     VendorListComponent,
     EditCustomerComponent,
+    ViewAgentComponent,
   ],
   imports: [
     CommonModule,

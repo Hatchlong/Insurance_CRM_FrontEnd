@@ -1,0 +1,216 @@
+<div class="container-fluid py-3">
+    <form [formGroup]="agentFormData">
+        <div class="row">
+            <div class="col-10 py-2 ">
+                <h2>POSP
+                </h2>
+            </div>
+            <div class="col-2 d-flex justify-content-end">
+                <mat-icon mat-dialog-close>close</mat-icon>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="row ">
+                    <div class="col-12 py-2">
+                        <label for="" class="">Agent Id </label><br>
+                        <span>{{agentFormData.value.agentId ? agentFormData.value.agentId : '-'}}</span>
+                    </div>
+
+                    <div class="col-12 py-2">
+                        <label for="">Agent Name</label><br>
+                        <span>{{agentFormData.value.agentName ? agentFormData.value.agentName : '-'}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-12 py-2">
+                        <section class="file-border">
+                            <div class="row">
+                                <div class="col-12 d-flex justify-content-center py-1" style="position: relative;">
+                                    <img *ngIf="!isImageShow" class="img-ava"
+                                        [src]="imageSrc?imageSrc:'/assets/logs/profile.png'">
+                                    <img *ngIf="isImageShow" class="img-ava" [src]="filePath">
+
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="" class="">DOB </label><br>
+                <span>{{agentFormData.value.dob ? agentFormData.value.dob :
+                    '-'}}</span>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="example">Address</label><br>
+                <span>{{agentFormData.value.address ? agentFormData.value.address : '-'}}</span>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Country</label><br>
+                <span>{{agentFormData.value.countryName ? agentFormData.value.countryName : '-'}}</span>
+
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="" class="">State</label><br>
+                <span>{{agentFormData.value.stateName ? agentFormData.value.stateName : '-'}}</span>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for=""> City </label><br>
+                <span>{{agentFormData.value.city ? agentFormData.value.city : '-'}}</span>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for=""> Pin Code</label><br>
+                <span>{{agentFormData.value.pinCode ? agentFormData.value.pinCode : '-'}}</span>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Mobile</label><br>
+                <span>{{agentFormData.value.mobile ? agentFormData.value.mobile : '-'}}</span>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Alternate Mobile</label><br>
+                <span>{{agentFormData.value.mobile ? agentFormData.value.mobile : '-'}}</span>
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Mail Id</label><br>
+                <span>{{agentFormData.value.mailId ? agentFormData.value.mailId : '-'}}</span>
+            </div>
+
+
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Gender</label><br>
+                <span>{{agentFormData.value.gender ? agentFormData.value.gender : '-'}}</span>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Highest Qualification</label><br>
+                <span>{{agentFormData.value.highestQualification ? agentFormData.value.highestQualification :
+                    '-'}}</span>
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 py-2">
+                <label for="">Role</label><br>
+                <span>{{agentFormData.value.role ? agentFormData.value.role : '-'}}</span>
+            </div>
+        </div>
+        <div class="row  mt-2">
+            <div class="col-12 ">
+
+                <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+                    <div class="row">
+                        <div class="col-12">
+
+                            <mat-tab label="Documents">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Aadhar Number</th>
+                                            <th>Upload Aadhar</th>
+                                            <th>PAN No</th>
+                                            <th>Upload PAN</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <span>{{agentFormData.value.aadharNumber ?
+                                                    agentFormData.value.aadharNumber : '-'}}</span>
+                                            </td>
+                                            <td>
+                                                <span>
+                                                    {{agentFormData.value.aadharFilePath ?
+                                                    agentFormData.value.aadharFilePath
+                                                    : '-'}}</span>
+                                                <mat-icon
+                                                    (click)="openDialog(agentFormData.value.aadharFilePath)">visibility</mat-icon>
+                                            </td>
+                                            <td>
+                                                <span>{{agentFormData.value.panNumber ?
+                                                    agentFormData.value.panNumber : '-'}}</span>
+
+                                            </td>
+                                            <td>
+                                                <span>
+                                                    {{agentFormData.value.panFilePath ? agentFormData.value.panFilePath
+                                                    : '-'}}</span>
+                                                <mat-icon
+                                                    (click)="openDialog(agentFormData.value.panFilePath)">visibility</mat-icon>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+                            </mat-tab>
+                            <mat-tab label="Bank Detail">
+                                <table class="table table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>Account Number</th>
+                                            <th>Bank Name</th>
+                                            <th>Bank Branch</th>
+                                            <th>IFSC Code</th>
+                                            <th>Account Type</th>
+                                            <th style="width: 200px!important;">Upload Signature</th>
+                                            <th style="width: 200px!important;">Upload Cheque</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <span>{{agentFormData.value.accountNumber ?
+                                                    agentFormData.value.accountNumber : '-'}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{agentFormData.value.bankName ?
+                                                    agentFormData.value.bankName : '-'}}</span>
+
+                                            </td>
+                                            <td>
+                                                <span>{{agentFormData.value.bankBranch ?
+                                                    agentFormData.value.bankBranch : '-'}}</span>
+
+                                            </td>
+                                            <td>
+                                                <span>{{agentFormData.value.ifscCode ?
+                                                    agentFormData.value.ifscCode : '-'}}</span>
+
+                                            </td>
+                                            <td>
+                                                <span>{{agentFormData.value.accountType ?
+                                                    agentFormData.value.accountType : '-'}}</span>
+                                            </td>
+                                            <td>
+                                                <span>
+                                                    {{agentFormData.value.signatureFilePath ?
+                                                    agentFormData.value.signatureFilePath
+                                                    : '-'}}</span>
+                                                <mat-icon
+                                                    (click)="openDialog(agentFormData.value.signatureFilePath)">visibility</mat-icon>
+                                            </td>
+                                            <td>
+                                                <span>
+                                                    {{agentFormData.value.chequeFilePath ?
+                                                    agentFormData.value.chequeFilePath
+                                                    : '-'}}</span>
+                                                <mat-icon
+                                                    (click)="openDialog(agentFormData.value.chequeFilePath)">visibility</mat-icon>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </mat-tab>
+
+
+                        </div>
+                    </div>
+                </mat-tab-group>
+
+            </div>
+        </div>
+    </form>
+
+</div>

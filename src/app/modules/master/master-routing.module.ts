@@ -15,6 +15,7 @@ import { AddVendorComponent } from './components/vendor/add-vendor/add-vendor.co
 import { VendorListComponent } from './components/vendor/vendor-list/vendor-list.component';
 import { EditVendorComponent } from './components/vendor/edit-vendor/edit-vendor.component';
 import { EditCustomerComponent } from './components/customer/edit-customer/edit-customer.component';
+import { ViewAgentComponent } from './components/agent/view-agent/view-agent.component';
 
 const routes: Routes = [
   {
@@ -81,6 +82,10 @@ const routes: Routes = [
   {
     path:'edit-vendor/:id',
     component:EditVendorComponent
+  },
+  {
+    path:'view-agent',
+    component:ViewAgentComponent
   }
 ];
 

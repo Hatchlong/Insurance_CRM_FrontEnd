@@ -4,6 +4,8 @@ import { AgentService } from '../../../services/agent/agent.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2';
 import { RoleService } from 'src/app/modules/setting/services/role/role.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ViewAgentComponent } from '../view-agent/view-agent.component';
 
 @Component({
   selector: 'app-agent-list',
@@ -51,7 +53,9 @@ export class AgentListComponent implements OnInit {
   constructor(private router: Router,
     private agentSer: AgentService,
     private _snackBar: MatSnackBar,
-    private roleSer: RoleService
+    private roleSer: RoleService,
+    private dialog: MatDialog,
+
   ) {
     var rolesLists: any = localStorage.getItem('roles');
     console.log(rolesLists,'roleslist');
@@ -322,7 +326,15 @@ export class AgentListComponent implements OnInit {
       });
     }
   }
+  openDialog(id: any) {
+    const dialogRef = this.dialog.open(ViewAgentComponent, {
+      data: id
+    });
 
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 
 
 }
