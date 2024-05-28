@@ -111,7 +111,7 @@ export class EditAgentComponent {
         this.agentFormData.patchValue(result.data)
         if (result.data.filePath) {
           this.isImageShow = true;
-          this.filePath = 'http://54.151.187.67:4003/' + result.data.filePath
+          this.filePath = 'http://54.151.187.67:4004/' + result.data.filePath
         }
         this.stateDetails = this.countryDetials.find((el: any) => el._id === this.agentFormData.value.countryId);
 

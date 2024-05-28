@@ -10,31 +10,31 @@ export class VehicleCategoryService {
   constructor(private http: HttpClient) { }
 
   createVehicleCategory(data: any) {
-    return this.http.post('http://54.151.187.67:4003/api/setting/vehicle/create', data).toPromise()
+    return this.http.post('http://54.151.187.67:4004/api/setting/vehicle/create', data).toPromise()
   }
   getAllVehicleCategoryDetail() {
-    return this.http.get('http://54.151.187.67:4003/api/setting/vehicle/getAll').toPromise()
+    return this.http.get('http://54.151.187.67:4004/api/setting/vehicle/getAll').toPromise()
 
   }
   singleVehicleCategoryDetail(id: any) {
-    return this.http.get(`http://54.151.187.67:4003/api/setting/vehicle/get/${id}`).toPromise()
+    return this.http.get(`http://54.151.187.67:4004/api/setting/vehicle/get/${id}`).toPromise()
 
   }
 
   updateVehicleCategoryDetail(data: any) {
-    return this.http.put(`http://54.151.187.67:4003/api/setting/vehicle/update/${data._id}`, data).toPromise()
+    return this.http.put(`http://54.151.187.67:4004/api/setting/vehicle/update/${data._id}`, data).toPromise()
   }
 
   getAllvehicleDetailsPage(skip?:any, itemsPerPage?:any) {
-    return this.http.get(`http://54.151.187.67:4003/api/setting/vehicle/getAll/${skip}/${itemsPerPage}`).toPromise()
+    return this.http.get(`http://54.151.187.67:4004/api/setting/vehicle/getAll/${skip}/${itemsPerPage}`).toPromise()
   }
   
   updatevehicleDetailMany(data: any) {
-    return this.http.put(`http://54.151.187.67:4003/api/setting/vehicle/update`, data).toPromise()
+    return this.http.put(`http://54.151.187.67:4004/api/setting/vehicle/update`, data).toPromise()
   }
 
   getAllvehicleCategoryDetailsPageFilter(filter?:any,skip?: any, itemsPerPage?: any) {
-    return this.http.post(`http://54.151.187.67:4003/api/setting/vehicle/getAll/${skip}/${itemsPerPage}`, {filter:filter}).toPromise()
+    return this.http.post(`http://54.151.187.67:4004/api/setting/vehicle/getAll/${skip}/${itemsPerPage}`, {filter:filter}).toPromise()
 
   }
 
