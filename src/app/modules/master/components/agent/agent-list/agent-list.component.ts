@@ -64,7 +64,7 @@ export class AgentListComponent implements OnInit {
     var roleId: any = localStorage.getItem('roleId')
     console.log(roleId,'role');
     this.rolesDetails = rolesLists.find((el: any) => el.roleId === roleId);
-    this.rolesView = this.rolesDetails.rolesAccess.find((el: any) => el.screenId === 'POSP');
+    this.rolesView = this.rolesDetails.rolesAccess.find((el: any) => el.screenId === 'My Profile');
 
     
   }

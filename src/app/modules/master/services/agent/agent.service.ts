@@ -14,14 +14,14 @@ export class AgentService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.post('http://54.151.187.67:4004/api/master/agent/create', data, { headers }).toPromise()
+    return this.http.post('http://localhost:4000/api/master/agent/create', data, { headers }).toPromise()
   }
   getAllAgentDetail() {
     const token: any = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get('http://54.151.187.67:4004/api/master/agent/getAll', { headers }).toPromise()
+    return this.http.get('http://localhost:4000/api/master/agent/getAll', { headers }).toPromise()
 
   }
   singleAgentDetail(id: any) {
@@ -29,7 +29,7 @@ export class AgentService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`http://54.151.187.67:4004/api/master/agent/get/${id}`, { headers }).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/agent/get/${id}`, { headers }).toPromise()
 
   }
 
@@ -39,7 +39,7 @@ export class AgentService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.put(`http://54.151.187.67:4004/api/master/agent/update/${id}`, data, { headers }).toPromise()
+    return this.http.put(`http://localhost:4000/api/master/agent/update/${id}`, data, { headers }).toPromise()
   }
 
 
@@ -59,7 +59,7 @@ export class AgentService {
 
 
   agentLogoUpload(data: any) {
-    return this.http.post('http://54.151.187.67:4004/api/upload', data).toPromise()
+    return this.http.post('http://localhost:4000/api/upload', data).toPromise()
   }
 
   getAllagentDetailsPage(skip?: any, itemsPerPage?: any) {
@@ -67,11 +67,11 @@ export class AgentService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`http://54.151.187.67:4004/api/master/agent/getAll/${skip}/${itemsPerPage}`, { headers }).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/agent/getAll/${skip}/${itemsPerPage}`, { headers }).toPromise()
   }
 
   updateagentMany(data: any) {
-    return this.http.put(`http://54.151.187.67:4004/api/master/agent/update`, data).toPromise()
+    return this.http.put(`http://localhost:4000/api/master/agent/update`, data).toPromise()
   }
 
 
@@ -80,7 +80,7 @@ export class AgentService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.post(`http://54.151.187.67:4004/api/master/agent/getAll/${skip}/${itemsPerPage}`, { filter: filter }, { headers }).toPromise()
+    return this.http.post(`http://localhost:4000/api/master/agent/getAll/${skip}/${itemsPerPage}`, { filter: filter }, { headers }).toPromise()
 
   }
 
@@ -90,7 +90,7 @@ export class AgentService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.put(`http://54.151.187.67:4004/api/master/agent/delete/${data._id}`, data, { headers }).toPromise()
+    return this.http.put(`http://localhost:4000/api/master/agent/delete/${data._id}`, data, { headers }).toPromise()
   }
 
 

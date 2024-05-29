@@ -9,30 +9,30 @@ export class FinancialPeriodService {
   constructor(private http:HttpClient) { }
 
   createFinancial(data:any){
-    return this.http.post('http://54.151.187.67:4004/api/master/financial/create',data).toPromise()
+    return this.http.post('http://localhost:4000/api/master/financial/create',data).toPromise()
   }
   getAllFinancialDetail(){
-    return this.http.get('http://54.151.187.67:4004/api/master/financial/getAll').toPromise()
+    return this.http.get('http://localhost:4000/api/master/financial/getAll').toPromise()
 
   }
   singleFinancialDetail(id:any){
-    return this.http.get(`http://54.151.187.67:4004/api/master/financial/get/${id}`).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/financial/get/${id}`).toPromise()
   }
 
   updateFinancialDetail(data: any) {
-    return this.http.put(`http://54.151.187.67:4004/api/master/financial/update/${data._id}`, data).toPromise()
+    return this.http.put(`http://localhost:4000/api/master/financial/update/${data._id}`, data).toPromise()
   }
 
   getAllfinancialPeriodDetailsPage(skip?:any, itemsPerPage?:any) {
-    return this.http.get(`http://54.151.187.67:4004/api/master/financial/getAll/${skip}/${itemsPerPage}`).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/financial/getAll/${skip}/${itemsPerPage}`).toPromise()
   }
   
   updatedManyFinancialPeriodDetails(data: any) {
-    return this.http.put(`http://54.151.187.67:4004/api/master/financial/update`, data).toPromise()
+    return this.http.put(`http://localhost:4000/api/master/financial/update`, data).toPromise()
   }
   
   getAllfinancialDetailsPageFilter(filter?:any,skip?: any, itemsPerPage?: any) {
-    return this.http.post(`http://54.151.187.67:4004/api/master/financial/getAll/${skip}/${itemsPerPage}`, {filter:filter}).toPromise()
+    return this.http.post(`http://localhost:4000/api/master/financial/getAll/${skip}/${itemsPerPage}`, {filter:filter}).toPromise()
 
   }
 

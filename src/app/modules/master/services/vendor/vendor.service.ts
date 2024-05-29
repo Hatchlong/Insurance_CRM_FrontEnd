@@ -9,40 +9,40 @@ export class VendorService {
   constructor(private http: HttpClient) { }
 
   createVendor(data: any) {
-    return this.http.post('http://54.151.187.67:4004/api/master/vendor/create', data).toPromise()
+    return this.http.post('http://localhost:4000/api/master/vendor/create', data).toPromise()
   }
   getAllVendorDetail() {
-    return this.http.get('http://54.151.187.67:4004/api/master/vendor/getAll').toPromise()
+    return this.http.get('http://localhost:4000/api/master/vendor/getAll').toPromise()
 
   }
   singleVendorDetail(id: any) {
-    return this.http.get(`http://54.151.187.67:4004/api/master/vendor/get/${id}`).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/vendor/get/${id}`).toPromise()
 
   }
   updateVendorDetail(data: any) {
-    return this.http.put(`http://54.151.187.67:4004/api/master/vendor/update/${data._id}`, data).toPromise()
+    return this.http.put(`http://localhost:4000/api/master/vendor/update/${data._id}`, data).toPromise()
   }
 
   getAllVendorDetailsPage(skip?: any, itemsPerPage?: any) {
-    return this.http.get(`http://54.151.187.67:4004/api/master/vendor/getAll/${skip}/${itemsPerPage}`).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/vendor/getAll/${skip}/${itemsPerPage}`).toPromise()
   }
 
   updateVendorDetailsMany(data: any) {
-    return this.http.put(`http://54.151.187.67:4004/api/master/vendor/update`, data).toPromise()
+    return this.http.put(`http://localhost:4000/api/master/vendor/update`, data).toPromise()
   }
 
   // payment_method
   getAllPaymentMethodDetails() {
-    return this.http.get('http://54.151.187.67:4004/api/config/payment/getAll').toPromise()
+    return this.http.get('http://localhost:4000/api/config/payment/getAll').toPromise()
   }
 
   getAllCurrencyDetails() {
-    return this.http.get('http://54.151.187.67:4004/api/config/currency/getAll').toPromise()
+    return this.http.get('http://localhost:4000/api/config/currency/getAll').toPromise()
   }
 
   
   getAllVendorDetailsPageFilter(filter?:any,skip?: any, itemsPerPage?: any) {
-    return this.http.post(`http://54.151.187.67:4004/api/master/vendor/getAll/${skip}/${itemsPerPage}`, {filter:filter}).toPromise()
+    return this.http.post(`http://localhost:4000/api/master/vendor/getAll/${skip}/${itemsPerPage}`, {filter:filter}).toPromise()
 
   }
 

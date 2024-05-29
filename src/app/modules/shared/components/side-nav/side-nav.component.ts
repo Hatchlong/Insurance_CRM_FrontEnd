@@ -36,7 +36,7 @@ export class SideNavComponent implements OnInit, AfterViewInit {
   filePath: any = ''
   isImageShow: any = false;
   imageSrc: any = '';
-  baseUrl: any = 'http://54.151.187.67:4004/'
+  baseUrl: any = 'http://localhost:4000/'
   constructor(
     private router: Router,
     private _snackBar: MatSnackBar,

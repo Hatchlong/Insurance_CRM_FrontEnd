@@ -141,7 +141,7 @@ const routes: Routes = [
     component: EditYearOfManufactureComponent
   },
   {
-    path: 'role-list',
+    path: 'roles-list',
     component: RoleListComponent
   },
   {

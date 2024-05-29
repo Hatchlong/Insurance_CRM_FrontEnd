@@ -13,14 +13,14 @@ export class PospService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.post('http://54.151.187.67:4004/api/master/agent_report/create', data, { headers }).toPromise()
+    return this.http.post('http://localhost:4000/api/master/agent_report/create', data, { headers }).toPromise()
   }
   getAllAgentReportDetail() {
     const token: any = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get('http://54.151.187.67:4004/api/master/agent_report/getAll', { headers }).toPromise()
+    return this.http.get('http://localhost:4000/api/master/agent_report/getAll', { headers }).toPromise()
 
   }
   singleAgentReportDetail(id: any) {
@@ -28,7 +28,7 @@ export class PospService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`http://54.151.187.67:4004/api/master/agent_report/get/${id}`, { headers }).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/agent_report/get/${id}`, { headers }).toPromise()
 
   }
 
@@ -37,7 +37,7 @@ export class PospService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.put(`http://54.151.187.67:4004/api/master/agent_report/update/${data._id}`, data, { headers }).toPromise()
+    return this.http.put(`http://localhost:4000/api/master/agent_report/update/${data._id}`, data, { headers }).toPromise()
   }
 
   getAllAgentReportsPage(skip?: any, itemsPerPage?: any) {
@@ -45,7 +45,7 @@ export class PospService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`http://54.151.187.67:4004/api/master/agent_report/getAll/${skip}/${itemsPerPage}`, { headers }).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/agent_report/getAll/${skip}/${itemsPerPage}`, { headers }).toPromise()
   }
 
 
@@ -55,7 +55,7 @@ export class PospService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`http://54.151.187.67:4004/api/master/agent_report/getAll/${skip}/${itemsPerPage}`, { headers }).toPromise()
+    return this.http.get(`http://localhost:4000/api/master/agent_report/getAll/${skip}/${itemsPerPage}`, { headers }).toPromise()
 
   }
 
@@ -65,7 +65,7 @@ export class PospService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.post(`http://54.151.187.67:4004/api/master/agent_report/getAll/${skip}/${itemsPerPage}`, { filter: filter }, { headers }).toPromise()
+    return this.http.post(`http://localhost:4000/api/master/agent_report/getAll/${skip}/${itemsPerPage}`, { filter: filter }, { headers }).toPromise()
 
   }
 
@@ -74,6 +74,6 @@ export class PospService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.put(`http://54.151.187.67:4004/api/master/agent_report/delete/${data._id}`, data, { headers }).toPromise()
+    return this.http.put(`http://localhost:4000/api/master/agent_report/delete/${data._id}`, data, { headers }).toPromise()
   }
 }
