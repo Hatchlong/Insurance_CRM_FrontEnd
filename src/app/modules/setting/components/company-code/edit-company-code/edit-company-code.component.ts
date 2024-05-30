@@ -57,7 +57,7 @@ export class EditCompanyCodeComponent {
   createCompanyCodeData() {
     this.companyCodeFormData = this.fb.group({
       _id: ['', Validators.required],
-      companyCode: ['', Validators.required],
+      companyCode: ['', [Validators.required]],
       companyName: ['', Validators.required],
       address: [''],
       countryId: ['', Validators.required],
@@ -72,6 +72,8 @@ export class EditCompanyCodeComponent {
       panNumber: [''],
       companyRegistrationFilePath: [''],
       panFilePath: [''],
+      filePath: [''],
+
     })
 
   }
